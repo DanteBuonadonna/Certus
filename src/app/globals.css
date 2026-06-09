@@ -1,0 +1,179 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #f8f8fc;
+  --bg-card: #ffffff;
+  --bg-sidebar: #ffffff;
+  --border: rgba(0, 0, 0, 0.08);
+  --border-strong: rgba(0, 0, 0, 0.15);
+  --text-primary: #0f0f14;
+  --text-secondary: #5c5c72;
+  --text-muted: #9898b0;
+  --primary: #534AB7;
+  --primary-light: #eeedf9;
+  --primary-hover: #443b9c;
+  --ats-green: #1D9E75;
+  --ats-amber: #BA7517;
+  --ats-red: #E24B4A;
+  --ats-green-bg: #e8f8f2;
+  --ats-amber-bg: #fef5e7;
+  --ats-red-bg: #fdf0f0;
+  --sidebar-width: 232px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0d0d14;
+    --bg-card: #16161f;
+    --bg-sidebar: #111118;
+    --border: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.15);
+    --text-primary: #f0f0f8;
+    --text-secondary: #9898b0;
+    --text-muted: #5c5c72;
+    --primary-light: #1e1c3a;
+    --ats-green-bg: #0d2a20;
+    --ats-amber-bg: #2a1e0a;
+    --ats-red-bg: #2a0e0e;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 0.5px solid var(--border);
+  border-radius: 12px;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  border-radius: 8px;
+  padding: 0.625rem 1.25rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: 0.5px solid var(--border-strong);
+  border-radius: 8px;
+  padding: 0.625rem 1.25rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-secondary:hover {
+  background: var(--bg);
+}
+
+.input-field {
+  background: var(--bg-card);
+  border: 0.5px solid var(--border-strong);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  width: 100%;
+  outline: none;
+  transition: border-color 0.15s;
+  font-family: inherit;
+}
+
+.input-field:focus {
+  border-color: var(--primary);
+}
+
+.input-field::placeholder {
+  color: var(--text-muted);
+}
+
+.textarea-field {
+  resize: vertical;
+  min-height: 280px;
+  line-height: 1.6;
+}
+
+/* Keyword pills */
+.pill-missing {
+  display: inline-flex;
+  align-items: center;
+  background: var(--ats-red-bg);
+  color: var(--ats-red);
+  border: 0.5px solid rgba(226, 75, 74, 0.3);
+  border-radius: 100px;
+  padding: 3px 10px;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.pill-found {
+  display: inline-flex;
+  align-items: center;
+  background: var(--ats-green-bg);
+  color: var(--ats-green);
+  border: 0.5px solid rgba(29, 158, 117, 0.3);
+  border-radius: 100px;
+  padding: 3px 10px;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+/* Animations */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-in {
+  animation: fadeSlideIn 0.3s ease-out both;
+}
+
+/* Spinner */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
