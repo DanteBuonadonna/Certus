@@ -1,12 +1,20 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { PLANS, PLAN_FEATURES, Plan } from "@/lib/plans";
 import { BRAND } from "@/lib/brand";
 
 export default function BillingPage() {
+  return (
+    <Suspense fallback={null}>
+      <BillingInner />
+    </Suspense>
+  );
+}
+
+function BillingInner() {
   const [loading, setLoading] = useState<string | null>(null);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
   const searchParams = useSearchParams();

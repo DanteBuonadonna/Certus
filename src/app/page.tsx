@@ -19,10 +19,10 @@ export default function LandingPage() {
           </span>
         </div>
         <div className="flex items-center gap-3">
-          <Link href="/login" className="text-sm px-4 py-2 rounded-lg" style={{ color: "var(--text-secondary)" }}>
+          <Link href="/dashboard" className="text-sm px-4 py-2 rounded-lg" style={{ color: "var(--text-secondary)" }}>
             Sign in
           </Link>
-          <Link href="/signup" className="btn-primary text-sm">
+          <Link href="/dashboard" className="btn-primary text-sm">
             Start climbing free
           </Link>
         </div>
@@ -50,10 +50,10 @@ export default function LandingPage() {
         </p>
 
         <div className="flex items-center justify-center gap-3">
-          <Link href="/signup" className="btn-primary text-base px-6 py-3">
+          <Link href="/dashboard" className="btn-primary text-base px-6 py-3">
             Start climbing free →
           </Link>
-          <Link href="/login" className="btn-secondary text-base px-6 py-3">
+          <Link href="/dashboard" className="btn-secondary text-base px-6 py-3">
             Sign in
           </Link>
         </div>
@@ -99,7 +99,7 @@ export default function LandingPage() {
             ))}
           </div>
           <div className="text-center mt-8">
-            <Link href="/signup" className="text-sm font-medium" style={{ color: "var(--primary)" }}>
+            <Link href="/dashboard" className="text-sm font-medium" style={{ color: "var(--primary)" }}>
               See all {EXAMS.length} exams →
             </Link>
           </div>
@@ -145,7 +145,7 @@ export default function LandingPage() {
             The candidates who pass aren&apos;t the smartest — they&apos;re the most consistent. {BRAND.name} makes
             consistency the easy part.
           </p>
-          <Link href="/signup" className="btn-primary text-base px-8 py-3">
+          <Link href="/dashboard" className="btn-primary text-base px-8 py-3">
             Start climbing free →
           </Link>
         </div>

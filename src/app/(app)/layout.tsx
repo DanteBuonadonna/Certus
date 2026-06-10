@@ -1,34 +1,22 @@
-import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
 import Sidebar from "@/components/layout/Sidebar";
 
+// Render app pages on-demand (not statically prerendered).
+export const dynamic = "force-dynamic";
+
+// NOTE: Sign-in is temporarily DISABLED so the app is fully viewable
+// without an account. Re-enable auth later by restoring the Supabase
+// getUser() check and the redirect to /login.
 export default async function AppLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    redirect("/login");
-  }
-
-  // Fetch credits
-  const { data: creditsData } = await supabase
-    .from("credits")
-    .select("balance")
-    .eq("user_id", user.id)
-    .single();
-
-  const credits = creditsData?.balance ?? 0;
+  const credits = 0;
+  const email = "demo@certus.app";
 
   return (
     <div style={{ display: "flex", minHeight: "100vh" }}>
-      <Sidebar credits={credits} email={user.email ?? ""} />
+      <Sidebar credits={credits} email={email} />
       <main
         style={{
           marginLeft: "var(--sidebar-width)",
