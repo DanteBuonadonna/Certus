@@ -6,6 +6,7 @@
 // ============================================================
 
 import { Chapter, Question, ExamContent } from "./types";
+import { extraChapters, extraQuestions } from "./cfa-extra";
 
 const chapters: Chapter[] = [
   // --------------------------------------------------------------------
@@ -526,6 +527,6 @@ const questions: Question[] = [
 
 export const cfaContent: ExamContent = {
   examSlug: "cfa",
-  chapters,
-  questions,
+  chapters: [...chapters, ...extraChapters],
+  questions: [...questions, ...extraQuestions],
 };

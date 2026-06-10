@@ -49,6 +49,33 @@ const navItems = [
     ),
   },
   {
+    label: "Flashcards",
+    href: "/flashcards",
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="6" width="16" height="12" rx="2"/><path d="M22 8v10a2 2 0 01-2 2H7"/>
+      </svg>
+    ),
+  },
+  {
+    label: "Skill tree",
+    href: "/skilltree",
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="19" r="2"/><path d="M12 7v4M12 11l-6 6M12 11l6 6"/>
+      </svg>
+    ),
+  },
+  {
+    label: "Boss battle",
+    href: "/boss",
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 9l2-5 4 3 3-4 3 4 4-3 2 5v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 13h.01M15 13h.01"/>
+      </svg>
+    ),
+  },
+  {
     label: "Refer & earn",
     href: "/referral",
     icon: (

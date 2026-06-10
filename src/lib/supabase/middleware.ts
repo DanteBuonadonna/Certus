@@ -44,6 +44,9 @@ export async function updateSession(request: NextRequest) {
     request.nextUrl.pathname.startsWith('/exams') ||
     request.nextUrl.pathname.startsWith('/learn') ||
     request.nextUrl.pathname.startsWith('/practice') ||
+    request.nextUrl.pathname.startsWith('/flashcards') ||
+    request.nextUrl.pathname.startsWith('/skilltree') ||
+    request.nextUrl.pathname.startsWith('/boss') ||
     request.nextUrl.pathname.startsWith('/optimizer') ||
     request.nextUrl.pathname.startsWith('/history') ||
     request.nextUrl.pathname.startsWith('/billing') ||

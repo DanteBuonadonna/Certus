@@ -19,7 +19,7 @@ export const PLANS: Plan[] = [
   {
     id: "monthly",
     name: "Monthly",
-    price: "$29",
+    price: "$12",
     cadence: "/month",
     sub: "Full access, billed monthly. Cancel anytime.",
     priceEnvKey: "STRIPE_PRICE_MONTHLY",
@@ -28,11 +28,11 @@ export const PLANS: Plan[] = [
   {
     id: "annual",
     name: "Annual",
-    price: "$199",
+    price: "$115",
     cadence: "/year",
-    sub: "Two months free vs. monthly. Best for a full exam cycle.",
+    sub: "Save about 20% vs. monthly. Best for a full exam cycle.",
     priceEnvKey: "STRIPE_PRICE_ANNUAL",
-    highlight: "Save 43%",
+    highlight: "Save 20%",
   },
 ];
 
