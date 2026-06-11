@@ -1,21 +1,25 @@
 // ============================================================
-// Certus — Freemium access (client-side, MVP)
-// Free users get ONE exam fully (reading/practice/flashcards/skill
-// tree) as a taste. Everything else — other exams and ALL boss
-// battles — requires Pro.
+// Certus — Access control (client-side, MVP)
 //
-// NOTE: This is client-side gating for the MVP. When real accounts
-// are turned back on, enforce this server-side against the Stripe
+// CURRENT MODE: EVERYTHING UNLOCKED. All exams, all boss battles,
+// free for everyone while the product builds its audience.
+//
+// To re-enable the freemium paywall later: flip UNLOCK_ALL to false
+// (free users then get FREE_EXAM only; boss battles go Pro), and
+// when real accounts return, enforce server-side against the Stripe
 // subscription so it can't be bypassed.
 //
-// Owner testing: visit /unlock to flip on full access for free,
-// /lock to turn it back off and see the real free experience.
+// Owner testing (only meaningful when UNLOCK_ALL = false):
+// /unlock grants Pro in this browser, /lock revokes it.
 // ============================================================
 
-export const FREE_EXAM = "cfa"; // the one exam free users can study
+const UNLOCK_ALL = true;
+
+export const FREE_EXAM = "cfa"; // the one exam free users can study (paywalled mode)
 const PRO_KEY = "certus_pro";
 
 export function isPro(): boolean {
+  if (UNLOCK_ALL) return true;
   if (typeof window === "undefined") return false;
   try {
     return localStorage.getItem(PRO_KEY) === "1";
@@ -31,12 +35,14 @@ export function setPro(on: boolean): void {
   } catch {}
 }
 
-// Free users may study only the FREE_EXAM; Pro unlocks all exams.
+// Which exams can be studied.
 export function canAccessExam(slug: string): boolean {
+  if (UNLOCK_ALL) return true;
   return isPro() || slug === FREE_EXAM;
 }
 
-// Boss battles are a Pro feature for everyone (no free boss).
+// Boss battles ("The Final").
 export function canAccessBoss(): boolean {
+  if (UNLOCK_ALL) return true;
   return isPro();
 }

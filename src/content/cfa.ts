@@ -7,6 +7,7 @@
 
 import { Chapter, Question, ExamContent } from "./types";
 import { extraChapters, extraQuestions } from "./cfa-extra";
+import { ethicsChapter, ethicsQuestions } from "./cfa-ethics";
 
 const chapters: Chapter[] = [
   // --------------------------------------------------------------------
@@ -582,8 +583,11 @@ const questions: Question[] = [
   },
 ];
 
+// The gold-standard Ethics chapter (cfa-ethics.ts) supersedes the legacy
+// inline ethics chapter; the legacy ethics questions remain and are joined
+// by the new aligned bank.
 export const cfaContent: ExamContent = {
   examSlug: "cfa",
-  chapters: [...chapters, ...extraChapters],
-  questions: [...questions, ...extraQuestions],
+  chapters: [ethicsChapter, ...chapters.filter((c) => c.id !== "cfa-ethics"), ...extraChapters],
+  questions: [...questions, ...ethicsQuestions, ...extraQuestions],
 };

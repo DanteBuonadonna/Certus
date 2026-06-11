@@ -1,22 +1,22 @@
-# Phase 3: Game Feel ("juice") — June 11, 2026 (Fable)
+# Phase 4: Unlock + Content Engine begins — June 11, 2026 (Fable)
 
-`npm run build` verified green. Ready to commit and push. Suggested message:
-"Game feel v2: juice system, expressive animated avatar, loot shop, serpentine quest path, battle FX"
+`npm run build` verified green. Suggested commit message:
+"Unlock all content; gold-standard CFA Ethics chapter (38-min deep read) + 12 aligned questions"
 
-Design rule established: **two visual worlds.** Study surfaces (reading, practice,
-dashboard analytics) stay professional serif/gold. Game surfaces (profile, shop,
-ladder, boss, rewards) get the Duolingo-grade juice system.
+## Files for this handoff (3)
 
-## Changed files (7)
+- `src/lib/access.ts` (changed) — **everything unlocked**: all exams, all Finals (boss battles), no Pro gates anywhere. One flag (`UNLOCK_ALL`) flips the paywall back on later; all the freemium machinery is preserved.
+- `src/content/cfa-ethics.ts` (NEW) — the first true gold-standard chapter and the template for all others:
+  - ~8,700 words / 38-minute read across 12 sections — Code + PCP enforcement, all 7 Standards covering all 22 sub-standards with the exact tested nuances (strictest-law rule, dissociation, gift rules by source, issuer travel, plagiarism carve-outs, misconduct vs personal life, MNPI + mosaic theory + firewalls, manipulation intent, soft dollars, fair-vs-equal dealing, hot IPO allocation, portfolio-level suitability, unsolicited trades, survivorship bias, confidentiality's three exceptions, departing-employee rules, written-consent comp, supervisor adequacy, group-research dissent, record ownership, conflict prominence, beneficial ownership, referral fee timing, designation usage rules), GIPS (firm-wide claims, composites, 5→10yr history, voluntary verification), and a final section on exam technique with the "looks-like-a-violation-but-isn't" and "looks-innocent-but-violates" memorization lists.
+  - 4 worked vignette examples, 3 reference tables, 1 decision-flow figure, 4 testable-nuance callouts.
+  - **16 key terms** (these auto-build the ethics flashcard deck — fully aligned to the reading).
+  - **12 new exam-style questions** (cfa-eth-q5…q16) with trap-aware explanations, each tied to a specific section of the reading. Combined with the 4 legacy questions: 16 ethics questions feeding Practice and The Final.
+- `src/content/cfa.ts` (changed) — imports the new chapter (supersedes the old thin inline ethics chapter) and merges the new question bank.
 
-- `src/app/globals.css` — new GAME LAYER: chunky 3D press-down buttons (`.btn-game` + primary/gold/green/ghost variants), thick `.card-game`, fat striped animated progress bars, rarity tier color tokens, springy `popIn`/`wiggle`, screen `shake`, `gold-flash`, pulsing claim rings, bouncing markers, rotating sunburst `.rays`, falling `.coin` shower, legacy-tier shimmer, avatar blink + idle-bob keyframes, OWNED ribbon. All reduced-motion safe.
-- `src/components/avatar.tsx` — **Avatar v2, a character not a portrait**: bigger expressive head, lit eyes with highlights that *blink*, idle breathing bob, three moods (confident/determined/neutral — brows + mouth change; streak state drives it), detailed tailoring (collar wings, buttons, working watch with hands), richer backdrops (skyline with moon, ticker wall with chart line, glinting gold vault), ground shadow. Same config schema — existing avatars upgrade automatically.
-- `src/app/(app)/profile/ProfileClient.tsx` — **The Stage**: avatar presented big on a gold podium under a rotating spotlight; XP bar to next level on the identity card; chunky game buttons; archetype cards and swatches with 3D press effects.
-- `src/app/(app)/shop/ShopClient.tsx` — **loot shop**: rarity-framed cards (grey/blue/purple/gold frames with matching 3D shadows + star count), rarity band header, gold coin icon currency chips, OWNED corner ribbons, legacy items shimmer, buy = wiggle + gold burst, wallet bar with gold gradient.
-- `src/app/(app)/career/CareerClient.tsx` — **serpentine quest path**: big 62px 3D circular nodes zig-zagging down the page with dotted curve connectors (gold once claimed), bouncing "YOU ARE HERE" / "CLAIM!" marker, pulsing gold claimable nodes, tap a node → pop-in detail bubble with striped progress + claim button, rank checkpoint banners (briefcase → trophy when cleared, shimmer on gold).
-- `src/app/(app)/boss/BossClient.tsx` — battle FX: **screen shake** on wrong answers, **gold flash** on correct, segmented HP bar that cracks away per hit.
-- `src/components/ui.tsx` — LevelUpOverlay v2: full PROMOTION moment with rotating sunburst rays, coin shower, gold burst, big serif type. New exported `CoinShower` component.
+## Content research basis
 
-## No data/logic changes
+Structured to the current CFA Institute Code & Standards (7 Standards / 22 sub-standards) and L1 emphasis confirmed against 2026 prep-provider curricula (AnalystPrep, 300Hours, Kaplan Schweser outlines). All writing is original.
 
-All stores, quest definitions, prices, and game math are untouched — this phase is purely presentation. No new files, no migrations.
+## The pipeline from here (one chapter per handoff)
+
+CFA: Quant → FRA → Fixed Income → Equity → Derivatives → Alts → Portfolio Mgmt → Economics → Corporate Issuers (each rebuilt to ~35–40 min with aligned questions/flashcards), then Series 7, Series 66, CFP, CPA.
