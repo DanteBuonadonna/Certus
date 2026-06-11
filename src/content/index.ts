@@ -10,8 +10,10 @@ import { series7Content } from "./series7";
 import { series66Content } from "./series66";
 import { cfpContent } from "./cfp";
 import { cpaContent } from "./cpa";
+import { sieContent } from "./sie";
 
 const REGISTRY: Record<string, ExamContent> = {
+  sie: sieContent,
   cfa: cfaContent,
   "series-7": series7Content,
   "series-66": series66Content,

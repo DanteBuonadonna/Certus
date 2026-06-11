@@ -26,8 +26,19 @@ export default function LearnClient() {
 
   const chapters = getChapters(exam);
   const chapter = chapterId ? getChapter(exam, chapterId) : null;
+  const chapterIndex = chapter ? chapters.findIndex((c) => c.id === chapter.id) : -1;
 
   if (chapter) {
+    if (access.ready && !access.canChapter(chapterIndex)) {
+      return (
+        <div className="px-8 py-8 max-w-2xl mx-auto">
+          <button onClick={() => setChapterId(null)} className="text-sm mb-6 flex items-center gap-1" style={{ color: "var(--text-secondary)" }}>
+            ← All chapters
+          </button>
+          <UpgradeCard title="Keep reading with Pro" reason={`The first ${access.freePreview} lessons of every exam are free. Unlock Pro to read the full curriculum.`} />
+        </div>
+      );
+    }
     return <Reader chapter={chapter} onBack={() => setChapterId(null)} />;
   }
 
@@ -96,17 +107,23 @@ export default function LearnClient() {
         </div>
       ) : (
         <div className="space-y-3 stagger">
-          {chapters.map((c) => {
+          {chapters.map((c, i) => {
             const done = isChapterRead(exam, c.id, reading);
+            const chLocked = access.ready && !access.canChapter(i);
             return (
-              <button key={c.id} onClick={() => setChapterId(c.id)} className="card-i p-5 w-full text-left block">
+              <button key={c.id} onClick={() => setChapterId(c.id)} className="card-i p-5 w-full text-left block" style={{ opacity: chLocked ? 0.9 : 1 }}>
                 <div className="flex items-center justify-between mb-1">
                   <span className="text-[11px] font-medium uppercase tracking-wide" style={{ color: "var(--primary)" }}>
                     {c.topicName}
                   </span>
-                  <span className="text-[11px] flex items-center gap-1.5" style={{ color: done ? "var(--ats-green)" : "var(--text-muted)" }}>
-                    {done && <CheckCircleIcon size={13} />}
-                    {done ? "Completed" : `${c.readingMinutes} min read`}
+                  <span className="text-[11px] flex items-center gap-1.5" style={{ color: done && !chLocked ? "var(--ats-green)" : "var(--text-muted)" }}>
+                    {chLocked ? (
+                      "Pro"
+                    ) : done ? (
+                      <><CheckCircleIcon size={13} /> Completed</>
+                    ) : (
+                      `${c.readingMinutes} min read`
+                    )}
                   </span>
                 </div>
                 <h3 className="font-display text-lg mb-1" style={{ color: "var(--text-primary)" }}>{c.title}</h3>

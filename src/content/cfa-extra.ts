@@ -258,47 +258,65 @@ export const extraChapters: Chapter[] = [
     topicId: "alts",
     topicName: "Alternative Investments",
     title: "Alternative Investments: Beyond Stocks and Bonds",
-    readingMinutes: 16,
-    summary: "Hedge funds, private equity, real estate, and commodities — their roles, fees, and quirks.",
+    readingMinutes: 18,
+    summary: "Hedge funds, private equity, real estate, and commodities — why investors hold them, the J-curve and '2 and 20' fees, and the valuation traps — diagrammed and worked through.",
     intro:
-      "Alternative investments are everything outside traditional public stocks and bonds: hedge funds, private equity, real estate, commodities, and infrastructure. Investors add them for diversification and the potential for higher returns, but they come with illiquidity, complexity, weaker transparency, and distinctive fee structures. Level I asks you to understand what each category is, why investors use it, and what makes it hard to value.",
+      "Alternative investments are everything outside traditional public stocks and bonds: hedge funds, private equity, real estate, commodities, and infrastructure. Large institutions — endowments, pensions, sovereign funds — often hold 30% or more of their portfolios in them. The appeal is diversification and access to return streams public markets can't offer, but the price is steep: illiquidity, complexity, weak transparency, and famously rich fees. Level I asks you to know what each category is, why a sophisticated investor uses it, and — most importantly — the structural quirks (the J-curve, the fee drag, smoothed valuations) that make alternatives behave differently from anything on a stock exchange.",
     sections: [
       {
         heading: "The main categories",
-        paragraphs: [
-          "Hedge funds pursue a wide range of strategies — long/short equity, global macro, event-driven — often using leverage and derivatives, aiming for returns less correlated with the broad market. Private equity buys whole companies (buyouts) or funds startups (venture capital), creating value over years before exiting. Real estate offers income and inflation protection through property. Commodities — energy, metals, agriculture — provide diversification and an inflation hedge, typically accessed through futures rather than physical holdings.",
+        blocks: [
+          { kind: "p", text: "The alternatives universe spans several distinct categories, each with its own engine of return. Hedge funds pursue flexible strategies — long/short equity, global macro, event-driven — often using leverage and derivatives, with the goal of producing returns that are less correlated with the broad market rather than simply higher. Private equity buys whole companies through leveraged buyouts or funds young firms through venture capital, then works to create value over a multi-year horizon before exiting via sale or IPO. Real estate delivers income and a degree of inflation protection through physical property. Commodities — energy, metals, agriculture — provide diversification and an inflation hedge, and are usually accessed through futures rather than by holding the physical asset. Infrastructure (toll roads, utilities, airports) offers long-dated, inflation-linked cash flows." },
+          { kind: "table", table: { caption: "Table 1 — The alternative categories and what each one is really for.", headers: ["Category", "What it is", "Primary role"], rows: [["Hedge funds", "Flexible strategies, leverage, derivatives", "Low-correlation returns"], ["Private equity", "Buyouts & venture capital in private firms", "Illiquidity premium, growth"], ["Real estate", "Physical property, income-producing", "Income + inflation hedge"], ["Commodities", "Energy, metals, agriculture (via futures)", "Diversification + inflation hedge"], ["Infrastructure", "Toll roads, utilities, airports", "Long, stable, inflation-linked cash flows"]] } },
         ],
       },
       {
-        heading: "Why investors use them",
-        paragraphs: [
-          "The central appeal is diversification: alternatives often move differently from stocks and bonds, so adding them can improve a portfolio's risk-adjusted return even if any single alternative is volatile on its own. Some also offer an inflation hedge (real assets and commodities) or access to a return stream — like the illiquidity premium in private equity — that public markets don't provide. The trade-off is that you give up liquidity, transparency, and often pay much higher fees.",
+        heading: "Why investors use them — and the illiquidity premium",
+        blocks: [
+          { kind: "p", text: "The central justification is diversification. Because alternatives often move differently from stocks and bonds — driven by deal flow, property cycles, or commodity supply rather than the equity market — adding them can improve a portfolio's risk-adjusted return even when any single alternative is volatile on its own. This is the same correlation logic from portfolio theory, applied to assets with genuinely different return drivers." },
+          { kind: "p", text: "Beyond diversification, some alternatives offer return streams public markets simply don't price. The most important is the illiquidity premium: because private-equity and real-estate investors lock up their capital for years and cannot sell on a whim, they demand — and historically have earned — extra expected return for bearing that illiquidity. An investor with a long horizon and no near-term need for the cash (an endowment, say) is uniquely positioned to harvest this premium, effectively being paid to do something most investors can't afford to. The trade-off is real and non-negotiable: you surrender liquidity, transparency, and a large slice of return to fees." },
+          { kind: "callout", label: "The illiquidity premium", body: "Investors who can lock up capital for years are compensated with extra expected return for bearing illiquidity. It's the core reason long-horizon institutions overweight private equity and real estate — they can afford to be paid for patience." },
         ],
       },
       {
-        heading: "Fees, valuation, and the catch",
-        paragraphs: [
-          "The classic hedge-fund and private-equity fee structure is '2 and 20': a 2% annual management fee on assets plus 20% of profits (the performance fee or carried interest), often above a hurdle rate and subject to a high-water mark so managers aren't paid twice for recovering past losses. These fees are a major drag and a key reason to scrutinize net-of-fee returns.",
-          "Valuation is the other catch. Because many alternatives don't trade on public exchanges, their reported values rely on appraisals and models rather than market prices. This smooths reported returns and understates true volatility — a fund that marks its assets quarterly looks less risky than it is. Sophisticated investors adjust for this 'stale pricing' rather than taking reported volatility at face value.",
+        heading: "The J-curve: why private equity looks bad before it looks good",
+        blocks: [
+          { kind: "p", text: "Private-equity funds exhibit a distinctive return pattern over their life that every analyst must recognize: the J-curve. In the early years, the fund draws down capital to buy companies and pays its management fees, while the investments have not yet matured — so reported returns are negative. Only later, as the fund improves its portfolio companies and exits them at a profit, do returns turn sharply positive. Plotted over the fund's life, cumulative net return traces the shape of the letter J: down first, then up and away." },
+          { kind: "figure", figure: { caption: "Figure 1 — The private-equity J-curve. Early fees and immature investments push cumulative net return below zero; value creation and profitable exits in later years drive it sharply positive. Judging a young fund by its early numbers is a classic mistake.", alt: "A J-shaped curve dipping below zero early in a fund's life then rising well above it", svg: `<svg viewBox="0 0 460 250" width="100%" style="max-width:460px"><line x1="60" y1="25" x2="60" y2="215" stroke="var(--border-strong)" stroke-width="1"/><line x1="60" y1="130" x2="435" y2="130" stroke="var(--border-strong)" stroke-width="1"/><path d="M64,128 C110,172 150,184 200,182 C285,178 350,95 430,48" fill="none" stroke="var(--primary)" stroke-width="2.5"/><circle cx="190" cy="182" r="3.5" fill="var(--ats-red)"/><circle cx="305" cy="130" r="3.5" fill="var(--ats-green)"/><text x="150" y="205" font-size="9.5" fill="var(--ats-red)">fees &amp; early losses</text><text x="320" y="120" font-size="9.5" fill="var(--ats-green)" font-weight="600">value creation &amp; exits</text><text x="312" y="146" font-size="9" fill="var(--text-muted)">breakeven</text><text x="250" y="238" text-anchor="middle" font-size="10" fill="var(--text-muted)">fund life (years) →</text><text x="20" y="120" text-anchor="middle" font-size="10" fill="var(--text-muted)" transform="rotate(-90 20 120)">cumulative net return →</text></svg>` } },
         ],
-        callout: {
-          label: "'2 and 20'",
-          body: "A 2% management fee plus 20% of profits, often with a hurdle rate and high-water mark. High fees make net-of-fee returns the number that matters.",
-        },
+      },
+      {
+        heading: "Fees: the '2 and 20' drag",
+        blocks: [
+          { kind: "p", text: "Alternatives are expensive, and the classic structure is '2 and 20': a 2% annual management fee charged on assets regardless of performance, plus a 20% performance fee (the carried interest, or 'carry') taken on the fund's profits. The performance fee is usually subject to two protections for investors. A hurdle rate means the manager earns carry only on returns above a minimum threshold; a high-water mark means the manager earns carry only on net new profits above the fund's previous peak, so they aren't paid twice for merely recovering a loss they presided over." },
+          { kind: "figure", figure: { caption: "Figure 2 — Where a 15% gross return goes under '2 and 20'. A 2% management fee and a 20% carry on profits hand roughly a third of the gross return to the manager — which is why net-of-fee return is the only number that matters.", alt: "A bar showing a 15% gross return split into manager fees of about 5% and investor net of about 10%", svg: `<svg viewBox="0 0 460 150" width="100%" style="max-width:460px"><text x="30" y="40" font-size="11" fill="var(--text-secondary)">Gross 15%</text><rect x="120" y="28" width="300" height="22" rx="4" fill="var(--primary)" opacity="0.25"/><text x="30" y="78" font-size="11" fill="var(--text-secondary)">To manager</text><rect x="120" y="66" width="100" height="22" rx="4" fill="var(--ats-red)" opacity="0.55"/><text x="230" y="82" font-size="10" fill="var(--ats-red)" font-weight="600">~5% (2% fee + 3% carry)</text><text x="30" y="116" font-size="11" fill="var(--text-secondary)">Investor net</text><rect x="120" y="104" width="200" height="22" rx="4" fill="var(--ats-green)" opacity="0.6"/><text x="330" y="120" font-size="10" fill="var(--ats-green)" font-weight="600">~10%</text></svg>` } },
+          { kind: "example", example: { title: "net return under '2 and 20'", prompt: "You invest $100 in a hedge fund. It earns a 15% gross return this year. Fees are '2 and 20' (ignore the hurdle for simplicity). What is your net return?", steps: ["Gross profit = 15% × $100 = $15.", "Management fee = 2% × $100 = $2 (charged on assets, win or lose).", "Performance fee = 20% × $15 profit = $3.", "Net to you = $15 − $2 − $3 = $10."], answer: "Net return ≈ 10% — fees consumed a third of the 15% gross. Compounded over years, that drag is enormous, which is why net-of-fee performance is what you evaluate." } },
+          { kind: "callout", label: "'2 and 20'", body: "2% management fee on assets + 20% carry on profits, usually with a hurdle rate and a high-water mark. The fee drag is large and compounds, so always judge alternatives on net-of-fee returns." },
+        ],
+      },
+      {
+        heading: "The valuation trap: smoothed returns and hidden risk",
+        blocks: [
+          { kind: "p", text: "The final, subtle catch is valuation. Because most alternatives don't trade on a public exchange, their reported values come from periodic appraisals and models rather than live market prices. Appraisals are infrequent and inherently smoothed — they lag reality and dampen the swings. The consequence is that reported returns look far less volatile than the assets' true economic value, and reported correlations with public markets look artificially low. A fund that marks its book once a quarter will appear calm through a storm that is, in truth, battering the underlying assets." },
+          { kind: "figure", figure: { caption: "Figure 2 isn't the only illusion — Figure 3: appraisal-based 'reported' value (smooth) versus the true economic value (volatile). Stale pricing understates real risk and overstates diversification, so sophisticated investors un-smooth the data before trusting reported volatility.", alt: "A jagged true-value line and a much smoother reported-value line tracking it loosely", svg: `<svg viewBox="0 0 460 220" width="100%" style="max-width:460px"><line x1="50" y1="20" x2="50" y2="185" stroke="var(--border-strong)" stroke-width="1"/><line x1="50" y1="185" x2="435" y2="185" stroke="var(--border-strong)" stroke-width="1"/><polyline fill="none" stroke="var(--text-muted)" stroke-width="1.5" points="55,120 90,60 120,150 150,55 185,160 215,80 250,170 285,70 320,150 355,60 395,130 425,90"/><polyline fill="none" stroke="var(--primary)" stroke-width="2.5" points="55,118 120,112 185,120 250,116 320,112 425,108"/><text x="300" y="55" font-size="9.5" fill="var(--text-muted)">true value (volatile)</text><text x="250" y="106" font-size="9.5" fill="var(--primary)" font-weight="600">reported value (smoothed)</text><text x="242" y="208" text-anchor="middle" font-size="10" fill="var(--text-muted)">time →</text></svg>` } },
+          { kind: "p", text: "This 'stale pricing' has two practical effects an analyst must correct for. First, it understates true risk: a measured standard deviation built from smoothed quarterly marks is too low, making the asset look safer than it is. Second, it overstates diversification: artificially low measured correlation with equities makes alternatives look like a better hedge than they really are, a flattery that evaporates in a genuine crisis when everything falls together. Sophisticated allocators 'un-smooth' reported returns before feeding them into any risk model, rather than taking the comfortable headline numbers at face value." },
+        ],
       },
     ],
     keyTerms: [
-      { term: "Hedge fund", def: "A pooled fund using flexible strategies, leverage, and derivatives to seek market-uncorrelated returns." },
-      { term: "Private equity", def: "Investing in private companies via buyouts or venture capital, realizing value over years." },
-      { term: "Carried interest", def: "The share of profits (often 20%) paid to the fund manager as a performance fee." },
-      { term: "High-water mark", def: "A threshold ensuring managers earn performance fees only on net new profits, not recovered losses." },
-      { term: "Illiquidity premium", def: "Extra expected return for accepting investments that can't be quickly sold." },
+      { term: "Hedge fund", def: "A pooled fund using flexible strategies, leverage, and derivatives to seek returns uncorrelated with the broad market." },
+      { term: "Private equity", def: "Investing in private companies via leveraged buyouts or venture capital, realizing value over a multi-year horizon." },
+      { term: "J-curve", def: "The private-equity return pattern: negative early (fees + immature investments), then sharply positive as exits occur." },
+      { term: "Carried interest ('carry')", def: "The share of profits (typically 20%) paid to the fund manager as a performance fee." },
+      { term: "Hurdle rate / high-water mark", def: "Investor protections: carry is earned only above a minimum return (hurdle) and only on net new profits above the prior peak (high-water mark)." },
+      { term: "Illiquidity premium", def: "Extra expected return for accepting investments that cannot be sold quickly." },
+      { term: "Stale pricing", def: "Appraisal-based valuation that smooths reported returns, understating true volatility and overstating diversification." },
     ],
     takeaways: [
-      "Alternatives are added mainly for diversification and inflation protection, not standalone safety.",
-      "'2 and 20' fees make net-of-fee returns the figure that matters.",
-      "Appraisal-based valuation smooths returns and understates true volatility (stale pricing).",
-      "The price of higher potential return is illiquidity, complexity, and weaker transparency.",
+      "Alternatives are held mainly for diversification, the illiquidity premium, and inflation protection — not standalone safety.",
+      "Private equity follows a J-curve: negative early, then sharply positive — don't judge a young fund by its first years.",
+      "'2 and 20' fees (often with a hurdle and high-water mark) can take a third of the gross return; judge net-of-fee.",
+      "Appraisal-based valuations smooth returns, understating true volatility and overstating diversification — un-smooth before trusting the numbers.",
     ],
   },
 

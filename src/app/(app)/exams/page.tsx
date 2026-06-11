@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { EXAMS, WEALTH_TRACK, getExam, difficultyLabel, totalHours } from "@/lib/exams";
-import { FREE_EXAM } from "@/lib/access";
 
 export default function ExamsPage() {
   return (
@@ -51,9 +50,7 @@ export default function ExamsPage() {
                   <h3 className="text-sm font-medium flex items-center gap-2" style={{ color: "var(--text-primary)" }}>
                     {e.name}
                     {e.flagship && <span className="text-[10px] px-1.5 py-0.5 rounded" style={{ background: "var(--primary)", color: "#fff" }}>Flagship</span>}
-                    {e.slug === FREE_EXAM
-                      ? <span className="text-[10px] px-1.5 py-0.5 rounded" style={{ background: "var(--ats-green-bg)", color: "var(--ats-green)" }}>Free</span>
-                      : <span className="text-[10px] px-1.5 py-0.5 rounded" style={{ background: "var(--bg)", color: "var(--text-muted)", border: "0.5px solid var(--border)" }}>Pro 🔒</span>}
+                    <span className="text-[10px] px-1.5 py-0.5 rounded" style={{ background: "var(--ats-green-bg)", color: "var(--ats-green)" }}>Preview free</span>
                   </h3>
                   <p className="text-[11px]" style={{ color: "var(--text-muted)" }}>{e.fullName}</p>
                 </div>

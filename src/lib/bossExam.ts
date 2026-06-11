@@ -19,6 +19,12 @@ export interface Boss {
 // Each boss is reframed as "Exam Day" — a high-stakes proctored final
 // or review board you must earn your way into.
 const BOSSES: Record<string, Boss> = {
+  sie: {
+    name: "SIE Exam Day · The Front Desk",
+    emoji: "🏢",
+    intro: "The industry's front door. Show you know the markets, products, and rules cold before you go further.",
+    defeatTaunt: "Everyone starts here. Shore up the basics and sit it again.",
+  },
   cfa: {
     name: "CFA Exam Day · The Charter Board",
     emoji: "🏛️",
