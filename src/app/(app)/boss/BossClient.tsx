@@ -18,6 +18,17 @@ import {
 import { recordStudy } from "@/lib/gameStore";
 import { useAccess } from "@/lib/useAccess";
 import { UpgradeCard } from "@/components/UpgradeGate";
+import { ProgressBar, GoldBurst } from "@/components/ui";
+import {
+  BossCrest,
+  ShieldCheckIcon,
+  ShieldIcon,
+  ClipboardIcon,
+  ClockIcon,
+  TargetIcon,
+  TrophyIcon,
+  CheckIcon,
+} from "@/components/icons";
 
 type Phase = "setup" | "battle" | "result";
 
@@ -33,6 +44,7 @@ export default function BossClient() {
   useEffect(() => { setTrophies(loadTrophies()); }, [phase]);
 
   const boss = getBoss(exam);
+  const accent = getExam(exam)?.accent ?? "#534AB7";
   const pool = useMemo(() => buildBossExam(exam, 20), [exam]);
   const cfg = bossConfig(pool.length);
 
@@ -47,7 +59,6 @@ export default function BossClient() {
     const res = analyzeBoss(sliced, answers, cfg.passPct);
     const passed = res.passed && !defeatedByHearts;
     const finalRes = { ...res, passed };
-    // XP for the attempt (boss is worth a solid chunk), bonus on victory
     recordStudy(exam, passed ? 45 : 20);
     if (passed) { recordVictory(exam, res.pct); }
     setResult(finalRes);
@@ -58,29 +69,29 @@ export default function BossClient() {
   if (access.ready && !access.canBoss()) {
     return (
       <div className="px-8 py-8 max-w-2xl mx-auto">
-        <h1 className="text-2xl font-medium mb-1" style={{ color: "var(--text-primary)" }}>Boss battle</h1>
+        <h1 className="font-display text-3xl mb-1" style={{ color: "var(--text-primary)" }}>The Final</h1>
         <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
-          Face a timed, comprehensive exam against the boss of each certification.
+          Face a timed, comprehensive exam against the board of each certification.
         </p>
-        <UpgradeCard title="Boss battles are a Pro feature" reason="Defeat the boss of each exam to prove you're ready. Upgrade to take them on." />
+        <UpgradeCard title="Finals are a Pro feature" reason="Clear the board of each exam to prove you're ready. Upgrade to take them on." />
       </div>
     );
   }
 
   if (phase === "battle") {
-    return <Battle exam={exam} questions={questions} cfg={cfg} boss={boss} onFinish={finish} onQuit={() => setPhase("setup")} />;
+    return <Battle exam={exam} accent={accent} questions={questions} cfg={cfg} boss={boss} onFinish={finish} onQuit={() => setPhase("setup")} />;
   }
 
   if (phase === "result" && result) {
-    return <Result exam={exam} boss={boss} result={result} onRetry={() => setPhase("setup")} />;
+    return <Result exam={exam} accent={accent} boss={boss} cfg={cfg} result={result} onRetry={() => setPhase("setup")} />;
   }
 
-  // setup
+  // setup — the briefing room
   return (
     <div className="px-8 py-8 max-w-2xl mx-auto">
-      <h1 className="text-2xl font-medium mb-1" style={{ color: "var(--text-primary)" }}>Boss battle</h1>
+      <h1 className="font-display text-3xl mb-1" style={{ color: "var(--text-primary)" }}>The Final</h1>
       <p className="text-sm mb-6" style={{ color: "var(--text-secondary)" }}>
-        A timed, comprehensive exam across every topic. Wrong answers cost hearts. Survive and score {Math.round(cfg.passPct * 100)}%+ to win.
+        A timed, comprehensive exam across every topic. Wrong answers cost integrity. Survive and score {Math.round(cfg.passPct * 100)}%+ to clear the board.
       </p>
 
       <div className="flex items-center gap-2 mb-6 flex-wrap">
@@ -101,37 +112,46 @@ export default function BossClient() {
         })}
       </div>
 
-      <div className="card p-6 text-center mb-5">
-        <div className="text-5xl mb-2">{boss.emoji}</div>
-        <div className="text-lg font-medium mb-1" style={{ color: "var(--text-primary)" }}>{boss.name}</div>
-        <p className="text-sm mb-4" style={{ color: "var(--text-secondary)", fontStyle: "italic" }}>&ldquo;{boss.intro}&rdquo;</p>
-        <div className="flex items-center justify-center gap-5 mb-4">
-          <Spec icon="📋" label={`${pool.length} questions`} />
-          <Spec icon="❤️" label={`${cfg.hearts} hearts`} />
-          <Spec icon="⏱️" label={`${cfg.secondsPerQuestion}s each`} />
-          <Spec icon="🎯" label={`${Math.round(cfg.passPct * 100)}% to win`} />
+      {/* Briefing card */}
+      <div className="card p-6 text-center mb-5 rise-in" style={{ borderTop: `3px solid ${accent}` }}>
+        <div className="text-[10px] font-semibold uppercase tracking-widest mb-3" style={{ color: "var(--text-muted)" }}>
+          Examination briefing
         </div>
+        <div className="flex justify-center mb-3 scale-in">
+          <BossCrest exam={exam} accent={accent} size={84} />
+        </div>
+        <div className="font-display text-xl mb-1" style={{ color: "var(--text-primary)" }}>{boss.name}</div>
+        <p className="text-sm mb-5" style={{ color: "var(--text-secondary)", fontStyle: "italic" }}>&ldquo;{boss.intro}&rdquo;</p>
+
+        <div className="grid grid-cols-4 gap-2 mb-5">
+          <Spec icon={<ClipboardIcon size={17} />} label={`${pool.length} questions`} />
+          <Spec icon={<ShieldIcon size={17} />} label={`${cfg.hearts} integrity`} />
+          <Spec icon={<ClockIcon size={17} />} label={`${cfg.secondsPerQuestion}s each`} />
+          <Spec icon={<TargetIcon size={17} />} label={`${Math.round(cfg.passPct * 100)}% to clear`} />
+        </div>
+
         {trophies[exam] && (
-          <div className="text-xs mb-4 inline-flex items-center gap-1 px-3 py-1 rounded-full" style={{ background: "var(--ats-green-bg)", color: "var(--ats-green)" }}>
-            🏆 Defeated · best score {trophies[exam].bestPct}%
+          <div className="pill-gold mb-4">
+            <TrophyIcon size={12} /> Cleared · best score {trophies[exam].bestPct}%
           </div>
         )}
         <button className="btn-primary w-full" disabled={pool.length === 0} onClick={begin}>
-          {pool.length === 0 ? "No questions yet" : `Face ${boss.name} →`}
+          {pool.length === 0 ? "No questions yet" : "Enter the exam room →"}
         </button>
       </div>
 
       <p className="text-xs text-center" style={{ color: "var(--text-muted)" }}>
-        Lose, and you&apos;ll be sent to train your weakest topics before the rematch.
+        Fail, and you&apos;ll be sent to train your weakest topics before the retake.
       </p>
     </div>
   );
 }
 
 function Battle({
-  exam, questions, cfg, boss, onFinish, onQuit,
+  exam, accent, questions, cfg, boss, onFinish, onQuit,
 }: {
   exam: string;
+  accent: string;
   questions: Question[];
   cfg: ReturnType<typeof bossConfig>;
   boss: ReturnType<typeof getBoss>;
@@ -192,36 +212,36 @@ function Battle({
   }
 
   const correct = picked === q.answerIndex;
+  const timePct = (timeLeft / cfg.secondsPerQuestion) * 100;
+  const urgent = timeLeft <= 10;
 
   return (
     <div className="px-8 py-6 max-w-2xl mx-auto">
-      {/* Boss header */}
+      {/* Board header */}
       <div className="flex items-center gap-3 mb-3">
-        <span className="text-3xl">{boss.emoji}</span>
+        <BossCrest exam={exam} accent={accent} size={42} />
         <div className="flex-1">
           <div className="flex items-center justify-between mb-1">
             <span className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>{boss.name}</span>
-            <span className="text-xs" style={{ color: "var(--text-muted)" }}>{bossHpPct}% HP</span>
+            <span className="text-xs font-mono" style={{ color: "var(--text-muted)" }}>{bossHpPct}% resistance</span>
           </div>
-          <div style={{ height: 10, borderRadius: 100, background: "var(--bg-card)", overflow: "hidden", border: "0.5px solid var(--border)" }}>
-            <div style={{ width: `${bossHpPct}%`, height: "100%", background: "var(--ats-red)", transition: "width 0.4s" }} />
-          </div>
+          <ProgressBar pct={bossHpPct} height={9} color="var(--ats-red)" sheen={false} />
         </div>
       </div>
 
-      {/* Player status: hearts + timer */}
+      {/* Player status: integrity + timer */}
       <div className="flex items-center justify-between mb-5">
-        <div className="text-base tracking-wide">
+        <div className="flex items-center gap-1" title="Integrity — wrong answers cost one">
           {Array.from({ length: cfg.hearts }).map((_, i) => (
-            <span key={i} style={{ opacity: i < hearts ? 1 : 0.2 }}>❤️</span>
+            <span key={i} style={{ color: i < hearts ? "var(--primary)" : "var(--text-muted)", opacity: i < hearts ? 1 : 0.3, transition: "all 0.3s" }}>
+              {i < hearts ? <ShieldCheckIcon size={17} /> : <ShieldIcon size={17} />}
+            </span>
           ))}
         </div>
         <div className="flex items-center gap-3">
-          <span className="text-xs" style={{ color: "var(--text-muted)" }}>Q{idx + 1}/{questions.length}</span>
-          <span className="text-sm font-semibold" style={{ color: timeLeft <= 10 ? "var(--ats-red)" : "var(--text-secondary)" }}>
-            ⏱️ {timeLeft}s
-          </span>
-          <button onClick={onQuit} className="text-xs" style={{ color: "var(--text-muted)" }}>Quit</button>
+          <span className="text-xs font-mono" style={{ color: "var(--text-muted)" }}>Q{idx + 1}/{questions.length}</span>
+          <TimerRing pct={timePct} seconds={timeLeft} urgent={urgent} />
+          <button onClick={onQuit} className="text-xs hover:underline" style={{ color: "var(--text-muted)" }}>Withdraw</button>
         </div>
       </div>
 
@@ -239,12 +259,12 @@ function Battle({
           }
           return (
             <button key={i} disabled={answered} onClick={() => lockAnswer(i)}
-              className="w-full text-left px-4 py-3 rounded-lg text-sm flex items-start gap-3"
+              className="w-full text-left px-4 py-3 rounded-lg text-sm flex items-start gap-3 transition-all"
               style={{ background: bg, border, color, cursor: answered ? "default" : "pointer" }}>
               <span className="font-semibold flex-shrink-0">{String.fromCharCode(65 + i)}</span>
               <span>{choice}</span>
-              {answered && isAnswer && <span className="ml-auto">✓</span>}
-              {answered && isPicked && !isAnswer && <span className="ml-auto">✕</span>}
+              {answered && isAnswer && <span className="ml-auto flex-shrink-0"><CheckIcon size={15} /></span>}
+              {answered && isPicked && !isAnswer && <span className="ml-auto flex-shrink-0">✕</span>}
             </button>
           );
         })}
@@ -253,57 +273,125 @@ function Battle({
       {answered && (
         <div className="rounded-lg p-4 mb-4 animate-in" style={{ background: "var(--bg-card)", border: `0.5px solid ${correct ? "var(--ats-green)" : "var(--ats-red)"}` }}>
           <div className="text-sm font-semibold mb-1.5" style={{ color: correct ? "var(--ats-green)" : "var(--ats-red)" }}>
-            {correct ? "Hit! The boss takes damage." : picked === null ? "Time's up — the boss strikes!" : "Missed — you lose a heart."}
+            {correct ? "Correct — the board's resistance weakens." : picked === null ? "Time expired — the board scores against you." : "Incorrect — your integrity takes a hit."}
           </div>
           <p className="text-sm" style={{ color: "var(--text-primary)", lineHeight: 1.6, opacity: 0.92 }}>{q.explanation}</p>
         </div>
       )}
 
       <button className="btn-primary w-full" disabled={!answered} onClick={next}>
-        {hearts <= 0 ? "The boss wins…" : idx + 1 >= questions.length ? "Finish battle" : "Next →"}
+        {hearts <= 0 ? "The board prevails…" : idx + 1 >= questions.length ? "Submit exam" : "Next →"}
       </button>
     </div>
   );
 }
 
-function Result({ exam, boss, result, onRetry }: { exam: string; boss: ReturnType<typeof getBoss>; result: BossResult; onRetry: () => void }) {
+function TimerRing({ pct, seconds, urgent }: { pct: number; seconds: number; urgent: boolean }) {
+  const r = 13;
+  const c = 2 * Math.PI * r;
+  return (
+    <span className="inline-flex items-center justify-center" style={{ position: "relative", width: 34, height: 34 }}>
+      <svg width="34" height="34" viewBox="0 0 34 34" style={{ transform: "rotate(-90deg)" }}>
+        <circle cx="17" cy="17" r={r} fill="none" stroke="var(--bg)" strokeWidth="3" />
+        <circle
+          cx="17" cy="17" r={r} fill="none"
+          stroke={urgent ? "var(--ats-red)" : "var(--text-secondary)"}
+          strokeWidth="3" strokeLinecap="round"
+          strokeDasharray={c} strokeDashoffset={c - (pct / 100) * c}
+          style={{ transition: "stroke-dashoffset 1s linear, stroke 0.3s" }}
+        />
+      </svg>
+      <span
+        className="font-mono"
+        style={{
+          position: "absolute", fontSize: 9.5, fontWeight: 700,
+          color: urgent ? "var(--ats-red)" : "var(--text-secondary)",
+        }}
+      >
+        {seconds}
+      </span>
+    </span>
+  );
+}
+
+// ---- Result: a post-exam performance report ------------------------------
+function Result({
+  exam, accent, boss, cfg, result, onRetry,
+}: {
+  exam: string;
+  accent: string;
+  boss: ReturnType<typeof getBoss>;
+  cfg: ReturnType<typeof bossConfig>;
+  result: BossResult;
+  onRetry: () => void;
+}) {
   return (
     <div className="px-8 py-8 max-w-2xl mx-auto">
-      <div className="card p-8 text-center mb-6" style={{ borderColor: result.passed ? "var(--ats-green)" : "var(--ats-red)" }}>
-        <div className="text-6xl mb-2">{result.passed ? "🏆" : boss.emoji}</div>
-        <h2 className="text-xl font-medium mb-1" style={{ color: result.passed ? "var(--ats-green)" : "var(--text-primary)" }}>
-          {result.passed ? `${boss.name} defeated!` : `${boss.name} wins`}
-        </h2>
-        <p className="text-sm mb-3" style={{ color: "var(--text-secondary)" }}>
-          You scored {result.pct}% ({result.correct}/{result.total})
-        </p>
-        {!result.passed && (
-          <p className="text-sm" style={{ color: "var(--text-secondary)", fontStyle: "italic" }}>&ldquo;{boss.defeatTaunt}&rdquo;</p>
-        )}
-        {result.passed && (
-          <div className="text-xs inline-flex items-center gap-1 px-3 py-1 rounded-full mt-1" style={{ background: "var(--ats-green-bg)", color: "var(--ats-green)" }}>
-            +45 XP · trophy earned · exam-ready
+      {/* Report header */}
+      <div className="card mb-6 rise-in" style={{ overflow: "hidden", position: "relative" }}>
+        <div className="px-6 py-4 flex items-center justify-between" style={{ borderBottom: "0.5px solid var(--border)", background: "var(--bg)" }}>
+          <div className="flex items-center gap-2.5">
+            <BossCrest exam={exam} accent={accent} size={32} />
+            <div>
+              <div className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: "var(--text-muted)" }}>
+                Post-exam performance report
+              </div>
+              <div className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>{boss.name}</div>
+            </div>
           </div>
-        )}
+          <span
+            className="stamp-in font-display"
+            style={{
+              border: `2.5px solid ${result.passed ? "var(--ats-green)" : "var(--ats-red)"}`,
+              color: result.passed ? "var(--ats-green)" : "var(--ats-red)",
+              borderRadius: 6,
+              padding: "4px 12px",
+              fontSize: "0.9rem",
+              fontWeight: 700,
+              letterSpacing: "0.08em",
+            }}
+          >
+            {result.passed ? "CLEARED" : "NOT CLEARED"}
+          </span>
+        </div>
+
+        <div className="p-6 text-center" style={{ position: "relative" }}>
+          {result.passed && <GoldBurst count={24} />}
+          <div className="font-display" style={{ fontSize: "3.2rem", color: result.passed ? "var(--ats-green)" : "var(--text-primary)", lineHeight: 1 }}>
+            {result.pct}%
+          </div>
+          <p className="text-sm mt-1.5" style={{ color: "var(--text-secondary)" }}>
+            {result.correct} of {result.total} correct · {Math.round(cfg.passPct * 100)}% required
+          </p>
+          {!result.passed && (
+            <p className="text-sm mt-3" style={{ color: "var(--text-secondary)", fontStyle: "italic" }}>&ldquo;{boss.defeatTaunt}&rdquo;</p>
+          )}
+          {result.passed && (
+            <div className="pill-gold mt-3">
+              <TrophyIcon size={12} /> +45 XP · cleared · exam-ready
+            </div>
+          )}
+        </div>
       </div>
 
       {result.weakTopics.length > 0 && (
         <>
-          <h3 className="text-sm font-medium mb-1" style={{ color: "var(--text-primary)" }}>
-            {result.passed ? "Still worth shoring up" : "Train these before the rematch"}
+          <h3 className="text-sm font-semibold mb-1" style={{ color: "var(--text-primary)" }}>
+            {result.passed ? "Still worth shoring up" : "Train these before the retake"}
           </h3>
-          <p className="text-xs mb-3" style={{ color: "var(--text-muted)" }}>Your weakest topics in this battle, weakest first.</p>
-          <div className="space-y-2 mb-6">
+          <p className="text-xs mb-3" style={{ color: "var(--text-muted)" }}>Your weakest topics in this sitting, weakest first.</p>
+          <div className="space-y-2 mb-6 stagger">
             {result.weakTopics.map((t) => (
-              <div key={t.topicId} className="card p-4">
+              <div key={t.topicId} className="card-i p-4">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>{t.topicName}</span>
-                  <span className="text-xs font-medium" style={{ color: "var(--ats-red)" }}>{t.correct}/{t.total} · {t.pct}%</span>
+                  <span className="text-xs font-semibold font-mono" style={{ color: "var(--ats-red)" }}>{t.correct}/{t.total} · {t.pct}%</span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Link href="/learn" className="text-xs font-medium" style={{ color: "var(--primary)" }}>Re-read lesson</Link>
-                  <Link href="/flashcards" className="text-xs font-medium" style={{ color: "var(--primary)" }}>Flashcards</Link>
-                  <Link href={`/practice?exam=${exam}&topic=${t.topicId}`} className="text-xs font-medium" style={{ color: "var(--primary)" }}>Drill questions</Link>
+                <ProgressBar pct={t.pct} height={5} sheen={false} color="var(--ats-red)" />
+                <div className="flex items-center gap-3 mt-2.5">
+                  <Link href="/learn" className="text-xs font-medium hover:underline" style={{ color: "var(--primary)" }}>Re-read lesson</Link>
+                  <Link href="/flashcards" className="text-xs font-medium hover:underline" style={{ color: "var(--primary)" }}>Flashcards</Link>
+                  <Link href={`/practice?exam=${exam}&topic=${t.topicId}`} className="text-xs font-medium hover:underline" style={{ color: "var(--primary)" }}>Drill questions</Link>
                 </div>
               </div>
             ))}
@@ -312,17 +400,17 @@ function Result({ exam, boss, result, onRetry }: { exam: string; boss: ReturnTyp
       )}
 
       <div className="flex items-center gap-3">
-        <button className="btn-primary flex-1" onClick={onRetry}>{result.passed ? "Battle again" : "Rematch"}</button>
+        <button className="btn-primary flex-1" onClick={onRetry}>{result.passed ? "Sit it again" : "Retake"}</button>
         <Link href="/skilltree" className="btn-secondary flex-1 text-center">View skill tree</Link>
       </div>
     </div>
   );
 }
 
-function Spec({ icon, label }: { icon: string; label: string }) {
+function Spec({ icon, label }: { icon: React.ReactNode; label: string }) {
   return (
-    <div className="text-center">
-      <div className="text-lg">{icon}</div>
+    <div className="text-center rounded-lg py-2.5" style={{ background: "var(--bg)" }}>
+      <div className="flex justify-center mb-1" style={{ color: "var(--text-secondary)" }}>{icon}</div>
       <div className="text-[11px]" style={{ color: "var(--text-secondary)" }}>{label}</div>
     </div>
   );

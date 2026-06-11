@@ -18,8 +18,26 @@ import {
   totalMinutes,
   today,
 } from "@/lib/studyPlan";
-
 import { GAME_KEY } from "@/lib/gameStore";
+import { computeReadiness } from "@/lib/readiness";
+import {
+  AnimatedNumber,
+  ProgressBar,
+  ReadinessGauge,
+  Sparkline,
+  ActivityCalendar,
+  LevelUpOverlay,
+} from "@/components/ui";
+import {
+  FlameIcon,
+  BoltIcon,
+  ClockIcon,
+  TargetIcon,
+  CalendarCheckIcon,
+  TrendUpIcon,
+  BadgeGlyph,
+  CheckIcon,
+} from "@/components/icons";
 
 const STORAGE_KEY = GAME_KEY;
 
@@ -27,6 +45,7 @@ export default function DashboardClient() {
   const [state, setState] = useState<GameState>(EMPTY_STATE);
   const [loaded, setLoaded] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
+  const [levelUp, setLevelUp] = useState<{ level: number; rank: string } | null>(null);
 
   // Hydrate from localStorage on mount.
   useEffect(() => {
@@ -53,113 +72,209 @@ export default function DashboardClient() {
   const dailyGoalMin = progress ? Math.max(15, Math.round(progress.dailyTargetHours * 60)) : 30;
   const challenges = useMemo(() => dailyChallenges(state, dailyGoalMin), [state, dailyGoalMin]);
 
+  const readiness = useMemo(
+    () => (loaded && activePlan ? computeReadiness(activePlan.examSlug, state) : null),
+    [loaded, activePlan, state]
+  );
+
+  // Last 30 days of study minutes for the sparkline.
+  const sparkData = useMemo(() => heatmap(state, 30).map((d) => d.minutes), [state]);
+  const calendarData = useMemo(() => heatmap(state, 126), [state]);
+
   function handleLog(minutes: number) {
     const goalMet = progress ? progress.todayHours * 60 + minutes >= dailyGoalMin : false;
     const result = logSession(state, activePlan?.examSlug ?? "general", minutes, { dailyGoalMet: goalMet });
     setState(result.state);
-    let msg = `+${result.xpEarned} XP · ${minutes} min logged`;
-    if (result.leveledUp) msg = `Level up! You're now level ${levelProgress(result.state.xp).level} 🎉`;
-    else if (result.newBadges.length) msg = `Badge unlocked: ${result.newBadges[0].name} ${result.newBadges[0].icon}`;
-    showToast(msg);
+    if (result.leveledUp) {
+      const newLevel = levelProgress(result.state.xp).level;
+      setLevelUp({ level: newLevel, rank: rankTitle(newLevel) });
+    } else if (result.newBadges.length) {
+      showToast(`Badge unlocked: ${result.newBadges[0].name}`);
+    } else {
+      showToast(`+${result.xpEarned} XP · ${minutes} min logged`);
+    }
   }
 
   function createPlan(plan: StudyPlan) {
     setState((s) => ({ ...s, plans: [plan, ...s.plans.filter((p) => p.examSlug !== plan.examSlug)] }));
-    showToast("Your track is set. Let's get to work. 💼");
+    showToast("Your track is set. Let's get to work.");
   }
 
-  if (!loaded) return <div className="p-10" style={{ color: "var(--text-muted)" }}>Loading…</div>;
+  if (!loaded) {
+    return (
+      <div className="px-8 py-8 max-w-5xl mx-auto">
+        <div className="skeleton" style={{ height: 36, width: 280, marginBottom: 18 }} />
+        <div className="skeleton" style={{ height: 90, marginBottom: 18 }} />
+        <div className="skeleton" style={{ height: 260 }} />
+      </div>
+    );
+  }
 
   return (
     <div className="px-8 py-8 max-w-5xl mx-auto">
       {/* Top stats bar */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-6 rise-in">
         <div>
-          <h1 className="text-2xl font-medium" style={{ color: "var(--text-primary)" }}>
+          <h1 className="font-display text-3xl" style={{ color: "var(--text-primary)" }}>
             {greeting()}
           </h1>
-          <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
-            {rankTitle(lp.level)} · Level {lp.level}
+          <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>
+            <span style={{ color: "var(--gold)", fontWeight: 600 }}>{rankTitle(lp.level)}</span> · Level {lp.level}
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <StatChip icon="🔥" label="Streak" value={`${state.currentStreak}`} sub="days" color="#E2691A" />
-          <StatChip icon="⚡" label="XP" value={`${state.xp}`} sub="total" color="#534AB7" />
-          <StatChip icon="⏱️" label="Studied" value={`${Math.round(totalMinutes(state) / 60)}`} sub="hrs" color="#1D9E75" />
+          <StatChip
+            icon={<FlameIcon size={17} />}
+            label="Streak"
+            value={state.currentStreak}
+            sub="days"
+            color="#E2691A"
+            risk={state.currentStreak > 0 && !todayStudied(state)}
+          />
+          <StatChip icon={<BoltIcon size={17} />} label="XP" value={state.xp} sub="total" color="var(--primary)" />
+          <StatChip
+            icon={<ClockIcon size={17} />}
+            label="Studied"
+            value={Math.round(totalMinutes(state) / 60)}
+            sub="hrs"
+            color="var(--ats-green)"
+          />
         </div>
       </div>
 
       {/* Level progress bar */}
-      <div className="card p-4 mb-6">
+      <div className="card p-4 mb-6 rise-in" style={{ animationDelay: "0.05s" }}>
         <div className="flex items-center justify-between mb-2">
           <span className="text-xs font-medium" style={{ color: "var(--text-secondary)" }}>
             Level {lp.level} · {rankTitle(lp.level)}
           </span>
-          <span className="text-xs" style={{ color: "var(--text-muted)" }}>
-            {lp.xpIntoLevel} / {lp.xpForNext} XP to level {lp.level + 1}
+          <span className="text-xs font-mono" style={{ color: "var(--text-muted)" }}>
+            {lp.xpIntoLevel} / {lp.xpForNext} XP → L{lp.level + 1}
           </span>
         </div>
-        <Bar pct={lp.pct} color="#534AB7" />
+        <ProgressBar pct={lp.pct} color="linear-gradient(90deg, var(--primary), var(--gold-bright))" />
       </div>
 
       {!activePlan ? (
         <PlanSetup onCreate={createPlan} />
       ) : (
-        <PlanDashboard
-          plan={activePlan}
-          progress={progress!}
-          onLog={handleLog}
-          onReset={() => setState((s) => ({ ...s, plans: s.plans.slice(1) }))}
-        />
+        <div className="grid grid-cols-5 gap-4 mb-6 rise-in" style={{ animationDelay: "0.1s" }}>
+          {/* Plan + quick log */}
+          <div className="col-span-3">
+            <PlanDashboard
+              plan={activePlan}
+              progress={progress!}
+              onLog={handleLog}
+              onReset={() => setState((s) => ({ ...s, plans: s.plans.slice(1) }))}
+            />
+          </div>
+
+          {/* Readiness rating */}
+          <div className="col-span-2 card p-5 flex flex-col">
+            <div className="flex items-center gap-2 mb-1">
+              <span style={{ color: "var(--text-muted)" }}><TrendUpIcon size={14} /></span>
+              <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>
+                Readiness rating
+              </span>
+            </div>
+            {readiness && (
+              <>
+                <ReadinessGauge score={readiness.score} size={185} />
+                <div className="mt-4 space-y-2.5">
+                  {readiness.components.map((c) => (
+                    <div key={c.id}>
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-[11px]" style={{ color: "var(--text-secondary)" }}>{c.label}</span>
+                        <span className="text-[11px] font-mono" title={c.detail} style={{ color: "var(--text-muted)" }}>
+                          {c.pct}%
+                        </span>
+                      </div>
+                      <ProgressBar pct={c.pct} height={4} sheen={false} color={c.pct >= 70 ? "var(--ats-green)" : c.pct >= 40 ? "var(--ats-amber)" : "var(--primary)"} />
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* 30-day momentum */}
+      {state.sessions.length > 0 && (
+        <div className="card p-4 mb-6 flex items-center justify-between rise-in" style={{ animationDelay: "0.15s" }}>
+          <div>
+            <div className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: "var(--text-muted)" }}>
+              30-day momentum
+            </div>
+            <div className="text-sm" style={{ color: "var(--text-secondary)" }}>
+              <strong style={{ color: "var(--text-primary)" }}>
+                <AnimatedNumber value={sparkData.reduce((a, b) => a + b, 0)} />
+              </strong>{" "}
+              minutes in the last 30 days
+            </div>
+          </div>
+          <Sparkline data={sparkData} width={300} height={54} />
+        </div>
       )}
 
       {/* Daily challenges */}
-      <h2 className="text-sm font-medium mt-8 mb-3" style={{ color: "var(--text-primary)" }}>
+      <h2 className="text-sm font-semibold mt-8 mb-3 flex items-center gap-2" style={{ color: "var(--text-primary)" }}>
+        <span style={{ color: "var(--primary)" }}><TargetIcon size={15} /></span>
         Today&apos;s challenges
       </h2>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-3 stagger">
         {challenges.map((c) => (
-          <div key={c.id} className="card p-4">
+          <div key={c.id} className="card-i p-4">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm" style={{ color: "var(--text-primary)", textDecoration: c.done ? "line-through" : "none" }}>
+              <span
+                className="text-sm flex items-center gap-1.5"
+                style={{ color: c.done ? "var(--text-muted)" : "var(--text-primary)", textDecoration: c.done ? "line-through" : "none" }}
+              >
+                {c.done && <span style={{ color: "var(--ats-green)" }}><CheckIcon size={13} /></span>}
                 {c.title}
               </span>
-              <span className="text-xs font-medium" style={{ color: c.done ? "#1D9E75" : "#534AB7" }}>
-                {c.done ? "✓ +" + c.xpReward : "+" + c.xpReward + " XP"}
+              <span className="text-xs font-semibold font-mono" style={{ color: c.done ? "var(--ats-green)" : "var(--primary)" }}>
+                +{c.xpReward} XP
               </span>
             </div>
-            <Bar pct={Math.round((c.progress / c.goal) * 100)} color={c.done ? "#1D9E75" : "#534AB7"} />
-            <p className="text-[11px] mt-1.5" style={{ color: "var(--text-muted)" }}>
+            <ProgressBar pct={Math.round((c.progress / c.goal) * 100)} height={6} sheen={!c.done} color={c.done ? "var(--ats-green)" : "var(--primary)"} />
+            <p className="text-[11px] mt-1.5 font-mono" style={{ color: "var(--text-muted)" }}>
               {c.progress} / {c.goal} {c.unit}
             </p>
           </div>
         ))}
       </div>
 
-      {/* Activity heatmap */}
-      <h2 className="text-sm font-medium mt-8 mb-3" style={{ color: "var(--text-primary)" }}>
-        Your activity log
+      {/* Activity calendar */}
+      <h2 className="text-sm font-semibold mt-8 mb-3 flex items-center gap-2" style={{ color: "var(--text-primary)" }}>
+        <span style={{ color: "var(--primary)" }}><CalendarCheckIcon size={15} /></span>
+        Activity ledger
       </h2>
       <div className="card p-4 mb-6">
-        <Heatmap state={state} />
+        <ActivityCalendar data={calendarData} />
       </div>
 
       {/* Badges */}
-      <h2 className="text-sm font-medium mb-3" style={{ color: "var(--text-primary)" }}>
-        Badges · {state.unlockedBadges.length}/{BADGES.length}
+      <h2 className="text-sm font-semibold mb-3" style={{ color: "var(--text-primary)" }}>
+        Honors · {state.unlockedBadges.length}/{BADGES.length}
       </h2>
-      <div className="grid grid-cols-5 gap-3 mb-10">
+      <div className="grid grid-cols-5 gap-3 mb-10 stagger">
         {BADGES.map((b) => {
           const unlocked = state.unlockedBadges.includes(b.id);
           return (
-            <div
-              key={b.id}
-              className="card p-3 text-center"
-              style={{ opacity: unlocked ? 1 : 0.4 }}
-              title={b.desc}
-            >
-              <div className="text-2xl mb-1" style={{ filter: unlocked ? "none" : "grayscale(1)" }}>
-                {b.icon}
+            <div key={b.id} className={unlocked ? "card-i p-3 text-center" : "card p-3 text-center"} style={{ opacity: unlocked ? 1 : 0.45 }} title={b.desc}>
+              <div
+                className="mx-auto mb-2 flex items-center justify-center rounded-full"
+                style={{
+                  width: 40,
+                  height: 40,
+                  background: unlocked ? "var(--gold-bg)" : "var(--bg)",
+                  border: unlocked ? "1px solid var(--gold-border)" : "1px solid var(--border)",
+                  color: unlocked ? "var(--gold)" : "var(--text-muted)",
+                  boxShadow: unlocked ? "var(--glow-gold)" : "none",
+                }}
+              >
+                <BadgeGlyph id={b.id} size={20} />
               </div>
               <p className="text-[11px] font-medium" style={{ color: "var(--text-primary)" }}>{b.name}</p>
               <p className="text-[10px]" style={{ color: "var(--text-muted)" }}>{b.desc}</p>
@@ -172,13 +287,21 @@ export default function DashboardClient() {
       {toast && (
         <div
           className="fixed bottom-6 left-1/2 -translate-x-1/2 px-5 py-3 rounded-xl text-sm font-medium animate-in z-50"
-          style={{ background: "var(--primary)", color: "#fff", boxShadow: "0 8px 30px rgba(0,0,0,0.25)" }}
+          style={{ background: "var(--primary)", color: "#fff", boxShadow: "var(--shadow-lg)" }}
         >
           {toast}
         </div>
       )}
+
+      {/* Level-up */}
+      {levelUp && <LevelUpOverlay level={levelUp.level} rank={levelUp.rank} onDone={() => setLevelUp(null)} />}
     </div>
   );
+}
+
+function todayStudied(state: GameState): boolean {
+  const t = today();
+  return state.sessions.some((s) => s.date === t);
 }
 
 // ---- Plan setup ----------------------------------------------------------
@@ -190,10 +313,10 @@ function PlanSetup({ onCreate }: { onCreate: (p: StudyPlan) => void }) {
   const level = exam.levels.find((l) => l.id === levelId) ?? exam.levels[0];
 
   return (
-    <div className="card p-6">
+    <div className="card p-6 rise-in">
       <div className="flex items-center gap-2 mb-1">
-        <span className="text-xl">🗓️</span>
-        <h2 className="text-lg font-medium" style={{ color: "var(--text-primary)" }}>
+        <span style={{ color: "var(--primary)" }}><CalendarCheckIcon size={20} /></span>
+        <h2 className="font-display text-xl" style={{ color: "var(--text-primary)" }}>
           Set your track
         </h2>
       </div>
@@ -275,7 +398,7 @@ function PlanDashboard({
   const pace = paceLabel(progress.pace);
 
   return (
-    <div className="card p-6">
+    <div className="card p-6 h-full">
       <div className="flex items-start justify-between mb-5">
         <div>
           <div className="flex items-center gap-2">
@@ -286,11 +409,11 @@ function PlanDashboard({
               <h2 className="text-base font-medium" style={{ color: "var(--text-primary)" }}>
                 {plan.examName} · {plan.levelName}
               </h2>
-              <p className="text-xs" style={{ color: pace.color }}>{pace.label}</p>
+              <p className="text-xs font-medium" style={{ color: pace.color }}>{pace.label}</p>
             </div>
           </div>
         </div>
-        <button onClick={onReset} className="text-xs" style={{ color: "var(--text-muted)" }}>
+        <button onClick={onReset} className="text-xs hover:underline" style={{ color: "var(--text-muted)" }}>
           Change plan
         </button>
       </div>
@@ -298,10 +421,10 @@ function PlanDashboard({
       <div className="grid grid-cols-3 gap-5 items-center">
         <Ring pct={progress.percentComplete} accent={plan.accent} />
         <div className="col-span-2 grid grid-cols-2 gap-4">
-          <Metric label="Days to exam" value={`${progress.daysRemaining}`} />
-          <Metric label="Today's goal" value={`${Math.round(progress.dailyTargetHours * 60)} min`} accent={progress.todayMet ? "#1D9E75" : undefined} />
-          <Metric label="Hours logged" value={`${progress.hoursLogged}`} />
-          <Metric label="Hours to go" value={`${progress.hoursRemaining}`} />
+          <Metric label="Days to exam" value={progress.daysRemaining} />
+          <Metric label="Today's goal" value={Math.round(progress.dailyTargetHours * 60)} suffix=" min" accent={progress.todayMet ? "var(--ats-green)" : undefined} />
+          <Metric label="Hours logged" value={progress.hoursLogged} />
+          <Metric label="Hours to go" value={progress.hoursRemaining} />
         </div>
       </div>
 
@@ -331,8 +454,8 @@ function PlanDashboard({
           </div>
         </div>
         {progress.todayMet && (
-          <p className="text-xs mt-3" style={{ color: "#1D9E75" }}>
-            ✓ You hit today&apos;s goal — momentum secured. Keep the streak alive.
+          <p className="text-xs mt-3 flex items-center gap-1.5" style={{ color: "var(--ats-green)" }}>
+            <CheckIcon size={12} /> You hit today&apos;s goal — momentum secured. Keep the streak alive.
           </p>
         )}
       </div>
@@ -341,12 +464,28 @@ function PlanDashboard({
 }
 
 // ---- Small UI bits -------------------------------------------------------
-function StatChip({ icon, label, value, sub, color }: { icon: string; label: string; value: string; sub: string; color: string }) {
+function StatChip({
+  icon,
+  label,
+  value,
+  sub,
+  color,
+  risk,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: number;
+  sub: string;
+  color: string;
+  risk?: boolean;
+}) {
   return (
-    <div className="card px-4 py-2.5 flex items-center gap-2.5">
-      <span className="text-lg">{icon}</span>
+    <div className={`card px-4 py-2.5 flex items-center gap-2.5 ${risk ? "pulse-risk" : ""}`} title={risk ? "Study today to keep your streak" : undefined}>
+      <span style={{ color }}>{icon}</span>
       <div>
-        <div className="text-base font-semibold leading-none" style={{ color }}>{value}</div>
+        <div className="text-base font-semibold leading-none font-mono" style={{ color }}>
+          <AnimatedNumber value={value} />
+        </div>
         <div className="text-[10px] mt-0.5" style={{ color: "var(--text-muted)" }}>{label} · {sub}</div>
       </div>
     </div>
@@ -362,19 +501,13 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
   );
 }
 
-function Metric({ label, value, accent }: { label: string; value: string; accent?: string }) {
+function Metric({ label, value, suffix = "", accent }: { label: string; value: number; suffix?: string; accent?: string }) {
   return (
     <div>
-      <div className="text-xl font-semibold" style={{ color: accent ?? "var(--text-primary)" }}>{value}</div>
+      <div className="text-xl font-semibold font-mono" style={{ color: accent ?? "var(--text-primary)" }}>
+        <AnimatedNumber value={value} />{suffix}
+      </div>
       <div className="text-[11px]" style={{ color: "var(--text-muted)" }}>{label}</div>
-    </div>
-  );
-}
-
-function Bar({ pct, color }: { pct: number; color: string }) {
-  return (
-    <div style={{ height: 8, borderRadius: 100, background: "var(--bg)", overflow: "hidden" }}>
-      <div style={{ width: `${Math.min(100, Math.max(0, pct))}%`, height: "100%", background: color, borderRadius: 100, transition: "width 0.4s ease" }} />
     </div>
   );
 }
@@ -382,7 +515,12 @@ function Bar({ pct, color }: { pct: number; color: string }) {
 function Ring({ pct, accent }: { pct: number; accent: string }) {
   const r = 46;
   const c = 2 * Math.PI * r;
-  const off = c - (Math.min(100, pct) / 100) * c;
+  const [shown, setShown] = useState(0);
+  useEffect(() => {
+    const t = setTimeout(() => setShown(pct), 80);
+    return () => clearTimeout(t);
+  }, [pct]);
+  const off = c - (Math.min(100, shown) / 100) * c;
   return (
     <div className="flex flex-col items-center">
       <svg width="120" height="120" viewBox="0 0 120 120">
@@ -390,33 +528,11 @@ function Ring({ pct, accent }: { pct: number; accent: string }) {
         <circle
           cx="60" cy="60" r={r} fill="none" stroke={accent} strokeWidth="10" strokeLinecap="round"
           strokeDasharray={c} strokeDashoffset={off} transform="rotate(-90 60 60)"
-          style={{ transition: "stroke-dashoffset 0.5s ease" }}
+          style={{ transition: "stroke-dashoffset 1s cubic-bezier(0.22,1,0.36,1)" }}
         />
         <text x="60" y="58" textAnchor="middle" fontSize="22" fontWeight="600" fill="var(--text-primary)">{pct}%</text>
         <text x="60" y="76" textAnchor="middle" fontSize="10" fill="var(--text-muted)">to exam day</text>
       </svg>
-    </div>
-  );
-}
-
-function Heatmap({ state }: { state: GameState }) {
-  const data = heatmap(state, 70);
-  function shade(min: number) {
-    if (min === 0) return "var(--bg)";
-    if (min < 20) return "#cdc9ef";
-    if (min < 45) return "#9a92dd";
-    if (min < 90) return "#6d62c7";
-    return "#534AB7";
-  }
-  return (
-    <div className="flex flex-wrap gap-1">
-      {data.map((d) => (
-        <div
-          key={d.date}
-          title={`${d.date}: ${d.minutes} min`}
-          style={{ width: 14, height: 14, borderRadius: 3, background: shade(d.minutes), border: "0.5px solid var(--border)" }}
-        />
-      ))}
     </div>
   );
 }

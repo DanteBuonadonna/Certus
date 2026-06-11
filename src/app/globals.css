@@ -1,3 +1,6 @@
+/* Fonts: Fraunces (display serif — financial-press authority) + Inter (UI sans). */
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Inter:wght@400;500;600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -21,6 +24,24 @@
   --ats-amber-bg: #fef5e7;
   --ats-red-bg: #fdf0f0;
   --sidebar-width: 232px;
+
+  /* Achievement gold — reserved for mastery, ranks, trophies. */
+  --gold: #a8842c;
+  --gold-bright: #c9a227;
+  --gold-bg: #faf4e3;
+  --gold-border: rgba(168, 132, 44, 0.35);
+
+  /* Elevation */
+  --shadow-sm: 0 1px 2px rgba(15, 15, 20, 0.05);
+  --shadow-md: 0 4px 16px rgba(15, 15, 20, 0.08);
+  --shadow-lg: 0 12px 40px rgba(15, 15, 20, 0.14);
+  --glow-primary: 0 0 0 3px rgba(83, 74, 183, 0.15);
+  --glow-gold: 0 0 18px rgba(201, 162, 39, 0.35);
+
+  /* Type */
+  --serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -37,6 +58,17 @@
     --ats-green-bg: #0d2a20;
     --ats-amber-bg: #2a1e0a;
     --ats-red-bg: #2a0e0e;
+
+    --gold: #d4af5e;
+    --gold-bright: #e3c478;
+    --gold-bg: #251e0d;
+    --gold-border: rgba(212, 175, 94, 0.35);
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.6);
+    --glow-primary: 0 0 0 3px rgba(83, 74, 183, 0.3);
+    --glow-gold: 0 0 18px rgba(212, 175, 94, 0.25);
   }
 }
 
@@ -47,15 +79,41 @@
 body {
   background: var(--bg);
   color: var(--text-primary);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--sans);
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Display serif for headings that should feel like the financial press. */
+.font-display {
+  font-family: var(--serif);
+  font-weight: 560;
+  letter-spacing: -0.015em;
+  font-variation-settings: "opsz" 40;
+}
+
+.font-mono {
+  font-family: var(--mono);
 }
 
 .card {
   background: var(--bg-card);
   border: 0.5px solid var(--border);
   border-radius: 12px;
+}
+
+/* Interactive card: lifts on hover. */
+.card-i {
+  background: var(--bg-card);
+  border: 0.5px solid var(--border);
+  border-radius: 12px;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.card-i:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-strong);
 }
 
 .btn-primary {
@@ -67,11 +125,16 @@ body {
   font-size: 0.9rem;
   border: none;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background 0.15s, transform 0.12s ease, box-shadow 0.15s;
 }
 
 .btn-primary:hover:not(:disabled) {
   background: var(--primary-hover);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: scale(0.985);
 }
 
 .btn-primary:disabled {
@@ -88,11 +151,15 @@ body {
   font-weight: 500;
   font-size: 0.9rem;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background 0.15s, transform 0.12s ease;
 }
 
 .btn-secondary:hover {
   background: var(--bg);
+}
+
+.btn-secondary:active {
+  transform: scale(0.985);
 }
 
 .input-field {
@@ -104,12 +171,13 @@ body {
   color: var(--text-primary);
   width: 100%;
   outline: none;
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, box-shadow 0.15s;
   font-family: inherit;
 }
 
 .input-field:focus {
   border-color: var(--primary);
+  box-shadow: var(--glow-primary);
 }
 
 .input-field::placeholder {
@@ -147,20 +215,209 @@ body {
   font-weight: 500;
 }
 
-/* Animations */
+/* Gold pill — achievements only. */
+.pill-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--gold-bg);
+  color: var(--gold);
+  border: 0.5px solid var(--gold-border);
+  border-radius: 100px;
+  padding: 3px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+/* ============================================================
+   Animation library
+   ============================================================ */
+
 @keyframes fadeSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .animate-in {
   animation: fadeSlideIn 0.3s ease-out both;
+}
+
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.rise-in {
+  animation: riseIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Staggered entrance for lists/grids: apply .stagger to the parent. */
+.stagger > * {
+  animation: riseIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.stagger > *:nth-child(1) { animation-delay: 0.03s; }
+.stagger > *:nth-child(2) { animation-delay: 0.08s; }
+.stagger > *:nth-child(3) { animation-delay: 0.13s; }
+.stagger > *:nth-child(4) { animation-delay: 0.18s; }
+.stagger > *:nth-child(5) { animation-delay: 0.23s; }
+.stagger > *:nth-child(6) { animation-delay: 0.28s; }
+.stagger > *:nth-child(7) { animation-delay: 0.33s; }
+.stagger > *:nth-child(8) { animation-delay: 0.38s; }
+.stagger > *:nth-child(9) { animation-delay: 0.43s; }
+.stagger > *:nth-child(10) { animation-delay: 0.48s; }
+.stagger > *:nth-child(n + 11) { animation-delay: 0.52s; }
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.scale-in {
+  animation: scaleIn 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Progress bars with a moving sheen. */
+.progress-track {
+  height: 8px;
+  border-radius: 100px;
+  background: var(--bg);
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 100px;
+  position: relative;
+  overflow: hidden;
+  transition: width 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.progress-fill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 70%
+  );
+  transform: translateX(-100%);
+  animation: sheen 2.6s ease-in-out infinite;
+}
+
+@keyframes sheen {
+  0%   { transform: translateX(-100%); }
+  55%  { transform: translateX(100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Skeleton loading shimmer. */
+.skeleton {
+  border-radius: 8px;
+  background: linear-gradient(
+    90deg,
+    var(--bg-card) 25%,
+    var(--primary-light) 50%,
+    var(--bg-card) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeletonWave 1.4s ease-in-out infinite;
+}
+
+@keyframes skeletonWave {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Subtle attention pulse (e.g. streak at risk). */
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(226, 75, 74, 0); }
+  50%      { box-shadow: 0 0 0 5px rgba(226, 75, 74, 0.12); }
+}
+
+.pulse-risk {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+/* Gold particle burst (level-up). Each particle gets --dx/--dy/--delay inline. */
+@keyframes particleFly {
+  0%   { opacity: 1; transform: translate(0, 0) scale(1); }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.3); }
+}
+
+.particle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold-bright);
+  pointer-events: none;
+  animation: particleFly 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--delay, 0s);
+}
+
+@keyframes stampIn {
+  0%   { opacity: 0; transform: scale(1.6) rotate(-14deg); }
+  60%  { opacity: 1; transform: scale(0.94) rotate(-8deg); }
+  100% { opacity: 1; transform: scale(1) rotate(-8deg); }
+}
+
+.stamp-in {
+  animation: stampIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* Number flash when a stat ticks up. */
+@keyframes statFlash {
+  0%   { color: var(--gold-bright); }
+  100% { color: inherit; }
+}
+
+/* Reading progress bar pinned to the top of the viewport. */
+.read-progress {
+  position: fixed;
+  top: 0;
+  left: var(--sidebar-width);
+  right: 0;
+  height: 3px;
+  z-index: 40;
+  background: transparent;
+}
+
+.read-progress > div {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--gold-bright));
+  transition: width 0.1s linear;
+}
+
+/* Serif reading body — premium e-reader feel. */
+.prose-read {
+  font-family: var(--serif);
+  font-size: 1.06rem;
+  line-height: 1.75;
+  font-variation-settings: "opsz" 18;
+  letter-spacing: 0.002em;
+}
+
+.prose-read p {
+  margin-bottom: 1rem;
+}
+
+/* Respect reduced-motion preferences. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-in, .rise-in, .scale-in, .stagger > *, .stamp-in {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+  }
+  .progress-fill::after, .skeleton, .pulse-risk {
+    animation: none !important;
+  }
+  .progress-fill {
+    transition: none;
+  }
 }
 
 /* Spinner */

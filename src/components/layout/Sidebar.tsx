@@ -95,6 +95,7 @@ export default function Sidebar({ email }: SidebarProps) {
           background: isActive ? "var(--primary-light)" : "transparent",
           color: isActive ? "var(--primary)" : muted ? "var(--text-muted)" : "var(--text-secondary)",
           fontWeight: isActive ? 500 : 400,
+          boxShadow: isActive ? "inset 2.5px 0 0 var(--primary)" : "none",
         }}
       >
         <span style={{ opacity: isActive ? 1 : muted ? 0.6 : 0.7 }}>{item.icon}</span>
@@ -112,7 +113,7 @@ export default function Sidebar({ email }: SidebarProps) {
       <div className="px-5 py-5">
         <div className="flex items-center gap-2">
           <LogoMark />
-          <span className="font-medium text-base" style={{ color: "var(--text-primary)" }}>{BRAND.name}</span>
+          <span className="font-display text-lg" style={{ color: "var(--text-primary)" }}>{BRAND.name}</span>
         </div>
       </div>
 
@@ -141,8 +142,8 @@ export default function Sidebar({ email }: SidebarProps) {
       {/* Bottom: plan + user */}
       <div className="px-3 pb-5 space-y-2">
         {pro ? (
-          <div className="rounded-lg px-3 py-2.5 flex items-center justify-between" style={{ background: "var(--ats-green-bg)", border: "0.5px solid rgba(29,158,117,0.25)" }}>
-            <span className="text-xs font-semibold" style={{ color: "var(--ats-green)" }}>★ Pro — full access</span>
+          <div className="rounded-lg px-3 py-2.5 flex items-center justify-between" style={{ background: "var(--gold-bg)", border: "1px solid var(--gold-border)" }}>
+            <span className="text-xs font-semibold" style={{ color: "var(--gold)" }}>Pro — full access</span>
           </div>
         ) : (
           <div className="rounded-lg px-3 py-3" style={{ background: "var(--primary-light)", border: "0.5px solid rgba(83,74,183,0.2)" }}>
