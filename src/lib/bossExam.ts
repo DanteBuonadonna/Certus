@@ -16,46 +16,48 @@ export interface Boss {
   defeatTaunt: string;
 }
 
+// Each boss is reframed as "Exam Day" — a high-stakes proctored final
+// or review board you must earn your way into.
 const BOSSES: Record<string, Boss> = {
   cfa: {
-    name: "The Charterstone Colossus",
-    emoji: "🗿",
-    intro: "Ten disciplines, one gatekeeper. Show me you've earned the charter.",
-    defeatTaunt: "The summit isn't ready for you yet. Train, and return.",
+    name: "CFA Exam Day · The Charter Board",
+    emoji: "🏛️",
+    intro: "Ten disciplines, one proctored test. Sit the board and prove you've earned the charter.",
+    defeatTaunt: "Not ready for the charter yet. Sharpen your weak areas and book the retake.",
   },
   "series-7": {
-    name: "The Compliance Kraken",
-    emoji: "🦑",
-    intro: "Misquote one rule and I'll drag you under. Prove you're fit to represent.",
-    defeatTaunt: "Suitability matters. Go drill your weak spots and face me again.",
+    name: "Series 7 Exam Day · The Compliance Desk",
+    emoji: "🗄️",
+    intro: "One rule misquoted and the desk fails you. Prove you're fit to represent clients.",
+    defeatTaunt: "Suitability is everything. Drill your gaps and sit the exam again.",
   },
   "series-66": {
-    name: "The Fiduciary Warden",
+    name: "Series 66 Exam Day · The Regulator",
     emoji: "⚖️",
-    intro: "Advisers answer to a higher duty. Show me you'd put the client first.",
-    defeatTaunt: "A fiduciary knows the rules cold. Study, and stand before me again.",
+    intro: "Advisers answer to a higher duty. Show the regulator you'd put the client first.",
+    defeatTaunt: "A fiduciary knows the rules cold. Study, and face the board again.",
   },
   cfp: {
-    name: "The Grand Planner",
-    emoji: "🧭",
-    intro: "Insurance, tax, retirement, estate — a whole financial life. Plan it without a misstep.",
-    defeatTaunt: "A real plan leaves no gap. Patch your weak areas and return.",
+    name: "CFP Exam Day · The Planning Panel",
+    emoji: "📋",
+    intro: "Insurance, tax, retirement, estate — a whole financial life. Present a plan with no gaps.",
+    defeatTaunt: "A real plan leaves nothing exposed. Patch your weak areas and re-present.",
   },
   cpa: {
-    name: "The Ledger Lord",
-    emoji: "📒",
-    intro: "Debits, credits, audits, and tax. Balance the books or be balanced yourself.",
-    defeatTaunt: "The numbers don't lie. Reconcile your weak spots and face me again.",
+    name: "CPA Exam Day · The Audit Board",
+    emoji: "📊",
+    intro: "Reporting, audit, tax, and controls. Balance the books or be balanced yourself.",
+    defeatTaunt: "The numbers don't lie. Reconcile your weak spots and re-sit.",
   },
 };
 
 export function getBoss(examSlug: string): Boss {
   return (
     BOSSES[examSlug] ?? {
-      name: "The Final Examiner",
-      emoji: "👹",
-      intro: "Everything you've learned, all at once. Begin.",
-      defeatTaunt: "Not yet. Review and come back stronger.",
+      name: "Exam Day · The Board",
+      emoji: "🏛️",
+      intro: "Everything you've studied, all at once. Sit the exam.",
+      defeatTaunt: "Not yet. Review and book the retake.",
     }
   );
 }

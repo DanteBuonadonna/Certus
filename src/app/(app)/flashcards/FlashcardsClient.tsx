@@ -16,9 +16,12 @@ import {
   masteredCount,
 } from "@/lib/flashcards";
 import { recordStudy } from "@/lib/gameStore";
+import { useAccess } from "@/lib/useAccess";
+import { UpgradeCard } from "@/components/UpgradeGate";
 
 export default function FlashcardsClient() {
   const available = examsWithDecks();
+  const access = useAccess();
   const [exam, setExam] = useState(available[0] ?? "cfa");
   const [topic, setTopic] = useState<string>("all");
   const [store, setStore] = useState<FlashStore>({});
@@ -69,12 +72,16 @@ export default function FlashcardsClient() {
                 color: active ? "#fff" : has ? "var(--text-secondary)" : "var(--text-muted)",
                 border: "0.5px solid var(--border)", opacity: has ? 1 : 0.5, cursor: has ? "pointer" : "not-allowed",
               }}>
-              {e.name}{!has && " · soon"}
+              {e.name}{!has ? " · soon" : access.ready && !access.canExam(e.slug) ? " 🔒" : ""}
             </button>
           );
         })}
       </div>
 
+      {access.ready && !access.canExam(exam) ? (
+        <UpgradeCard title="This deck is Pro" reason="Free includes the full CFA flashcard decks. Upgrade to study every other exam." />
+      ) : (
+      <>
       <p className="text-xs font-medium mb-2" style={{ color: "var(--text-secondary)" }}>Deck</p>
       <div className="flex items-center gap-2 mb-6 flex-wrap">
         <Chip label={`All topics (${buildDeck(exam).length})`} active={topic === "all"} onClick={() => setTopic("all")} />
@@ -92,6 +99,8 @@ export default function FlashcardsClient() {
       <button className="btn-primary w-full" disabled={deck.length === 0} onClick={() => setStudying(true)}>
         {due > 0 ? `Review ${due} due card${due !== 1 ? "s" : ""} →` : "Study all cards →"}
       </button>
+      </>
+      )}
     </div>
   );
 }

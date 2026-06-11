@@ -5,6 +5,8 @@ import Link from "next/link";
 import { EXAMS, getExam } from "@/lib/exams";
 import { examsWithContent, getChapters, getQuestions } from "@/content";
 import { buildDeck, loadStore, masteredCount, FlashStore } from "@/lib/flashcards";
+import { useAccess } from "@/lib/useAccess";
+import { UpgradeCard } from "@/components/UpgradeGate";
 
 interface Node {
   topicId: string;
@@ -17,6 +19,7 @@ interface Node {
 
 export default function SkillTreeClient() {
   const available = examsWithContent();
+  const access = useAccess();
   const [exam, setExam] = useState(available[0] ?? "cfa");
   const [store, setStore] = useState<FlashStore>({});
   const [loaded, setLoaded] = useState(false);
@@ -61,12 +64,16 @@ export default function SkillTreeClient() {
                 color: active ? "#fff" : has ? "var(--text-secondary)" : "var(--text-muted)",
                 border: "0.5px solid var(--border)", opacity: has ? 1 : 0.5, cursor: has ? "pointer" : "not-allowed",
               }}>
-              {e.name}{!has && " · soon"}
+              {e.name}{!has ? " · soon" : access.ready && !access.canExam(e.slug) ? " 🔒" : ""}
             </button>
           );
         })}
       </div>
 
+      {access.ready && !access.canExam(exam) ? (
+        <UpgradeCard title="This route is Pro" reason="Free includes the full CFA skill tree. Upgrade to unlock every other exam's route." />
+      ) : (
+      <>
       {/* Summit banner */}
       <div className="card p-4 mb-6 flex items-center justify-between" style={{ background: "var(--primary-light)", border: "0.5px solid rgba(83,74,183,0.2)" }}>
         <div className="flex items-center gap-2">
@@ -124,6 +131,8 @@ export default function SkillTreeClient() {
           </div>
         </div>
       </div>
+      </>
+      )}
     </div>
   );
 }

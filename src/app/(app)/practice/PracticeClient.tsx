@@ -7,12 +7,15 @@ import { EXAMS, getExam } from "@/lib/exams";
 import { examsWithContent, getQuestions } from "@/content";
 import { Question } from "@/content/types";
 import { recordStudy } from "@/lib/gameStore";
+import { useAccess } from "@/lib/useAccess";
+import { UpgradeCard } from "@/components/UpgradeGate";
 
 type Phase = "setup" | "quiz" | "results";
 
 export default function PracticeClient() {
   const params = useSearchParams();
   const available = examsWithContent();
+  const access = useAccess();
   const paramExam = params.get("exam");
   const initialExam = paramExam && available.includes(paramExam) ? paramExam : available[0] ?? "cfa";
 
@@ -81,29 +84,35 @@ export default function PracticeClient() {
                 cursor: has ? "pointer" : "not-allowed",
               }}
             >
-              {e.name}{!has && " · soon"}
+              {e.name}{!has ? " · soon" : access.ready && !access.canExam(e.slug) ? " 🔒" : ""}
             </button>
           );
         })}
       </div>
 
-      <p className="text-xs font-medium mb-2" style={{ color: "var(--text-secondary)" }}>Topic</p>
-      <div className="flex items-center gap-2 mb-6 flex-wrap">
-        <TopicChip label="All topics" active={topic === "all"} onClick={() => setTopic("all")} />
-        {topics.map(([id, name]) => (
-          <TopicChip key={id} label={name} active={topic === id} onClick={() => setTopic(id)} />
-        ))}
-      </div>
+      {access.ready && !access.canExam(exam) ? (
+        <UpgradeCard title="This exam is Pro" reason="Free includes the full CFA question bank. Upgrade to practice every other exam." />
+      ) : (
+        <>
+          <p className="text-xs font-medium mb-2" style={{ color: "var(--text-secondary)" }}>Topic</p>
+          <div className="flex items-center gap-2 mb-6 flex-wrap">
+            <TopicChip label="All topics" active={topic === "all"} onClick={() => setTopic("all")} />
+            {topics.map(([id, name]) => (
+              <TopicChip key={id} label={name} active={topic === id} onClick={() => setTopic(id)} />
+            ))}
+          </div>
 
-      <div className="card p-4 mb-5">
-        <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
-          {poolCount} question{poolCount !== 1 ? "s" : ""} · {examName} · {topic === "all" ? "all topics" : topics.find((t) => t[0] === topic)?.[1] ?? topic}
-        </span>
-      </div>
+          <div className="card p-4 mb-5">
+            <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
+              {poolCount} question{poolCount !== 1 ? "s" : ""} · {examName} · {topic === "all" ? "all topics" : topics.find((t) => t[0] === topic)?.[1] ?? topic}
+            </span>
+          </div>
 
-      <button className="btn-primary w-full" disabled={poolCount === 0} onClick={start}>
-        {poolCount === 0 ? "No questions yet for this topic" : "Start practice →"}
-      </button>
+          <button className="btn-primary w-full" disabled={poolCount === 0} onClick={start}>
+            {poolCount === 0 ? "No questions yet for this topic" : "Start practice →"}
+          </button>
+        </>
+      )}
     </div>
   );
 }

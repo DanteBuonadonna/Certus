@@ -16,11 +16,14 @@ import {
   BossTrophies,
 } from "@/lib/bossExam";
 import { recordStudy } from "@/lib/gameStore";
+import { useAccess } from "@/lib/useAccess";
+import { UpgradeCard } from "@/components/UpgradeGate";
 
 type Phase = "setup" | "battle" | "result";
 
 export default function BossClient() {
   const available = examsWithContent();
+  const access = useAccess();
   const [exam, setExam] = useState(available[0] ?? "cfa");
   const [phase, setPhase] = useState<Phase>("setup");
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -49,6 +52,19 @@ export default function BossClient() {
     if (passed) { recordVictory(exam, res.pct); }
     setResult(finalRes);
     setPhase("result");
+  }
+
+  // Boss battles are a Pro feature for everyone.
+  if (access.ready && !access.canBoss()) {
+    return (
+      <div className="px-8 py-8 max-w-2xl mx-auto">
+        <h1 className="text-2xl font-medium mb-1" style={{ color: "var(--text-primary)" }}>Boss battle</h1>
+        <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
+          Face a timed, comprehensive exam against the boss of each certification.
+        </p>
+        <UpgradeCard title="Boss battles are a Pro feature" reason="Defeat the boss of each exam to prove you're ready. Upgrade to take them on." />
+      </div>
+    );
   }
 
   if (phase === "battle") {

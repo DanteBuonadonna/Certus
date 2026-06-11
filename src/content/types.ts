@@ -5,12 +5,55 @@
 // scales cleanly across every exam.
 // ============================================================
 
+// A figure: an inline SVG diagram/graph with a caption. SVG should use
+// the app's CSS variables for colors so it themes correctly.
+export interface Figure {
+  caption: string;
+  svg: string; // raw <svg>…</svg> markup
+  alt?: string;
+}
+
+// A formula block rendered in a monospace/centered style.
+export interface FormulaBlock {
+  label?: string;
+  expr: string;
+  note?: string;
+}
+
+export interface TableBlock {
+  caption?: string;
+  headers: string[];
+  rows: string[][];
+}
+
+// A worked numerical example — the "show the math" teaching device.
+export interface WorkedExample {
+  title: string;
+  prompt: string;
+  steps: string[];
+  answer: string;
+}
+
+// Content blocks render IN ORDER within a section, so prose, figures,
+// formulas, tables, and examples can be interleaved naturally.
+export type Block =
+  | { kind: "p"; text: string }
+  | { kind: "bullets"; items: string[] }
+  | { kind: "callout"; label: string; body: string }
+  | { kind: "figure"; figure: Figure }
+  | { kind: "formula"; formula: FormulaBlock }
+  | { kind: "table"; table: TableBlock }
+  | { kind: "example"; example: WorkedExample };
+
 export interface ChapterSection {
   heading: string;
-  paragraphs: string[];
+  // Legacy fields (still supported for older chapters):
+  paragraphs?: string[];
   bullets?: string[];
-  // Optional highlighted formula/definition box rendered after the prose.
   callout?: { label: string; body: string };
+  // New rich, ordered content. When present, `blocks` is rendered
+  // (after any legacy paragraphs/bullets/callout, which older chapters use).
+  blocks?: Block[];
 }
 
 export interface KeyTerm {

@@ -89,14 +89,14 @@ export function levelProgress(xp: number): LevelProgress {
   return { level, xpIntoLevel, xpForNext, pct: Math.round((xpIntoLevel / xpForNext) * 100) };
 }
 
-// Climbing-themed rank titles tied to level.
+// Corporate career-ladder rank titles tied to level.
 export function rankTitle(level: number): string {
-  if (level >= 25) return "Summiteer";
-  if (level >= 18) return "Alpinist";
-  if (level >= 12) return "Ridge Runner";
-  if (level >= 7) return "Climber";
-  if (level >= 3) return "Trekker";
-  return "Base Camp";
+  if (level >= 25) return "Partner";
+  if (level >= 18) return "Managing Director";
+  if (level >= 12) return "Vice President";
+  if (level >= 7) return "Associate";
+  if (level >= 3) return "Analyst";
+  return "Intern";
 }
 
 // ---- Adaptive plan progress ---------------------------------------------

@@ -65,7 +65,7 @@ export default function DashboardClient() {
 
   function createPlan(plan: StudyPlan) {
     setState((s) => ({ ...s, plans: [plan, ...s.plans.filter((p) => p.examSlug !== plan.examSlug)] }));
-    showToast("Your climb is set. Let's go! 🏔️");
+    showToast("Your track is set. Let's get to work. 💼");
   }
 
   if (!loaded) return <div className="p-10" style={{ color: "var(--text-muted)" }}>Loading…</div>;
@@ -76,7 +76,7 @@ export default function DashboardClient() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-medium" style={{ color: "var(--text-primary)" }}>
-            {greeting()}, climber
+            {greeting()}
           </h1>
           <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
             {rankTitle(lp.level)} · Level {lp.level}
@@ -138,7 +138,7 @@ export default function DashboardClient() {
 
       {/* Activity heatmap */}
       <h2 className="text-sm font-medium mt-8 mb-3" style={{ color: "var(--text-primary)" }}>
-        Your climb log
+        Your activity log
       </h2>
       <div className="card p-4 mb-6">
         <Heatmap state={state} />
@@ -194,7 +194,7 @@ function PlanSetup({ onCreate }: { onCreate: (p: StudyPlan) => void }) {
       <div className="flex items-center gap-2 mb-1">
         <span className="text-xl">🗓️</span>
         <h2 className="text-lg font-medium" style={{ color: "var(--text-primary)" }}>
-          Set your climb
+          Set your track
         </h2>
       </div>
       <p className="text-sm mb-5" style={{ color: "var(--text-secondary)" }}>
@@ -253,7 +253,7 @@ function PlanSetup({ onCreate }: { onCreate: (p: StudyPlan) => void }) {
           })
         }
       >
-        {date ? "Start my climb →" : "Pick an exam date to begin"}
+        {date ? "Start my track →" : "Pick an exam date to begin"}
       </button>
     </div>
   );
@@ -332,7 +332,7 @@ function PlanDashboard({
         </div>
         {progress.todayMet && (
           <p className="text-xs mt-3" style={{ color: "#1D9E75" }}>
-            ✓ You hit today&apos;s goal — streak secured. Keep climbing.
+            ✓ You hit today&apos;s goal — momentum secured. Keep the streak alive.
           </p>
         )}
       </div>
@@ -393,7 +393,7 @@ function Ring({ pct, accent }: { pct: number; accent: string }) {
           style={{ transition: "stroke-dashoffset 0.5s ease" }}
         />
         <text x="60" y="58" textAnchor="middle" fontSize="22" fontWeight="600" fill="var(--text-primary)">{pct}%</text>
-        <text x="60" y="76" textAnchor="middle" fontSize="10" fill="var(--text-muted)">to summit</text>
+        <text x="60" y="76" textAnchor="middle" fontSize="10" fill="var(--text-muted)">to exam day</text>
       </svg>
     </div>
   );

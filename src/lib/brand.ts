@@ -3,14 +3,15 @@
 // Name is a spin on "certified" (Latin "certus" = sure, certain —
 // the root of the word certified). Change it here and it updates
 // everywhere in the app.
-// Theme: the certain path to certified. Daily progress = the climb.
+// Theme: corporate ascent — earn the title. Progress = climbing the
+// career ladder (Intern → Analyst → Associate → VP → Director → MD → Partner).
 // ============================================================
 
 export const BRAND = {
   name: "Certus",
-  tagline: "The certain path to certified.",
+  tagline: "Earn the title.",
   subtitle:
-    "Serious, original prep for finance's hardest exams. Read the material, drill real questions, learn from every miss, and stay on pace with an adaptive plan.",
+    "Serious, original prep for finance's hardest exams — built like a career. Read the material, drill real questions, clear every assignment, and rise from Intern to Partner as you go.",
   // The resume tool is kept but demoted to a small utility.
   legacyToolName: "Resume Optimizer",
   domain: "certus.app",
