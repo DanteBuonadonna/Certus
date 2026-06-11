@@ -240,16 +240,16 @@ export interface Badge {
 }
 
 export const BADGES: Badge[] = [
-  { id: "first-climb", name: "First Climb", desc: "Log your first study session", icon: "🥾", check: (s) => s.sessions.length >= 1 },
+  { id: "first-climb", name: "First Day", desc: "Log your first study session", icon: "💼", check: (s) => s.sessions.length >= 1 },
   { id: "streak-3", name: "Warming Up", desc: "Reach a 3-day streak", icon: "🔥", check: (s) => s.longestStreak >= 3 },
   { id: "streak-7", name: "On a Roll", desc: "Reach a 7-day streak", icon: "⚡", check: (s) => s.longestStreak >= 7 },
-  { id: "streak-30", name: "Unstoppable", desc: "Reach a 30-day streak", icon: "🏔️", check: (s) => s.longestStreak >= 30 },
+  { id: "streak-30", name: "Unstoppable", desc: "Reach a 30-day streak", icon: "🏆", check: (s) => s.longestStreak >= 30 },
   { id: "hours-10", name: "Double Digits", desc: "Log 10 total hours", icon: "⏱️", check: (s) => totalMinutes(s) >= 600 },
   { id: "hours-50", name: "Grinder", desc: "Log 50 total hours", icon: "💪", check: (s) => totalMinutes(s) >= 3000 },
   { id: "hours-100", name: "Centurion", desc: "Log 100 total hours", icon: "💯", check: (s) => totalMinutes(s) >= 6000 },
   { id: "early-bird", name: "Early Bird", desc: "Study before 8am", icon: "🌅", check: (s) => s.sessions.some((x) => new Date().getHours() < 8 && x.date === today()) },
-  { id: "level-10", name: "Ridge Runner", desc: "Reach level 10", icon: "🧗", check: (s) => levelFromXp(s.xp) >= 10 },
-  { id: "planner", name: "Trailhead", desc: "Set your exam date", icon: "🗓️", check: (s) => s.plans.length >= 1 },
+  { id: "level-10", name: "Rising Star", desc: "Reach level 10", icon: "🌟", check: (s) => levelFromXp(s.xp) >= 10 },
+  { id: "planner", name: "Onboarded", desc: "Set your exam date", icon: "🗓️", check: (s) => s.plans.length >= 1 },
 ];
 
 export function checkBadges(s: GameState): Badge[] {

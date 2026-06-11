@@ -127,6 +127,15 @@ export const SunriseIcon = (p: IconProps) =>
 export const MountainIcon = (p: IconProps) =>
   base(p, <><path d="M3 19l6.5-11 4 6.5L16 11l5 8H3z" /><circle cx="17.5" cy="5.5" r="1.6" /></>);
 
+export const BuildingIcon = (p: IconProps) =>
+  base(
+    p,
+    <>
+      <path d="M4 21V6l8-3v18M12 21V9l6 2.5V21M3 21h18" />
+      <path d="M7 8h0M7 11.5h0M7 15h0M15 14h0M15 17h0" />
+    </>
+  );
+
 export const FlagIcon = (p: IconProps) =>
   base(p, <><path d="M5 21V4" /><path d="M5 4c3-1.8 6 1.8 9 0v8c-3 1.8-6-1.8-9 0" /></>);
 
@@ -305,7 +314,7 @@ export function BadgeGlyph({ id, size = 24 }: { id: string; size?: number }) {
     case "first-climb": return <FootstepsIcon {...p} />;
     case "streak-3": return <FlameIcon {...p} />;
     case "streak-7": return <BoltIcon {...p} />;
-    case "streak-30": return <MountainIcon {...p} />;
+    case "streak-30": return <BuildingIcon {...p} />;
     case "hours-10": return <ClockIcon {...p} />;
     case "hours-50": return <ChartBarIcon {...p} />;
     case "hours-100": return <LaurelIcon {...p} />;

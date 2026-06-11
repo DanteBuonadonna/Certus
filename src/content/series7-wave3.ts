@@ -48,6 +48,13 @@ export const s7Wave3Chapters: Chapter[] = [
           "The common thread is that these practices put the representative's or firm's interest ahead of the customer's, or distort the integrity of the market. The exam frequently presents a scenario and asks you to identify which prohibited practice it describes — so learn to recognize the pattern, not just the term.",
         ],
       },
+      {
+        heading: "Communications and settlement at a glance",
+        blocks: [
+          { kind: "table", table: { caption: "Table 1 — FINRA communication categories and their supervision.", headers: ["Category", "Audience", "Supervision"], rows: [["Retail communication", ">25 retail investors in 30 days", "Principal approval; may need FINRA filing"], ["Correspondence", "≤25 retail investors in 30 days", "Supervised/reviewed, lighter pre-approval"], ["Institutional communication", "Institutional investors only", "Internal procedures"]] } },
+          { kind: "callout", label: "Settlement & key dates", body: "Most securities settle T+1 (one business day after the trade). To receive a declared dividend, an investor must own the shares before the ex-dividend date." },
+        ],
+      },
     ],
     keyTerms: [
       { term: "FINRA", def: "The self-regulatory organization overseeing broker-dealers and registered representatives." },
@@ -92,6 +99,13 @@ export const s7Wave3Chapters: Chapter[] = [
         paragraphs: [
           "Agency securities are issued by government agencies and government-sponsored enterprises (GSEs) to support areas like housing. The crucial distinction is the backing. GNMA (Ginnie Mae) is a true government agency, and its securities carry the full faith and credit of the U.S. government — as safe as Treasuries. FNMA (Fannie Mae) and FHLMC (Freddie Mac) are GSEs whose securities are NOT explicitly backed by the government's full faith and credit, so they carry slightly more credit risk and a modestly higher yield.",
           "Many agency securities are mortgage-backed: pools of home loans whose payments pass through to investors. These carry prepayment risk — when interest rates fall, homeowners refinance and pay off their mortgages early, returning principal to investors at exactly the time it must be reinvested at lower rates. That prepayment behavior makes mortgage-backed securities behave differently from a standard bond, a nuance the exam likes to probe.",
+        ],
+      },
+      {
+        heading: "Treasuries and agencies at a glance",
+        blocks: [
+          { kind: "table", table: { caption: "Table 1 — The Treasury instruments by maturity, plus the inflation-protected and agency variants.", headers: ["Instrument", "Maturity", "Pays"], rows: [["Treasury bill", "≤ 1 year", "Sold at a discount; no coupon"], ["Treasury note", "2–10 years", "Semiannual coupon"], ["Treasury bond", "10–30 years", "Semiannual coupon"], ["TIPS", "Various", "Coupon on inflation-adjusted principal"]] } },
+          { kind: "callout", label: "Full faith and credit vs GSE", body: "GNMA (Ginnie Mae) is a true federal agency — its securities carry the full faith and credit of the U.S. government. Fannie Mae and Freddie Mac are GSEs whose securities are NOT explicitly government-backed, so they yield slightly more. Mortgage-backed agency securities also carry prepayment risk when rates fall." },
         ],
       },
     ],

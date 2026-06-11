@@ -45,6 +45,14 @@ const chapters: Chapter[] = [
           "Plans are built around goals — retirement, a home, a child's education — each with a time horizon and dollar target. Education planning often uses tax-advantaged vehicles like 529 plans, where investments grow tax-free when used for qualified education expenses. A planner also accounts for client psychology and behavioral biases, since even a technically perfect plan fails if the client won't follow it. Understanding a client's risk tolerance and tendencies is as important as the math.",
         ],
       },
+      {
+        heading: "The process as a loop, and a cash-flow check",
+        blocks: [
+          { kind: "p", text: "The seven steps are not a one-way checklist — they form a loop. Monitoring feeds back into understanding the client's (now changed) circumstances, so the plan is revisited and updated as life unfolds. Seeing the process as a cycle is what separates ongoing financial planning from a one-time product sale." },
+          { kind: "figure", figure: { caption: "Figure 1 — The CFP Board's planning process as a continuous loop. The final step, monitoring, returns to the first as circumstances change — the plan is living, not static.", alt: "Seven connected nodes from Understand to Monitor with a return arrow looping back to the start", svg: `<svg viewBox="0 0 460 140" width="100%" style="max-width:460px"><defs><marker id="cfpah" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6z" fill="var(--primary)"/></marker></defs><path d="M432 40 C 432 14, 24 14, 24 40" fill="none" stroke="var(--primary)" stroke-width="1" stroke-dasharray="3 3" marker-end="url(#cfpah)"/><text x="228" y="11" text-anchor="middle" font-size="8.5" fill="var(--primary)">monitor &amp; update — the plan is a loop</text><g stroke="var(--text-muted)" stroke-width="1"><line x1="37" y1="52" x2="79" y2="52"/><line x1="105" y1="52" x2="147" y2="52"/><line x1="173" y1="52" x2="215" y2="52"/><line x1="241" y1="52" x2="283" y2="52"/><line x1="309" y1="52" x2="351" y2="52"/><line x1="377" y1="52" x2="419" y2="52"/></g><g font-size="8.5" text-anchor="middle"><g><circle cx="24" cy="52" r="12" fill="var(--bg-card)" stroke="var(--primary)" stroke-width="1.2"/><text x="24" y="55" fill="var(--primary)" font-weight="600">1</text><text x="24" y="78" fill="var(--text-secondary)">Understand</text></g><g><circle cx="92" cy="52" r="12" fill="var(--bg-card)" stroke="var(--primary)" stroke-width="1.2"/><text x="92" y="55" fill="var(--primary)" font-weight="600">2</text><text x="92" y="78" fill="var(--text-secondary)">Goals</text></g><g><circle cx="160" cy="52" r="12" fill="var(--bg-card)" stroke="var(--primary)" stroke-width="1.2"/><text x="160" y="55" fill="var(--primary)" font-weight="600">3</text><text x="160" y="78" fill="var(--text-secondary)">Analyze</text></g><g><circle cx="228" cy="52" r="12" fill="var(--bg-card)" stroke="var(--primary)" stroke-width="1.2"/><text x="228" y="55" fill="var(--primary)" font-weight="600">4</text><text x="228" y="78" fill="var(--text-secondary)">Develop</text></g><g><circle cx="296" cy="52" r="12" fill="var(--bg-card)" stroke="var(--primary)" stroke-width="1.2"/><text x="296" y="55" fill="var(--primary)" font-weight="600">5</text><text x="296" y="78" fill="var(--text-secondary)">Present</text></g><g><circle cx="364" cy="52" r="12" fill="var(--bg-card)" stroke="var(--primary)" stroke-width="1.2"/><text x="364" y="55" fill="var(--primary)" font-weight="600">6</text><text x="364" y="78" fill="var(--text-secondary)">Implement</text></g><g><circle cx="432" cy="52" r="12" fill="var(--bg-card)" stroke="var(--gold)" stroke-width="1.4"/><text x="432" y="55" fill="var(--gold)" font-weight="600">7</text><text x="432" y="78" fill="var(--text-secondary)">Monitor</text></g></g></svg>` } },
+          { kind: "example", example: { title: "checking a client's cash-flow health", prompt: "A client earns $90,000 gross, pays $20,000 in taxes, and spends $56,000 on living costs. What is the gross savings rate, and how large should the emergency fund be?", steps: ["Annual surplus = income − taxes − spending = 90,000 − 20,000 − 56,000 = $14,000 saved.", "Gross savings rate = 14,000 ÷ 90,000 = 15.6% — above the ~10–15% rule of thumb.", "Monthly living expenses = 56,000 ÷ 12 ≈ $4,667.", "Emergency fund (3–6 months) ≈ $14,000 to $28,000."], answer: "A healthy ~15.6% savings rate, with a $14,000–$28,000 emergency reserve target." } },
+        ],
+      },
     ],
     keyTerms: [
       { term: "Financial planning process", def: "The CFP Board's multi-step process from understanding circumstances to monitoring the plan." },
@@ -94,6 +102,15 @@ const chapters: Chapter[] = [
         heading: "Health, long-term care, and property/casualty",
         paragraphs: [
           "Health insurance manages medical-cost risk through premiums, deductibles, copays, and out-of-pocket maximums. Long-term care insurance covers extended custodial care (nursing homes, in-home aides) that health insurance and Medicare largely don't, a growing concern as people live longer. Property and casualty insurance — homeowners and auto — protects against damage to property and liability claims from others. Liability coverage, including an umbrella policy that sits atop home and auto limits, protects accumulated wealth from lawsuits, an essential safeguard for higher-net-worth clients.",
+        ],
+      },
+      {
+        heading: "Which risks to insure — a frequency/severity map",
+        blocks: [
+          { kind: "p", text: "The right response to a risk depends on two questions: how often does it happen (frequency), and how badly does it hurt when it does (severity)? Plotting risks on that grid points to the correct tool. Insurance is the answer in exactly one quadrant — low-frequency, high-severity events — because that is where a manageable premium buys protection against a loss you could never absorb yourself." },
+          { kind: "figure", figure: { caption: "Figure 2 — The risk-management matrix. Insurance (risk transfer) is reserved for the low-frequency, high-severity quadrant; small or frequent losses are cheaper to reduce or retain.", alt: "Two-by-two grid of frequency versus severity showing reduce, avoid, retain, and transfer", svg: `<svg viewBox="0 0 460 210" width="100%" style="max-width:460px"><g font-size="9"><text transform="rotate(-90 16 110)" x="16" y="110" text-anchor="middle" fill="var(--text-muted)">Frequency</text><text x="86" y="18" font-size="8.5" fill="var(--text-muted)">High</text><text x="86" y="180" font-size="8.5" fill="var(--text-muted)">Low</text><text x="155" y="200" text-anchor="middle" font-size="8.5" fill="var(--text-muted)">Low severity</text><text x="335" y="200" text-anchor="middle" font-size="8.5" fill="var(--text-muted)">High severity</text></g><g stroke="var(--border)" stroke-width="0.5"><rect x="70" y="24" width="170" height="78" fill="var(--ats-amber-bg)"/><rect x="240" y="24" width="170" height="78" fill="var(--ats-red-bg)"/><rect x="70" y="102" width="170" height="78" fill="var(--bg-card)"/><rect x="240" y="102" width="170" height="78" fill="var(--ats-green-bg)"/></g><g text-anchor="middle"><text x="155" y="60" font-size="11" font-weight="600" fill="var(--ats-amber)">Reduce</text><text x="155" y="76" font-size="8" fill="var(--text-secondary)">cut the odds</text><text x="325" y="60" font-size="11" font-weight="600" fill="var(--ats-red)">Avoid</text><text x="325" y="76" font-size="8" fill="var(--text-secondary)">don't take it on</text><text x="155" y="138" font-size="11" font-weight="600" fill="var(--text-secondary)">Retain</text><text x="155" y="154" font-size="8" fill="var(--text-secondary)">self-insure</text><text x="325" y="138" font-size="11" font-weight="700" fill="var(--ats-green)">Transfer — insure</text><text x="325" y="154" font-size="8" fill="var(--text-secondary)">premium buys protection</text></g></svg>` } },
+          { kind: "table", table: { caption: "Table 1 — Matching the life-insurance tool to the need.", headers: ["Feature", "Term life", "Permanent life"], rows: [["Duration", "Set period (10–30 yrs)", "Lifelong"], ["Relative cost", "Low", "High (often 5–10×)"], ["Cash value", "None", "Builds over time"], ["Best for", "Temporary income replacement", "Estate & lifelong needs"]] } },
+          { kind: "callout", label: "Disability: watch the definition", body: "An 'own-occupation' policy pays if you can't do YOUR job; an 'any-occupation' policy pays only if you can't do any job — a far harder bar. The definition of disability matters more than the headline benefit." },
         ],
       },
     ],
@@ -148,6 +165,14 @@ const chapters: Chapter[] = [
           "Much of tax planning is about timing and location. Tax-deferred accounts (traditional IRAs and 401(k)s) postpone tax until withdrawal, while tax-free accounts (Roth) are funded with after-tax dollars but grow and distribute tax-free. 'Asset location' places tax-inefficient investments inside sheltered accounts and tax-efficient ones in taxable accounts. The overarching goal isn't to avoid all tax — it's to maximize after-tax wealth by deferring tax, converting ordinary income into lower-taxed capital gains where possible, and using credits and deductions fully.",
         ],
       },
+      {
+        heading: "Marginal vs effective — and why credits beat deductions",
+        blocks: [
+          { kind: "example", example: { title: "computing both tax rates", prompt: "Using simplified brackets — 10% on the first $20,000 and 22% on income above $20,000 — what does a $60,000 earner owe, and what are the marginal and effective rates?", steps: ["First $20,000 taxed at 10% = $2,000.", "Remaining $40,000 ($60,000 − $20,000) taxed at 22% = $8,800.", "Total tax = 2,000 + 8,800 = $10,800.", "Marginal rate = 22% (rate on the next dollar). Effective rate = 10,800 ÷ 60,000 = 18%."], answer: "Tax = $10,800; marginal 22%, effective 18% — the effective rate is always below the marginal rate." } },
+          { kind: "table", table: { caption: "Table 1 — A $1,000 deduction vs a $1,000 credit, at a 22% marginal rate.", headers: ["", "$1,000 deduction", "$1,000 credit"], rows: [["Reduces", "Taxable income", "Tax owed"], ["Dollar value", "$220 (22% × 1,000)", "$1,000"], ["Verdict", "Worth your marginal rate", "Worth full face value"]] } },
+          { kind: "callout", label: "The planning hook", body: "Because a deduction is only worth your marginal rate, the same deduction helps a high earner more than a low earner. A credit is worth its full face value to everyone — which is why credits are generally the more powerful planning tool." },
+        ],
+      },
     ],
     keyTerms: [
       { term: "Marginal tax rate", def: "The rate applied to the next dollar of income; higher than the effective (average) rate." },
@@ -200,6 +225,14 @@ const chapters: Chapter[] = [
           "Social Security provides a baseline of inflation-adjusted income. The claiming-age decision is pivotal: claiming early (as soon as age 62) permanently reduces the monthly benefit, while delaying past full retirement age (up to 70) increases it. For clients with longevity and other income, delaying often produces more lifetime income — a key planning lever.",
         ],
       },
+      {
+        heading: "Roth vs traditional, proven with numbers",
+        blocks: [
+          { kind: "example", example: { title: "when the future rate is higher", prompt: "A client has $6,000 of pre-tax money. Traditional: invest all $6,000, let it grow 3×, and pay 32% on withdrawal. Roth: pay 24% tax now, invest what's left, grow 3×, withdraw tax-free. Which nets more?", steps: ["Traditional: $6,000 → 3× = $18,000; tax at 32% = $5,760; after-tax = $12,240.", "Roth: pay 24% now ($1,440) → invest $4,560 → 3× = $13,680; withdrawn tax-free = $13,680.", "Roth nets $1,440 more, because the retirement rate (32%) exceeds today's rate (24%)."], answer: "Roth wins, $13,680 vs $12,240 — pay tax now whenever your future rate will be higher." } },
+          { kind: "table", table: { caption: "Table 1 — The Roth-vs-traditional decision at a glance.", headers: ["", "Traditional", "Roth"], rows: [["Contribution", "Pre-tax (deductible)", "After-tax"], ["Withdrawals", "Taxed as ordinary income", "Tax-free"], ["Lifetime RMDs", "Required at statutory age", "None for the owner"], ["Favored when", "Lower rate in retirement", "Higher rate in retirement"]] } },
+          { kind: "callout", label: "Match first, always", body: "Before the Roth-vs-traditional debate even starts, capture the full employer match — it's an immediate, guaranteed return (often 50–100%) that no account-type choice can beat." },
+        ],
+      },
     ],
     keyTerms: [
       { term: "401(k)", def: "Employer plan allowing pre-tax contributions with tax-deferred growth, often with a match." },
@@ -248,6 +281,13 @@ const chapters: Chapter[] = [
         heading: "Gift and estate tax",
         paragraphs: [
           "The federal transfer-tax system taxes large gifts and estates, but generous exclusions mean most people owe nothing. An annual gift tax exclusion lets a person give a set amount per recipient each year tax-free, a simple way to shrink a taxable estate over time. A large lifetime exemption shelters cumulative gifts and the estate up to a threshold. The unlimited marital deduction allows spouses to transfer any amount to each other tax-free, and a 'step-up in basis' resets inherited assets to their date-of-death value, often erasing capital-gains tax on appreciation. Coordinating these features is how planners transfer wealth efficiently across generations.",
+        ],
+      },
+      {
+        heading: "What avoids probate — and the step-up that saves taxes",
+        blocks: [
+          { kind: "table", table: { caption: "Table 1 — How assets actually transfer at death. Most well-planned estates move the bulk of assets OUTSIDE probate.", headers: ["Asset / arrangement", "Through probate?"], rows: [["Solely-owned assets passed by will", "Yes — probate"], ["Revocable living trust assets", "No — per trust terms"], ["Life insurance / retirement (beneficiary)", "No — to named beneficiary"], ["Joint tenancy with survivorship", "No — to surviving owner"], ["Payable-on-death (POD) accounts", "No — to named payee"]] } },
+          { kind: "example", example: { title: "the step-up in basis", prompt: "A parent bought stock for $10,000; it's worth $50,000 at death. The heir later sells it for $52,000. What gain is taxable?", steps: ["Basis steps up to the date-of-death value = $50,000 (not the original $10,000).", "Gain = sale price − stepped-up basis = 52,000 − 50,000 = $2,000.", "The $40,000 of appreciation during the parent's lifetime escapes income tax entirely."], answer: "Only $2,000 is taxable — the step-up erases the $40,000 of lifetime appreciation." } },
         ],
       },
     ],

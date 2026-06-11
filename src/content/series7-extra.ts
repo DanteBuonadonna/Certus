@@ -14,47 +14,47 @@ export const s7ExtraChapters: Chapter[] = [
     topicName: "Options",
     title: "Options: Calls, Puts, and Basic Strategies",
     readingMinutes: 20,
-    summary: "How listed options work, the four basic positions, and the max gain, loss, and breakeven for each.",
+    summary: "How listed options work, the four basic positions, the max gain/loss/breakeven for each, and the two core stock-plus-option strategies — with payoff diagrams and worked math.",
     intro:
-      "Options are one of the most heavily weighted and feared parts of the Series 7. A listed equity option controls 100 shares of an underlying stock, and the exam tests whether you can identify the rights and obligations of each party and compute maximum gain, maximum loss, and breakeven. Master the four basic positions and the arithmetic becomes routine.",
+      "Options are the most heavily weighted and most feared part of the Series 7, but they reward a small amount of structure enormously. A listed equity option controls 100 shares of an underlying stock, and the exam tests two things relentlessly: can you identify the rights and obligations of each party, and can you compute maximum gain, maximum loss, and breakeven? Master the four basic positions and the payoff geometry below, and the arithmetic that scares most candidates becomes mechanical.",
     sections: [
       {
         heading: "The four basic positions",
-        paragraphs: [
-          "A call gives the buyer the right to BUY 100 shares at the strike price; a put gives the buyer the right to SELL 100 shares at the strike. For every buyer (long, who pays the premium and holds the right) there is a seller (short or writer, who receives the premium and takes on the obligation). That produces four basic positions: long call, short call, long put, short put.",
-          "Buyers are bullish or bearish on direction: a long call profits when the stock rises; a long put profits when it falls. Sellers take the opposite view and want the option to expire worthless so they keep the premium. A crucial asymmetry: an option BUYER'S maximum loss is the premium paid, while an option SELLER can face large — sometimes unlimited (uncovered call) — losses.",
+        blocks: [
+          { kind: "p", text: "A call gives its buyer the right to BUY 100 shares at the strike price; a put gives its buyer the right to SELL 100 shares at the strike. For every buyer (who is 'long,' pays the premium, and holds the right) there is a seller, or writer (who is 'short,' receives the premium, and takes on the obligation). Combining the two instruments with the two sides yields the four basic positions: long call, short call, long put, short put." },
+          { kind: "p", text: "Direction and the premium asymmetry are the keys. A long call profits when the stock rises; a long put profits when it falls. Sellers take the opposite view and simply want the option to expire worthless so they keep the premium. The defining asymmetry, which the exam tests endlessly, is this: an option BUYER's maximum loss is limited to the premium paid, while an option SELLER's gain is limited to the premium but their loss can be large — and for an uncovered (naked) call, theoretically unlimited, since the stock can rise without bound." },
+          { kind: "callout", label: "Contract size", body: "One listed equity option = 100 shares. A premium quoted at 3 costs 3 × 100 = $300, and every per-share figure (breakeven, max gain/loss) must be multiplied by 100 to get the dollar amount per contract." },
         ],
-        callout: {
-          label: "Contract size",
-          body: "One listed equity option = 100 shares. A premium quoted at 3 costs 3 × 100 = $300. Always multiply per-share figures by 100.",
-        },
       },
       {
         heading: "Moneyness, intrinsic value, and time value",
-        paragraphs: [
-          "A call is in-the-money when the stock is ABOVE the strike; a put is in-the-money when the stock is BELOW the strike. Intrinsic value is how far in-the-money the option is (never negative). The rest of the premium is time value, reflecting the chance the option moves further into the money before expiration; time value erodes toward zero as expiration nears and is larger when the stock is more volatile.",
+        blocks: [
+          { kind: "p", text: "An option's premium has two components. Intrinsic value is how far in-the-money the option is right now, and it is never negative: a call is in-the-money when the stock is ABOVE the strike, a put when the stock is BELOW the strike. Everything in the premium beyond intrinsic value is time value — the market's price for the chance the option moves further into the money before it expires. Time value decays toward zero as expiration approaches (time decay) and is larger when the underlying is more volatile, because a wider range of outcomes is more valuable to a buyer whose downside is already capped at the premium." },
         ],
       },
       {
         heading: "Computing max gain, loss, and breakeven",
-        paragraphs: [
-          "For a LONG CALL: maximum loss is the premium (you simply let it expire); maximum gain is unlimited (the stock can rise indefinitely); breakeven is the strike price PLUS the premium. For a LONG PUT: maximum loss is the premium; maximum gain is the strike minus the premium (the stock can only fall to zero); breakeven is the strike price MINUS the premium.",
-          "Two common income strategies pair stock with options. A covered call (own the stock, sell a call) generates premium income and is used when an investor is neutral-to-mildly-bullish; the trade-off is capped upside. A protective put (own the stock, buy a put) is portfolio insurance — it limits downside to the strike while preserving upside, at the cost of the premium. The exam loves the mantra: calls up, puts down — and 'call up, add the premium; put down, subtract the premium' for breakevens.",
+        blocks: [
+          { kind: "p", text: "The payoff diagram is the fastest way to lock in the rules. For a long call, the position is flat at minus the premium below the strike, then climbs one-for-one once the stock clears the strike — so maximum loss is the premium, maximum gain is unlimited, and breakeven is the strike PLUS the premium. For a long put, it is the mirror image: flat at minus the premium above the strike, climbing as the stock falls below it — so maximum loss is the premium, maximum gain is the strike MINUS the premium (the stock can only fall to zero), and breakeven is the strike MINUS the premium." },
+          { kind: "figure", figure: { caption: "Figure 1 — Profit at expiration for a long call and a long put. Each is flat at minus the premium where it finishes worthless, then moves one-for-one in the money. Breakeven is strike + premium for the call, strike − premium for the put. 'Call up, add; put down, subtract.'", alt: "A long call profit line rising to the right of the strike and a long put profit line rising to the left", svg: `<svg viewBox="0 0 460 250" width="100%" style="max-width:460px"><line x1="50" y1="140" x2="430" y2="140" stroke="var(--border-strong)" stroke-width="1"/><line x1="240" y1="40" x2="240" y2="210" stroke="var(--border)" stroke-dasharray="4 3"/><polyline fill="none" stroke="var(--ats-green)" stroke-width="2.5" points="60,176 240,176 430,62"/><polyline fill="none" stroke="var(--ats-red)" stroke-width="2.5" points="60,72 240,176 430,176"/><text x="240" y="226" text-anchor="middle" font-size="10" fill="var(--text-muted)">strike K</text><text x="60" y="135" font-size="9" fill="var(--text-muted)">profit 0</text><text x="408" y="56" text-anchor="end" font-size="10" fill="var(--ats-green)" font-weight="600">Long call</text><text x="78" y="66" font-size="10" fill="var(--ats-red)" font-weight="600">Long put</text><text x="245" y="190" font-size="9" fill="var(--text-muted)">−premium</text><text x="248" y="247" text-anchor="middle" font-size="10" fill="var(--text-muted)">stock price at expiration →</text></svg>` } },
+          { kind: "table", table: { caption: "Table 1 — The four basic positions. Buyers have limited loss; uncovered sellers carry the heavy risk.", headers: ["Position", "Max gain", "Max loss", "Breakeven"], rows: [["Long call", "Unlimited", "Premium", "Strike + premium"], ["Short (naked) call", "Premium", "Unlimited", "Strike + premium"], ["Long put", "Strike − premium", "Premium", "Strike − premium"], ["Short put", "Premium", "Strike − premium", "Strike − premium"]] } },
+          { kind: "example", example: { title: "long call max gain, loss, and breakeven", prompt: "An investor buys 1 XYZ Aug 50 call at a premium of 4. Compute the breakeven, maximum loss, and the profit if XYZ is at $60 at expiration.", steps: ["Breakeven = strike + premium = 50 + 4 = $54.", "Maximum loss = the premium = 4 × 100 = $400, no matter how far the stock falls.", "At $60: intrinsic value = 60 − 50 = $10; profit per share = 10 − 4 = $6 → $600 per contract."], answer: "Breakeven $54; max loss $400; profit at $60 is $600. Maximum gain is unlimited as the stock rises." } },
+          { kind: "p", text: "Two stock-plus-option strategies appear constantly. A covered call — own 100 shares and sell a call against them — generates premium income and suits a neutral-to-mildly-bullish view; the trade-off is that the upside is capped at the strike. A protective put — own the stock and buy a put — is portfolio insurance, capping the downside at the strike while leaving the upside open, at the cost of the premium. The exam's mantra ties it together: calls up, puts down; for breakevens, 'call up, add the premium; put down, subtract the premium.'" },
         ],
       },
     ],
     keyTerms: [
-      { term: "Call option", def: "The right to BUY 100 shares of the underlying at the strike price." },
-      { term: "Put option", def: "The right to SELL 100 shares of the underlying at the strike price." },
-      { term: "Covered call", def: "Owning stock and selling a call against it for income; caps upside." },
-      { term: "Protective put", def: "Owning stock and buying a put as downside insurance; limits losses." },
-      { term: "Breakeven (long call)", def: "Strike price + premium. For a long put it is strike − premium." },
+      { term: "Call vs put option", def: "A call is the right to BUY 100 shares at the strike; a put is the right to SELL 100 shares at the strike." },
+      { term: "Intrinsic vs time value", def: "Intrinsic value = how far in-the-money (never negative); time value = the rest of the premium, larger with volatility and decaying toward expiration." },
+      { term: "Long-position max loss", def: "An option buyer's maximum loss is the premium paid; an uncovered call writer's loss is unlimited." },
+      { term: "Covered call", def: "Owning stock and selling a call against it for income; caps the upside." },
+      { term: "Protective put", def: "Owning stock and buying a put as downside insurance; caps the loss at the strike." },
     ],
     takeaways: [
-      "One option contract = 100 shares; multiply premiums by 100.",
+      "One option contract = 100 shares; multiply per-share figures by 100.",
       "An option buyer's max loss is the premium; uncovered call writers face unlimited risk.",
-      "Long call breakeven = strike + premium; long put breakeven = strike − premium.",
-      "Covered call = income with capped upside; protective put = portfolio insurance.",
+      "Long call breakeven = strike + premium (unlimited gain); long put breakeven = strike − premium (max gain = strike − premium).",
+      "Covered call = income with capped upside; protective put = downside insurance for a premium.",
     ],
   },
 
@@ -90,6 +90,14 @@ export const s7ExtraChapters: Chapter[] = [
         heading: "The tax advantage",
         paragraphs: [
           "Interest on most municipal bonds is exempt from federal income tax, and often from state and local tax for investors who reside in the issuing state ('triple tax-exempt'). This makes the lower stated yields of munis attractive to investors in high tax brackets. To compare a muni with a taxable bond, you calculate the tax-equivalent yield — the yield a taxable bond would need to match the muni after taxes. The higher the investor's tax bracket, the more valuable the exemption, which is why municipals are a staple recommendation for wealthy clients.",
+        ],
+      },
+      {
+        heading: "The distinction at a glance, and the tax math",
+        blocks: [
+          { kind: "figure", figure: { caption: "Figure 1 — The two municipal-bond types differ entirely in what stands behind them: a GO bond is backed by the issuer's taxing power; a revenue bond is backed only by the income of one project.", alt: "Two boxes contrasting a general obligation bond backed by taxing power with a revenue bond backed by project income", svg: `<svg viewBox="0 0 460 160" width="100%" style="max-width:460px"><g class="c-teal"><rect x="24" y="26" width="196" height="112" rx="10"/></g><text x="122" y="52" text-anchor="middle" font-size="12" font-weight="600" fill="#085041">General obligation</text><text x="122" y="76" text-anchor="middle" font-size="10" fill="#0F6E56">backed by taxing power</text><text x="122" y="94" text-anchor="middle" font-size="10" fill="#0F6E56">(full faith &amp; credit)</text><text x="122" y="118" text-anchor="middle" font-size="9" fill="#0F6E56">safer · often needs a vote</text><g class="c-amber"><rect x="240" y="26" width="196" height="112" rx="10"/></g><text x="338" y="52" text-anchor="middle" font-size="12" font-weight="600" fill="#633806">Revenue</text><text x="338" y="76" text-anchor="middle" font-size="10" fill="#854F0B">backed by one project's</text><text x="338" y="94" text-anchor="middle" font-size="10" fill="#854F0B">income only</text><text x="338" y="118" text-anchor="middle" font-size="9" fill="#854F0B">riskier · no vote needed</text></svg>` } },
+          { kind: "table", table: { caption: "Table 1 — GO vs revenue bonds at a glance.", headers: ["Feature", "GO bond", "Revenue bond"], rows: [["Backed by", "Taxing power (full faith & credit)", "A specific project's revenue"], ["Relative risk", "Generally lower", "Generally higher"], ["Voter approval", "Often required", "Not required"], ["Key safety metric", "Tax base & debt burden", "Debt service coverage ratio"]] } },
+          { kind: "example", example: { title: "tax-equivalent yield", prompt: "A municipal bond yields 4%, federally tax-exempt. An investor is in the 25% federal tax bracket. What taxable yield would be equivalent?", steps: ["Tax-equivalent yield = muni yield ÷ (1 − tax rate).", "= 4% ÷ (1 − 0.25) = 4% ÷ 0.75.", "= 5.33%."], answer: "A taxable bond would need to yield about 5.33% to match the 4% muni after taxes — and the higher the investor's bracket, the larger that gap, which is why munis suit high-bracket clients." } },
         ],
       },
     ],
@@ -141,6 +149,14 @@ export const s7ExtraChapters: Chapter[] = [
         heading: "Share classes",
         paragraphs: [
           "Mutual funds often offer multiple share classes with different fee structures for the same portfolio. Class A shares charge a front-end load paid at purchase but have lower ongoing expenses, making them cost-effective for large, long-term investments (especially with breakpoints). Class B shares have no front-end load but carry a back-end load (a contingent deferred sales charge that declines over time) plus higher annual fees. Class C shares (level-load) have no front-end charge and a small or no back-end charge but the highest ongoing expenses, which makes them costly for long holding periods. Matching the share class to the customer's investment size and time horizon is a suitability issue the exam emphasizes.",
+        ],
+      },
+      {
+        heading: "Choosing a share class",
+        blocks: [
+          { kind: "table", table: { caption: "Table 1 — Matching the share class to the investor is a suitability issue: amount and time horizon decide.", headers: ["Class", "Sales charge", "Ongoing fees", "Best for"], rows: [["A", "Front-end load (breakpoints apply)", "Lowest", "Large, long-term investments"], ["B", "Back-end (declining CDSC)", "Higher", "Smaller, long-term (legacy)"], ["C", "Level load (little/no front or back)", "Highest", "Shorter holding periods"]] } },
+          { kind: "callout", label: "Breakpoint sales are prohibited", body: "Reps must inform customers of breakpoint discounts and help them qualify. Deliberately keeping a purchase just under a breakpoint to preserve a higher commission is a prohibited 'breakpoint sale.'" },
+          { kind: "example", example: { title: "buy at POP, redeem at NAV", prompt: "A fund's NAV is $19.10 and it carries a 5% sales charge. Roughly what does a new investor pay per share, and what do they receive when they later redeem?", steps: ["Public offering price (POP) = NAV ÷ (1 − sales charge) ≈ 19.10 ÷ 0.95.", "≈ $20.11 per share paid on purchase.", "Redemption is at NAV — no front-end load on the way out."], answer: "Pay ≈ $20.11 (POP) to buy; redeem at NAV ($19.10). The load is charged on entry, not exit — and forward pricing fills the order at the NEXT calculated NAV." } },
         ],
       },
     ],

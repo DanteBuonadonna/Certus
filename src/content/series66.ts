@@ -46,6 +46,13 @@ const chapters: Chapter[] = [
           "State administrators (under the Uniform Securities Act) retain anti-fraud authority over all advisers operating in their state, even federally registered ones. So an SEC-registered adviser still answers to a state administrator if it commits fraud against that state's residents.",
         ],
       },
+      {
+        heading: "Adviser vs broker-dealer, and where you register",
+        blocks: [
+          { kind: "table", table: { caption: "Table 1 — The compensation model is the tell: ongoing fees = adviser; transaction commissions = broker-dealer.", headers: ["Feature", "Investment adviser", "Broker-dealer"], rows: [["Standard of care", "Fiduciary (best interest)", "Suitability / best-interest"], ["Compensation", "Ongoing fees (% of assets)", "Transaction commissions"], ["Regulated by", "SEC or state administrator", "FINRA + SEC"], ["Its representative", "IAR", "Agent / registered rep"]] } },
+          { kind: "callout", label: "Federal vs state registration", body: "Larger advisers (generally $100M+ in AUM) register with the SEC; smaller advisers register with the states. State administrators keep anti-fraud authority over ALL advisers in their state, even SEC-registered ones." },
+        ],
+      },
     ],
     keyTerms: [
       { term: "Investment adviser", def: "One who, for compensation, is in the business of advising on securities (the ABC test)." },
@@ -97,6 +104,13 @@ const chapters: Chapter[] = [
           "Many specific practices are prohibited as unethical: borrowing from or lending to clients (except in narrow cases), commingling client funds with the adviser's own, exercising discretion without written authority, making unsuitable recommendations, misrepresenting qualifications or the nature of services, and guaranteeing performance. The exam routinely describes a scenario and asks whether the adviser acted ethically — the answer turns on whether the client's interest was protected and whether material facts were disclosed.",
         ],
       },
+      {
+        heading: "What triggers custody, and the rule on conflicts",
+        blocks: [
+          { kind: "table", table: { caption: "Table 1 — Custody is broader than 'holding cash' — these all trigger it, and its safeguards.", headers: ["This creates custody", "Why"], rows: [["Holding client funds/securities", "Direct possession of assets"], ["Deducting fees beyond set limits", "Ability to withdraw from the account"], ["Holding client passwords", "Ability to move money"], ["(Recommending a third-party custodian)", "Does NOT create custody"]] } },
+          { kind: "callout", label: "Disclose, don't hide", body: "Conflicts aren't automatically prohibited — they must be fully disclosed, and for principal or agency-cross trades, consented to (often in writing). The violation is concealment. A disclosed, consented conflict can be permissible." },
+        ],
+      },
     ],
     keyTerms: [
       { term: "Fiduciary duty", def: "The obligation to act in the client's best interest with loyalty and care — higher than suitability." },
@@ -146,6 +160,13 @@ const chapters: Chapter[] = [
         paragraphs: [
           "Advisers choose between active management, which tries to outperform a benchmark through selection and timing (higher fees, the hope of excess return), and passive management, which simply tracks an index at low cost. The efficient-market view argues that beating the market consistently after fees is difficult, favoring low-cost passive approaches for many clients. Style choices — value versus growth, large-cap versus small-cap — further shape a portfolio's behavior.",
           "Two implementation techniques appear often. Dollar-cost averaging invests a fixed amount at regular intervals, buying more shares when prices are low and fewer when high, which smooths the average purchase price and removes the temptation to time the market. Rebalancing periodically restores the portfolio to its target allocation, mechanically selling what has risen and buying what has lagged — enforcing discipline and keeping risk aligned with the client's plan.",
+        ],
+      },
+      {
+        heading: "Dollar-cost averaging and rebalancing, in numbers",
+        blocks: [
+          { kind: "example", example: { title: "why dollar-cost averaging works", prompt: "An investor puts $300 into a fund each month. In month 1 the price is $10; in month 2 it falls to $6. How many shares, and what's the average cost?", steps: ["Month 1: $300 ÷ $10 = 30 shares.", "Month 2: $300 ÷ $6 = 50 shares.", "Total: $600 for 80 shares → average cost = 600 ÷ 80 = $7.50 per share."], answer: "$7.50 average cost — below the $8 simple average of the two prices, because the fixed dollars bought MORE shares when the price was low. That's the mechanical edge of dollar-cost averaging." } },
+          { kind: "callout", label: "Rebalancing = sell high, buy low", body: "A 60/40 portfolio that drifts to 75/25 after a rally is rebalanced by SELLING the appreciated stocks and BUYING bonds to return to 60/40 — mechanically selling high and buying low, and keeping risk aligned with the plan." },
         ],
       },
     ],

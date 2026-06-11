@@ -3,7 +3,7 @@
 // Name is a spin on "certified" (Latin "certus" = sure, certain —
 // the root of the word certified). Change it here and it updates
 // everywhere in the app.
-// Theme: corporate ascent — earn the title. Progress = climbing the
+// Theme: corporate career — earn the title. Progress = moving up the
 // career ladder (Intern → Analyst → Associate → VP → Director → MD → Partner).
 // ============================================================
 

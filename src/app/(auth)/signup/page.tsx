@@ -98,7 +98,7 @@ function SignupForm() {
             </span>
           </div>
           <p className="text-sm" style={{ color: "var(--text-muted)" }}>
-            Create your free account and start your first climb
+            Create your free account and start your first day
           </p>
         </div>
 

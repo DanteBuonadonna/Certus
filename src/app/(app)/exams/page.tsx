@@ -8,7 +8,7 @@ export default function ExamsPage() {
         Exam catalog
       </h1>
       <p className="text-sm mb-6" style={{ color: "var(--text-secondary)" }}>
-        The hardest finance certifications, each broken into a daily climb. Pick one to set up your plan.
+        The hardest finance certifications, each broken into a daily plan. Pick one to set up your track.
       </p>
 
       {/* Wealth Management track */}

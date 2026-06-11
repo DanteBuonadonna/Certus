@@ -8,7 +8,7 @@ import { buildDeck, loadStore, masteredCount, FlashStore } from "@/lib/flashcard
 import { useAccess } from "@/lib/useAccess";
 import { UpgradeCard } from "@/components/UpgradeGate";
 import { ProgressBar } from "@/components/ui";
-import { CheckIcon, FlagIcon, MountainIcon, LaurelIcon } from "@/components/icons";
+import { CheckIcon, FlagIcon, BuildingIcon, LaurelIcon } from "@/components/icons";
 
 interface Node {
   topicId: string;
@@ -67,7 +67,7 @@ export default function SkillTreeClient() {
     <div className="px-8 py-8 max-w-2xl mx-auto">
       <h1 className="font-display text-3xl mb-1" style={{ color: "var(--text-primary)" }}>Skill tree</h1>
       <p className="text-sm mb-5" style={{ color: "var(--text-secondary)" }}>
-        Your route to the summit. Each topic fills in as you master its flashcards — reach 100% to plant your flag.
+        Your path to the top floor. Each topic fills in as you master its flashcards — reach 100% to claim it.
       </p>
 
       <div className="flex items-center gap-2 mb-6 flex-wrap">
@@ -89,16 +89,16 @@ export default function SkillTreeClient() {
       </div>
 
       {access.ready && !access.canExam(exam) ? (
-        <UpgradeCard title="This route is Pro" reason="Free includes the full CFA skill tree. Upgrade to unlock every other exam's route." />
+        <UpgradeCard title="This track is Pro" reason="Free includes the full CFA skill tree. Upgrade to unlock every other exam's track." />
       ) : (
       <>
-      {/* Summit banner */}
+      {/* Mastery banner */}
       <div className="card p-4 mb-8 flex items-center justify-between rise-in" style={{ background: "var(--primary-light)", border: "0.5px solid rgba(83,74,183,0.2)" }}>
         <div className="flex items-center gap-2.5">
-          <span style={{ color: "var(--primary)" }}><MountainIcon size={22} /></span>
+          <span style={{ color: "var(--primary)" }}><BuildingIcon size={22} /></span>
           <div>
-            <div className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>{examName} summit</div>
-            <div className="text-xs" style={{ color: "var(--text-secondary)" }}>{overall}% of the route mastered · {masteredThrough}/{nodes.length} checkpoints</div>
+            <div className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>{examName} mastery</div>
+            <div className="text-xs" style={{ color: "var(--text-secondary)" }}>{overall}% of the track mastered · {masteredThrough}/{nodes.length} modules</div>
           </div>
         </div>
         <div className="font-display text-2xl" style={{ color: overall >= 100 ? "var(--gold)" : "var(--primary)" }}>{overall}%</div>
@@ -196,7 +196,7 @@ export default function SkillTreeClient() {
           })}
         </div>
 
-        {/* Summit flag */}
+        {/* Top-floor marker */}
         <div className="flex items-center justify-center pt-1 pb-2" style={{ position: "relative" }}>
           <div
             className="card px-6 py-4 text-center"
@@ -210,7 +210,7 @@ export default function SkillTreeClient() {
               {overall >= 100 ? <LaurelIcon size={26} /> : <FlagIcon size={24} />}
             </div>
             <div className="text-xs font-semibold" style={{ color: overall >= 100 ? "var(--gold)" : "var(--text-muted)" }}>
-              {overall >= 100 ? "Summit reached — exam-ready" : "Summit"}
+              {overall >= 100 ? "Top floor — exam-ready" : "Top floor"}
             </div>
           </div>
         </div>

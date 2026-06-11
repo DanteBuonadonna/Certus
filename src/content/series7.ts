@@ -47,6 +47,14 @@ const chapters: Chapter[] = [
           "Rights and warrants both let holders buy stock, but they differ. A right (from a rights offering) is short-term, typically lasting weeks, and lets existing shareholders buy new shares at a price below the current market — compensation for the dilution a new issue causes. A warrant is long-term, often lasting years, and is usually issued attached to bonds or preferred stock as a sweetener, with an exercise price set above the market price at issuance. The key contrast tested on the exam: rights are short-term and priced below market; warrants are long-term and priced above market.",
         ],
       },
+      {
+        heading: "Priority in liquidation, and rights vs warrants",
+        blocks: [
+          { kind: "figure", figure: { caption: "Figure 1 — The liquidation waterfall. If a company is wound up, claimants are paid strictly in this order. Common shareholders are paid LAST — the price of their unlimited upside.", alt: "A four-step ladder showing payment priority from secured creditors down to common stockholders", svg: `<svg viewBox="0 0 460 210" width="100%" style="max-width:460px"><g class="c-teal"><rect x="70" y="16" width="320" height="38" rx="8"/></g><text x="230" y="40" text-anchor="middle" font-size="11" font-weight="600" fill="#085041">1 · Secured creditors</text><g class="c-blue"><rect x="70" y="62" width="320" height="38" rx="8"/></g><text x="230" y="86" text-anchor="middle" font-size="11" font-weight="600" fill="#0C447C">2 · Unsecured creditors (incl. bondholders)</text><g class="c-amber"><rect x="70" y="108" width="320" height="38" rx="8"/></g><text x="230" y="132" text-anchor="middle" font-size="11" font-weight="600" fill="#633806">3 · Preferred stockholders</text><g class="c-red"><rect x="70" y="154" width="320" height="38" rx="8"/></g><text x="230" y="178" text-anchor="middle" font-size="11" font-weight="600" fill="#791F1F">4 · Common stockholders (last)</text><text x="40" y="38" text-anchor="middle" font-size="9" fill="var(--text-muted)" transform="rotate(-90 40 100)">paid first → last</text></svg>` } },
+          { kind: "table", table: { caption: "Table 1 — Rights vs warrants — a favorite exam distinction.", headers: ["Feature", "Rights", "Warrants"], rows: [["Term", "Short (weeks)", "Long (years)"], ["Exercise price", "Below market", "Above market at issue"], ["Given to", "Existing shareholders", "Often attached to bonds as a sweetener"]] } },
+          { kind: "callout", label: "Cumulative preferred", body: "Missed dividends on cumulative preferred accrue and must ALL be paid before common shareholders receive a cent. Non-cumulative preferred simply forfeits skipped dividends." },
+        ],
+      },
     ],
     keyTerms: [
       { term: "Common stock", def: "Residual ownership with voting rights, potential dividends, and a last-in-line claim in liquidation." },
@@ -71,46 +79,46 @@ const chapters: Chapter[] = [
     topicName: "Debt Securities",
     title: "Debt Securities: Bonds, Yields, and Money Markets",
     readingMinutes: 18,
-    summary: "How bonds work, the main issuers, the relationship between price and yield, and short-term instruments.",
+    summary: "How bonds work, the issuers and their tax profiles, the inverse price-yield relationship, the yield measures, and short-term money-market instruments — diagrammed and worked through.",
     intro:
-      "Debt securities are loans made by investors to issuers — corporations, the U.S. Treasury, and municipalities — in exchange for interest and the return of principal. The Series 7 tests debt heavily because bonds are central to building income and balancing risk in client portfolios. The single most important relationship to internalize is the inverse one between bond prices and yields.",
+      "Debt securities are loans made by investors to issuers — corporations, the U.S. Treasury, and municipalities — in exchange for interest and the eventual return of principal. The Series 7 tests debt heavily because bonds are the backbone of income and risk-balancing in client portfolios. If you internalize one thing, make it the inverse relationship between bond prices and yields; nearly every bond question is a consequence of it.",
     sections: [
       {
-        heading: "Bond basics and issuers",
-        paragraphs: [
-          "A bond pays periodic interest (the coupon) and returns its face value (par, usually $1,000) at maturity. The main issuers carry different risk and tax profiles. U.S. Treasury securities are backed by the federal government and considered free of credit risk; their interest is taxable federally but exempt from state and local tax. Corporate bonds pay higher yields to compensate for credit risk and are fully taxable. Municipal bonds, issued by states and localities, typically pay interest that is exempt from federal tax (and often state tax for in-state residents), which makes their lower stated yields attractive to investors in high tax brackets.",
+        heading: "Bond basics and the issuers' tax profiles",
+        blocks: [
+          { kind: "p", text: "A bond pays periodic interest (the coupon) and returns its face value — par, usually $1,000 — at maturity. The three main issuers carry distinct risk and, crucially for the exam, distinct tax profiles. U.S. Treasury securities are backed by the federal government and treated as free of credit risk; their interest is taxable at the federal level but exempt from state and local tax. Corporate bonds pay higher yields to compensate for credit risk and are fully taxable. Municipal bonds, issued by states and localities, typically pay interest that is exempt from federal tax (and often state tax for in-state residents) — which is why their lower stated yields are so attractive to investors in high tax brackets." },
+          { kind: "callout", label: "The tax mirror", body: "Treasuries: federally TAXABLE, state-EXEMPT. Municipals: federally EXEMPT, often state-exempt in-state. The muni's federal exemption is worth the most to high-bracket investors — compare on a tax-equivalent-yield basis." },
         ],
       },
       {
         heading: "Price, yield, and their inverse relationship",
-        paragraphs: [
-          "Bond prices and yields move in opposite directions. When market interest rates rise, existing bonds with lower fixed coupons become less attractive, so their prices fall until their yield matches the market; when rates fall, existing bonds with higher coupons become more valuable and their prices rise. A bond trading above par is at a premium (its coupon exceeds current market rates); below par is at a discount.",
-          "Several yield measures matter. Nominal yield is just the coupon rate. Current yield is annual coupon divided by current market price. Yield to maturity (YTM) accounts for the coupon plus any gain or loss if held to maturity, and is the truest measure of return. The relationships are testable: for a discount bond, nominal yield < current yield < YTM; for a premium bond, the order reverses (nominal > current > YTM).",
+        blocks: [
+          { kind: "p", text: "A bond's coupon is fixed at issuance, but market rates are not — and that mismatch drives the inverse relationship. When market interest rates rise, an existing bond's lower fixed coupon looks unattractive next to newly issued bonds, so its price must fall until its yield matches the market. When rates fall, the bond's now-above-market coupon makes it more valuable and its price rises. A bond trading above par is a premium bond (its coupon exceeds current market rates); below par, a discount bond." },
+          { kind: "figure", figure: { caption: "Figure 1 — Price and yield move in opposite directions along a convex curve. Where the coupon equals the market yield, the bond prices at par; above that point it trades at a premium, below it at a discount.", alt: "Downward-sloping convex curve of bond price against yield with premium, par, and discount regions", svg: `<svg viewBox="0 0 460 250" width="100%" style="max-width:460px"><line x1="62" y1="40" x2="62" y2="235" stroke="var(--border-strong)" stroke-width="1"/><line x1="62" y1="235" x2="435" y2="235" stroke="var(--border-strong)" stroke-width="1"/><line x1="62" y1="150" x2="435" y2="150" stroke="var(--border)" stroke-dasharray="4 3"/><path d="M82,58 C150,150 235,195 430,222" fill="none" stroke="var(--primary)" stroke-width="2.5"/><circle cx="206" cy="150" r="4" fill="var(--primary)"/><text x="430" y="146" text-anchor="end" font-size="10" fill="var(--text-muted)">Par</text><text x="120" y="92" font-size="10" fill="var(--ats-green)" font-weight="600">Premium</text><text x="330" y="212" font-size="10" fill="var(--ats-red)" font-weight="600">Discount</text><text x="248" y="262" text-anchor="middle" font-size="10" fill="var(--text-muted)">Yield →</text><text x="20" y="135" text-anchor="middle" font-size="10" fill="var(--text-muted)" transform="rotate(-90 20 135)">Price →</text></svg>` } },
+          { kind: "p", text: "Three yield measures recur, and their ordering is a favorite test point. Nominal yield is simply the coupon rate. Current yield is the annual coupon divided by the current market price. Yield to maturity (YTM) is the truest measure, capturing the coupon plus any capital gain or loss if the bond is held to maturity. For a discount bond the investor also gains the pull toward par, so the yields rank nominal < current < YTM; for a premium bond the bond loses value toward par, so the order reverses to nominal > current > YTM." },
+          { kind: "table", table: { caption: "Table 1 — Yield ordering tells you instantly whether a bond is at a discount, par, or premium.", headers: ["Bond trades at", "Coupon vs current yield vs YTM"], rows: [["Discount (price < par)", "Coupon < Current yield < YTM"], ["Par (price = par)", "Coupon = Current yield = YTM"], ["Premium (price > par)", "Coupon > Current yield > YTM"]] } },
+          { kind: "example", example: { title: "current yield", prompt: "A bond with a 6% coupon ($60 per year on $1,000 par) is trading at a discount price of $800. What is its current yield, and how does it compare to the coupon?", steps: ["Current yield = annual coupon ÷ price = $60 ÷ $800.", "= 0.075 = 7.5%.", "The 7.5% current yield exceeds the 6% nominal (coupon) — consistent with a discount bond, where coupon < current yield < YTM."], answer: "Current yield ≈ 7.5%, above the 6% coupon — a discount bond, as the ordering predicts." } },
         ],
-        callout: {
-          label: "Yield ordering",
-          body: "Discount bond: coupon < current yield < YTM. Premium bond: coupon > current yield > YTM. Par bond: all three are equal.",
-        },
       },
       {
         heading: "Money market instruments",
-        paragraphs: [
-          "The money market is where short-term debt (maturities of one year or less) trades, providing safety and liquidity. Treasury bills are short-term government debt sold at a discount and maturing at face value, with the difference serving as interest. Commercial paper is short-term unsecured corporate debt used to fund near-term needs. Certificates of deposit, banker's acceptances, and repurchase agreements round out the category. These instruments are where investors park cash they need to keep safe and accessible, accepting low yields in exchange for minimal risk.",
+        blocks: [
+          { kind: "p", text: "The money market is where short-term debt — maturities of one year or less — trades, prized for safety and liquidity rather than yield. Treasury bills are short-term government debt sold at a discount to face value, with the difference serving as the interest. Commercial paper is short-term unsecured corporate debt that funds near-term needs. Certificates of deposit, banker's acceptances, and repurchase agreements round out the category. These are where investors park cash they need to keep safe and accessible, accepting minimal yield in exchange for minimal risk and ready liquidity." },
         ],
       },
     ],
     keyTerms: [
-      { term: "Par value", def: "The face amount of a bond (usually $1,000) repaid at maturity." },
-      { term: "Yield to maturity (YTM)", def: "The total return if a bond is held to maturity, including coupon plus gain or loss versus price." },
-      { term: "Municipal bond", def: "State/local government debt whose interest is typically exempt from federal tax." },
-      { term: "Premium / Discount bond", def: "A bond trading above par (premium) or below par (discount) as market rates move." },
+      { term: "Par value", def: "The face amount of a bond (usually $1,000) repaid at maturity; bonds trade at a premium above it or discount below it." },
+      { term: "Yield to maturity (YTM)", def: "The total return if a bond is held to maturity, including the coupon plus any gain or loss versus price." },
+      { term: "Current yield", def: "Annual coupon ÷ current market price; sits between the coupon and the YTM." },
+      { term: "Municipal bond", def: "State/local government debt whose interest is typically exempt from federal tax — most valuable to high-bracket investors." },
       { term: "Treasury bill", def: "Short-term government debt sold at a discount and maturing at face value." },
     ],
     takeaways: [
-      "Bond prices and yields move inversely — premium coupons exceed market rates, discounts trail them.",
-      "Treasury interest is federally taxable but state-exempt; municipal interest is usually federally exempt.",
-      "Discount bond: coupon < current yield < YTM; premium bond reverses the order.",
-      "Money market instruments trade safety and liquidity for low yields on short maturities.",
+      "Bond prices and yields move inversely along a convex curve — premium coupons beat market rates, discounts trail them.",
+      "Treasury interest is federally taxable but state-exempt; municipal interest is usually federally exempt (the mirror image).",
+      "Discount bond: coupon < current yield < YTM; premium bond reverses the order; par bond, all equal.",
+      "Money-market instruments (T-bills, commercial paper, CDs) trade yield for safety and liquidity on short maturities.",
     ],
   },
 
@@ -148,6 +156,14 @@ const chapters: Chapter[] = [
         heading: "Opening and maintaining accounts",
         paragraphs: [
           "Opening an account requires verifying the customer's identity (under anti-money-laundering rules), recording the essential financial and objective information, and obtaining the required approvals — including a principal's signature. Certain accounts, like options or margin accounts, require additional agreements and disclosures because of their elevated risk. Throughout the relationship, the representative must keep the customer profile current, since a recommendation suitable last year may be unsuitable after a job loss, retirement, or change in goals.",
+        ],
+      },
+      {
+        heading: "The three dimensions of suitability",
+        blocks: [
+          { kind: "p", text: "Suitability is not a single test but three. Reasonable-basis suitability asks whether the product is suitable for at least some investors at all. Customer-specific suitability asks whether it fits this particular client's profile — their objectives, finances, and risk tolerance. Quantitative suitability asks whether a series of transactions, even if each is individually fine, is excessive for the account — the guard against churning. A recommendation can clear one test and fail another." },
+          { kind: "table", table: { caption: "Table 1 — The three suitability obligations every recommendation must satisfy.", headers: ["Dimension", "The question it asks"], rows: [["Reasonable-basis", "Is this product suitable for anyone at all?"], ["Customer-specific", "Is it suitable for THIS customer's profile?"], ["Quantitative", "Is the volume of trading excessive (churning)?"]] } },
+          { kind: "callout", label: "Legal ≠ suitable", body: "A perfectly legal product can still be an unsuitable recommendation. The test is always the customer in front of you — their objectives, finances, time horizon, and risk tolerance — not the product in isolation." },
         ],
       },
     ],

@@ -718,3 +718,89 @@ body {
   animation: spin 0.7s linear infinite;
   display: inline-block;
 }
+
+/* ============================================================
+   LANDING — premium motion graphics for the marketing homepage.
+   ============================================================ */
+
+/* Drifting blurred gradient blobs behind the hero. */
+@keyframes blobDrift {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(6%, -5%) scale(1.12); }
+  66%  { transform: translate(-5%, 4%) scale(0.94); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+.lp-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.55;
+  pointer-events: none;
+  animation: blobDrift 16s ease-in-out infinite;
+}
+
+/* Animated gradient sweep for the headline accent. */
+@keyframes hueDrift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.lp-gradient-text {
+  background: linear-gradient(110deg, var(--primary) 0%, #8b5cf6 30%, var(--gold-bright) 55%, var(--primary) 85%);
+  background-size: 260% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: hueDrift 7s ease-in-out infinite;
+}
+
+/* Infinite ticker marquee. */
+@keyframes lpMarquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.lp-marquee {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: lpMarquee 26s linear infinite;
+}
+
+.lp-marquee-fast {
+  animation-duration: 18s;
+}
+
+/* The promotion chip that travels up the rank ladder. */
+@keyframes ladderPromote {
+  0%, 8%    { box-shadow: 0 0 0 0 rgba(201, 162, 39, 0.0); transform: translateY(0) scale(1); }
+  14%       { box-shadow: 0 0 22px 2px rgba(201, 162, 39, 0.55); transform: translateY(-3px) scale(1.08); }
+  20%, 100% { box-shadow: 0 0 0 0 rgba(201, 162, 39, 0.0); transform: translateY(0) scale(1); }
+}
+
+/* Slow vertical float for hero stat cards. */
+@keyframes lpFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-9px); }
+}
+
+.lp-float { animation: lpFloat 5.5s ease-in-out infinite; }
+
+/* Sheen sweep across the logo seal on load. */
+@keyframes sealSheen {
+  0%   { transform: translateX(-130%) rotate(20deg); }
+  60%, 100% { transform: translateX(230%) rotate(20deg); }
+}
+
+/* Count-up shimmer underline that grows. */
+@keyframes lpGrow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-blob, .lp-gradient-text, .lp-marquee, .lp-float {
+    animation: none !important;
+  }
+}
