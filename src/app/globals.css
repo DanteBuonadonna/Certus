@@ -406,13 +406,297 @@ body {
   margin-bottom: 1rem;
 }
 
+/* ============================================================
+   GAME LAYER — the Duolingo-grade juice system.
+   Used in the game world (profile, shop, ladder, boss, rewards).
+   Study surfaces stay on the professional system above.
+   ============================================================ */
+
+:root {
+  --primary-deep: #3a3380;
+  --gold-deep: #8a6d1f;
+  --green-deep: #136b4f;
+  --red-deep: #a83432;
+
+  --tier-standard: #7d8596;
+  --tier-standard-deep: #5d6373;
+  --tier-premium: #4d8de0;
+  --tier-premium-deep: #2f66b5;
+  --tier-executive: #8b5cf6;
+  --tier-executive-deep: #6736d1;
+  --tier-legacy: #c9a227;
+  --tier-legacy-deep: #8a6d1f;
+}
+
+/* Chunky 3D press-down button. */
+.btn-game {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: 14px;
+  padding: 0.72rem 1.5rem;
+  font-weight: 800;
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.07s ease, box-shadow 0.07s ease, filter 0.15s;
+  transform: translateY(0);
+}
+
+.btn-game:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-game-primary {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 4px 0 var(--primary-deep);
+}
+
+.btn-game-gold {
+  background: var(--gold-bright);
+  color: #3a2e07;
+  box-shadow: 0 4px 0 var(--gold-deep);
+}
+
+.btn-game-green {
+  background: var(--ats-green);
+  color: #fff;
+  box-shadow: 0 4px 0 var(--green-deep);
+}
+
+.btn-game-ghost {
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  border: 2px solid var(--border-strong);
+  box-shadow: 0 4px 0 var(--border-strong);
+}
+
+.btn-game:hover:not(:disabled) {
+  filter: brightness(1.06);
+}
+
+.btn-game:active:not(:disabled) {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 transparent !important;
+}
+
+/* Thick game card. */
+.card-game {
+  background: var(--bg-card);
+  border: 2px solid var(--border-strong);
+  border-radius: 18px;
+}
+
+/* Fat striped progress bar. */
+.progress-game {
+  height: 14px;
+  border-radius: 100px;
+  background: var(--bg);
+  border: 2px solid var(--border);
+  overflow: hidden;
+}
+
+.progress-game > div {
+  height: 100%;
+  border-radius: 100px;
+  background-image: repeating-linear-gradient(
+    -55deg,
+    rgba(255, 255, 255, 0.18) 0 8px,
+    transparent 8px 16px
+  );
+  background-size: 44px 100%;
+  animation: stripeMove 1.2s linear infinite;
+  transition: width 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes stripeMove {
+  to { background-position: 44px 0; }
+}
+
+/* Springy entrances. */
+@keyframes popIn {
+  0%   { opacity: 0; transform: scale(0.55); }
+  70%  { opacity: 1; transform: scale(1.07); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.pop-in {
+  animation: popIn 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  20% { transform: rotate(-3.5deg); }
+  40% { transform: rotate(3deg); }
+  60% { transform: rotate(-2deg); }
+  80% { transform: rotate(1.5deg); }
+}
+
+.wiggle {
+  animation: wiggle 0.5s ease-in-out;
+}
+
+/* Pulsing ring for claimable / current nodes. */
+@keyframes nodePulse {
+  0%   { box-shadow: 0 0 0 0 rgba(201, 162, 39, 0.55); }
+  70%  { box-shadow: 0 0 0 14px rgba(201, 162, 39, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(201, 162, 39, 0); }
+}
+
+.node-pulse {
+  animation: nodePulse 1.6s ease-out infinite;
+}
+
+/* Bouncing attention chevron/label. */
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.bob {
+  animation: bob 1s ease-in-out infinite;
+}
+
+/* Screen shake (wrong answer). */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  15% { transform: translateX(-9px); }
+  30% { transform: translateX(8px); }
+  45% { transform: translateX(-6px); }
+  60% { transform: translateX(5px); }
+  75% { transform: translateX(-3px); }
+  90% { transform: translateX(2px); }
+}
+
+.shake {
+  animation: shake 0.45s ease-in-out;
+}
+
+/* Gold screen flash (correct answer / crit). */
+@keyframes goldFlash {
+  0% { box-shadow: inset 0 0 0 3px rgba(201, 162, 39, 0.0); }
+  30% { box-shadow: inset 0 0 60px 6px rgba(201, 162, 39, 0.22); }
+  100% { box-shadow: inset 0 0 0 0 rgba(201, 162, 39, 0); }
+}
+
+.gold-flash {
+  animation: goldFlash 0.6s ease-out;
+}
+
+/* Rotating sunburst rays (reward moments). */
+@keyframes raysSpin {
+  to { transform: rotate(360deg); }
+}
+
+.rays {
+  position: absolute;
+  inset: -40%;
+  pointer-events: none;
+  animation: raysSpin 18s linear infinite;
+  background: repeating-conic-gradient(
+    from 0deg,
+    rgba(201, 162, 39, 0.16) 0deg 12deg,
+    transparent 12deg 24deg
+  );
+  border-radius: 50%;
+}
+
+/* Coin shower (falls from top of container). */
+@keyframes coinDrop {
+  0%   { opacity: 0; transform: translateY(-30px) rotate(0deg) scale(0.6); }
+  12%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(var(--fall, 220px)) rotate(var(--spin, 360deg)) scale(1); }
+}
+
+.coin {
+  position: absolute;
+  top: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #efd687, var(--gold-bright) 55%, var(--gold-deep));
+  border: 1.5px solid var(--gold-deep);
+  pointer-events: none;
+  animation: coinDrop 1.4s cubic-bezier(0.3, 0, 0.8, 1) both;
+  animation-delay: var(--delay, 0s);
+}
+
+/* Legacy-tier shimmer frame. */
+@keyframes legacySheen {
+  0% { background-position: -120% 0; }
+  60%, 100% { background-position: 220% 0; }
+}
+
+.legacy-sheen {
+  position: relative;
+  overflow: hidden;
+}
+
+.legacy-sheen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    110deg,
+    transparent 35%,
+    rgba(201, 162, 39, 0.18) 50%,
+    transparent 65%
+  );
+  background-size: 200% 100%;
+  animation: legacySheen 3.2s ease-in-out infinite;
+}
+
+/* Avatar life: blink + idle bob. */
+@keyframes avBlink {
+  0%, 94%, 100% { transform: scaleY(1); }
+  96%, 98% { transform: scaleY(0.08); }
+}
+
+.av-eyes {
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: avBlink 4.6s ease-in-out infinite;
+}
+
+@keyframes avIdle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1.6px); }
+}
+
+.av-idle {
+  animation: avIdle 3.4s ease-in-out infinite;
+}
+
+/* Owned corner ribbon. */
+.ribbon-owned {
+  position: absolute;
+  top: 10px;
+  right: -26px;
+  transform: rotate(38deg);
+  background: var(--ats-green);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  padding: 3px 28px;
+  pointer-events: none;
+}
+
 /* Respect reduced-motion preferences. */
 @media (prefers-reduced-motion: reduce) {
-  .animate-in, .rise-in, .scale-in, .stagger > *, .stamp-in {
+  .animate-in, .rise-in, .scale-in, .stagger > *, .stamp-in, .pop-in, .wiggle, .shake {
     animation-duration: 0.01ms !important;
     animation-delay: 0s !important;
   }
-  .progress-fill::after, .skeleton, .pulse-risk {
+  .progress-fill::after, .skeleton, .pulse-risk, .node-pulse, .bob, .rays, .coin,
+  .legacy-sheen::before, .av-eyes, .av-idle, .progress-game > div, .gold-flash {
     animation: none !important;
   }
   .progress-fill {

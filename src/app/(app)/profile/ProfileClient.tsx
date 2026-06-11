@@ -20,7 +20,6 @@ import {
   ownsItem,
   getItem,
   formatComp,
-  TIER_META,
 } from "@/lib/economy";
 import { GameState, EMPTY_STATE, levelProgress, rankTitle, totalMinutes, BADGES } from "@/lib/studyPlan";
 import { loadState } from "@/lib/gameStore";
@@ -46,7 +45,7 @@ export default function ProfileClient() {
   if (!loaded) {
     return (
       <div className="px-8 py-8 max-w-3xl mx-auto">
-        <div className="skeleton" style={{ height: 180, marginBottom: 16 }} />
+        <div className="skeleton" style={{ height: 280, marginBottom: 16 }} />
         <div className="skeleton" style={{ height: 280 }} />
       </div>
     );
@@ -68,6 +67,52 @@ export default function ProfileClient() {
   }
 
   return <Locker profile={profile} state={state} wallet={wallet} onEdit={() => setEditing(true)} onUpdate={(p) => { saveProfile(p); setProfile({ ...p }); }} />;
+}
+
+// ============================================================
+// The Stage — big spotlit avatar presentation
+// ============================================================
+
+function Stage({
+  avatar,
+  size = 200,
+  streakAlive,
+}: {
+  avatar: AvatarConfig;
+  size?: number;
+  streakAlive?: boolean;
+}) {
+  return (
+    <div
+      style={{
+        position: "relative",
+        overflow: "hidden",
+        borderRadius: 18,
+        background: "radial-gradient(ellipse at 50% 30%, rgba(201,162,39,0.16), transparent 65%), linear-gradient(180deg, var(--bg) 0%, var(--bg-card) 100%)",
+        border: "2px solid var(--border-strong)",
+        padding: "26px 0 0",
+        textAlign: "center",
+      }}
+    >
+      <div className="rays" style={{ opacity: 0.5 }} />
+      <div className="pop-in" style={{ position: "relative", display: "inline-block" }}>
+        <Avatar config={avatar} size={size} rounded={size * 0.12} mood={streakAlive === false ? "determined" : "confident"} />
+      </div>
+      {/* podium */}
+      <div
+        style={{
+          position: "relative",
+          height: 16,
+          margin: "0 auto",
+          width: size * 0.86,
+          background: "linear-gradient(180deg, var(--gold-bright), var(--gold-deep))",
+          borderRadius: "5px 5px 10px 10px",
+          boxShadow: "var(--glow-gold)",
+        }}
+      />
+      <div style={{ height: 14 }} />
+    </div>
+  );
 }
 
 // ============================================================
@@ -93,37 +138,35 @@ function Wizard({
 
   return (
     <div className="px-8 py-8 max-w-3xl mx-auto">
-      {!existing && (
-        <div className="pill-gold mb-3">NEW HIRE ONBOARDING</div>
-      )}
+      {!existing && <div className="pill-gold mb-3 pop-in">NEW HIRE ONBOARDING</div>}
       <h1 className="font-display text-3xl mb-1" style={{ color: "var(--text-primary)" }}>
         {existing ? "Appearance & identity" : "Welcome to the firm"}
       </h1>
       <p className="text-sm mb-6" style={{ color: "var(--text-secondary)" }}>
         {existing
-          ? "Adjust your portrait, archetype, or display name."
-          : "Build your professional identity. Everything here is cosmetic — your readiness is earned, not bought."}
+          ? "Adjust your character, archetype, or display name."
+          : "Build your character. Everything here is cosmetic — your readiness is earned, not bought."}
       </p>
 
       <div className="grid grid-cols-5 gap-5">
         {/* Live preview */}
         <div className="col-span-2">
-          <div className="card p-5 text-center" style={{ position: "sticky", top: 24 }}>
-            <div className="flex justify-center mb-3 scale-in">
-              <Avatar config={avatar} size={168} rounded={20} />
-            </div>
-            <div className="font-display text-lg" style={{ color: "var(--text-primary)" }}>
-              {name.trim() || "Your name"}
-            </div>
-            <div className="text-xs mt-0.5" style={{ color: "var(--text-muted)" }}>
-              {getArchetype(archetype).name}
+          <div style={{ position: "sticky", top: 24 }}>
+            <Stage avatar={avatar} size={190} />
+            <div className="text-center mt-3">
+              <div className="font-display text-lg" style={{ color: "var(--text-primary)" }}>
+                {name.trim() || "Your name"}
+              </div>
+              <div className="text-xs mt-0.5" style={{ color: "var(--text-muted)" }}>
+                {getArchetype(archetype).name}
+              </div>
             </div>
           </div>
         </div>
 
         {/* Controls */}
         <div className="col-span-3 space-y-5">
-          <div className="card p-5">
+          <div className="card-game p-5">
             <SectionLabel>Display name</SectionLabel>
             <input
               className="input-field"
@@ -134,22 +177,24 @@ function Wizard({
             />
           </div>
 
-          <div className="card p-5">
+          <div className="card-game p-5">
             <SectionLabel>Study archetype</SectionLabel>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-2.5">
               {ARCHETYPES.map((a) => {
                 const active = a.id === archetype;
                 return (
                   <button
                     key={a.id}
                     onClick={() => setArchetype(a.id)}
-                    className="text-left p-3 rounded-lg transition-all"
+                    className={`text-left p-3 transition-all ${active ? "pop-in" : ""}`}
                     style={{
+                      borderRadius: 14,
                       background: active ? "var(--primary-light)" : "var(--bg)",
-                      border: active ? "1px solid var(--primary)" : "1px solid var(--border)",
+                      border: active ? "2px solid var(--primary)" : "2px solid var(--border)",
+                      boxShadow: active ? "0 3px 0 var(--primary-deep)" : "0 3px 0 var(--border)",
                     }}
                   >
-                    <div className="text-sm font-semibold" style={{ color: active ? "var(--primary)" : "var(--text-primary)" }}>
+                    <div className="text-sm font-bold" style={{ color: active ? "var(--primary)" : "var(--text-primary)" }}>
                       {a.name}
                     </div>
                     <div className="text-[11px] mt-0.5" style={{ color: "var(--text-secondary)", lineHeight: 1.4 }}>
@@ -167,17 +212,17 @@ function Wizard({
           <AvatarEditor avatar={avatar} wallet={wallet} onChange={setAvatar} />
 
           <div className="flex items-center gap-3">
-            <button className="btn-primary flex-1" disabled={!valid} onClick={() => onDone({
+            <button className="btn-game btn-game-gold flex-1" disabled={!valid} onClick={() => onDone({
               name: name.trim(),
               archetype,
               avatar,
               title: existing?.title ?? null,
               createdAt: existing?.createdAt ?? new Date().toISOString().slice(0, 10),
             })}>
-              {existing ? "Save changes" : "Sign your offer →"}
+              {existing ? "SAVE CHANGES" : "SIGN YOUR OFFER →"}
             </button>
             {onCancel && (
-              <button className="btn-secondary" onClick={onCancel}>Cancel</button>
+              <button className="btn-game btn-game-ghost" onClick={onCancel}>CANCEL</button>
             )}
           </div>
         </div>
@@ -200,10 +245,10 @@ function AvatarEditor({
   const backgrounds = itemsBySlot("background");
 
   return (
-    <div className="card p-5 space-y-4">
+    <div className="card-game p-5 space-y-4">
       <div>
         <SectionLabel>Skin tone</SectionLabel>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2.5">
           {SKINS.map((s) => (
             <Swatch key={s.id} color={s.color} active={avatar.skin === s.id} onClick={() => onChange({ ...avatar, skin: s.id })} />
           ))}
@@ -212,42 +257,23 @@ function AvatarEditor({
 
       <div>
         <SectionLabel>Hair</SectionLabel>
-        <div className="flex items-center gap-2 flex-wrap mb-2">
+        <div className="flex items-center gap-2 flex-wrap mb-2.5">
           {HAIRS.map((h) => (
             <Chip key={h.id} label={h.name} active={avatar.hair === h.id} onClick={() => onChange({ ...avatar, hair: h.id })} />
           ))}
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2.5">
           {HAIR_COLORS.map((c) => (
             <Swatch key={c.id} color={c.color} active={avatar.hairColor === c.id} onClick={() => onChange({ ...avatar, hairColor: c.id })} />
           ))}
         </div>
       </div>
 
-      <ItemRow
-        label="Suit"
-        items={suits}
-        selected={avatar.suit}
-        wallet={wallet}
-        onSelect={(id) => id && onChange({ ...avatar, suit: id })}
-      />
-      <ItemRow
-        label="Accessory"
-        items={accessories}
-        selected={avatar.accessory}
-        wallet={wallet}
-        allowNone
-        onSelect={(id) => onChange({ ...avatar, accessory: id })}
-      />
-      <ItemRow
-        label="Backdrop"
-        items={backgrounds}
-        selected={avatar.background}
-        wallet={wallet}
-        onSelect={(id) => id && onChange({ ...avatar, background: id })}
-      />
+      <ItemRow label="Suit" items={suits} selected={avatar.suit} wallet={wallet} onSelect={(id) => id && onChange({ ...avatar, suit: id })} />
+      <ItemRow label="Accessory" items={accessories} selected={avatar.accessory} wallet={wallet} allowNone onSelect={(id) => onChange({ ...avatar, accessory: id })} />
+      <ItemRow label="Backdrop" items={backgrounds} selected={avatar.background} wallet={wallet} onSelect={(id) => id && onChange({ ...avatar, background: id })} />
       <p className="text-[11px]" style={{ color: "var(--text-muted)" }}>
-        Locked items are sold at the <Link href="/shop" className="hover:underline" style={{ color: "var(--primary)" }}>Perks Desk</Link> for Comp you earn by studying.
+        Locked gear is sold at the <Link href="/shop" className="hover:underline font-semibold" style={{ color: "var(--primary)" }}>Perks Desk</Link> for Comp you earn by studying.
       </p>
     </div>
   );
@@ -272,9 +298,7 @@ function ItemRow({
     <div>
       <SectionLabel>{label}</SectionLabel>
       <div className="flex items-center gap-2 flex-wrap">
-        {allowNone && (
-          <Chip label="None" active={selected === null} onClick={() => onSelect(null)} />
-        )}
+        {allowNone && <Chip label="None" active={selected === null} onClick={() => onSelect(null)} />}
         {items.map((item) => {
           const owned = ownsItem(item.id, wallet);
           const active = selected === item.id;
@@ -284,12 +308,14 @@ function ItemRow({
               disabled={!owned}
               onClick={() => onSelect(item.id)}
               title={owned ? item.desc : `${item.name} — ${formatComp(item.price)} at the Perks Desk`}
-              className="text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all"
+              className="text-xs px-3 py-1.5 flex items-center gap-1.5 transition-all"
               style={{
+                borderRadius: 12,
+                fontWeight: 600,
                 background: active ? "var(--primary-light)" : "var(--bg)",
-                border: active ? "1px solid var(--primary)" : "1px solid var(--border)",
+                border: active ? "2px solid var(--primary)" : "2px solid var(--border)",
                 color: !owned ? "var(--text-muted)" : active ? "var(--primary)" : "var(--text-secondary)",
-                opacity: owned ? 1 : 0.6,
+                opacity: owned ? 1 : 0.55,
                 cursor: owned ? "pointer" : "not-allowed",
               }}
             >
@@ -330,37 +356,38 @@ function Locker({
 
   return (
     <div className="px-8 py-8 max-w-3xl mx-auto">
-      {/* Identity card */}
-      <div className="card mb-6 rise-in" style={{ overflow: "hidden" }}>
-        <div className="px-6 py-3 flex items-center justify-between" style={{ background: "var(--bg)", borderBottom: "0.5px solid var(--border)" }}>
-          <span className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: "var(--text-muted)" }}>
-            Employee record · joined {profile.createdAt}
-          </span>
-          <button onClick={onEdit} className="text-xs hover:underline" style={{ color: "var(--primary)" }}>
-            Edit appearance
-          </button>
+      {/* Hero: stage + identity */}
+      <div className="grid grid-cols-5 gap-5 mb-6 rise-in">
+        <div className="col-span-2">
+          <Stage avatar={profile.avatar} size={196} streakAlive={state.currentStreak > 0} />
         </div>
-        <div className="p-6 flex items-center gap-6">
-          <Avatar config={profile.avatar} size={132} rounded={18} />
-          <div className="flex-1">
-            <h1 className="font-display text-3xl" style={{ color: "var(--text-primary)" }}>{profile.name}</h1>
-            {equippedTitle && (
-              <div className="pill-gold mt-1.5">&ldquo;{equippedTitle}&rdquo;</div>
-            )}
-            <p className="text-sm mt-2" style={{ color: "var(--text-secondary)" }}>
-              <span style={{ color: "var(--gold)", fontWeight: 600 }}>{rank}</span> · Level {lp.level} · {arch.name}
-            </p>
-            <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>{arch.habit}</p>
+        <div className="col-span-3 card-game p-6 flex flex-col justify-center" style={{ position: "relative", overflow: "hidden" }}>
+          <div className="text-[10px] font-semibold uppercase tracking-widest mb-2" style={{ color: "var(--text-muted)" }}>
+            Employee record · joined {profile.createdAt}
           </div>
-          <div className="text-right">
-            <div className="text-[10px] font-semibold uppercase tracking-widest mb-1" style={{ color: "var(--text-muted)" }}>
-              Comp balance
+          <h1 className="font-display text-3xl" style={{ color: "var(--text-primary)" }}>{profile.name}</h1>
+          {equippedTitle && <div className="pill-gold mt-2" style={{ alignSelf: "flex-start" }}>&ldquo;{equippedTitle}&rdquo;</div>}
+          <p className="text-sm mt-2.5" style={{ color: "var(--text-secondary)" }}>
+            <span style={{ color: "var(--gold)", fontWeight: 700 }}>{rank}</span> · Level {lp.level} · {arch.name}
+          </p>
+
+          {/* XP bar to next level */}
+          <div className="mt-3 mb-1">
+            <div className="progress-game">
+              <div style={{ width: `${lp.pct}%`, background: "linear-gradient(90deg, var(--primary), var(--gold-bright))" }} />
             </div>
-            <div className="font-display text-2xl" style={{ color: "var(--gold)" }}>
-              {formatComp(compBalance(state, wallet))}
+            <div className="flex justify-between mt-1">
+              <span className="text-[10px] font-mono" style={{ color: "var(--text-muted)" }}>{lp.xpIntoLevel} / {lp.xpForNext} XP</span>
+              <span className="text-[10px] font-mono" style={{ color: "var(--text-muted)" }}>L{lp.level + 1}</span>
             </div>
-            <Link href="/shop" className="text-xs hover:underline" style={{ color: "var(--primary)" }}>
-              Perks Desk →
+          </div>
+
+          <div className="flex items-center gap-2.5 mt-3">
+            <button className="btn-game btn-game-ghost text-xs px-4" style={{ padding: "0.55rem 1rem" }} onClick={onEdit}>
+              EDIT CHARACTER
+            </button>
+            <Link href="/shop" className="btn-game btn-game-gold text-xs" style={{ padding: "0.55rem 1rem" }}>
+              {formatComp(compBalance(state, wallet))} · PERKS DESK
             </Link>
           </div>
         </div>
@@ -377,44 +404,25 @@ function Locker({
       {/* Title selection */}
       {ownedTitles.length > 0 && (
         <>
-          <h2 className="text-sm font-semibold mb-3" style={{ color: "var(--text-primary)" }}>Working title</h2>
-          <div className="card p-4 mb-6 flex items-center gap-2 flex-wrap">
-            <button
-              onClick={() => onUpdate({ ...profile, title: null })}
-              className="text-xs px-3 py-1.5 rounded-lg"
-              style={{
-                background: profile.title === null ? "var(--primary-light)" : "var(--bg)",
-                border: profile.title === null ? "1px solid var(--primary)" : "1px solid var(--border)",
-                color: profile.title === null ? "var(--primary)" : "var(--text-secondary)",
-              }}
-            >
-              None
-            </button>
-            {ownedTitles.map((t) => {
-              const active = profile.title === t.id;
-              return (
-                <button
-                  key={t.id}
-                  onClick={() => onUpdate({ ...profile, title: t.id })}
-                  className="text-xs px-3 py-1.5 rounded-lg"
-                  title={t.desc}
-                  style={{
-                    background: active ? "var(--gold-bg)" : "var(--bg)",
-                    border: active ? "1px solid var(--gold-border)" : "1px solid var(--border)",
-                    color: active ? "var(--gold)" : "var(--text-secondary)",
-                    fontWeight: active ? 600 : 400,
-                  }}
-                >
-                  {t.name}
-                </button>
-              );
-            })}
+          <h2 className="text-sm font-bold mb-3" style={{ color: "var(--text-primary)" }}>Working title</h2>
+          <div className="card-game p-4 mb-6 flex items-center gap-2 flex-wrap">
+            <TitleChip label="None" active={profile.title === null} onClick={() => onUpdate({ ...profile, title: null })} />
+            {ownedTitles.map((t) => (
+              <TitleChip
+                key={t.id}
+                label={t.name}
+                title={t.desc}
+                gold
+                active={profile.title === t.id}
+                onClick={() => onUpdate({ ...profile, title: t.id })}
+              />
+            ))}
           </div>
         </>
       )}
 
       {/* Trophy case */}
-      <h2 className="text-sm font-semibold mb-3 flex items-center gap-2" style={{ color: "var(--text-primary)" }}>
+      <h2 className="text-sm font-bold mb-3 flex items-center gap-2" style={{ color: "var(--text-primary)" }}>
         <span style={{ color: "var(--gold)" }}><TrophyIcon size={15} /></span>
         Trophy case
       </h2>
@@ -425,19 +433,18 @@ function Locker({
           return (
             <div
               key={e.slug}
-              className="card p-3 text-center"
+              className={trophy ? "card-game p-3 text-center legacy-sheen" : "card-game p-3 text-center"}
               title={trophy ? `${boss.name} — cleared at ${trophy.bestPct}%` : `${boss.name} — not yet cleared`}
               style={{
                 opacity: trophy ? 1 : 0.45,
-                position: "relative",
-                border: trophy ? "1px solid var(--gold-border)" : undefined,
+                borderColor: trophy ? "var(--gold-border)" : undefined,
                 boxShadow: trophy ? "var(--glow-gold)" : undefined,
               }}
             >
               <div className="flex justify-center mb-1.5" style={{ color: trophy ? "var(--gold)" : "var(--text-muted)" }}>
-                <TrophyIcon size={22} />
+                <TrophyIcon size={24} />
               </div>
-              <div className="text-[11px] font-medium" style={{ color: "var(--text-primary)" }}>{e.name}</div>
+              <div className="text-[11px] font-bold" style={{ color: "var(--text-primary)" }}>{e.name}</div>
               <div className="text-[10px] font-mono" style={{ color: trophy ? "var(--gold)" : "var(--text-muted)" }}>
                 {trophy ? `${trophy.bestPct}%` : "—"}
               </div>
@@ -447,40 +454,40 @@ function Locker({
       </div>
 
       {/* Honors wall */}
-      <h2 className="text-sm font-semibold mb-3" style={{ color: "var(--text-primary)" }}>
+      <h2 className="text-sm font-bold mb-3" style={{ color: "var(--text-primary)" }}>
         Honors wall · {state.unlockedBadges.length}/{BADGES.length}
       </h2>
       <div className="grid grid-cols-5 gap-3 mb-8 stagger">
         {BADGES.map((b) => {
           const unlocked = state.unlockedBadges.includes(b.id);
           return (
-            <div key={b.id} className="card p-3 text-center" style={{ opacity: unlocked ? 1 : 0.45 }} title={b.desc}>
+            <div key={b.id} className="card-game p-3 text-center" style={{ opacity: unlocked ? 1 : 0.45 }} title={b.desc}>
               <div
                 className="mx-auto mb-2 flex items-center justify-center rounded-full"
                 style={{
-                  width: 36,
-                  height: 36,
+                  width: 38,
+                  height: 38,
                   background: unlocked ? "var(--gold-bg)" : "var(--bg)",
-                  border: unlocked ? "1px solid var(--gold-border)" : "1px solid var(--border)",
+                  border: unlocked ? "2px solid var(--gold-border)" : "2px solid var(--border)",
                   color: unlocked ? "var(--gold)" : "var(--text-muted)",
                 }}
               >
-                <BadgeGlyph id={b.id} size={18} />
+                <BadgeGlyph id={b.id} size={19} />
               </div>
-              <p className="text-[11px] font-medium" style={{ color: "var(--text-primary)" }}>{b.name}</p>
+              <p className="text-[11px] font-bold" style={{ color: "var(--text-primary)" }}>{b.name}</p>
             </div>
           );
         })}
       </div>
 
-      <div className="card p-4 flex items-center justify-between" style={{ background: "var(--primary-light)", border: "0.5px solid rgba(83,74,183,0.2)" }}>
+      <div className="card-game p-4 flex items-center justify-between" style={{ background: "var(--primary-light)" }}>
         <div className="flex items-center gap-2.5">
           <span style={{ color: "var(--primary)" }}><BriefcaseIcon size={18} /></span>
-          <div className="text-sm" style={{ color: "var(--text-primary)" }}>
+          <div className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
             Climb the ladder — quests pay Comp at every rank.
           </div>
         </div>
-        <Link href="/career" className="btn-primary text-sm px-4 py-2">The Ladder →</Link>
+        <Link href="/career" className="btn-game btn-game-primary text-xs" style={{ padding: "0.55rem 1.1rem" }}>THE LADDER →</Link>
       </div>
     </div>
   );
@@ -489,7 +496,7 @@ function Locker({
 // ---- bits ------------------------------------------------------------------
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <div className="text-[10px] font-semibold uppercase tracking-widest mb-2" style={{ color: "var(--text-muted)" }}>
+    <div className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "var(--text-muted)" }}>
       {children}
     </div>
   );
@@ -499,13 +506,14 @@ function Swatch({ color, active, onClick }: { color: string; active: boolean; on
   return (
     <button
       onClick={onClick}
-      className="rounded-full transition-transform"
+      className={`rounded-full transition-transform ${active ? "pop-in" : ""}`}
       style={{
-        width: 26,
-        height: 26,
+        width: 30,
+        height: 30,
         background: color,
-        border: active ? "2.5px solid var(--primary)" : "2px solid var(--border-strong)",
-        transform: active ? "scale(1.12)" : "scale(1)",
+        border: active ? "3px solid var(--primary)" : "2.5px solid var(--border-strong)",
+        boxShadow: active ? "0 2.5px 0 var(--primary-deep)" : "0 2.5px 0 var(--border-strong)",
+        transform: active ? "scale(1.1)" : "scale(1)",
       }}
       aria-label={color}
     />
@@ -516,11 +524,46 @@ function Chip({ label, active, onClick }: { label: string; active: boolean; onCl
   return (
     <button
       onClick={onClick}
-      className="text-xs px-3 py-1.5 rounded-lg transition-all"
+      className="text-xs px-3 py-1.5 transition-all"
       style={{
+        borderRadius: 12,
+        fontWeight: 600,
         background: active ? "var(--primary-light)" : "var(--bg)",
-        border: active ? "1px solid var(--primary)" : "1px solid var(--border)",
+        border: active ? "2px solid var(--primary)" : "2px solid var(--border)",
+        boxShadow: active ? "0 2.5px 0 var(--primary-deep)" : "0 2.5px 0 var(--border)",
         color: active ? "var(--primary)" : "var(--text-secondary)",
+      }}
+    >
+      {label}
+    </button>
+  );
+}
+
+function TitleChip({
+  label,
+  title,
+  active,
+  gold,
+  onClick,
+}: {
+  label: string;
+  title?: string;
+  active: boolean;
+  gold?: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      title={title}
+      className="text-xs px-3 py-1.5 transition-all"
+      style={{
+        borderRadius: 12,
+        fontWeight: active ? 800 : 600,
+        background: active ? (gold ? "var(--gold-bg)" : "var(--primary-light)") : "var(--bg)",
+        border: active ? `2px solid ${gold ? "var(--gold)" : "var(--primary)"}` : "2px solid var(--border)",
+        boxShadow: active ? `0 2.5px 0 ${gold ? "var(--gold-deep)" : "var(--primary-deep)"}` : "0 2.5px 0 var(--border)",
+        color: active ? (gold ? "var(--gold)" : "var(--primary)") : "var(--text-secondary)",
       }}
     >
       {label}
@@ -530,9 +573,9 @@ function Chip({ label, active, onClick }: { label: string; active: boolean; onCl
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="card p-3.5 text-center">
+    <div className="card-game p-3.5 text-center">
       <div className="font-display text-xl" style={{ color: "var(--text-primary)" }}>{value}</div>
-      <div className="text-[10px] mt-0.5" style={{ color: "var(--text-muted)" }}>{label}</div>
+      <div className="text-[10px] mt-0.5 font-semibold" style={{ color: "var(--text-muted)" }}>{label}</div>
     </div>
   );
 }

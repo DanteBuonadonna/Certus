@@ -14,11 +14,24 @@ import {
   claimQuest,
   tierUnlocked,
 } from "@/lib/career";
-import { GameState, EMPTY_STATE, levelFromXp } from "@/lib/studyPlan";
+import { GameState, EMPTY_STATE } from "@/lib/studyPlan";
 import { loadState } from "@/lib/gameStore";
 import { Wallet, loadWallet, compBalance, formatComp } from "@/lib/economy";
-import { ProgressBar, AnimatedNumber, GoldBurst } from "@/components/ui";
+import { AnimatedNumber, GoldBurst } from "@/components/ui";
 import { CheckIcon, LockIcon, BriefcaseIcon, TrophyIcon } from "@/components/icons";
+
+// Zig-zag x offsets for path nodes (per-tier cycle).
+const OFFSETS = [0, -84, 0, 84];
+
+function CoinIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 20 20" aria-hidden>
+      <circle cx="10" cy="10" r="9" fill="var(--gold-bright)" stroke="var(--gold-deep)" strokeWidth="1.6" />
+      <circle cx="10" cy="10" r="5.8" fill="none" stroke="var(--gold-deep)" strokeWidth="1" opacity="0.55" />
+      <text x="10" y="13.6" textAnchor="middle" fontSize="9.5" fontWeight="800" fill="#5d4a12">$</text>
+    </svg>
+  );
+}
 
 export default function CareerClient() {
   const available = examsWithContent();
@@ -28,6 +41,7 @@ export default function CareerClient() {
   const [wallet, setWallet] = useState<Wallet>({ bonus: 0, spent: 0, owned: [] });
   const [loaded, setLoaded] = useState(false);
   const [justClaimed, setJustClaimed] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string | null>(null);
 
   useEffect(() => {
     setState(loadState());
@@ -41,8 +55,6 @@ export default function CareerClient() {
     [loaded, exam, state]
   );
 
-  const level = levelFromXp(state.xp);
-
   function handleClaim(q: Quest) {
     if (!ctx) return;
     const store = claimQuest(q, ctx);
@@ -50,7 +62,7 @@ export default function CareerClient() {
     setCareer({ ...store });
     setWallet(loadWallet());
     setJustClaimed(q.id);
-    setTimeout(() => setJustClaimed(null), 1300);
+    setTimeout(() => setJustClaimed(null), 1400);
   }
 
   if (!loaded || !ctx) {
@@ -62,37 +74,54 @@ export default function CareerClient() {
     );
   }
 
-  // Find the player's current tier index for the map.
-  const currentTierIdx = LADDER.reduce((acc, t, i) => (level >= t.minLevel ? i : acc), 0);
+  // The first claimable (or first incomplete) quest gets the YOU ARE HERE marker.
+  let hereQuestId: string | null = null;
+  outer: for (const tier of LADDER) {
+    if (!tierUnlocked(tier, state)) break;
+    for (const q of tier.quests) {
+      const claimed = career.claimed.includes(q.id);
+      if (!claimed) {
+        hereQuestId = q.id;
+        break outer;
+      }
+    }
+  }
 
   return (
     <div className="px-8 py-8 max-w-2xl mx-auto">
+      {/* Sticky-feel header */}
       <div className="flex items-center justify-between mb-1">
         <h1 className="font-display text-3xl" style={{ color: "var(--text-primary)" }}>The Ladder</h1>
-        <div className="text-right">
-          <div className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: "var(--text-muted)" }}>Comp balance</div>
-          <div className="font-display text-xl" style={{ color: "var(--gold)" }}>
+        <div
+          className="flex items-center gap-2 px-3.5 py-2 card-game"
+          style={{ borderColor: "var(--gold-border)", background: "var(--gold-bg)" }}
+        >
+          <CoinIcon size={18} />
+          <span className="font-display text-lg" style={{ color: "var(--gold)" }}>
             $<AnimatedNumber value={compBalance(state, wallet)} />
-          </div>
+          </span>
         </div>
       </div>
       <p className="text-sm mb-5" style={{ color: "var(--text-secondary)" }}>
         Intern to Partner. Every rung holds quests tied to real study — claim them for Comp and spend it at the{" "}
-        <Link href="/shop" className="hover:underline" style={{ color: "var(--primary)" }}>Perks Desk</Link>.
+        <Link href="/shop" className="hover:underline font-semibold" style={{ color: "var(--primary)" }}>Perks Desk</Link>.
       </p>
 
       {/* Exam selector */}
-      <div className="flex items-center gap-2 mb-7 flex-wrap">
+      <div className="flex items-center gap-2 mb-8 flex-wrap">
         {EXAMS.map((e) => {
           const has = available.includes(e.slug);
           const active = e.slug === exam;
           return (
-            <button key={e.slug} disabled={!has} onClick={() => setExam(e.slug)}
-              className="text-xs px-3 py-1.5 rounded-lg"
+            <button key={e.slug} disabled={!has} onClick={() => { setExam(e.slug); setSelected(null); }}
+              className="text-xs px-3.5 py-1.5"
               style={{
+                borderRadius: 12, fontWeight: 700,
                 background: active ? "var(--primary)" : "var(--bg-card)",
                 color: active ? "#fff" : has ? "var(--text-secondary)" : "var(--text-muted)",
-                border: "0.5px solid var(--border)", opacity: has ? 1 : 0.5, cursor: has ? "pointer" : "not-allowed",
+                border: active ? "2px solid var(--primary)" : "2px solid var(--border)",
+                boxShadow: active ? "0 3px 0 var(--primary-deep)" : "0 3px 0 var(--border)",
+                opacity: has ? 1 : 0.5, cursor: has ? "pointer" : "not-allowed",
               }}>
               {e.name}{!has && " · soon"}
             </button>
@@ -100,140 +129,202 @@ export default function CareerClient() {
         })}
       </div>
 
-      {/* The map */}
-      <div style={{ position: "relative" }}>
-        {/* Spine */}
-        <div style={{ position: "absolute", left: 21, top: 8, bottom: 8, width: 2, background: "var(--border-strong)" }} />
-        <div
-          style={{
-            position: "absolute", left: 21, top: 8, width: 2,
-            height: `${Math.min(100, ((currentTierIdx + 0.5) / LADDER.length) * 100)}%`,
-            background: "var(--gold)", boxShadow: "var(--glow-gold)",
-            transition: "height 0.8s cubic-bezier(0.22,1,0.36,1)",
-          }}
-        />
+      {/* The path */}
+      {LADDER.map((tier, ti) => {
+        const unlocked = tierUnlocked(tier, state);
+        const doneCount = tier.quests.filter((q) => career.claimed.includes(q.id)).length;
+        const tierCleared = doneCount === tier.quests.length;
+        const isCurrentTier = unlocked && !tierCleared;
 
-        {LADDER.map((tier, ti) => {
-          const unlocked = tierUnlocked(tier, state);
-          const reached = ti <= currentTierIdx;
-          const tierQuests = tier.quests;
-          const doneCount = tierQuests.filter((q) => career.claimed.includes(q.id)).length;
-          const tierCleared = doneCount === tierQuests.length;
-
-          return (
-            <div key={tier.rank} className="flex gap-5 mb-7" style={{ position: "relative" }}>
-              {/* Rank node */}
+        return (
+          <div key={tier.rank}>
+            {/* Rank checkpoint banner */}
+            <div
+              className={`card-game p-4 mb-6 flex items-center gap-4 ${tierCleared ? "legacy-sheen" : ""}`}
+              style={{
+                borderColor: tierCleared ? "var(--gold)" : isCurrentTier ? "var(--primary)" : "var(--border-strong)",
+                boxShadow: tierCleared
+                  ? "0 4px 0 var(--gold-deep)"
+                  : isCurrentTier
+                  ? "0 4px 0 var(--primary-deep)"
+                  : "0 4px 0 var(--border-strong)",
+                background: tierCleared ? "var(--gold-bg)" : isCurrentTier ? "var(--primary-light)" : "var(--bg-card)",
+                opacity: unlocked ? 1 : 0.6,
+              }}
+            >
               <div
-                className="flex-shrink-0 rounded-full flex items-center justify-center"
+                className="flex items-center justify-center rounded-full flex-shrink-0"
                 style={{
-                  width: 44, height: 44, zIndex: 1, marginTop: 2,
-                  background: tierCleared ? "var(--gold)" : reached ? "var(--primary)" : "var(--bg-card)",
-                  color: tierCleared || reached ? "#fff" : "var(--text-muted)",
-                  border: tierCleared || reached ? "none" : "1.5px solid var(--border-strong)",
-                  boxShadow: tierCleared ? "var(--glow-gold)" : reached ? "var(--glow-primary)" : "none",
+                  width: 48, height: 48,
+                  background: tierCleared ? "var(--gold)" : unlocked ? "var(--primary)" : "var(--bg)",
+                  color: tierCleared || unlocked ? "#fff" : "var(--text-muted)",
+                  border: tierCleared || unlocked ? "none" : "2px solid var(--border-strong)",
                 }}
               >
-                {tierCleared ? <TrophyIcon size={18} /> : reached ? <BriefcaseIcon size={18} /> : <LockIcon size={16} />}
+                {tierCleared ? <TrophyIcon size={21} /> : unlocked ? <BriefcaseIcon size={21} /> : <LockIcon size={18} />}
               </div>
-
               <div className="flex-1 min-w-0">
-                {/* Tier header */}
-                <div className="flex items-baseline justify-between mb-0.5">
-                  <h2 className="font-display text-xl" style={{ color: reached ? "var(--text-primary)" : "var(--text-muted)" }}>
+                <div className="flex items-baseline justify-between gap-2">
+                  <span className="font-display text-xl" style={{ color: unlocked ? "var(--text-primary)" : "var(--text-muted)" }}>
                     {tier.rank}
-                  </h2>
-                  <span className="text-[11px] font-mono" style={{ color: tierCleared ? "var(--gold)" : "var(--text-muted)" }}>
-                    {unlocked ? `${doneCount}/${tierQuests.length} claimed` : `Unlocks at level ${tier.minLevel}`}
+                  </span>
+                  <span className="text-[11px] font-mono font-bold flex-shrink-0" style={{ color: tierCleared ? "var(--gold)" : "var(--text-muted)" }}>
+                    {unlocked ? `${doneCount}/${tier.quests.length}` : `LEVEL ${tier.minLevel}`}
                   </span>
                 </div>
-                <p className="text-xs mb-3" style={{ color: "var(--text-secondary)", fontStyle: "italic" }}>
+                <p className="text-[11px] mt-0.5" style={{ color: "var(--text-secondary)", fontStyle: "italic" }}>
                   {tier.brief}
                 </p>
-
-                {/* Quests */}
-                <div className="space-y-2">
-                  {tierQuests.map((q) => {
-                    const claimed = career.claimed.includes(q.id);
-                    const p = q.progress(ctx);
-                    const complete = p.current >= p.goal;
-                    const claimable = unlocked && complete && !claimed;
-                    return (
-                      <div
-                        key={q.id}
-                        className="card p-3.5"
-                        style={{
-                          position: "relative",
-                          opacity: unlocked ? 1 : 0.5,
-                          borderColor: claimable ? "var(--gold-border)" : claimed ? "var(--border)" : undefined,
-                          boxShadow: claimable ? "var(--glow-gold)" : undefined,
-                        }}
-                      >
-                        {justClaimed === q.id && <GoldBurst count={14} />}
-                        <div className="flex items-center justify-between gap-3 mb-1.5">
-                          <span
-                            className="text-sm font-medium flex items-center gap-1.5 min-w-0"
-                            style={{
-                              color: claimed ? "var(--text-muted)" : "var(--text-primary)",
-                              textDecoration: claimed ? "line-through" : "none",
-                            }}
-                          >
-                            {claimed && <span style={{ color: "var(--gold)", flexShrink: 0 }}><CheckIcon size={13} /></span>}
-                            <span className="truncate">{q.title}</span>
-                          </span>
-                          {claimed ? (
-                            <span className="text-[11px] font-mono flex-shrink-0" style={{ color: "var(--gold)" }}>paid {formatComp(q.reward)}</span>
-                          ) : claimable ? (
-                            <button
-                              className="text-[11px] font-bold px-3 py-1.5 rounded-md flex-shrink-0"
-                              style={{ background: "var(--gold)", color: "#fff", boxShadow: "var(--shadow-sm)" }}
-                              onClick={() => handleClaim(q)}
-                            >
-                              Claim {formatComp(q.reward)}
-                            </button>
-                          ) : (
-                            <span className="text-[11px] font-mono flex-shrink-0" style={{ color: "var(--text-muted)" }}>{formatComp(q.reward)}</span>
-                          )}
-                        </div>
-                        <p className="text-[11px] mb-2" style={{ color: "var(--text-secondary)" }}>{q.desc}</p>
-                        <div className="flex items-center gap-2.5">
-                          <div className="flex-1">
-                            <ProgressBar
-                              pct={(p.current / p.goal) * 100}
-                              height={5}
-                              sheen={claimable}
-                              color={claimed ? "var(--text-muted)" : complete ? "var(--gold)" : "var(--primary)"}
-                            />
-                          </div>
-                          <span className="text-[10px] font-mono flex-shrink-0" style={{ color: "var(--text-muted)" }}>
-                            {p.current}/{p.goal}
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
               </div>
             </div>
-          );
-        })}
 
-        {/* Name on the door */}
-        <div className="flex gap-5">
-          <div
-            className="flex-shrink-0 rounded-full flex items-center justify-center"
-            style={{
-              width: 44, height: 44, zIndex: 1,
-              background: "var(--bg-card)", border: "1.5px dashed var(--gold-border)", color: "var(--gold)",
-            }}
-          >
-            <TrophyIcon size={18} />
-          </div>
-          <div className="card flex-1 p-4" style={{ borderStyle: "dashed", borderColor: "var(--gold-border)" }}>
-            <div className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>Name on the door</div>
-            <div className="text-xs mt-0.5" style={{ color: "var(--text-secondary)" }}>
-              Clear every rung, then go pass the real thing. That trophy isn&apos;t in this app.
+            {/* Quest nodes — zig-zag path */}
+            <div className="mb-8">
+              {tier.quests.map((q, qi) => {
+                const claimed = career.claimed.includes(q.id);
+                const p = q.progress(ctx);
+                const pct = Math.min(100, Math.round((p.current / p.goal) * 100));
+                const complete = p.current >= p.goal;
+                const claimable = unlocked && complete && !claimed;
+                const isHere = hereQuestId === q.id;
+                const isSelected = selected === q.id;
+                const x = OFFSETS[qi % OFFSETS.length];
+                const prevX = qi === 0 ? null : OFFSETS[(qi - 1) % OFFSETS.length];
+
+                return (
+                  <div key={q.id}>
+                    {/* connector from previous node */}
+                    {prevX !== null && (
+                      <svg width="100%" height="34" style={{ display: "block" }} viewBox="-150 0 300 34" preserveAspectRatio="xMidYMid meet">
+                        <path
+                          d={`M ${prevX} 0 C ${prevX} 20, ${x} 14, ${x} 34`}
+                          fill="none"
+                          stroke={claimed ? "var(--gold)" : "var(--border-strong)"}
+                          strokeWidth="3.5"
+                          strokeDasharray="1 8"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                    )}
+
+                    {/* node */}
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                      <div style={{ transform: `translateX(${x}px)`, position: "relative" }}>
+                        {isHere && (
+                          <div
+                            className="bob"
+                            style={{
+                              position: "absolute", top: -30, left: "50%", transform: "translateX(-50%)",
+                              background: "var(--primary)", color: "#fff", fontSize: 9.5, fontWeight: 800,
+                              letterSpacing: "0.08em", padding: "3.5px 9px", borderRadius: 8, whiteSpace: "nowrap",
+                              boxShadow: "0 3px 0 var(--primary-deep)", zIndex: 2,
+                            }}
+                          >
+                            {claimable ? "CLAIM!" : "YOU ARE HERE"}
+                          </div>
+                        )}
+                        <button
+                          onClick={() => setSelected(isSelected ? null : q.id)}
+                          className={claimable ? "node-pulse" : undefined}
+                          title={q.title}
+                          style={{
+                            position: "relative",
+                            width: 62, height: 62, borderRadius: "50%",
+                            cursor: "pointer",
+                            display: "flex", alignItems: "center", justifyContent: "center",
+                            background: claimed
+                              ? "linear-gradient(180deg, var(--gold-bright), var(--gold))"
+                              : claimable
+                              ? "linear-gradient(180deg, var(--gold-bright), var(--gold))"
+                              : !unlocked
+                              ? "var(--bg-card)"
+                              : pct > 0
+                              ? "var(--primary)"
+                              : "var(--bg-card)",
+                            color: claimed || claimable ? "#5d4a12" : pct > 0 && unlocked ? "#fff" : "var(--text-muted)",
+                            border: claimed || claimable ? "none" : "2.5px solid var(--border-strong)",
+                            boxShadow: claimed || claimable
+                              ? "0 5px 0 var(--gold-deep)"
+                              : unlocked && pct > 0
+                              ? "0 5px 0 var(--primary-deep)"
+                              : "0 5px 0 var(--border-strong)",
+                            transition: "transform 0.08s",
+                          }}
+                        >
+                          {justClaimed === q.id && <GoldBurst count={16} />}
+                          {claimed ? (
+                            <CheckIcon size={24} strokeWidth={3} />
+                          ) : claimable ? (
+                            <CoinIcon size={26} />
+                          ) : !unlocked ? (
+                            <LockIcon size={20} />
+                          ) : (
+                            <span className="font-mono text-xs font-extrabold">{pct}%</span>
+                          )}
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* detail bubble */}
+                    {isSelected && (
+                      <div className="flex justify-center" style={{ marginTop: 10 }}>
+                        <div className="card-game p-4 pop-in" style={{ width: 360, maxWidth: "100%", borderColor: claimable ? "var(--gold)" : undefined }}>
+                          <div className="flex items-center justify-between gap-2 mb-1">
+                            <span className="text-sm font-extrabold" style={{ color: "var(--text-primary)", textDecoration: claimed ? "line-through" : "none" }}>
+                              {q.title}
+                            </span>
+                            <span className="flex items-center gap-1 text-[11px] font-extrabold flex-shrink-0" style={{ color: "var(--gold)" }}>
+                              <CoinIcon size={13} /> {formatComp(q.reward)}
+                            </span>
+                          </div>
+                          <p className="text-[11px] mb-2.5" style={{ color: "var(--text-secondary)" }}>{q.desc}</p>
+                          <div className="progress-game" style={{ height: 12 }}>
+                            <div
+                              style={{
+                                width: `${pct}%`,
+                                background: claimed ? "var(--text-muted)" : complete ? "var(--gold)" : "var(--primary)",
+                              }}
+                            />
+                          </div>
+                          <div className="flex items-center justify-between mt-2">
+                            <span className="text-[10px] font-mono font-bold" style={{ color: "var(--text-muted)" }}>
+                              {p.current}/{p.goal}
+                            </span>
+                            {claimed ? (
+                              <span className="text-[11px] font-extrabold" style={{ color: "var(--gold)" }}>PAID</span>
+                            ) : claimable ? (
+                              <button
+                                className="btn-game btn-game-gold"
+                                style={{ padding: "0.45rem 1.1rem", fontSize: "0.74rem" }}
+                                onClick={() => handleClaim(q)}
+                              >
+                                <CoinIcon size={13} /> CLAIM {formatComp(q.reward)}
+                              </button>
+                            ) : (
+                              <span className="text-[10px] font-bold" style={{ color: "var(--text-muted)" }}>
+                                {unlocked ? "KEEP GOING" : `UNLOCKS AT LEVEL ${tier.minLevel}`}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
+        );
+      })}
+
+      {/* Name on the door */}
+      <div className="card-game p-5 text-center" style={{ borderStyle: "dashed", borderColor: "var(--gold-border)" }}>
+        <div className="flex justify-center mb-1.5" style={{ color: "var(--gold)" }}>
+          <TrophyIcon size={26} />
+        </div>
+        <div className="font-display text-lg" style={{ color: "var(--text-primary)" }}>Name on the door</div>
+        <div className="text-xs mt-0.5" style={{ color: "var(--text-secondary)" }}>
+          Clear every rung, then go pass the real thing. That trophy isn&apos;t in this app.
         </div>
       </div>
     </div>

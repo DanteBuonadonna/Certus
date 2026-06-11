@@ -164,6 +164,7 @@ function Battle({
   const [hearts, setHearts] = useState(cfg.hearts);
   const [answers, setAnswers] = useState<(number | null)[]>([]);
   const [timeLeft, setTimeLeft] = useState(cfg.secondsPerQuestion);
+  const [fx, setFx] = useState<"shake" | "gold-flash" | null>(null);
   const answeredRef = useRef(false);
 
   const q = questions[idx];
@@ -195,6 +196,8 @@ function Battle({
     setAnswered(true);
     const isCorrect = choice === q.answerIndex;
     if (!isCorrect) setHearts((h) => h - 1);
+    setFx(isCorrect ? "gold-flash" : "shake");
+    setTimeout(() => setFx(null), 650);
   }
 
   function next() {
@@ -216,7 +219,7 @@ function Battle({
   const urgent = timeLeft <= 10;
 
   return (
-    <div className="px-8 py-6 max-w-2xl mx-auto">
+    <div className={`px-8 py-6 max-w-2xl mx-auto ${fx ?? ""}`} style={{ borderRadius: 16 }}>
       {/* Board header */}
       <div className="flex items-center gap-3 mb-3">
         <BossCrest exam={exam} accent={accent} size={42} />
@@ -225,7 +228,25 @@ function Battle({
             <span className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>{boss.name}</span>
             <span className="text-xs font-mono" style={{ color: "var(--text-muted)" }}>{bossHpPct}% resistance</span>
           </div>
-          <ProgressBar pct={bossHpPct} height={9} color="var(--ats-red)" sheen={false} />
+          {/* Segmented HP bar — cracks away as you land hits */}
+          <div className="flex gap-1">
+            {Array.from({ length: questions.length }).map((_, i) => {
+              const filled = i < Math.round((bossHpPct / 100) * questions.length);
+              return (
+                <div
+                  key={i}
+                  style={{
+                    flex: 1,
+                    height: 10,
+                    borderRadius: 3,
+                    background: filled ? "var(--ats-red)" : "var(--bg)",
+                    border: "1px solid var(--border)",
+                    transition: "background 0.4s",
+                  }}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
 

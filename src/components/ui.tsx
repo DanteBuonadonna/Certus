@@ -335,7 +335,38 @@ export function GoldBurst({ count = 18 }: { count?: number }) {
   );
 }
 
-// ---- Level-up overlay ------------------------------------------------------
+// ---- Coin shower -----------------------------------------------------------
+export function CoinShower({ count = 16 }: { count?: number }) {
+  const coins = Array.from({ length: count }, () => ({
+    left: `${6 + Math.random() * 88}%`,
+    delay: `${Math.random() * 0.7}s`,
+    fall: `${180 + Math.random() * 140}px`,
+    spin: `${260 + Math.random() * 320}deg`,
+    size: 10 + Math.random() * 8,
+  }));
+  return (
+    <div style={{ position: "absolute", inset: 0, pointerEvents: "none", overflow: "hidden", borderRadius: "inherit" }}>
+      {coins.map((c, i) => (
+        <span
+          key={i}
+          className="coin"
+          style={
+            {
+              left: c.left,
+              width: c.size,
+              height: c.size,
+              "--delay": c.delay,
+              "--fall": c.fall,
+              "--spin": c.spin,
+            } as React.CSSProperties
+          }
+        />
+      ))}
+    </div>
+  );
+}
+
+// ---- Level-up overlay ("PROMOTION") -----------------------------------------
 export function LevelUpOverlay({
   level,
   rank,
@@ -346,38 +377,48 @@ export function LevelUpOverlay({
   onDone: () => void;
 }) {
   useEffect(() => {
-    const t = setTimeout(onDone, 2400);
+    const t = setTimeout(onDone, 3200);
     return () => clearTimeout(t);
   }, [onDone]);
 
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center"
-      style={{ background: "rgba(13,13,20,0.55)", backdropFilter: "blur(3px)" }}
+      style={{ background: "rgba(13,13,20,0.62)", backdropFilter: "blur(4px)" }}
       onClick={onDone}
     >
       <div
-        className="scale-in card"
+        className="pop-in"
         style={{
           position: "relative",
-          padding: "2.4rem 3.2rem",
+          padding: "3rem 3.8rem",
           textAlign: "center",
-          border: "1px solid var(--gold-border)",
-          boxShadow: "var(--shadow-lg), var(--glow-gold)",
+          background: "var(--bg-card)",
+          border: "2.5px solid var(--gold)",
+          borderRadius: 24,
+          boxShadow: "0 6px 0 var(--gold-deep), var(--shadow-lg), var(--glow-gold)",
+          overflow: "hidden",
         }}
       >
-        <GoldBurst count={22} />
-        <div className="pill-gold" style={{ marginBottom: 12 }}>
-          PROMOTION
-        </div>
-        <div className="font-display" style={{ fontSize: "2.2rem", color: "var(--text-primary)" }}>
-          Level {level}
-        </div>
-        <div style={{ fontSize: "0.95rem", color: "var(--gold)", fontWeight: 600, marginTop: 4 }}>
-          {rank}
-        </div>
-        <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginTop: 10 }}>
-          Keep compounding.
+        <div className="rays" style={{ opacity: 0.7 }} />
+        <CoinShower count={18} />
+        <div style={{ position: "relative" }}>
+          <GoldBurst count={24} />
+          <div className="pill-gold" style={{ marginBottom: 14, fontSize: "0.85rem", padding: "5px 16px" }}>
+            PROMOTION
+          </div>
+          <div
+            className="font-display"
+            style={{ fontSize: "3.4rem", lineHeight: 1, color: "var(--text-primary)", textShadow: "0 2px 0 rgba(201,162,39,0.3)" }}
+          >
+            Level {level}
+          </div>
+          <div style={{ fontSize: "1.15rem", color: "var(--gold)", fontWeight: 800, marginTop: 8, letterSpacing: "0.02em" }}>
+            {rank}
+          </div>
+          <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", marginTop: 12, fontWeight: 600 }}>
+            Keep compounding.
+          </div>
         </div>
       </div>
     </div>

@@ -12,6 +12,7 @@ import {
   SHOP_ITEMS,
   ShopItem,
   ItemSlot,
+  ItemTier,
   TIER_META,
   formatComp,
 } from "@/lib/economy";
@@ -20,7 +21,7 @@ import { loadState } from "@/lib/gameStore";
 import { Profile, loadProfile, saveProfile } from "@/lib/profile";
 import { Avatar } from "@/components/avatar";
 import { AnimatedNumber, GoldBurst } from "@/components/ui";
-import { CheckIcon, LockIcon, BoltIcon } from "@/components/icons";
+import { CheckIcon, LockIcon } from "@/components/icons";
 
 const SLOT_TABS: { slot: ItemSlot | "all"; label: string }[] = [
   { slot: "all", label: "All" },
@@ -29,6 +30,23 @@ const SLOT_TABS: { slot: ItemSlot | "all"; label: string }[] = [
   { slot: "background", label: "Backdrops" },
   { slot: "title", label: "Titles" },
 ];
+
+const TIER_FRAME: Record<ItemTier, { frame: string; deep: string; bg: string }> = {
+  standard: { frame: "var(--tier-standard)", deep: "var(--tier-standard-deep)", bg: "rgba(125,133,150,0.1)" },
+  premium: { frame: "var(--tier-premium)", deep: "var(--tier-premium-deep)", bg: "rgba(77,141,224,0.1)" },
+  executive: { frame: "var(--tier-executive)", deep: "var(--tier-executive-deep)", bg: "rgba(139,92,246,0.1)" },
+  legacy: { frame: "var(--tier-legacy)", deep: "var(--tier-legacy-deep)", bg: "rgba(201,162,39,0.12)" },
+};
+
+function CoinIcon({ size = 14 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 20 20" aria-hidden>
+      <circle cx="10" cy="10" r="9" fill="var(--gold-bright)" stroke="var(--gold-deep)" strokeWidth="1.6" />
+      <circle cx="10" cy="10" r="5.8" fill="none" stroke="var(--gold-deep)" strokeWidth="1" opacity="0.55" />
+      <text x="10" y="13.6" textAnchor="middle" fontSize="9.5" fontWeight="800" fill="#5d4a12">$</text>
+    </svg>
+  );
+}
 
 export default function ShopClient() {
   const [state, setState] = useState<GameState>(EMPTY_STATE);
@@ -56,7 +74,7 @@ export default function ShopClient() {
     if (!w) return;
     setWallet({ ...w });
     setJustBought(item.id);
-    setTimeout(() => setJustBought(null), 1200);
+    setTimeout(() => setJustBought(null), 1400);
   }
 
   function handleEquip(item: ShopItem) {
@@ -94,123 +112,155 @@ export default function ShopClient() {
         Spend the Comp you&apos;ve earned studying. Strictly cosmetic — readiness can&apos;t be bought.
       </p>
 
-      {/* Wallet */}
-      <div className="card p-4 mb-6 flex items-center justify-between rise-in" style={{ borderColor: "var(--gold-border)" }}>
+      {/* Wallet bar */}
+      <div
+        className="card-game p-4 mb-6 flex items-center justify-between rise-in"
+        style={{ borderColor: "var(--gold-border)", background: "linear-gradient(180deg, var(--gold-bg), var(--bg-card) 80%)" }}
+      >
         <div className="flex items-center gap-4">
-          {profile && <Avatar config={profile.avatar} size={52} rounded={10} />}
+          {profile && <Avatar config={profile.avatar} size={56} rounded={12} />}
           <div>
-            <div className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: "var(--text-muted)" }}>
+            <div className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "var(--text-muted)" }}>
               Comp balance
             </div>
-            <div className="font-display text-2xl" style={{ color: "var(--gold)" }}>
+            <div className="font-display text-2xl flex items-center gap-2" style={{ color: "var(--gold)" }}>
+              <CoinIcon size={20} />
               $<AnimatedNumber value={balance} />
             </div>
           </div>
         </div>
-        <div className="text-right text-xs" style={{ color: "var(--text-muted)" }}>
+        <div className="text-right text-xs font-semibold" style={{ color: "var(--text-muted)" }}>
           <div>Lifetime earned: {formatComp(compEarned(state, wallet))}</div>
-          <div className="flex items-center gap-1 justify-end mt-0.5">
-            <BoltIcon size={11} /> 1 XP = $1 · quests pay bonuses
-          </div>
+          <div className="mt-0.5">1 XP = $1 · quests pay bonuses</div>
         </div>
       </div>
 
       {!profile && (
-        <div className="card p-4 mb-6 flex items-center justify-between" style={{ background: "var(--primary-light)" }}>
-          <span className="text-sm" style={{ color: "var(--text-primary)" }}>
-            Create your profile first so you can equip what you buy.
+        <div className="card-game p-4 mb-6 flex items-center justify-between" style={{ background: "var(--primary-light)" }}>
+          <span className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
+            Create your character first so you can equip what you buy.
           </span>
-          <Link href="/profile" className="btn-primary text-sm px-4 py-2">Onboard →</Link>
+          <Link href="/profile" className="btn-game btn-game-primary text-xs" style={{ padding: "0.55rem 1.1rem" }}>ONBOARD →</Link>
         </div>
       )}
 
       {/* Tabs */}
-      <div className="flex items-center gap-2 mb-5 flex-wrap">
-        {SLOT_TABS.map((t) => (
-          <button
-            key={t.slot}
-            onClick={() => setTab(t.slot)}
-            className="text-xs px-3 py-1.5 rounded-lg"
-            style={{
-              background: tab === t.slot ? "var(--primary)" : "var(--bg-card)",
-              color: tab === t.slot ? "#fff" : "var(--text-secondary)",
-              border: "0.5px solid var(--border)",
-            }}
-          >
-            {t.label}
-          </button>
-        ))}
+      <div className="flex items-center gap-2 mb-6 flex-wrap">
+        {SLOT_TABS.map((t) => {
+          const active = tab === t.slot;
+          return (
+            <button
+              key={t.slot}
+              onClick={() => setTab(t.slot)}
+              className="text-xs px-4 py-2 transition-all"
+              style={{
+                borderRadius: 12,
+                fontWeight: 700,
+                background: active ? "var(--primary)" : "var(--bg-card)",
+                color: active ? "#fff" : "var(--text-secondary)",
+                border: active ? "2px solid var(--primary)" : "2px solid var(--border)",
+                boxShadow: active ? "0 3px 0 var(--primary-deep)" : "0 3px 0 var(--border)",
+              }}
+            >
+              {t.label}
+            </button>
+          );
+        })}
       </div>
 
-      {/* Catalog */}
-      <div className="grid grid-cols-2 gap-3 stagger">
+      {/* Loot grid */}
+      <div className="grid grid-cols-2 gap-4 stagger">
         {items.map((item) => {
           const owned = ownsItem(item.id, wallet);
           const equipped = isEquipped(item);
           const affordable = balance >= item.price;
           const tier = TIER_META[item.tier];
+          const frame = TIER_FRAME[item.tier];
           const preview = profile ? previewConfig(profile, item) : null;
+          const isLegacy = item.tier === "legacy";
           return (
             <div
               key={item.id}
-              className="card-i p-4"
+              className={`${isLegacy ? "legacy-sheen " : ""}${justBought === item.id ? "wiggle " : ""}card-game`}
               style={{
                 position: "relative",
-                borderColor: item.tier === "legacy" ? "var(--gold-border)" : undefined,
-                boxShadow: item.tier === "legacy" ? "var(--glow-gold)" : undefined,
+                overflow: "hidden",
+                borderColor: frame.frame,
+                boxShadow: `0 4px 0 ${frame.deep}`,
               }}
             >
-              {justBought === item.id && <GoldBurst count={14} />}
-              <div className="flex items-start gap-3">
+              {justBought === item.id && <GoldBurst count={16} />}
+              {owned && <div className="ribbon-owned">OWNED</div>}
+
+              {/* Rarity band */}
+              <div
+                className="px-4 py-1.5 flex items-center justify-between"
+                style={{ background: frame.bg, borderBottom: `2px solid ${frame.frame}` }}
+              >
+                <span className="text-[10px] font-extrabold uppercase tracking-widest" style={{ color: tier.color }}>
+                  {tier.label}
+                </span>
+                <span className="flex gap-0.5">
+                  {Array.from({ length: tierStars(item.tier) }).map((_, i) => (
+                    <svg key={i} width="9" height="9" viewBox="0 0 24 24" fill={frame.frame}>
+                      <path d="M12 2.8l2.8 5.9 6.2.8-4.6 4.4 1.2 6.2L12 17l-5.6 3.1 1.2-6.2L3 9.5l6.2-.8L12 2.8z" />
+                    </svg>
+                  ))}
+                </span>
+              </div>
+
+              <div className="p-4 flex items-start gap-3.5">
+                {/* Art */}
                 {preview && item.slot !== "title" ? (
-                  <Avatar config={preview} size={62} rounded={10} />
+                  <Avatar config={preview} size={76} rounded={14} animated={false} />
                 ) : (
                   <div
-                    className="flex items-center justify-center rounded-lg font-display"
-                    style={{ width: 62, height: 62, background: "var(--gold-bg)", color: "var(--gold)", fontSize: 22, flexShrink: 0 }}
+                    className="flex items-center justify-center font-display"
+                    style={{
+                      width: 76,
+                      height: 76,
+                      borderRadius: 14,
+                      background: frame.bg,
+                      border: `2px solid ${frame.frame}`,
+                      color: frame.frame,
+                      fontSize: 26,
+                      flexShrink: 0,
+                    }}
                   >
-                    &ldquo;
+                    &ldquo;&rdquo;
                   </div>
                 )}
+
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-sm font-semibold truncate" style={{ color: "var(--text-primary)" }}>{item.name}</span>
-                    <span className="text-[10px] font-semibold uppercase tracking-wider flex-shrink-0" style={{ color: tier.color }}>
-                      {tier.label}
-                    </span>
-                  </div>
-                  <p className="text-[11px] mt-0.5 mb-2" style={{ color: "var(--text-secondary)", lineHeight: 1.4 }}>
+                  <div className="text-sm font-extrabold truncate" style={{ color: "var(--text-primary)" }}>{item.name}</div>
+                  <p className="text-[11px] mt-0.5 mb-2.5" style={{ color: "var(--text-secondary)", lineHeight: 1.45 }}>
                     {item.desc}
                   </p>
+
                   {owned ? (
                     equipped ? (
-                      <span className="text-[11px] font-semibold flex items-center gap-1" style={{ color: "var(--ats-green)" }}>
-                        <CheckIcon size={12} /> Equipped
+                      <span className="text-[11px] font-extrabold flex items-center gap-1" style={{ color: "var(--ats-green)" }}>
+                        <CheckIcon size={12} /> EQUIPPED
                       </span>
                     ) : (
                       <button
-                        className="text-[11px] font-semibold px-3 py-1 rounded-md"
-                        style={{ background: "var(--primary-light)", color: "var(--primary)", border: "1px solid rgba(83,74,183,0.25)" }}
+                        className="btn-game btn-game-primary"
+                        style={{ padding: "0.4rem 1rem", fontSize: "0.72rem", borderRadius: 11 }}
                         onClick={() => handleEquip(item)}
                         disabled={!profile}
                       >
-                        Equip
+                        EQUIP
                       </button>
                     )
                   ) : (
                     <button
-                      className="text-[11px] font-semibold px-3 py-1 rounded-md flex items-center gap-1.5"
-                      style={{
-                        background: affordable ? "var(--gold-bg)" : "var(--bg)",
-                        color: affordable ? "var(--gold)" : "var(--text-muted)",
-                        border: affordable ? "1px solid var(--gold-border)" : "1px solid var(--border)",
-                        cursor: affordable ? "pointer" : "not-allowed",
-                      }}
+                      className={affordable ? "btn-game btn-game-gold" : "btn-game btn-game-ghost"}
+                      style={{ padding: "0.4rem 0.9rem", fontSize: "0.72rem", borderRadius: 11 }}
                       disabled={!affordable}
                       onClick={() => handleBuy(item)}
                       title={affordable ? `Buy for ${formatComp(item.price)}` : `Earn ${formatComp(item.price - balance)} more Comp by studying`}
                     >
-                      {!affordable && <LockIcon size={11} />}
+                      {affordable ? <CoinIcon size={13} /> : <LockIcon size={11} />}
                       {formatComp(item.price)}
                     </button>
                   )}
@@ -221,11 +271,15 @@ export default function ShopClient() {
         })}
       </div>
 
-      <p className="text-xs text-center mt-6" style={{ color: "var(--text-muted)" }}>
+      <p className="text-xs text-center mt-7 font-semibold" style={{ color: "var(--text-muted)" }}>
         Comp is earned, never bought. Every dollar here represents real study time.
       </p>
     </div>
   );
+}
+
+function tierStars(t: ItemTier): number {
+  return t === "standard" ? 1 : t === "premium" ? 2 : t === "executive" ? 3 : 4;
 }
 
 /** Preview the item on the player's current avatar. */

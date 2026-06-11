@@ -1,35 +1,22 @@
-# Phase 2: RPG Systems — June 11, 2026 (Fable)
+# Phase 3: Game Feel ("juice") — June 11, 2026 (Fable)
 
-`npm run build` verified green (all routes incl. new /profile, /shop, /career).
-Everything below is in this folder, ready to commit and push. Suggested message:
-"RPG layer: character creation, profile locker, Comp economy + Perks Desk shop, career quest ladder"
+`npm run build` verified green. Ready to commit and push. Suggested message:
+"Game feel v2: juice system, expressive animated avatar, loot shop, serpentine quest path, battle FX"
 
-## New files (9)
+Design rule established: **two visual worlds.** Study surfaces (reading, practice,
+dashboard analytics) stay professional serif/gold. Game surfaces (profile, shop,
+ladder, boss, rewards) get the Duolingo-grade juice system.
 
-Data layer:
-- `src/lib/profile.ts` — player identity: name, study archetype (6 options: Sprinter, Marathoner, Dawn Patrol, Night Desk, Quant, Scholar), avatar config, equipped title. localStorage `certus_profile_v1`.
-- `src/lib/economy.ts` — the **Comp** economy: $1 per XP earned (retroactive for existing users) + quest bonuses; spending never touches XP/level. Full Perks Desk catalog: 7 suits, 7 accessories, 6 backdrops, 6 titles across Standard/Premium/Executive/Legacy tiers ($250–$6,000). localStorage `certus_wallet_v1`.
-- `src/lib/career.ts` — **The Ladder**: 6 rank tiers (Intern→Partner) gated by existing level thresholds, 22 quests checked against real study state (chapters read, cards mastered, Final scores, readiness rating, streaks, hours). Claiming pays Comp. localStorage `certus_career_v1`.
+## Changed files (7)
 
-Avatar:
-- `src/components/avatar.tsx` — layered flat-geometric corporate portrait SVG: 6 skin tones, 6 hairstyles, 5 hair colors (free) + suit/accessory/backdrop layers driven by shop items. Backdrops include animated-feel scenes (ticker wall, skyline, reading room, gold vault). Unique SVG ids per instance.
+- `src/app/globals.css` — new GAME LAYER: chunky 3D press-down buttons (`.btn-game` + primary/gold/green/ghost variants), thick `.card-game`, fat striped animated progress bars, rarity tier color tokens, springy `popIn`/`wiggle`, screen `shake`, `gold-flash`, pulsing claim rings, bouncing markers, rotating sunburst `.rays`, falling `.coin` shower, legacy-tier shimmer, avatar blink + idle-bob keyframes, OWNED ribbon. All reduced-motion safe.
+- `src/components/avatar.tsx` — **Avatar v2, a character not a portrait**: bigger expressive head, lit eyes with highlights that *blink*, idle breathing bob, three moods (confident/determined/neutral — brows + mouth change; streak state drives it), detailed tailoring (collar wings, buttons, working watch with hands), richer backdrops (skyline with moon, ticker wall with chart line, glinting gold vault), ground shadow. Same config schema — existing avatars upgrade automatically.
+- `src/app/(app)/profile/ProfileClient.tsx` — **The Stage**: avatar presented big on a gold podium under a rotating spotlight; XP bar to next level on the identity card; chunky game buttons; archetype cards and swatches with 3D press effects.
+- `src/app/(app)/shop/ShopClient.tsx` — **loot shop**: rarity-framed cards (grey/blue/purple/gold frames with matching 3D shadows + star count), rarity band header, gold coin icon currency chips, OWNED corner ribbons, legacy items shimmer, buy = wiggle + gold burst, wallet bar with gold gradient.
+- `src/app/(app)/career/CareerClient.tsx` — **serpentine quest path**: big 62px 3D circular nodes zig-zagging down the page with dotted curve connectors (gold once claimed), bouncing "YOU ARE HERE" / "CLAIM!" marker, pulsing gold claimable nodes, tap a node → pop-in detail bubble with striped progress + claim button, rank checkpoint banners (briefcase → trophy when cleared, shimmer on gold).
+- `src/app/(app)/boss/BossClient.tsx` — battle FX: **screen shake** on wrong answers, **gold flash** on correct, segmented HP bar that cracks away per hit.
+- `src/components/ui.tsx` — LevelUpOverlay v2: full PROMOTION moment with rotating sunburst rays, coin shower, gold burst, big serif type. New exported `CoinShower` component.
 
-Pages:
-- `src/app/(app)/profile/page.tsx` + `ProfileClient.tsx` — **New Hire Onboarding** wizard (name, archetype, live avatar preview, appearance editor) and the **locker**: employee-record identity card, Comp balance, stats strip, working-title selector, trophy case (per-exam Finals), honors wall.
-- `src/app/(app)/shop/page.tsx` + `ShopClient.tsx` — **The Perks Desk**: wallet header with lifetime earnings, slot tabs, every item previewed on YOUR avatar, buy → gold burst → equip. Legacy items glow gold.
-- `src/app/(app)/career/page.tsx` + `CareerClient.tsx` — **The Ladder** quest map: gold spine fills to your current rank, per-tier briefs, quest progress bars, claim buttons with payouts, locked tiers show level gates. Ends with "Name on the door."
+## No data/logic changes
 
-## Changed files (2)
-
-- `src/components/layout/Sidebar.tsx` — new "Career" nav section (Profile, The Ladder, Perks Desk); user box now shows your avatar + display name.
-- `src/app/(app)/dashboard/DashboardClient.tsx` — gold NEW HIRE onboarding banner when no profile; avatar + first-name greeting + equipped title in the header.
-
-## Design guardrails kept
-
-- Everything cosmetic; Comp can't buy readiness, spending can't de-level you.
-- Gold = achievement only. No emojis. Corporate flavor throughout ("Sign your offer", "paid $400", "Embarrass the board").
-- All client-side localStorage, consistent with the rest — same server-side migration caveat when auth returns.
-
-## Phase 1 recap (already pushed earlier)
-
-Serif/gold identity, SVG icon set, Readiness Rating (CCC→AAA), premium reader with completion XP, The Final (boss) re-theme, node-graph skill tree, sidebar polish.
+All stores, quest definitions, prices, and game math are untouched — this phase is purely presentation. No new files, no migrations.
