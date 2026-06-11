@@ -1,7 +1,11 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { BRAND } from "@/lib/brand";
+import { Profile, loadProfile } from "@/lib/profile";
+import { Avatar } from "@/components/avatar";
+import { getItem } from "@/lib/economy";
 import { EXAMS, getExam } from "@/lib/exams";
 import {
   EMPTY_STATE,
@@ -46,6 +50,7 @@ export default function DashboardClient() {
   const [loaded, setLoaded] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const [levelUp, setLevelUp] = useState<{ level: number; rank: string } | null>(null);
+  const [profile, setProfile] = useState<Profile | null>(null);
 
   // Hydrate from localStorage on mount.
   useEffect(() => {
@@ -53,6 +58,7 @@ export default function DashboardClient() {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) setState({ ...EMPTY_STATE, ...JSON.parse(raw) });
     } catch {}
+    setProfile(loadProfile());
     setLoaded(true);
   }, []);
 
@@ -112,15 +118,38 @@ export default function DashboardClient() {
 
   return (
     <div className="px-8 py-8 max-w-5xl mx-auto">
+      {/* New-hire onboarding nudge */}
+      {!profile && (
+        <div className="card p-4 mb-6 flex items-center justify-between rise-in" style={{ borderColor: "var(--gold-border)", boxShadow: "var(--glow-gold)" }}>
+          <div>
+            <div className="pill-gold mb-1.5">NEW HIRE</div>
+            <div className="text-sm" style={{ color: "var(--text-primary)" }}>
+              You haven&apos;t onboarded yet. Build your professional identity — portrait, archetype, the works.
+            </div>
+          </div>
+          <Link href="/profile" className="btn-primary text-sm px-4 py-2 flex-shrink-0">Start onboarding →</Link>
+        </div>
+      )}
+
       {/* Top stats bar */}
       <div className="flex items-center justify-between mb-6 rise-in">
-        <div>
+        <div className="flex items-center gap-3.5">
+          {profile && (
+            <Link href="/profile" title="Your profile" className="flex-shrink-0">
+              <Avatar config={profile.avatar} size={52} rounded={12} />
+            </Link>
+          )}
+          <div>
           <h1 className="font-display text-3xl" style={{ color: "var(--text-primary)" }}>
-            {greeting()}
+            {greeting()}{profile ? `, ${profile.name.split(" ")[0]}` : ""}
           </h1>
           <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>
             <span style={{ color: "var(--gold)", fontWeight: 600 }}>{rankTitle(lp.level)}</span> · Level {lp.level}
+            {profile?.title && (
+              <span style={{ color: "var(--text-muted)" }}> · &ldquo;{titleName(profile.title)}&rdquo;</span>
+            )}
           </p>
+          </div>
         </div>
         <div className="flex items-center gap-3">
           <StatChip
@@ -302,6 +331,10 @@ export default function DashboardClient() {
 function todayStudied(state: GameState): boolean {
   const t = today();
   return state.sessions.some((s) => s.date === t);
+}
+
+function titleName(id: string): string {
+  return getItem(id)?.name ?? "";
 }
 
 // ---- Plan setup ----------------------------------------------------------

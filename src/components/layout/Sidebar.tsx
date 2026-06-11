@@ -1,10 +1,13 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { BRAND } from "@/lib/brand";
 import { useAccess } from "@/lib/useAccess";
+import { Profile, loadProfile } from "@/lib/profile";
+import { Avatar } from "@/components/avatar";
 
 interface SidebarProps {
   credits: number;
@@ -41,6 +44,15 @@ const I = {
   billing: (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
   ),
+  profile: (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4-6.5 8-6.5s7 2 8 6.5"/></svg>
+  ),
+  ladder: (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3v18M16 3v18M8 7h8M8 12h8M8 17h8"/></svg>
+  ),
+  perks: (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.6 13.4L11 3.8a2 2 0 00-1.4-.6H4a1 1 0 00-1 1v5.6c0 .5.2 1 .6 1.4l9.6 9.6a2 2 0 002.8 0l4.6-4.6a2 2 0 000-2.8z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg>
+  ),
   resume: (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
   ),
@@ -65,6 +77,14 @@ const SECTIONS: { label: string; items: NavItem[] }[] = [
     ],
   },
   {
+    label: "Career",
+    items: [
+      { label: "Profile", href: "/profile", icon: I.profile },
+      { label: "The Ladder", href: "/career", icon: I.ladder },
+      { label: "Perks Desk", href: "/shop", icon: I.perks },
+    ],
+  },
+  {
     label: "Account",
     items: [
       { label: "Refer & earn", href: "/referral", icon: I.referral },
@@ -78,6 +98,11 @@ export default function Sidebar({ email }: SidebarProps) {
   const router = useRouter();
   const supabase = createClient();
   const { pro } = useAccess();
+  const [profile, setProfile] = useState<Profile | null>(null);
+
+  useEffect(() => {
+    setProfile(loadProfile());
+  }, [pathname]);
 
   async function handleSignOut() {
     await supabase.auth.signOut();
@@ -157,10 +182,16 @@ export default function Sidebar({ email }: SidebarProps) {
 
         {/* User */}
         <div className="flex items-center gap-2 px-2 py-2 rounded-lg" style={{ border: "0.5px solid var(--border)" }}>
-          <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-medium flex-shrink-0" style={{ background: "var(--primary-light)", color: "var(--primary)" }}>
-            {email.charAt(0).toUpperCase()}
-          </div>
-          <span className="text-xs truncate flex-1" style={{ color: "var(--text-secondary)" }}>{email}</span>
+          {profile ? (
+            <Link href="/profile" className="flex-shrink-0" title="Your profile">
+              <Avatar config={profile.avatar} size={28} rounded={14} />
+            </Link>
+          ) : (
+            <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-medium flex-shrink-0" style={{ background: "var(--primary-light)", color: "var(--primary)" }}>
+              {email.charAt(0).toUpperCase()}
+            </div>
+          )}
+          <span className="text-xs truncate flex-1" style={{ color: "var(--text-secondary)" }}>{profile?.name ?? email}</span>
           <button onClick={handleSignOut} className="flex-shrink-0 opacity-60 hover:opacity-100 transition-opacity" title="Sign out">
             <SignOutIcon />
           </button>
