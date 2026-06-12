@@ -6,6 +6,8 @@
 
 import { ExamContent, Chapter, Question } from "./types";
 import { cfaContent } from "./cfa";
+import { cfaL2Content } from "./cfa-l2";
+import { cfaL3Content } from "./cfa-l3";
 import { series7Content } from "./series7";
 import { series66Content } from "./series66";
 import { cfpContent } from "./cfp";
@@ -14,7 +16,9 @@ import { sieContent } from "./sie";
 
 const REGISTRY: Record<string, ExamContent> = {
   sie: sieContent,
-  cfa: cfaContent,
+  cfa: cfaContent, // CFA Level I (original slug kept so user progress carries over)
+  "cfa-l2": cfaL2Content,
+  "cfa-l3": cfaL3Content,
   "series-7": series7Content,
   "series-66": series66Content,
   cfp: cfpContent,

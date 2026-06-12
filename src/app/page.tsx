@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { BRAND } from "@/lib/brand";
 import { EXAMS, difficultyLabel, totalHours } from "@/lib/exams";
+import { LogoMark } from "@/components/Logo";
 
 const RANKS = ["Intern", "Analyst", "Associate", "VP", "Director", "MD", "Partner"];
 
@@ -244,35 +245,7 @@ export default function LandingPage() {
   );
 }
 
-/* ============================================================
-   Logo — a corporate seal: a rising column on a deep-indigo
-   crest, ringed in gold. Reads as "growth + credential."
-   ============================================================ */
-function LogoMark({ size = 30 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 40 40" fill="none" aria-hidden>
-      <defs>
-        <linearGradient id="lg-seal" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#5b51c9" />
-          <stop offset="1" stopColor="#3a3380" />
-        </linearGradient>
-        <linearGradient id="lg-gold" x1="8" y1="30" x2="32" y2="10" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#e3c478" />
-          <stop offset="1" stopColor="#c9a227" />
-        </linearGradient>
-      </defs>
-      <rect x="1" y="1" width="38" height="38" rx="10" fill="url(#lg-seal)" />
-      <rect x="2.5" y="2.5" width="35" height="35" rx="8.5" fill="none" stroke="url(#lg-gold)" strokeWidth="1.2" opacity="0.85" />
-      {/* ascending columns */}
-      <rect x="11" y="22" width="4.4" height="8" rx="1.4" fill="#fff" opacity="0.55" />
-      <rect x="17.8" y="17" width="4.4" height="13" rx="1.4" fill="#fff" opacity="0.8" />
-      <rect x="24.6" y="11" width="4.4" height="19" rx="1.4" fill="url(#lg-gold)" />
-      {/* rising trend tick */}
-      <path d="M11 21 L20 16 L29 9" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" opacity="0.9" />
-      <circle cx="29" cy="9" r="2" fill="url(#lg-gold)" />
-    </svg>
-  );
-}
+/* Logo lives in src/components/Logo.tsx — the Certus certification seal. */
 
 /* ============================================================
    Hero visual — a live "promotion" card with a climbing XP bar,

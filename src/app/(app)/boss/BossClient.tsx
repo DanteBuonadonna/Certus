@@ -17,6 +17,7 @@ import {
 } from "@/lib/bossExam";
 import { recordStudy } from "@/lib/gameStore";
 import { useAccess } from "@/lib/useAccess";
+import { canStartBoss, recordBossAttempt, isPro } from "@/lib/access";
 import { UpgradeCard } from "@/components/UpgradeGate";
 import { ProgressBar, GoldBurst } from "@/components/ui";
 import {
@@ -49,6 +50,8 @@ export default function BossClient() {
   const cfg = bossConfig(pool.length);
 
   function begin() {
+    if (!canStartBoss(exam)) return;
+    recordBossAttempt(exam);
     setQuestions(buildBossExam(exam, 20));
     setResult(null);
     setPhase("battle");
@@ -65,18 +68,8 @@ export default function BossClient() {
     setPhase("result");
   }
 
-  // Boss battles are a Pro feature for everyone.
-  if (access.ready && !access.canBoss()) {
-    return (
-      <div className="px-8 py-8 max-w-2xl mx-auto">
-        <h1 className="font-display text-3xl mb-1" style={{ color: "var(--text-primary)" }}>The Final</h1>
-        <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
-          Face a timed, comprehensive exam against the board of each certification.
-        </p>
-        <UpgradeCard title="Finals are a Pro feature" reason="Clear the board of each exam to prove you're ready. Upgrade to take them on." />
-      </div>
-    );
-  }
+  // Everyone gets ONE free attempt per exam; retakes are Pro.
+  const attemptLocked = access.ready && !canStartBoss(exam);
 
   if (phase === "battle") {
     return <Battle exam={exam} accent={accent} questions={questions} cfg={cfg} boss={boss} onFinish={finish} onQuit={() => setPhase("setup")} />;
@@ -135,9 +128,23 @@ export default function BossClient() {
             <TrophyIcon size={12} /> Cleared · best score {trophies[exam].bestPct}%
           </div>
         )}
-        <button className="btn-primary w-full" disabled={pool.length === 0} onClick={begin}>
-          {pool.length === 0 ? "No questions yet" : "Enter the exam room →"}
-        </button>
+        {attemptLocked ? (
+          <UpgradeCard
+            title="You've used your free attempt at this Final"
+            reason="Every exam includes one free sitting so you can feel the real thing. Pro unlocks unlimited retakes — plus every chapter of every exam."
+          />
+        ) : (
+          <>
+            {access.ready && !isPro() && (
+              <p className="text-xs mb-3 font-semibold" style={{ color: "var(--ats-green)" }}>
+                Free attempt available — make it count.
+              </p>
+            )}
+            <button className="btn-primary w-full" disabled={pool.length === 0} onClick={begin}>
+              {pool.length === 0 ? "No questions yet" : "Enter the exam room →"}
+            </button>
+          </>
+        )}
       </div>
 
       <p className="text-xs text-center" style={{ color: "var(--text-muted)" }}>

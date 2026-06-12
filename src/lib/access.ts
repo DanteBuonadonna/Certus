@@ -51,7 +51,34 @@ export function canAccessChapter(index: number): boolean {
   return isPro() || chapterIsFree(index);
 }
 
-// The Final (boss exams) is a Pro feature.
+// The Final (boss exams): everyone gets ONE free attempt per exam —
+// enough to feel the full boss fight — then retakes require Pro.
+const BOSS_TRIES_KEY = "certus_boss_tries_v1";
+
+export function bossAttemptsUsed(examSlug: string): number {
+  if (typeof window === "undefined") return 0;
+  try {
+    const raw = localStorage.getItem(BOSS_TRIES_KEY);
+    if (raw) return JSON.parse(raw)[examSlug] ?? 0;
+  } catch {}
+  return 0;
+}
+
+export function recordBossAttempt(examSlug: string): void {
+  if (typeof window === "undefined") return;
+  try {
+    const raw = localStorage.getItem(BOSS_TRIES_KEY);
+    const tries = raw ? JSON.parse(raw) : {};
+    tries[examSlug] = (tries[examSlug] ?? 0) + 1;
+    localStorage.setItem(BOSS_TRIES_KEY, JSON.stringify(tries));
+  } catch {}
+}
+
+export function canStartBoss(examSlug: string): boolean {
+  return isPro() || bossAttemptsUsed(examSlug) < 1;
+}
+
+// Legacy blanket check (kept for compatibility; prefer canStartBoss).
 export function canAccessBoss(): boolean {
   return isPro();
 }

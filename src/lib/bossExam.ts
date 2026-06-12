@@ -26,10 +26,22 @@ const BOSSES: Record<string, Boss> = {
     defeatTaunt: "Everyone starts here. Shore up the basics and sit it again.",
   },
   cfa: {
-    name: "CFA Exam Day · The Charter Board",
+    name: "CFA Level I Exam Day · The Charter Board",
     emoji: "🏛️",
-    intro: "Ten disciplines, one proctored test. Sit the board and prove you've earned the charter.",
+    intro: "Ten disciplines, one proctored test. Sit the board and prove the foundation is solid.",
     defeatTaunt: "Not ready for the charter yet. Sharpen your weak areas and book the retake.",
+  },
+  "cfa-l2": {
+    name: "CFA Level II Exam Day · The Valuation Committee",
+    emoji: "🏛️",
+    intro: "Vignettes, models, and numbers that must tie out. The committee checks every assumption.",
+    defeatTaunt: "Your valuation didn't survive diligence. Rebuild the model and present again.",
+  },
+  "cfa-l3": {
+    name: "CFA Level III Exam Day · The Investment Committee",
+    emoji: "🏛️",
+    intro: "The last gate. Construct the portfolio, defend the policy, and the charter is yours.",
+    defeatTaunt: "The committee tabled your proposal. Refine the policy and return.",
   },
   "series-7": {
     name: "Series 7 Exam Day · The Compliance Desk",

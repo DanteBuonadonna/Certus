@@ -47,26 +47,49 @@ const CFA_TOPICS_L1: ExamTopic[] = [
 ];
 
 export const EXAMS: Exam[] = [
+  // CFA is split into three separate tracks — most candidates only need
+  // the level in front of them. Level I keeps the original "cfa" slug so
+  // existing user progress carries over untouched.
   {
     slug: "cfa",
-    name: "CFA",
-    fullName: "Chartered Financial Analyst",
+    name: "CFA I",
+    fullName: "Chartered Financial Analyst — Level I",
     category: "Investment",
     blurb:
-      "The gold standard for investment management. Three levels, ~900 hours total, single-digit-to-40% pass rates. The flagship climb.",
+      "The gold standard's front door: ten disciplines, ~300 hours, a ~37% pass rate. Foundation of the charter.",
+    difficulty: 5,
+    flagship: true,
+    wealthTrack: true,
+    accent: "#534AB7",
+    levels: [{ id: "l1", name: "Level I", recommendedHours: 300, passRate: 37, topics: CFA_TOPICS_L1 }],
+  },
+  {
+    slug: "cfa-l2",
+    name: "CFA II",
+    fullName: "Chartered Financial Analyst — Level II",
+    category: "Investment",
+    blurb:
+      "Vignette item sets and serious valuation: where analysts are made. ~320 hours, applied from the first question.",
     difficulty: 5,
     flagship: true,
     wealthTrack: true,
     accent: "#534AB7",
     levels: [
-      { id: "l1", name: "Level I", recommendedHours: 300, passRate: 37, topics: CFA_TOPICS_L1 },
-      {
-        id: "l2",
-        name: "Level II",
-        recommendedHours: 320,
-        passRate: 47,
-        topics: CFA_TOPICS_L1.map((t) => ({ ...t })),
-      },
+      { id: "l2", name: "Level II", recommendedHours: 320, passRate: 47, topics: CFA_TOPICS_L1.map((t) => ({ ...t })) },
+    ],
+  },
+  {
+    slug: "cfa-l3",
+    name: "CFA III",
+    fullName: "Chartered Financial Analyst — Level III",
+    category: "Investment",
+    blurb:
+      "Portfolio management and essays — the final gate to the charter. ~340 hours of synthesis over recall.",
+    difficulty: 5,
+    flagship: true,
+    wealthTrack: true,
+    accent: "#534AB7",
+    levels: [
       {
         id: "l3",
         name: "Level III",

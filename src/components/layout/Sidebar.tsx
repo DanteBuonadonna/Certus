@@ -8,6 +8,7 @@ import { BRAND } from "@/lib/brand";
 import { useAccess } from "@/lib/useAccess";
 import { Profile, loadProfile } from "@/lib/profile";
 import { Avatar } from "@/components/avatar";
+import { LogoMark } from "@/components/Logo";
 
 interface SidebarProps {
   credits: number;
@@ -200,15 +201,7 @@ export default function Sidebar({ email }: SidebarProps) {
   );
 }
 
-function LogoMark() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-      <rect width="24" height="24" rx="6" fill="#534AB7" />
-      <path d="M5 17l4.5-8 3 5 2-3.5L19 17H5z" fill="white" />
-      <circle cx="16.5" cy="7.5" r="1.6" fill="rgba(255,255,255,0.85)" />
-    </svg>
-  );
-}
+/* Logo lives in src/components/Logo.tsx — the Certus certification seal. */
 
 function SignOutIcon() {
   return (
