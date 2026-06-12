@@ -31,7 +31,7 @@ export default function LandingPage() {
           <Link href="/billing" className="hover:opacity-70 transition-opacity">Pricing</Link>
         </div>
         <div className="flex items-center gap-3">
-          <Link href="/dashboard" className="text-sm px-3 py-2 rounded-lg hover:opacity-70 transition-opacity" style={{ color: "var(--text-secondary)" }}>Sign in</Link>
+          <Link href="/login" className="text-sm px-3 py-2 rounded-lg hover:opacity-70 transition-opacity" style={{ color: "var(--text-secondary)" }}>Sign in</Link>
           <Link href="/dashboard" className="btn-primary text-sm">Start free</Link>
         </div>
       </nav>

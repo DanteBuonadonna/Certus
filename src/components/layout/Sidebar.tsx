@@ -12,7 +12,8 @@ import { LogoMark } from "@/components/Logo";
 
 interface SidebarProps {
   credits: number;
-  email: string;
+  /** Signed-in user's email, or null for guests (accounts are optional). */
+  email: string | null;
 }
 
 type NavItem = { label: string; href: string; icon: React.ReactNode };
@@ -181,21 +182,40 @@ export default function Sidebar({ email }: SidebarProps) {
         )}
 
         {/* User */}
-        <div className="flex items-center gap-2 px-2 py-2 rounded-lg" style={{ border: "0.5px solid var(--border)" }}>
-          {profile ? (
-            <Link href="/profile" className="flex-shrink-0" title="Your profile">
-              <Avatar config={profile.avatar} size={28} rounded={14} />
+        {email ? (
+          <div className="flex items-center gap-2 px-2 py-2 rounded-lg" style={{ border: "0.5px solid var(--border)" }}>
+            {profile ? (
+              <Link href="/profile" className="flex-shrink-0" title="Your profile">
+                <Avatar config={profile.avatar} size={28} rounded={14} />
+              </Link>
+            ) : (
+              <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-medium flex-shrink-0" style={{ background: "var(--primary-light)", color: "var(--primary)" }}>
+                {email.charAt(0).toUpperCase()}
+              </div>
+            )}
+            <span className="text-xs truncate flex-1" style={{ color: "var(--text-secondary)" }} title={email}>
+              {profile?.name ?? email}
+            </span>
+            <button onClick={handleSignOut} className="flex-shrink-0 opacity-60 hover:opacity-100 transition-opacity" title="Sign out">
+              <SignOutIcon />
+            </button>
+          </div>
+        ) : (
+          <div className="rounded-lg px-3 py-3 space-y-1.5" style={{ border: "0.5px solid var(--border)" }}>
+            {profile && (
+              <div className="flex items-center gap-2 mb-1">
+                <Avatar config={profile.avatar} size={24} rounded={12} />
+                <span className="text-xs truncate" style={{ color: "var(--text-secondary)" }}>{profile.name}</span>
+              </div>
+            )}
+            <Link href="/signup" className="block text-center text-xs font-semibold py-1.5 rounded-md" style={{ background: "var(--primary)", color: "#fff" }}>
+              Create free account
             </Link>
-          ) : (
-            <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-medium flex-shrink-0" style={{ background: "var(--primary-light)", color: "var(--primary)" }}>
-              {email.charAt(0).toUpperCase()}
-            </div>
-          )}
-          <span className="text-xs truncate flex-1" style={{ color: "var(--text-secondary)" }}>{profile?.name ?? email}</span>
-          <button onClick={handleSignOut} className="flex-shrink-0 opacity-60 hover:opacity-100 transition-opacity" title="Sign out">
-            <SignOutIcon />
-          </button>
-        </div>
+            <Link href="/login" className="block text-center text-xs font-medium py-1" style={{ color: "var(--text-secondary)" }}>
+              Sign in
+            </Link>
+          </div>
+        )}
       </div>
     </aside>
   );
