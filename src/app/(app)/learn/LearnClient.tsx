@@ -11,6 +11,26 @@ import { loadReading, markChapterRead, isChapterRead, ReadingStore } from "@/lib
 import { recordStudy } from "@/lib/gameStore";
 import { GoldBurst } from "@/components/ui";
 import { ArrowLeftIcon, BookIcon, CheckCircleIcon, CheckIcon, ListIcon } from "@/components/icons";
+import Tutor from "@/components/Tutor";
+
+/** Flatten a section's content into plain text for the tutor's context. */
+function sectionPlainText(chapter: Chapter, idx: number): string {
+  const s = chapter.sections[idx];
+  if (!s) return "";
+  const parts: string[] = [s.heading];
+  (s.paragraphs ?? []).forEach((p) => parts.push(p));
+  (s.bullets ?? []).forEach((b) => parts.push("• " + b));
+  if (s.callout) parts.push(`${s.callout.label}: ${s.callout.body}`);
+  (s.blocks ?? []).forEach((b) => {
+    if (b.kind === "p") parts.push(b.text);
+    else if (b.kind === "bullets") b.items.forEach((i) => parts.push("• " + i));
+    else if (b.kind === "callout") parts.push(`${b.label}: ${b.body}`);
+    else if (b.kind === "formula") parts.push(`Formula${b.formula.label ? ` (${b.formula.label})` : ""}: ${b.formula.expr}${b.formula.note ? ` — ${b.formula.note}` : ""}`);
+    else if (b.kind === "example") parts.push(`Worked example (${b.example.title}): ${b.example.prompt} Steps: ${b.example.steps.join(" ")} Answer: ${b.example.answer}`);
+    else if (b.kind === "table") parts.push(`Table: ${b.table.headers.join(" | ")}. ${b.table.rows.map((r) => r.join(" | ")).join(". ")}`);
+  });
+  return parts.join("\n").slice(0, 5200);
+}
 
 export default function LearnClient() {
   const available = examsWithContent();
@@ -356,6 +376,16 @@ function Reader({ chapter, onBack }: { chapter: Chapter; onBack: () => void }) {
           </Link>
         </div>
       </div>
+
+      {/* The Associate — knows exactly which section you're reading */}
+      <Tutor
+        context={`Exam: ${chapter.examSlug.toUpperCase()} · Chapter: "${chapter.title}" (${chapter.topicName}).\nThe student is currently reading the section below:\n\n${sectionPlainText(chapter, activeSection)}`}
+        suggestions={[
+          "Explain this section simply",
+          "Give me another worked example",
+          "Quiz me on this section",
+        ]}
+      />
     </div>
   );
 }

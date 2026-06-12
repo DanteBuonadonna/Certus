@@ -14,14 +14,23 @@ const PLAN_PRICE_ENV: Record<string, string | undefined> = {
 
 export async function POST(request: Request) {
   try {
-    const supabase = await createClient();
-
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    // Login is currently disabled, so checkout works for guests too.
+    // If a Supabase session exists we attach the user; otherwise Stripe
+    // collects the email at checkout and the webhook records it for
+    // when accounts return.
+    let userId: string | null = null;
+    let userEmail: string | undefined = undefined;
+    try {
+      const supabase = await createClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (user) {
+        userId = user.id;
+        userEmail = user.email ?? undefined;
+      }
+    } catch {
+      // No auth configured — proceed as guest.
     }
 
     const { plan } = await request.json();
@@ -34,16 +43,22 @@ export async function POST(request: Request) {
       );
     }
 
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+    // Derive the app URL from the actual request so success/cancel
+    // redirects work on any deployment (preview, prod, localhost).
+    const origin =
+      request.headers.get("origin") ||
+      process.env.NEXT_PUBLIC_APP_URL ||
+      "http://localhost:3000";
 
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
       line_items: [{ price: priceId, quantity: 1 }],
-      metadata: { user_id: user.id, plan },
-      subscription_data: { metadata: { user_id: user.id, plan } },
-      customer_email: user.email,
-      success_url: `${appUrl}/billing?success=true`,
-      cancel_url: `${appUrl}/billing?canceled=true`,
+      metadata: { user_id: userId ?? "guest", plan },
+      subscription_data: { metadata: { user_id: userId ?? "guest", plan } },
+      ...(userEmail ? { customer_email: userEmail } : {}),
+      allow_promotion_codes: true,
+      success_url: `${origin}/billing?success=true&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${origin}/billing?canceled=true`,
     });
 
     return NextResponse.json({ url: session.url });

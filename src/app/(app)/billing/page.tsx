@@ -2,9 +2,9 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import Link from "next/link";
 import { PLANS, PLAN_FEATURES, Plan } from "@/lib/plans";
 import { BRAND } from "@/lib/brand";
+import { setPro } from "@/lib/access";
 
 export default function BillingPage() {
   return (
@@ -21,7 +21,11 @@ function BillingInner() {
 
   useEffect(() => {
     if (searchParams.get("success") === "true") {
-      setMessage({ type: "success", text: "You're subscribed! Full access is unlocked." });
+      // Unlock Pro in this browser immediately after a successful checkout.
+      // (Client-side for the account-less MVP; the Stripe webhook records the
+      // subscription so this moves server-side when accounts return.)
+      setPro(true);
+      setMessage({ type: "success", text: "You're subscribed! Full access is unlocked — every chapter, every exam, every Final." });
     } else if (searchParams.get("canceled") === "true") {
       setMessage({ type: "error", text: "Checkout canceled. No charges were made." });
     }
@@ -75,10 +79,7 @@ function BillingInner() {
       </div>
 
       <p className="text-xs text-center" style={{ color: "var(--text-muted)" }}>
-        Payments via Stripe. Cancel anytime.{" "}
-        <Link href="/referral" style={{ color: "var(--primary)" }}>
-          Earn free time by referring friends →
-        </Link>
+        Payments via Stripe. Cancel anytime.
       </p>
     </div>
   );

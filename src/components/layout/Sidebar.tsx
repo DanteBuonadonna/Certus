@@ -87,7 +87,6 @@ const SECTIONS: { label: string; items: NavItem[] }[] = [
   {
     label: "Account",
     items: [
-      { label: "Refer & earn", href: "/referral", icon: I.referral },
       { label: "Billing", href: "/billing", icon: I.billing },
     ],
   },
@@ -145,7 +144,7 @@ export default function Sidebar({ email }: SidebarProps) {
       {/* Nav grouped into sections */}
       <nav className="flex-1 px-3 overflow-y-auto">
         {SECTIONS.map((section) => (
-          <div key={section.label} className="mb-4">
+          <div key={section.label} className="mb-4" data-tour={`nav-${section.label.toLowerCase()}`}>
             <div className="px-3 pb-1.5">
               <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>
                 {section.label}

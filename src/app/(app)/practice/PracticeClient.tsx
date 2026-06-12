@@ -9,6 +9,7 @@ import { Question } from "@/content/types";
 import { recordStudy } from "@/lib/gameStore";
 import { useAccess } from "@/lib/useAccess";
 import { UpgradeCard } from "@/components/UpgradeGate";
+import Tutor from "@/components/Tutor";
 
 type Phase = "setup" | "quiz" | "results";
 
@@ -186,6 +187,16 @@ function Quiz({ questions, onFinish }: { questions: Question[]; onFinish: (answe
       <button className="btn-primary w-full" disabled={!answered} onClick={next}>
         {isLast ? "See results" : "Next question →"}
       </button>
+
+      {/* The Associate — sees the current question (and the explanation once answered) */}
+      <Tutor
+        context={`The student is doing practice questions (${q.topicName}).\nCurrent question: ${q.stem}\nChoices: ${q.choices.map((c, ci) => `${String.fromCharCode(65 + ci)}. ${c}`).join(" ")}${answered ? `\nCorrect answer: ${String.fromCharCode(65 + q.answerIndex)}. Explanation: ${q.explanation}\nThe student answered ${picked !== null ? String.fromCharCode(65 + picked) : "nothing"} (${correct ? "correct" : "incorrect"}).` : "\nThe student has NOT answered yet — do NOT reveal the answer; teach the underlying concept or how to approach it instead."}`}
+        suggestions={
+          answered
+            ? ["Why is my answer wrong?", "Explain this concept from scratch", "Give me a similar question"]
+            : ["Teach me the concept behind this", "How do I approach this question?", "Define the terms in this question"]
+        }
+      />
     </div>
   );
 }

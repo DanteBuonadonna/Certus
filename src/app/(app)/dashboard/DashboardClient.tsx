@@ -6,6 +6,8 @@ import { BRAND } from "@/lib/brand";
 import { Profile, loadProfile } from "@/lib/profile";
 import { Avatar } from "@/components/avatar";
 import { getItem } from "@/lib/economy";
+import QuickStart from "@/components/QuickStart";
+import Tour, { TourStep } from "@/components/Tour";
 import { EXAMS, getExam } from "@/lib/exams";
 import {
   EMPTY_STATE,
@@ -44,6 +46,48 @@ import {
 } from "@/components/icons";
 
 const STORAGE_KEY = GAME_KEY;
+const TOUR_KEY = "certus_tour_v1";
+
+const TOUR_STEPS: TourStep[] = [
+  {
+    title: "Welcome to the firm",
+    body: "Certus is exam prep built like a career. Read, drill, and test your way from Intern to Partner — here's the 30-second lay of the land.",
+  },
+  {
+    target: "[data-tour='stats']",
+    title: "Your vitals",
+    body: "Streak, XP, and total hours. Study any amount today to keep the streak alive — XP also mints Comp ($) you can spend later.",
+  },
+  {
+    target: "[data-tour='plan']",
+    title: "Your track",
+    body: "Pick your exam and test date here. Certus builds a daily plan, paces you to exam day, and this is where you log study sessions.",
+  },
+  {
+    target: "[data-tour='readiness']",
+    title: "The number that matters",
+    body: "Your Readiness Rating (0–100, graded like a bond: CCC to AAA). It moves when you finish chapters, master flashcards, and clear mock exams. Get it to AAA and you're exam-ready.",
+  },
+  {
+    target: "[data-tour='challenges']",
+    title: "Daily challenges",
+    body: "Quick hits that pay bonus XP every day. Stack them with your streak to level up faster.",
+  },
+  {
+    target: "[data-tour='nav-train']",
+    title: "Where the work happens",
+    body: "Reading is the textbook (in-depth chapters). Practice drills real questions. Flashcards lock in key terms. The Final is the full timed mock — clear it to prove you're ready.",
+  },
+  {
+    target: "[data-tour='nav-career']",
+    title: "The game layer",
+    body: "Your Profile (character + trophies), The Ladder (quests that pay Comp at every rank), and the Perks Desk (spend Comp on gear for your character).",
+  },
+  {
+    title: "That's it — set your date",
+    body: "Pick your exam, set the test date, and read your first chapter today. The streak starts now.",
+  },
+];
 
 export default function DashboardClient() {
   const [state, setState] = useState<GameState>(EMPTY_STATE);
@@ -51,6 +95,8 @@ export default function DashboardClient() {
   const [toast, setToast] = useState<string | null>(null);
   const [levelUp, setLevelUp] = useState<{ level: number; rank: string } | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
+  const [showQuickStart, setShowQuickStart] = useState(false);
+  const [showTour, setShowTour] = useState(false);
 
   // Hydrate from localStorage on mount.
   useEffect(() => {
@@ -58,9 +104,23 @@ export default function DashboardClient() {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) setState({ ...EMPTY_STATE, ...JSON.parse(raw) });
     } catch {}
-    setProfile(loadProfile());
+    const p = loadProfile();
+    setProfile(p);
     setLoaded(true);
+    // First-open flow: quick character creation, then the guided tour.
+    try {
+      const tourDone = localStorage.getItem(TOUR_KEY) === "1";
+      if (!p) setShowQuickStart(true);
+      else if (!tourDone) setShowTour(true);
+    } catch {}
   }, []);
+
+  function finishTour() {
+    try {
+      localStorage.setItem(TOUR_KEY, "1");
+    } catch {}
+    setShowTour(false);
+  }
 
   // Persist on change.
   useEffect(() => {
@@ -118,8 +178,24 @@ export default function DashboardClient() {
 
   return (
     <div className="px-8 py-8 max-w-5xl mx-auto">
+      {/* First-open: 20-second character creation, then the guided tour */}
+      {showQuickStart && (
+        <QuickStart
+          onDone={(p) => {
+            setProfile(p);
+            setShowQuickStart(false);
+            setShowTour(true);
+          }}
+          onSkip={() => {
+            setShowQuickStart(false);
+            setShowTour(true);
+          }}
+        />
+      )}
+      {showTour && !showQuickStart && <Tour steps={TOUR_STEPS} onDone={finishTour} />}
+
       {/* New-hire onboarding nudge */}
-      {!profile && (
+      {!profile && !showQuickStart && (
         <div className="card p-4 mb-6 flex items-center justify-between rise-in" style={{ borderColor: "var(--gold-border)", boxShadow: "var(--glow-gold)" }}>
           <div>
             <div className="pill-gold mb-1.5">NEW HIRE</div>
@@ -151,7 +227,7 @@ export default function DashboardClient() {
           </p>
           </div>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3" data-tour="stats">
           <StatChip
             icon={<FlameIcon size={17} />}
             label="Streak"
@@ -189,7 +265,7 @@ export default function DashboardClient() {
       ) : (
         <div className="grid grid-cols-5 gap-4 mb-6 rise-in" style={{ animationDelay: "0.1s" }}>
           {/* Plan + quick log */}
-          <div className="col-span-3">
+          <div className="col-span-3" data-tour="plan">
             <PlanDashboard
               plan={activePlan}
               progress={progress!}
@@ -199,7 +275,7 @@ export default function DashboardClient() {
           </div>
 
           {/* Readiness rating */}
-          <div className="col-span-2 card p-5 flex flex-col">
+          <div className="col-span-2 card p-5 flex flex-col" data-tour="readiness">
             <div className="flex items-center gap-2 mb-1">
               <span style={{ color: "var(--text-muted)" }}><TrendUpIcon size={14} /></span>
               <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>
@@ -251,7 +327,7 @@ export default function DashboardClient() {
         <span style={{ color: "var(--primary)" }}><TargetIcon size={15} /></span>
         Today&apos;s challenges
       </h2>
-      <div className="grid grid-cols-2 gap-3 stagger">
+      <div className="grid grid-cols-2 gap-3 stagger" data-tour="challenges">
         {challenges.map((c) => (
           <div key={c.id} className="card-i p-4">
             <div className="flex items-center justify-between mb-2">
