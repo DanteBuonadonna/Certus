@@ -26,13 +26,13 @@ export default function LandingPage() {
           <span className="font-display text-lg" style={{ color: "var(--text-primary)" }}>{BRAND.name}</span>
         </div>
         <div className="hidden md:flex items-center gap-7 text-sm" style={{ color: "var(--text-secondary)" }}>
-          <Link href="/dashboard" className="hover:opacity-70 transition-opacity">Exams</Link>
-          <Link href="/dashboard" className="hover:opacity-70 transition-opacity">How it works</Link>
+          <Link href="/signup" className="hover:opacity-70 transition-opacity">Exams</Link>
+          <Link href="/signup" className="hover:opacity-70 transition-opacity">How it works</Link>
           <Link href="/billing" className="hover:opacity-70 transition-opacity">Pricing</Link>
         </div>
         <div className="flex items-center gap-3">
           <Link href="/login" className="text-sm px-3 py-2 rounded-lg hover:opacity-70 transition-opacity" style={{ color: "var(--text-secondary)" }}>Sign in</Link>
-          <Link href="/dashboard" className="btn-primary text-sm">Start free</Link>
+          <Link href="/signup" className="btn-primary text-sm">Start free</Link>
         </div>
       </nav>
 
@@ -81,8 +81,8 @@ export default function LandingPage() {
             </p>
 
             <div className="flex items-center justify-center lg:justify-start gap-3 flex-wrap">
-              <Link href="/dashboard" className="btn-primary text-base px-7 py-3">Start your track →</Link>
-              <Link href="/dashboard" className="btn-secondary text-base px-7 py-3">Explore the exams</Link>
+              <Link href="/signup" className="btn-primary text-base px-7 py-3">Start your track →</Link>
+              <Link href="/signup" className="btn-secondary text-base px-7 py-3">Explore the exams</Link>
             </div>
             <p className="text-xs mt-4" style={{ color: "var(--text-muted)" }}>
               Free to start · Preview every exam · The full CFA track on the house
@@ -189,7 +189,7 @@ export default function LandingPage() {
             ))}
           </div>
           <div className="text-center mt-8">
-            <Link href="/dashboard" className="text-sm font-medium" style={{ color: "var(--primary)" }}>See all {EXAMS.length} exams →</Link>
+            <Link href="/signup" className="text-sm font-medium" style={{ color: "var(--primary)" }}>See all {EXAMS.length} exams →</Link>
           </div>
         </div>
       </section>
@@ -226,7 +226,7 @@ export default function LandingPage() {
           <p className="text-sm mb-8" style={{ color: "var(--text-secondary)" }}>
             The candidates who pass aren&apos;t the smartest — they&apos;re the most consistent. {BRAND.name} makes consistency the easy part.
           </p>
-          <Link href="/dashboard" className="btn-primary text-base px-8 py-3.5">Start free →</Link>
+          <Link href="/signup" className="btn-primary text-base px-8 py-3.5">Start free →</Link>
         </div>
       </section>
 
