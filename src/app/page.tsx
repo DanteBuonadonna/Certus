@@ -76,8 +76,7 @@ export default function LandingPage() {
             </h1>
 
             <p className="text-lg mb-8 max-w-lg mx-auto lg:mx-0" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>
-              {BRAND.name} turns the CFA, CPA, Series 7 and more into a career you level up — daily
-              assignments, real rewards, and an Exam Day you only face once you&apos;ve truly earned it.
+              {`${BRAND.name} turns the CFA, CPA, Series 7, and more into a career you level up — daily assignments, real rewards, and an Exam Day you only face once you've truly earned it.`}
             </p>
 
             <div className="flex items-center justify-center lg:justify-start gap-3 flex-wrap">
@@ -236,7 +235,11 @@ export default function LandingPage() {
           <LogoMark size={18} />
           <span className="text-sm" style={{ color: "var(--text-muted)" }}>{BRAND.name}</span>
         </div>
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-4 flex-wrap">
+          <Link href="/terms" className="text-xs hover:opacity-70 transition-opacity" style={{ color: "var(--text-muted)" }}>Terms</Link>
+          <Link href="/privacy" className="text-xs hover:opacity-70 transition-opacity" style={{ color: "var(--text-muted)" }}>Privacy</Link>
+          <Link href="/refund" className="text-xs hover:opacity-70 transition-opacity" style={{ color: "var(--text-muted)" }}>Refunds</Link>
+          <a href={`mailto:${BRAND.supportEmail}`} className="text-xs hover:opacity-70 transition-opacity" style={{ color: "var(--text-muted)" }}>Support</a>
           <Link href="/optimizer" className="text-xs hover:opacity-70 transition-opacity" style={{ color: "var(--text-muted)" }}>{BRAND.legacyToolName}</Link>
           <p className="text-xs" style={{ color: "var(--text-muted)" }}>© {BRAND.year} {BRAND.name}</p>
         </div>

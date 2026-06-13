@@ -15,6 +15,9 @@ export const BRAND = {
   // The resume tool is kept but demoted to a small utility.
   legacyToolName: "Resume Optimizer",
   domain: "certus.website",
+  // Public support/contact address (used in legal pages). Set up this inbox
+  // (or a forward) or swap in your own email.
+  supportEmail: "support@certus.website",
   year: new Date().getFullYear(),
 } as const;
 

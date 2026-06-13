@@ -2,9 +2,11 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import Link from "next/link";
 import { PLANS, PLAN_FEATURES, Plan } from "@/lib/plans";
 import { BRAND } from "@/lib/brand";
 import { addCredits } from "@/lib/credits";
+import { useAccess } from "@/lib/useAccess";
 
 export default function BillingPage() {
   return (
@@ -19,6 +21,21 @@ function BillingInner() {
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
   const searchParams = useSearchParams();
   const router = useRouter();
+  const { pro } = useAccess();
+
+  async function handleManage() {
+    setLoading("manage");
+    try {
+      const res = await fetch("/api/stripe/portal", { method: "POST" });
+      const data = await res.json();
+      if (data.url) window.location.href = data.url;
+      else setMessage({ type: "error", text: data.error || "Could not open the billing portal." });
+    } catch {
+      setMessage({ type: "error", text: "Network error. Please try again." });
+    } finally {
+      setLoading(null);
+    }
+  }
 
   useEffect(() => {
     const credits = Number(searchParams.get("credits_added") ?? 0);
@@ -95,14 +112,32 @@ function BillingInner() {
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
-        {PLANS.map((p) => (
-          <PlanCard key={p.id} plan={p} onSubscribe={handleSubscribe} loading={loading === p.id} />
-        ))}
-      </div>
+      {pro ? (
+        <div className="card p-6 mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4" style={{ border: "1px solid var(--gold-border)", background: "var(--gold-bg)" }}>
+          <div>
+            <div className="text-sm font-semibold mb-0.5" style={{ color: "var(--gold)" }}>Pro — active</div>
+            <div className="text-xs" style={{ color: "var(--text-secondary)" }}>
+              Full access to every exam, all reading, and unlimited Finals. Manage your plan or cancel anytime.
+            </div>
+          </div>
+          <button className="btn-secondary whitespace-nowrap" onClick={handleManage} disabled={loading === "manage"}>
+            {loading === "manage" ? "Opening…" : "Manage subscription"}
+          </button>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+          {PLANS.map((p) => (
+            <PlanCard key={p.id} plan={p} onSubscribe={handleSubscribe} loading={loading === p.id} />
+          ))}
+        </div>
+      )}
 
       <p className="text-xs text-center" style={{ color: "var(--text-muted)" }}>
-        Payments via Stripe. Cancel anytime.
+        Payments via Stripe. Cancel anytime. By subscribing you agree to our{" "}
+        <Link href="/terms" style={{ color: "var(--primary)" }}>Terms</Link>,{" "}
+        <Link href="/privacy" style={{ color: "var(--primary)" }}>Privacy Policy</Link>, and{" "}
+        <Link href="/refund" style={{ color: "var(--primary)" }}>Refund Policy</Link>.
+        <br />Questions? <a href={`mailto:${BRAND.supportEmail}`} style={{ color: "var(--primary)" }}>{BRAND.supportEmail}</a>
       </p>
     </div>
   );

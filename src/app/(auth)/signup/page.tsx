@@ -143,7 +143,9 @@ function SignupForm() {
             </button>
 
             <p className="text-xs text-center" style={{ color: "var(--text-muted)" }}>
-              By signing up, you agree to our Terms & Privacy Policy
+              By signing up, you agree to our{" "}
+              <Link href="/terms" style={{ color: "var(--primary)" }}>Terms</Link> &{" "}
+              <Link href="/privacy" style={{ color: "var(--primary)" }}>Privacy Policy</Link>
             </p>
           </form>
         </div>
