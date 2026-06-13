@@ -54,7 +54,7 @@ export default function FlashcardsClient() {
   const mastered = masteredCount(deck, store);
 
   return (
-    <div className="px-8 py-8 max-w-2xl mx-auto">
+    <div className="px-4 py-6 md:px-8 md:py-8 max-w-2xl mx-auto">
       <h1 className="text-2xl font-medium mb-1" style={{ color: "var(--text-primary)" }}>Flashcards</h1>
       <p className="text-sm mb-6" style={{ color: "var(--text-secondary)" }}>
         Spaced repetition — cards you know come back less often, cards you miss come back soon. Built from every chapter&apos;s key terms.
@@ -140,7 +140,7 @@ function StudySession({
   }
 
   return (
-    <div className="px-8 py-8 max-w-2xl mx-auto">
+    <div className="px-4 py-6 md:px-8 md:py-8 max-w-2xl mx-auto">
       <div className="flex items-center justify-between mb-4">
         <span className="text-xs" style={{ color: "var(--text-muted)" }}>Card {idx + 1} of {queue.length}</span>
         <span className="text-xs font-medium" style={{ color: "var(--primary)" }}>{card.topicName}</span>

@@ -61,7 +61,7 @@ export default function PracticeClient() {
   // ---- setup ----
   const examName = getExam(exam)?.name ?? exam;
   return (
-    <div className="px-8 py-8 max-w-2xl mx-auto">
+    <div className="px-4 py-6 md:px-8 md:py-8 max-w-2xl mx-auto">
       <h1 className="text-2xl font-medium mb-1" style={{ color: "var(--text-primary)" }}>Practice</h1>
       <p className="text-sm mb-6" style={{ color: "var(--text-secondary)" }}>
         Every question comes with a full explanation — including why the wrong answers are wrong. That&apos;s where the learning happens.
@@ -85,7 +85,7 @@ export default function PracticeClient() {
                 cursor: has ? "pointer" : "not-allowed",
               }}
             >
-              {e.name}{!has ? " · soon" : access.ready && !access.canExam(e.slug) ? " 🔒" : ""}
+              {e.name}{!has ? " · soon" : ""}
             </button>
           );
         })}
@@ -136,7 +136,7 @@ function Quiz({ questions, onFinish }: { questions: Question[]; onFinish: (answe
   }
 
   return (
-    <div className="px-8 py-8 max-w-2xl mx-auto">
+    <div className="px-4 py-6 md:px-8 md:py-8 max-w-2xl mx-auto">
       <div className="flex items-center justify-between mb-4">
         <span className="text-xs" style={{ color: "var(--text-muted)" }}>Question {idx + 1} of {questions.length}</span>
         <span className="text-xs font-medium" style={{ color: "var(--primary)" }}>{q.topicName}</span>
@@ -207,7 +207,7 @@ function Results({ questions, answers, runMinutes, onRetry }: { questions: Quest
   const wrong = questions.map((q, i) => ({ q, a: answers[i] })).filter((x) => x.a !== x.q.answerIndex);
 
   return (
-    <div className="px-8 py-8 max-w-2xl mx-auto">
+    <div className="px-4 py-6 md:px-8 md:py-8 max-w-2xl mx-auto">
       <div className="card p-6 text-center mb-6">
         <div className="text-4xl font-semibold mb-1" style={{ color: pct >= 70 ? "var(--ats-green)" : pct >= 50 ? "var(--ats-amber)" : "var(--ats-red)" }}>
           {pct}%

@@ -67,7 +67,7 @@ export default function CareerClient() {
 
   if (!loaded || !ctx) {
     return (
-      <div className="px-8 py-8 max-w-2xl mx-auto">
+      <div className="px-4 py-6 md:px-8 md:py-8 max-w-2xl mx-auto">
         <div className="skeleton" style={{ height: 80, marginBottom: 16 }} />
         <div className="skeleton" style={{ height: 420 }} />
       </div>
@@ -88,7 +88,7 @@ export default function CareerClient() {
   }
 
   return (
-    <div className="px-8 py-8 max-w-2xl mx-auto">
+    <div className="px-4 py-6 md:px-8 md:py-8 max-w-2xl mx-auto">
       {/* Sticky-feel header */}
       <div className="flex items-center justify-between mb-1">
         <h1 className="font-display text-3xl" style={{ color: "var(--text-primary)" }}>The Ladder</h1>

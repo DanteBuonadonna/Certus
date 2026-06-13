@@ -12,6 +12,13 @@ const PLAN_PRICE_ENV: Record<string, string | undefined> = {
   annual: process.env.STRIPE_PRICE_ANNUAL,
 };
 
+// Tutor credit packs -> one-time Stripe Price IDs + credits granted.
+const CREDIT_PACKS: Record<string, { priceId: string | undefined; credits: number }> = {
+  "credits-25": { priceId: process.env.STRIPE_PRICE_CREDITS_25, credits: 25 },
+  "credits-100": { priceId: process.env.STRIPE_PRICE_CREDITS_100, credits: 100 },
+  "credits-300": { priceId: process.env.STRIPE_PRICE_CREDITS_300, credits: 300 },
+};
+
 export async function POST(request: Request) {
   try {
     // Login is currently disabled, so checkout works for guests too.
@@ -34,6 +41,35 @@ export async function POST(request: Request) {
     }
 
     const { plan } = await request.json();
+
+    // Derive the app URL from the actual request so success/cancel
+    // redirects work on any deployment (preview, prod, localhost).
+    const origin =
+      request.headers.get("origin") ||
+      process.env.NEXT_PUBLIC_APP_URL ||
+      "http://localhost:3000";
+
+    // --- One-time credit packs for The Associate ---
+    if (plan in CREDIT_PACKS) {
+      const pack = CREDIT_PACKS[plan];
+      if (!pack.priceId) {
+        return NextResponse.json(
+          { error: "This credit pack isn't configured yet. Add its Stripe Price ID to your environment." },
+          { status: 400 }
+        );
+      }
+      const session = await stripe.checkout.sessions.create({
+        mode: "payment",
+        line_items: [{ price: pack.priceId, quantity: 1 }],
+        metadata: { user_id: userId ?? "guest", plan, credits: String(pack.credits) },
+        ...(userEmail ? { customer_email: userEmail } : {}),
+        success_url: `${origin}/billing?credits_added=${pack.credits}&session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${origin}/billing?canceled=true`,
+      });
+      return NextResponse.json({ url: session.url });
+    }
+
+    // --- Subscriptions ---
     const priceId = PLAN_PRICE_ENV[plan];
 
     if (!priceId) {
@@ -42,13 +78,6 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
-
-    // Derive the app URL from the actual request so success/cancel
-    // redirects work on any deployment (preview, prod, localhost).
-    const origin =
-      request.headers.get("origin") ||
-      process.env.NEXT_PUBLIC_APP_URL ||
-      "http://localhost:3000";
 
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",

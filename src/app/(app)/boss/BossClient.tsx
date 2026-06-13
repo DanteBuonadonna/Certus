@@ -17,7 +17,7 @@ import {
 } from "@/lib/bossExam";
 import { recordStudy } from "@/lib/gameStore";
 import { useAccess } from "@/lib/useAccess";
-import { canStartBoss, recordBossAttempt, isPro } from "@/lib/access";
+import { canStartBoss, recordBossAttempt } from "@/lib/access";
 import { UpgradeCard } from "@/components/UpgradeGate";
 import { ProgressBar, GoldBurst } from "@/components/ui";
 import {
@@ -50,7 +50,7 @@ export default function BossClient() {
   const cfg = bossConfig(pool.length);
 
   function begin() {
-    if (!canStartBoss(exam)) return;
+    if (!canStartBoss(exam, access.pro)) return;
     recordBossAttempt(exam);
     setQuestions(buildBossExam(exam, 20));
     setResult(null);
@@ -69,7 +69,7 @@ export default function BossClient() {
   }
 
   // Everyone gets ONE free attempt per exam; retakes are Pro.
-  const attemptLocked = access.ready && !canStartBoss(exam);
+  const attemptLocked = access.ready && !canStartBoss(exam, access.pro);
 
   if (phase === "battle") {
     return <Battle exam={exam} accent={accent} questions={questions} cfg={cfg} boss={boss} onFinish={finish} onQuit={() => setPhase("setup")} />;
@@ -81,7 +81,7 @@ export default function BossClient() {
 
   // setup — the briefing room
   return (
-    <div className="px-8 py-8 max-w-2xl mx-auto">
+    <div className="px-4 py-6 md:px-8 md:py-8 max-w-2xl mx-auto">
       <h1 className="font-display text-3xl mb-1" style={{ color: "var(--text-primary)" }}>The Final</h1>
       <p className="text-sm mb-6" style={{ color: "var(--text-secondary)" }}>
         A timed, comprehensive exam across every topic. Wrong answers cost integrity. Survive and score {Math.round(cfg.passPct * 100)}%+ to clear the board.
@@ -116,7 +116,7 @@ export default function BossClient() {
         <div className="font-display text-xl mb-1" style={{ color: "var(--text-primary)" }}>{boss.name}</div>
         <p className="text-sm mb-5" style={{ color: "var(--text-secondary)", fontStyle: "italic" }}>&ldquo;{boss.intro}&rdquo;</p>
 
-        <div className="grid grid-cols-4 gap-2 mb-5">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-5">
           <Spec icon={<ClipboardIcon size={17} />} label={`${pool.length} questions`} />
           <Spec icon={<ShieldIcon size={17} />} label={`${cfg.hearts} integrity`} />
           <Spec icon={<ClockIcon size={17} />} label={`${cfg.secondsPerQuestion}s each`} />
@@ -135,7 +135,7 @@ export default function BossClient() {
           />
         ) : (
           <>
-            {access.ready && !isPro() && (
+            {access.ready && !access.pro && (
               <p className="text-xs mb-3 font-semibold" style={{ color: "var(--ats-green)" }}>
                 Free attempt available — make it count.
               </p>
@@ -354,7 +354,7 @@ function Result({
   onRetry: () => void;
 }) {
   return (
-    <div className="px-8 py-8 max-w-2xl mx-auto">
+    <div className="px-4 py-6 md:px-8 md:py-8 max-w-2xl mx-auto">
       {/* Report header */}
       <div className="card mb-6 rise-in" style={{ overflow: "hidden", position: "relative" }}>
         <div className="px-6 py-4 flex items-center justify-between" style={{ borderBottom: "0.5px solid var(--border)", background: "var(--bg)" }}>

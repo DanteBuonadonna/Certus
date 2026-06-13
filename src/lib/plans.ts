@@ -37,9 +37,9 @@ export const PLANS: Plan[] = [
 ];
 
 export const PLAN_FEATURES = [
-  "All exams & reading chapters",
-  "Full question bank with explanations",
-  "Adaptive study plan & streaks",
-  "Progress tracking across devices",
+  "Every chapter of every exam — CFA I/II/III, SIE, Series 7 & 66, CFP, CPA",
+  "Unlimited Finals (full timed mock exams)",
+  "Full question bank with trap-aware explanations",
+  "Adaptive study plan, streaks & readiness rating",
   "Resume optimizer included",
 ];

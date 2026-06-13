@@ -14,7 +14,7 @@ export const BRAND = {
     "Serious, original prep for finance's hardest exams — built like a career. Read the material, drill real questions, clear every assignment, and rise from Intern to Partner as you go.",
   // The resume tool is kept but demoted to a small utility.
   legacyToolName: "Resume Optimizer",
-  domain: "certus.app",
+  domain: "certus.website",
   year: new Date().getFullYear(),
 } as const;
 

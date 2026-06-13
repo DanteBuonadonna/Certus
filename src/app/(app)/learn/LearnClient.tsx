@@ -51,7 +51,7 @@ export default function LearnClient() {
   if (chapter) {
     if (access.ready && !access.canChapter(chapterIndex)) {
       return (
-        <div className="px-8 py-8 max-w-2xl mx-auto">
+        <div className="px-4 py-6 md:px-8 md:py-8 max-w-2xl mx-auto">
           <button onClick={() => setChapterId(null)} className="text-sm mb-6 flex items-center gap-1" style={{ color: "var(--text-secondary)" }}>
             ← All chapters
           </button>
@@ -65,7 +65,7 @@ export default function LearnClient() {
   const readCount = chapters.filter((c) => isChapterRead(exam, c.id, reading)).length;
 
   return (
-    <div className="px-8 py-8 max-w-3xl mx-auto">
+    <div className="px-4 py-6 md:px-8 md:py-8 max-w-3xl mx-auto">
       <h1 className="font-display text-3xl mb-1" style={{ color: "var(--text-primary)" }}>
         Reading
       </h1>

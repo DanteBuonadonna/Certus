@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { PLANS, PLAN_FEATURES, Plan } from "@/lib/plans";
 import { BRAND } from "@/lib/brand";
-import { setPro } from "@/lib/access";
+import { addCredits } from "@/lib/credits";
 
 export default function BillingPage() {
   return (
@@ -18,18 +18,41 @@ function BillingInner() {
   const [loading, setLoading] = useState<string | null>(null);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   useEffect(() => {
-    if (searchParams.get("success") === "true") {
-      // Unlock Pro in this browser immediately after a successful checkout.
-      // (Client-side for the account-less MVP; the Stripe webhook records the
-      // subscription so this moves server-side when accounts return.)
-      setPro(true);
-      setMessage({ type: "success", text: "You're subscribed! Full access is unlocked — every chapter, every exam, every Final." });
+    const credits = Number(searchParams.get("credits_added") ?? 0);
+    if (credits > 0) {
+      // Fulfill a tutor credit-pack purchase (browser-local credit balance).
+      const balance = addCredits(credits);
+      setMessage({
+        type: "success",
+        text: `${credits} Associate credits added — your balance is ${balance}. Ask away.`,
+      });
+    } else if (searchParams.get("success") === "true") {
+      const sessionId = searchParams.get("session_id");
+      setMessage({ type: "success", text: "Confirming your subscription…" });
+      // Verify the payment server-side and flip the account to Pro in the
+      // database (the browser can't grant itself Pro). Then refresh so the
+      // server re-reads is_pro and the whole app unlocks.
+      (async () => {
+        try {
+          const res = await fetch(`/api/stripe/confirm?session_id=${encodeURIComponent(sessionId ?? "")}`);
+          const data = await res.json();
+          if (data.pro) {
+            setMessage({ type: "success", text: "You're subscribed! Full access is unlocked — every chapter, every exam, every Final." });
+            router.refresh();
+          } else {
+            setMessage({ type: "success", text: "Payment received. Your access will activate momentarily — refresh if it doesn't appear." });
+          }
+        } catch {
+          setMessage({ type: "success", text: "Payment received. Your access will activate momentarily — refresh if it doesn't appear." });
+        }
+      })();
     } else if (searchParams.get("canceled") === "true") {
       setMessage({ type: "error", text: "Checkout canceled. No charges were made." });
     }
-  }, [searchParams]);
+  }, [searchParams, router]);
 
   async function handleSubscribe(plan: string) {
     setLoading(plan);
@@ -72,7 +95,7 @@ function BillingInner() {
         </div>
       )}
 
-      <div className="grid grid-cols-2 gap-5 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
         {PLANS.map((p) => (
           <PlanCard key={p.id} plan={p} onSubscribe={handleSubscribe} loading={loading === p.id} />
         ))}

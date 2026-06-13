@@ -100,9 +100,11 @@ export default function Sidebar({ email }: SidebarProps) {
   const supabase = createClient();
   const { pro } = useAccess();
   const [profile, setProfile] = useState<Profile | null>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     setProfile(loadProfile());
+    setMobileOpen(false); // close the drawer on navigation
   }, [pathname]);
 
   async function handleSignOut() {
@@ -131,9 +133,40 @@ export default function Sidebar({ email }: SidebarProps) {
   }
 
   return (
+    <>
+      {/* Mobile top bar */}
+      <div
+        className="md:hidden fixed top-0 left-0 right-0 z-30 flex items-center justify-between px-4 py-2.5"
+        style={{ background: "var(--bg-sidebar)", borderBottom: "0.5px solid var(--border)" }}
+      >
+        <Link href="/dashboard" className="flex items-center gap-2">
+          <LogoMark size={24} />
+          <span className="font-display text-base" style={{ color: "var(--text-primary)" }}>{BRAND.name}</span>
+        </Link>
+        <button
+          onClick={() => setMobileOpen(true)}
+          aria-label="Open menu"
+          className="p-2 rounded-lg"
+          style={{ color: "var(--text-secondary)" }}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <path d="M3 6h18M3 12h18M3 18h18" />
+          </svg>
+        </button>
+      </div>
+
+      {/* Mobile overlay */}
+      {mobileOpen && (
+        <div
+          className="md:hidden fixed inset-0 z-30"
+          style={{ background: "rgba(13,13,20,0.5)" }}
+          onClick={() => setMobileOpen(false)}
+        />
+      )}
+
     <aside
-      className="fixed left-0 top-0 h-full flex flex-col"
-      style={{ width: "var(--sidebar-width)", background: "var(--bg-sidebar)", borderRight: "0.5px solid var(--border)", zIndex: 10 }}
+      className={`fixed left-0 top-0 h-full flex flex-col transition-transform duration-200 ${mobileOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
+      style={{ width: "var(--sidebar-width)", background: "var(--bg-sidebar)", borderRight: "0.5px solid var(--border)", zIndex: 40 }}
     >
       {/* Logo */}
       <div className="px-5 py-5">
@@ -218,6 +251,7 @@ export default function Sidebar({ email }: SidebarProps) {
         )}
       </div>
     </aside>
+    </>
   );
 }
 

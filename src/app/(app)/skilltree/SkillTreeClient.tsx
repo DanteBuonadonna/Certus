@@ -55,7 +55,7 @@ export default function SkillTreeClient() {
 
   if (!loaded) {
     return (
-      <div className="px-8 py-8 max-w-2xl mx-auto">
+      <div className="px-4 py-6 md:px-8 md:py-8 max-w-2xl mx-auto">
         <div className="skeleton" style={{ height: 32, width: 220, marginBottom: 16 }} />
         <div className="skeleton" style={{ height: 72, marginBottom: 16 }} />
         <div className="skeleton" style={{ height: 320 }} />
@@ -64,7 +64,7 @@ export default function SkillTreeClient() {
   }
 
   return (
-    <div className="px-8 py-8 max-w-2xl mx-auto">
+    <div className="px-4 py-6 md:px-8 md:py-8 max-w-2xl mx-auto">
       <h1 className="font-display text-3xl mb-1" style={{ color: "var(--text-primary)" }}>Skill tree</h1>
       <p className="text-sm mb-5" style={{ color: "var(--text-secondary)" }}>
         Your path to the top floor. Each topic fills in as you master its flashcards — reach 100% to claim it.

@@ -74,8 +74,10 @@ export function recordBossAttempt(examSlug: string): void {
   } catch {}
 }
 
-export function canStartBoss(examSlug: string): boolean {
-  return isPro() || bossAttemptsUsed(examSlug) < 1;
+// Pro players retake freely; free players get one attempt per exam. `pro`
+// is passed in from server-authoritative state (useAccess), never localStorage.
+export function canStartBoss(examSlug: string, pro: boolean): boolean {
+  return pro || bossAttemptsUsed(examSlug) < 1;
 }
 
 // Legacy blanket check (kept for compatibility; prefer canStartBoss).

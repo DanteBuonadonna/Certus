@@ -44,7 +44,7 @@ export default function ProfileClient() {
 
   if (!loaded) {
     return (
-      <div className="px-8 py-8 max-w-3xl mx-auto">
+      <div className="px-4 py-6 md:px-8 md:py-8 max-w-3xl mx-auto">
         <div className="skeleton" style={{ height: 280, marginBottom: 16 }} />
         <div className="skeleton" style={{ height: 280 }} />
       </div>
@@ -137,7 +137,7 @@ function Wizard({
   const valid = name.trim().length >= 2;
 
   return (
-    <div className="px-8 py-8 max-w-3xl mx-auto">
+    <div className="px-4 py-6 md:px-8 md:py-8 max-w-3xl mx-auto">
       {!existing && <div className="pill-gold mb-3 pop-in">NEW HIRE ONBOARDING</div>}
       <h1 className="font-display text-3xl mb-1" style={{ color: "var(--text-primary)" }}>
         {existing ? "Appearance & identity" : "Welcome to the firm"}
@@ -148,9 +148,9 @@ function Wizard({
           : "Build your character. Everything here is cosmetic — your readiness is earned, not bought."}
       </p>
 
-      <div className="grid grid-cols-5 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
         {/* Live preview */}
-        <div className="col-span-2">
+        <div className="lg:col-span-2">
           <div style={{ position: "sticky", top: 24 }}>
             <Stage avatar={avatar} size={190} />
             <div className="text-center mt-3">
@@ -165,7 +165,7 @@ function Wizard({
         </div>
 
         {/* Controls */}
-        <div className="col-span-3 space-y-5">
+        <div className="lg:col-span-3 space-y-5">
           <div className="card-game p-5">
             <SectionLabel>Display name</SectionLabel>
             <input
@@ -179,7 +179,7 @@ function Wizard({
 
           <div className="card-game p-5">
             <SectionLabel>Study archetype</SectionLabel>
-            <div className="grid grid-cols-2 gap-2.5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               {ARCHETYPES.map((a) => {
                 const active = a.id === archetype;
                 return (
@@ -355,13 +355,13 @@ function Locker({
   const ownedTitles = itemsBySlot("title").filter((t) => ownsItem(t.id, wallet));
 
   return (
-    <div className="px-8 py-8 max-w-3xl mx-auto">
+    <div className="px-4 py-6 md:px-8 md:py-8 max-w-3xl mx-auto">
       {/* Hero: stage + identity */}
-      <div className="grid grid-cols-5 gap-5 mb-6 rise-in">
-        <div className="col-span-2">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-5 mb-6 rise-in">
+        <div className="lg:col-span-2">
           <Stage avatar={profile.avatar} size={196} streakAlive={state.currentStreak > 0} />
         </div>
-        <div className="col-span-3 card-game p-6 flex flex-col justify-center" style={{ position: "relative", overflow: "hidden" }}>
+        <div className="lg:col-span-3 card-game p-6 flex flex-col justify-center" style={{ position: "relative", overflow: "hidden" }}>
           <div className="text-[10px] font-semibold uppercase tracking-widest mb-2" style={{ color: "var(--text-muted)" }}>
             Employee record · joined {profile.createdAt}
           </div>
@@ -394,7 +394,7 @@ function Locker({
       </div>
 
       {/* Stats strip */}
-      <div className="grid grid-cols-4 gap-3 mb-6 stagger">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6 stagger">
         <Stat label="Hours studied" value={`${Math.round(totalMinutes(state) / 60)}`} />
         <Stat label="Longest streak" value={`${state.longestStreak}d`} />
         <Stat label="Honors earned" value={`${state.unlockedBadges.length}/${BADGES.length}`} />
@@ -426,7 +426,7 @@ function Locker({
         <span style={{ color: "var(--gold)" }}><TrophyIcon size={15} /></span>
         Trophy case
       </h2>
-      <div className="grid grid-cols-5 gap-3 mb-6 stagger">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 mb-6 stagger">
         {EXAMS.filter((e) => examsWithContent().includes(e.slug)).map((e) => {
           const trophy = trophies[e.slug];
           const boss = getBoss(e.slug);
@@ -457,7 +457,7 @@ function Locker({
       <h2 className="text-sm font-bold mb-3" style={{ color: "var(--text-primary)" }}>
         Honors wall · {state.unlockedBadges.length}/{BADGES.length}
       </h2>
-      <div className="grid grid-cols-5 gap-3 mb-8 stagger">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 mb-8 stagger">
         {BADGES.map((b) => {
           const unlocked = state.unlockedBadges.includes(b.id);
           return (

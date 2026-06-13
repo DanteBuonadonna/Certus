@@ -98,7 +98,7 @@ export default function ShopClient() {
 
   if (!loaded) {
     return (
-      <div className="px-8 py-8 max-w-3xl mx-auto">
+      <div className="px-4 py-6 md:px-8 md:py-8 max-w-3xl mx-auto">
         <div className="skeleton" style={{ height: 90, marginBottom: 16 }} />
         <div className="skeleton" style={{ height: 400 }} />
       </div>
@@ -106,7 +106,7 @@ export default function ShopClient() {
   }
 
   return (
-    <div className="px-8 py-8 max-w-3xl mx-auto">
+    <div className="px-4 py-6 md:px-8 md:py-8 max-w-3xl mx-auto">
       <h1 className="font-display text-3xl mb-1" style={{ color: "var(--text-primary)" }}>The Perks Desk</h1>
       <p className="text-sm mb-5" style={{ color: "var(--text-secondary)" }}>
         Spend the Comp you&apos;ve earned studying. Strictly cosmetic — readiness can&apos;t be bought.
@@ -169,7 +169,7 @@ export default function ShopClient() {
       </div>
 
       {/* Loot grid */}
-      <div className="grid grid-cols-2 gap-4 stagger">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 stagger">
         {items.map((item) => {
           const owned = ownsItem(item.id, wallet);
           const equipped = isEquipped(item);

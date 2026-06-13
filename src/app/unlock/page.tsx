@@ -3,9 +3,18 @@
 import { useEffect } from "react";
 import { setPro } from "@/lib/access";
 
-// Secret owner URL: /unlock — grants full Pro access for free testing.
+// Owner testing URL — now requires a key so the public can't find free Pro:
+// /unlock?k=certus-owner-2026
+// (Change the key here whenever you like. Without it, redirects home.)
+const OWNER_KEY = "certus-owner-2026";
+
 export default function UnlockPage() {
   useEffect(() => {
+    const key = new URLSearchParams(window.location.search).get("k");
+    if (key !== OWNER_KEY) {
+      window.location.href = "/";
+      return;
+    }
     setPro(true);
     const t = setTimeout(() => {
       window.location.href = "/dashboard";

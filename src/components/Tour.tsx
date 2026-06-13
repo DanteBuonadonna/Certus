@@ -73,10 +73,11 @@ export default function Tour({
   // Tooltip placement: below the target if there's room, else above; centered if no target.
   const tooltipStyle: React.CSSProperties = rect
     ? (() => {
+        const width = Math.min(340, window.innerWidth - 32);
         const below = rect.bottom + PAD + 170 < window.innerHeight;
         const top = below ? rect.bottom + PAD + 8 : Math.max(16, rect.top - PAD - 178);
-        const left = Math.min(Math.max(16, rect.left + rect.width / 2 - 170), window.innerWidth - 356);
-        return { position: "fixed", top, left, width: 340 };
+        const left = Math.min(Math.max(16, rect.left + rect.width / 2 - width / 2), window.innerWidth - width - 16);
+        return { position: "fixed", top, left, width };
       })()
     : {
         position: "fixed",

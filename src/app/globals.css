@@ -387,6 +387,14 @@ body {
   background: transparent;
 }
 
+/* On mobile the sidebar is a drawer and a top bar sits at the top. */
+@media (max-width: 767px) {
+  .read-progress {
+    left: 0;
+    top: 48px;
+  }
+}
+
 .read-progress > div {
   height: 100%;
   background: linear-gradient(90deg, var(--primary), var(--gold-bright));

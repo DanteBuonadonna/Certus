@@ -168,7 +168,7 @@ export default function DashboardClient() {
 
   if (!loaded) {
     return (
-      <div className="px-8 py-8 max-w-5xl mx-auto">
+      <div className="px-4 py-6 md:px-8 md:py-8 max-w-5xl mx-auto">
         <div className="skeleton" style={{ height: 36, width: 280, marginBottom: 18 }} />
         <div className="skeleton" style={{ height: 90, marginBottom: 18 }} />
         <div className="skeleton" style={{ height: 260 }} />
@@ -177,7 +177,7 @@ export default function DashboardClient() {
   }
 
   return (
-    <div className="px-8 py-8 max-w-5xl mx-auto">
+    <div className="px-4 py-6 md:px-8 md:py-8 max-w-5xl mx-auto">
       {/* First-open: 20-second character creation, then the guided tour */}
       {showQuickStart && (
         <QuickStart
@@ -263,9 +263,9 @@ export default function DashboardClient() {
       {!activePlan ? (
         <PlanSetup onCreate={createPlan} />
       ) : (
-        <div className="grid grid-cols-5 gap-4 mb-6 rise-in" style={{ animationDelay: "0.1s" }}>
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 mb-6 rise-in" style={{ animationDelay: "0.1s" }}>
           {/* Plan + quick log */}
-          <div className="col-span-3" data-tour="plan">
+          <div className="lg:col-span-3" data-tour="plan">
             <PlanDashboard
               plan={activePlan}
               progress={progress!}
@@ -275,7 +275,7 @@ export default function DashboardClient() {
           </div>
 
           {/* Readiness rating */}
-          <div className="col-span-2 card p-5 flex flex-col" data-tour="readiness">
+          <div className="lg:col-span-2 card p-5 flex flex-col" data-tour="readiness">
             <div className="flex items-center gap-2 mb-1">
               <span style={{ color: "var(--text-muted)" }}><TrendUpIcon size={14} /></span>
               <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>
@@ -327,7 +327,7 @@ export default function DashboardClient() {
         <span style={{ color: "var(--primary)" }}><TargetIcon size={15} /></span>
         Today&apos;s challenges
       </h2>
-      <div className="grid grid-cols-2 gap-3 stagger" data-tour="challenges">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 stagger" data-tour="challenges">
         {challenges.map((c) => (
           <div key={c.id} className="card-i p-4">
             <div className="flex items-center justify-between mb-2">
@@ -363,7 +363,7 @@ export default function DashboardClient() {
       <h2 className="text-sm font-semibold mb-3" style={{ color: "var(--text-primary)" }}>
         Honors · {state.unlockedBadges.length}/{BADGES.length}
       </h2>
-      <div className="grid grid-cols-5 gap-3 mb-10 stagger">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 mb-10 stagger">
         {BADGES.map((b) => {
           const unlocked = state.unlockedBadges.includes(b.id);
           return (
@@ -433,7 +433,7 @@ function PlanSetup({ onCreate }: { onCreate: (p: StudyPlan) => void }) {
         Pick your exam and test date. {BRAND.name} builds a daily plan and keeps you on pace.
       </p>
 
-      <div className="grid grid-cols-3 gap-4 mb-5">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
         <Field label="Exam">
           <select
             className="input-field"
@@ -527,9 +527,9 @@ function PlanDashboard({
         </button>
       </div>
 
-      <div className="grid grid-cols-3 gap-5 items-center">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 items-center">
         <Ring pct={progress.percentComplete} accent={plan.accent} />
-        <div className="col-span-2 grid grid-cols-2 gap-4">
+        <div className="sm:col-span-2 grid grid-cols-2 gap-4">
           <Metric label="Days to exam" value={progress.daysRemaining} />
           <Metric label="Today's goal" value={Math.round(progress.dailyTargetHours * 60)} suffix=" min" accent={progress.todayMet ? "var(--ats-green)" : undefined} />
           <Metric label="Hours logged" value={progress.hoursLogged} />

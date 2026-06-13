@@ -201,6 +201,212 @@ const chapters: Chapter[] = [
       "After a shock or windfall, the first move is revisiting the IPS, not trading the portfolio.",
     ],
   },
+  {
+    id: "cfa3-asset-allocation",
+    examSlug: "cfa-l3",
+    topicId: "pm-asset",
+    topicName: "Asset Allocation",
+    title: "Asset Allocation: MVO, Its Fixes, Liability-Relative Investing, and Rebalancing",
+    readingMinutes: 30,
+    summary:
+      "How allocations actually get built: mean–variance optimization and its famous flaws, the fixes (reverse optimization, Black-Litterman), liability-relative approaches, and corridor rebalancing.",
+    intro:
+      "Asset allocation is the largest single decision in portfolio management — study after study attributes the bulk of a portfolio's return variability to it — and Level III tests it as a craft, not a formula. The craft begins with mean–variance optimization, immediately confronts MVO's well-documented pathologies, and then deploys the fixes professionals actually use: reverse optimization, Black–Litterman, resampling, and sensible constraints. Institutions with promises to keep get their own machinery — liability-relative allocation — and every allocation, however derived, needs a rebalancing policy that says when drift becomes action. The exam wants you to know each tool, each tool's failure mode, and which client situation calls for which.",
+    sections: [
+      {
+        heading: "MVO: the workhorse and its three famous flaws",
+        blocks: [
+          {
+            kind: "p",
+            text: "Mean–variance optimization takes expected returns, volatilities, and correlations and returns the frontier of portfolios with maximum expected return per unit of risk; the chosen point reflects the investor's risk aversion. As an organizing framework it is unimpeachable. As a literal machine it has three failure modes the exam loves. First, GIGO at high gain: the optimizer is hypersensitive to expected-return inputs — small, statistically meaningless changes in one asset's expected return swing allocations violently. Second, concentration: unconstrained MVO routinely puts huge weights in a few assets (often those whose inputs are most overestimated — error maximization). Third, scope blindness: single-period, no liabilities, no skew or fat tails, no rebalancing or tax friction. Diagnosing WHICH flaw a vignette illustrates is half the points.",
+          },
+          {
+            kind: "p",
+            text: "The first family of fixes attacks the inputs. REVERSE OPTIMIZATION runs MVO backwards: start from the global market portfolio's observed weights — which embody the market's collective judgment — and solve for the implied expected returns that would make those weights optimal. Those implied returns are internally consistent and well-behaved, a far better starting point than naive historical means. BLACK–LITTERMAN goes one step further: begin with reverse-optimized implied returns, then BLEND IN the investor's own views (with confidence levels) to tilt the result. The output: allocations that reflect your views without the wild concentration of raw MVO. RESAMPLED MVO attacks estimation error statistically — run the optimization across many simulated input draws and average the resulting frontiers — yielding more diversified, more stable allocations. And plain CONSTRAINTS (maximum weights, asset-class bounds, budget rules) remain the humble fix every practitioner uses.",
+          },
+          {
+            kind: "callout",
+            label: "Matching fix to flaw",
+            body: "Vignette says allocations 'changed drastically when the analyst updated one return estimate' → input sensitivity → reverse optimization / Black–Litterman. Says 'the optimizer put 80% in two asset classes' → concentration → constraints, resampling, or BL. Says 'the fund must pay pensions' → wrong objective → liability-relative methods. The exam grades the pairing.",
+          },
+          {
+            kind: "p",
+            text: "Risk budgeting reframes the same decision: instead of asking 'what weights?', ask 'how should total risk be spent?' Each asset's marginal contribution to total risk (MCTR) times its weight gives its absolute risk contribution; a portfolio is optimally risk-budgeted when the ratio of excess return to MCTR is EQUAL across assets — every unit of risk is buying the same expected payoff. Risk parity is the special case that equalizes risk contributions outright, which in practice means leveraging bonds — know that critique.",
+          },
+        ],
+      },
+      {
+        heading: "Liability-relative allocation: investing against promises",
+        blocks: [
+          {
+            kind: "p",
+            text: "A pension fund that 'beat its benchmark' while its funded ratio collapsed has failed. When real liabilities exist, the objective changes from maximizing wealth to funding promises — and the natural risk measure becomes SURPLUS volatility, where surplus = assets − PV(liabilities). SURPLUS OPTIMIZATION re-runs MVO with surplus return as the objective: liabilities enter like a short asset position, so bonds that co-move with liability values (long duration, inflation-linked where promises are indexed) suddenly look 'low risk' even when their standalone volatility is high. That re-ranking of asset riskiness is the central insight tested.",
+          },
+          {
+            kind: "p",
+            text: "The TWO-PORTFOLIO (hedging/return-seeking) approach splits the problem: build a hedging portfolio that immunizes the liabilities — duration-matched, currency-matched, inflation-matched bonds — then invest the TRUE surplus in a return-seeking portfolio chasing growth. Clean and intuitive, it works beautifully when assets comfortably exceed liabilities; underfunded plans face an ugly choice (can't fully hedge AND seek returns), and partial or contingent hedging strategies appear. INTEGRATED approaches jointly optimize both decisions. For individuals, goals-based allocation (covered in the Private Wealth chapter) is the household version of the same logic: each goal is a liability; each bucket is its hedging portfolio.",
+          },
+          {
+            kind: "example",
+            example: {
+              title: "why duration risk flips sign",
+              prompt: "A pension plan is exactly fully funded: assets $1.0B, PV of liabilities $1.0B with duration 12. The CIO holds all assets in cash to 'avoid risk.' Rates fall 100 bps. What happens to the surplus?",
+              steps: [
+                "Liabilities rise ≈ 12 × 1% = 12% → $1.12B.",
+                "Cash assets stay ≈ $1.0B.",
+                "Surplus goes from $0 to ≈ −$120m — the 'riskless' portfolio just created a deficit.",
+              ],
+              answer: "Cash is the RISKY asset in liability space. The minimum-surplus-risk portfolio is the one whose duration matches the liabilities — the foundational LDI insight.",
+            },
+          },
+        ],
+      },
+      {
+        heading: "Rebalancing: when drift becomes action",
+        blocks: [
+          {
+            kind: "p",
+            text: "Markets move allocations off target daily; the policy question is when to trade back. CALENDAR rebalancing (quarterly, annually) is simple but blind to magnitude. PERCENT-RANGE (corridor) rebalancing sets a band around each target — e.g., 40% ± 4% — and trades when a band breaks, responding to drift the moment it matters. Corridor WIDTH is the tested judgment, set asset by asset:",
+          },
+          {
+            kind: "table",
+            table: {
+              caption: "What widens an asset's rebalancing corridor.",
+              headers: ["Factor", "Effect on corridor", "Logic"],
+              rows: [
+                ["Higher transaction costs", "Wider", "Trading is expensive — tolerate more drift"],
+                ["Lower correlation with the rest of the portfolio", "Narrower", "Drift changes overall risk faster when the asset moves independently"],
+                ["Higher own volatility", "Narrower (cost-benefit: often wider in practice — exam follows the curriculum: more vol → narrower to control risk; know the stated direction in the vignette's framing)", "Volatile assets breach risk targets quickly"],
+                ["Higher risk tolerance", "Wider", "Deviations matter less to this investor"],
+                ["Illiquid asset (private equity, real estate)", "Wider", "Forced trading is costly or impossible"],
+                ["Taxable account", "Wider", "Realizing gains has a tax price"],
+              ],
+            },
+          },
+          {
+            kind: "p",
+            text: "Two closing insights. Rebalancing is a SHORT-VOLATILITY, contrarian act — it systematically sells recent winners and buys recent losers, earning a diversification benefit in mean-reverting markets and lagging in long trends. And behaviorally it is the single most valuable pre-commitment in the IPS: the moments rebalancing fires (buying equities after a crash) are precisely the moments clients least want to act, which is why the rule, not the forecast, must do the deciding.",
+          },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Mean–variance optimization", def: "Maximize expected return per unit of variance given inputs; the framework is sound, the literal output is fragile." },
+      { term: "GIGO / input sensitivity", def: "MVO's defining flaw: tiny expected-return changes produce violent allocation swings — the optimizer maximizes estimation error." },
+      { term: "Reverse optimization", def: "Run MVO backwards from market-cap weights to extract implied, internally consistent expected returns." },
+      { term: "Black–Litterman", def: "Blend reverse-optimized implied returns with the investor's confidence-weighted views; tilted but diversified allocations." },
+      { term: "Resampled MVO", def: "Average optimal frontiers across simulated input draws — stability through statistics." },
+      { term: "Risk budgeting", def: "Allocate RISK, not capital: optimal when excess return per unit of MCTR is equal across positions." },
+      { term: "Surplus optimization", def: "MVO on surplus (assets − PV liabilities): liabilities act as a short position, re-ranking which assets are 'risky.'" },
+      { term: "Two-portfolio approach", def: "Hedge the liabilities with a matching portfolio; invest the true surplus for return. Strained when underfunded." },
+      { term: "Corridor rebalancing", def: "Trade when an asset breaks its band; width set by costs, correlation, volatility, taxes, liquidity, risk tolerance." },
+      { term: "Rebalancing as short volatility", def: "Systematically sells winners and buys losers — gains in mean reversion, lags in trends, and disciplines client behavior." },
+    ],
+    takeaways: [
+      "Know MVO's three flaws cold — input sensitivity, concentration, scope blindness — and which fix answers which flaw.",
+      "Reverse optimization extracts implied returns from market weights; Black–Litterman adds your views with confidence weighting.",
+      "With liabilities, risk is SURPLUS risk: cash becomes risky, duration-matched bonds become the safe asset.",
+      "Fully funded + duration mismatch = a deficit waiting for a rate move — the $120m cash example is the whole LDI argument.",
+      "Corridors widen with costs, taxes, illiquidity, and risk tolerance; they narrow when an asset's drift changes portfolio risk quickly.",
+      "Rebalancing is pre-committed contrarianism — the IPS rule that buys the crash your client wants to sell.",
+    ],
+  },
+  {
+    id: "cfa3-fixed-income-strats",
+    examSlug: "cfa-l3",
+    topicId: "fixed",
+    topicName: "Fixed Income",
+    title: "Fixed Income Strategies: Immunization, LDI, and Portfolio Construction",
+    readingMinutes: 30,
+    summary:
+      "Funding liabilities with bond math: single- and multiple-liability immunization, derivatives overlays with the BPV hedge formula, and bullet/barbell/ladder trade-offs.",
+    intro:
+      "Level III fixed income asks a manager's questions: a known payment is due in seven years — construct a portfolio that meets it regardless of rates; a pension's liabilities have a BPV of $225,000 — close the duration gap with futures; a client wants bond exposure — defend ladder versus barbell versus bullet. The mathematics is mostly Level I duration arithmetic, but deployed with intent. The center of gravity is immunization — the conditions under which a bond portfolio funds a liability under any rate path — plus the derivatives overlays that adjust exposure without trading the underlying portfolio.",
+    sections: [
+      {
+        heading: "Immunizing a single liability",
+        blocks: [
+          {
+            kind: "p",
+            text: "Immunization balances two opposing rate risks. If rates rise, bond prices fall (price risk) but coupons reinvest at higher rates (reinvestment benefit); if rates fall, prices rise but reinvestment suffers. At one particular structure the two effects offset for any single parallel shift: when the portfolio's MACAULAY DURATION equals the investment horizon. The classic three conditions for immunizing a single liability: (1) initial PV of assets ≥ PV of the liability; (2) portfolio Macaulay duration = liability due date; (3) minimize portfolio convexity/dispersion — concentrate cash flows around the horizon — so that non-parallel twists between the cash flows and the liability date have the least room to hurt. A zero-coupon bond maturing exactly at the horizon is perfect immunization: no reinvestment, no price risk at the date that matters; everything else is an approximation of that zero.",
+          },
+          {
+            kind: "p",
+            text: "Immunization is not fire-and-forget: duration drifts with time and rate moves (and not one-for-one), so the portfolio must be REBALANCED back to the target duration periodically. The structural risk that remains — twists and butterflies the duration match can't see — shrinks as cash-flow dispersion around the horizon shrinks; that's why condition (3) exists.",
+          },
+        ],
+      },
+      {
+        heading: "Multiple liabilities and the derivatives overlay",
+        blocks: [
+          {
+            kind: "p",
+            text: "Funding a STREAM of liabilities generalizes the rules. Duration-matching conditions: PV of assets ≥ PV of liabilities; asset BPV (money duration) = liability BPV; and asset cash flows at least as dispersed/convex as the liabilities — in practice asset convexity slightly ABOVE liability convexity (but minimized, to limit structural risk). The blunt alternative, CASH-FLOW MATCHING, buys bonds whose payments land exactly on each liability date — riskless in concept, expensive and constraining in practice. Contingent immunization runs an active portfolio while a surplus cushion exists and snaps to immunization mode if the cushion erodes to zero.",
+          },
+          {
+            kind: "formula",
+            formula: {
+              label: "Closing a duration gap with futures",
+              expr: "N_f = (BPV_Liability − BPV_Portfolio) / BPV_futures",
+              note: "Positive N_f → buy futures (add duration); negative → sell. BPV = money duration per 1 bp.",
+            },
+          },
+          {
+            kind: "example",
+            example: {
+              title: "the BPV hedge",
+              prompt: "A pension's liabilities have a BPV of $225,000; its asset portfolio has a BPV of $150,000. Treasury futures have a BPV of $90 per contract. What trade closes the gap?",
+              steps: [
+                "Gap = 225,000 − 150,000 = $75,000 of BPV missing on the asset side.",
+                "N_f = 75,000 ÷ 90 = 833.3.",
+                "Assets are SHORT duration relative to liabilities → BUY (go long) futures.",
+              ],
+              answer: "Buy ≈ 833 contracts. If rates fall, liabilities balloon — the long futures gain plugs the hole. The sign logic (under-hedged → buy) is tested as often as the division.",
+            },
+          },
+          {
+            kind: "p",
+            text: "The same overlay logic powers everyday duration management: a manager bearish on rates sells futures to cut portfolio BPV without disturbing bond holdings (and their embedded gains); receive-fixed swaps ADD duration, pay-fixed swaps REMOVE it. Derivatives change the exposure; the cash portfolio stays put — cheaper, faster, tax-quieter.",
+          },
+        ],
+      },
+      {
+        heading: "Bullet, barbell, ladder — and how bond portfolios earn",
+        blocks: [
+          {
+            kind: "p",
+            text: "Three structures with the same duration behave differently because convexity and cash-flow placement differ. A BULLET concentrates maturities near one point: least convexity, best for an immunization target, outperforms when the curve STEEPENS or flattens around its node less than implied. A BARBELL splits between short and long: maximum convexity and dispersion, outperforms in large parallel moves (convexity pays) and curve FLATTENING (the long end rallies), but yields less in a steep, stable curve (you give up the belly's carry). A LADDER spreads evenly: diversified reinvestment timing, natural liquidity as a rung matures every period, convexity between the two — the pragmatic private-client default. Mnemonic the exam rewards: barbells love flattening and volatility; bullets love steepening and stability.",
+          },
+          {
+            kind: "p",
+            text: "Finally, decompose expected fixed income returns the way the curriculum does: E[return] ≈ yield income (coupon ÷ price) + rolldown return (price pull along an unchanged curve) ± expected price change from the manager's rate/spread VIEW − expected credit losses ± currency effects. The first two terms — yield + rolldown = 'rolling yield' — are what the portfolio earns if the curve simply stays put, and separating that passive baseline from view-driven return is exactly how an exam vignette will ask you to attribute a manager's results.",
+          },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Immunization", def: "Structuring assets so a liability is funded under any (parallel) rate path — price and reinvestment risks offsetting." },
+      { term: "Macaulay duration = horizon", def: "The single-liability condition: at that match, rate moves hurt price and help reinvestment in equal measure." },
+      { term: "Minimize convexity/dispersion", def: "Third immunization condition: cash flows hugging the horizon leave non-parallel twists the least room to hurt." },
+      { term: "BPV / money duration", def: "Dollar value change per 1 bp move; the unit liabilities and hedges are matched in." },
+      { term: "Duration matching (multiple liabilities)", def: "PV(A) ≥ PV(L), BPV(A) = BPV(L), asset convexity just above liability convexity." },
+      { term: "Cash-flow matching", def: "Bond payments land on liability dates exactly — riskless in concept, costly and rigid in practice." },
+      { term: "Contingent immunization", def: "Active management while a surplus cushion lasts; lock into immunization if it erodes." },
+      { term: "N_f = (BPV_L − BPV_P)/BPV_f", def: "The futures overlay count: positive buy, negative sell. Know the sign logic as well as the division." },
+      { term: "Receive-fixed swap", def: "Adds duration (like buying a bond financed at floating); pay-fixed removes duration." },
+      { term: "Barbell vs bullet", def: "Same duration, different convexity: barbell wins big moves and flattening; bullet wins stable, steepening curves." },
+      { term: "Laddered portfolio", def: "Even maturities: diversified reinvestment, built-in liquidity, the private-client workhorse." },
+      { term: "Rolling yield", def: "Yield income + rolldown — the return if the curve doesn't move; the baseline views are judged against." },
+    ],
+    takeaways: [
+      "Single liability: PV match, Macaulay duration = horizon, minimize dispersion — a maturity-matched zero is the ideal everything imitates.",
+      "Multiple liabilities: match BPVs with asset convexity slightly above liability convexity; rebalance as durations drift.",
+      "N_f = (BPV_L − BPV_P)/BPV_f: 833 contracts in the worked case — and the SIGN tells you buy or sell.",
+      "Swaps and futures move duration without touching the bonds: receive-fixed adds, pay-fixed subtracts.",
+      "Barbell = convexity + flattening trades; bullet = carry + immunization targets; ladder = liquidity + reinvestment diversification.",
+      "E[return] = yield + rolldown ± view-driven price change − credit losses ± currency: attribute results against the rolling-yield baseline.",
+    ],
+  },
 ];
 
 const questions: Question[] = [
@@ -339,6 +545,124 @@ const questions: Question[] = [
     answerIndex: 1,
     explanation:
       "The IPS exists precisely for this moment: it was written calmly, and unless the client's goals, horizon, liquidity needs, or circumstances have CHANGED, the policy stands and the conversation is about loss aversion and availability bias, not transactions. Choice A treats a panic instruction as an informed direction — after the discussion, an insistent client may still direct, but execution is not the FIRST action. Choice C responds to emotion with market timing, compounding one behavioral error with another.",
+  },
+  // ---- Asset Allocation ----
+  {
+    id: "cfa3-aa-q1",
+    examSlug: "cfa-l3",
+    topicId: "pm-asset",
+    topicName: "Asset Allocation",
+    difficulty: 2,
+    stem: "An analyst nudges one asset class's expected return from 6.0% to 6.3% and the unconstrained MVO allocation to it jumps from 12% to 47%. The MOST appropriate remedy is:",
+    choices: [
+      "Use longer historical samples to estimate returns.",
+      "Use reverse optimization or Black–Litterman to generate the return inputs.",
+      "Remove the asset class from the opportunity set.",
+    ],
+    answerIndex: 1,
+    explanation:
+      "This is MVO's signature input-sensitivity flaw — the optimizer maximizes estimation error. The curriculum's remedy is better-behaved inputs: reverse optimization extracts implied returns from market weights, and Black–Litterman blends those with the investor's views, producing diversified allocations stable to small input changes. Longer histories (A) barely reduce expected-return estimation error (means converge agonizingly slowly). Choice C amputates the opportunity set instead of fixing the estimator.",
+  },
+  {
+    id: "cfa3-aa-q2",
+    examSlug: "cfa-l3",
+    topicId: "pm-asset",
+    topicName: "Asset Allocation",
+    difficulty: 3,
+    stem: "A fully funded pension plan (assets $1.0B, liability PV $1.0B, liability duration 12) holds all assets in cash. Rates fall 100 bps. The surplus moves to approximately:",
+    choices: ["$0 — cash is riskless", "−$120 million", "+$120 million"],
+    answerIndex: 1,
+    explanation:
+      "Liabilities rise about 12% (duration 12 × 1%) to ≈ $1.12B while cash sits at $1.0B: surplus ≈ −$120m. In liability-relative space, cash is RISKY because it hedges nothing; the minimum-surplus-risk asset is the duration-matched bond portfolio. Choice A measures risk in asset-only terms — the precise mistake liability-relative allocation exists to correct. Choice C reverses the direction liabilities move when rates fall.",
+  },
+  {
+    id: "cfa3-aa-q3",
+    examSlug: "cfa-l3",
+    topicId: "pm-asset",
+    topicName: "Asset Allocation",
+    difficulty: 2,
+    stem: "Which asset MOST justifies a wider rebalancing corridor?",
+    choices: [
+      "A liquid large-cap equity fund in a tax-exempt account.",
+      "A private real estate holding in a taxable account.",
+      "A government bond ETF with low transaction costs.",
+    ],
+    answerIndex: 1,
+    explanation:
+      "Corridors widen when trading is costly or painful: illiquidity (forced sales of private assets are expensive or impossible) and taxable status (rebalancing realizes gains) BOTH argue for tolerance, making the private real estate position the clear case. The liquid, cheap, tax-exempt alternatives in A and C have no such frictions — their corridors can stay tight so drift is corrected quickly.",
+  },
+  {
+    id: "cfa3-aa-q4",
+    examSlug: "cfa-l3",
+    topicId: "pm-asset",
+    topicName: "Asset Allocation",
+    difficulty: 2,
+    stem: "A risk-budgeted portfolio is optimal when:",
+    choices: [
+      "Every asset contributes equal risk to the portfolio.",
+      "The ratio of excess return to marginal contribution to total risk is equal across assets.",
+      "No asset's weight exceeds its risk contribution.",
+    ],
+    answerIndex: 1,
+    explanation:
+      "Optimality in risk budgeting means every unit of risk is buying the same expected reward: excess return ÷ MCTR equalized across positions — otherwise shifting risk from a low-payoff to a high-payoff use improves the portfolio. Choice A describes RISK PARITY, a special case (and one famously requiring leveraged bonds), not the general optimum. Choice C is a plausible-sounding invention with no analytical content.",
+  },
+  // ---- Fixed Income Strategies ----
+  {
+    id: "cfa3-fi-q1",
+    examSlug: "cfa-l3",
+    topicId: "fixed",
+    topicName: "Fixed Income",
+    difficulty: 2,
+    stem: "To immunize a single liability due in 7 years, a portfolio should have:",
+    choices: [
+      "Modified duration of 7 and maximum convexity.",
+      "Macaulay duration of 7, PV at least equal to the liability, and minimal cash-flow dispersion.",
+      "Maturity of exactly 7 years regardless of coupon structure.",
+    ],
+    answerIndex: 1,
+    explanation:
+      "The three conditions: sufficient PV, MACAULAY duration equal to the horizon (where price and reinvestment risks offset), and minimized convexity/dispersion so non-parallel twists have the least room to hurt. Choice A names the wrong duration measure and inverts the convexity condition — immunizers MINIMIZE dispersion. Choice C confuses maturity with duration: a 7-year coupon bond has duration well under 7; only a 7-year ZERO satisfies both at once, which is why zeros are perfect immunization.",
+  },
+  {
+    id: "cfa3-fi-q2",
+    examSlug: "cfa-l3",
+    topicId: "fixed",
+    topicName: "Fixed Income",
+    difficulty: 2,
+    stem: "Liabilities have a BPV of $225,000; the bond portfolio's BPV is $150,000; the chosen futures contract has a BPV of $90. The appropriate overlay is closest to:",
+    choices: ["Sell 833 contracts", "Buy 833 contracts", "Buy 2,500 contracts"],
+    answerIndex: 1,
+    explanation:
+      "N_f = (BPV_L − BPV_P)/BPV_f = (225,000 − 150,000)/90 ≈ +833 → positive → BUY futures. The portfolio is short duration relative to its liabilities; if rates fall the liabilities outgrow the assets, and the long futures position fills the gap. Choice A gets the arithmetic right and the SIGN wrong — the most common exam error on this pattern. Choice C divides the full liability BPV instead of the gap.",
+  },
+  {
+    id: "cfa3-fi-q3",
+    examSlug: "cfa-l3",
+    topicId: "fixed",
+    topicName: "Fixed Income",
+    difficulty: 3,
+    stem: "A manager expects a large parallel rate move (direction uncertain) and curve flattening. With duration held constant, which structure is MOST attractive?",
+    choices: ["Bullet", "Barbell", "Ladder"],
+    answerIndex: 1,
+    explanation:
+      "Both forecasts favor the barbell: its higher CONVEXITY profits from large parallel moves in either direction (gains exceed losses for equal-sized shocks), and its long-end weighting wins when the curve flattens (long yields fall relative to short). The bullet is the carry-and-stability structure — it outperforms when the curve is steep and static. The ladder sits between, prized for reinvestment diversification and liquidity rather than curve views. 'Barbells love volatility and flattening' is the mnemonic.",
+  },
+  {
+    id: "cfa3-fi-q4",
+    examSlug: "cfa-l3",
+    topicId: "fixed",
+    topicName: "Fixed Income",
+    difficulty: 2,
+    stem: "A bond portfolio's expected return assuming an UNCHANGED yield curve is best described as:",
+    choices: [
+      "Yield income plus rolldown return (the rolling yield).",
+      "Coupon income only.",
+      "The manager's forecast price appreciation.",
+    ],
+    answerIndex: 0,
+    explanation:
+      "If the curve stays put, the portfolio still earns its yield income (coupon ÷ price) PLUS rolldown — bonds re-priced at the lower-yield, shorter-maturity point of an upward-sloping curve gain value as time passes. Together: the rolling yield, the passive baseline against which view-driven returns are attributed. Choice B omits rolldown; choice C is precisely the part of return that an unchanged curve CONTRIBUTES NOTHING to — manager views only pay when something moves.",
   },
 ];
 
