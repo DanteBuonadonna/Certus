@@ -53,18 +53,66 @@ export default function TermsPage() {
         you a personal, non-transferable license to use the Service for your own study.
       </p>
 
-      <H2>7. Disclaimers and limitation of liability</H2>
+      <H2>7. Educational use only — no guarantee of results</H2>
       <p>
-        The Service is provided &quot;as is&quot; for educational purposes only and is not professional, legal,
-        financial, or career advice. To the maximum extent permitted by law, {BRAND.name} is not liable for any
-        indirect or consequential damages, and our total liability is limited to the amount you paid in the
-        prior twelve months.
+        All content is provided strictly for general educational and informational purposes. It is not, and
+        must not be relied on as, professional, legal, financial, accounting, investment, tax, or career
+        advice. {BRAND.name} does not guarantee that using the Service will result in passing any exam,
+        obtaining any certification, employment, or any particular outcome. Exam results depend on many factors
+        outside our control, and you are solely responsible for your preparation and decisions. Always confirm
+        material against the official curriculum and materials of the relevant certifying body.
       </p>
 
-      <H2>8. Changes and contact</H2>
+      <H2>8. Disclaimer of warranties</H2>
       <p>
-        We may update these Terms; material changes will be posted here. Questions about these Terms can be
-        sent to {BRAND.supportEmail}.
+        THE SERVICE AND ALL CONTENT ARE PROVIDED &quot;AS IS&quot; AND &quot;AS AVAILABLE,&quot; WITH ALL
+        FAULTS AND WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS, IMPLIED, OR STATUTORY. To the fullest
+        extent permitted by law, {BRAND.name} disclaims all warranties, including merchantability, fitness for a
+        particular purpose, title, non-infringement, and any warranty regarding accuracy, completeness,
+        reliability, or availability. You acknowledge that some content is generated or assisted by automated
+        systems (including AI) and may contain errors, omissions, or outdated information, and that
+        {" "}{BRAND.name} does not warrant that the Service will be uninterrupted, secure, or error-free.
+      </p>
+
+      <H2>9. Limitation of liability</H2>
+      <p>
+        TO THE MAXIMUM EXTENT PERMITTED BY LAW, {BRAND.name} AND ITS OWNERS, EMPLOYEES, AND SUPPLIERS WILL NOT
+        BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES, OR FOR
+        ANY LOSS OF PROFITS, DATA, GOODWILL, EXAM OR CAREER OPPORTUNITIES, OR OTHER INTANGIBLE LOSSES, ARISING
+        OUT OF OR RELATED TO YOUR USE OF (OR INABILITY TO USE) THE SERVICE, EVEN IF ADVISED OF THE POSSIBILITY
+        OF SUCH DAMAGES, AND REGARDLESS OF THE LEGAL THEORY. IN NO EVENT WILL OUR TOTAL AGGREGATE LIABILITY FOR
+        ALL CLAIMS EXCEED THE GREATER OF (A) THE AMOUNT YOU PAID {BRAND.name} IN THE THREE MONTHS BEFORE THE
+        EVENT GIVING RISE TO THE CLAIM, OR (B) USD $50. Some jurisdictions do not allow certain limitations, so
+        parts of this section may not apply to you; in that case our liability is limited to the smallest amount
+        permitted by law.
+      </p>
+
+      <H2>10. Assumption of risk and indemnification</H2>
+      <p>
+        You use the Service at your own risk. You agree to defend, indemnify, and hold harmless {BRAND.name} and
+        its owners and personnel from and against any claims, damages, liabilities, losses, and expenses
+        (including reasonable legal fees) arising out of your use of the Service, your violation of these
+        Terms, or your violation of any law or the rights of a third party.
+      </p>
+
+      <H2>11. Governing law and disputes</H2>
+      <p>
+        These Terms are governed by the laws of the United States and the State of New Jersey, without regard
+        to conflict-of-laws rules. You agree that any dispute will be resolved in the state or federal courts
+        located in that state, and you consent to their jurisdiction. Any claim must be brought within one year
+        after it arises.
+      </p>
+
+      <H2>12. Severability</H2>
+      <p>
+        If any provision of these Terms is held unenforceable, the remaining provisions stay in full effect,
+        and the unenforceable provision will be enforced to the maximum extent permitted by law.
+      </p>
+
+      <H2>13. Changes and contact</H2>
+      <p>
+        We may update these Terms; material changes will be posted here, and continued use means you accept
+        them. Questions about these Terms can be sent to {BRAND.supportEmail}.
       </p>
     </LegalShell>
   );
