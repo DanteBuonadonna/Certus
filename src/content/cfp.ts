@@ -658,6 +658,75 @@ const questions: Question[] = [
     answerIndex: 1,
     explanation: "A durable power of attorney names an agent to handle financial matters and remains effective if you become incapacitated, avoiding a court-appointed guardianship. Choice A (a will) only operates at death. Choice C addresses asset transfer, not the authority to act on your behalf during incapacity.",
   },
+
+  // ---- Investment Planning ----
+  {
+    id: "cfp-inv-q1", examSlug: "cfp", topicId: "investment", topicName: "Investment Planning", difficulty: 2,
+    stem: "Which type of risk is rewarded with higher expected return because it cannot be diversified away?",
+    choices: ["Unsystematic (company-specific) risk", "Systematic (market) risk", "Liquidity risk only"],
+    answerIndex: 1,
+    explanation: "Only systematic (market) risk is compensated, because unsystematic risk can be diversified away for free, so the market doesn't pay you to bear it. Choice A is diversifiable and therefore not rewarded. Choice C is one specific risk, not the broad category that drives expected return.",
+  },
+  {
+    id: "cfp-inv-q2", examSlug: "cfp", topicId: "investment", topicName: "Investment Planning", difficulty: 2,
+    stem: "Diversification reduces portfolio risk most effectively when the combined assets have:",
+    choices: ["High positive correlation", "Low or negative correlation", "Identical returns"],
+    answerIndex: 1,
+    explanation: "The lower the correlation between holdings, the more their movements offset, reducing overall volatility for a given expected return — the core benefit of diversification. Choice A (high correlation) provides little risk reduction. Choice C would mean no diversification benefit at all.",
+  },
+  {
+    id: "cfp-inv-q3", examSlug: "cfp", topicId: "investment", topicName: "Investment Planning", difficulty: 2,
+    stem: "Research indicates that the largest driver of the variability in a portfolio's returns over time is:",
+    choices: ["Individual security selection", "Asset allocation (the mix among asset classes)", "Market timing"],
+    answerIndex: 1,
+    explanation: "Asset allocation — the strategic mix among asset classes — explains the large majority of the variability of returns over time, far more than security selection or timing. Choices A and C contribute less and are harder to do consistently, which is why planners focus first on the allocation a client can hold through downturns.",
+  },
+
+  // ---- Education Planning ----
+  {
+    id: "cfp-edu-q1", examSlug: "cfp", topicId: "education", topicName: "Education Planning", difficulty: 1,
+    stem: "Earnings in a 529 plan used for qualified education expenses are:",
+    choices: ["Taxed as ordinary income", "Federally tax-free", "Subject to a 10% penalty"],
+    answerIndex: 1,
+    explanation: "A 529 plan grows tax-free and qualified withdrawals are federally tax-free, the central advantage of the vehicle. Choice A ignores the tax benefit. Choice C (the 10% penalty) applies only to the earnings portion of NON-qualified withdrawals, not qualified ones.",
+  },
+  {
+    id: "cfp-edu-q2", examSlug: "cfp", topicId: "education", topicName: "Education Planning", difficulty: 2,
+    stem: "The American Opportunity Tax Credit is worth up to how much per student?",
+    choices: ["$500", "$2,500 (first four undergraduate years, partially refundable)", "$10,000"],
+    answerIndex: 1,
+    explanation: "The AOTC is worth up to $2,500 per student for the first four years of undergraduate study and is partially refundable. Choice A understates it. Choice C confuses it with the expense base used for the Lifetime Learning Credit (20% of up to $10,000 = $2,000).",
+  },
+  {
+    id: "cfp-edu-q3", examSlug: "cfp", topicId: "education", topicName: "Education Planning", difficulty: 3,
+    stem: "For financial aid purposes, assets generally reduce aid eligibility MOST when they are:",
+    choices: ["Owned by the parent (e.g., a parent-owned 529)", "Owned by the student (e.g., a UTMA/UGMA)", "Held in a retirement account"],
+    answerIndex: 1,
+    explanation: "Student-owned assets are assessed at a much higher rate in the aid formula than parent-owned assets, so a custodial account can hurt aid more than a parent-owned 529. Choice A is assessed more gently. Choice C (retirement accounts) is generally excluded from the aid asset calculation.",
+  },
+
+  // ---- Psychology of Financial Planning ----
+  {
+    id: "cfp-psy-q1", examSlug: "cfp", topicId: "psychology", topicName: "Psychology of Financial Planning", difficulty: 3,
+    stem: "The recommended approach is to MODERATE which kind of bias and ADAPT to the other?",
+    choices: ["Moderate emotional biases; adapt to cognitive biases", "Moderate cognitive biases (with education); adapt to emotional biases", "Treat them identically"],
+    answerIndex: 1,
+    explanation: "Cognitive errors are reasoning flaws that can be corrected (moderated) with information and process; emotional biases are feeling-driven and usually better adapted to so the client stays committed to the plan. Choice A reverses the treatment, and choice C ignores the key distinction.",
+  },
+  {
+    id: "cfp-psy-q2", examSlug: "cfp", topicId: "psychology", topicName: "Psychology of Financial Planning", difficulty: 2,
+    stem: "Loss aversion typically leads investors to:",
+    choices: ["Hold losing investments too long and sell winners too soon", "Diversify perfectly", "Take excessive risk in every market"],
+    answerIndex: 0,
+    explanation: "Because losses feel roughly twice as painful as equal gains, investors avoid realizing losses (holding losers) and lock in gains too early (selling winners). Choices B and C describe behaviors loss aversion actually undermines.",
+  },
+  {
+    id: "cfp-psy-q3", examSlug: "cfp", topicId: "psychology", topicName: "Psychology of Financial Planning", difficulty: 2,
+    stem: "'Money scripts' refer to:",
+    choices: ["A budgeting software feature", "Often-unconscious beliefs about money, formed early in life, that drive financial behavior", "A type of estate document"],
+    answerIndex: 1,
+    explanation: "Money scripts are largely unconscious beliefs about money (money avoidance, worship, status, vigilance) formed in childhood that quietly shape financial decisions. Recognizing them helps a planner address the pattern behind a client's behavior. Choices A and C are unrelated to the concept.",
+  },
 ];
 
 export const cfpContent: ExamContent = {

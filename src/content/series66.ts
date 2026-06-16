@@ -464,6 +464,52 @@ const questions: Question[] = [
     answerIndex: 1,
     explanation: "Diversifying across assets that don't move together lowers overall portfolio volatility for a given expected return — the core benefit of diversification. Choice A misstates it; diversification primarily reduces risk rather than boosting return. Choice C is wrong because diversification reduces unsystematic risk but cannot remove systematic (market-wide) risk.",
   },
+
+  // ---- Economic Factors & Business Information ----
+  {
+    id: "s66-ec-q1", examSlug: "series-66", topicId: "economics", topicName: "Economic Factors & Business Information", difficulty: 2,
+    stem: "Which is a LEADING economic indicator?",
+    choices: ["The unemployment rate", "Building permits and new manufacturing orders", "The average duration of unemployment"],
+    answerIndex: 1,
+    explanation: "Leading indicators — building permits, new orders, stock prices, consumer expectations — tend to turn before the overall economy and help anticipate change. Choice A (unemployment rate) is roughly coincident, and choice C (duration of unemployment) is a lagging indicator that confirms a trend after the fact.",
+  },
+  {
+    id: "s66-ec-q2", examSlug: "series-66", topicId: "economics", topicName: "Economic Factors & Business Information", difficulty: 2,
+    stem: "Adjusting the money supply and interest rates through open-market operations is:",
+    choices: ["Fiscal policy by Congress", "Monetary policy by the Federal Reserve", "Tax policy by the IRS"],
+    answerIndex: 1,
+    explanation: "Monetary policy is conducted by the Federal Reserve via open-market operations, the discount rate, and reserve requirements. Choice A (fiscal policy) is Congress and the President using taxes and spending. Choice C is not a category of macroeconomic stabilization policy in this context.",
+  },
+  {
+    id: "s66-ec-q3", examSlug: "series-66", topicId: "economics", topicName: "Economic Factors & Business Information", difficulty: 2,
+    stem: "An inverted yield curve (short-term yields above long-term yields) is generally viewed as:",
+    choices: ["A sign of strong expansion ahead", "A warning sign that has historically preceded recessions", "Irrelevant to investors"],
+    answerIndex: 1,
+    explanation: "An inverted curve has historically preceded recessions and is closely watched as a warning. Choice A is the opposite interpretation. Choice C is wrong — the curve's shape signals expectations about growth and rates, which advisers weigh in recommendations.",
+  },
+
+  // ---- Investment Vehicle Characteristics ----
+  {
+    id: "s66-veh-q1", examSlug: "series-66", topicId: "vehicles", topicName: "Investment Vehicle Characteristics", difficulty: 2,
+    stem: "Open-end mutual fund shares are bought and redeemed at:",
+    choices: ["A market price set on an exchange", "The next-computed net asset value (NAV)", "A fixed price that never changes"],
+    answerIndex: 1,
+    explanation: "Open-end mutual funds transact directly with the fund at the next-calculated NAV (forward pricing). Choice A describes closed-end funds and ETFs, which trade on an exchange at market prices that can differ from NAV. Choice C is false; NAV changes daily with the portfolio's value.",
+  },
+  {
+    id: "s66-veh-q2", examSlug: "series-66", topicId: "vehicles", topicName: "Investment Vehicle Characteristics", difficulty: 2,
+    stem: "Municipal bonds are especially attractive to which investor, and why?",
+    choices: ["Low-bracket investors, for the high yield", "High-bracket investors, because the interest is typically federally tax-exempt", "Tax-exempt institutions, for the tax break"],
+    answerIndex: 1,
+    explanation: "Municipal bond interest is generally exempt from federal income tax, so the after-tax yield is most valuable to investors in high tax brackets. Choice A is backwards. Choice C is wrong — a tax-exempt entity gains nothing from tax-free interest and would prefer higher taxable yields.",
+  },
+  {
+    id: "s66-veh-q3", examSlug: "series-66", topicId: "vehicles", topicName: "Investment Vehicle Characteristics", difficulty: 3,
+    stem: "In a variable annuity, the investment risk is borne by:",
+    choices: ["The insurance company", "The contract owner (returns depend on the separate-account subaccounts)", "The federal government"],
+    answerIndex: 1,
+    explanation: "A variable annuity invests in separate-account subaccounts, so investment performance — and risk — passes to the owner, unlike a fixed annuity where the insurer guarantees a rate. Choice A describes a fixed annuity. Choice C is incorrect; annuities are not government-guaranteed investment products.",
+  },
 ];
 
 export const series66Content: ExamContent = {

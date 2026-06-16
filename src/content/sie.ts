@@ -366,6 +366,126 @@ const questions: Question[] = [
     answerIndex: 1,
     explanation: "FINRA continuing education has two parts: the Regulatory Element (periodic training on rules and compliance) and the Firm Element (ongoing training the firm designs for its covered registered persons). Choice A understates it, and choice C is false — registration carries an ongoing CE obligation, not a one-and-done exam.",
   },
+
+  // ---- Capital Markets (more) ----
+  {
+    id: "sie-mkt-q7", examSlug: "sie", topicId: "markets", topicName: "Capital Markets", difficulty: 2,
+    stem: "The FDIC and SIPC differ in that:",
+    choices: ["Both insure against investment losses", "FDIC insures bank deposits; SIPC protects brokerage customers if the firm fails", "They are the same agency"],
+    answerIndex: 1,
+    explanation: "The FDIC insures bank deposits (up to limits), while SIPC protects customers of a failed broker-dealer (up to $500,000, including $250,000 cash) — but NOT against market losses. Choice A is wrong because neither insures against market declines. Choice C is false; they are separate and cover different things.",
+  },
+  {
+    id: "sie-mkt-q8", examSlug: "sie", topicId: "markets", topicName: "Capital Markets", difficulty: 2,
+    stem: "In a firm-commitment underwriting, the underwriter:",
+    choices: ["Acts only as an agent and sells what it can", "Buys the entire issue from the issuer and resells it, bearing the risk", "Guarantees the stock will rise"],
+    answerIndex: 1,
+    explanation: "In a firm commitment, the underwriter purchases the whole issue and assumes the risk of reselling it to the public. Choice A describes a best-efforts underwriting, where the underwriter is only an agent. Choice C is never true — no one can guarantee a security's price.",
+  },
+  {
+    id: "sie-mkt-q9", examSlug: "sie", topicId: "markets", topicName: "Capital Markets", difficulty: 1,
+    stem: "A company selling shares to the public for the very first time is conducting a(n):",
+    choices: ["Initial public offering (IPO)", "Secondary market trade", "Private placement"],
+    answerIndex: 0,
+    explanation: "A first-ever public sale of shares is an IPO, a primary-market transaction in which the issuer raises capital. Choice B is trading among investors after issuance. Choice C is an exempt offering to a limited group, not a public first sale.",
+  },
+  {
+    id: "sie-mkt-q10", examSlug: "sie", topicId: "markets", topicName: "Capital Markets", difficulty: 1,
+    stem: "The federal agency that oversees the securities markets and enforces federal securities laws is the:",
+    choices: ["FINRA", "SEC", "FDIC"],
+    answerIndex: 1,
+    explanation: "The Securities and Exchange Commission (SEC) is the federal regulator overseeing the markets and enforcing securities law; FINRA (choice A) is a self-regulatory organization operating under SEC oversight. Choice C (FDIC) insures bank deposits and is unrelated to securities regulation.",
+  },
+
+  // ---- Products & Risks (more) ----
+  {
+    id: "sie-prod-q7", examSlug: "sie", topicId: "products", topicName: "Products & Risks", difficulty: 2,
+    stem: "Which U.S. Treasury security is issued at a discount and pays no periodic interest?",
+    choices: ["Treasury bond", "Treasury note", "Treasury bill"],
+    answerIndex: 2,
+    explanation: "Treasury bills are short-term (one year or less), issued at a discount to face value, with the return being the difference at maturity — no periodic coupon. Treasury notes (2–10 years) and bonds (20–30 years) pay semiannual coupon interest. ",
+  },
+  {
+    id: "sie-prod-q8", examSlug: "sie", topicId: "products", topicName: "Products & Risks", difficulty: 2,
+    stem: "A general obligation (GO) municipal bond is backed by:",
+    choices: ["Revenue from a specific project", "The full faith, credit, and taxing power of the issuer", "The federal government"],
+    answerIndex: 1,
+    explanation: "GO bonds are backed by the issuer's full faith, credit, and taxing power, making them generally safer than revenue bonds. Choice A describes a revenue bond, repaid only from a specific project's income. Choice C is wrong; municipal bonds are not federally guaranteed.",
+  },
+  {
+    id: "sie-prod-q9", examSlug: "sie", topicId: "products", topicName: "Products & Risks", difficulty: 2,
+    stem: "An American Depositary Receipt (ADR) lets a U.S. investor:",
+    choices: ["Buy a foreign company's shares more easily, trading in U.S. dollars", "Avoid all currency risk entirely", "Invest only in U.S. companies"],
+    answerIndex: 0,
+    explanation: "An ADR is a negotiable certificate representing shares of a foreign company, trading in U.S. dollars on U.S. markets for convenience. Choice B is wrong — ADRs still carry currency risk. Choice C is the opposite; ADRs exist specifically to access foreign companies.",
+  },
+  {
+    id: "sie-prod-q10", examSlug: "sie", topicId: "products", topicName: "Products & Risks", difficulty: 3,
+    stem: "The main difference between rights and warrants is that:",
+    choices: ["Rights are long-term; warrants are short-term", "Rights are short-term and offered to existing shareholders; warrants are long-term, often attached as sweeteners", "They are identical"],
+    answerIndex: 1,
+    explanation: "Rights are short-term (weeks) and given to existing shareholders to maintain proportional ownership; warrants are long-term (years) and typically attached to bonds or preferred stock as a sweetener. Choice A reverses the time horizons. Choice C is false; they differ in term and purpose.",
+  },
+
+  // ---- Trading & Accounts (more) ----
+  {
+    id: "sie-trd-q7", examSlug: "sie", topicId: "trading", topicName: "Trading & Accounts", difficulty: 2,
+    stem: "Under Regulation T, the initial margin requirement to buy securities on margin is generally:",
+    choices: ["10%", "50%", "100%"],
+    answerIndex: 1,
+    explanation: "Regulation T (set by the Federal Reserve) requires an initial margin of 50% — the investor must deposit at least half the purchase price, borrowing the rest. Choice A is too low for Reg T. Choice C (100%) would mean no margin at all, i.e., a cash purchase.",
+  },
+  {
+    id: "sie-trd-q8", examSlug: "sie", topicId: "trading", topicName: "Trading & Accounts", difficulty: 3,
+    stem: "An investor who sells stock short profits when the price:",
+    choices: ["Rises, with limited risk", "Falls — but the potential loss is theoretically unlimited if the price rises", "Stays flat"],
+    answerIndex: 1,
+    explanation: "Short selling means selling borrowed shares hoping to buy them back cheaper, so the short seller profits when the price falls; because a price can rise without limit, the potential loss is theoretically unlimited. Choice A reverses the direction. Choice C produces no profit (and still owes borrow costs).",
+  },
+  {
+    id: "sie-trd-q9", examSlug: "sie", topicId: "trading", topicName: "Trading & Accounts", difficulty: 2,
+    stem: "A buy-stop order becomes a market order when the stock:",
+    choices: ["Falls to the stop price", "Rises to or through the stop price", "Pays a dividend"],
+    answerIndex: 1,
+    explanation: "A buy-stop is placed ABOVE the current price and triggers (becoming a market order) when the stock rises to or through the stop — often used to limit a short-sale loss or catch upside momentum. Choice A describes a sell-stop (placed below the market). Choice C is unrelated to order triggering.",
+  },
+  {
+    id: "sie-trd-q10", examSlug: "sie", topicId: "trading", topicName: "Trading & Accounts", difficulty: 2,
+    stem: "In a joint account registered as JTWROS, when one owner dies their share:",
+    choices: ["Passes to their estate via the will", "Passes automatically to the surviving owner(s)", "Is frozen permanently"],
+    answerIndex: 1,
+    explanation: "Joint Tenants With Right of Survivorship (JTWROS) means a deceased owner's interest passes automatically to the surviving owner(s), outside probate. Choice A describes tenants-in-common, where a share passes to the estate. Choice C is incorrect; the account continues with the survivor.",
+  },
+
+  // ---- Regulatory Framework (more) ----
+  {
+    id: "sie-reg-q7", examSlug: "sie", topicId: "regulation", topicName: "Regulatory Framework", difficulty: 2,
+    stem: "When opening a new account, a firm's Customer Identification Program (CIP) requires it to:",
+    choices: ["Verify the customer's identity (name, DOB, address, ID number)", "Guarantee the customer's investments", "Approve every future trade in advance"],
+    answerIndex: 0,
+    explanation: "Under AML rules, the CIP requires firms to collect and verify identifying information — name, date of birth, address, and a government identification number — to confirm who the customer is. Choice B is impossible and not a CIP function. Choice C is unrelated to identity verification.",
+  },
+  {
+    id: "sie-reg-q8", examSlug: "sie", topicId: "regulation", topicName: "Regulatory Framework", difficulty: 3,
+    stem: "Regulation Best Interest (Reg BI) requires a broker-dealer to:",
+    choices: ["Act in the retail customer's best interest when making a recommendation", "Always recommend the cheapest product", "Guarantee positive returns"],
+    answerIndex: 0,
+    explanation: "Reg BI requires broker-dealers to act in the retail customer's best interest at the time of a recommendation, addressing conflicts and disclosure. Choice B is too narrow — best interest considers more than price. Choice C is never permissible; returns can't be guaranteed.",
+  },
+  {
+    id: "sie-reg-q9", examSlug: "sie", topicId: "regulation", topicName: "Prohibited Activities", difficulty: 2,
+    stem: "Spreading false positive information to inflate a stock so insiders can sell is:",
+    choices: ["Permitted marketing", "Market manipulation (a 'pump and dump') — prohibited", "Best execution"],
+    answerIndex: 1,
+    explanation: "Artificially inflating a price with false information to dump shares is market manipulation, a prohibited fraud under securities law. Choice A mischaracterizes fraud as marketing. Choice C (best execution) is an unrelated duty to obtain favorable trade terms for customers.",
+  },
+  {
+    id: "sie-reg-q10", examSlug: "sie", topicId: "regulation", topicName: "Regulatory Framework", difficulty: 2,
+    stem: "The Municipal Securities Rulemaking Board (MSRB):",
+    choices: ["Writes rules for municipal securities but does not enforce them itself", "Insures municipal bonds", "Sets monetary policy"],
+    answerIndex: 0,
+    explanation: "The MSRB writes rules governing the municipal securities market, but enforcement is carried out by other regulators (such as FINRA and the SEC). Choice B is false; the MSRB doesn't insure bonds. Choice C describes the Federal Reserve, not the MSRB.",
+  },
 ];
 
 export const sieContent: ExamContent = {

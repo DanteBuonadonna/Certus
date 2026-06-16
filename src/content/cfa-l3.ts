@@ -1025,6 +1025,144 @@ const questions: Question[] = [
     answerIndex: 1,
     explanation: "Monte Carlo runs many randomized return sequences to produce a distribution of outcomes and a probability of success, revealing sequence-of-returns risk that a single straight-line projection hides. Choice A overstates it — the output is a probability distribution, not a guarantee. Choice C describes a deterministic projection, the very simplification Monte Carlo is meant to improve upon.",
   },
+
+  // ---- Equity Portfolio Management ----
+  {
+    id: "cfa3-eq-q1", examSlug: "cfa-l3", topicId: "pm-equity", topicName: "Equity Portfolio Management", difficulty: 2,
+    stem: "For active equity management to add value, it must:",
+    choices: ["Beat the benchmark before fees", "Beat the benchmark NET of its higher fees and trading costs", "Simply match the index"],
+    answerIndex: 1,
+    explanation: "The bar for active management is net-of-cost outperformance — gross alpha must first cover the higher fees and turnover, which is why most active managers fail to beat passive consistently. Choice A ignores costs. Choice C describes passive management, not active value-add.",
+  },
+  {
+    id: "cfa3-eq-q2", examSlug: "cfa-l3", topicId: "pm-equity", topicName: "Equity Portfolio Management", difficulty: 3,
+    stem: "The fundamental law of active management says expected active return rises with:",
+    choices: ["Lower skill and fewer bets", "The information coefficient (skill) and the square root of breadth (number of independent bets)", "Higher fees"],
+    answerIndex: 1,
+    explanation: "Active value-add ≈ information coefficient × √breadth × active risk — more skill and more independent bets both increase it, which is why broad quant strategies can rival concentrated stock-pickers. Choice A is backwards. Choice C is unrelated; fees reduce net value-add.",
+  },
+  {
+    id: "cfa3-eq-q3", examSlug: "cfa-l3", topicId: "pm-equity", topicName: "Equity Portfolio Management", difficulty: 2,
+    stem: "Systematically tilting a portfolio toward value, momentum, size, or quality is known as:",
+    choices: ["Pure indexing", "Factor (smart beta) investing", "Calendar rebalancing"],
+    answerIndex: 1,
+    explanation: "Factor or 'smart beta' investing harvests persistent return premia by rules-based tilts, sitting between pure passive and pure active. Choice A (indexing) takes no factor tilt by design. Choice C is a rebalancing schedule, not a return-seeking tilt.",
+  },
+
+  // ---- Derivatives & Risk Management ----
+  {
+    id: "cfa3-dr-q1", examSlug: "cfa-l3", topicId: "pm-deriv", topicName: "Derivatives & Risk Management", difficulty: 3,
+    stem: "To LOWER a portfolio's equity beta using index futures, a manager should:",
+    choices: ["Buy futures", "Sell (short) futures", "Buy more of the underlying stocks"],
+    answerIndex: 1,
+    explanation: "Selling index futures reduces equity exposure and lowers beta toward the target, without selling the underlying holdings. Choice A (buying futures) raises beta. Choice C also raises exposure, the opposite of the goal.",
+  },
+  {
+    id: "cfa3-dr-q2", examSlug: "cfa-l3", topicId: "pm-deriv", topicName: "Derivatives & Risk Management", difficulty: 2,
+    stem: "An investor who owns a stock and buys a put on it has created a:",
+    choices: ["Covered call", "Protective put (downside insurance, upside retained)", "Short straddle"],
+    answerIndex: 1,
+    explanation: "Long stock plus a long put is a protective put: it caps the downside at the strike while keeping the upside, for the cost of the premium. Choice A (covered call) sells a call to earn premium and caps the upside. Choice C is an unrelated volatility-selling strategy.",
+  },
+  {
+    id: "cfa3-dr-q3", examSlug: "cfa-l3", topicId: "pm-deriv", topicName: "Derivatives & Risk Management", difficulty: 2,
+    stem: "The most direct way to hedge the currency risk on expected foreign-asset proceeds is to:",
+    choices: ["Buy the foreign currency forward", "Sell the foreign currency forward", "Do nothing and accept the risk"],
+    answerIndex: 1,
+    explanation: "Selling the foreign currency forward locks in today's exchange rate on the expected proceeds, removing currency risk. Choice A increases exposure. Choice C leaves the position fully exposed (sometimes a deliberate choice, but not a hedge).",
+  },
+
+  // ---- Alternative Investments ----
+  {
+    id: "cfa3-ai-q1", examSlug: "cfa-l3", topicId: "pm-alts", topicName: "Alternative Investments", difficulty: 3,
+    stem: "Appraisal-based (infrequent) pricing of illiquid alternatives tends to:",
+    choices: ["Overstate volatility and correlation", "Understate volatility and correlation, flattering the Sharpe ratio", "Have no effect on reported statistics"],
+    answerIndex: 1,
+    explanation: "Smoothed, appraisal-based returns understate true volatility and correlation, which inflates the reported Sharpe ratio and overstates diversification benefits — a reason to discount headline numbers on illiquid assets. Choice A reverses the effect. Choice C ignores the well-known smoothing bias.",
+  },
+  {
+    id: "cfa3-ai-q2", examSlug: "cfa-l3", topicId: "pm-alts", topicName: "Alternative Investments", difficulty: 2,
+    stem: "A primary reason institutions accept the illiquidity of private alternatives is to earn:",
+    choices: ["A guaranteed return", "An illiquidity premium plus diversification", "Lower fees than public markets"],
+    answerIndex: 1,
+    explanation: "Investors demand extra expected return (an illiquidity premium) for locking up capital, and alternatives also add diversification through low correlation with stocks and bonds. Choice A is false — nothing is guaranteed. Choice C is wrong; alternatives typically charge higher fees (e.g., '2 and 20').",
+  },
+  {
+    id: "cfa3-ai-q3", examSlug: "cfa-l3", topicId: "pm-alts", topicName: "Alternative Investments", difficulty: 2,
+    stem: "The 'J-curve' in private funds refers to:",
+    choices: ["Early negative returns from fees and immature investments before value is realized", "A steadily rising return from day one", "The shape of the yield curve"],
+    answerIndex: 0,
+    explanation: "Private funds typically show early negative returns (fees drawn, investments immature) before value is harvested later — the J-curve. Choice B ignores the early drag. Choice C confuses it with the term structure of interest rates.",
+  },
+
+  // ---- Performance Evaluation & Ethics ----
+  {
+    id: "cfa3-pe-q1", examSlug: "cfa-l3", topicId: "pm-perf", topicName: "Performance Evaluation & Ethics", difficulty: 3,
+    stem: "The information ratio adjusts active return for which type of risk?",
+    choices: ["Total risk (standard deviation)", "Active risk (tracking error)", "Systematic risk (beta)"],
+    answerIndex: 1,
+    explanation: "The information ratio = active return ÷ active risk (tracking error), measuring active skill against a benchmark. Choice A describes the Sharpe ratio's denominator; choice C describes the Treynor ratio's. Matching the measure to the right risk is a classic exam point.",
+  },
+  {
+    id: "cfa3-pe-q2", examSlug: "cfa-l3", topicId: "pm-perf", topicName: "Performance Evaluation & Ethics", difficulty: 2,
+    stem: "A valid benchmark should be all of the following EXCEPT:",
+    choices: ["Specified in advance and investable", "Chosen after the fact to flatter results", "Appropriate to the manager's style"],
+    answerIndex: 1,
+    explanation: "A valid benchmark must be specified in advance, unambiguous, investable, measurable, and appropriate — chosen BEFORE the period, never selected afterward to make results look good. Choices A and C are genuine properties of a valid benchmark; choice B is exactly what invalidates one.",
+  },
+  {
+    id: "cfa3-pe-q3", examSlug: "cfa-l3", topicId: "pm-perf", topicName: "Performance Evaluation & Ethics", difficulty: 2,
+    stem: "Performance attribution that separates return into 'allocation' and 'selection' effects answers the question:",
+    choices: ["How risky was the portfolio?", "WHERE did the active return come from?", "What are the fees?"],
+    answerIndex: 1,
+    explanation: "Attribution decomposes active return into allocation (over/underweighting segments vs the benchmark) and selection (security picking within segments) — it identifies the SOURCES of return. Choice A is the job of appraisal ratios. Choice C is unrelated to attribution.",
+  },
+
+  // ---- Behavioral Finance ----
+  {
+    id: "cfa3-bf-q1", examSlug: "cfa-l3", topicId: "behavioral", topicName: "Behavioral Finance", difficulty: 3,
+    stem: "The general guidance for handling client biases is to:",
+    choices: ["Moderate cognitive biases (educate) and adapt to emotional biases", "Adapt to cognitive biases and ignore emotional ones", "Treat all biases identically"],
+    answerIndex: 0,
+    explanation: "Cognitive errors are reasoning flaws that can be moderated with education and better process; emotional biases are feeling-driven and usually better accommodated by adapting the plan so the client stays invested. Choice B reverses the treatment. Choice C ignores the crucial cognitive-vs-emotional distinction.",
+  },
+  {
+    id: "cfa3-bf-q2", examSlug: "cfa-l3", topicId: "behavioral", topicName: "Behavioral Finance", difficulty: 2,
+    stem: "Loss aversion most directly causes investors to:",
+    choices: ["Sell winners too early and hold losers too long", "Diversify perfectly", "Always buy at the bottom"],
+    answerIndex: 0,
+    explanation: "Because losses feel about twice as painful as equal gains, investors avoid realizing losses (holding losers) and lock in gains too soon (selling winners) — the disposition effect. Choices B and C describe disciplined behavior that loss aversion actually undermines.",
+  },
+  {
+    id: "cfa3-bf-q3", examSlug: "cfa-l3", topicId: "behavioral", topicName: "Behavioral Finance", difficulty: 3,
+    stem: "Behavioral portfolio theory describes investors as building portfolios in:",
+    choices: ["A single mean-variance-optimal whole", "Layered 'mental accounts' (a safety layer and a speculative layer)", "Only cash"],
+    answerIndex: 1,
+    explanation: "Behavioral portfolio theory says real investors construct portfolios as layered mental accounts tied to goals — a safety layer plus a speculative layer — rather than one optimized whole, which can leave them under-diversified relative to theory. Choice A is the traditional (non-behavioral) view. Choice C is not what the theory describes.",
+  },
+
+  // ---- Trading & Execution ----
+  {
+    id: "cfa3-tr-q1", examSlug: "cfa-l3", topicId: "trading", topicName: "Trading & Execution", difficulty: 3,
+    stem: "Implementation shortfall measures:",
+    choices: ["Only the commission paid", "The gap between a paper portfolio transacting instantly at the decision price and the real portfolio after all execution costs", "The bid-ask spread alone"],
+    answerIndex: 1,
+    explanation: "Implementation shortfall captures total execution cost — spread, market impact, and delay/opportunity cost — as the difference between an idealized instant trade at the decision price and the actual result. Choices A and C each capture only one component, understating the true cost.",
+  },
+  {
+    id: "cfa3-tr-q2", examSlug: "cfa-l3", topicId: "trading", topicName: "Trading & Execution", difficulty: 2,
+    stem: "The core trade-off when executing a large order is between:",
+    choices: ["Commissions and taxes", "Market impact (trading fast) and opportunity cost (trading slow)", "Equity and fixed income"],
+    answerIndex: 1,
+    explanation: "Trading quickly causes market impact (your order moves the price against you); trading slowly risks opportunity cost as the price drifts away. Balancing the two is the art of execution, which algorithms automate. Choice A and C are unrelated to the speed-vs-impact decision.",
+  },
+  {
+    id: "cfa3-tr-q3", examSlug: "cfa-l3", topicId: "trading", topicName: "Trading & Execution", difficulty: 2,
+    stem: "A manager's duty to obtain the most favorable terms reasonably available for client trades is called:",
+    choices: ["Soft-dollar allocation", "Best execution", "Front running"],
+    answerIndex: 1,
+    explanation: "Best execution is the fiduciary obligation to seek the most favorable available terms for clients, evaluated over time with transaction cost analysis. Choice A (soft dollars) must itself benefit clients and be disclosed. Choice C (front running) is a prohibited abuse, the opposite of acting in clients' interest.",
+  },
 ];
 
 export const cfaL3Content: ExamContent = {

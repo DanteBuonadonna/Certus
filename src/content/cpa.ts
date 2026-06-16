@@ -454,6 +454,98 @@ const questions: Question[] = [
     answerIndex: 1,
     explanation: "SOX Section 404 requires management to assess and report on the effectiveness of internal control over financial reporting, and for larger public companies the external auditor attests to it; SOX also created the PCAOB. Choice A would violate auditor independence. Choice C is the opposite of SOX's purpose, which was to strengthen controls after major accounting scandals.",
   },
+
+  // ---- Financial Reporting (more) ----
+  {
+    id: "cpa-far-q8", examSlug: "cpa", topicId: "far", topicName: "Financial Reporting", difficulty: 2,
+    stem: "The matching principle requires that:",
+    choices: ["Expenses be recognized when cash is paid", "Expenses be recognized in the same period as the revenues they help generate", "Revenue be deferred until year-end"],
+    answerIndex: 1,
+    explanation: "Under accrual accounting, the matching principle recognizes expenses in the period of the related revenues, not when cash moves. Choice A describes cash-basis accounting. Choice C is unrelated; revenue is recognized when earned, not arbitrarily deferred.",
+  },
+  {
+    id: "cpa-far-q9", examSlug: "cpa", topicId: "far", topicName: "Financial Reporting", difficulty: 2,
+    stem: "On a classified balance sheet, an asset is 'current' if it is expected to be converted to cash or used within:",
+    choices: ["One month", "One year or the operating cycle, whichever is longer", "Five years"],
+    answerIndex: 1,
+    explanation: "Current assets are those expected to be realized in cash or consumed within one year or the operating cycle, whichever is longer (cash, receivables, inventory). Choices A and C use the wrong time frame for the current/noncurrent classification.",
+  },
+  {
+    id: "cpa-far-q10", examSlug: "cpa", topicId: "far", topicName: "Financial Reporting", difficulty: 3,
+    stem: "Under U.S. GAAP, interest paid on debt is classified on the statement of cash flows as a(n):",
+    choices: ["Financing activity", "Operating activity", "Investing activity"],
+    answerIndex: 1,
+    explanation: "U.S. GAAP classifies interest paid (and interest and dividends received) as operating activities, while dividends PAID are financing. Choice A is a common trap — the principal portion of debt is financing, but the interest is operating. Choice C (investing) covers buying/selling long-term assets, not interest.",
+  },
+
+  // ---- Auditing (more) ----
+  {
+    id: "cpa-aud-q8", examSlug: "cpa", topicId: "aud", topicName: "Auditing", difficulty: 2,
+    stem: "Sending a letter to a customer to verify an account receivable balance is an example of:",
+    choices: ["External confirmation", "Observation", "Recalculation"],
+    answerIndex: 0,
+    explanation: "Obtaining a direct response from a third party (the customer) about a balance is an external confirmation — strong evidence for existence and accuracy of receivables. Choice B (observation) is watching a process. Choice C (recalculation) is checking the mathematical accuracy of documents.",
+  },
+  {
+    id: "cpa-aud-q9", examSlug: "cpa", topicId: "aud", topicName: "Auditing", difficulty: 3,
+    stem: "Which engagement provides the HIGHEST level of assurance?",
+    choices: ["A compilation", "A review", "An audit"],
+    answerIndex: 2,
+    explanation: "An audit provides reasonable (high) assurance; a review provides limited (moderate) assurance; a compilation provides no assurance. So the audit is the highest. Choices A and B are lower-assurance services, with compilation the lowest.",
+  },
+  {
+    id: "cpa-aud-q10", examSlug: "cpa", topicId: "aud", topicName: "Auditing", difficulty: 2,
+    stem: "An auditor must be independent:",
+    choices: ["In fact only", "In appearance only", "In both fact and appearance"],
+    answerIndex: 2,
+    explanation: "Independence must exist both in fact (genuine objectivity) and in appearance (no relationships that would cause a reasonable observer to doubt objectivity). Choices A and B are each only half the requirement; a financial or close personal tie impairs independence even if the auditor is honest.",
+  },
+
+  // ---- Taxation & Regulation (more) ----
+  {
+    id: "cpa-reg-q8", examSlug: "cpa", topicId: "reg", topicName: "Taxation & Regulation", difficulty: 2,
+    stem: "A partnership reports its income to the IRS but:",
+    choices: ["Pays entity-level federal income tax like a C corp", "Passes income through to partners, who report it on their own returns (via Schedule K-1)", "Is exempt from all reporting"],
+    answerIndex: 1,
+    explanation: "A partnership is a pass-through entity: it files an information return but pays no entity-level federal income tax; income, deductions, and credits flow to partners on Schedule K-1 and are taxed once on their returns. Choice A describes a C corporation's double taxation. Choice C is false — partnerships must file information returns.",
+  },
+  {
+    id: "cpa-reg-q9", examSlug: "cpa", topicId: "reg", topicName: "Taxation & Regulation", difficulty: 1,
+    stem: "A taxpayer should generally claim:",
+    choices: ["The standard deduction always", "The greater of the standard deduction or total itemized deductions", "Both the standard deduction and itemized deductions together"],
+    answerIndex: 1,
+    explanation: "Taxpayers take whichever is larger — the standard deduction or itemized deductions — to minimize taxable income. Choice A ignores cases where itemizing saves more. Choice C is not allowed; you cannot claim both.",
+  },
+  {
+    id: "cpa-reg-q10", examSlug: "cpa", topicId: "reg", topicName: "Taxation & Regulation", difficulty: 2,
+    stem: "Under the rules of practice (Circular 230) and professional standards, a CPA preparing a tax return must:",
+    choices: ["Take any position that lowers tax, regardless of support", "Have a reasonable basis for positions and exercise due care", "Sign returns without review to save time"],
+    answerIndex: 1,
+    explanation: "A CPA must have adequate support (a reasonable basis or higher, depending on disclosure) for return positions and exercise due professional care and competence. Choice A invites preparer penalties and ethics violations. Choice C breaches due care and the duty to review.",
+  },
+
+  // ---- Business Environment (more) ----
+  {
+    id: "cpa-bec-q8", examSlug: "cpa", topicId: "bec", topicName: "Business Environment", difficulty: 2,
+    stem: "Contribution margin per unit equals:",
+    choices: ["Selling price − variable cost per unit", "Selling price − fixed cost per unit", "Total revenue − total assets"],
+    answerIndex: 0,
+    explanation: "Contribution margin per unit = selling price − variable cost per unit; it's what each unit contributes toward covering fixed costs and then profit. Choice B wrongly subtracts fixed cost (fixed costs are covered in aggregate at breakeven, not per unit in the CM). Choice C mixes unrelated totals.",
+  },
+  {
+    id: "cpa-bec-q9", examSlug: "cpa", topicId: "bec", topicName: "Business Environment", difficulty: 2,
+    stem: "The time value of money concept holds that:",
+    choices: ["A dollar today is worth more than a dollar in the future", "A dollar in the future is worth more than a dollar today", "Money has no time dimension"],
+    answerIndex: 0,
+    explanation: "Because money can be invested to earn a return, a dollar received today is worth more than the same dollar received later — the basis for discounting future cash flows to present value. Choices B and C contradict the core principle underlying NPV and capital budgeting.",
+  },
+  {
+    id: "cpa-bec-q10", examSlug: "cpa", topicId: "bec", topicName: "Business Environment", difficulty: 2,
+    stem: "A key role of a corporation's audit committee is to:",
+    choices: ["Manage day-to-day operations", "Provide independent oversight of financial reporting and the external auditors", "Set product prices"],
+    answerIndex: 1,
+    explanation: "The audit committee — composed of independent directors — oversees financial reporting integrity and the relationship with the external auditor, strengthening governance. Choice A is management's job, not the board committee's. Choice C is an operating decision unrelated to the audit committee.",
+  },
 ];
 
 export const cpaContent: ExamContent = {

@@ -1183,6 +1183,167 @@ const questions: Question[] = [
     answerIndex: 1,
     explanation: "Because the call benefits the issuer (it can buy the bond back), the investor has effectively sold that option, so callable bond value = value of the otherwise-identical straight bond − value of the embedded call. Choice A adds the option, which would wrongly raise the bond's value to the investor. Choice C ignores the underlying bond entirely.",
   },
+
+  // ---- Quantitative Methods ----
+  {
+    id: "cfa2-qm-q1", examSlug: "cfa-l2", topicId: "quant", topicName: "Quantitative Methods", difficulty: 3,
+    stem: "A regression shows a significant F-statistic and high R², but none of the individual coefficients is statistically significant. This is the classic signature of:",
+    choices: ["Heteroskedasticity", "Multicollinearity", "A perfectly specified model"],
+    answerIndex: 1,
+    explanation: "When independent variables are highly correlated, the model explains the data well overall (significant F, high R²) but can't disentangle the individual effects, inflating standard errors and crushing the individual t-stats. Choice A (heteroskedasticity) biases standard errors but doesn't produce this specific 'significant F, insignificant t's' pattern. Choice C is wrong — this pattern is a red flag, not a sign of a good model.",
+  },
+  {
+    id: "cfa2-qm-q2", examSlug: "cfa-l2", topicId: "quant", topicName: "Quantitative Methods", difficulty: 2,
+    stem: "The standard remedy for heteroskedasticity in a regression is to:",
+    choices: ["Drop an independent variable", "Use robust (White) standard errors", "Add more lags"],
+    answerIndex: 1,
+    explanation: "Heteroskedasticity (non-constant error variance) biases the standard errors, so the fix is to compute robust (White) standard errors, which corrects the inference without changing the coefficients. Choice A addresses multicollinearity, not heteroskedasticity. Choice C relates to serial correlation in time series, a different problem.",
+  },
+  {
+    id: "cfa2-qm-q3", examSlug: "cfa-l2", topicId: "quant", topicName: "Quantitative Methods", difficulty: 3,
+    stem: "Before estimating an autoregressive (AR) model, the series must be:",
+    choices: ["Covariance stationary (constant mean and variance)", "Normally distributed", "Free of any trend forever"],
+    answerIndex: 0,
+    explanation: "An AR model requires covariance stationarity — a constant mean and variance over time — otherwise the regression is spurious. If a unit root is present (a random walk), the series is non-stationary and should be first-differenced. Choice B isn't the requirement. Choice C is too strong; a stationary series can still be modeled, and trends are handled by differencing.",
+  },
+
+  // ---- Economics ----
+  {
+    id: "cfa2-ec-q1", examSlug: "cfa-l2", topicId: "econ", topicName: "Economics", difficulty: 2,
+    stem: "In a no-arbitrage world, the currency with the LOWER interest rate will trade at a:",
+    choices: ["Forward discount", "Forward premium", "Rate equal to spot"],
+    answerIndex: 1,
+    explanation: "Covered interest rate parity forces the lower-yielding currency to trade at a forward premium, exactly offsetting the interest advantage of the higher-yielding currency so no riskless profit exists. Choice A reverses it (the higher-rate currency is at a discount). Choice C would only hold if the two interest rates were equal.",
+  },
+  {
+    id: "cfa2-ec-q2", examSlug: "cfa-l2", topicId: "econ", topicName: "Economics", difficulty: 3,
+    stem: "Which parity condition is an enforceable no-arbitrage relationship that reliably holds?",
+    choices: ["Uncovered interest rate parity", "Covered interest rate parity", "Purchasing power parity in the short run"],
+    answerIndex: 1,
+    explanation: "Covered interest rate parity is enforced by arbitrage (the forward is fully hedged), so it holds tightly and is used to compute forward rates. Choice A (uncovered IRP) is an expectations theory that often fails short-term — the basis for the carry trade. Choice C (PPP) is a long-run tendency that does not hold in the short run.",
+  },
+  {
+    id: "cfa2-ec-q3", examSlug: "cfa-l2", topicId: "econ", topicName: "Economics", difficulty: 2,
+    stem: "Sustained growth in output PER CAPITA over the long run is driven primarily by:",
+    choices: ["Adding more capital (capital deepening) alone", "Rising total factor productivity (technology/efficiency)", "Population growth"],
+    answerIndex: 1,
+    explanation: "Capital deepening faces diminishing returns, so only rising total factor productivity — better technology and efficiency in combining inputs — sustains per-capita growth indefinitely. Choice A raises output but eventually stalls per worker. Choice C grows total output but not output per person.",
+  },
+
+  // ---- Corporate Issuers ----
+  {
+    id: "cfa2-co-q1", examSlug: "cfa-l2", topicId: "corp", topicName: "Corporate Issuers", difficulty: 3,
+    stem: "Under Modigliani-Miller WITH corporate taxes, the value of a levered firm equals the unlevered value:",
+    choices: ["Minus the cost of equity", "Plus the debt tax shield (tax rate × debt)", "With no change, since structure is irrelevant"],
+    answerIndex: 1,
+    explanation: "With taxes, deductible interest creates a tax shield, so VL = VU + (tax rate × debt) — value rises with leverage. Choice C describes the no-tax MM world (irrelevance). Choice A is not the relationship; the cost of equity rises with leverage but value is increased by the tax shield, not reduced.",
+  },
+  {
+    id: "cfa2-co-q2", examSlug: "cfa-l2", topicId: "corp", topicName: "Corporate Issuers", difficulty: 3,
+    stem: "The static trade-off theory says the optimal capital structure is the point where:",
+    choices: ["Debt is maximized to capture all tax benefits", "The marginal tax benefit of debt equals the marginal cost of financial distress", "The firm uses no debt at all"],
+    answerIndex: 1,
+    explanation: "Because the tax shield (which favors more debt) is offset by rising expected costs of financial distress, the optimal structure balances the two at the margin — minimizing WACC and maximizing firm value. Choice A ignores distress costs. Choice C ignores the valuable tax shield.",
+  },
+  {
+    id: "cfa2-co-q3", examSlug: "cfa-l2", topicId: "corp", topicName: "Corporate Issuers", difficulty: 3,
+    stem: "A share repurchase funded with cash is accretive to EPS when:",
+    choices: ["The after-tax yield on the cash exceeds the earnings yield (E/P)", "The earnings yield (E/P) exceeds the after-tax yield on the cash used", "The stock trades above book value"],
+    answerIndex: 1,
+    explanation: "If the earnings yield (E/P) the shares carry is higher than the after-tax return the company earns on its cash, retiring shares raises EPS. Choice A reverses the comparison (that case dilutes EPS). Choice C relates to book value per share, not the EPS-accretion test.",
+  },
+
+  // ---- Derivatives ----
+  {
+    id: "cfa2-de-q1", examSlug: "cfa-l2", topicId: "deriv", topicName: "Derivatives", difficulty: 3,
+    stem: "In a one-period binomial option model, the value of the option is found by discounting the expected payoff computed with:",
+    choices: ["The real-world probability of an up move", "The risk-neutral probability π = (1 + r − d)/(u − d)", "A 50/50 probability always"],
+    answerIndex: 1,
+    explanation: "Risk-neutral valuation uses π = (1 + r − d)/(u − d) and discounts at the risk-free rate; the real-world probability never enters. Choice A is the common trap — the actual probability is irrelevant to the no-arbitrage price. Choice C is only true by coincidence for specific u, d, r.",
+  },
+  {
+    id: "cfa2-de-q2", examSlug: "cfa-l2", topicId: "deriv", topicName: "Derivatives", difficulty: 2,
+    stem: "Holding the underlying that pays income (a carry BENEFIT) before delivery causes the no-arbitrage forward price to be:",
+    choices: ["Higher than with no carry", "Lower than with no carry", "Unaffected"],
+    answerIndex: 1,
+    explanation: "Carry benefits (dividends, coupons, convenience yield) reduce the net cost of carrying the asset, lowering the forward price relative to the no-carry case; carry costs (storage) raise it. Choice A reverses the effect of a benefit. Choice C ignores that carry adjustments move the forward.",
+  },
+  {
+    id: "cfa2-de-q3", examSlug: "cfa-l2", topicId: "deriv", topicName: "Derivatives", difficulty: 2,
+    stem: "A pay-fixed, receive-floating interest-rate swap gains value to the holder when interest rates:",
+    choices: ["Fall", "Rise above the fixed swap rate", "Stay exactly constant"],
+    answerIndex: 1,
+    explanation: "Paying fixed and receiving floating is equivalent to being short a fixed-rate bond and long a floating-rate bond, so the position gains value when rates rise (the floating leg you receive grows). Choice A is the opposite — falling rates hurt the pay-fixed party. Choice C leaves the swap near its initial zero value.",
+  },
+
+  // ---- Alternative Investments ----
+  {
+    id: "cfa2-al-q1", examSlug: "cfa-l2", topicId: "alts", topicName: "Alternative Investments", difficulty: 2,
+    stem: "A property generates $600,000 of NOI and comparable properties trade at an 8% cap rate. Its estimated value is:",
+    choices: ["$4,800,000", "$7,500,000", "$48,000,000"],
+    answerIndex: 1,
+    explanation: "Value = NOI ÷ cap rate = $600,000 ÷ 0.08 = $7,500,000. Choice A multiplies NOI by the cap rate instead of dividing. Choice C misplaces the decimal. Remember: a lower cap rate would imply an even higher value for the same NOI.",
+  },
+  {
+    id: "cfa2-al-q2", examSlug: "cfa-l2", topicId: "alts", topicName: "Alternative Investments", difficulty: 3,
+    stem: "When the commodity futures curve is in contango, an investor rolling futures experiences:",
+    choices: ["A positive roll yield (tailwind)", "A negative roll yield (drag)", "No roll effect"],
+    answerIndex: 1,
+    explanation: "Contango means futures prices are above spot, so rolling expiring contracts into more expensive later ones produces a negative roll yield that drags on returns. Choice A describes backwardation (futures below spot). Choice C ignores that the curve shape directly affects roll returns — often the dominant component.",
+  },
+  {
+    id: "cfa2-al-q3", examSlug: "cfa-l2", topicId: "alts", topicName: "Alternative Investments", difficulty: 2,
+    stem: "Because a private-equity manager controls the timing of capital calls and distributions, performance is best measured with:",
+    choices: ["Time-weighted return", "Internal rate of return (IRR) and multiples like TVPI/DPI", "Simple average annual return"],
+    answerIndex: 1,
+    explanation: "When the manager dictates cash-flow timing, the money-weighted IRR (and multiples such as TVPI/DPI) captures the actual investor experience. Choice A (time-weighted) is appropriate for liquid managers who don't control client cash flows. Choice C ignores timing and the time value of money entirely.",
+  },
+
+  // ---- Portfolio Management ----
+  {
+    id: "cfa2-pm-q1", examSlug: "cfa-l2", topicId: "pm", topicName: "Portfolio Management", difficulty: 3,
+    stem: "Arbitrage pricing theory (APT) differs from CAPM mainly because it:",
+    choices: ["Uses only the market factor", "Allows expected return to depend on multiple priced systematic factors", "Ignores risk entirely"],
+    answerIndex: 1,
+    explanation: "APT models expected return as the risk-free rate plus the sum of several factor sensitivities times their risk premia, based on no-arbitrage — generalizing CAPM's single market factor. Choice A describes CAPM, the single-factor special case. Choice C is false; APT is entirely about compensation for systematic risk.",
+  },
+  {
+    id: "cfa2-pm-q2", examSlug: "cfa-l2", topicId: "pm", topicName: "Portfolio Management", difficulty: 2,
+    stem: "The information ratio is calculated as:",
+    choices: ["Total return ÷ standard deviation", "Active return ÷ active risk (tracking error)", "Beta ÷ alpha"],
+    answerIndex: 1,
+    explanation: "The information ratio is active return (portfolio minus benchmark) divided by active risk (the standard deviation of active return), measuring active skill per unit of active risk. Choice A is closer to the Sharpe ratio's structure. Choice C is not a defined performance measure.",
+  },
+  {
+    id: "cfa2-pm-q3", examSlug: "cfa-l2", topicId: "pm", topicName: "Portfolio Management", difficulty: 2,
+    stem: "In a multifactor model, a factor sensitivity (factor beta) is interpreted as:",
+    choices: ["The total return of the portfolio", "The expected change in return per unit change in that factor, holding other factors constant", "The probability the factor is positive"],
+    answerIndex: 1,
+    explanation: "A factor sensitivity is read like a regression slope: the expected return change for a one-unit move in that factor, with the other factors held constant. Choice A confuses a sensitivity with total return. Choice C misinterprets a sensitivity as a probability.",
+  },
+
+  // ---- Ethics ----
+  {
+    id: "cfa2-et-q1", examSlug: "cfa-l2", topicId: "ethics", topicName: "Ethics", difficulty: 2,
+    stem: "When applicable local law is LESS strict than the CFA Code and Standards, a member must:",
+    choices: ["Follow the local law, since it governs", "Adhere to the stricter Code and Standards", "Choose whichever is more convenient"],
+    answerIndex: 1,
+    explanation: "Members must always meet the higher standard: when law and the Code differ, follow the stricter of the two. Choice A is wrong — complying with looser law doesn't excuse violating the Code. Choice C ignores the duty to uphold the most stringent requirement.",
+  },
+  {
+    id: "cfa2-et-q2", examSlug: "cfa-l2", topicId: "ethics", topicName: "Ethics", difficulty: 3,
+    stem: "A firm claiming GIPS compliance must:",
+    choices: ["Show GIPS results only for its best-performing composite", "Apply GIPS on a firm-wide basis and include all fee-paying discretionary portfolios in composites", "Guarantee a minimum return"],
+    answerIndex: 1,
+    explanation: "GIPS compliance is firm-wide and requires grouping all fee-paying discretionary portfolios into composites, which prevents cherry-picking and survivorship distortion. Choice A is exactly the abuse GIPS forbids. Choice C is false — GIPS governs how performance is presented, not the returns themselves.",
+  },
+  {
+    id: "cfa2-et-q3", examSlug: "cfa-l2", topicId: "ethics", topicName: "Ethics", difficulty: 2,
+    stem: "An analyst learns material, non-public information about a pending merger. Under the Standards they must:",
+    choices: ["Trade on it quickly before it becomes public", "Not trade or cause others to trade on it until it is public", "Share it only with their best clients"],
+    answerIndex: 1,
+    explanation: "Standard II (Integrity of Capital Markets) prohibits acting or causing others to act on material non-public information until it is publicly disseminated. Choice A is illegal insider trading. Choice C (selective disclosure to favored clients) also violates the Standard and the duty of fair dealing.",
+  },
 ];
 
 export const cfaL2Content: ExamContent = {
