@@ -246,6 +246,126 @@ const questions: Question[] = [
     answerIndex: 1,
     explanation: "A communication distributed to more than 25 retail investors within 30 days is a retail communication, which generally requires principal approval and may need to be filed with FINRA. Choice A (correspondence) applies to 25 or fewer retail investors and gets lighter review. Choice C (private placement) is an unrelated term for a securities offering exempt from full registration.",
   },
+
+  // ---- Capital Markets ----
+  {
+    id: "sie-mkt-q3", examSlug: "sie", topicId: "markets", topicName: "Capital Markets", difficulty: 1,
+    stem: "The Securities Act of 1933 is primarily concerned with:",
+    choices: ["The secondary trading of outstanding securities", "New issues — full disclosure when securities are first sold to the public", "Regulating investment advisers"],
+    answerIndex: 1,
+    explanation: "The Securities Act of 1933 is the 'paper act' governing the PRIMARY market — it requires registration and a prospectus so investors get full disclosure on new issues. Choice A describes the Securities Exchange Act of 1934, which governs secondary trading and created the SEC. Choice C is the Investment Advisers Act of 1940. A reliable memory hook: '33 = new issues, '34 = trading + the SEC.",
+  },
+  {
+    id: "sie-mkt-q4", examSlug: "sie", topicId: "markets", topicName: "Capital Markets", difficulty: 2,
+    stem: "SIPC protects a customer of a failed broker-dealer up to:",
+    choices: ["$250,000 total, all cash", "$500,000 total, of which up to $250,000 may be cash", "An unlimited amount, including market losses"],
+    answerIndex: 1,
+    explanation: "SIPC covers up to $500,000 per customer if a brokerage firm fails, including a sub-limit of $250,000 for cash. Crucially, SIPC protects against the firm's failure or missing assets — NOT against investment losses from the market. Choice A understates the limit; choice C is wrong because SIPC never covers market losses and is capped.",
+  },
+  {
+    id: "sie-mkt-q5", examSlug: "sie", topicId: "markets", topicName: "Capital Markets", difficulty: 1,
+    stem: "An investor buys 100 shares of an already-public company from another investor on the NYSE. This transaction occurs in the:",
+    choices: ["Primary market", "Secondary market", "Private placement market"],
+    answerIndex: 1,
+    explanation: "Trading of already-issued securities between investors happens in the secondary market; the issuing company receives none of the proceeds. Choice A (primary market) is where the issuer sells new securities and raises capital, such as an IPO. Choice C is an exempt private offering, not an exchange trade.",
+  },
+  {
+    id: "sie-mkt-q6", examSlug: "sie", topicId: "markets", topicName: "Capital Markets", difficulty: 1,
+    stem: "The self-regulatory organization (SRO) that registers representatives and writes conduct rules for broker-dealers is:",
+    choices: ["The Federal Reserve", "FINRA", "The FDIC"],
+    answerIndex: 1,
+    explanation: "FINRA is the SRO that licenses representatives, writes conduct rules, and disciplines broker-dealers, all under SEC oversight. Choice A (the Fed) conducts monetary policy and bank regulation, not securities-rep registration. Choice C (FDIC) insures bank deposits — unrelated to brokerage regulation.",
+  },
+
+  // ---- Products & Risks ----
+  {
+    id: "sie-prod-q3", examSlug: "sie", topicId: "products", topicName: "Products & Risks", difficulty: 2,
+    stem: "Compared with common stock, preferred stock generally:",
+    choices: ["Has voting rights and more upside", "Has priority for dividends and in liquidation, with a fixed dividend", "Is riskier and ranks last in liquidation"],
+    answerIndex: 1,
+    explanation: "Preferred stock pays a fixed dividend and ranks ahead of common stock for both dividends and in a liquidation, behaving much like a fixed-income hybrid. Choice A describes common stock, which carries voting rights and the greater growth potential. Choice C is backwards — common, not preferred, sits last in liquidation priority among equity holders.",
+  },
+  {
+    id: "sie-prod-q4", examSlug: "sie", topicId: "products", topicName: "Products & Risks", difficulty: 1,
+    stem: "When market interest rates rise, the price of an existing fixed-rate bond will generally:",
+    choices: ["Rise", "Fall", "Stay the same"],
+    answerIndex: 1,
+    explanation: "Bond prices and interest rates move inversely: when new bonds offer higher coupons, an existing lower-coupon bond must fall in price for its yield to stay competitive. Choice A reverses the relationship. Choice C ignores that a fixed coupon becomes less attractive as rates rise, so the price must adjust downward.",
+  },
+  {
+    id: "sie-prod-q5", examSlug: "sie", topicId: "products", topicName: "Products & Risks", difficulty: 2,
+    stem: "A key difference between an open-end mutual fund and an ETF is that mutual fund shares:",
+    choices: ["Trade intraday on an exchange at fluctuating prices", "Are bought and redeemed at the next-computed NAV (forward pricing)", "Can be sold short and bought on margin like stocks"],
+    answerIndex: 1,
+    explanation: "Open-end mutual fund shares are purchased and redeemed directly with the fund at the next-calculated net asset value (forward pricing), typically once per day. Choices A and C describe ETFs, which trade throughout the day on an exchange at market prices and can be shorted or margined like stocks.",
+  },
+  {
+    id: "sie-prod-q6", examSlug: "sie", topicId: "products", topicName: "Products & Risks", difficulty: 2,
+    stem: "The risk that affects the entire market and cannot be eliminated through diversification is:",
+    choices: ["Unsystematic (business-specific) risk", "Systematic (market) risk", "Default risk"],
+    answerIndex: 1,
+    explanation: "Systematic risk — driven by broad factors like recessions, interest rates, or geopolitics — moves the whole market and cannot be diversified away. Choice A (unsystematic risk) is company- or industry-specific and CAN be reduced by holding a diversified portfolio. Choice C (default risk) is the issuer-specific risk a bond won't pay, a form of unsystematic risk.",
+  },
+
+  // ---- Trading & Accounts ----
+  {
+    id: "sie-trd-q3", examSlug: "sie", topicId: "trading", topicName: "Trading & Accounts", difficulty: 2,
+    stem: "Regular-way settlement for a stock trade currently occurs on:",
+    choices: ["The same day (T+0)", "One business day after the trade (T+1)", "Three business days after the trade (T+3)"],
+    answerIndex: 1,
+    explanation: "U.S. regular-way settlement for stocks is T+1 — one business day after the trade date — following the move from T+2 in May 2024. Choice A (T+0) is same-day settlement, not the standard. Choice C (T+3) is the outdated standard from before 2017 and is no longer correct.",
+  },
+  {
+    id: "sie-trd-q4", examSlug: "sie", topicId: "trading", topicName: "Trading & Accounts", difficulty: 1,
+    stem: "An investor wants to buy a stock immediately at whatever the current best price is. They should enter a:",
+    choices: ["Market order", "Limit order", "Stop order"],
+    answerIndex: 0,
+    explanation: "A market order executes immediately at the best available price, prioritizing speed of execution over price. Choice B (limit order) sets a maximum buy or minimum sell price and may not fill if the market doesn't reach it. Choice C (stop order) stays dormant until a trigger price is hit, then becomes a market order — not an immediate execution.",
+  },
+  {
+    id: "sie-trd-q5", examSlug: "sie", topicId: "trading", topicName: "Prohibited Activities", difficulty: 2,
+    stem: "A registered representative trades a client's account excessively, mainly to generate commissions. This prohibited practice is called:",
+    choices: ["Churning", "Front-running", "Backing away"],
+    answerIndex: 0,
+    explanation: "Churning is excessive trading in a customer's account designed to produce commissions for the rep rather than to serve the client — a violation of suitability and the duty of fair dealing. Choice B (front-running) is trading ahead of a known customer order. Choice C (backing away) is a market maker failing to honor its quoted price. All are prohibited, but commission-driven over-trading is churning.",
+  },
+  {
+    id: "sie-trd-q6", examSlug: "sie", topicId: "trading", topicName: "Prohibited Activities", difficulty: 2,
+    stem: "Trading a security based on material, non-public information in breach of a duty is:",
+    choices: ["Permitted if you didn't obtain it yourself", "Insider trading — prohibited", "Allowed once the trade is reported"],
+    answerIndex: 1,
+    explanation: "Trading on material non-public information in breach of a duty is illegal insider trading, exposing the person to civil and criminal penalties. Choice A is wrong — liability can extend to 'tippees' who trade on tips they receive. Choice C is wrong; reporting a trade does not cure the illegality of trading on inside information.",
+  },
+
+  // ---- Regulatory Framework ----
+  {
+    id: "sie-reg-q3", examSlug: "sie", topicId: "regulation", topicName: "Regulatory Framework", difficulty: 2,
+    stem: "Under the Bank Secrecy Act / AML rules, a firm must file a Currency Transaction Report (CTR) when a customer's cash transactions exceed:",
+    choices: ["$3,000 in a day", "$10,000 in a day", "$50,000 in a day"],
+    answerIndex: 1,
+    explanation: "A CTR is required for cash transactions totaling more than $10,000 in a single business day. Choice A ($3,000) is the threshold tied to recordkeeping for certain monetary instruments, not the CTR. Separately, a Suspicious Activity Report (SAR) is filed for suspicious conduct regardless of dollar amount — a distinct AML obligation.",
+  },
+  {
+    id: "sie-reg-q4", examSlug: "sie", topicId: "regulation", topicName: "Regulatory Framework", difficulty: 2,
+    stem: "A private placement sold only to accredited investors is typically exempt from full SEC registration under:",
+    choices: ["Regulation D", "The Securities Act registration requirement for IPOs", "Regulation T"],
+    answerIndex: 0,
+    explanation: "Regulation D provides exemptions that let issuers raise capital through private placements, primarily to accredited investors, without full registration. Choice B is the opposite — full registration is what a public IPO requires. Choice C (Regulation T) is the Federal Reserve's margin rule governing credit in brokerage accounts, unrelated to offering exemptions.",
+  },
+  {
+    id: "sie-reg-q5", examSlug: "sie", topicId: "regulation", topicName: "Regulatory Framework", difficulty: 1,
+    stem: "Before a person can transact securities business with the public as a representative, they must:",
+    choices: ["Simply be hired by a broker-dealer", "Pass the required qualification exam(s) and be registered with FINRA", "Only register with the SEC directly"],
+    answerIndex: 1,
+    explanation: "A representative must pass the required qualification exams (such as the SIE plus a specialized 'top-off' like the Series 7) and be registered through a FINRA-member firm before doing securities business with the public. Choice A skips the licensing and registration requirements. Choice C is wrong because individual reps register through FINRA, not directly with the SEC.",
+  },
+  {
+    id: "sie-reg-q6", examSlug: "sie", topicId: "regulation", topicName: "Regulatory Framework", difficulty: 2,
+    stem: "FINRA's continuing education requirement consists of:",
+    choices: ["Only a one-time ethics class", "A Regulatory Element and a Firm Element", "Nothing once you pass your exams"],
+    answerIndex: 1,
+    explanation: "FINRA continuing education has two parts: the Regulatory Element (periodic training on rules and compliance) and the Firm Element (ongoing training the firm designs for its covered registered persons). Choice A understates it, and choice C is false — registration carries an ongoing CE obligation, not a one-and-done exam.",
+  },
 ];
 
 export const sieContent: ExamContent = {

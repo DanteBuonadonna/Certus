@@ -787,6 +787,80 @@ const questions: Question[] = [
     explanation:
       "Expected loss = PD × LGD = 2% × (1 − 0.40) = 2% × 60% = 1.2% — so a fair spread starts near 120 bps before adding premia for risk aversion and illiquidity. Choice A multiplies PD by the RECOVERY rate instead of the loss rate. Choice C ignores recovery entirely. Remember the structure: PD is an issuer property; LGD varies by ISSUE seniority — senior secured paper of the same issuer carries the same PD but a lower LGD and hence a tighter spread.",
   },
+
+  // ---- Financial Statement Analysis ----
+  {
+    id: "cfa2-fra-q5", examSlug: "cfa-l2", topicId: "fra", topicName: "Financial Statement Analysis", difficulty: 3,
+    stem: "A company owns 30% of an associate and has significant influence. Under the equity method, the investor:",
+    choices: ["Consolidates 100% of the associate's assets and revenues", "Recognizes its proportionate share of the associate's net income (increasing the investment); dividends received reduce the carrying amount", "Reports the stake only at fair value through profit or loss"],
+    answerIndex: 1,
+    explanation: "With significant influence (typically 20–50%), the equity method records the investment at cost, then adds the investor's pro-rata share of the associate's earnings (and subtracts its share of losses); dividends received are a return OF investment that reduces the carrying value. Choice A is consolidation, used only with control (>50%). Choice C is the treatment for passive holdings without significant influence.",
+  },
+  {
+    id: "cfa2-fra-q6", examSlug: "cfa-l2", topicId: "fra", topicName: "Financial Statement Analysis", difficulty: 3,
+    stem: "A parent owns 80% of and controls a subsidiary. On the consolidated balance sheet, the parent reports:",
+    choices: ["80% of the subsidiary's assets, matching its ownership", "100% of the subsidiary's assets, with a non-controlling interest in equity for the 20% it doesn't own", "Only its equity-method investment line"],
+    answerIndex: 1,
+    explanation: "Control requires full consolidation: 100% of the subsidiary's assets, liabilities, revenues, and expenses are combined, and a non-controlling (minority) interest is shown in equity to represent the 20% owned by outsiders. Choice A pro-rates the assets, which consolidation does not do. Choice C is the equity method, used for significant influence, not control.",
+  },
+  {
+    id: "cfa2-fra-q7", examSlug: "cfa-l2", topicId: "fra", topicName: "Financial Statement Analysis", difficulty: 3,
+    stem: "The funded status of a defined-benefit pension plan equals:",
+    choices: ["Plan assets + the projected benefit obligation", "Fair value of plan assets − the projected benefit obligation (PBO)", "Service cost − interest cost"],
+    answerIndex: 1,
+    explanation: "Funded status = fair value of plan assets − PBO; a positive figure is an overfunded (asset) position and a negative figure is reported as a net pension liability on the balance sheet. Choice A adds the obligation instead of subtracting it. Choice C describes two components of periodic pension cost, not the balance-sheet funded status.",
+  },
+  {
+    id: "cfa2-fra-q8", examSlug: "cfa-l2", topicId: "fra", topicName: "Financial Statement Analysis", difficulty: 3,
+    stem: "When a foreign subsidiary's functional currency is its own local currency, the parent translates its statements using the:",
+    choices: ["Temporal method, with the remeasurement gain/loss in net income", "Current rate method, with the translation adjustment in other comprehensive income (CTA)", "Historical rate for all accounts"],
+    answerIndex: 1,
+    explanation: "If the functional currency is the local currency, the current rate (translation) method applies: assets and liabilities at the current rate, and the resulting cumulative translation adjustment is reported in OCI rather than hitting net income. Choice A (temporal/remeasurement) applies when the functional currency is the parent's. Choice C misstates the mechanics of either method.",
+  },
+  {
+    id: "cfa2-fra-q9", examSlug: "cfa-l2", topicId: "fra", topicName: "Financial Statement Analysis", difficulty: 2,
+    stem: "A debt security the company intends to hold to collect contractual cash flows is generally measured at:",
+    choices: ["Fair value through profit or loss", "Amortized cost", "Fair value through OCI with gains recycled daily"],
+    answerIndex: 1,
+    explanation: "Under the hold-to-collect business model, debt instruments with simple principal-and-interest cash flows are measured at amortized cost, so short-term price swings don't flow through earnings. Choice A applies to trading instruments or those that fail the cash-flow test. Choice C garbles the FVOCI category, which doesn't recycle gains 'daily.'",
+  },
+
+  // ---- Fixed Income ----
+  {
+    id: "cfa2-fi-q5", examSlug: "cfa-l2", topicId: "fixed", topicName: "Fixed Income", difficulty: 3,
+    stem: "For a bond with an embedded option, the appropriate interest-rate sensitivity measure is:",
+    choices: ["Modified duration, because cash flows are fixed", "Effective duration, because cash flows change as yields change", "Macaulay duration in years"],
+    answerIndex: 1,
+    explanation: "Embedded options make a bond's cash flows depend on the level of rates, so effective duration — computed by shifting the benchmark yield curve up and down and observing repricing — is required. Choice A (modified duration) assumes fixed cash flows and understates the risk of option-embedded bonds. Choice C (Macaulay) is a weighted-average time measure, not the sensitivity needed here.",
+  },
+  {
+    id: "cfa2-fi-q6", examSlug: "cfa-l2", topicId: "fixed", topicName: "Fixed Income", difficulty: 3,
+    stem: "The option-adjusted spread (OAS) is useful because it:",
+    choices: ["Includes the cost of the embedded option in the spread", "Removes the value of the embedded option from the Z-spread, making spreads comparable across bonds with optionality", "Equals the nominal spread over Treasuries"],
+    answerIndex: 1,
+    explanation: "OAS strips out the option's value from the Z-spread, leaving the spread that compensates purely for credit and liquidity — so bonds with different embedded options can be compared on an apples-to-apples basis. Choice A is backwards (OAS removes, not includes, the option cost). Choice C describes the simple nominal spread, which ignores the term structure and the option.",
+  },
+  {
+    id: "cfa2-fi-q7", examSlug: "cfa-l2", topicId: "fixed", topicName: "Fixed Income", difficulty: 3,
+    stem: "As market yields fall toward a callable bond's coupon rate, the bond tends to exhibit:",
+    choices: ["Increasing positive convexity", "Negative convexity — price appreciation is capped ('price compression')", "No change in price"],
+    answerIndex: 1,
+    explanation: "When yields fall and a call becomes likely, the callable bond's upside is limited to near the call price, producing negative convexity and 'price compression.' Choice A is wrong — an option-free bond shows positive convexity, but the embedded call reverses that at low yields. Choice C ignores that the bond still reprices, just with limited upside.",
+  },
+  {
+    id: "cfa2-fi-q8", examSlug: "cfa-l2", topicId: "fixed", topicName: "Fixed Income", difficulty: 3,
+    stem: "Arbitrage-free valuation of an option-free bond discounts each cash flow using:",
+    choices: ["A single yield to maturity", "The corresponding spot (zero-coupon) rate for each cash flow's date", "The coupon rate"],
+    answerIndex: 1,
+    explanation: "Arbitrage-free valuation treats each cash flow as its own zero-coupon bond and discounts it at the matching spot rate, preventing riskless arbitrage; valuing with a single YTM can misprice bonds when the spot curve isn't flat. Choice A is the YTM shortcut that arbitrage-free pricing improves upon. Choice C (coupon rate) is not a discount rate at all.",
+  },
+  {
+    id: "cfa2-fi-q9", examSlug: "cfa-l2", topicId: "fixed", topicName: "Fixed Income", difficulty: 3,
+    stem: "The value of a callable bond can be expressed as:",
+    choices: ["Straight (option-free) bond value + value of the call option", "Straight (option-free) bond value − value of the call option", "Value of the call option only"],
+    answerIndex: 1,
+    explanation: "Because the call benefits the issuer (it can buy the bond back), the investor has effectively sold that option, so callable bond value = value of the otherwise-identical straight bond − value of the embedded call. Choice A adds the option, which would wrongly raise the bond's value to the investor. Choice C ignores the underlying bond entirely.",
+  },
 ];
 
 export const cfaL2Content: ExamContent = {

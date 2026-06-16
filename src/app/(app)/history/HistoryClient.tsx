@@ -31,7 +31,7 @@ export default function HistoryClient({
       </div>
 
       {/* Stat cards */}
-      <div className="grid grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
         <StatCard label="Optimizations run" value={totalOptimizations} />
         <StatCard label="Credits left" value={creditsLeft} />
         <StatCard label="Avg ATS score after" value={avgAtsScore} suffix="/100" />

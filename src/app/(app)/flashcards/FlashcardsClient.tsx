@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { EXAMS, getExam } from "@/lib/exams";
 import {
   Flashcard,
@@ -22,8 +23,16 @@ import { UpgradeCard } from "@/components/UpgradeGate";
 export default function FlashcardsClient() {
   const available = examsWithDecks();
   const access = useAccess();
-  const [exam, setExam] = useState(available[0] ?? "cfa");
-  const [topic, setTopic] = useState<string>("all");
+  const params = useSearchParams();
+
+  // Honor ?exam= and ?topic= so links from the skill tree open the right deck.
+  const paramExam = params.get("exam");
+  const initialExam = paramExam && available.includes(paramExam) ? paramExam : available[0] ?? "cfa";
+  const paramTopic = params.get("topic");
+  const initialTopic = paramTopic && deckTopics(initialExam).some((t) => t.topicId === paramTopic) ? paramTopic : "all";
+
+  const [exam, setExam] = useState(initialExam);
+  const [topic, setTopic] = useState<string>(initialTopic);
   const [store, setStore] = useState<FlashStore>({});
   const [loaded, setLoaded] = useState(false);
   const [studying, setStudying] = useState(false);
@@ -131,7 +140,7 @@ function StudySession({
 
   if (!card) {
     return (
-      <div className="px-8 py-10 max-w-2xl mx-auto text-center">
+      <div className="px-4 py-8 md:px-8 md:py-10 max-w-2xl mx-auto text-center">
         <div className="text-4xl mb-3">🎉</div>
         <p className="text-sm" style={{ color: "var(--text-secondary)" }}>No cards to review. Come back later.</p>
         <button className="btn-secondary mt-4" onClick={() => onDone(0)}>Back</button>

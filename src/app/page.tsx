@@ -1,12 +1,16 @@
 import Link from "next/link";
 import { BRAND } from "@/lib/brand";
 import { EXAMS, difficultyLabel, totalHours } from "@/lib/exams";
+import { examsWithContent } from "@/content";
 import { LogoMark } from "@/components/Logo";
 
 const RANKS = ["Intern", "Analyst", "Associate", "VP", "Director", "MD", "Partner"];
 
 export default function LandingPage() {
-  const featured = EXAMS.slice(0, 6);
+  // Only ever feature / promise exams that actually have content.
+  const live = new Set(examsWithContent());
+  const liveExams = EXAMS.filter((e) => live.has(e.slug));
+  const featured = liveExams.slice(0, 6);
   const ticker = [...EXAMS, ...EXAMS];
 
   return (
@@ -102,13 +106,17 @@ export default function LandingPage() {
           WebkitMaskImage: "linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent)",
         }}>
           <div className="lp-marquee gap-3">
-            {ticker.map((e, i) => (
-              <span key={i} className="inline-flex items-center gap-2 px-4 py-2 rounded-lg mx-1.5 text-sm font-medium"
-                style={{ background: "var(--bg)", border: "0.5px solid var(--border)", color: "var(--text-secondary)", flex: "0 0 auto" }}>
-                <span className="inline-flex items-center justify-center w-6 h-6 rounded-md text-[11px] font-semibold" style={{ background: e.accent + "1a", color: e.accent }}>{e.name.slice(0, 2)}</span>
-                {e.name}
-              </span>
-            ))}
+            {ticker.map((e, i) => {
+              const soon = !live.has(e.slug);
+              return (
+                <span key={i} className="inline-flex items-center gap-2 px-4 py-2 rounded-lg mx-1.5 text-sm font-medium"
+                  style={{ background: "var(--bg)", border: "0.5px solid var(--border)", color: "var(--text-secondary)", flex: "0 0 auto", opacity: soon ? 0.5 : 1 }}>
+                  <span className="inline-flex items-center justify-center w-6 h-6 rounded-md text-[11px] font-semibold" style={{ background: e.accent + "1a", color: e.accent }}>{e.name.slice(0, 2)}</span>
+                  {e.name}
+                  {soon && <span className="text-[10px]" style={{ color: "var(--text-muted)" }}>· soon</span>}
+                </span>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -188,7 +196,7 @@ export default function LandingPage() {
             ))}
           </div>
           <div className="text-center mt-8">
-            <Link href="/signup" className="text-sm font-medium" style={{ color: "var(--primary)" }}>See all {EXAMS.length} exams →</Link>
+            <Link href="/signup" className="text-sm font-medium" style={{ color: "var(--primary)" }}>Explore every exam →</Link>
           </div>
         </div>
       </section>

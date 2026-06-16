@@ -226,7 +226,7 @@ function Battle({
   const urgent = timeLeft <= 10;
 
   return (
-    <div className={`px-8 py-6 max-w-2xl mx-auto ${fx ?? ""}`} style={{ borderRadius: 16 }}>
+    <div className={`px-4 py-6 md:px-8 max-w-2xl mx-auto ${fx ?? ""}`} style={{ borderRadius: 16 }}>
       {/* Board header */}
       <div className="flex items-center gap-3 mb-3">
         <BossCrest exam={exam} accent={accent} size={42} />
@@ -417,8 +417,8 @@ function Result({
                 </div>
                 <ProgressBar pct={t.pct} height={5} sheen={false} color="var(--ats-red)" />
                 <div className="flex items-center gap-3 mt-2.5">
-                  <Link href="/learn" className="text-xs font-medium hover:underline" style={{ color: "var(--primary)" }}>Re-read lesson</Link>
-                  <Link href="/flashcards" className="text-xs font-medium hover:underline" style={{ color: "var(--primary)" }}>Flashcards</Link>
+                  <Link href={`/learn?exam=${exam}&topic=${t.topicId}`} className="text-xs font-medium hover:underline" style={{ color: "var(--primary)" }}>Re-read lesson</Link>
+                  <Link href={`/flashcards?exam=${exam}&topic=${t.topicId}`} className="text-xs font-medium hover:underline" style={{ color: "var(--primary)" }}>Flashcards</Link>
                   <Link href={`/practice?exam=${exam}&topic=${t.topicId}`} className="text-xs font-medium hover:underline" style={{ color: "var(--primary)" }}>Drill questions</Link>
                 </div>
               </div>

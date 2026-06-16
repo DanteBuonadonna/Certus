@@ -253,6 +253,124 @@ const questions: Question[] = [
     answerIndex: 1,
     explanation: "Rebalancing restores the portfolio to its target weights, which means selling some of the appreciated asset (stocks) and buying the lagging one (bonds) to return to 60/40 — mechanically 'selling high and buying low' and keeping risk aligned with the plan. Choice A increases risk and chases performance, the opposite of rebalancing. Choice C lets the portfolio drift to a riskier 75/25 that no longer matches the client's profile.",
   },
+
+  // ---- Regulation of Investment Advisers ----
+  {
+    id: "s66-ia-q4", examSlug: "series-66", topicId: "ia-regulation", topicName: "Regulation of Investment Advisers", difficulty: 2,
+    stem: "An investment adviser managing $150 million in client assets generally registers with:",
+    choices: ["The state securities administrator only", "The SEC (federal registration)", "Neither — it is exempt"],
+    answerIndex: 1,
+    explanation: "Advisers with $110 million or more in assets under management are required to register with the SEC; those under $100 million generally register with the state(s), with a buffer zone between. At $150M, the adviser is a federal covered adviser and registers with the SEC, then makes notice filings with states. Choice A is for smaller (state-level) advisers; choice C is wrong because the adviser clearly meets the registration trigger.",
+  },
+  {
+    id: "s66-ia-q5", examSlug: "series-66", topicId: "ia-regulation", topicName: "Regulation of Investment Advisers", difficulty: 3,
+    stem: "Under the brochure rule, if an adviser does NOT deliver its brochure (Form ADV Part 2) at least 48 hours before entering the advisory contract, it must deliver it at the time of contract and give the client:",
+    choices: ["No additional rights", "A five-day right to withdraw without penalty", "A full refund of all future fees"],
+    answerIndex: 1,
+    explanation: "The brochure must be delivered at least 48 hours before signing (no cancellation right needed), OR at the time of signing with a five-business-day right to terminate the contract without penalty. Choice A ignores the required cancellation window. Choice C overstates it — the remedy is a penalty-free five-day withdrawal, not a blanket refund of future fees.",
+  },
+  {
+    id: "s66-ia-q6", examSlug: "series-66", topicId: "ia-regulation", topicName: "Regulation of Investment Advisers", difficulty: 3,
+    stem: "Which professional is generally EXCLUDED from the definition of 'investment adviser' when advice is incidental and no special compensation is charged?",
+    choices: ["A lawyer or accountant", "A financial planner charging a fee for investment advice", "A money manager with discretion over client accounts"],
+    answerIndex: 0,
+    explanation: "Lawyers, Accountants, Teachers, and Engineers (the 'LATE' professionals) are excluded when their investment advice is solely incidental to their profession and they receive no special compensation for it. Choices B and C describe people in the business of giving investment advice for compensation, which is exactly what makes someone an investment adviser who must register.",
+  },
+  {
+    id: "s66-ia-q7", examSlug: "series-66", topicId: "ia-regulation", topicName: "Regulation of Investment Advisers", difficulty: 3,
+    stem: "Under the de minimis exemption, a state-level adviser with no place of business in a state need not register there if, during the prior 12 months, it had no more than:",
+    choices: ["5 non-institutional clients in that state", "25 clients in that state", "50 clients nationwide"],
+    answerIndex: 0,
+    explanation: "The de minimis standard lets an adviser with no place of business in a state avoid registration there if it has had five or fewer retail (non-institutional) clients in that state in the prior 12 months. Choice B uses the wrong number, and choice C confuses a nationwide count with the state-by-state de minimis test.",
+  },
+  {
+    id: "s66-ia-q8", examSlug: "series-66", topicId: "ia-regulation", topicName: "Regulation of Investment Advisers", difficulty: 2,
+    stem: "An adviser is deemed to have 'custody' of client assets when it:",
+    choices: ["Recommends a third-party custodian", "Holds client funds or securities, or can withdraw assets from the client's account", "Has discretionary authority to choose securities only"],
+    answerIndex: 1,
+    explanation: "Custody means holding client funds/securities or having authority to obtain possession of them (for example, the ability to deduct fees beyond set limits, or direct access to withdraw). Custody triggers safeguards like the surprise exam and qualified custodian rules. Choice A merely recommending a custodian is not custody; choice C, discretion to pick securities, is investment authority but not, by itself, custody.",
+  },
+
+  // ---- Fiduciary Duty & Ethics ----
+  {
+    id: "s66-eth-q4", examSlug: "series-66", topicId: "fiduciary", topicName: "Fiduciary Duty & Ethics", difficulty: 2,
+    stem: "Which practice is prohibited for an investment adviser?",
+    choices: ["Disclosing a conflict of interest in writing", "Guaranteeing a client against any investment loss", "Charging a flat annual fee"],
+    answerIndex: 1,
+    explanation: "Guaranteeing a client against loss (or promising a specific gain) is prohibited because investment performance cannot be assured and such promises are inherently misleading. Choice A is exactly what fiduciaries are required to do — disclose conflicts. Choice C is a perfectly acceptable fee arrangement.",
+  },
+  {
+    id: "s66-eth-q5", examSlug: "series-66", topicId: "fiduciary", topicName: "Fiduciary Duty & Ethics", difficulty: 3,
+    stem: "An investment adviser representative wants to borrow money from a client. This is:",
+    choices: ["Always permitted between consenting adults", "Generally prohibited unless the client is a lending institution or affiliate", "Permitted if repaid within 30 days"],
+    answerIndex: 1,
+    explanation: "Borrowing from (or lending to) clients is generally prohibited because of the conflict and risk to the client, with narrow exceptions such as when the client is a broker-dealer, an affiliate, or a financial institution in the business of lending. Choice A ignores the rule entirely; choice C invents a repayment window that doesn't cure the prohibition.",
+  },
+  {
+    id: "s66-eth-q6", examSlug: "series-66", topicId: "fiduciary", topicName: "Fiduciary Duty & Ethics", difficulty: 3,
+    stem: "Before completing an agency cross transaction (acting for both buyer and seller), an adviser must:",
+    choices: ["Do nothing special — it's routine", "Obtain the client's consent and make required disclosures", "Guarantee the client the best price in the market"],
+    answerIndex: 1,
+    explanation: "Agency cross and principal transactions carry obvious conflicts, so the adviser must disclose its role and obtain client consent (for principal trades, before completion of the transaction). Choice A ignores the conflict; choice C describes a 'best price' guarantee that is neither the rule nor permissible to promise.",
+  },
+  {
+    id: "s66-eth-q7", examSlug: "series-66", topicId: "fiduciary", topicName: "Fiduciary Duty & Ethics", difficulty: 2,
+    stem: "An adviser receives research and execution services from a broker in exchange for directing client trades there ('soft dollars'). This is acceptable when:",
+    choices: ["It is never acceptable under any circumstances", "The services fall within the safe harbor and benefit clients, and the arrangement is disclosed", "The adviser keeps the benefit secret to avoid confusion"],
+    answerIndex: 1,
+    explanation: "Soft-dollar arrangements are permitted within a recognized safe harbor when the products/services (such as research) assist the adviser's decision-making and benefit clients, and the arrangement is disclosed. Choice A is too absolute. Choice C is the violation — non-disclosure of the conflict is precisely what's prohibited.",
+  },
+  {
+    id: "s66-eth-q8", examSlug: "series-66", topicId: "fiduciary", topicName: "Fiduciary Duty & Ethics", difficulty: 2,
+    stem: "Under the Prudent Investor standard, an investment's appropriateness is judged:",
+    choices: ["Security by security, in isolation", "In the context of the overall portfolio and the client's objectives", "Solely by its historical return"],
+    answerIndex: 1,
+    explanation: "The Prudent Investor rule evaluates each investment as part of the total portfolio and the client's objectives and risk tolerance, recognizing that a risky asset can be prudent within a diversified whole. Choice A reflects the older, stricter 'prudent man' security-by-security view. Choice C ignores risk, diversification, and suitability.",
+  },
+
+  // ---- Client Recommendations & Strategies ----
+  {
+    id: "s66-str-q4", examSlug: "series-66", topicId: "strategies", topicName: "Client Recommendations & Strategies", difficulty: 3,
+    stem: "The Sharpe ratio measures:",
+    choices: ["Total return only", "Return earned per unit of total risk (above the risk-free rate)", "A fund's sensitivity to the market"],
+    answerIndex: 1,
+    explanation: "The Sharpe ratio = (portfolio return − risk-free rate) ÷ standard deviation, measuring risk-adjusted return per unit of total risk; higher is better. Choice A ignores risk entirely. Choice C describes beta, which measures systematic (market) risk, not the Sharpe ratio's total-risk-adjusted return.",
+  },
+  {
+    id: "s66-str-q5", examSlug: "series-66", topicId: "strategies", topicName: "Client Recommendations & Strategies", difficulty: 2,
+    stem: "A stock with a beta of 1.5 would be expected to:",
+    choices: ["Move less than the market", "Move 1.5× as much as the market, up or down", "Be uncorrelated with the market"],
+    answerIndex: 1,
+    explanation: "Beta measures systematic risk relative to the market (beta 1.0 = moves with the market). A beta of 1.5 implies the stock tends to move 1.5 times as much as the market in either direction — more volatile and higher systematic risk. Choice A describes a beta below 1.0; choice C would imply a beta near zero.",
+  },
+  {
+    id: "s66-str-q6", examSlug: "series-66", topicId: "strategies", topicName: "Client Recommendations & Strategies", difficulty: 2,
+    stem: "Investing a fixed dollar amount at regular intervals, regardless of price, is:",
+    choices: ["Dollar-cost averaging, which lowers the average cost per share over time", "Market timing", "Tactical asset allocation"],
+    answerIndex: 0,
+    explanation: "Dollar-cost averaging invests a fixed dollar amount on a schedule, automatically buying more shares when prices are low and fewer when high, which lowers the average cost per share versus buying a fixed number of shares. Choice B (market timing) tries to predict tops and bottoms — the opposite approach. Choice C is shifting allocations to exploit short-term opportunities, unrelated to fixed-interval investing.",
+  },
+  {
+    id: "s66-str-q7", examSlug: "series-66", topicId: "strategies", topicName: "Client Recommendations & Strategies", difficulty: 3,
+    stem: "An investor sells a stock at a loss and repurchases the same stock 20 days later. The loss is:",
+    choices: ["Fully deductible now", "Disallowed under the wash-sale rule", "Converted into a long-term loss"],
+    answerIndex: 1,
+    explanation: "The wash-sale rule disallows a loss when a substantially identical security is repurchased within 30 days before or after the sale; 20 days falls inside that window, so the loss is deferred and added to the new shares' basis. Choice A ignores the rule. Choice C is nonsensical — a wash sale defers the loss, it doesn't change its character.",
+  },
+  {
+    id: "s66-str-q8", examSlug: "series-66", topicId: "strategies", topicName: "Client Recommendations & Strategies", difficulty: 2,
+    stem: "Setting long-term target weights for asset classes and largely holding them is:",
+    choices: ["Tactical asset allocation", "Strategic asset allocation", "Market timing"],
+    answerIndex: 1,
+    explanation: "Strategic asset allocation sets long-term target weights based on the client's objectives and risk tolerance and maintains them through rebalancing. Choice A (tactical) makes short-term shifts away from targets to exploit perceived opportunities. Choice C (market timing) tries to move in and out of the market based on forecasts — a more aggressive, higher-risk approach.",
+  },
+  {
+    id: "s66-str-q9", examSlug: "series-66", topicId: "strategies", topicName: "Client Recommendations & Strategies", difficulty: 3,
+    stem: "Combining assets with low correlation to one another primarily:",
+    choices: ["Increases expected return without changing risk", "Reduces portfolio risk for a given level of expected return", "Eliminates systematic (market) risk"],
+    answerIndex: 1,
+    explanation: "Diversifying across assets that don't move together lowers overall portfolio volatility for a given expected return — the core benefit of diversification. Choice A misstates it; diversification primarily reduces risk rather than boosting return. Choice C is wrong because diversification reduces unsystematic risk but cannot remove systematic (market-wide) risk.",
+  },
 ];
 
 export const series66Content: ExamContent = {

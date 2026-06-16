@@ -418,6 +418,107 @@ const questions: Question[] = [
     answerIndex: 1,
     explanation: "The step-up in basis resets an inherited asset's cost basis to its fair market value at the date of death — $50,000 here — so if the heir sells immediately, there's little to no capital-gains tax, erasing the $40,000 of appreciation that built up during the decedent's life. Choice A (original cost) ignores the step-up. Choice C ($0) is incorrect; basis steps up to market value, not to zero.",
   },
+
+  // ---- General Principles ----
+  {
+    id: "cfp-gen-q4", examSlug: "cfp", topicId: "general", topicName: "General Principles", difficulty: 2,
+    stem: "Earnings in a 529 education savings plan grow:",
+    choices: ["Tax-deferred, then fully taxable on withdrawal", "Tax-free when used for qualified education expenses", "Subject to annual capital-gains tax"],
+    answerIndex: 1,
+    explanation: "A 529 plan grows tax-free and distributions are tax-free at the federal level when used for qualified education expenses. Choice A describes a traditional retirement account, not a 529. Choice C is wrong because gains inside a 529 are not taxed annually; the tax advantage is the whole point of the vehicle.",
+  },
+  {
+    id: "cfp-gen-q5", examSlug: "cfp", topicId: "general", topicName: "General Principles", difficulty: 2,
+    stem: "A common guideline is that a household's total monthly housing costs should not exceed roughly what percent of gross monthly income (the front-end ratio)?",
+    choices: ["28%", "50%", "75%"],
+    answerIndex: 0,
+    explanation: "The conventional front-end (housing) ratio guideline is about 28% of gross monthly income, with total debt (the back-end ratio) around 36%. Choice B (50%) would leave little room for other needs and signals over-extension. Choice C (75%) is far beyond any prudent housing burden.",
+  },
+
+  // ---- Risk Management & Insurance ----
+  {
+    id: "cfp-ins-q4", examSlug: "cfp", topicId: "insurance", topicName: "Risk Management & Insurance", difficulty: 3,
+    stem: "A Health Savings Account (HSA) offers a 'triple tax advantage' and must be paired with:",
+    choices: ["Any health plan", "A high-deductible health plan (HDHP)", "A Medicare Advantage plan"],
+    answerIndex: 1,
+    explanation: "An HSA — contributions deductible, growth tax-free, and qualified medical withdrawals tax-free — is available only to those covered by a qualifying high-deductible health plan. Choice A is wrong; eligibility is tied specifically to an HDHP. Choice C is incorrect because enrolling in Medicare ends HSA contribution eligibility.",
+  },
+  {
+    id: "cfp-ins-q5", examSlug: "cfp", topicId: "insurance", topicName: "Risk Management & Insurance", difficulty: 2,
+    stem: "An immediate annuity is most useful for managing which retirement risk?",
+    choices: ["Inflation risk", "Longevity risk (outliving your money)", "Liquidity risk"],
+    answerIndex: 1,
+    explanation: "An immediate annuity converts a lump sum into a guaranteed income stream for life, directly addressing longevity risk — the danger of outliving one's assets. Choice A is wrong; a fixed annuity can actually worsen inflation risk unless inflation-adjusted. Choice C is backwards — annuitizing reduces liquidity, it doesn't solve a liquidity problem.",
+  },
+  {
+    id: "cfp-ins-q6", examSlug: "cfp", topicId: "insurance", topicName: "Risk Management & Insurance", difficulty: 3,
+    stem: "A disability policy with an 'own-occupation' definition pays benefits when the insured cannot perform:",
+    choices: ["Any job whatsoever", "The duties of their own specific occupation", "Only manual-labor jobs"],
+    answerIndex: 1,
+    explanation: "An 'own-occupation' policy pays if the insured cannot perform the duties of their own occupation, even if they could work in some other field — the most favorable (and costly) definition. Choice A describes the stricter 'any-occupation' standard, which pays only if you can't do any job. Choice C invents a limitation that isn't how the definitions work.",
+  },
+
+  // ---- Tax Planning ----
+  {
+    id: "cfp-tax-q4", examSlug: "cfp", topicId: "tax", topicName: "Tax Planning", difficulty: 2,
+    stem: "Qualified dividends are taxed at:",
+    choices: ["Ordinary income tax rates", "The preferential long-term capital gains rates", "A flat 10% rate"],
+    answerIndex: 1,
+    explanation: "Qualified dividends receive the same preferential rates as long-term capital gains (0%, 15%, or 20% depending on income), rewarding longer-term equity ownership. Choice A applies to non-qualified (ordinary) dividends. Choice C invents a flat rate that doesn't exist in the dividend rules.",
+  },
+  {
+    id: "cfp-tax-q5", examSlug: "cfp", topicId: "tax", topicName: "Tax Planning", difficulty: 3,
+    stem: "The Alternative Minimum Tax (AMT) is best described as:",
+    choices: ["An extra penalty on late filers", "A parallel tax system that adds back certain preference items to ensure a minimum tax", "A tax only on capital gains"],
+    answerIndex: 1,
+    explanation: "The AMT is a parallel calculation that disallows or adds back certain deductions and preference items; taxpayers pay the higher of regular tax or AMT, ensuring high-income taxpayers with many preferences still pay a minimum. Choice A confuses it with a late-filing penalty. Choice C is wrong; the AMT spans far more than capital gains.",
+  },
+  {
+    id: "cfp-tax-q6", examSlug: "cfp", topicId: "tax", topicName: "Tax Planning", difficulty: 2,
+    stem: "On a personal return, taxable income is computed by subtracting from AGI the:",
+    choices: ["Greater of the standard deduction or itemized deductions", "Sum of all credits", "Total of all gross income"],
+    answerIndex: 0,
+    explanation: "Taxable income = AGI minus the greater of the standard deduction or total itemized deductions (and any qualified business income deduction). Choice B is wrong because credits reduce the tax itself, applied later, not taxable income. Choice C describes a starting point, not a subtraction.",
+  },
+
+  // ---- Retirement Planning ----
+  {
+    id: "cfp-ret-q4", examSlug: "cfp", topicId: "retirement", topicName: "Retirement Planning", difficulty: 2,
+    stem: "Required minimum distributions (RMDs) from a traditional IRA now generally must begin at age:",
+    choices: ["59½", "73", "85"],
+    answerIndex: 1,
+    explanation: "Under the SECURE 2.0 Act, RMDs from traditional retirement accounts generally begin at age 73. Choice A (59½) is the age after which withdrawals avoid the 10% early-withdrawal penalty — a different milestone. Choice C (85) is not an RMD age.",
+  },
+  {
+    id: "cfp-ret-q5", examSlug: "cfp", topicId: "retirement", topicName: "Retirement Planning", difficulty: 2,
+    stem: "A key advantage of a Roth IRA over a traditional IRA during the owner's lifetime is that the Roth:",
+    choices: ["Requires minimum distributions starting at 73", "Has no required minimum distributions for the original owner", "Gives an upfront tax deduction"],
+    answerIndex: 1,
+    explanation: "A Roth IRA has no RMDs during the original owner's lifetime, letting the balance keep compounding tax-free and offering estate-planning flexibility. Choice A describes traditional accounts. Choice C is the traditional IRA's feature; Roth contributions are made with after-tax dollars and are not deductible.",
+  },
+  {
+    id: "cfp-ret-q6", examSlug: "cfp", topicId: "retirement", topicName: "Retirement Planning", difficulty: 1,
+    stem: "'Catch-up' contributions to retirement accounts are an additional amount allowed for individuals who are:",
+    choices: ["Age 50 or older", "First-time savers", "High earners only"],
+    answerIndex: 0,
+    explanation: "Catch-up contributions let those age 50 and older contribute above the standard limit to IRAs and workplace plans, helping late savers accelerate. Choice B is incorrect; the rule is about age, not whether you're new to saving. Choice C is wrong — eligibility is based on age, not income (and high earners face other Roth/limit rules).",
+  },
+
+  // ---- Estate Planning ----
+  {
+    id: "cfp-est-q4", examSlug: "cfp", topicId: "estate", topicName: "Estate Planning", difficulty: 2,
+    stem: "The annual gift tax exclusion allows a person to give, free of gift tax, up to a set amount per year to:",
+    choices: ["One recipient only, total", "Each recipient (per donee, per year)", "Charities exclusively"],
+    answerIndex: 1,
+    explanation: "The annual exclusion applies per recipient per year, so a donor can gift the excluded amount to any number of individuals annually without using lifetime exemption or filing — a powerful way to shrink a taxable estate. Choice A wrongly caps it at a single recipient. Choice C is incorrect; the annual exclusion applies to gifts to individuals (charitable gifts have their own unlimited deduction).",
+  },
+  {
+    id: "cfp-est-q5", examSlug: "cfp", topicId: "estate", topicName: "Estate Planning", difficulty: 2,
+    stem: "Which document lets someone manage your finances if you become incapacitated (rather than at death)?",
+    choices: ["A will", "A durable power of attorney", "A revocable trust's pour-over provision"],
+    answerIndex: 1,
+    explanation: "A durable power of attorney names an agent to handle financial matters and remains effective if you become incapacitated, avoiding a court-appointed guardianship. Choice A (a will) only operates at death. Choice C addresses asset transfer, not the authority to act on your behalf during incapacity.",
+  },
 ];
 
 export const cfpContent: ExamContent = {

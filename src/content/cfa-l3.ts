@@ -664,6 +664,89 @@ const questions: Question[] = [
     explanation:
       "If the curve stays put, the portfolio still earns its yield income (coupon ÷ price) PLUS rolldown — bonds re-priced at the lower-yield, shorter-maturity point of an upward-sloping curve gain value as time passes. Together: the rolling yield, the passive baseline against which view-driven returns are attributed. Choice B omits rolldown; choice C is precisely the part of return that an unchanged curve CONTRIBUTES NOTHING to — manager views only pay when something moves.",
   },
+
+  // ---- Asset Allocation ----
+  {
+    id: "cfa3-aa-q5", examSlug: "cfa-l3", topicId: "pm-asset", topicName: "Asset Allocation", difficulty: 3,
+    stem: "A well-known drawback of unconstrained mean-variance optimization (MVO) is that it:",
+    choices: ["Always produces well-diversified portfolios", "Is highly sensitive to input estimates ('error maximization'), producing concentrated, unstable weights", "Ignores expected returns entirely"],
+    answerIndex: 1,
+    explanation: "MVO is an 'error maximizer': small changes in expected-return inputs can swing the optimal weights dramatically, often concentrating in a few assets. That's why practitioners add constraints, use resampling, or apply Black-Litterman. Choice A is the opposite of the problem. Choice C is wrong — MVO depends heavily on expected returns; that's the source of its instability.",
+  },
+  {
+    id: "cfa3-aa-q6", examSlug: "cfa-l3", topicId: "pm-asset", topicName: "Asset Allocation", difficulty: 3,
+    stem: "A risk-parity asset allocation sets weights so that:",
+    choices: ["Each asset class contributes an equal amount of dollars", "Each asset class contributes an equal amount of risk to the portfolio", "The portfolio holds only the minimum-variance asset"],
+    answerIndex: 1,
+    explanation: "Risk parity allocates so that each asset (or factor) contributes equally to total portfolio risk, which typically raises the weight of low-volatility assets like bonds (often with leverage) rather than weighting by capital. Choice A describes equal-dollar weighting, not equal-risk. Choice C describes a single-asset minimum-variance corner, not risk parity.",
+  },
+  {
+    id: "cfa3-aa-q7", examSlug: "cfa-l3", topicId: "pm-asset", topicName: "Asset Allocation", difficulty: 3,
+    stem: "All else equal, higher transaction costs and less liquidity argue for rebalancing with:",
+    choices: ["Narrower (tighter) corridors around target weights", "Wider corridors, tolerating more drift before trading", "No rebalancing policy at all"],
+    answerIndex: 1,
+    explanation: "When trading is expensive or assets are illiquid, wider rebalancing corridors reduce costly turnover by letting weights drift further before action. Choice A would trigger frequent, costly trades — the wrong response to high costs. Choice C abandons risk control entirely; the goal is to balance the cost of trading against the cost of drift, not to stop rebalancing.",
+  },
+  {
+    id: "cfa3-aa-q8", examSlug: "cfa-l3", topicId: "pm-asset", topicName: "Asset Allocation", difficulty: 3,
+    stem: "A liability-relative (surplus) approach to asset allocation focuses on:",
+    choices: ["Maximizing absolute return regardless of liabilities", "Managing assets relative to the liabilities they must fund, controlling surplus volatility", "Holding only cash to avoid any risk"],
+    answerIndex: 1,
+    explanation: "Institutions with defined obligations (pensions, insurers) optimize the surplus — assets minus the present value of liabilities — choosing assets whose behavior tracks the liabilities to limit funding-ratio volatility. Choice A ignores the liabilities that define the problem. Choice C eliminates return-seeking and usually can't fund long-dated liabilities, often increasing real risk.",
+  },
+  {
+    id: "cfa3-aa-q9", examSlug: "cfa-l3", topicId: "pm-asset", topicName: "Asset Allocation", difficulty: 3,
+    stem: "The Black-Litterman model improves on basic MVO mainly by:",
+    choices: ["Using only the investor's views and ignoring the market", "Blending market-equilibrium (implied) returns with the investor's views to produce more stable, diversified weights", "Removing the need for any expected-return estimates"],
+    answerIndex: 1,
+    explanation: "Black-Litterman starts from the returns implied by market-cap equilibrium, then tilts toward the investor's specific views in proportion to confidence, yielding more intuitive and stable allocations than raw MVO. Choice A discards the equilibrium anchor that gives the model its stability. Choice C is wrong — it still uses returns, just constructed more robustly.",
+  },
+
+  // ---- Fixed Income (portfolio strategies) ----
+  {
+    id: "cfa3-fi-q5", examSlug: "cfa-l3", topicId: "fixed", topicName: "Fixed Income", difficulty: 3,
+    stem: "To immunize a single future liability with a bond portfolio, the manager should:",
+    choices: ["Match the portfolio's Macaulay duration to the liability's horizon and minimize convexity/dispersion", "Maximize portfolio convexity", "Hold only the highest-yielding bonds available"],
+    answerIndex: 0,
+    explanation: "Classical immunization of one liability matches the portfolio's Macaulay duration to the liability horizon (so price and reinvestment effects offset) and minimizes dispersion/convexity so the match is robust to non-parallel shifts, while keeping PV of assets ≥ PV of the liability. Choice B is wrong — excess convexity increases exposure to structural risk in single-liability immunization. Choice C chases yield and ignores the duration match that immunization requires.",
+  },
+  {
+    id: "cfa3-fi-q6", examSlug: "cfa-l3", topicId: "fixed", topicName: "Fixed Income", difficulty: 3,
+    stem: "Compared with immunization, cash flow matching:",
+    choices: ["Requires ongoing rebalancing as rates change", "Funds each liability with bond cash flows timed to it, needing little or no rebalancing but with tighter constraints", "Takes on more interest-rate risk"],
+    answerIndex: 1,
+    explanation: "Cash flow matching builds a dedicated portfolio whose coupons and maturities arrive when each liability is due, so once set it needs essentially no rebalancing — but it's more constrained and often costlier than immunization. Choice A describes immunization, which must be rebalanced as durations drift. Choice C is backwards; cash flow matching minimizes interest-rate risk by design.",
+  },
+  {
+    id: "cfa3-fi-q7", examSlug: "cfa-l3", topicId: "fixed", topicName: "Fixed Income", difficulty: 3,
+    stem: "Contingent immunization allows a manager to:",
+    choices: ["Manage actively as long as the portfolio stays above a required 'safety net' value, switching to immunization if it's breached", "Never deviate from a matched portfolio", "Ignore the liability completely"],
+    answerIndex: 0,
+    explanation: "Contingent immunization is a hybrid: while the surplus cushion exceeds the minimum needed to immunize, the manager can pursue active strategies; if performance erodes the cushion to the trigger, the portfolio is immunized to lock in the required outcome. Choice B describes pure immunization with no active latitude. Choice C abandons the funding objective that the strategy is built to protect.",
+  },
+  {
+    id: "cfa3-fi-q8", examSlug: "cfa-l3", topicId: "fixed", topicName: "Fixed Income", difficulty: 3,
+    stem: "When immunizing MULTIPLE liabilities, the asset portfolio should have a convexity that is:",
+    choices: ["As large as possible", "Greater than the liabilities' convexity, but minimized (just enough), with matching duration and PV", "Exactly zero"],
+    answerIndex: 1,
+    explanation: "For multiple liabilities, set asset duration equal to liability duration and asset convexity slightly greater than the liabilities' (so assets bracket the cash-flow dates), but minimize that convexity to reduce exposure to non-parallel curve shifts; PV of assets must at least equal PV of liabilities. Choice A maximizes structural risk. Choice C (zero convexity) isn't achievable or desirable for a coupon-bond portfolio.",
+  },
+  {
+    id: "cfa3-fi-q9", examSlug: "cfa-l3", topicId: "fixed", topicName: "Fixed Income", difficulty: 3,
+    stem: "Relative to a duration-matched bullet, a barbell portfolio generally has:",
+    choices: ["Lower convexity, benefiting from a steepening curve", "Higher convexity, benefiting from increased rate volatility and curve flattening", "Identical behavior in all scenarios"],
+    answerIndex: 1,
+    explanation: "A barbell concentrates in short and long maturities, giving it more convexity than a duration-matched bullet, so it outperforms when rates are volatile or the curve flattens. Choice A reverses the convexity ranking. Choice C is wrong — bullets and barbells with the same duration behave differently once the yield curve moves in a non-parallel way.",
+  },
+
+  // ---- Private Wealth ----
+  {
+    id: "cfa3-pw-q10", examSlug: "cfa-l3", topicId: "pm-private", topicName: "Private Wealth", difficulty: 3,
+    stem: "A Monte Carlo simulation is valuable in retirement planning because it:",
+    choices: ["Guarantees a single precise outcome", "Models thousands of return paths to estimate the probability a plan succeeds, capturing sequence-of-returns risk", "Assumes the same return every year"],
+    answerIndex: 1,
+    explanation: "Monte Carlo runs many randomized return sequences to produce a distribution of outcomes and a probability of success, revealing sequence-of-returns risk that a single straight-line projection hides. Choice A overstates it — the output is a probability distribution, not a guarantee. Choice C describes a deterministic projection, the very simplification Monte Carlo is meant to improve upon.",
+  },
 ];
 
 export const cfaL3Content: ExamContent = {

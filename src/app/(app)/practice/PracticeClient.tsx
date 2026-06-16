@@ -7,6 +7,7 @@ import { EXAMS, getExam } from "@/lib/exams";
 import { examsWithContent, getQuestions } from "@/content";
 import { Question } from "@/content/types";
 import { recordStudy } from "@/lib/gameStore";
+import { buildRun, RUN_SIZE } from "@/lib/practiceRotation";
 import { useAccess } from "@/lib/useAccess";
 import { UpgradeCard } from "@/components/UpgradeGate";
 import Tutor from "@/components/Tutor";
@@ -38,7 +39,9 @@ export default function PracticeClient() {
   const poolCount = getQuestions(exam, topic === "all" ? undefined : topic).length;
 
   function start() {
-    const qs = shuffle(getQuestions(exam, topic === "all" ? undefined : topic));
+    // Rotating run: serves the least-recently-seen questions first, so a
+    // retake gives a fresh set (and keeps getting fresher as the bank grows).
+    const qs = buildRun(getQuestions(exam, topic === "all" ? undefined : topic), RUN_SIZE);
     setSession(qs);
     setAnswers([]);
     setPhase("quiz");
@@ -55,7 +58,7 @@ export default function PracticeClient() {
   }
 
   if (phase === "results") {
-    return <Results questions={session} answers={answers} runMinutes={Math.max(5, Math.round(session.length * 1.5))} onRetry={() => setPhase("setup")} />;
+    return <Results exam={exam} questions={session} answers={answers} runMinutes={Math.max(5, Math.round(session.length * 1.5))} onRetry={() => setPhase("setup")} />;
   }
 
   // ---- setup ----
@@ -201,7 +204,7 @@ function Quiz({ questions, onFinish }: { questions: Question[]; onFinish: (answe
   );
 }
 
-function Results({ questions, answers, runMinutes, onRetry }: { questions: Question[]; answers: (number | null)[]; runMinutes: number; onRetry: () => void }) {
+function Results({ exam, questions, answers, runMinutes, onRetry }: { exam: string; questions: Question[]; answers: (number | null)[]; runMinutes: number; onRetry: () => void }) {
   const correctCount = answers.filter((a, i) => a === questions[i]?.answerIndex).length;
   const pct = questions.length ? Math.round((correctCount / questions.length) * 100) : 0;
   const wrong = questions.map((q, i) => ({ q, a: answers[i] })).filter((x) => x.a !== x.q.answerIndex);
@@ -244,7 +247,7 @@ function Results({ questions, answers, runMinutes, onRetry }: { questions: Quest
 
       <div className="flex items-center gap-3">
         <button className="btn-primary flex-1" onClick={onRetry}>Practice again</button>
-        <Link href="/learn" className="btn-secondary flex-1 text-center">Back to reading</Link>
+        <Link href={`/learn?exam=${exam}`} className="btn-secondary flex-1 text-center">Back to reading</Link>
       </div>
     </div>
   );
@@ -265,13 +268,4 @@ function TopicChip({ label, active, onClick }: { label: string; active: boolean;
       {label}
     </button>
   );
-}
-
-function shuffle<T>(arr: T[]): T[] {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
 }

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { EXAMS } from "@/lib/exams";
 import { examsWithContent, getChapters, getChapter } from "@/content";
 import { Chapter, Block } from "@/content/types";
@@ -35,8 +36,25 @@ function sectionPlainText(chapter: Chapter, idx: number): string {
 export default function LearnClient() {
   const available = examsWithContent();
   const access = useAccess();
-  const [exam, setExam] = useState(available[0] ?? "cfa");
-  const [chapterId, setChapterId] = useState<string | null>(null);
+  const params = useSearchParams();
+
+  // Honor ?exam= and ?topic=/?chapter= so links from the skill tree, dashboard,
+  // etc. open the RIGHT exam and chapter (not the default first exam).
+  const paramExam = params.get("exam");
+  const initialExam = paramExam && available.includes(paramExam) ? paramExam : available[0] ?? "cfa";
+  const initialChapterId = (() => {
+    const ch = params.get("chapter");
+    if (ch) return ch;
+    const topic = params.get("topic");
+    if (topic) {
+      const match = getChapters(initialExam).find((c) => c.topicId === topic);
+      if (match) return match.id;
+    }
+    return null;
+  })();
+
+  const [exam, setExam] = useState(initialExam);
+  const [chapterId, setChapterId] = useState<string | null>(initialChapterId);
   const [reading, setReading] = useState<ReadingStore>({});
   const locked = access.ready && !access.canExam(exam);
 
@@ -218,7 +236,7 @@ function Reader({ chapter, onBack }: { chapter: Chapter; onBack: () => void }) {
   }
 
   return (
-    <div className="px-8 py-8">
+    <div className="px-4 py-6 md:px-8 md:py-8">
       {/* Scroll progress */}
       <div className="read-progress">
         <div style={{ width: `${scrollPct}%` }} />
@@ -371,7 +389,7 @@ function Reader({ chapter, onBack }: { chapter: Chapter; onBack: () => void }) {
           <Link href={`/practice?exam=${chapter.examSlug}&topic=${chapter.topicId}`} className="btn-primary inline-block">
             Practice {chapter.topicName} →
           </Link>
-          <Link href="/flashcards" className="btn-secondary inline-block">
+          <Link href={`/flashcards?exam=${chapter.examSlug}&topic=${chapter.topicId}`} className="btn-secondary inline-block">
             Flashcards
           </Link>
         </div>
@@ -445,8 +463,8 @@ function BlockView({ block }: { block: Block }) {
     case "table":
       return (
         <div className="my-5">
-          <div className="card" style={{ overflow: "hidden" }}>
-            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.85rem", fontFamily: "var(--sans)" }}>
+          <div className="card" style={{ overflowX: "auto" }}>
+            <table style={{ width: "100%", minWidth: 380, borderCollapse: "collapse", fontSize: "0.85rem", fontFamily: "var(--sans)" }}>
               <thead>
                 <tr style={{ background: "var(--bg)" }}>
                   {block.table.headers.map((h, k) => (

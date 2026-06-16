@@ -334,6 +334,126 @@ const questions: Question[] = [
     answerIndex: 1,
     explanation: "The COSO framework defines internal control via five components — control environment, risk assessment, control activities, information and communication, and monitoring. Choice A (GAAP) governs financial reporting standards, not internal-control structure. Choice C (the revenue model) is a specific accounting standard for recognizing revenue, unrelated to the internal-control framework.",
   },
+
+  // ---- Financial Reporting (FAR) ----
+  {
+    id: "cpa-far-q4", examSlug: "cpa", topicId: "far", topicName: "Financial Reporting", difficulty: 2,
+    stem: "Financial statements are normally prepared on the assumption that the entity will continue operating for the foreseeable future. This is the:",
+    choices: ["Going concern assumption", "Matching principle", "Conservatism constraint"],
+    answerIndex: 0,
+    explanation: "The going concern assumption presumes the entity will continue long enough to meet its obligations and use its assets as planned, which justifies historical cost and the deferral of certain costs. Choice B (matching) is about recognizing expenses with related revenues. Choice C (conservatism) biases toward not overstating assets/income — a different concept.",
+  },
+  {
+    id: "cpa-far-q5", examSlug: "cpa", topicId: "far", topicName: "Financial Reporting", difficulty: 3,
+    stem: "During a period of rising prices, using FIFO instead of LIFO generally results in:",
+    choices: ["Lower net income and lower taxes", "Higher net income and higher ending inventory", "No effect on the financial statements"],
+    answerIndex: 1,
+    explanation: "With rising prices, FIFO expenses the oldest (cheaper) costs to COGS, leaving the newest (higher) costs in ending inventory — so net income and ending inventory are higher than under LIFO. Choice A describes LIFO, which expenses newer higher costs (lower income, lower taxes). Choice C is wrong; the cost-flow choice materially affects COGS, income, and inventory.",
+  },
+  {
+    id: "cpa-far-q6", examSlug: "cpa", topicId: "far", topicName: "Financial Reporting", difficulty: 2,
+    stem: "Equipment costs $50,000, has a $5,000 salvage value, and a 9-year life. Annual straight-line depreciation is:",
+    choices: ["$5,556", "$5,000", "$45,000"],
+    answerIndex: 1,
+    explanation: "Straight-line depreciation = (cost − salvage) ÷ useful life = ($50,000 − $5,000) ÷ 9 = $45,000 ÷ 9 = $5,000 per year. Choice A wrongly divides the full $50,000 by 9 (ignoring salvage). Choice C ($45,000) is the total depreciable base, not the annual amount.",
+  },
+  {
+    id: "cpa-far-q7", examSlug: "cpa", topicId: "far", topicName: "Financial Reporting", difficulty: 3,
+    stem: "A bond with a 4% coupon is issued when the market interest rate is 6%. The bond will be issued at:",
+    choices: ["A premium (above par)", "A discount (below par)", "Par value"],
+    answerIndex: 1,
+    explanation: "When a bond's coupon (4%) is below the market rate (6%), investors will only buy it for less than face value, so it is issued at a discount. Choice A (premium) happens when the coupon exceeds the market rate. Choice C (par) occurs only when the coupon equals the market rate.",
+  },
+
+  // ---- Auditing (AUD) ----
+  {
+    id: "cpa-aud-q4", examSlug: "cpa", topicId: "aud", topicName: "Auditing", difficulty: 3,
+    stem: "In the audit risk model (AR = IR × CR × DR), if inherent risk and control risk are both assessed as high, the auditor should:",
+    choices: ["Reduce substantive testing", "Lower detection risk by performing more substantive testing", "Issue a disclaimer automatically"],
+    answerIndex: 1,
+    explanation: "To hold overall audit risk at an acceptably low level when inherent and control risk are high, the auditor must drive detection risk down — by expanding substantive testing (more extensive procedures, larger samples, timing near year-end). Choice A increases risk, the wrong direction. Choice C is unrelated; high RMM calls for more work, not an automatic disclaimer.",
+  },
+  {
+    id: "cpa-aud-q5", examSlug: "cpa", topicId: "aud", topicName: "Auditing", difficulty: 2,
+    stem: "Preparing the financial statements and maintaining effective internal control is the responsibility of:",
+    choices: ["The external auditor", "Management", "The PCAOB"],
+    answerIndex: 1,
+    explanation: "Management is responsible for preparing the financial statements and for designing and maintaining internal control; the auditor's role is to express an independent opinion on those statements. Choice A confuses the two roles. Choice C (PCAOB) oversees the audits of public companies — it doesn't prepare any company's statements.",
+  },
+  {
+    id: "cpa-aud-q6", examSlug: "cpa", topicId: "aud", topicName: "Auditing", difficulty: 2,
+    stem: "Which audit evidence is generally considered the MOST reliable?",
+    choices: ["A photocopy provided by management", "An external confirmation received directly from an independent third party", "Inquiry of client employees"],
+    answerIndex: 1,
+    explanation: "Evidence obtained directly from a knowledgeable, independent external source (such as a bank or customer confirmation sent straight to the auditor) is among the most reliable. Choice A is internal and easily altered. Choice C (inquiry) is useful but weak on its own and must be corroborated, since it comes from the client.",
+  },
+  {
+    id: "cpa-aud-q7", examSlug: "cpa", topicId: "aud", topicName: "Auditing", difficulty: 2,
+    stem: "A misstatement is 'material' if:",
+    choices: ["It exceeds $1 million in every audit", "It could reasonably influence the decisions of financial-statement users", "It involves cash rather than accruals"],
+    answerIndex: 1,
+    explanation: "Materiality is judged by whether a misstatement (individually or combined) could reasonably be expected to influence users' economic decisions — a matter of professional judgment, not a fixed dollar figure. Choice A invents a universal threshold; materiality is relative to the entity. Choice C wrongly ties materiality to the type of account rather than to user impact.",
+  },
+
+  // ---- Taxation & Regulation (REG) ----
+  {
+    id: "cpa-reg-q4", examSlug: "cpa", topicId: "reg", topicName: "Taxation & Regulation", difficulty: 2,
+    stem: "For an asset to qualify for preferential long-term capital gain rates, it must generally be held for:",
+    choices: ["More than one year", "More than 30 days", "More than five years"],
+    answerIndex: 0,
+    explanation: "A capital asset held for more than one year produces a long-term capital gain, taxed at preferential rates; a holding of one year or less is short-term, taxed at ordinary rates. Choice B (30 days) relates to wash sales, not the holding period. Choice C overstates the requirement for the general long-term rate.",
+  },
+  {
+    id: "cpa-reg-q5", examSlug: "cpa", topicId: "reg", topicName: "Taxation & Regulation", difficulty: 3,
+    stem: "Which requirement must a corporation meet to qualify for S corporation status?",
+    choices: ["Have no more than 100 eligible shareholders and only one class of stock", "Be publicly traded on a major exchange", "Have at least one corporate shareholder"],
+    answerIndex: 0,
+    explanation: "An S corporation may have no more than 100 shareholders, only one class of stock, and generally only eligible U.S. individual (and certain trust/estate) shareholders. Choice B is wrong — S corps are closely held, not public. Choice C is disqualifying: corporations and partnerships generally cannot be S corp shareholders.",
+  },
+  {
+    id: "cpa-reg-q6", examSlug: "cpa", topicId: "reg", topicName: "Taxation & Regulation", difficulty: 3,
+    stem: "An heir inherits stock the decedent bought for $10,000 that is worth $60,000 at the date of death. The heir's basis is:",
+    choices: ["$10,000 (carryover basis)", "$60,000 (stepped up to fair value at death)", "$0"],
+    answerIndex: 1,
+    explanation: "Inherited property generally receives a basis 'stepped up' to its fair market value at the date of death — $60,000 here — so the $50,000 of pre-death appreciation escapes income tax. Choice A (carryover) applies to gifts during life, not bequests. Choice C is incorrect; basis steps up to fair value, not to zero.",
+  },
+  {
+    id: "cpa-reg-q7", examSlug: "cpa", topicId: "reg", topicName: "Taxation & Regulation", difficulty: 3,
+    stem: "The general statute of limitations for the IRS to assess additional tax on a filed return is:",
+    choices: ["3 years from filing", "10 years from filing", "There is no limit"],
+    answerIndex: 0,
+    explanation: "The general assessment statute of limitations is three years from the later of the due date or the filing date. It extends to six years if gross income is understated by more than 25%, and is unlimited for a fraudulent return or no return. Choice B (10 years) is the collection period for assessed tax, not the assessment window; choice C applies only to fraud or non-filing.",
+  },
+
+  // ---- Business Environment (BEC) ----
+  {
+    id: "cpa-bec-q4", examSlug: "cpa", topicId: "bec", topicName: "Business Environment", difficulty: 3,
+    stem: "A company's weighted average cost of capital (WACC) is:",
+    choices: ["The interest rate on its newest loan", "The blended, weighted cost of its debt and equity financing", "Always equal to its cost of equity"],
+    answerIndex: 1,
+    explanation: "WACC blends the after-tax cost of debt and the cost of equity, each weighted by its proportion in the capital structure; it's the minimum return new projects must earn. Choice A looks at one debt instrument, not the whole structure. Choice C ignores debt, which (being cheaper and tax-deductible) usually pulls WACC below the cost of equity.",
+  },
+  {
+    id: "cpa-bec-q5", examSlug: "cpa", topicId: "bec", topicName: "Business Environment", difficulty: 2,
+    stem: "Under the net present value (NPV) rule, a capital project should be accepted when:",
+    choices: ["Its NPV is greater than zero", "Its payback period exceeds five years", "Its accounting net income is positive in year one"],
+    answerIndex: 0,
+    explanation: "A positive NPV means the present value of the project's cash inflows exceeds its cost at the required discount rate, so it adds value and should be accepted. Choice B describes a long payback, which argues against a project. Choice C uses accrual income, ignoring the time value of money that NPV is built on.",
+  },
+  {
+    id: "cpa-bec-q6", examSlug: "cpa", topicId: "bec", topicName: "Business Environment", difficulty: 2,
+    stem: "A company has current assets of $300,000 and current liabilities of $150,000. Its current ratio is:",
+    choices: ["0.5", "2.0", "$150,000"],
+    answerIndex: 1,
+    explanation: "Current ratio = current assets ÷ current liabilities = $300,000 ÷ $150,000 = 2.0, a common liquidity measure (≥ 1.0 means current assets cover current liabilities). Choice A inverts the ratio. Choice C reports working capital (assets − liabilities = $150,000), which is a dollar amount, not the ratio.",
+  },
+  {
+    id: "cpa-bec-q7", examSlug: "cpa", topicId: "bec", topicName: "Business Environment", difficulty: 3,
+    stem: "Sarbanes-Oxley Section 404 requires that:",
+    choices: ["Auditors set their clients' accounting policies", "Management assess and report on the effectiveness of internal control over financial reporting", "Companies eliminate all internal controls to cut costs"],
+    answerIndex: 1,
+    explanation: "SOX Section 404 requires management to assess and report on the effectiveness of internal control over financial reporting, and for larger public companies the external auditor attests to it; SOX also created the PCAOB. Choice A would violate auditor independence. Choice C is the opposite of SOX's purpose, which was to strengthen controls after major accounting scandals.",
+  },
 ];
 
 export const cpaContent: ExamContent = {

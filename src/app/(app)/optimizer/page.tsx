@@ -79,7 +79,7 @@ export default function OptimizerPage() {
       </div>
 
       {/* Input area */}
-      <div className="grid grid-cols-2 gap-4 mb-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
         <div>
           <label className="block text-xs font-medium mb-1.5" style={{ color: "var(--text-secondary)" }}>
             Job description

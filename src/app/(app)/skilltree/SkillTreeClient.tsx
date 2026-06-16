@@ -162,8 +162,8 @@ export default function SkillTreeClient() {
                     </div>
                     <ProgressBar pct={n.pct} height={5} sheen={n.state === "progress"} color={gold ? "var(--gold)" : "var(--primary)"} />
                     <div className="flex items-center gap-3 mt-2.5">
-                      <Link href={`/learn`} className="text-xs font-medium hover:underline" style={{ color: "var(--primary)" }}>Read</Link>
-                      <Link href={`/flashcards`} className="text-xs font-medium hover:underline" style={{ color: "var(--primary)" }}>Flashcards</Link>
+                      <Link href={`/learn?exam=${exam}&topic=${n.topicId}`} className="text-xs font-medium hover:underline" style={{ color: "var(--primary)" }}>Read</Link>
+                      <Link href={`/flashcards?exam=${exam}&topic=${n.topicId}`} className="text-xs font-medium hover:underline" style={{ color: "var(--primary)" }}>Flashcards</Link>
                       {n.questionCount > 0 && (
                         <Link href={`/practice?exam=${exam}&topic=${n.topicId}`} className="text-xs font-medium hover:underline" style={{ color: "var(--primary)" }}>
                           Practice ({n.questionCount})
