@@ -407,6 +407,284 @@ const chapters: Chapter[] = [
       "E[return] = yield + rolldown ± view-driven price change − credit losses ± currency: attribute results against the rolling-yield baseline.",
     ],
   },
+
+  {
+    id: "cfa3-equity",
+    examSlug: "cfa-l3",
+    topicId: "pm-equity",
+    topicName: "Equity Portfolio Management",
+    title: "Equity Portfolio Management: Passive, Active, and Factors",
+    readingMinutes: 15,
+    summary: "How equities earn their place in a portfolio, the passive-vs-active decision, and the factor lens that organizes modern active management.",
+    intro:
+      "At Level III equity stops being about valuing one stock and becomes about building and running an equity program inside a total portfolio. The exam tests the role of equities, the choice between passive and active, the styles of active management, and the factor framework that now underlies most of it.",
+    sections: [
+      {
+        heading: "The passive–active decision",
+        blocks: [
+          { kind: "p", text: "Equities are held for capital growth and a long-run inflation hedge, accepting higher volatility for higher expected return. The first decision is how actively to manage. Passive management tracks a benchmark at minimal cost and turnover; it wins on fees and tax efficiency and is the default when markets are efficient or the investor lacks conviction in managers. Active management seeks to beat the benchmark but must overcome its higher fees and turnover — the bar is net-of-cost outperformance, which most managers fail to clear consistently." },
+          { kind: "p", text: "Passive portfolios are built by full replication (hold every index member — accurate but costly for broad indexes), stratified sampling (match the index's key exposures with fewer names), or optimization (minimize tracking error). The right method trades off tracking precision against cost and practicality." },
+        ],
+      },
+      {
+        heading: "Styles of active management and factors",
+        blocks: [
+          { kind: "p", text: "Active approaches split into fundamental (judgment-driven, concentrated, research-heavy) and quantitative (rules-based, broad, statistically diversified). Both increasingly express their bets through factors — persistent sources of return such as value, size, momentum, quality, and low volatility. Factor (or 'smart beta') investing systematically tilts toward these exposures, sitting between pure passive and pure active." },
+          { kind: "callout", label: "The fundamental law of active management", body: "Expected active return ≈ information coefficient × √breadth × active risk. In plain terms: skill (IC) times how many independent bets you make (breadth) drives value-add. Quant managers chase breadth; concentrated fundamental managers rely on a high IC over fewer bets." },
+        ],
+      },
+      {
+        heading: "Risk, tracking, and costs",
+        blocks: [
+          { kind: "p", text: "An active equity portfolio is measured against its benchmark by active return (portfolio − benchmark) and active risk (tracking error, the standard deviation of active return). The information ratio — active return divided by active risk — is the headline measure of active skill per unit of risk taken. Managers operate within a risk budget that caps tracking error, and every basis point of fees and trading cost is a direct drag that active return must first overcome. This is why cost control and tax management are treated as sources of return, not afterthoughts." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Passive vs active", def: "Passive tracks a benchmark cheaply; active seeks to beat it but must overcome higher fees and turnover." },
+      { term: "Stratified sampling", def: "Building an index-tracking portfolio by matching key exposures with a subset of securities." },
+      { term: "Factor investing", def: "Systematically tilting toward persistent return sources (value, size, momentum, quality, low volatility)." },
+      { term: "Information ratio", def: "Active return divided by active risk (tracking error); skill per unit of active risk." },
+      { term: "Fundamental law of active management", def: "Active return ≈ information coefficient × √breadth × active risk — skill times the number of independent bets." },
+    ],
+    takeaways: [
+      "Equities supply growth and an inflation hedge; the first choice is how active to be, and active must beat the benchmark net of fees.",
+      "Build passive via full replication, stratified sampling, or optimization — trading precision against cost.",
+      "Modern active management is organized around factors; value-add ≈ IC × √breadth × active risk.",
+      "Judge active managers by the information ratio, run them within a tracking-error budget, and treat costs/taxes as return.",
+    ],
+  },
+
+  {
+    id: "cfa3-deriv-risk",
+    examSlug: "cfa-l3",
+    topicId: "pm-deriv",
+    topicName: "Derivatives & Risk Management",
+    title: "Derivatives & Risk Management: Adjusting Exposures Efficiently",
+    readingMinutes: 15,
+    summary: "Using futures and swaps to reshape beta and duration, option strategies that shape a payoff, and hedging currency risk.",
+    intro:
+      "Level III uses derivatives as portfolio tools, not pricing puzzles. The recurring question is how to change an exposure — equity beta, bond duration, or currency — quickly and cheaply without disturbing the underlying holdings, and how options reshape a return distribution.",
+    sections: [
+      {
+        heading: "Reshaping beta and duration with futures and swaps",
+        blocks: [
+          { kind: "p", text: "Rather than trade the underlying securities, a manager overlays derivatives. Equity index futures change a portfolio's beta: to move from current beta to a target, the number of contracts is (β_target − β_portfolio)/β_futures × (portfolio value / futures value). Interest-rate futures and swaps change duration the same way — a receive-fixed swap adds duration, a pay-fixed swap subtracts it. The appeal is speed, low transaction cost, and leaving the cash portfolio (and its tax lots and relationships) untouched." },
+          { kind: "example", example: { title: "lowering equity beta with futures", prompt: "A $50M portfolio has beta 1.10; the manager wants beta 0.80. Each index future is worth $250,000 with beta 1.0. How many contracts, and which way?", steps: ["Contracts = (β_target − β_port)/β_fut × (portfolio/future) = (0.80 − 1.10)/1.0 × (50,000,000/250,000).", "= (−0.30) × 200 = −60.", "Negative → SELL 60 contracts."], answer: "Sell 60 index futures to cut beta from 1.10 to 0.80, without selling a single stock." } },
+        ],
+      },
+      {
+        heading: "Option strategies that shape the payoff",
+        blocks: [
+          { kind: "p", text: "Options change the SHAPE of returns. A protective put (long stock + long put) buys downside insurance, capping losses while keeping upside, at the cost of the premium. A covered call (long stock + short call) sells away the upside above the strike to earn premium income — good when you're neutral-to-mildly-bullish. A collar combines both (buy a put, sell a call) to bracket the outcome cheaply or for zero net premium. The exam wants you to match the strategy to the view and to compute max gain, max loss, and breakeven." },
+        ],
+      },
+      {
+        heading: "Managing currency risk",
+        blocks: [
+          { kind: "p", text: "Foreign assets carry currency risk on top of asset risk. A forward contract is the workhorse hedge: selling the foreign currency forward locks in the exchange rate on the expected proceeds. The hedge ratio (how much of the exposure to hedge) is a policy choice — full hedging removes currency volatility but adds cost and forgoes any currency gains, while leaving it unhedged accepts the volatility as a potential diversifier. Because the asset's value drifts, hedges must be rebalanced, and a manager may hedge dynamically based on a currency view." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Beta adjustment with futures", def: "Contracts = (β_target − β_portfolio)/β_futures × (portfolio value / futures value); negative means sell." },
+      { term: "Receive-fixed swap", def: "Adds duration to a portfolio (pay-fixed subtracts it) without trading the underlying bonds." },
+      { term: "Protective put", def: "Long stock plus long put; caps downside while keeping upside, for the cost of the premium." },
+      { term: "Covered call", def: "Long stock plus short call; earns premium income by selling away upside above the strike." },
+      { term: "Currency hedge ratio", def: "The fraction of foreign-currency exposure hedged; a policy choice balancing volatility, cost, and diversification." },
+    ],
+    takeaways: [
+      "Use index futures to retarget beta and swaps/futures to retarget duration — fast, cheap, and leaving the cash portfolio intact.",
+      "Beta contracts = (β_target − β_port)/β_fut × (port value/future value); the sign tells you buy or sell.",
+      "Protective puts insure downside; covered calls harvest premium; collars bracket the outcome — match to the view.",
+      "Hedge currency with forwards; the hedge ratio is a policy trade-off between removing volatility and bearing cost.",
+    ],
+  },
+
+  {
+    id: "cfa3-alts",
+    examSlug: "cfa-l3",
+    topicId: "pm-alts",
+    topicName: "Alternative Investments",
+    title: "Alternatives in the Portfolio: Role, Allocation, and Diligence",
+    readingMinutes: 14,
+    summary: "Why institutions hold alternatives, how to size and select them, and the risk and measurement traps the exam loves.",
+    intro:
+      "At Level III alternatives are evaluated as portfolio components: what role they play, how to allocate to them, how to vet a manager, and why their reported statistics can mislead. The emphasis is judgment — alternatives offer diversification and return, but illiquidity and measurement problems demand care.",
+    sections: [
+      {
+        heading: "The role alternatives play",
+        blocks: [
+          { kind: "p", text: "Private equity, hedge funds, real estate, commodities, and infrastructure are added for three reasons: diversification (low correlation with stocks and bonds), return enhancement (an illiquidity premium and manager skill), and, for real assets, an inflation hedge. The price of these benefits is illiquidity, complexity, high fees, and limited transparency — so alternatives suit long-horizon investors who can fund capital calls and tolerate lock-ups." },
+          { kind: "callout", label: "Why the reported numbers flatter", body: "Many alternatives are priced infrequently using appraisals, which 'smooths' returns: reported volatility and correlations look artificially low, overstating diversification benefits. Always treat headline Sharpe ratios on illiquid, appraisal-priced assets with suspicion." },
+        ],
+      },
+      {
+        heading: "Allocating and selecting",
+        blocks: [
+          { kind: "p", text: "Sizing an allocation to alternatives must respect the investor's liquidity needs and time horizon first — illiquid commitments should never threaten the ability to meet spending or capital calls. Because returns are non-normal (skewed, fat-tailed) and illiquid, standard mean-variance optimization understates their risk; practitioners use higher-moment-aware or scenario approaches and conservative assumptions." },
+          { kind: "p", text: "Manager selection matters more in alternatives than anywhere else because the dispersion between top and bottom managers is enormous. Due diligence spans the investment process, the team and its alignment, operational controls (a frequent source of blow-ups), fees and terms, and the fund's liquidity provisions. The '2 and 20' fee load means gross returns must be substantial just to deliver a competitive net result." },
+        ],
+      },
+      {
+        heading: "Risk and the cash-flow profile",
+        blocks: [
+          { kind: "p", text: "Private funds draw capital over time and return it later, producing the J-curve: early years show negative returns from fees and immature investments before value is realized. Investors must plan for capital calls and uncertain distribution timing, and monitor vintage-year diversification so they aren't over-committed to a single market environment. Performance is judged with money-weighted measures (IRR, multiples like TVPI/DPI) because the manager controls the timing of cash flows — a key contrast with the time-weighted returns used for liquid managers." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Illiquidity premium", def: "The extra expected return demanded for locking up capital in private, hard-to-sell assets." },
+      { term: "Return smoothing", def: "Appraisal-based pricing that understates true volatility and correlation, overstating diversification benefits." },
+      { term: "J-curve", def: "The early-life dip in private-fund returns from fees and immature investments before value is realized." },
+      { term: "Operational due diligence", def: "Vetting a manager's controls, valuation, and back office — a frequent source of alternative-fund failures." },
+      { term: "Money-weighted performance (IRR)", def: "The appropriate measure when the manager controls cash-flow timing, as in private funds (vs time-weighted for liquid managers)." },
+    ],
+    takeaways: [
+      "Alternatives are held for diversification, return enhancement, and (real assets) inflation protection — paid for with illiquidity and fees.",
+      "Appraisal pricing smooths returns, flattering volatility/correlation — discount headline Sharpe ratios on illiquid assets.",
+      "Size allocations around liquidity and horizon; non-normal returns break naive mean-variance optimization.",
+      "Manager dispersion is huge — diligence (especially operational) is decisive; judge private funds by IRR/multiples, not time-weighted return.",
+    ],
+  },
+
+  {
+    id: "cfa3-perf-ethics",
+    examSlug: "cfa-l3",
+    topicId: "pm-perf",
+    topicName: "Performance Evaluation & Ethics",
+    title: "Performance Evaluation, GIPS, and the Code at Level III",
+    readingMinutes: 15,
+    summary: "Attributing and appraising performance, the role of a valid benchmark, what GIPS requires, and how the Standards apply to a practicing professional.",
+    intro:
+      "Level III closes the loop: after building and running a portfolio, you must judge it honestly and present results ethically. That means attribution (where did return come from?), appraisal ratios (was the risk worth it?), a defensible benchmark, GIPS-compliant reporting, and the Code and Standards applied to real decisions.",
+    sections: [
+      {
+        heading: "Attribution and appraisal",
+        blocks: [
+          { kind: "p", text: "Performance attribution decomposes active return into its sources — typically an allocation effect (over/underweighting segments versus the benchmark) and a selection effect (picking better securities within segments). It answers WHERE the return came from. Appraisal ratios answer whether the risk was worth it: the Sharpe ratio (excess return per unit of total risk), the Treynor ratio (per unit of systematic risk/beta), Jensen's alpha (return above CAPM expectation), and the information ratio (active return per unit of tracking error)." },
+          { kind: "table", table: { caption: "Table 1 — Which risk each appraisal measure adjusts for.", headers: ["Measure", "Risk in the denominator", "Use"], rows: [["Sharpe ratio", "Total risk (std dev)", "Stand-alone portfolio"], ["Treynor ratio", "Systematic risk (beta)", "Well-diversified sub-portfolio"], ["Information ratio", "Active risk (tracking error)", "Active vs a benchmark"], ["Jensen's alpha", "(Return above CAPM)", "Risk-adjusted outperformance"]] } },
+        ],
+      },
+      {
+        heading: "Benchmarks and GIPS",
+        blocks: [
+          { kind: "p", text: "None of this is meaningful without a valid benchmark — it should be specified in advance, unambiguous, investable, measurable, appropriate to the style, and reflective of current opinion (the 'SAMURAI' qualities). A bad benchmark makes good attribution impossible. The Global Investment Performance Standards (GIPS) then govern how results are presented: GIPS is voluntary, adopted firm-wide, requires showing all fee-paying discretionary portfolios grouped into composites, and exists to ensure fair, comparable, and non-cherry-picked performance reporting." },
+        ],
+      },
+      {
+        heading: "The Code and Standards in practice",
+        blocks: [
+          { kind: "p", text: "Level III ethics applies the same Standards from Level I to richer, grayer situations — and the Standards still govern. The recurring themes: place clients' interests first (loyalty, prudence, fair dealing across clients), disclose and manage conflicts rather than hide them, give recommendations a reasonable and adequate basis, and present performance fairly without misrepresentation. When a firm policy, an employer's instruction, or local law seems to conflict with the Code, the member must follow the stricter standard and never knowingly participate in a violation. Ethics remains the highest-weighted topic for a reason: it is the profession's product." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Performance attribution", def: "Decomposing active return into allocation (weighting) and selection (security-picking) effects." },
+      { term: "Sharpe vs Treynor vs information ratio", def: "Risk-adjusted return per unit of total risk, systematic risk, and active risk (tracking error), respectively." },
+      { term: "Valid benchmark (SAMURAI)", def: "Specified in advance, appropriate, measurable, unambiguous, reflective of opinion, accountable, investable." },
+      { term: "GIPS", def: "Voluntary, firm-wide standards requiring composite-based, fair, comparable performance presentation." },
+      { term: "Follow the stricter standard", def: "When law, employer policy, and the Code differ, the member complies with the most stringent." },
+    ],
+    takeaways: [
+      "Attribution shows WHERE return came from (allocation vs selection); appraisal ratios show whether the risk paid off.",
+      "Match the ratio to the risk: Sharpe = total, Treynor = beta, information ratio = tracking error.",
+      "A valid benchmark must be specified in advance and investable; GIPS makes performance fair and comparable.",
+      "Level III ethics is the same Standards in grayer cases — client first, disclose conflicts, reasonable basis, follow the stricter rule.",
+    ],
+  },
+
+  {
+    id: "cfa3-behavioral",
+    examSlug: "cfa-l3",
+    topicId: "behavioral",
+    topicName: "Behavioral Finance",
+    title: "Behavioral Finance: Biases, Markets, and the Client",
+    readingMinutes: 14,
+    summary: "The cognitive and emotional biases that drive investors, how they show up in markets, and how an adviser manages them in practice.",
+    intro:
+      "Traditional finance assumes rational investors; behavioral finance studies the real ones. Level III tests the major biases, the distinction that governs how you treat them, the market anomalies they help explain, and — most practically — how an adviser builds and presents a portfolio a biased human will actually keep.",
+    sections: [
+      {
+        heading: "Cognitive vs emotional biases",
+        blocks: [
+          { kind: "p", text: "Biases split into two families, and the split dictates the remedy. Cognitive errors are flaws in reasoning or information processing — anchoring (clinging to a reference point), availability (overweighting vivid or recent data), confirmation (seeking agreeing evidence), representativeness, and conservatism. Because they're reasoning errors, they can be MODERATED with education and better process. Emotional biases stem from feelings — loss aversion (losses hurt roughly twice as much as equivalent gains help), overconfidence, self-control, regret aversion, and status-quo bias. Because they're rooted in emotion, it's usually wiser to ADAPT the portfolio to them than to fight them." },
+          { kind: "callout", label: "The governing rule", body: "Moderate cognitive biases (educate, add process); adapt to emotional biases (build a plan the client can emotionally live with). The greater the client's wealth relative to needs and the more emotional the bias, the more you adapt rather than correct." },
+        ],
+      },
+      {
+        heading: "Biases in markets and portfolios",
+        blocks: [
+          { kind: "p", text: "Aggregated across investors, biases help explain market behavior that pure rationality can't: momentum and overreaction, bubbles and crashes (herding plus overconfidence), and anomalies like the value and size effects. At the portfolio level, behavioral portfolio theory describes how real investors build portfolios in layered 'mental accounts' — a safety layer and a speculative layer — rather than one mean-variance-optimal whole, which can leave them under-diversified relative to theory." },
+        ],
+      },
+      {
+        heading: "Managing the client",
+        blocks: [
+          { kind: "p", text: "The adviser's practical task is to diagnose a client's dominant biases, then construct and frame the portfolio accordingly. A useful heuristic: a portfolio that deviates only slightly from the rational optimum to accommodate a client's emotional biases (so they'll stay invested) often beats a theoretically perfect portfolio the client abandons in a panic. Communication is the lever — framing recommendations around the client's goals, pre-committing to a rebalancing policy, and using the IPS as a behavioral anchor when markets get frightening. Behavior, not analysis, usually decides whether a long-term plan survives." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Cognitive bias", def: "A reasoning/information error (anchoring, availability, confirmation) that can be moderated with education and process." },
+      { term: "Emotional bias", def: "A feeling-driven error (loss aversion, overconfidence, regret) usually better adapted to than corrected." },
+      { term: "Loss aversion", def: "Losses felt roughly twice as intensely as equal gains, causing investors to hold losers and sell winners early." },
+      { term: "Behavioral portfolio theory", def: "Investors build layered 'mental account' portfolios (safety + speculative) rather than one optimal whole." },
+      { term: "Adapt vs moderate", def: "Adapt the plan to strong emotional biases; moderate cognitive biases through education." },
+    ],
+    takeaways: [
+      "Moderate cognitive biases with education/process; adapt the portfolio to emotional biases.",
+      "Aggregated biases help explain momentum, bubbles, and the value/size anomalies.",
+      "Behavioral portfolio theory: real investors layer mental accounts, often under-diversifying.",
+      "A slightly sub-optimal portfolio the client keeps beats a perfect one they abandon — manage behavior through framing and the IPS.",
+    ],
+  },
+
+  {
+    id: "cfa3-trading",
+    examSlug: "cfa-l3",
+    topicId: "trading",
+    topicName: "Trading & Execution",
+    title: "Trading, Execution, and Manager Selection",
+    readingMinutes: 13,
+    summary: "Why execution quality is part of return, how to measure trading costs, and how to choose and monitor external managers.",
+    intro:
+      "A great investment idea poorly executed is a mediocre result. Level III treats trading as a source of return — or leakage — and holds managers responsible for best execution. It also covers how an investor selects and oversees the external managers who run much of an institutional portfolio.",
+    sections: [
+      {
+        heading: "Execution and transaction costs",
+        blocks: [
+          { kind: "p", text: "Trading costs are more than commissions. The big, hidden costs are the bid-ask spread, market impact (your own order pushing the price against you), and delay/opportunity cost (the price moving while you wait). Implementation shortfall captures all of it: the difference between the return of a 'paper' portfolio that transacted instantly at the decision price and the real portfolio after actual execution costs. Minimizing implementation shortfall — through patient or algorithmic execution, choosing the right venue, and balancing speed against impact — directly improves net return." },
+          { kind: "callout", label: "The execution trade-off", body: "Trade too fast and you pay market impact; trade too slow and you pay opportunity cost as the price drifts away. The art of execution is balancing the two, and algorithms (VWAP, implementation-shortfall strategies) automate that balance." },
+        ],
+      },
+      {
+        heading: "Best execution and the duty",
+        blocks: [
+          { kind: "p", text: "Managers have a duty to seek best execution — the most favorable terms reasonably available — as part of their fiduciary obligation to clients. This is why directing trades for personal benefit, or to pay for non-research services, raises ethical flags, and why soft-dollar arrangements must benefit clients and be disclosed. Best execution is evaluated over time with transaction cost analysis, not judged on any single trade." },
+        ],
+      },
+      {
+        heading: "Selecting and monitoring managers",
+        blocks: [
+          { kind: "p", text: "Institutions delegate much of their portfolio to external managers, so manager selection and oversight is itself a skill. Due diligence weighs the investment process and philosophy, the people and their incentive alignment, performance net of fees against an appropriate benchmark, and — critically — operational controls, a frequent source of failures. Selection doesn't end at hiring: managers are monitored for style drift, organizational changes, and performance consistent with their stated process, and replaced when the thesis for hiring them no longer holds. Throughout, fees are scrutinized because they compound directly against net return." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Implementation shortfall", def: "The gap between a paper portfolio transacting instantly at the decision price and the real portfolio after execution costs." },
+      { term: "Market impact", def: "The adverse price movement caused by one's own order; rises with trade size and urgency." },
+      { term: "Best execution", def: "The fiduciary duty to obtain the most favorable terms reasonably available for client trades." },
+      { term: "Transaction cost analysis (TCA)", def: "Evaluating execution quality over many trades rather than judging a single fill." },
+      { term: "Manager due diligence", def: "Vetting process, people, performance, and especially operations before hiring and continuously after." },
+    ],
+    takeaways: [
+      "Real trading cost = spread + market impact + delay; implementation shortfall measures the whole leakage.",
+      "Execution balances speed (impact) against patience (opportunity cost) — algorithms automate the trade-off.",
+      "Managers owe a duty of best execution, evaluated over time via TCA; soft dollars must benefit clients and be disclosed.",
+      "Manager selection weighs process, people, net performance, and operations — then monitors for drift and replaces when the thesis breaks.",
+    ],
+  },
 ];
 
 const questions: Question[] = [

@@ -184,6 +184,99 @@ const chapters: Chapter[] = [
       "Passive, low-cost strategies are hard to beat consistently after fees.",
     ],
   },
+
+  {
+    id: "s66-economics",
+    examSlug: "series-66",
+    topicId: "economics",
+    topicName: "Economic Factors & Business Information",
+    title: "Economic Factors & Business Information",
+    readingMinutes: 14,
+    summary: "The business cycle, monetary and fiscal policy, interest rates, and the indicators an adviser uses to read the economy.",
+    intro:
+      "The Series 66 expects an adviser to understand the economic backdrop in which they recommend investments. That means the business cycle, how the government and central bank steer the economy, the behavior of interest rates and the yield curve, and the indicators that signal where things are heading. You won't forecast the economy on the exam, but you must reason about how these forces move different investments.",
+    sections: [
+      {
+        heading: "The business cycle and indicators",
+        blocks: [
+          { kind: "p", text: "Economies move through a repeating cycle: expansion (growing output and employment), a peak, contraction or recession (a sustained decline — commonly two consecutive quarters of falling GDP), and a trough before the next expansion. Gross domestic product is the headline measure of output, and inflation (a sustained rise in the general price level, tracked by the CPI) is the variable policymakers watch most closely." },
+          { kind: "p", text: "Advisers classify indicators by timing. Leading indicators (stock prices, building permits, new manufacturing orders, consumer expectations) tend to turn BEFORE the economy and help anticipate change. Coincident indicators (GDP, nonfarm employment, industrial production) move WITH the economy. Lagging indicators (the average duration of unemployment, the CPI, the prime rate) confirm a trend after it has occurred." },
+        ],
+      },
+      {
+        heading: "Monetary and fiscal policy",
+        blocks: [
+          { kind: "p", text: "Two levers steer the macroeconomy. Monetary policy is run by the Federal Reserve, which adjusts the money supply and interest rates through open-market operations (buying securities to ease, selling to tighten), the discount rate, and reserve requirements. Easier money lowers rates to stimulate borrowing and spending; tighter money raises rates to cool inflation. Fiscal policy is run by Congress and the President through taxation and government spending: tax cuts or higher spending stimulate demand, while tax hikes or spending cuts restrain it." },
+          { kind: "callout", label: "Rates, the curve, and bond prices", body: "Bond prices move inversely to interest rates. The yield curve usually slopes upward (longer maturities yield more); an inverted curve (short rates above long) has historically preceded recessions and is a closely watched warning sign." },
+        ],
+      },
+      {
+        heading: "Analyzing a company",
+        blocks: [
+          { kind: "p", text: "Advisers also read business information. The time value of money underlies every projection — a dollar today is worth more than a dollar later, so future cash flows are discounted to the present. Basic financial-statement analysis rounds it out: liquidity ratios (current ratio = current assets ÷ current liabilities) gauge short-term solvency, while leverage and profitability measures describe how a company is financed and how well it converts sales into earnings. The point isn't to become an analyst but to connect a security's fundamentals and the economic environment to a suitable recommendation." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Business cycle", def: "The recurring sequence of expansion, peak, contraction (recession), and trough." },
+      { term: "Leading indicators", def: "Data (stock prices, building permits, new orders) that tend to turn before the overall economy." },
+      { term: "Monetary policy", def: "Federal Reserve actions on the money supply and interest rates via open-market operations, the discount rate, and reserve requirements." },
+      { term: "Fiscal policy", def: "Government use of taxation and spending to influence aggregate demand." },
+      { term: "Inverted yield curve", def: "Short-term yields above long-term yields; historically a recession warning." },
+    ],
+    takeaways: [
+      "Know the cycle (expansion → peak → contraction → trough) and classify indicators as leading, coincident, or lagging.",
+      "Monetary policy = the Fed moving money/rates; fiscal policy = Congress moving taxes/spending.",
+      "Bond prices move inversely to rates; an inverted yield curve is a classic recession signal.",
+      "Time value of money and basic ratios connect fundamentals to a suitable recommendation.",
+    ],
+  },
+
+  {
+    id: "s66-vehicles",
+    examSlug: "series-66",
+    topicId: "vehicles",
+    topicName: "Investment Vehicle Characteristics",
+    title: "Investment Vehicle Characteristics",
+    readingMinutes: 15,
+    summary: "Equities, fixed income, pooled funds, derivatives, and insurance-based products — what each is, and the suitability angle on each.",
+    intro:
+      "An adviser has to know the tools of the trade. The Series 66 surveys the major investment vehicles — equity, debt, pooled funds, derivatives, and insurance products — and tests whether you understand each one's risk, return, liquidity, and tax features well enough to match it to a client.",
+    sections: [
+      {
+        heading: "Equity and fixed income",
+        blocks: [
+          { kind: "p", text: "Common stock represents ownership: voting rights, dividends (not guaranteed), and the greatest growth potential but the last claim in liquidation. Preferred stock pays a fixed dividend and ranks ahead of common, behaving more like a fixed-income hybrid. Debt securities are loans: corporate bonds (higher yield, credit risk), U.S. Treasuries (backed by the government, the credit-risk benchmark), municipal bonds (interest typically exempt from federal tax — attractive to high-bracket investors), and agency securities. The core relationships never change: bond prices move inversely to rates, and longer maturity and lower credit quality both raise yield and risk." },
+        ],
+      },
+      {
+        heading: "Pooled investments",
+        blocks: [
+          { kind: "p", text: "Most retail portfolios are built from pooled vehicles. Open-end mutual funds continuously issue and redeem shares at net asset value (NAV), priced once daily (forward pricing); they come in share classes (A: front-end load; B: back-end/deferred; C: level load) with different fee timing. Closed-end funds issue a fixed number of shares that then trade on an exchange at a market price that can be above or below NAV. Exchange-traded funds (ETFs) trade intraday like stocks, usually track an index, and are low-cost and tax-efficient. Unit investment trusts hold a fixed, unmanaged portfolio for a set term." },
+          { kind: "callout", label: "NAV vs market price", body: "Open-end mutual fund shares transact at NAV (next computed). Closed-end fund and ETF shares trade at a market price set by supply and demand, which can differ from NAV — a premium or a discount." },
+        ],
+      },
+      {
+        heading: "Derivatives and insurance-based products",
+        blocks: [
+          { kind: "p", text: "Options give the right (not the obligation) to buy (call) or sell (put) an underlying at a set strike; they're used to hedge or to speculate, and the seller (writer) takes on the obligation in exchange for a premium. Insurance-based products blend protection and investment: a fixed annuity guarantees a rate and is an insurance-company obligation, while a variable annuity invests in subaccounts (the separate account) so returns — and risk — pass to the owner, with tax-deferred growth but often high fees and surrender charges. The exam's lens is always suitability: a product's complexity, cost, liquidity, and tax treatment must fit the client's objectives and sophistication." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Common vs preferred stock", def: "Common: voting, variable dividend, last in liquidation, most upside. Preferred: fixed dividend, priority over common." },
+      { term: "Municipal bond", def: "A government-issued bond whose interest is typically exempt from federal income tax, favoring high-bracket investors." },
+      { term: "Open-end vs closed-end fund", def: "Open-end funds transact at NAV; closed-end funds trade on an exchange at a market price that can differ from NAV." },
+      { term: "Mutual fund share classes", def: "A (front-end load), B (deferred/back-end), C (level load) — different fee timing for the same portfolio." },
+      { term: "Variable annuity", def: "An insurance product investing in separate-account subaccounts; tax-deferred growth with investment risk on the owner." },
+    ],
+    takeaways: [
+      "Equity = ownership/growth (common last in liquidation); preferred is a fixed-dividend hybrid; munis are tax-favored for high brackets.",
+      "Open-end funds trade at NAV; closed-end funds and ETFs trade at market prices that can be a premium or discount.",
+      "Know the share classes (A/B/C) and that ETFs are low-cost, intraday, and tax-efficient.",
+      "Options transfer obligation to the writer for a premium; variable annuities pass investment risk to the owner — judge everything by suitability.",
+    ],
+  },
 ];
 
 const questions: Question[] = [

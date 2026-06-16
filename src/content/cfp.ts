@@ -305,6 +305,145 @@ const chapters: Chapter[] = [
       "Annual gifting, the marital deduction, and step-up in basis transfer wealth tax-efficiently.",
     ],
   },
+
+  {
+    id: "cfp-investment",
+    examSlug: "cfp",
+    topicId: "investment",
+    topicName: "Investment Planning",
+    title: "Investment Planning: Risk, Return, and Asset Allocation",
+    readingMinutes: 16,
+    summary: "The risk-return tradeoff, the types of risk, diversification and correlation, and how asset allocation drives a client's results.",
+    intro:
+      "Investment planning translates a client's goals into a portfolio. A CFP professional must understand how risk and return relate, the kinds of risk a portfolio faces, why diversification works, and how asset allocation — far more than security selection — drives long-run outcomes. The aim isn't to pick winners; it's to build a portfolio the client can actually stick with.",
+    sections: [
+      {
+        heading: "Risk, return, and the types of risk",
+        blocks: [
+          { kind: "p", text: "The central tradeoff is simple: higher expected return requires accepting higher risk (variability of outcomes), and no strategy escapes it. Risk comes in two broad families. Systematic (market) risk — recessions, interest-rate moves, inflation — affects everything and cannot be diversified away. Unsystematic risk is specific to a company or sector (a product recall, a default) and CAN be reduced by holding many uncorrelated investments. Within these sit named risks the exam expects: interest-rate risk, inflation (purchasing-power) risk, default/credit risk, liquidity risk, and reinvestment risk." },
+          { kind: "callout", label: "Only systematic risk is rewarded", body: "Because unsystematic risk can be diversified away for free, the market doesn't pay you to bear it. Expected return compensates you for systematic (market) risk — the intuition behind beta and the capital asset pricing model." },
+        ],
+      },
+      {
+        heading: "Diversification and correlation",
+        blocks: [
+          { kind: "p", text: "Diversification works because assets don't move in lockstep. Combining investments with low or negative correlation reduces a portfolio's overall volatility for a given expected return — the only true 'free lunch' in investing. The lower the correlation between holdings, the greater the risk reduction. This is why a portfolio is built across asset classes (stocks, bonds, cash, real assets) and within them, rather than concentrated in a few favorites, however attractive." },
+          { kind: "p", text: "Returns are measured carefully. The holding-period return captures total gain (income plus price change) over a period. When cash flows are added or withdrawn, the time-weighted return measures the manager's performance (it strips out the timing of the client's deposits), while the dollar-weighted (money-weighted) return reflects the client's actual experience including timing. Always adjust for inflation to judge real purchasing power, and for taxes to judge what the client keeps." },
+        ],
+      },
+      {
+        heading: "Asset allocation drives results",
+        blocks: [
+          { kind: "p", text: "The most consequential decision is asset allocation — the mix among asset classes — which research credits with the large majority of the variability in a portfolio's returns over time, far more than individual security selection or market timing. Strategic asset allocation sets long-term target weights from the client's goals, time horizon, and risk tolerance, then rebalances back to them as markets drift. Rebalancing mechanically sells what has risen and buys what has lagged, controlling risk and enforcing discipline. The planner's job is to set an allocation the client understands and can hold through downturns — because the best portfolio is the one the client won't abandon at the bottom." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Systematic vs unsystematic risk", def: "Market-wide risk that can't be diversified away vs company-specific risk that can; only systematic risk is rewarded." },
+      { term: "Correlation", def: "How closely two assets move together; combining low-correlation assets reduces portfolio volatility." },
+      { term: "Time-weighted vs dollar-weighted return", def: "Time-weighted judges the manager (ignores cash-flow timing); dollar-weighted reflects the client's actual experience." },
+      { term: "Strategic asset allocation", def: "Long-term target weights set from goals and risk tolerance, maintained by rebalancing." },
+      { term: "Rebalancing", def: "Restoring target weights by selling winners and buying laggards, controlling risk and enforcing discipline." },
+    ],
+    takeaways: [
+      "Higher expected return demands higher risk; only systematic (market) risk is compensated.",
+      "Low correlation is the engine of diversification — it cuts volatility for a given return.",
+      "Use time-weighted return to judge a manager, dollar-weighted to reflect the client; adjust for inflation and taxes.",
+      "Asset allocation drives most of long-run results — set a strategic mix the client can actually stick with, and rebalance.",
+    ],
+  },
+
+  {
+    id: "cfp-education",
+    examSlug: "cfp",
+    topicId: "education",
+    topicName: "Education Planning",
+    title: "Education Planning: 529s, ESAs, and Education Tax Breaks",
+    readingMinutes: 13,
+    summary: "The tax-advantaged ways to save for school, how custodial accounts and financial aid interact, and the education tax credits.",
+    intro:
+      "Funding education is one of the most common planning goals, and the tools have very different rules. A CFP professional needs to know which savings vehicle fits, how each is treated for taxes and financial aid, and how to capture the education tax credits that reduce the family's bill.",
+    sections: [
+      {
+        heading: "The main savings vehicles",
+        blocks: [
+          { kind: "p", text: "The 529 plan is the workhorse: contributions grow tax-free and distributions are tax-free when used for qualified education expenses, with high lifetime contribution limits and the account owner (usually a parent) keeping control. A Coverdell Education Savings Account (ESA) also grows tax-free for qualified expenses but is capped at $2,000 per beneficiary per year and phases out at higher incomes — its advantage is broad flexibility for K-12 as well as college. Custodial accounts (UTMA/UGMA) aren't education-specific: the assets become the child's at the age of majority and can be spent on anything, with earnings subject to the 'kiddie tax.'" },
+          { kind: "callout", label: "529 gifting trick", body: "A 529 lets a donor 'superfund' by contributing up to five years of annual gift-tax exclusions at once (per beneficiary) without using lifetime exemption — a powerful way to move money and growth out of a taxable estate quickly." },
+        ],
+      },
+      {
+        heading: "Financial aid interaction",
+        blocks: [
+          { kind: "p", text: "How an account is owned affects financial aid. Assets owned by the parent (including a parent-owned 529) are assessed at a relatively low rate in the aid formula, while assets owned by the student (such as a UTMA/UGMA) are assessed much more heavily — so a custodial account can reduce aid eligibility more than a parent-owned 529. This ownership nuance is a frequent planning point: the same dollars can help or hurt depending on whose name they're in." },
+        ],
+      },
+      {
+        heading: "Education tax credits",
+        blocks: [
+          { kind: "p", text: "Two credits cut the tax bill directly. The American Opportunity Tax Credit (AOTC) is worth up to $2,500 per student for the first four years of undergraduate study and is partially refundable. The Lifetime Learning Credit is worth up to $2,000 per tax return (20% of up to $10,000 of expenses), with no year limit, covering graduate and continuing education. Both phase out at higher incomes, you generally can't claim both for the same student in the same year, and you can't double-dip by using tax-free 529 dollars and a credit for the same expense. There's also an above-the-line deduction for student-loan interest. Coordinating these with savings withdrawals is where the planner adds value." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "529 plan", def: "A high-limit, owner-controlled account that grows tax-free for qualified education expenses." },
+      { term: "Coverdell ESA", def: "A $2,000/year, income-limited education account, flexible for K-12 and college, growing tax-free for qualified costs." },
+      { term: "UTMA/UGMA (custodial)", def: "Accounts that become the child's at majority; usable for anything, with earnings subject to the kiddie tax." },
+      { term: "American Opportunity Tax Credit", def: "Up to $2,500 per student for the first four undergraduate years, partially refundable." },
+      { term: "Lifetime Learning Credit", def: "Up to $2,000 per return (20% of $10,000), with no year limit, covering graduate/continuing education." },
+    ],
+    takeaways: [
+      "529s offer tax-free growth, high limits, and owner control; Coverdell ESAs add K-12 flexibility but cap at $2,000/year.",
+      "Account ownership matters for aid: parent-owned assets count far less than student-owned custodial accounts.",
+      "Capture the AOTC ($2,500) and Lifetime Learning Credit ($2,000) — but don't double-dip with tax-free 529 dollars.",
+      "Superfunding a 529 (5 years of gifts at once) moves money and growth out of the estate fast.",
+    ],
+  },
+
+  {
+    id: "cfp-psychology",
+    examSlug: "cfp",
+    topicId: "psychology",
+    topicName: "Psychology of Financial Planning",
+    title: "The Psychology of Financial Planning",
+    readingMinutes: 12,
+    summary: "The behavioral biases that derail good plans, the money beliefs clients carry, and how a planner coaches rather than just calculates.",
+    intro:
+      "A technically perfect plan fails if the client won't follow it. The newest CFP domain recognizes that financial planning is as much about behavior as math: understanding the biases and beliefs that drive decisions, communicating in a way that builds trust, and helping clients act in their own long-term interest.",
+    sections: [
+      {
+        heading: "Cognitive vs emotional biases",
+        blocks: [
+          { kind: "p", text: "Behavioral biases split into two types, and the distinction matters for how you address them. Cognitive errors are faulty reasoning — they can be corrected with information and better process. Examples: anchoring (over-relying on a reference number), availability (overweighting vivid recent events), confirmation bias (seeking agreeing evidence), and framing (deciding differently based on how a choice is worded). Emotional biases arise from feelings and are harder to correct — you often must adapt to them rather than argue them away. Examples: loss aversion (feeling losses about twice as intensely as equal gains), overconfidence, regret aversion, and status-quo/inertia bias." },
+          { kind: "callout", label: "Adapt or moderate", body: "A practical rule: for cognitive biases, educate and improve the process to MODERATE them; for deep emotional biases, it's often wiser to ADAPT the plan to the client's psychology so they'll actually stick to it. Fighting a strong emotional bias head-on usually loses." },
+        ],
+      },
+      {
+        heading: "Money scripts and how biases show up",
+        blocks: [
+          { kind: "p", text: "Clients carry 'money scripts' — often unconscious beliefs about money formed in childhood (money avoidance, money worship, money status, money vigilance) that quietly drive behavior. Biases surface in predictable, damaging ways: investors hold losers too long (loss aversion) and sell winners too soon, chase recent performance (recency), follow the crowd into bubbles (herding), and freeze on important decisions (status-quo bias). The planner's job is to recognize the pattern behind a client's resistance, not just to repeat the spreadsheet." },
+        ],
+      },
+      {
+        heading: "Communication and counseling",
+        blocks: [
+          { kind: "p", text: "Because behavior drives outcomes, communication is a core skill. Effective planners use active listening, open-ended questions, and empathy to understand a client's goals and fears, and they frame recommendations around the client's own values rather than jargon. Building trust and rapport is what allows a planner to coach a client through a market panic — the moment when behavior, not analysis, determines whether the plan survives. In short: the CFP professional is part analyst, part behavioral coach, and the second role often decides success." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Cognitive bias", def: "A faulty-reasoning error (anchoring, availability, confirmation, framing) that can be corrected with information and process." },
+      { term: "Emotional bias", def: "A feeling-driven error (loss aversion, overconfidence, regret aversion) that is often better adapted to than argued away." },
+      { term: "Loss aversion", def: "Feeling losses roughly twice as intensely as equal gains, leading to holding losers and selling winners too early." },
+      { term: "Money scripts", def: "Often-unconscious beliefs about money formed early in life that quietly drive financial behavior." },
+      { term: "Adapt vs moderate", def: "Moderate (correct) cognitive biases through education; adapt the plan around strong emotional biases." },
+    ],
+    takeaways: [
+      "Cognitive biases can be corrected with better information; emotional biases usually must be adapted to.",
+      "Watch for loss aversion, recency, herding, overconfidence, and status-quo inertia — they wreck good plans.",
+      "Money scripts from childhood quietly drive behavior; address the pattern, not just the math.",
+      "Communication and trust are what let a planner coach a client through panic — behavior decides whether the plan survives.",
+    ],
+  },
 ];
 
 const questions: Question[] = [

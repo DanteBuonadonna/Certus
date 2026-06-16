@@ -542,6 +542,328 @@ const chapters: Chapter[] = [
       "Structural models explain default economically (leverage, asset volatility); reduced-form models fit it statistically.",
     ],
   },
+
+  {
+    id: "cfa2-quant",
+    examSlug: "cfa-l2",
+    topicId: "quant",
+    topicName: "Quantitative Methods",
+    title: "Quantitative Methods: Multiple Regression and Time Series",
+    readingMinutes: 16,
+    summary: "Reading regression output the way the vignettes test it — coefficients, the three assumption violations, and what makes a time series usable.",
+    intro:
+      "Level II Quant is almost entirely about multiple regression and time series, and the item sets rarely ask you to run a regression — they hand you the output and ask whether you can trust it. The whole game is interpretation: what a coefficient means, whether the model is statistically sound, and how to spot and fix the three violations that wreck a regression's standard errors. Master the diagnostics and this topic becomes free points.",
+    sections: [
+      {
+        heading: "Reading a multiple regression",
+        blocks: [
+          { kind: "p", text: "A multiple regression estimates Y from several independent variables: Y = b0 + b1X1 + b2X2 + … + ε. Each slope coefficient is a partial effect — the change in Y for a one-unit change in that X, holding all other variables constant. That 'holding others constant' clause is the heart of every interpretation question." },
+          { kind: "p", text: "Two significance tests appear constantly. A t-test on an individual coefficient (estimate ÷ standard error) asks whether that one variable matters; compare the t-stat to the critical value or check whether its confidence interval excludes zero. The F-test asks a joint question — are ALL the slopes simultaneously zero? A significant F with insignificant individual t-stats is the classic fingerprint of multicollinearity. Use adjusted R², not R², to compare models with different numbers of variables, because plain R² never falls when you add a regressor, even a useless one." },
+          { kind: "callout", label: "R² vs adjusted R²", body: "Adjusted R² penalizes you for adding variables: adjusted R² = 1 − [(n − 1)/(n − k − 1)](1 − R²). It can fall when a weak variable is added, which is exactly why it's the honest tool for model comparison." },
+        ],
+      },
+      {
+        heading: "The three violations",
+        blocks: [
+          { kind: "p", text: "Almost every Quant vignette plants one of three assumption violations. Each leaves a signature, and each has a standard fix — memorize the table and you'll catch them on sight." },
+          { kind: "table", table: { caption: "Table 1 — The three regression violations the exam tests.", headers: ["Violation", "Effect / signature", "Detect", "Fix"], rows: [["Heteroskedasticity (non-constant error variance)", "Biased standard errors → unreliable t-tests (often too many false 'significant' results)", "Breusch-Pagan test", "Robust (White) standard errors"], ["Serial correlation (errors correlated over time)", "Standard errors too small → t-stats inflated", "Durbin-Watson (≈2 = none)", "Newey-West (robust) standard errors"], ["Multicollinearity (X's highly correlated)", "High R²/significant F but insignificant t-stats; inflated SEs", "Correlations / VIF", "Drop a variable; get more data"]] } },
+          { kind: "p", text: "Note what all three attack: the standard errors, not the coefficients themselves. That's why the coefficients can still look reasonable while the t-tests lie to you — and why 'use robust standard errors' is the right answer so often." },
+        ],
+      },
+      {
+        heading: "Time series essentials",
+        blocks: [
+          { kind: "p", text: "Time-series models predict a variable from its own past. A trend model fits a straight line (linear) or a constant growth rate (log-linear) to time. An autoregressive (AR) model regresses the variable on its own lagged values. The non-negotiable requirement for an AR model is covariance stationarity — a constant mean and variance over time. If the series has a unit root (a random walk, where the lag coefficient equals 1), it is not stationary and the regression is spurious." },
+          { kind: "p", text: "The exam's logic chain: test for a unit root with the Dickey-Fuller test; if the series is non-stationary, first-difference it (model the change rather than the level) and re-test. Compare competing models with the root mean squared error (RMSE) on out-of-sample data — the lower RMSE forecasts better. Watch for seasonality, which shows up as a significant autocorrelation at the seasonal lag and is fixed by adding a seasonal lag term." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Partial slope coefficient", def: "The change in Y per unit change in one X, holding all other independent variables constant." },
+      { term: "Adjusted R²", def: "R² penalized for the number of regressors; the honest measure for comparing models of different size." },
+      { term: "Heteroskedasticity", def: "Non-constant error variance; biases standard errors and is fixed with robust (White) standard errors." },
+      { term: "Serial correlation", def: "Correlated errors over time; inflates t-stats and is fixed with Newey-West standard errors." },
+      { term: "Covariance stationarity", def: "Constant mean and variance over time — the prerequisite for a valid autoregressive model." },
+    ],
+    takeaways: [
+      "Each slope is a partial effect; the F-test is joint, the t-test is individual — significant F with weak t's screams multicollinearity.",
+      "All three violations corrupt the STANDARD ERRORS, not the coefficients — that's why robust SEs fix so much.",
+      "Use adjusted R² (not R²) to compare models with different numbers of variables.",
+      "AR models require covariance stationarity; test for a unit root (Dickey-Fuller), first-difference if needed, and pick models by out-of-sample RMSE.",
+    ],
+  },
+
+  {
+    id: "cfa2-econ",
+    examSlug: "cfa-l2",
+    topicId: "econ",
+    topicName: "Economics",
+    title: "Economics: Currency Exchange Rates and the Parity Conditions",
+    readingMinutes: 15,
+    summary: "Forward premiums, covered and uncovered interest rate parity, and the chain of parity conditions the exam builds vignettes around.",
+    intro:
+      "Level II Economics is dominated by currencies. The exam wants you to quote exchange rates correctly, compute a forward rate from interest rates, and reason through the parity conditions that link interest rates, inflation, spot rates, and forward rates. Get the quoting convention straight and the rest is arithmetic.",
+    sections: [
+      {
+        heading: "Quotes and forward premiums",
+        blocks: [
+          { kind: "p", text: "An exchange rate is a price: in the convention price-currency/base-currency (e.g., USD/EUR = 1.10 means 1 euro costs 1.10 dollars), the base currency is the one being priced. Dealers quote a bid (the price they buy the base at) and a higher ask (the price they sell it at); the spread widens with volatility, longer maturities, and less liquidity." },
+          { kind: "p", text: "A forward rate differs from spot by forward points. The currency with the LOWER interest rate trades at a forward premium; the higher-rate currency trades at a forward discount — a direct consequence of no-arbitrage. Intuitively, the market must take away in the forward market what you'd gain by holding the higher-yielding currency, or riskless profit would exist." },
+        ],
+      },
+      {
+        heading: "Covered vs uncovered interest rate parity",
+        blocks: [
+          { kind: "p", text: "Covered interest rate parity (CIRP) is an arbitrage relationship and therefore holds tightly: the forward rate is set so that hedged returns are identical across currencies. Quoting price/base, F = S × (1 + r_price)/(1 + r_base) for the period. Because it's enforced by arbitrage, CIRP is the one parity condition you can rely on to compute a forward rate." },
+          { kind: "example", example: { title: "the covered-parity forward rate", prompt: "Spot USD/EUR = 1.10. One-year rates: USD 5%, EUR 3%. What is the no-arbitrage 1-year forward USD/EUR?", steps: ["Price currency is USD, base is EUR. F = S × (1 + r_USD)/(1 + r_EUR).", "F = 1.10 × (1.05 / 1.03) = 1.10 × 1.01942.", "F ≈ 1.1214 USD/EUR."], answer: "≈ 1.1214 — the higher-rate USD is at a forward discount (more USD per EUR forward), exactly offsetting its yield advantage." } },
+          { kind: "p", text: "Uncovered interest rate parity (UIRP) is NOT an arbitrage condition — it's a theory about expectations: the higher-yielding currency is expected to depreciate by roughly the interest-rate differential, so expected returns are equalized unhedged. UIRP often fails in the short run (the basis for the carry trade), but anchors long-run thinking. Layer on the rest: purchasing power parity links exchange rates to inflation differentials, and the international Fisher effect links nominal rate differentials to expected inflation differentials." },
+        ],
+      },
+      {
+        heading: "Growth and its sources",
+        blocks: [
+          { kind: "p", text: "Beyond currencies, the exam tests the drivers of long-run growth. Output grows through more labor, more capital, and — most importantly for sustained per-capita gains — total factor productivity (TFP), the efficiency with which inputs are combined. Capital deepening (more capital per worker) raises output but faces diminishing returns; only technological progress (rising TFP) sustains growth indefinitely. Sound institutions, property rights, and openness to trade and technology are the conditions that let TFP rise." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Base vs price currency", def: "In price/base notation the base is the currency being priced; the rate is units of price currency per one base unit." },
+      { term: "Forward premium/discount", def: "The lower-interest-rate currency trades at a forward premium; the higher-rate currency at a discount." },
+      { term: "Covered interest rate parity", def: "An arbitrage condition that sets the forward rate so hedged returns are equal across currencies; it holds." },
+      { term: "Uncovered interest rate parity", def: "A theory that the higher-yielding currency is expected to depreciate by the rate differential; often fails short-term." },
+      { term: "Total factor productivity (TFP)", def: "The efficiency of combining labor and capital; rising TFP is what sustains long-run per-capita growth." },
+    ],
+    takeaways: [
+      "Get the quote convention right first: price/base means units of price currency per one base-currency unit.",
+      "The lower-rate currency is at a forward premium — no-arbitrage offsets any yield advantage.",
+      "CIRP holds (arbitrage) and gives the forward rate; UIRP is an expectations theory that often breaks short-term.",
+      "Long-run growth ultimately comes from rising total factor productivity, not just adding capital.",
+    ],
+  },
+
+  {
+    id: "cfa2-corp",
+    examSlug: "cfa-l2",
+    topicId: "corp",
+    topicName: "Corporate Issuers",
+    title: "Corporate Issuers: Capital Structure and Payout Policy",
+    readingMinutes: 15,
+    summary: "Modigliani-Miller with and without taxes, the trade-off theory's optimal leverage, and the real effect of dividends vs buybacks.",
+    intro:
+      "Level II Corporate Issuers sharpens two Level I ideas into testable models: how much debt a firm should use, and how it should return cash. The Modigliani-Miller propositions are the scaffolding for capital structure, and the dividend-versus-buyback analysis is a favorite because it rewards candidates who can do the EPS arithmetic and reason about signaling.",
+    sections: [
+      {
+        heading: "Capital structure: from MM to the trade-off",
+        blocks: [
+          { kind: "p", text: "Start from the Modigliani-Miller world with no taxes: capital structure is irrelevant — the value of the firm is set by its assets, and adding debt just reshuffles risk between debt and equity holders (Proposition I). As leverage rises, the cost of equity rises exactly enough to keep the weighted average cost of capital (WACC) constant (Proposition II)." },
+          { kind: "p", text: "Add corporate taxes and the picture tilts: because interest is tax-deductible, debt creates a tax shield, so firm value rises with leverage (VL = VU + tax rate × debt). Taken literally that implies 100% debt — which is absurd, so the static trade-off theory adds the costs of financial distress (bankruptcy risk, lost customers, fire-sale assets). The optimal capital structure is where the marginal tax benefit of one more dollar of debt equals the marginal expected cost of distress — the point that minimizes WACC and maximizes firm value." },
+          { kind: "callout", label: "Pecking order & signaling", body: "Managers prefer internal funds first, then debt, then equity last (the pecking order), because issuing equity can signal that managers think the stock is overvalued. This is why an equity issuance often pushes the share price down." },
+        ],
+      },
+      {
+        heading: "Dividends vs buybacks",
+        blocks: [
+          { kind: "p", text: "A share repurchase and a cash dividend of equal size are economically equivalent in a tax-free, efficient market — both return the same cash. In the real world they differ in tax treatment, signaling, and flexibility (dividends imply a commitment; buybacks are discretionary). A buyback's effect on EPS is a common calculation: if the after-tax yield the company earns on its cash is LESS than its earnings yield (E/P), buying back shares increases EPS; if greater, it dilutes EPS." },
+          { kind: "example", example: { title: "does a buyback lift EPS?", prompt: "A firm has $10M earnings and 5M shares (EPS = $2.00), with a stock price of $40. It uses $8M of cash (earning 3% after tax) to repurchase shares. Does EPS rise?", steps: ["Shares repurchased = $8M ÷ $40 = 200,000; new share count = 4,800,000.", "Lost after-tax income on cash = 3% × $8M = $240,000; new earnings = $9,760,000.", "New EPS = 9,760,000 ÷ 4,800,000 ≈ $2.033."], answer: "EPS rises to ≈$2.03, because the cash's 3% after-tax yield is below the 5% earnings yield (E/P = 2/40). When the earnings yield exceeds the cash yield, buybacks are accretive." } },
+        ],
+      },
+      {
+        heading: "Governance and stakeholders",
+        blocks: [
+          { kind: "p", text: "Corporate governance is the system of controls that aligns managers with the providers of capital and balances the claims of stakeholders — shareholders, creditors, employees, customers, regulators. Strong boards (independent, with real audit and compensation committees), aligned incentives, and transparency reduce agency costs. ESG factors are increasingly integrated as material risks: poor governance, environmental liabilities, or social missteps can impair cash flows and raise the cost of capital, which is why analysts fold them into valuation rather than treating them as a side issue." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "MM Proposition I (no taxes)", def: "Capital structure is irrelevant to firm value when there are no taxes or frictions." },
+      { term: "Debt tax shield", def: "The value added by deductible interest: VL = VU + (tax rate × debt) in the MM-with-taxes world." },
+      { term: "Static trade-off theory", def: "Optimal leverage balances the marginal tax benefit of debt against the marginal cost of financial distress, minimizing WACC." },
+      { term: "Pecking order", def: "Financing preference for internal funds, then debt, then equity last, due to signaling costs." },
+      { term: "Buyback accretion rule", def: "A repurchase raises EPS when the after-tax yield on the cash used is below the earnings yield (E/P)." },
+    ],
+    takeaways: [
+      "No taxes → capital structure is irrelevant; with taxes, debt adds a tax shield (VL = VU + t·D).",
+      "The trade-off theory sets optimal leverage where the tax benefit equals the distress cost — minimizing WACC.",
+      "Dividends and buybacks return the same cash; a buyback is accretive when E/P exceeds the cash's after-tax yield.",
+      "Good governance lowers agency costs and the cost of capital; ESG enters as material valuation risk.",
+    ],
+  },
+
+  {
+    id: "cfa2-deriv",
+    examSlug: "cfa-l2",
+    topicId: "deriv",
+    topicName: "Derivatives",
+    title: "Derivatives: Forward Pricing, the Binomial Model, and Swaps",
+    readingMinutes: 16,
+    summary: "Carry-arbitrage forward pricing, valuing options with a one-period binomial tree, and seeing a swap as a pair of bonds.",
+    intro:
+      "Level II Derivatives is built on one idea repeated in three settings: no-arbitrage pricing. A forward, an option, and a swap are all priced by constructing a risk-free replicating position and forbidding free money. Once you see the carry-arbitrage logic, the formulas stop being arbitrary.",
+    sections: [
+      {
+        heading: "Forwards and futures: carry arbitrage",
+        blocks: [
+          { kind: "p", text: "The forward price is whatever makes it impossible to profit from buying the asset today, carrying it, and delivering it later. With no carry costs or benefits, F0 = S0 × (1 + r)^T. Carry BENEFITS (dividends, coupons, convenience yield) lower the forward price; carry COSTS (storage) raise it. The value of a forward is zero at initiation and changes as the spot moves: to the long, it gains value when the spot rises above the locked-in forward price." },
+          { kind: "p", text: "Futures price like forwards but settle daily (mark-to-market), so cash flows occur along the way; when interest rates are correlated with the futures price, futures and forward prices can diverge slightly. For the exam, the carry-arbitrage relationship — and the direction each carry adjustment pushes the price — is the reusable tool." },
+        ],
+      },
+      {
+        heading: "Option valuation: the binomial model",
+        blocks: [
+          { kind: "p", text: "A one-period binomial model assumes the underlying moves to one of two prices. You value the option by replication — or, equivalently, with risk-neutral probabilities. The up-move risk-neutral probability is π = (1 + r − d) / (u − d), where u and d are the up and down gross returns. The option value is the risk-neutral expected payoff discounted at the risk-free rate." },
+          { kind: "example", example: { title: "a one-period binomial call", prompt: "Stock = $100; in one period it goes to $120 (u = 1.2) or $90 (d = 0.9). Risk-free rate = 4%. Value a call with strike $105.", steps: ["Payoffs: up = max(120 − 105, 0) = $15; down = max(90 − 105, 0) = $0.", "Risk-neutral prob π = (1 + r − d)/(u − d) = (1.04 − 0.9)/(1.2 − 0.9) = 0.14/0.30 = 0.4667.", "Expected payoff = 0.4667 × 15 + 0.5333 × 0 = $7.00.", "Discount: $7.00 / 1.04 ≈ $6.73."], answer: "≈ $6.73 — and notice the real-world probability of an up-move never entered the calculation; risk-neutral valuation is the point." } },
+          { kind: "p", text: "Extend the tree for more periods, and in the limit it becomes the Black-Scholes-Merton model, whose assumptions — lognormally distributed prices, constant volatility and interest rate, no transaction costs, European exercise — are themselves tested. The key BSM driver to know qualitatively is that higher volatility raises both call and put values." },
+        ],
+      },
+      {
+        heading: "Swaps as a pair of bonds",
+        blocks: [
+          { kind: "p", text: "A plain-vanilla interest-rate swap — pay fixed, receive floating — is equivalent to being short a fixed-rate bond and long a floating-rate bond. At initiation the swap is worth zero, and the fixed 'swap rate' is set so the present value of the fixed leg equals the present value of the floating leg (which prices to par at reset). As rates move, the swap takes on value: to the pay-fixed party, the swap gains value when rates rise. Seeing the swap as a portfolio of bonds (or as a series of forward rate agreements) is what lets you value it at any later date." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Carry arbitrage", def: "Pricing a forward so buy-carry-deliver yields no riskless profit; F0 = S0(1+r)^T adjusted for carry costs/benefits." },
+      { term: "Risk-neutral probability", def: "π = (1 + r − d)/(u − d); the probability used to value options by discounting expected payoffs at the risk-free rate." },
+      { term: "Black-Scholes-Merton assumptions", def: "Lognormal prices, constant volatility and rate, frictionless markets, European exercise." },
+      { term: "Plain-vanilla interest-rate swap", def: "Pay-fixed/receive-floating; equivalent to short a fixed bond and long a floating bond." },
+      { term: "Swap value to pay-fixed party", def: "Rises when interest rates rise above the fixed swap rate." },
+    ],
+    takeaways: [
+      "Everything prices by no-arbitrage: F0 = S0(1+r)^T, with carry benefits lowering and carry costs raising the forward.",
+      "Binomial option value uses risk-neutral π = (1+r−d)/(u−d); the real probability never appears.",
+      "More volatility raises BOTH call and put values; know the BSM assumptions.",
+      "A pay-fixed swap = short a fixed bond + long a floating bond, and gains value when rates rise.",
+    ],
+  },
+
+  {
+    id: "cfa2-alts",
+    examSlug: "cfa-l2",
+    topicId: "alts",
+    topicName: "Alternative Investments",
+    title: "Alternative Investments: Real Estate, Private Equity, and Commodities",
+    readingMinutes: 15,
+    summary: "Valuing income real estate with the cap rate, how private equity creates value, and why the futures curve drives commodity returns.",
+    intro:
+      "Level II takes alternatives from description to valuation. You'll value an income property with a cap rate, reason about how a private-equity deal makes money, and explain why a commodity investor can lose money even when spot prices rise. The math is light but the mechanisms are precise.",
+    sections: [
+      {
+        heading: "Income real estate",
+        blocks: [
+          { kind: "p", text: "Commercial real estate is valued three ways: the income approach, the cost approach, and sales comparison. The income approach dominates the exam. Start with net operating income (NOI) = rental and other income − operating expenses (excluding financing and taxes). The capitalization rate links NOI to value: value = NOI ÷ cap rate. A lower cap rate means a higher price for the same NOI (investors accept a lower yield for safer, prime property)." },
+          { kind: "example", example: { title: "valuing a property by cap rate", prompt: "A building generates $900,000 of NOI, and comparable properties trade at a 6% cap rate. What is its estimated value?", steps: ["Value = NOI ÷ cap rate.", "Value = 900,000 ÷ 0.06 = $15,000,000."], answer: "$15,000,000 — and note that if the cap rate compressed to 5%, the same NOI would be worth $18,000,000, showing how sensitive value is to the cap rate." } },
+        ],
+      },
+      {
+        heading: "Private equity",
+        blocks: [
+          { kind: "p", text: "Private equity buys companies to improve and resell. The two main forms are leveraged buyouts (mature companies acquired with substantial debt, where returns come from paying down debt, improving operations, and selling at a higher multiple) and venture capital (early-stage companies with high failure rates but large potential payoffs). Value is created through operational improvement, financial leverage, and multiple expansion, and is harvested at exit — an IPO, a sale to a strategic buyer, or a secondary sale. Because cash flows are lumpy and manager-controlled, performance is judged by IRR and multiples like TVPI/DPI rather than time-weighted return." },
+        ],
+      },
+      {
+        heading: "Commodities and the futures curve",
+        blocks: [
+          { kind: "p", text: "Commodities pay no income, so a futures-based investor's return is the spot price change plus the roll yield plus the collateral yield. Roll yield is the exam's favorite: when the futures curve is in contango (futures price above spot), rolling expiring contracts into more expensive later ones produces a NEGATIVE roll yield that erodes returns; when the curve is in backwardation (futures below spot), rolling produces a POSITIVE roll yield. This is why a commodity fund can underperform even as spot prices rise — the shape of the curve, not just the spot move, drives the result." },
+          { kind: "callout", label: "Contango vs backwardation", body: "Contango: futures > spot → negative roll yield (a drag). Backwardation: futures < spot → positive roll yield (a tailwind). Roll yield is often the dominant component of a commodity index's long-run return." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Net operating income (NOI)", def: "Property income minus operating expenses, before financing and taxes; the basis for income-approach valuation." },
+      { term: "Capitalization rate", def: "NOI ÷ value; a lower cap rate implies a higher price for the same income." },
+      { term: "Leveraged buyout", def: "Acquiring a mature company with significant debt, profiting from deleveraging, operational gains, and multiple expansion." },
+      { term: "Roll yield", def: "The return from rolling futures contracts; negative in contango, positive in backwardation." },
+      { term: "Contango vs backwardation", def: "Futures above spot (contango, a drag) vs futures below spot (backwardation, a tailwind) for commodity rolls." },
+    ],
+    takeaways: [
+      "Income real estate: value = NOI ÷ cap rate; a lower cap rate means a higher price.",
+      "Private equity creates value via operations, leverage, and multiple expansion, harvested at exit; judge it by IRR/multiples.",
+      "Commodity return = spot change + roll yield + collateral yield; roll yield is negative in contango, positive in backwardation.",
+      "The futures-curve shape can dominate commodity returns — spot can rise while the investment loses to negative roll.",
+    ],
+  },
+
+  {
+    id: "cfa2-pm",
+    examSlug: "cfa-l2",
+    topicId: "pm",
+    topicName: "Portfolio Management",
+    title: "Portfolio Management: Multifactor Models and Active Risk",
+    readingMinutes: 14,
+    summary: "Moving beyond single-factor CAPM to multifactor models, and the language of active return, active risk, and the information ratio.",
+    intro:
+      "Level II portfolio management extends the single-factor CAPM into multifactor models and sharpens the vocabulary of active management. The exam wants you to read a factor model, understand what each factor sensitivity means, and use the active-return framework to judge a manager.",
+    sections: [
+      {
+        heading: "From CAPM to multifactor models",
+        blocks: [
+          { kind: "p", text: "CAPM explains expected return with a single factor — the market — through beta. Multifactor models recognize that several systematic risks are priced. Arbitrage pricing theory (APT) expresses expected return as the risk-free rate plus the sum of each factor's sensitivity times its risk premium, resting on a no-arbitrage argument rather than CAPM's restrictive assumptions. Factor models come in three flavors: macroeconomic (factors are surprises in GDP, inflation, rates), fundamental (factors are characteristics like size, value, momentum), and statistical (factors extracted mathematically from returns)." },
+          { kind: "p", text: "Each factor sensitivity is interpreted like a regression slope: the expected change in return for a one-unit change in that factor, holding the others constant. Multifactor models are used to estimate expected returns, to attribute performance to factor bets, and to control risk by managing factor exposures rather than individual securities." },
+        ],
+      },
+      {
+        heading: "Active return and active risk",
+        blocks: [
+          { kind: "p", text: "Active management is measured against a benchmark. Active return is the portfolio return minus the benchmark return; active risk (tracking error) is the standard deviation of that active return. The information ratio — active return ÷ active risk — is the key gauge of skill per unit of risk taken, and it lets you compare managers running very different amounts of risk. A manager's job is to maximize the information ratio within a tracking-error budget set by the client." },
+          { kind: "callout", label: "The fundamental law", body: "Expected active return ≈ information coefficient × √breadth × active risk. Skill (IC) and the number of independent bets (breadth) both raise value-add — which is why a modestly skilled quant making thousands of small bets can rival a star stock-picker making a few." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Arbitrage pricing theory (APT)", def: "Expected return = risk-free rate + Σ(factor sensitivity × factor risk premium), based on no-arbitrage." },
+      { term: "Factor sensitivity", def: "The expected return change per unit change in a factor, holding other factors constant." },
+      { term: "Active return", def: "Portfolio return minus benchmark return." },
+      { term: "Active risk (tracking error)", def: "The standard deviation of active return; the denominator of the information ratio." },
+      { term: "Information ratio", def: "Active return ÷ active risk — active skill per unit of active risk taken." },
+    ],
+    takeaways: [
+      "Multifactor models (APT) price several systematic risks; CAPM is the single-factor special case.",
+      "Interpret factor sensitivities like regression slopes — effect per unit of factor, holding others constant.",
+      "Active return vs the benchmark, scaled by active risk, gives the information ratio — the headline skill measure.",
+      "Active value-add ≈ IC × √breadth × active risk: skill times the number of independent bets.",
+    ],
+  },
+
+  {
+    id: "cfa2-ethics",
+    examSlug: "cfa-l2",
+    topicId: "ethics",
+    topicName: "Ethics",
+    title: "Ethics: Applying the Standards and GIPS",
+    readingMinutes: 14,
+    summary: "The same Code and Standards from Level I, now tested in detailed, gray-area cases — plus what GIPS requires of a firm.",
+    intro:
+      "Ethics is the single highest-weighted topic at every level, and at Level II it's tested through dense, realistic cases. The Standards don't change — what changes is the subtlety. The winning approach is to know each Standard cold and apply it to the specific facts rather than reasoning from gut feel.",
+    sections: [
+      {
+        heading: "The Standards in application",
+        blocks: [
+          { kind: "p", text: "The seven Standards of Professional Conduct cover Professionalism; Integrity of Capital Markets; Duties to Clients; Duties to Employers; Investment Analysis, Recommendations, and Actions; Conflicts of Interest; and Responsibilities as a Member or Candidate. The most frequently tested themes: place client interests above your own and your employer's; never use or convey material non-public information (Standard II); give every recommendation a reasonable and adequate basis with diligence (Standard V); deal fairly across all clients when disseminating recommendations; and fully disclose — and where required, obtain consent for — conflicts of interest (Standard VI)." },
+          { kind: "callout", label: "The reliable tiebreaker", body: "When an employer's instruction, a local custom, or applicable law seems to conflict with the Code and Standards, follow the STRICTER requirement, and never knowingly participate in or conceal a violation. 'Everyone does it' and 'my boss told me to' are never defenses." },
+        ],
+      },
+      {
+        heading: "GIPS",
+        blocks: [
+          { kind: "p", text: "The Global Investment Performance Standards exist so investors can compare managers' track records fairly. GIPS is voluntary, but a firm that claims compliance must apply it firm-wide — it can't show GIPS numbers for one flattering product only. Compliance requires including all fee-paying, discretionary portfolios in composites (groups of portfolios with similar mandates), which prevents cherry-picking winners and 'survivorship' distortion. The purpose is consistency, fairness, full disclosure, and comparability of performance presentation — not a guarantee of good returns, but a guarantee that the reported returns are honestly constructed." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Material non-public information", def: "Information that would affect a security's price and isn't public; trading or tipping on it violates Standard II." },
+      { term: "Reasonable basis (Standard V)", def: "The diligence and supporting research a recommendation must have before it's made." },
+      { term: "Disclosure of conflicts (Standard VI)", def: "Conflicts must be fully and fairly disclosed (and sometimes consented to), not concealed." },
+      { term: "Follow the stricter standard", def: "When law, employer policy, and the Code differ, comply with the most stringent." },
+      { term: "GIPS composite", def: "A grouping of all similar fee-paying discretionary portfolios, required for compliant, non-cherry-picked reporting." },
+    ],
+    takeaways: [
+      "Know all seven Standards and apply them to the facts — client first, no MNPI, reasonable basis, fair dealing, disclose conflicts.",
+      "When rules conflict, follow the stricter standard and never conceal a violation.",
+      "GIPS is voluntary but firm-wide, requiring all discretionary fee-paying portfolios in composites to prevent cherry-picking.",
+      "Ethics is the highest-weighted topic — treat it as point-scoring, not filler.",
+    ],
+  },
 ];
 
 const questions: Question[] = [
