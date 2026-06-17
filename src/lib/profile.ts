@@ -9,6 +9,8 @@ export interface AvatarConfig {
   skin: string;       // skin tone id
   hair: string;       // hair style id
   hairColor: string;  // hair color id
+  facialHair: string; // facial-hair style id ("none" = clean shaven)
+  expression: string; // expression id (maps to avatar mood)
   suit: string;       // shop item id (suit slot)
   accessory: string | null; // shop item id (accessory slot)
   background: string; // shop item id (background slot)
@@ -26,6 +28,8 @@ export const DEFAULT_AVATAR: AvatarConfig = {
   skin: "s3",
   hair: "h2",
   hairColor: "c2",
+  facialHair: "none",
+  expression: "confident",
   suit: "suit-navy",
   accessory: null,
   background: "bg-slate",

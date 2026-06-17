@@ -7,7 +7,7 @@
 import React, { useId } from "react";
 import { AvatarConfig } from "@/lib/profile";
 
-export type AvatarMood = "confident" | "determined" | "neutral";
+export type AvatarMood = "confident" | "determined" | "neutral" | "friendly";
 
 // ---- Creation options (free; chosen at onboarding) -------------------------
 export const SKINS = [
@@ -25,6 +25,8 @@ export const HAIRS = [
   { id: "h3", name: "Slick back" },
   { id: "h4", name: "Curls" },
   { id: "h5", name: "Bun" },
+  { id: "h7", name: "Pompadour" },
+  { id: "h8", name: "Afro" },
   { id: "h6", name: "Bald" },
 ];
 
@@ -34,7 +36,32 @@ export const HAIR_COLORS = [
   { id: "c3", color: "#6b4a2b" },
   { id: "c4", color: "#a8743d" },
   { id: "c5", color: "#8e8e96" },
+  { id: "c6", color: "#d64b3a" },
 ];
+
+// ---- Facial hair (free customization axis) ---------------------------------
+export const FACIAL_HAIR = [
+  { id: "none", name: "Clean" },
+  { id: "stubble", name: "Stubble" },
+  { id: "mustache", name: "Mustache" },
+  { id: "goatee", name: "Goatee" },
+  { id: "beard", name: "Full beard" },
+];
+
+// ---- Expression (free; maps to a mood the avatar renders) -------------------
+export const EXPRESSIONS = [
+  { id: "confident", name: "Confident" },
+  { id: "friendly", name: "Friendly" },
+  { id: "focused", name: "Focused" },
+  { id: "stoic", name: "Stoic" },
+];
+
+function expressionToMood(id: string): AvatarMood {
+  if (id === "focused") return "determined";
+  if (id === "stoic") return "neutral";
+  if (id === "friendly") return "friendly";
+  return "confident";
+}
 
 // ---- Suit palettes (keyed by shop item id) ----------------------------------
 const SUITS: Record<string, { base: string; lapel: string; stripe?: string; trim?: string }> = {
@@ -168,14 +195,16 @@ export function Avatar({
   config,
   size = 96,
   rounded = 16,
-  mood = "confident",
+  mood,
   animated = true,
+  cheer = false,
 }: {
   config: AvatarConfig;
   size?: number;
   rounded?: number;
   mood?: AvatarMood;
   animated?: boolean;
+  cheer?: boolean;
 }) {
   const uid = useId().replace(/[:]/g, "");
   const skin = SKINS.find((s) => s.id === config.skin) ?? SKINS[2];
@@ -183,6 +212,8 @@ export function Avatar({
   const suit = SUITS[config.suit] ?? SUITS["suit-navy"];
   const acc = config.accessory;
   const skinShade = "rgba(0,0,0,0.16)";
+  const effMood: AvatarMood = mood ?? expressionToMood(config.expression ?? "confident");
+  const bodyClass = cheer ? "av-cheer" : animated ? "av-idle" : undefined;
 
   return (
     <svg
@@ -201,7 +232,7 @@ export function Avatar({
         {/* soft ground shadow */}
         <ellipse cx="60" cy="119" rx="38" ry="7" fill="rgba(0,0,0,0.22)" />
 
-        <g className={animated ? "av-idle" : undefined}>
+        <g className={bodyClass}>
           {/* ---- Body / tailoring ---- */}
           <path d="M15 120 C17 91 35 79.5 60 79.5 C85 79.5 103 91 105 120 Z" fill={suit.base} />
           {suit.stripe && (
@@ -276,9 +307,9 @@ export function Avatar({
 
           {/* brows */}
           <rect x="47" y="37.5" width="9.5" height="2.6" rx="1.3" fill={hairColor} opacity="0.9"
-            transform={mood === "determined" ? "rotate(7 51.75 38.8)" : undefined} />
+            transform={effMood === "determined" ? "rotate(7 51.75 38.8)" : undefined} />
           <rect x="63.5" y="37.5" width="9.5" height="2.6" rx="1.3" fill={hairColor} opacity="0.9"
-            transform={mood === "determined" ? "rotate(-7 68.25 38.8)" : undefined} />
+            transform={effMood === "determined" ? "rotate(-7 68.25 38.8)" : undefined} />
 
           {/* eyes — blink as a group */}
           <g className={animated ? "av-eyes" : undefined}>
@@ -291,14 +322,23 @@ export function Avatar({
           {/* nose */}
           <path d="M60 49 L58.2 55.5 L61.8 55.5 Z" fill={skinShade} />
 
+          {/* facial hair (under the mouth so lips read on top) */}
+          <FacialHair id={config.facialHair} color={hairColor} />
+
           {/* mouth by mood */}
-          {mood === "confident" && (
+          {effMood === "confident" && (
             <path d="M52 59 Q60 65.5 68 59" stroke="#23232b" strokeWidth="2" strokeLinecap="round" fill="none" opacity="0.8" />
           )}
-          {mood === "determined" && (
+          {effMood === "friendly" && (
+            <g>
+              <path d="M51 58.5 Q60 68 69 58.5 Q60 61 51 58.5 Z" fill="#23232b" opacity="0.85" />
+              <path d="M53.5 59.5 Q60 62 66.5 59.5 Z" fill="#ffffff" opacity="0.9" />
+            </g>
+          )}
+          {effMood === "determined" && (
             <path d="M54.5 61 Q60 62.5 65.5 61" stroke="#23232b" strokeWidth="2" strokeLinecap="round" fill="none" opacity="0.8" />
           )}
-          {mood === "neutral" && (
+          {effMood === "neutral" && (
             <path d="M54.5 60.5 L65.5 60.5" stroke="#23232b" strokeWidth="2" strokeLinecap="round" fill="none" opacity="0.7" />
           )}
 
@@ -370,7 +410,58 @@ function Hair({ id, color }: { id: string; color: string }) {
           <path d="M38.5 48 C38 26.5 49 20 60 20 C71 20 82 26.5 81.5 48 C79 38.5 73 34.5 60 34.5 C47 34.5 41 38.5 38.5 48 Z" />
         </g>
       );
+    case "h7": // pompadour — tall volume up front
+      return (
+        <g fill={color}>
+          <path d="M38.5 47 C38.5 28 46 14 60 13 C72 13 78 19 76 25 C73 21 66 21 60 23 C49 26.5 41 33 38.5 47 Z" />
+          <path d="M55 13.5 C62 7 75 9 78 19 C73 14 64 14 58 18 Z" />
+          <path d="M80.5 38 C84 41 84 46 82.6 49.5 L80.5 48.5 Z" />
+        </g>
+      );
+    case "h8": // afro — rounded volume
+      return (
+        <g fill={color}>
+          <circle cx="60" cy="24" r="24" />
+          <circle cx="40" cy="33" r="10" />
+          <circle cx="80" cy="33" r="10" />
+          <path d="M38 44 C40 34 48 30 60 30 C72 30 80 34 82 44 C78 38 70 35 60 35 C50 35 42 38 38 44 Z" fill="rgba(0,0,0,0.12)" />
+        </g>
+      );
     case "h6": // bald
+    default:
+      return null;
+  }
+}
+
+function FacialHair({ id, color }: { id: string; color: string }) {
+  switch (id) {
+    case "stubble":
+      return (
+        <path
+          d="M39 49 C40 62 50 68 60 68 C70 68 80 62 81 49 C76 56 70 59 60 59 C50 59 44 56 39 49 Z"
+          fill={color}
+          opacity="0.28"
+        />
+      );
+    case "mustache":
+      return (
+        <path d="M52 56 Q56 54.5 60 56.5 Q64 54.5 68 56 Q64 59.5 60 58 Q56 59.5 52 56 Z" fill={color} />
+      );
+    case "goatee":
+      return (
+        <g fill={color}>
+          <path d="M52 56 Q56 54.5 60 56.5 Q64 54.5 68 56 Q64 59.5 60 58 Q56 59.5 52 56 Z" />
+          <path d="M54 62 C54 69 66 69 66 62 C63 65 57 65 54 62 Z" />
+        </g>
+      );
+    case "beard":
+      return (
+        <g fill={color}>
+          <path d="M39 49 C40 63 50 70 60 70 C70 70 80 63 81 49 C76 57 70 59.5 60 59.5 C50 59.5 44 57 39 49 Z" />
+          <path d="M52 55.5 Q56 54 60 56 Q64 54 68 55.5 Q64 59 60 57.5 Q56 59 52 55.5 Z" />
+        </g>
+      );
+    case "none":
     default:
       return null;
   }

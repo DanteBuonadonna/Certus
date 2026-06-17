@@ -21,6 +21,8 @@ import { loadState } from "@/lib/gameStore";
 import { Profile, loadProfile, saveProfile } from "@/lib/profile";
 import { Avatar } from "@/components/avatar";
 import { AnimatedNumber, GoldBurst } from "@/components/ui";
+import { Coin, CoinBurst } from "@/components/Coin";
+import { playCoin, playUnlock } from "@/lib/sound";
 import { CheckIcon, LockIcon } from "@/components/icons";
 
 const SLOT_TABS: { slot: ItemSlot | "all"; label: string }[] = [
@@ -54,6 +56,9 @@ export default function ShopClient() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [tab, setTab] = useState<ItemSlot | "all">("all");
   const [justBought, setJustBought] = useState<string | null>(null);
+  const [previewId, setPreviewId] = useState<string | null>(null);
+  const [cheer, setCheer] = useState(false);
+  const [walletBurst, setWalletBurst] = useState(0);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -74,6 +79,12 @@ export default function ShopClient() {
     if (!w) return;
     setWallet({ ...w });
     setJustBought(item.id);
+    setPreviewId(item.id);
+    setCheer(true);
+    setWalletBurst((n) => n + 1);
+    playCoin();
+    setTimeout(() => playUnlock(), 180);
+    setTimeout(() => setCheer(false), 950);
     setTimeout(() => setJustBought(null), 1400);
   }
 
@@ -86,7 +97,25 @@ export default function ShopClient() {
     else if (item.slot === "title") p.title = item.id;
     saveProfile(p);
     setProfile(p);
+    setPreviewId(item.id);
+    setCheer(true);
+    playUnlock();
+    setTimeout(() => setCheer(false), 950);
   }
+
+  // The avatar shown in the fitting room: the player's avatar with the
+  // currently-focused item virtually tried on.
+  const fittingConfig = useMemo(() => {
+    if (!profile) return null;
+    const a = { ...profile.avatar };
+    const item = previewId ? SHOP_ITEMS.find((i) => i.id === previewId) : null;
+    if (item) {
+      if (item.slot === "suit") a.suit = item.id;
+      else if (item.slot === "accessory") a.accessory = item.id;
+      else if (item.slot === "background") a.background = item.id;
+    }
+    return a;
+  }, [profile, previewId]);
 
   function isEquipped(item: ShopItem): boolean {
     if (!profile) return false;
@@ -115,18 +144,19 @@ export default function ShopClient() {
       {/* Wallet bar */}
       <div
         className="card-game p-4 mb-6 flex items-center justify-between rise-in"
-        style={{ borderColor: "var(--gold-border)", background: "linear-gradient(180deg, var(--gold-bg), var(--bg-card) 80%)" }}
+        style={{ borderColor: "var(--gold-border)", background: "linear-gradient(180deg, var(--gold-bg), var(--bg-card) 80%)", position: "relative", overflow: "visible" }}
       >
         <div className="flex items-center gap-4">
           {profile && <Avatar config={profile.avatar} size={56} rounded={12} />}
-          <div>
+          <div style={{ position: "relative" }}>
             <div className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "var(--text-muted)" }}>
               Comp balance
             </div>
             <div className="font-display text-2xl flex items-center gap-2" style={{ color: "var(--gold)" }}>
-              <CoinIcon size={20} />
+              <Coin size={22} spin />
               $<AnimatedNumber value={balance} />
             </div>
+            {walletBurst > 0 && <CoinBurst key={walletBurst} count={8} size={18} />}
           </div>
         </div>
         <div className="text-right text-xs font-semibold" style={{ color: "var(--text-muted)" }}>
@@ -134,6 +164,48 @@ export default function ShopClient() {
           <div className="mt-0.5">1 XP = $1 · quests pay bonuses</div>
         </div>
       </div>
+
+      {/* Fitting room — a live, animated try-on of whatever you tap */}
+      {profile && fittingConfig && (
+        <div className="card-game mb-6 rise-in" style={{ position: "relative", overflow: "hidden", borderColor: "var(--gold-border)" }}>
+          <div aria-hidden style={{ position: "absolute", top: -50, left: "50%", marginLeft: -100, width: 200, height: 260, pointerEvents: "none", background: "radial-gradient(ellipse at top, rgba(201,162,39,0.20), transparent 68%)" }} className="spotlight-sweep" />
+          <div className="p-5 flex items-center gap-5" style={{ position: "relative" }}>
+            <Avatar config={fittingConfig} size={128} rounded={18} cheer={cheer} />
+            <div className="flex-1 min-w-0">
+              <div className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "var(--text-muted)" }}>Fitting room</div>
+              {(() => {
+                const it = previewId ? SHOP_ITEMS.find((i) => i.id === previewId) : null;
+                return (
+                  <>
+                    <div className="font-display text-xl" style={{ color: "var(--text-primary)" }}>
+                      {it ? it.name : `${profile.name}`}
+                    </div>
+                    <p className="text-xs mt-0.5 mb-2" style={{ color: "var(--text-secondary)" }}>
+                      {it ? it.desc : "Tap any item below to try it on right here."}
+                    </p>
+                    {it && !ownsItem(it.id, wallet) && (
+                      <button
+                        className={balance >= it.price ? "btn-game btn-game-gold" : "btn-game btn-game-ghost"}
+                        style={{ padding: "0.45rem 1rem", fontSize: "0.74rem", borderRadius: 11 }}
+                        disabled={balance < it.price}
+                        onClick={() => handleBuy(it)}
+                      >
+                        {balance >= it.price ? <CoinIcon size={13} /> : <LockIcon size={11} />}
+                        {balance >= it.price ? `Buy · ${formatComp(it.price)}` : `Need ${formatComp(it.price - balance)} more`}
+                      </button>
+                    )}
+                    {it && ownsItem(it.id, wallet) && (
+                      <span className="text-[11px] font-extrabold flex items-center gap-1" style={{ color: "var(--ats-green)" }}>
+                        <CheckIcon size={12} /> OWNED
+                      </span>
+                    )}
+                  </>
+                );
+              })()}
+            </div>
+          </div>
+        </div>
+      )}
 
       {!profile && (
         <div className="card-game p-4 mb-6 flex items-center justify-between" style={{ background: "var(--primary-light)" }}>
@@ -181,15 +253,19 @@ export default function ShopClient() {
           return (
             <div
               key={item.id}
-              className={`${isLegacy ? "legacy-sheen " : ""}${justBought === item.id ? "wiggle " : ""}card-game`}
+              onMouseEnter={() => setPreviewId(item.id)}
+              onClick={() => setPreviewId(item.id)}
+              className={`${isLegacy ? "legacy-sheen " : ""}${justBought === item.id ? "wiggle " : ""}${previewId === item.id ? "shop-focused " : ""}card-game`}
               style={{
                 position: "relative",
                 overflow: "hidden",
-                borderColor: frame.frame,
+                borderColor: previewId === item.id ? "var(--primary)" : frame.frame,
                 boxShadow: `0 4px 0 ${frame.deep}`,
+                cursor: "pointer",
               }}
             >
               {justBought === item.id && <GoldBurst count={16} />}
+              {justBought === item.id && <CoinBurst key={`b-${item.id}`} count={10} size={20} />}
               {owned && <div className="ribbon-owned">OWNED</div>}
 
               {/* Rarity band */}

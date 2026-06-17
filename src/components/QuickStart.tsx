@@ -14,7 +14,8 @@ import {
   ARCHETYPES,
   saveProfile,
 } from "@/lib/profile";
-import { Avatar, SKINS, HAIRS, HAIR_COLORS } from "@/components/avatar";
+import { Avatar, SKINS, HAIRS, HAIR_COLORS, FACIAL_HAIR } from "@/components/avatar";
+import { playUnlock } from "@/lib/sound";
 
 function randomAvatar(): AvatarConfig {
   const pick = <T,>(arr: readonly T[]) => arr[Math.floor(Math.random() * arr.length)];
@@ -23,6 +24,7 @@ function randomAvatar(): AvatarConfig {
     skin: pick(SKINS).id,
     hair: pick(HAIRS).id,
     hairColor: pick(HAIR_COLORS).id,
+    facialHair: pick(FACIAL_HAIR).id,
     suit: pick(["suit-navy", "suit-charcoal"] as const),
     background: pick(["bg-slate", "bg-dawn"] as const),
   };
@@ -37,6 +39,7 @@ export default function QuickStart({
 }) {
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState<AvatarConfig>(DEFAULT_AVATAR);
+  const [cheer, setCheer] = useState(false);
   const valid = name.trim().length >= 2;
 
   function finish() {
@@ -82,11 +85,11 @@ export default function QuickStart({
         <div className="px-6 py-4 flex items-center gap-5">
           {/* Preview */}
           <div className="flex flex-col items-center gap-2 flex-shrink-0">
-            <Avatar config={avatar} size={132} rounded={18} />
+            <Avatar config={avatar} size={132} rounded={18} cheer={cheer} />
             <button
               className="btn-game btn-game-ghost"
               style={{ padding: "0.4rem 0.9rem", fontSize: "0.7rem" }}
-              onClick={() => setAvatar(randomAvatar())}
+              onClick={() => { setAvatar(randomAvatar()); setCheer(true); playUnlock(); setTimeout(() => setCheer(false), 900); }}
             >
               🎲 RANDOMIZE
             </button>
@@ -158,6 +161,27 @@ export default function QuickStart({
                     }}
                     aria-label="hair color"
                   />
+                ))}
+              </div>
+            </div>
+            <div>
+              <div className="text-[10px] font-bold uppercase tracking-widest mb-1.5" style={{ color: "var(--text-muted)" }}>
+                Facial hair
+              </div>
+              <div className="flex items-center gap-1.5 flex-wrap">
+                {FACIAL_HAIR.map((f) => (
+                  <button
+                    key={f.id}
+                    onClick={() => setAvatar({ ...avatar, facialHair: f.id })}
+                    className="text-[10px] px-2 py-1 rounded-md font-semibold"
+                    style={{
+                      background: avatar.facialHair === f.id ? "var(--primary-light)" : "var(--bg)",
+                      border: avatar.facialHair === f.id ? "1.5px solid var(--primary)" : "1.5px solid var(--border)",
+                      color: avatar.facialHair === f.id ? "var(--primary)" : "var(--text-secondary)",
+                    }}
+                  >
+                    {f.name}
+                  </button>
                 ))}
               </div>
             </div>

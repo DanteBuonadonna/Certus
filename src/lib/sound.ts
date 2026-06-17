@@ -95,3 +95,19 @@ export function playCombo(level: number): void {
   tone(base, 0, 0.12, "triangle", 0.14);
   tone(base * 1.5, 0.06, 0.16, "triangle", 0.12);
 }
+
+// A bright metallic coin "ka-ching" for earning/spending Comp.
+export function playCoin(): void {
+  if (isMuted()) return;
+  tone(1320, 0, 0.08, "square", 0.07);
+  tone(1760, 0.05, 0.12, "square", 0.06);
+  tone(2640, 0.1, 0.14, "triangle", 0.05);
+}
+
+// A short triumphant sting for unlocking/equipping an item.
+export function playUnlock(): void {
+  if (isMuted()) return;
+  tone(587, 0, 0.14, "triangle", 0.15);
+  tone(880, 0.08, 0.16, "triangle", 0.15);
+  tone(1175, 0.16, 0.26, "triangle", 0.14);
+}

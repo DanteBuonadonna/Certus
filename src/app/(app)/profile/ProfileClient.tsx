@@ -11,7 +11,7 @@ import {
   loadProfile,
   saveProfile,
 } from "@/lib/profile";
-import { Avatar, SKINS, HAIRS, HAIR_COLORS } from "@/components/avatar";
+import { Avatar, SKINS, HAIRS, HAIR_COLORS, FACIAL_HAIR, EXPRESSIONS } from "@/components/avatar";
 import {
   Wallet,
   loadWallet,
@@ -265,6 +265,24 @@ function AvatarEditor({
         <div className="flex items-center gap-2.5">
           {HAIR_COLORS.map((c) => (
             <Swatch key={c.id} color={c.color} active={avatar.hairColor === c.id} onClick={() => onChange({ ...avatar, hairColor: c.id })} />
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <SectionLabel>Facial hair</SectionLabel>
+        <div className="flex items-center gap-2 flex-wrap">
+          {FACIAL_HAIR.map((f) => (
+            <Chip key={f.id} label={f.name} active={(avatar.facialHair ?? "none") === f.id} onClick={() => onChange({ ...avatar, facialHair: f.id })} />
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <SectionLabel>Expression</SectionLabel>
+        <div className="flex items-center gap-2 flex-wrap">
+          {EXPRESSIONS.map((e) => (
+            <Chip key={e.id} label={e.name} active={(avatar.expression ?? "confident") === e.id} onClick={() => onChange({ ...avatar, expression: e.id })} />
           ))}
         </div>
       </div>

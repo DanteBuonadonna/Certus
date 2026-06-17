@@ -20,6 +20,7 @@ import { useAccess } from "@/lib/useAccess";
 import { canStartBoss, recordBossAttempt } from "@/lib/access";
 import { UpgradeCard } from "@/components/UpgradeGate";
 import { ProgressBar, GoldBurst } from "@/components/ui";
+import BossMonster from "@/components/BossMonster";
 import {
   BossCrest,
   ShieldCheckIcon,
@@ -172,6 +173,7 @@ function Battle({
   const [answers, setAnswers] = useState<(number | null)[]>([]);
   const [timeLeft, setTimeLeft] = useState(cfg.secondsPerQuestion);
   const [fx, setFx] = useState<"shake" | "gold-flash" | null>(null);
+  const [hitKey, setHitKey] = useState(0);
   const answeredRef = useRef(false);
 
   const q = questions[idx];
@@ -203,6 +205,7 @@ function Battle({
     setAnswered(true);
     const isCorrect = choice === q.answerIndex;
     if (!isCorrect) setHearts((h) => h - 1);
+    else setHitKey((k) => k + 1); // land a hit on the monster
     setFx(isCorrect ? "gold-flash" : "shake");
     setTimeout(() => setFx(null), 650);
   }
@@ -227,33 +230,35 @@ function Battle({
 
   return (
     <div className={`px-4 py-6 md:px-8 max-w-2xl mx-auto ${fx ?? ""}`} style={{ borderRadius: 16 }}>
-      {/* Board header */}
-      <div className="flex items-center gap-3 mb-3">
-        <BossCrest exam={exam} accent={accent} size={42} />
-        <div className="flex-1">
-          <div className="flex items-center justify-between mb-1">
-            <span className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>{boss.name}</span>
-            <span className="text-xs font-mono" style={{ color: "var(--text-muted)" }}>{bossHpPct}% resistance</span>
-          </div>
-          {/* Segmented HP bar — cracks away as you land hits */}
-          <div className="flex gap-1">
-            {Array.from({ length: questions.length }).map((_, i) => {
-              const filled = i < Math.round((bossHpPct / 100) * questions.length);
-              return (
-                <div
-                  key={i}
-                  style={{
-                    flex: 1,
-                    height: 10,
-                    borderRadius: 3,
-                    background: filled ? "var(--ats-red)" : "var(--bg)",
-                    border: "1px solid var(--border)",
-                    transition: "background 0.4s",
-                  }}
-                />
-              );
-            })}
-          </div>
+      {/* The boss — an animated creature that flinches as you land hits */}
+      <div className="flex flex-col items-center mb-3">
+        <BossMonster accent={accent} hpPct={bossHpPct} hitKey={hitKey} defeated={bossHpPct === 0} size={150} />
+        <div className="text-sm font-semibold mt-1" style={{ color: "var(--text-primary)" }}>{boss.name}</div>
+      </div>
+
+      {/* Boss HP bar — cracks away as you land hits */}
+      <div className="mb-4">
+        <div className="flex items-center justify-between mb-1">
+          <span className="text-[11px] font-bold uppercase tracking-wide" style={{ color: "var(--text-muted)" }}>Resistance</span>
+          <span className="text-xs font-mono font-bold" style={{ color: bossHpPct === 0 ? "var(--ats-green)" : "var(--ats-red)" }}>{bossHpPct === 0 ? "DEFEATED" : `${bossHpPct}%`}</span>
+        </div>
+        <div className="flex gap-1">
+          {Array.from({ length: questions.length }).map((_, i) => {
+            const filled = i < Math.round((bossHpPct / 100) * questions.length);
+            return (
+              <div
+                key={i}
+                style={{
+                  flex: 1,
+                  height: 12,
+                  borderRadius: 4,
+                  background: filled ? "var(--ats-red)" : "var(--ats-green-bg)",
+                  border: "1px solid var(--border)",
+                  transition: "background 0.4s",
+                }}
+              />
+            );
+          })}
         </div>
       </div>
 
@@ -385,6 +390,11 @@ function Result({
 
         <div className="p-6 text-center" style={{ position: "relative" }}>
           {result.passed && <GoldBurst count={24} />}
+          {result.passed && (
+            <div className="flex justify-center mb-2">
+              <BossMonster accent={accent} hpPct={0} hitKey={0} defeated size={120} />
+            </div>
+          )}
           <div className="font-display" style={{ fontSize: "3.2rem", color: result.passed ? "var(--ats-green)" : "var(--text-primary)", lineHeight: 1 }}>
             {result.pct}%
           </div>
