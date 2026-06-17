@@ -817,3 +817,217 @@ body {
     animation: none !important;
   }
 }
+
+/* ============================================================
+   DUOLINGO-STYLE PLAYFUL LAYER
+   Chunky 3D buttons, thick rounded cards, friendly feedback.
+   ============================================================ */
+:root {
+  --duo-green: #58cc02;
+  --duo-green-shadow: #58a700;
+  --duo-green-bg: #d7ffb8;
+  --duo-red: #ff4b4b;
+  --duo-red-shadow: #ea2b2b;
+  --duo-red-bg: #ffdfe0;
+  --duo-blue: #1cb0f6;
+  --duo-blue-shadow: #1899d6;
+  --duo-yellow: #ffc800;
+  --duo-orange: #ff9600;
+  --duo-purple: #a560f0;
+  --duo-card-radius: 18px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --duo-green-bg: #1c2e10;
+    --duo-red-bg: #2e1313;
+  }
+}
+
+/* The signature Duolingo button: a flat top face sitting on a darker
+   "edge" (border-bottom). Pressing it drops the face onto the edge. */
+.btn-duo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-bottom: 4px solid var(--primary-hover);
+  border-radius: 16px;
+  padding: 0.85rem 1.5rem;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: pointer;
+  user-select: none;
+  transition: filter 0.12s ease, transform 0.04s ease, border-width 0.04s ease;
+}
+.btn-duo:hover:not(:disabled) { filter: brightness(1.08); }
+.btn-duo:active:not(:disabled) {
+  transform: translateY(2px);
+  border-bottom-width: 2px;
+}
+.btn-duo:disabled {
+  background: var(--bg-card);
+  color: var(--text-muted);
+  border-bottom-color: var(--border-strong);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+.btn-duo.duo-green { background: var(--duo-green); border-bottom-color: var(--duo-green-shadow); }
+.btn-duo.duo-red { background: var(--duo-red); border-bottom-color: var(--duo-red-shadow); }
+.btn-duo.duo-blue { background: var(--duo-blue); border-bottom-color: var(--duo-blue-shadow); }
+.btn-duo.duo-ghost {
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  border: 2px solid var(--border-strong);
+  border-bottom: 4px solid var(--border-strong);
+}
+
+/* Make the app's existing primary buttons chunkier to match. */
+.btn-primary {
+  border-radius: 14px !important;
+  font-weight: 700 !important;
+  border-bottom: 4px solid var(--primary-hover) !important;
+  padding: 0.7rem 1.3rem !important;
+}
+.btn-primary:active:not(:disabled) {
+  transform: translateY(2px) !important;
+  border-bottom-width: 2px !important;
+}
+
+/* Chunky selectable option (quiz answers). 3D edge like the button. */
+.duo-option {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  text-align: left;
+  background: var(--bg-card);
+  border: 2px solid var(--border-strong);
+  border-bottom-width: 4px;
+  border-radius: var(--duo-card-radius);
+  padding: 1rem 1.15rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: transform 0.05s ease, border-color 0.12s ease, background 0.12s ease;
+}
+.duo-option:hover:not(.locked) { background: var(--bg); }
+.duo-option:active:not(.locked) { transform: translateY(1px); }
+.duo-option.selected {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+.duo-option.correct {
+  border-color: var(--duo-green);
+  background: var(--duo-green-bg);
+  color: var(--duo-green-shadow);
+}
+.duo-option.wrong {
+  border-color: var(--duo-red);
+  background: var(--duo-red-bg);
+  color: var(--duo-red-shadow);
+}
+.duo-option.locked { cursor: default; }
+
+/* The letter chip on each option. */
+.duo-key {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  border: 2px solid var(--border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+.duo-option.correct .duo-key { border-color: var(--duo-green); color: var(--duo-green-shadow); }
+.duo-option.wrong .duo-key { border-color: var(--duo-red); color: var(--duo-red-shadow); }
+.duo-option.selected .duo-key { border-color: var(--primary); color: var(--primary); }
+
+/* Bottom feedback sheet that slides up after answering. */
+.duo-sheet {
+  animation: duoSheetUp 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.duo-sheet.good { background: var(--duo-green-bg); }
+.duo-sheet.bad { background: var(--duo-red-bg); }
+
+/* Fat progress bar with rounded inner fill. */
+.duo-bar {
+  height: 16px;
+  border-radius: 100px;
+  background: var(--border);
+  overflow: hidden;
+}
+.duo-bar > i {
+  display: block;
+  height: 100%;
+  border-radius: 100px;
+  background: var(--duo-green);
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---- Keyframes ---- */
+@keyframes duoSheetUp {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+@keyframes duoPop {
+  0% { transform: scale(0.7); opacity: 0; }
+  60% { transform: scale(1.12); }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes correctBounce {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-8px); }
+  55% { transform: translateY(0); }
+  70% { transform: translateY(-4px); }
+}
+@keyframes duoShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-9px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(4px); }
+}
+@keyframes flameFlicker {
+  0%, 100% { transform: scale(1) rotate(-2deg); }
+  25% { transform: scale(1.08) rotate(2deg); }
+  50% { transform: scale(0.96) rotate(-1deg); }
+  75% { transform: scale(1.05) rotate(1deg); }
+}
+@keyframes xpPop {
+  0% { transform: scale(0.5) translateY(10px); opacity: 0; }
+  50% { transform: scale(1.25) translateY(-4px); opacity: 1; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+@keyframes confettiFall {
+  0% { transform: translateY(-12vh) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(108vh) rotate(720deg); opacity: 1; }
+}
+@keyframes comboPop {
+  0% { transform: scale(0.4) rotate(-12deg); opacity: 0; }
+  55% { transform: scale(1.3) rotate(6deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.anim-pop { animation: duoPop 0.32s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.anim-bounce { animation: correctBounce 0.6s ease both; }
+.anim-shake { animation: duoShake 0.45s ease both; }
+.anim-flame { animation: flameFlicker 1.4s ease-in-out infinite; transform-origin: bottom center; }
+.anim-xp { animation: xpPop 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.anim-combo { animation: comboPop 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-pop, .anim-bounce, .anim-shake, .anim-flame, .anim-xp, .anim-combo, .duo-sheet {
+    animation: none !important;
+  }
+}

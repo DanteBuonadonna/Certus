@@ -247,6 +247,9 @@ export default function DashboardClient() {
         </div>
       </div>
 
+      {/* Duolingo-style daily hero: goal ring + streak fire + big CTA */}
+      <DuoHero state={state} dailyGoalMin={dailyGoalMin} examSlug={activePlan?.examSlug ?? "cfa"} />
+
       {/* Level progress bar */}
       <div className="card p-4 mb-6 rise-in" style={{ animationDelay: "0.05s" }}>
         <div className="flex items-center justify-between mb-2">
@@ -651,4 +654,79 @@ function greeting() {
   if (h < 12) return "Good morning";
   if (h < 18) return "Good afternoon";
   return "Good evening";
+}
+
+// ---- Duolingo-style daily hero -------------------------------------------
+function DuoHero({ state, dailyGoalMin, examSlug }: { state: GameState; dailyGoalMin: number; examSlug: string }) {
+  const t = today();
+  const todayMin = state.sessions.filter((s) => s.date === t).reduce((a, x) => a + x.minutes, 0);
+  const goalPct = Math.min(100, Math.round((todayMin / dailyGoalMin) * 100));
+  const goalMet = todayMin >= dailyGoalMin;
+  const streak = state.currentStreak;
+
+  return (
+    <div
+      className="mb-6 rise-in flex flex-col sm:flex-row items-center gap-5 p-5"
+      style={{
+        background: "linear-gradient(135deg, var(--primary-light), var(--bg-card))",
+        border: "2px solid var(--primary)",
+        borderBottom: "5px solid var(--primary-hover)",
+        borderRadius: 20,
+      }}
+    >
+      <GoalRing pct={goalPct} met={goalMet} />
+
+      <div className="flex-1 text-center sm:text-left">
+        <div className="text-lg font-extrabold mb-0.5" style={{ color: "var(--text-primary)" }}>
+          {goalMet ? "Daily goal complete! 🎉" : `${todayMin} / ${dailyGoalMin} min today`}
+        </div>
+        <p className="text-sm font-semibold" style={{ color: "var(--text-secondary)" }}>
+          {goalMet
+            ? "You showed up today. That's how streaks are built."
+            : streak > 0
+            ? `Keep your ${streak}-day streak alive — finish today's goal.`
+            : "Do a quick lesson to start your streak."}
+        </p>
+      </div>
+
+      {/* Streak fire */}
+      <div className="flex items-center gap-2 px-3">
+        <span className={streak > 0 ? "anim-flame" : ""} style={{ fontSize: 34, filter: streak > 0 ? "none" : "grayscale(1)", opacity: streak > 0 ? 1 : 0.5 }}>🔥</span>
+        <div className="leading-none">
+          <div className="text-2xl font-extrabold" style={{ color: "var(--duo-orange)" }}>{streak}</div>
+          <div className="text-[10px] font-bold uppercase tracking-wide" style={{ color: "var(--text-muted)" }}>day streak</div>
+        </div>
+      </div>
+
+      <Link href={`/practice?exam=${examSlug}`} className="btn-duo w-full sm:w-auto flex-shrink-0">
+        {goalMet ? "Keep going" : "Start a lesson"}
+      </Link>
+    </div>
+  );
+}
+
+function GoalRing({ pct, met }: { pct: number; met: boolean }) {
+  const r = 32;
+  const c = 2 * Math.PI * r;
+  const [shown, setShown] = useState(0);
+  useEffect(() => {
+    const t = setTimeout(() => setShown(pct), 120);
+    return () => clearTimeout(t);
+  }, [pct]);
+  const off = c - (Math.min(100, shown) / 100) * c;
+  return (
+    <svg width="84" height="84" viewBox="0 0 84 84" className="flex-shrink-0">
+      <circle cx="42" cy="42" r={r} fill="none" stroke="var(--border)" strokeWidth="9" />
+      <circle
+        cx="42" cy="42" r={r} fill="none" stroke="var(--primary)" strokeWidth="9" strokeLinecap="round"
+        strokeDasharray={c} strokeDashoffset={off} transform="rotate(-90 42 42)"
+        style={{ transition: "stroke-dashoffset 1s cubic-bezier(0.22,1,0.36,1)" }}
+      />
+      {met ? (
+        <text x="42" y="50" textAnchor="middle" fontSize="26" fill="var(--primary)">✓</text>
+      ) : (
+        <text x="42" y="48" textAnchor="middle" fontSize="17" fontWeight="800" fill="var(--text-primary)">{pct}%</text>
+      )}
+    </svg>
+  );
 }
