@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { createClient as createSupabaseClient } from "@supabase/supabase-js";
+import { getPostHogClient } from "@/lib/posthog-server";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2024-04-10",
@@ -70,9 +71,21 @@ export async function POST(request: Request) {
               .update({ balance: newBalance, updated_at: new Date().toISOString() })
               .eq("user_id", userId);
           }
+          const ph = getPostHogClient();
+          ph.capture({
+            distinctId: userId ?? "guest",
+            event: "credits_purchased",
+            properties: { credits: creditsToAdd },
+          });
         } else if (userId && userId !== "guest") {
           // Pro subscription — grant entitlement.
           await setProById(userId, true, customerId);
+          const ph = getPostHogClient();
+          ph.capture({
+            distinctId: userId,
+            event: "subscription_activated",
+            properties: { plan: session.metadata?.plan },
+          });
         }
         break;
       }
@@ -97,6 +110,12 @@ export async function POST(request: Request) {
         } else if (customerId) {
           await setProByCustomer(customerId, false);
         }
+        const ph = getPostHogClient();
+        ph.capture({
+          distinctId: userId ?? customerId ?? "guest",
+          event: "subscription_cancelled",
+          properties: { plan: sub.metadata?.plan },
+        });
         break;
       }
     }

@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import posthog from "posthog-js";
 import { EXAMS, getExam } from "@/lib/exams";
 import { examsWithContent, getQuestions } from "@/content";
 import { Question } from "@/content/types";
@@ -12,6 +13,7 @@ import { grantBonus } from "@/lib/economy";
 import { loadProfile, AvatarConfig } from "@/lib/profile";
 import { LevelUpOverlay } from "@/components/ui";
 import { useSignedIn } from "@/lib/AccessContext";
+import { trackActivated } from "@/lib/analytics";
 import { buildRun, RUN_SIZE } from "@/lib/practiceRotation";
 import { useAccess } from "@/lib/useAccess";
 import { UpgradeCard } from "@/components/UpgradeGate";
@@ -70,6 +72,18 @@ export default function PracticeClient() {
       grantBonus(nl * 50); // promotion Comp raise
       setLevelUpInfo({ level: nl, rank: rankTitle(nl) });
     }
+    const accuracy = session.length > 0 ? Math.round((correct / session.length) * 100) : 0;
+    posthog.capture("practice_session_completed", {
+      exam,
+      topic: topic === "all" ? "all" : topic,
+      question_count: session.length,
+      correct_count: correct,
+      accuracy_pct: accuracy,
+      xp_earned: result.xpEarned,
+      best_combo: combo,
+      leveled_up: result.leveledUp,
+    });
+    trackActivated("practice", { exam });
     setAnswers(finalAnswers);
     setMaxCombo(combo);
     setPhase("results");

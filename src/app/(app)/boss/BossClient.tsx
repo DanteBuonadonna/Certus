@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { EXAMS, getExam } from "@/lib/exams";
+import posthog from "posthog-js";
 import { examsWithContent } from "@/content";
 import { Question } from "@/content/types";
 import {
@@ -54,6 +55,7 @@ export default function BossClient() {
   function begin() {
     if (!canStartBoss(exam, access.pro)) return;
     recordBossAttempt(exam);
+    posthog.capture("boss_exam_started", { exam, question_count: pool.length });
     setQuestions(buildBossExam(exam, 20));
     setResult(null);
     setPhase("battle");
@@ -66,6 +68,14 @@ export default function BossClient() {
     const finalRes = { ...res, passed };
     recordQuiz(exam, res.correct, res.total, undefined, { passed, isBoss: true });
     if (passed) { recordVictory(exam, res.pct); }
+    posthog.capture("boss_exam_completed", {
+      exam,
+      passed,
+      score_pct: res.pct,
+      correct_count: res.correct,
+      total_questions: res.total,
+      defeated_by_hearts: defeatedByHearts,
+    });
     setResult(finalRes);
     setPhase("result");
   }

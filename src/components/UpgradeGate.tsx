@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useSignedIn } from "@/lib/AccessContext";
+import posthog from "posthog-js";
 
 export function UpgradeCard({
   title = "Unlock the full curriculum",
@@ -43,7 +44,11 @@ export function UpgradeCard({
         ))}
       </div>
 
-      <Link href={ctaHref} className="btn-duo inline-flex">{ctaLabel}</Link>
+      <Link
+        href={ctaHref}
+        className="btn-duo inline-flex"
+        onClick={() => posthog.capture("upgrade_cta_clicked", { signed_in: signedIn, title })}
+      >{ctaLabel}</Link>
       <p className="text-xs mt-3" style={{ color: "var(--text-muted)" }}>
         From $115/year — less than a tenth of a typical prep course. Cancel anytime · 100% of it written to rival the $1,000 textbooks.
       </p>

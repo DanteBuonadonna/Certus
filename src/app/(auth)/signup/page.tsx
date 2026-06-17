@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { BRAND } from "@/lib/brand";
 import { LogoMark } from "@/components/Logo";
+import posthog from "posthog-js";
 
 export default function SignupPage() {
   return (
@@ -44,6 +45,8 @@ function SignupForm() {
       // Email confirmation is disabled in Supabase — the user is already
       // signed in. Go straight to the dashboard instead of telling them
       // to check an email that will never come.
+      posthog.identify(data.session.user.id, { email: email });
+      posthog.capture("user_signed_up", { email });
       router.push("/dashboard");
       router.refresh();
     } else if (data.user && data.user.identities && data.user.identities.length === 0) {

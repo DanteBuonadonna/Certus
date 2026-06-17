@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import posthog from "posthog-js";
 import { EXAMS } from "@/lib/exams";
 import { examsWithContent, getChapters, getChapter } from "@/content";
 import { Chapter, Block } from "@/content/types";
@@ -10,6 +11,7 @@ import { useAccess } from "@/lib/useAccess";
 import { UpgradeCard } from "@/components/UpgradeGate";
 import { loadReading, markChapterRead, isChapterRead, ReadingStore } from "@/lib/readingProgress";
 import { recordReadingXp } from "@/lib/gameStore";
+import { trackActivated } from "@/lib/analytics";
 import { GoldBurst } from "@/components/ui";
 import { ArrowLeftIcon, BookIcon, CheckCircleIcon, CheckIcon, ListIcon } from "@/components/icons";
 import Tutor from "@/components/Tutor";
@@ -149,7 +151,7 @@ export default function LearnClient() {
             const done = isChapterRead(exam, c.id, reading);
             const chLocked = access.ready && !access.canChapter(i);
             return (
-              <button key={c.id} onClick={() => setChapterId(c.id)} className="card-i p-5 w-full text-left block" style={{ opacity: chLocked ? 0.9 : 1 }}>
+              <button key={c.id} onClick={() => { setChapterId(c.id); if (!chLocked) posthog.capture("chapter_started", { exam, chapter_id: c.id, chapter_title: c.title, topic: c.topicId, topic_name: c.topicName }); }} className="card-i p-5 w-full text-left block" style={{ opacity: chLocked ? 0.9 : 1 }}>
                 <div className="flex items-center justify-between mb-1">
                   <span className="text-[11px] font-medium uppercase tracking-wide" style={{ color: "var(--primary)" }}>
                     {c.topicName}
@@ -222,6 +224,15 @@ function Reader({ chapter, onBack }: { chapter: Chapter; onBack: () => void }) {
     if (completed) return;
     markChapterRead(chapter.examSlug, chapter.id);
     recordReadingXp(chapter.examSlug, chapter.readingMinutes, chapter.topicId); // streak/pacing only — no XP
+    posthog.capture("chapter_completed", {
+      exam: chapter.examSlug,
+      chapter_id: chapter.id,
+      chapter_title: chapter.title,
+      topic: chapter.topicId,
+      topic_name: chapter.topicName,
+      reading_minutes: chapter.readingMinutes,
+    });
+    trackActivated("reading", { exam: chapter.examSlug });
     setCompleted(true);
   }
 

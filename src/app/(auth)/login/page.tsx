@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { BRAND } from "@/lib/brand";
 import { LogoMark } from "@/components/Logo";
+import posthog from "posthog-js";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -39,6 +40,11 @@ export default function LoginPage() {
       setError(error.message);
       setLoading(false);
     } else {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        posthog.identify(user.id, { email: user.email });
+        posthog.capture("user_logged_in", { email: user.email });
+      }
       router.push("/dashboard");
       router.refresh();
     }

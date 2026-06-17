@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { createClient } from "@/lib/supabase/server";
+import { getPostHogClient } from "@/lib/posthog-server";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2024-04-10",
@@ -66,6 +67,12 @@ export async function POST(request: Request) {
         success_url: `${origin}/billing?credits_added=${pack.credits}&session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${origin}/billing?canceled=true`,
       });
+      const ph = getPostHogClient();
+      ph.capture({
+        distinctId: userId ?? "guest",
+        event: "checkout_session_created",
+        properties: { plan, credits: pack.credits, mode: "payment" },
+      });
       return NextResponse.json({ url: session.url });
     }
 
@@ -89,7 +96,12 @@ export async function POST(request: Request) {
       success_url: `${origin}/billing?success=true&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/billing?canceled=true`,
     });
-
+    const ph = getPostHogClient();
+    ph.capture({
+      distinctId: userId ?? "guest",
+      event: "checkout_session_created",
+      properties: { plan, mode: "subscription" },
+    });
     return NextResponse.json({ url: session.url });
   } catch (err) {
     console.error("Stripe checkout error:", err);

@@ -7,6 +7,7 @@ import { PLANS, PLAN_FEATURES, Plan } from "@/lib/plans";
 import { BRAND } from "@/lib/brand";
 import { addCredits } from "@/lib/credits";
 import { useAccess } from "@/lib/useAccess";
+import posthog from "posthog-js";
 
 export default function BillingPage() {
   return (
@@ -57,6 +58,7 @@ function BillingInner() {
           const res = await fetch(`/api/stripe/confirm?session_id=${encodeURIComponent(sessionId ?? "")}`);
           const data = await res.json();
           if (data.pro) {
+            posthog.capture("subscribed", { source: "checkout" });
             setMessage({ type: "success", text: "You're subscribed! Full access is unlocked — every chapter, every exam, every Final." });
             router.refresh();
           } else {
@@ -72,6 +74,7 @@ function BillingInner() {
   }, [searchParams, router]);
 
   async function handleSubscribe(plan: string) {
+    posthog.capture("checkout_initiated", { plan });
     setLoading(plan);
     try {
       const res = await fetch("/api/stripe/checkout", {
