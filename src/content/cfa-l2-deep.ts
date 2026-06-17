@@ -595,6 +595,438 @@ export const deepChaptersL2: Chapter[] = [
       "Higher volatility raises both calls and puts; put–call parity (S₀ + p = c + PV(X)) ties the instruments together and checks for arbitrage.",
     ],
   },
+
+  {
+    id: "cfa-l2-currency",
+    examSlug: "cfa-l2",
+    topicId: "econ",
+    topicName: "Economics",
+    title: "Currency Exchange Rates: Parity Conditions and the Carry Trade",
+    readingMinutes: 84,
+    summary:
+      "How exchange rates are quoted, priced forward, and linked across markets — covered and uncovered interest rate parity, purchasing power parity, the international Fisher effect, the forward rate as a predictor, the carry trade, and the Mundell–Fleming view of how policy moves currencies.",
+    intro:
+      "Level II economics is dominated by EXCHANGE RATES — how they're quoted, how forwards are priced by no-arbitrage, and the web of PARITY CONDITIONS that, in theory, tie interest rates, inflation, and spot and forward rates together. In practice some of these conditions hold tightly (covered interest rate parity, enforced by arbitrage) while others hold only loosely or on average (uncovered parity, PPP), and the GAPS between theory and reality are exactly what the carry trade and active currency management exploit. We finish with the Mundell–Fleming framework for how monetary and fiscal policy push exchange rates under different capital-mobility and regime assumptions. The exam rewards two skills: getting the quote convention and the forward-premium math exactly right, and reasoning correctly about which parity conditions are arbitrage-enforced versus merely expectational.",
+    sections: [
+      {
+        heading: "1. Quotes, spot, and forward",
+        blocks: [
+          { kind: "p", text: "An exchange rate quote names a PRICE CURRENCY (numerator) per one unit of BASE CURRENCY (denominator). In the quote 1.25 USD/EUR, the EUR is the base and USD the price: it costs 1.25 USD to buy 1 EUR. An exchange rate RISES when the base currency appreciates. A FORWARD rate is a rate agreed today for exchange at a future date, quoted as the spot plus FORWARD POINTS (in pips). When the forward rate exceeds the spot, the base currency trades at a FORWARD PREMIUM; when below, at a forward DISCOUNT." },
+          { kind: "callout", label: "Read the quote first", body: "Every FX error starts with a quote mix-up. Fix in your mind which currency is the BASE (the 'one unit' currency, the denominator). 'The base currency is at a forward premium' means it buys more of the price currency forward than spot." },
+        ],
+      },
+      {
+        heading: "2. Covered interest rate parity (arbitrage-enforced)",
+        blocks: [
+          { kind: "p", text: "COVERED INTEREST RATE PARITY (CIRP) is the one parity condition enforced by pure arbitrage, so it holds essentially exactly. Investing in either currency, with the exchange-rate risk fully hedged by a forward, must yield the same return — or you could borrow in one, lend in the other, and lock a riskless profit. The result: the forward rate is determined by the spot rate and the interest rate differential, and the HIGHER-interest-rate currency trades at a forward DISCOUNT (its expected purchasing-power erosion is built into the forward)." },
+          { kind: "formula", formula: { label: "Covered interest rate parity", expr: "F (price/base) = S × (1 + r_price) ÷ (1 + r_base)", note: "Rates for the contract's horizon. Higher r_base ⟹ forward below spot ⟹ base currency at a forward discount." } },
+          { kind: "example", example: { title: "Pricing a one-year forward", prompt: "Spot is 1.25 USD/EUR. The one-year US rate is 4%; the one-year euro rate is 2%. What is the one-year forward USD/EUR rate, and which currency is at a premium?", steps: ["EUR is the base, USD the price. F = S × (1 + r_USD) ÷ (1 + r_EUR).", "F = 1.25 × (1.04 ÷ 1.02) = 1.25 × 1.01961 = 1.2745 USD/EUR.", "The forward (1.2745) is ABOVE spot (1.25), so the base currency (EUR) is at a forward PREMIUM.", "Equivalently, the higher-rate currency (USD) is at a forward DISCOUNT — consistent with CIRP."], answer: "Forward ≈ 1.2745 USD/EUR; the EUR (lower-rate, base) trades at a forward premium and the USD at a discount. This is a no-arbitrage price, not a forecast." } },
+        ],
+      },
+      {
+        heading: "3. Uncovered parity, PPP, and the Fisher effect",
+        blocks: [
+          { kind: "p", text: "UNCOVERED INTEREST RATE PARITY (UIRP) is the un-hedged cousin: it says the EXPECTED change in the spot rate equals the interest rate differential, so the high-yield currency is EXPECTED to depreciate by just enough to wipe out its yield advantage. UIRP is NOT arbitrage-enforced (you bear currency risk), and empirically it fails over short and medium horizons — which is the entire basis of the carry trade below. PURCHASING POWER PARITY (PPP) links exchange rates to inflation: relative PPP says the expected change in the spot rate equals the INFLATION differential, so the high-inflation currency depreciates. PPP holds poorly short-term but better over long horizons." },
+          { kind: "p", text: "The INTERNATIONAL FISHER EFFECT ties these together: if real rates are equal across countries, nominal interest rate differentials reflect expected INFLATION differentials. Chain the conditions and a clean (idealized) picture emerges: interest rate differentials = expected inflation differentials = expected currency depreciation, and the forward rate equals the expected future spot rate. The FORWARD RATE AS AN UNBIASED PREDICTOR hypothesis claims the forward equals the market's expected future spot; in reality the forward is a biased predictor, and that bias is, again, what the carry trade harvests." },
+          { kind: "formula", formula: { label: "Uncovered parity and relative PPP", expr: "UIRP:  %ΔS^e (price/base) ≈ r_base − r_price       Relative PPP:  %ΔS^e ≈ π_base − π_price", note: "Expected depreciation of the base currency equals its interest-rate (or inflation) excess. Note the sign flips versus the CIRP forward formula because depreciation of the base lowers the price/base quote." } },
+        ],
+      },
+      {
+        heading: "4. The carry trade",
+        blocks: [
+          { kind: "p", text: "If UIRP held, you couldn't profit from interest differentials — the high-yield currency would depreciate to offset its yield. But empirically it often does NOT depreciate as predicted, so the CARRY TRADE — borrow (fund) in a low-yield currency, invest in a high-yield currency, and pocket the differential — has historically earned positive average returns. The catch is the RISK PROFILE: carry trades earn small, steady gains most of the time but suffer occasional severe losses when high-yield currencies crash during risk-off episodes. The return distribution has NEGATIVE SKEW and fat tails ('picking up nickels in front of a steamroller'); the carry premium is compensation for this crash risk." },
+        ],
+      },
+      {
+        heading: "5. The Mundell–Fleming model and exchange-rate determination",
+        blocks: [
+          { kind: "p", text: "Beyond parity, the MUNDELL–FLEMING model describes how monetary and fiscal policy move the exchange rate through their effect on interest rates and output, and the answer depends on CAPITAL MOBILITY. With HIGH capital mobility, expansionary MONETARY policy lowers interest rates, prompting capital outflows that DEPRECIATE the currency; restrictive monetary policy appreciates it. Fiscal policy's effect is more ambiguous: expansionary fiscal policy raises rates (appreciating the currency via inflows) but also worsens the trade balance over time. With LOW capital mobility, trade-balance effects dominate the rate effects, often reversing the monetary/fiscal conclusions." },
+          { kind: "p", text: "Other lenses round out the topic: the MONETARY models tie the exchange rate to relative money supplies and price levels (a pure PPP-style view), while the PORTFOLIO BALANCE approach emphasizes that sustained fiscal deficits eventually depreciate a currency as the stock of government debt investors must hold grows. Practically, the toolkit is: CIRP for arbitrage-true forward pricing; UIRP/PPP/Fisher for the expectational links (true on average, exploitable when they break); the carry trade for harvesting the UIRP failure; and Mundell–Fleming for policy-driven direction. Master the quote convention and the CIRP sign, and the rest of the item set follows." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Base vs price currency", def: "Quote = price currency per one unit of base; rate rises when the base appreciates." },
+      { term: "Forward premium/discount", def: "Forward above spot = base at a premium; below = discount, set by the rate differential." },
+      { term: "Covered interest rate parity (CIRP)", def: "Arbitrage-enforced: F = S(1+r_price)/(1+r_base); higher-rate currency at a forward discount." },
+      { term: "Uncovered interest rate parity (UIRP)", def: "Expected spot change = rate differential; high-yield currency expected to depreciate. Not arbitrage-enforced." },
+      { term: "Relative PPP", def: "Expected spot change = inflation differential; high-inflation currency depreciates (long-run tendency)." },
+      { term: "International Fisher effect", def: "If real rates are equal, nominal rate differentials reflect expected inflation differentials." },
+      { term: "Forward as predictor", def: "Hypothesis that the forward equals the expected future spot; empirically a biased predictor." },
+      { term: "Carry trade", def: "Borrow low-yield, invest high-yield; profits from UIRP failure, with negative skew/crash risk." },
+      { term: "Mundell–Fleming model", def: "Monetary/fiscal policy moves the exchange rate via rates and output; result depends on capital mobility." },
+      { term: "Portfolio balance approach", def: "Sustained fiscal deficits eventually depreciate a currency as debt stock grows." },
+    ],
+    takeaways: [
+      "Read the quote first: price currency per one unit of base; the rate rises when the base currency appreciates.",
+      "Covered interest rate parity is arbitrage-enforced — F = S(1+r_price)/(1+r_base) — so the higher-interest-rate currency trades at a forward discount.",
+      "Uncovered parity, PPP, and the Fisher effect are expectational (not arbitrage-true): high-yield/high-inflation currencies are EXPECTED to depreciate, but often don't.",
+      "The carry trade harvests the failure of uncovered parity, earning a premium for bearing negative-skew crash risk.",
+      "Under high capital mobility, expansionary monetary policy depreciates the currency; fiscal policy's effect is ambiguous (rate vs trade-balance channels).",
+      "The forward rate is a no-arbitrage price, not a forecast — and empirically a biased predictor of the future spot.",
+    ],
+  },
+
+  {
+    id: "cfa-l2-multifactor",
+    examSlug: "cfa-l2",
+    topicId: "pm",
+    topicName: "Portfolio Management",
+    title: "Multifactor Models: APT, Factor Risk, and Active Management",
+    readingMinutes: 80,
+    summary:
+      "Moving beyond the single-factor CAPM to multifactor models — arbitrage pricing theory, the three model types, the Carhart four-factor model, and how factor sensitivities drive active return, active risk, and the information ratio in portfolio construction.",
+    intro:
+      "The CAPM explains expected return with a SINGLE factor — the market. MULTIFACTOR MODELS recognize that returns respond to several systematic forces (the market, but also size, value, momentum, interest rates, inflation, and more), and they're the workhorse of modern portfolio analysis: they decompose return and risk into factor exposures, drive both passive replication and active tilts, and underpin performance attribution. This chapter builds arbitrage pricing theory (the multifactor analogue of the CAPM), distinguishes the three families of factor models, works through the Carhart four-factor model, and shows how factor sensitivities translate into active return, active risk, and the information ratio. The exam tests the structure of these models and the precise vocabulary of active management.",
+    sections: [
+      {
+        heading: "1. Arbitrage pricing theory (APT)",
+        blocks: [
+          { kind: "p", text: "ARBITRAGE PRICING THEORY generalizes the CAPM: an asset's expected return is the risk-free rate plus the sum of its sensitivities (factor betas) to several systematic factors, each multiplied by that factor's RISK PREMIUM. APT rests on three assumptions: returns are driven by a factor model, there are enough assets to diversify away firm-specific risk, and no arbitrage opportunities exist among well-diversified portfolios. Crucially, APT does NOT specify what the factors are or require the market portfolio — it's an equilibrium of no-arbitrage, not of investor mean-variance optimization like the CAPM." },
+          { kind: "formula", formula: { label: "APT expected return", expr: "E(Rₚ) = R_f + β₁λ₁ + β₂λ₂ + … + β_kλ_k", note: "βⱼ is the portfolio's sensitivity to factor j; λⱼ is factor j's risk premium (the expected return for one unit of that factor exposure)." } },
+          { kind: "example", example: { title: "APT expected return", prompt: "Risk-free rate 3%. A portfolio has a sensitivity of 1.2 to a factor with a 5% premium and 0.6 to a second factor with a 2% premium. What is its expected return?", steps: ["E(R) = 3% + (1.2 × 5%) + (0.6 × 2%).", "= 3% + 6.0% + 1.2%.", "= 10.2%."], answer: "10.2%. Each factor exposure adds its beta times its risk premium on top of the risk-free rate." } },
+        ],
+      },
+      {
+        heading: "2. Three types of multifactor model",
+        blocks: [
+          { kind: "p", text: "Multifactor models come in three flavors. MACROECONOMIC factor models use SURPRISES in economic variables (unexpected changes in inflation, GDP growth, interest rates, credit spreads) as the factors; the betas are estimated by regression. FUNDAMENTAL factor models use firm ATTRIBUTES as the factors (P/E, market cap/size, book-to-market, leverage); here the attribute-based factor SENSITIVITIES are specified (often as standardized values of the attribute), and the factor returns are estimated. STATISTICAL factor models extract factors purely from the data via techniques like factor or principal-components analysis, with no economic interpretation imposed — powerful but harder to interpret." },
+          { kind: "callout", label: "Where the estimation happens", body: "Macroeconomic models estimate the BETAS (regress returns on factor surprises). Fundamental models specify the betas from attributes and estimate the factor RETURNS. Knowing which side is estimated versus specified is a classic exam distinction." },
+        ],
+      },
+      {
+        heading: "3. The Carhart four-factor model",
+        blocks: [
+          { kind: "p", text: "The most-tested fundamental-style model is the CARHART FOUR-FACTOR MODEL, which extends the Fama–French three-factor model (market, size, value) by adding momentum. The four factors are: RMRF (the market excess return), SMB ('small minus big' — the size premium, small caps over large), HML ('high minus low' — the value premium, high book-to-market over low), and WML/UMD ('winners minus losers' — the momentum premium). It explains a fund's return far better than the CAPM and is the standard tool for separating a manager's factor TILTS from genuine skill (alpha)." },
+          { kind: "formula", formula: { label: "Carhart four-factor model", expr: "E(Rₚ) − R_f = aₚ + bₚ₁(RMRF) + bₚ₂(SMB) + bₚ₃(HML) + bₚ₄(WML)", note: "aₚ is the manager's alpha after controlling for market, size, value, and momentum exposures." } },
+          { kind: "p", text: "The practical punchline: a manager who beats the market may simply be loading on small-cap, value, or momentum factors — exposures an investor can buy cheaply through 'smart-beta' index products. The Carhart alpha (aₚ) isolates what's left after stripping those exposures out, the true measure of selection skill." },
+        ],
+      },
+      {
+        heading: "4. Active return, active risk, and the information ratio",
+        blocks: [
+          { kind: "p", text: "Multifactor models power ACTIVE management analysis. ACTIVE RETURN is the portfolio's return minus its benchmark's; it splits into return from FACTOR TILTS (different factor exposures than the benchmark) and return from SECURITY SELECTION (asset picks within factor exposures). ACTIVE RISK (tracking error) is the standard deviation of active return, and it likewise decomposes into ACTIVE FACTOR RISK and ACTIVE SPECIFIC (asset-selection) RISK. The INFORMATION RATIO — active return divided by active risk — measures the efficiency of active management and is the key number for ranking managers." },
+          { kind: "formula", formula: { label: "Information ratio and active-risk decomposition", expr: "IR = Active return ÷ Active risk        Active risk² = Active factor risk + Active specific risk", note: "Active risk is reported as a standard deviation, so it's variances (active risk squared) that add — not the standard deviations themselves." } },
+          { kind: "example", example: { title: "Information ratio", prompt: "A portfolio earns 9.5% against a benchmark's 8.0%, with an active risk (tracking error) of 3.0%. What is the information ratio?", steps: ["Active return = 9.5% − 8.0% = 1.5%.", "IR = active return ÷ active risk = 1.5% ÷ 3.0%.", "= 0.50."], answer: "0.50 — the manager earns half a unit of active return per unit of active risk. Higher is better; top active managers cluster around 0.5–1.0." } },
+        ],
+      },
+      {
+        heading: "5. Models in portfolio construction",
+        blocks: [
+          { kind: "p", text: "Multifactor models are used three ways. PASSIVE managers match the benchmark's factor exposures to track it tightly. ACTIVE managers deliberately TILT exposures toward factors they expect to outperform (or away from unwanted risks) while controlling tracking error. RULES-BASED/FACTOR ('smart beta') strategies systematically capture factor premiums (value, momentum, size, low-volatility) at low cost — a middle ground between passive and active. The models also drive RISK BUDGETING and ATTRIBUTION: by expressing a portfolio as a set of factor exposures, a manager can see exactly where return and risk come from and reallocate the risk budget toward the highest-conviction bets." },
+          { kind: "p", text: "The chapter coheres around one idea: returns are bundles of factor exposures plus security-specific effects. APT prices those exposures, the three model types estimate them, Carhart names the equity ones that matter most, and active return/active risk/IR quantify how skillfully a manager deploys them. Carry forward two precise facts: in APT, expected return = R_f + Σβλ; and active risk is a standard deviation, so you add VARIANCES (active risk squared), never the active risks themselves." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Arbitrage pricing theory (APT)", def: "E(R) = R_f + Σβⱼλⱼ; multifactor no-arbitrage model; doesn't specify the factors or need the market portfolio." },
+      { term: "Factor sensitivity (beta)", def: "A portfolio's responsiveness to a given systematic factor." },
+      { term: "Factor risk premium (λ)", def: "Expected return per unit of exposure to a factor." },
+      { term: "Macroeconomic factor model", def: "Factors are surprises in economic variables; betas estimated by regression." },
+      { term: "Fundamental factor model", def: "Factors are firm attributes (size, value, P/E); betas specified, factor returns estimated." },
+      { term: "Statistical factor model", def: "Factors extracted from the data (PCA/factor analysis); no economic interpretation imposed." },
+      { term: "Carhart four-factor model", def: "RMRF (market), SMB (size), HML (value), WML (momentum); isolates true alpha." },
+      { term: "Active return", def: "Portfolio return minus benchmark; splits into factor-tilt and security-selection return." },
+      { term: "Active risk (tracking error)", def: "Standard deviation of active return; active risk² = active factor risk + active specific risk." },
+      { term: "Information ratio", def: "Active return ÷ active risk; efficiency of active management." },
+      { term: "Smart beta / factor investing", def: "Rules-based capture of factor premiums at low cost; between passive and active." },
+    ],
+    takeaways: [
+      "APT prices expected return as R_f + Σ(βⱼ × λⱼ) across systematic factors; it assumes a factor structure, diversification, and no arbitrage — and, unlike CAPM, doesn't require the market portfolio.",
+      "Three model types: macroeconomic (factor surprises, estimate betas), fundamental (firm attributes, estimate factor returns), and statistical (data-extracted factors).",
+      "The Carhart four-factor model adds momentum (WML) to market, size (SMB), and value (HML) — isolating true alpha from factor tilts.",
+      "Active return decomposes into factor tilts and security selection; the information ratio (active return ÷ active risk) measures management efficiency.",
+      "Active risk is a standard deviation, so VARIANCES add: active risk² = active factor risk + active specific risk.",
+      "Factor models drive passive replication, active tilting, smart-beta strategies, and risk attribution.",
+    ],
+  },
+
+  {
+    id: "cfa-l2-capstructure",
+    examSlug: "cfa-l2",
+    topicId: "corp",
+    topicName: "Corporate Issuers",
+    title: "Capital Structure and Payout Policy",
+    readingMinutes: 82,
+    summary:
+      "What determines how a firm finances itself and returns cash — the Modigliani–Miller propositions with and without taxes, the static trade-off and pecking-order theories, and the analysis of dividends versus share repurchases and their effects on EPS, book value, and shareholder wealth.",
+    intro:
+      "Two corporate-finance decisions sit at the core of Level II: how a firm should be FINANCED (its mix of debt and equity) and how it should RETURN cash to owners (dividends versus buybacks). Both are anchored by the MODIGLIANI–MILLER framework, which starts from a striking irrelevance result in a frictionless world and then layers in the real-world frictions — taxes, financial distress, agency costs, and information asymmetry — that make capital structure and payout policy matter after all. The exam tests the MM propositions precisely (especially the cost-of-equity formula) and the mechanics of how a repurchase moves EPS and book value per share relative to a dividend.",
+    sections: [
+      {
+        heading: "1. Modigliani–Miller without taxes",
+        blocks: [
+          { kind: "p", text: "MM's starting point is a perfect market — no taxes, no distress costs, no transaction costs, symmetric information. Under those assumptions, PROPOSITION I says a firm's value is INDEPENDENT of its capital structure: you can't change the size of the pie by slicing it differently between debt and equity. PROPOSITION II then says the cost of equity rises LINEARLY with leverage — as a firm adds cheaper debt, the remaining equity becomes riskier by exactly enough to keep the weighted average cost of capital (WACC) constant. There is no free lunch from leverage in this world." },
+          { kind: "formula", formula: { label: "MM Proposition II (no taxes)", expr: "r_e = r₀ + (r₀ − r_d) × (D/E)", note: "r₀ is the cost of capital of the all-equity firm; the cost of equity rises with the debt-to-equity ratio, leaving WACC = r₀ unchanged." } },
+          { kind: "example", example: { title: "Cost of equity and WACC under MM (no taxes)", prompt: "An all-equity firm's cost of capital is 10%. It moves to a 50/50 debt/equity structure with a 6% cost of debt. What are its cost of equity and WACC?", steps: ["D/E = 1.0. r_e = 10% + (10% − 6%)(1.0) = 14%.", "WACC = 0.5(14%) + 0.5(6%) = 7% + 3% = 10%.", "WACC is unchanged at r₀ = 10%."], answer: "Cost of equity rises to 14%, but WACC stays at 10% — exactly MM Proposition II. The leverage made equity riskier by just enough to offset the cheaper debt." } },
+        ],
+      },
+      {
+        heading: "2. Adding taxes and the static trade-off theory",
+        blocks: [
+          { kind: "p", text: "Introduce corporate TAXES and the picture changes: interest is tax-deductible, so debt creates an INTEREST TAX SHIELD that adds value. MM with taxes says the levered firm is worth the unlevered firm plus the present value of that shield — pushing the theoretical optimum toward 100% debt. That's clearly unrealistic, because more debt also raises the COSTS OF FINANCIAL DISTRESS (direct bankruptcy costs and, larger, indirect costs: lost customers, forced asset sales, underinvestment) and AGENCY COSTS between shareholders and bondholders. The STATIC TRADE-OFF THEORY balances these: the optimal capital structure is the debt level where the marginal tax-shield benefit equals the marginal distress/agency cost, minimizing WACC and maximizing firm value." },
+          { kind: "formula", formula: { label: "MM Proposition I with taxes", expr: "V_L = V_U + (t × D)", note: "Firm value rises with debt by the present value of the perpetual tax shield (tax rate t times debt D). The trade-off theory caps this with rising distress costs." } },
+        ],
+      },
+      {
+        heading: "3. Pecking order and signaling",
+        blocks: [
+          { kind: "p", text: "Because managers know more than outside investors (asymmetric information), financing choices carry SIGNALS. The PECKING-ORDER THEORY (Myers) holds that firms prefer financing in order of least information sensitivity: INTERNAL funds first, then DEBT, and EQUITY only as a last resort — because issuing equity signals that managers may believe the stock is overvalued, which depresses the price. This implies profitable firms carry less debt (they can self-fund), the opposite of a simple tax-shield prediction. Capital structure thus reflects a financing hierarchy and signaling, not just a tax-versus-distress calculation." },
+        ],
+      },
+      {
+        heading: "4. Dividends versus repurchases",
+        blocks: [
+          { kind: "p", text: "On the payout side, MM again give an IRRELEVANCE baseline: in a frictionless world, dividend policy doesn't affect firm value (investors can create 'homemade dividends' by selling shares). Frictions then make policy matter, and competing views emerge: the BIRD-IN-HAND argument (investors value certain dividends over uncertain capital gains, lowering the cost of equity), TAX AVERSION (where dividends are taxed more heavily than gains, favoring low payouts/buybacks), the CLIENTELE EFFECT (different investors prefer different policies), SIGNALING (dividend increases signal management confidence; cuts are punished severely, so firms smooth dividends), and AGENCY costs (paying out free cash flow disciplines managers)." },
+          { kind: "p", text: "A SHARE REPURCHASE is, under ideal conditions, EQUIVALENT to a cash dividend of the same size — shareholder wealth is unchanged either way. But buybacks differ in mechanics and signal. Their EPS effect depends on financing cost versus earnings yield: if the company funds the buyback with cash (or debt) whose after-tax cost is BELOW the stock's earnings yield (E/P), EPS RISES; if above, EPS falls. The BOOK VALUE PER SHARE effect depends on price versus book: repurchasing above book value per share LOWERS BVPS, and below book RAISES it." },
+          { kind: "example", example: { title: "Repurchase effect on EPS", prompt: "A firm has net income of $20M and 10M shares (EPS $2.00). It buys back 1M shares at $25 using cash that was earning 4% after tax. What happens to EPS?", steps: ["Forgone after-tax interest = $25M × 4% = $1.0M, so net income falls to $19M.", "Shares outstanding fall to 9M.", "New EPS = $19M ÷ 9M = $2.11.", "Check the rule: the stock's earnings yield is E/P = $2.00 ÷ $25 = 8%, which exceeds the 4% after-tax cost of the cash used — so EPS rises."], answer: "EPS rises from $2.00 to $2.11. The buyback is accretive because the earnings yield (8%) exceeds the after-tax cost of funds (4%). If the funding cost had exceeded 8%, EPS would have fallen." } },
+        ],
+      },
+      {
+        heading: "5. Synthesis",
+        blocks: [
+          { kind: "p", text: "Both decisions follow the same arc: a clean MM irrelevance result in a perfect market, then frictions that restore relevance. For FINANCING, taxes favor debt, distress and agency costs limit it (static trade-off), and information asymmetry produces a pecking order. For PAYOUT, policy is irrelevant in theory but shaped by taxes, signaling, clienteles, and agency costs, with repurchases offering flexibility and a different signal than dividends. Carry forward two precise tools: MM Prop II (r_e = r₀ + (r₀ − r_d)(D/E), with WACC = r₀ when there are no taxes), and the repurchase rules — EPS rises when the earnings yield beats the after-tax funding cost, and BVPS falls when shares are bought above book value." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "MM Proposition I (no taxes)", def: "Firm value is independent of capital structure in a perfect market." },
+      { term: "MM Proposition II (no taxes)", def: "r_e = r₀ + (r₀ − r_d)(D/E); cost of equity rises with leverage, WACC constant." },
+      { term: "Interest tax shield", def: "Tax-deductible interest adds value; V_L = V_U + tD with corporate taxes." },
+      { term: "Costs of financial distress", def: "Direct bankruptcy costs plus larger indirect costs (lost sales, underinvestment)." },
+      { term: "Static trade-off theory", def: "Optimal debt balances the tax shield against distress/agency costs; minimizes WACC." },
+      { term: "Pecking-order theory", def: "Firms prefer internal funds, then debt, then equity, due to asymmetric information." },
+      { term: "Dividend irrelevance (MM)", def: "In a frictionless world payout policy doesn't affect value (homemade dividends)." },
+      { term: "Bird-in-hand", def: "Investors value certain dividends over uncertain gains, lowering the cost of equity." },
+      { term: "Clientele effect", def: "Different investor groups prefer different payout policies." },
+      { term: "Dividend signaling", def: "Increases signal confidence; cuts are punished, so firms smooth dividends." },
+      { term: "Repurchase–dividend equivalence", def: "Under ideal conditions a buyback equals a same-size cash dividend in wealth terms." },
+      { term: "Repurchase EPS rule", def: "EPS rises if the earnings yield (E/P) exceeds the after-tax cost of funds used." },
+      { term: "Repurchase BVPS rule", def: "Buying above book value per share lowers BVPS; below raises it." },
+    ],
+    takeaways: [
+      "MM in a perfect market: firm value is independent of capital structure (Prop I), and cost of equity rises with leverage — r_e = r₀ + (r₀ − r_d)(D/E) — leaving WACC = r₀ (Prop II).",
+      "With taxes, the interest tax shield adds value (V_L = V_U + tD); the static trade-off theory caps debt where distress and agency costs offset the shield.",
+      "The pecking-order theory: firms finance with internal funds first, then debt, then equity — because issuing equity signals possible overvaluation.",
+      "Dividend policy is irrelevant in theory (MM) but shaped by taxes, signaling, clienteles, and agency costs; firms smooth dividends because cuts are heavily punished.",
+      "A repurchase equals a same-size dividend in ideal conditions; EPS rises when the earnings yield beats the after-tax funding cost.",
+      "Repurchasing above book value per share lowers BVPS; repurchasing below raises it.",
+    ],
+  },
+
+  {
+    id: "cfa-l2-altvaluation",
+    examSlug: "cfa-l2",
+    topicId: "alts",
+    topicName: "Alternative Investments",
+    title: "Private Equity and Real Estate Valuation",
+    readingMinutes: 84,
+    summary:
+      "Valuing the two largest alternative asset classes — private equity fund structures, fees, the J-curve and LBO value creation; and real estate via net operating income, capitalization rates, and REIT measures like FFO, AFFO, and net asset value.",
+    intro:
+      "Alternative investments at Level II turn quantitative, and two asset classes dominate: PRIVATE EQUITY and REAL ESTATE. For private equity you need the fund structure and fee mechanics, the J-curve, and how leveraged buyouts create value. For real estate you need the income approach — net operating income capitalized into value — and the REIT-specific metrics (funds from operations, adjusted FFO, and net asset value) that adapt accounting numbers to property economics. These are formula-driven topics, and the item sets reward exact definitions: what's included in NOI, how a cap rate maps to value, and how carried interest and FFO are computed.",
+    sections: [
+      {
+        heading: "1. Private equity structure and fees",
+        blocks: [
+          { kind: "p", text: "A private equity fund is a partnership: the GENERAL PARTNER (GP) manages it; LIMITED PARTNERS (LPs) commit capital that is DRAWN DOWN over time as deals are found (not invested all at once). The GP earns a MANAGEMENT FEE (typically ~2% of committed capital) plus CARRIED INTEREST (typically ~20% of profits above a HURDLE RATE). Protective terms include a HIGH-WATER MARK (carry only on new profits above the prior peak) and a CLAWBACK (the GP returns excess carry if later losses occur). LPs track performance with multiples: PIC (paid-in capital), DPI (distributions ÷ paid-in, 'realized'), RVPI (residual value ÷ paid-in, 'unrealized'), and TVPI = DPI + RVPI (total value to paid-in)." },
+          { kind: "p", text: "PE returns famously follow a J-CURVE: early years show NEGATIVE returns as fees and write-downs hit before value is created, then returns turn positive as portfolio companies mature and exit. Value in a LEVERAGED BUYOUT (LBO) comes from three levers: paying down DEBT with the target's cash flow (deleveraging transfers value to equity), OPERATIONAL IMPROVEMENT (margin and growth gains), and MULTIPLE EXPANSION (exiting at a higher valuation multiple than entry). Exits run through IPO, trade sale (to a strategic buyer), secondary sale (to another financial sponsor), or recapitalization." },
+        ],
+      },
+      {
+        heading: "2. Carried interest in practice",
+        blocks: [
+          { kind: "example", example: { title: "Computing carried interest", prompt: "A fund with $100M committed returns a $40M total profit. The GP earns 20% carried interest above an 8% hurdle on committed capital (assume the hurdle is met and carry applies to total profit, deal-by-deal). What carry does the GP earn?", steps: ["The 8% hurdle is cleared (the $40M profit far exceeds $8M).", "Carried interest = 20% × $40M profit.", "= $8M to the GP; the remaining $32M goes to LPs."], answer: "$8M of carried interest. Note the management fee (~2% of committed = ~$2M/yr) is separate. A whole-fund ('European') waterfall would instead require LPs to recoup all capital plus the hurdle before any carry is paid — a key structural distinction." } },
+        ],
+      },
+      {
+        heading: "3. Real estate: NOI and the income approach",
+        blocks: [
+          { kind: "p", text: "The income approach values income-producing property from NET OPERATING INCOME (NOI) — rental income less vacancy and operating expenses, but BEFORE financing costs, income taxes, and depreciation. DIRECT CAPITALIZATION divides a single stabilized NOI by a CAPITALIZATION RATE (the market's required income yield) to get value; the cap rate is essentially a going-in income yield (NOI ÷ value) and equals the discount rate minus the NOI growth rate. The DISCOUNTED-CASH-FLOW method instead projects multiple years of cash flow plus a terminal value. Two other approaches exist — COST (replacement cost less depreciation, useful for new or special-use property) and SALES COMPARISON (recent comparable transactions) — but income methods dominate for investment property." },
+          { kind: "formula", formula: { label: "Direct capitalization", expr: "Value = NOI ÷ Cap rate         Cap rate = NOI ÷ Value = Discount rate − Growth rate", note: "A lower cap rate means a higher price per dollar of income (and reflects lower risk or higher expected growth)." } },
+          { kind: "example", example: { title: "Direct capitalization", prompt: "A property generates stabilized NOI of $1.2M and comparable properties trade at a 6% cap rate. What is its value?", steps: ["Value = NOI ÷ cap rate = $1,200,000 ÷ 0.06.", "= $20,000,000."], answer: "$20M. If the market cap rate fell to 5% (lower required yield), the same NOI would be worth $24M — cap-rate compression drives real-estate values just as falling discount rates lift bond and equity prices." } },
+        ],
+      },
+      {
+        heading: "4. REIT valuation: FFO, AFFO, and NAV",
+        blocks: [
+          { kind: "p", text: "REITs need metrics that undo accounting quirks. FUNDS FROM OPERATIONS (FFO) adds back real-estate DEPRECIATION to net income (property generally doesn't lose value the way the depreciation schedule implies) and removes gains/losses on property sales, giving a cleaner recurring cash-earnings figure. ADJUSTED FFO (AFFO) goes further, subtracting recurring maintenance capital expenditures and normalizing straight-line rent — the best proxy for sustainable distributable cash. Analysts apply price-to-FFO or price-to-AFFO multiples, or use a NET ASSET VALUE (NAV) approach: estimate the market value of the REIT's properties (often by capitalizing NOI) plus other assets, subtract liabilities, and compare per-share NAV to the share price." },
+          { kind: "formula", formula: { label: "FFO and AFFO", expr: "FFO = Net income + Depreciation − Gains on property sales      AFFO = FFO − Recurring capex − Straight-line rent adjustment", note: "FFO/AFFO replace GAAP earnings as the income measure for REITs; NAV = market value of assets − liabilities." } },
+          { kind: "example", example: { title: "Computing FFO", prompt: "A REIT reports net income of $50M, real-estate depreciation of $30M, and a $5M gain on a property sale. What is its FFO?", steps: ["FFO = net income + depreciation − gains on sales.", "= $50M + $30M − $5M.", "= $75M."], answer: "FFO = $75M. Subtracting, say, $10M of recurring maintenance capex and rent normalization would give AFFO ≈ $65M, the figure most tied to sustainable dividends." } },
+        ],
+      },
+      {
+        heading: "5. Synthesis",
+        blocks: [
+          { kind: "p", text: "The two asset classes share a theme — standard discounting adapted to illiquid, cash-flow-driven assets — but with distinct toolkits. Private equity is about FUND STRUCTURE and VALUE CREATION: committed-capital fees, carried interest above a hurdle, the J-curve, and the three LBO levers (deleveraging, operations, multiple expansion), measured with TVPI/DPI/RVPI. Real estate is about INCOME CAPITALIZATION: NOI (pre-financing, pre-tax) divided by a cap rate, with REITs analyzed through FFO, AFFO, and NAV. Over-learn three formulas: value = NOI ÷ cap rate, FFO = net income + depreciation − sale gains, and carry = 20% of profits above the hurdle." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Committed vs drawn-down capital", def: "LPs commit capital that the GP draws down over time as deals arise." },
+      { term: "Management fee", def: "~2% of committed capital, paid to the GP regardless of performance." },
+      { term: "Carried interest", def: "~20% of profits above a hurdle rate, paid to the GP; subject to high-water mark/clawback." },
+      { term: "Hurdle rate", def: "Minimum return LPs earn before the GP shares in profits." },
+      { term: "TVPI / DPI / RVPI", def: "Total value, realized (distributions), and unrealized (residual value) per dollar of paid-in capital; TVPI = DPI + RVPI." },
+      { term: "J-curve", def: "PE returns are negative early (fees, write-downs) then turn positive as exits occur." },
+      { term: "LBO value creation", def: "Deleveraging, operational improvement, and multiple expansion." },
+      { term: "Net operating income (NOI)", def: "Rental income less vacancy and operating expenses; before financing, taxes, and depreciation." },
+      { term: "Capitalization rate", def: "NOI ÷ value; a going-in income yield equal to the discount rate minus growth." },
+      { term: "Direct capitalization", def: "Value = NOI ÷ cap rate, using a single stabilized NOI." },
+      { term: "Funds from operations (FFO)", def: "Net income + real-estate depreciation − gains on property sales." },
+      { term: "Adjusted FFO (AFFO)", def: "FFO − recurring maintenance capex − straight-line rent adjustment." },
+      { term: "Net asset value (NAV)", def: "Market value of assets (often capitalized NOI) minus liabilities; compared per share to price." },
+    ],
+    takeaways: [
+      "PE funds: LPs commit capital drawn down over time; the GP earns ~2% management fee plus ~20% carried interest above a hurdle, with high-water marks and clawbacks.",
+      "Performance is tracked with TVPI = DPI + RVPI; returns follow a J-curve (negative early, positive as exits occur).",
+      "LBO value comes from deleveraging, operational improvement, and multiple expansion.",
+      "Real-estate income approach: NOI (before financing, taxes, depreciation) ÷ cap rate gives value via direct capitalization; lower cap rates mean higher prices.",
+      "REITs use FFO (net income + depreciation − sale gains) and AFFO (FFO − recurring capex), plus a NAV approach (asset market value − liabilities).",
+      "Over-learn: value = NOI ÷ cap rate, FFO = NI + depreciation − gains, and carry = 20% of profit above the hurdle.",
+    ],
+  },
+
+  {
+    id: "cfa-l2-creditanalysis",
+    examSlug: "cfa-l2",
+    topicId: "fixed",
+    topicName: "Fixed Income",
+    title: "Credit Analysis: Default Risk, Structural and Reduced-Form Models",
+    readingMinutes: 80,
+    summary:
+      "Measuring and pricing credit risk — expected loss as probability of default times loss given default, the structural (Merton) and reduced-form approaches to modeling default, the components of the credit spread, and the credit valuation adjustment that discounts a risky bond.",
+    intro:
+      "Credit analysis asks two questions: how likely is a borrower to default, and how much is lost if it does? Level II formalizes the answer with EXPECTED LOSS (probability of default times loss given default), two competing modeling traditions — the STRUCTURAL approach that treats equity as an option on the firm's assets, and the REDUCED-FORM approach that models default as a statistical process — and the CREDIT SPREAD that compensates investors for bearing this risk. The capstone is the CREDIT VALUATION ADJUSTMENT, the present value of expected credit losses that you subtract from a bond's risk-free value to price it. The item sets reward precise definitions and the ability to compute expected loss and CVA.",
+    sections: [
+      {
+        heading: "1. The building blocks of credit risk",
+        blocks: [
+          { kind: "p", text: "Credit risk has two components: DEFAULT RISK (the probability the borrower fails to pay, PD) and LOSS SEVERITY (the fraction of exposure lost given default, LGD = 1 − recovery rate). Their product, scaled by the exposure, is the EXPECTED LOSS. A bond can have a high default probability but low severity (well-secured) or vice versa; both matter. The credit analyst estimates these from financial statements (leverage, coverage, cash flow), industry and macro conditions, and the structure of the specific obligation (seniority, collateral, covenants)." },
+          { kind: "formula", formula: { label: "Expected loss", expr: "Expected loss = PD × LGD × Exposure       LGD = 1 − Recovery rate", note: "Default probability times the fraction lost in default times the amount at risk. Recovery rate is the share of exposure recovered after default." } },
+          { kind: "example", example: { title: "Computing expected loss", prompt: "A $1,000 bond has a 3% probability of default over the period and an expected recovery rate of 40%. What is the expected loss?", steps: ["LGD = 1 − recovery = 1 − 0.40 = 0.60.", "Expected loss = PD × LGD × exposure = 0.03 × 0.60 × $1,000.", "= $18."], answer: "$18 of expected loss. Note this is an EXPECTED value — the actual outcome is either roughly no loss (97% of the time) or a ~$600 loss (3% of the time). The spread must compensate for both the expected loss and the risk around it." } },
+        ],
+      },
+      {
+        heading: "2. The structural model (Merton)",
+        blocks: [
+          { kind: "p", text: "The STRUCTURAL model, built on Merton's insight, treats a firm's EQUITY as a CALL OPTION on its assets: shareholders own the residual and will 'exercise' (keep the firm) only if asset value exceeds the debt owed at maturity, otherwise they hand the assets to creditors (default). Debt is therefore equivalent to a risk-free bond minus a put option written to shareholders. Because it uses option-pricing math, the model derives PD and LGD ENDOGENOUSLY from the firm's asset value and asset VOLATILITY. Its strength is economic insight — it explains WHY default happens (the balance sheet). Its weaknesses: it assumes assets are traded and observable (they usually aren't) and a simplistic single-maturity capital structure, so the inputs must be estimated indirectly." },
+        ],
+      },
+      {
+        heading: "3. The reduced-form model",
+        blocks: [
+          { kind: "p", text: "The REDUCED-FORM model takes the opposite tack: it doesn't model the firm's balance sheet at all, but treats default as a STATISTICAL event arriving with some intensity (a hazard rate) that depends on OBSERVABLE variables — macroeconomic conditions and firm-specific financials — estimated from historical data or implied from market prices. It makes no assumption that assets are tradable, and it allows the default probability to vary with the economic cycle, which is realistic. Its weakness is that it's essentially BACKWARD-LOOKING: it assumes the statistical relationships estimated from the past will persist, and it gives no structural explanation of why default occurs." },
+          { kind: "callout", label: "Structural vs reduced-form", body: "STRUCTURAL: default is endogenous (assets fall below debt), uses option pricing, needs unobservable asset value/volatility, explains WHY. REDUCED-FORM: default is an exogenous statistical process driven by observable variables, estimated from history/prices, explains WHEN but not why." },
+        ],
+      },
+      {
+        heading: "4. Credit spreads",
+        blocks: [
+          { kind: "p", text: "The CREDIT SPREAD is the yield premium of a risky bond over a comparable risk-free benchmark, and it compensates for the expected loss PLUS a risk premium for the uncertainty around it PLUS a liquidity premium. Spreads widen as credit quality deteriorates and as the economic outlook worsens (they are strongly cyclical, blowing out in recessions). The TERM STRUCTURE OF CREDIT SPREADS — how the spread varies with maturity — usually slopes upward for investment-grade issuers (more time, more uncertainty) but can invert for distressed issuers, where near-term default risk dominates. Spread changes drive excess returns: a widening spread hurts a bond's price beyond the move in benchmark rates, and the price impact scales with the bond's spread duration." },
+        ],
+      },
+      {
+        heading: "5. The credit valuation adjustment",
+        blocks: [
+          { kind: "p", text: "To VALUE a risky bond, start from its value discounted at risk-free rates, then subtract the CREDIT VALUATION ADJUSTMENT (CVA) — the present value of expected credit losses over the bond's life. The CVA sums, across each future period, the probability of default in that period times the loss given default times the discount factor (and exposure). A risky bond's fair value is the risk-free value minus the CVA, and equivalently the credit spread is the yield adjustment that produces that same lower value. Higher PD, higher LGD, or a steeper required risk premium all raise the CVA and lower the bond's price." },
+          { kind: "formula", formula: { label: "Risky bond value and CVA", expr: "Value of risky bond = Value if risk-free − CVA       CVA = Σ (PVₜ of expected loss in period t)", note: "CVA is the present value of expected credit losses; subtracting it from the risk-free value gives the credit-risky price." } },
+          { kind: "p", text: "Pulling it together: credit risk decomposes into PD and LGD, whose product is expected loss; the structural and reduced-form models estimate default from the balance sheet or from statistics respectively; the credit spread compensates for expected loss, risk, and liquidity; and the CVA turns all of this into a price by discounting expected losses and subtracting them from the risk-free value. Carry forward the two computations: expected loss = PD × LGD × exposure, and value of a risky bond = risk-free value − CVA." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Default risk (PD)", def: "Probability the borrower fails to make promised payments." },
+      { term: "Loss given default (LGD)", def: "Fraction of exposure lost in default; LGD = 1 − recovery rate." },
+      { term: "Expected loss", def: "PD × LGD × exposure; the probability-weighted credit loss." },
+      { term: "Recovery rate", def: "Share of exposure recovered after default; 1 − LGD." },
+      { term: "Structural model (Merton)", def: "Equity is a call option on assets; default when assets fall below debt; PD/LGD endogenous." },
+      { term: "Reduced-form model", def: "Default as a statistical hazard process driven by observable variables; estimated from data/prices." },
+      { term: "Credit spread", def: "Yield premium over the risk-free benchmark compensating for expected loss, risk, and liquidity." },
+      { term: "Term structure of credit spreads", def: "How spreads vary with maturity; upward for IG, can invert for distressed issuers." },
+      { term: "Credit valuation adjustment (CVA)", def: "Present value of expected credit losses; subtracted from the risk-free value to price a risky bond." },
+      { term: "Spread duration", def: "Sensitivity of a bond's price to a change in its credit spread." },
+    ],
+    takeaways: [
+      "Credit risk has two parts: probability of default (PD) and loss given default (LGD = 1 − recovery); expected loss = PD × LGD × exposure.",
+      "Structural (Merton) models treat equity as a call option on assets — default is endogenous and PD/LGD derive from asset value and volatility, but assets are hard to observe.",
+      "Reduced-form models treat default as a statistical hazard process driven by observable variables; realistic and cycle-sensitive, but backward-looking.",
+      "The credit spread compensates for expected loss plus risk and liquidity premiums, and is strongly cyclical (widening in downturns).",
+      "A risky bond's value = its risk-free value minus the credit valuation adjustment (CVA), the present value of expected credit losses.",
+      "Over-learn: expected loss = PD × LGD × exposure, and value of risky bond = risk-free value − CVA.",
+    ],
+  },
+
+  {
+    id: "cfa-l2-earningsquality",
+    examSlug: "cfa-l2",
+    topicId: "fra",
+    topicName: "Financial Reporting & Analysis",
+    title: "Quality of Financial Reports: Earnings, Accruals, and Warning Signs",
+    readingMinutes: 78,
+    summary:
+      "Judging how trustworthy and sustainable reported numbers are — the quality spectrum from reporting quality to results quality, conservative versus aggressive choices, the accrual basis of earnings quality, and the warning signs and quantitative models used to flag manipulation and predict bankruptcy.",
+    intro:
+      "A financial statement can be GAAP-compliant and still mislead, and reported earnings can be real but unsustainable. Level II teaches you to evaluate QUALITY along two axes — the quality of the REPORTING itself (is it accurate and decision-useful?) and the quality of the RESULTS it reports (are the earnings high and sustainable?). The most powerful analytical tool is the ACCRUAL component of earnings: the more of reported profit that is accrual rather than cash, the less persistent and lower-quality it tends to be. The chapter then catalogs the warning signs of manipulation and the quantitative screens (the Beneish M-score, the Altman Z-score) analysts use. Exam questions reward the precise quality framework and the accrual logic.",
+    sections: [
+      {
+        heading: "1. The quality spectrum",
+        blocks: [
+          { kind: "p", text: "Separate two ideas. REPORTING QUALITY is about the information: are the financials compliant, decision-useful, complete, unbiased, and clearly presented? RESULTS (earnings) QUALITY is about the economics: are the earnings sustainable and do they provide an adequate return? The two combine into a spectrum. The best case is HIGH reporting quality AND high earnings quality. The worst is low reporting quality, where the numbers can't be relied on at all — at which point earnings quality is moot, because you can't trust the figures enough to judge sustainability. A firm can have genuinely poor results that are HONESTLY reported (high reporting quality, low earnings quality) — that's informative, not a red flag." },
+          { kind: "callout", label: "Reporting quality comes first", body: "If reporting quality is low you can't even assess earnings quality — you don't trust the inputs. So the analyst's first question is always whether the numbers are trustworthy, and only then whether the earnings they show are sustainable." },
+        ],
+      },
+      {
+        heading: "2. Conservative vs aggressive choices",
+        blocks: [
+          { kind: "p", text: "Within GAAP/IFRS, managers make choices that BIAS reported results. AGGRESSIVE choices increase current-period earnings (or push expenses to the future): recognizing revenue early, capitalizing costs that should be expensed, lengthening depreciable lives, under-reserving. CONSERVATIVE choices decrease current earnings or accelerate expense recognition. Neither bias is 'neutral,' but aggressive accounting is the bigger concern because it BORROWS from the future — boosting today's earnings at the expense of tomorrow's — and is often the prelude to a reversal or restatement. Watch for choices that conveniently meet a target (a round-number earnings beat, a covenant threshold)." },
+        ],
+      },
+      {
+        heading: "3. Accruals and earnings quality",
+        blocks: [
+          { kind: "p", text: "The central quantitative idea: earnings = the CASH component + the ACCRUAL component, and the cash component is more PERSISTENT (it recurs) while the accrual component is less persistent and more subject to estimation and manipulation. So a firm whose earnings are mostly ACCRUALS — net income far exceeding operating cash flow — has lower earnings quality and its earnings are more likely to mean-revert downward. This is the 'accrual anomaly': high-accrual firms systematically underperform. Aggregate accruals can be measured from the cash flow statement (net income minus operating and investing cash flows) or from balance-sheet changes; scaled by average assets they give an ACCRUALS RATIO that's comparable across firms and time." },
+          { kind: "formula", formula: { label: "Accruals and the accruals ratio", expr: "Aggregate accruals ≈ Net income − (CFO + CFI)       Accruals ratio = Aggregate accruals ÷ Average net operating assets", note: "A high or rising accruals ratio (earnings driven by accruals, not cash) signals lower earnings quality." } },
+          { kind: "example", example: { title: "Reading the accrual signal", prompt: "Two firms each report $100M of net income. Firm A generates $95M of operating cash flow; Firm B generates $40M. Which has higher earnings quality?", steps: ["Firm A's accrual component ≈ $100M − $95M = $5M (earnings are mostly cash).", "Firm B's accrual component ≈ $100M − $40M = $60M (earnings are mostly accruals).", "Cash earnings are more persistent than accrual earnings."], answer: "Firm A has higher earnings quality. Firm B's earnings rest heavily on accruals (estimates and timing), so they're less likely to persist and more vulnerable to reversal — a classic earnings-quality red flag worth investigating." } },
+        ],
+      },
+      {
+        heading: "4. Warning signs of manipulation",
+        blocks: [
+          { kind: "p", text: "Common manipulation patterns cluster around a few areas. REVENUE: recognizing too early, 'channel stuffing' (pushing product to distributors), bill-and-hold arrangements, or fictitious sales. EXPENSES: capitalizing operating costs to defer them, lengthening asset lives, or under-accruing liabilities and reserves ('cookie-jar' reserves to smooth later periods). CLASSIFICATION: shifting recurring expenses into 'non-recurring' buckets, or misclassifying operating cash flows as investing/financing to flatter CFO. Structural signs include growing gaps between net income and operating cash flow, receivables or inventory growing faster than sales, frequent restatements, related-party transactions, and management turnover or auditor changes. The analyst's job is to read the footnotes and the cash flow statement, not just the headline EPS." },
+        ],
+      },
+      {
+        heading: "5. Quantitative screens and synthesis",
+        blocks: [
+          { kind: "p", text: "Two models package these warning signs. The BENEISH M-SCORE combines eight ratios (days' sales in receivables, gross margin, asset quality, sales growth, depreciation, SG&A, leverage, and total accruals) into a probability that a firm is MANIPULATING earnings; a higher M-score (above roughly −1.78) flags a likely manipulator. The ALTMAN Z-SCORE combines five ratios (working capital, retained earnings, EBIT, market value of equity, and sales — all relative to assets) to predict BANKRUPTCY; a low Z-score signals distress. These are screens, not verdicts — they direct deeper investigation rather than replace it." },
+          { kind: "p", text: "The chapter coheres around skepticism applied systematically: first establish whether the reporting is trustworthy, then whether the earnings are sustainable; use the accrual component as the primary quantitative lens (cash earnings persist, accrual earnings often don't); scan for the classic manipulation patterns in revenue, expenses, and classification; and use the Beneish and Altman models to prioritize where to dig. Carry forward the core principle: earnings backed by cash are higher quality than earnings backed by accruals." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Reporting quality", def: "Whether the financials are compliant, decision-useful, complete, and unbiased." },
+      { term: "Results (earnings) quality", def: "Whether the reported earnings are sustainable and provide an adequate return." },
+      { term: "Quality spectrum", def: "Combines reporting and earnings quality; low reporting quality makes earnings quality unassessable." },
+      { term: "Aggressive accounting", def: "Choices that raise current earnings (early revenue, capitalizing costs); borrows from the future." },
+      { term: "Conservative accounting", def: "Choices that lower current earnings or accelerate expense recognition." },
+      { term: "Accrual component", def: "The non-cash part of earnings; less persistent and more manipulable than the cash part." },
+      { term: "Accruals ratio", def: "Aggregate accruals ÷ average net operating assets; high/rising signals lower quality." },
+      { term: "Accrual anomaly", def: "High-accrual firms tend to underperform as accrual earnings mean-revert." },
+      { term: "Channel stuffing", def: "Pushing product to distributors to recognize revenue early." },
+      { term: "Cookie-jar reserves", def: "Over-accruing in good periods to release into earnings in weak ones." },
+      { term: "Beneish M-score", def: "Eight-ratio model estimating the probability of earnings manipulation." },
+      { term: "Altman Z-score", def: "Five-ratio model predicting bankruptcy/financial distress." },
+    ],
+    takeaways: [
+      "Distinguish reporting quality (are the numbers trustworthy?) from results quality (are the earnings sustainable?); low reporting quality makes earnings quality unassessable.",
+      "Aggressive accounting raises current earnings by borrowing from the future and often precedes reversals or restatements.",
+      "Earnings = cash component + accrual component; cash earnings are more persistent, so high-accrual earnings are lower quality (the accrual anomaly).",
+      "A growing gap between net income and operating cash flow, and receivables/inventory outpacing sales, are classic manipulation warning signs.",
+      "The Beneish M-score screens for earnings manipulation; the Altman Z-score predicts bankruptcy — both are prioritization screens, not verdicts.",
+      "Core principle: earnings backed by cash are higher quality than earnings backed by accruals.",
+    ],
+  },
 ];
 
 export const deepQuestionsL2: Question[] = [
@@ -795,5 +1227,349 @@ export const deepQuestionsL2: Question[] = [
     choices: ["Service cost only", "Employer contributions minus the change in funded status", "Interest cost minus expected return", "The amount reported in P&L under US GAAP"],
     answerIndex: 1,
     explanation: "Total periodic pension cost = employer contributions − (ending funded status − beginning funded status). It's the same under IFRS and US GAAP regardless of how the components are split between P&L and OCI; only that split differs by standard. It uses the ACTUAL return on assets, neutralizing the expected-return assumption.",
+  },
+
+  {
+    id: "cfa-l2fi-d1", examSlug: "cfa-l2", topicId: "fixed", topicName: "Fixed Income", difficulty: 2,
+    stem: "The one-year spot rate is 2% and the two-year spot rate is 3%. The implied one-year forward rate, one year from now, is closest to:",
+    choices: ["1.00%", "2.50%", "4.01%", "5.00%"],
+    answerIndex: 2,
+    explanation: "No-arbitrage: (1.03)² = (1.02)(1 + f), so (1 + f) = 1.0609 ÷ 1.02 = 1.04010 and f ≈ 4.01%. With an upward-sloping spot curve, the forward rate lies above both spot rates.",
+  },
+  {
+    id: "cfa-l2fi-d2", examSlug: "cfa-l2", topicId: "fixed", topicName: "Fixed Income", difficulty: 1,
+    stem: "Arbitrage-free valuation of an option-free bond requires that each cash flow be discounted at:",
+    choices: ["The bond's yield to maturity", "The spot rate matching that cash flow's maturity", "The coupon rate", "The short-term risk-free rate"],
+    answerIndex: 1,
+    explanation: "Arbitrage-free valuation discounts each cash flow at its maturity-matched spot rate; otherwise a dealer could strip or reconstitute the bond for a riskless profit. YTM is just a single complex average of those spot rates.",
+  },
+  {
+    id: "cfa-l2fi-d3", examSlug: "cfa-l2", topicId: "fixed", topicName: "Fixed Income", difficulty: 2,
+    stem: "For a callable bond, the option-adjusted spread (OAS) compared with the Z-spread is:",
+    choices: ["Higher", "Lower", "Equal", "Always zero"],
+    answerIndex: 1,
+    explanation: "The call benefits the issuer, so removing the cost of that option leaves a smaller spread: callable OAS < Z-spread. For a putable bond the relationship reverses (OAS > Z-spread), and for an option-free bond OAS = Z-spread.",
+  },
+  {
+    id: "cfa-l2fi-d4", examSlug: "cfa-l2", topicId: "fixed", topicName: "Fixed Income", difficulty: 2,
+    stem: "An increase in the assumed interest-rate volatility used in the binomial tree will:",
+    choices: ["Raise the value of a callable bond", "Lower the value of a callable bond", "Have no effect on either callable or putable bonds", "Lower the value of a putable bond"],
+    answerIndex: 1,
+    explanation: "Higher volatility raises the value of the embedded option. Since callable = straight bond − call, a more valuable call LOWERS the callable bond's value (and raises a putable bond's value, since putable = straight + put).",
+  },
+  {
+    id: "cfa-l2fi-d5", examSlug: "cfa-l2", topicId: "fixed", topicName: "Fixed Income", difficulty: 2,
+    stem: "A bond is valued at 100.0. If the curve falls 25 bp it is worth 101.2; if it rises 25 bp it is worth 99.0. Its effective duration is closest to:",
+    choices: ["2.2", "4.4", "8.8", "0.44"],
+    answerIndex: 1,
+    explanation: "Effective duration = (V₋ − V₊) ÷ (2 × V₀ × Δy) = (101.2 − 99.0) ÷ (2 × 100.0 × 0.0025) = 2.2 ÷ 0.5 = 4.4.",
+  },
+  {
+    id: "cfa-l2fi-d6", examSlug: "cfa-l2", topicId: "fixed", topicName: "Fixed Income", difficulty: 3,
+    stem: "Near the region where a call is likely to be exercised, a callable bond tends to exhibit:",
+    choices: ["Negative convexity and lower effective duration than a comparable straight bond", "Positive convexity and higher effective duration", "Zero duration", "The same convexity as a straight bond"],
+    answerIndex: 0,
+    explanation: "As rates fall, the callable bond's price is capped near the call price (the market anticipates redemption), so price gains compress — negative convexity — and its effective duration is lower than a comparable straight bond's.",
+  },
+
+  {
+    id: "cfa-l2dv-d1", examSlug: "cfa-l2", topicId: "deriv", topicName: "Derivatives", difficulty: 2,
+    stem: "A stock is $50 and moves in one period to $60 (u = 1.2) or $40 (d = 0.8). With a 5% risk-free rate, the risk-neutral probability of an up-move is closest to:",
+    choices: ["0.50", "0.625", "0.375", "0.80"],
+    answerIndex: 1,
+    explanation: "π = (1 + r − d) ÷ (u − d) = (1.05 − 0.8) ÷ (1.2 − 0.8) = 0.25 ÷ 0.40 = 0.625. This risk-neutral probability — not the real-world probability — is what's used to value the option.",
+  },
+  {
+    id: "cfa-l2dv-d2", examSlug: "cfa-l2", topicId: "deriv", topicName: "Derivatives", difficulty: 3,
+    stem: "Using the data above, a one-period call with a $50 strike is worth closest to:",
+    choices: ["$10.00", "$5.95", "$6.25", "$4.76"],
+    answerIndex: 1,
+    explanation: "Payoffs: c₊ = max(60 − 50, 0) = 10; c₋ = 0. Value = [0.625(10) + 0.375(0)] ÷ 1.05 = 6.25 ÷ 1.05 ≈ $5.95. The real-world probability and the stock's expected return never enter (risk-neutral valuation).",
+  },
+  {
+    id: "cfa-l2dv-d3", examSlug: "cfa-l2", topicId: "deriv", topicName: "Derivatives", difficulty: 2,
+    stem: "At initiation, the value of a newly priced forward contract (with the forward price set by no-arbitrage) is:",
+    choices: ["Equal to the spot price", "Zero", "Equal to the present value of the forward price", "Equal to the cost of carry"],
+    answerIndex: 1,
+    explanation: "The forward price is set precisely so the contract's value is zero at initiation. Value then accrues to one side as the spot diverges from the present value of the locked-in forward price.",
+  },
+  {
+    id: "cfa-l2dv-d4", examSlug: "cfa-l2", topicId: "deriv", topicName: "Derivatives", difficulty: 2,
+    stem: "To the fixed-rate PAYER, a plain-vanilla interest rate swap is economically equivalent to being:",
+    choices: ["Long a fixed-rate bond and short a floating-rate bond", "Short a fixed-rate bond and long a floating-rate bond", "Long two floating-rate bonds", "Short a call option on rates"],
+    answerIndex: 1,
+    explanation: "The fixed-rate payer pays fixed (short a fixed-rate bond) and receives floating (long a floating-rate bond). The swap's value to them is the value of the floating leg minus the fixed leg; it gains value as rates rise.",
+  },
+  {
+    id: "cfa-l2dv-d5", examSlug: "cfa-l2", topicId: "deriv", topicName: "Derivatives", difficulty: 1,
+    stem: "Among the inputs to the Black–Scholes–Merton model, the only one that is NOT directly observable is:",
+    choices: ["The underlying price", "The strike price", "The risk-free rate", "The volatility"],
+    answerIndex: 3,
+    explanation: "Price, strike, time, and the risk-free rate are observable; volatility must be estimated. Inverting BSM on the option's market price yields the implied volatility — the market's forward-looking view of risk.",
+  },
+  {
+    id: "cfa-l2dv-d6", examSlug: "cfa-l2", topicId: "deriv", topicName: "Derivatives", difficulty: 2,
+    stem: "An option's delta is best described as:",
+    choices: ["The sensitivity of the option's value to the passage of time", "The hedge ratio — sensitivity of the option's value to the underlying price", "The sensitivity of the option's value to volatility", "The probability the option expires in the money"],
+    answerIndex: 1,
+    explanation: "Delta is ∂value/∂underlying price — the hedge ratio, ranging 0 to 1 for calls and −1 to 0 for puts. Time sensitivity is theta and volatility sensitivity is vega. A delta-hedged position must be rebalanced as delta changes (gamma).",
+  },
+
+  {
+    id: "cfa-l2ec-d1", examSlug: "cfa-l2", topicId: "econ", topicName: "Economics", difficulty: 2,
+    stem: "Spot is 1.25 USD/EUR. The one-year US rate is 4% and the euro rate is 2%. By covered interest rate parity, the one-year forward USD/EUR rate is closest to:",
+    choices: ["1.2255", "1.2745", "1.2500", "1.3000"],
+    answerIndex: 1,
+    explanation: "F = S × (1 + r_price) ÷ (1 + r_base) = 1.25 × (1.04 ÷ 1.02) = 1.2745 USD/EUR. The EUR (base) is at a forward premium; equivalently the higher-rate USD is at a forward discount.",
+  },
+  {
+    id: "cfa-l2ec-d2", examSlug: "cfa-l2", topicId: "econ", topicName: "Economics", difficulty: 2,
+    stem: "Under covered interest rate parity, the currency with the HIGHER interest rate will trade at a:",
+    choices: ["Forward premium", "Forward discount", "Rate equal to spot", "Premium only if inflation is lower"],
+    answerIndex: 1,
+    explanation: "CIRP is arbitrage-enforced: the higher-interest-rate currency trades at a forward discount, exactly offsetting its yield advantage so a hedged investor earns the same in either currency.",
+  },
+  {
+    id: "cfa-l2ec-d3", examSlug: "cfa-l2", topicId: "econ", topicName: "Economics", difficulty: 2,
+    stem: "The carry trade earns positive average returns primarily because:",
+    choices: ["Covered interest rate parity fails to hold", "Uncovered interest rate parity fails to hold empirically", "Purchasing power parity holds exactly", "Forward rates are unbiased predictors"],
+    answerIndex: 1,
+    explanation: "UIRP predicts high-yield currencies should depreciate enough to erase their yield advantage, but empirically they often don't. The carry trade harvests this failure — earning a premium that compensates for negative-skew crash risk.",
+  },
+  {
+    id: "cfa-l2ec-d4", examSlug: "cfa-l2", topicId: "econ", topicName: "Economics", difficulty: 1,
+    stem: "Relative purchasing power parity implies that the currency of a country with higher expected inflation will:",
+    choices: ["Appreciate", "Depreciate", "Stay fixed", "Trade at a forward premium"],
+    answerIndex: 1,
+    explanation: "Relative PPP says the expected change in the spot rate equals the inflation differential, so the high-inflation currency is expected to depreciate. PPP holds poorly short-term but better over long horizons.",
+  },
+  {
+    id: "cfa-l2ec-d5", examSlug: "cfa-l2", topicId: "econ", topicName: "Economics", difficulty: 2,
+    stem: "The return distribution of a typical carry trade is best characterized as having:",
+    choices: ["Positive skew with thin tails", "Negative skew with fat tails", "A symmetric, normal distribution", "Zero variance"],
+    answerIndex: 1,
+    explanation: "Carry trades produce small steady gains punctuated by occasional severe losses when high-yield currencies crash — negative skew and fat tails ('picking up nickels in front of a steamroller'). The carry premium compensates for this crash risk.",
+  },
+  {
+    id: "cfa-l2ec-d6", examSlug: "cfa-l2", topicId: "econ", topicName: "Economics", difficulty: 3,
+    stem: "In the Mundell–Fleming model with HIGH capital mobility, expansionary monetary policy will most likely cause the domestic currency to:",
+    choices: ["Appreciate, due to capital inflows", "Depreciate, due to lower rates and capital outflows", "Remain unchanged", "Appreciate, due to a stronger trade balance"],
+    answerIndex: 1,
+    explanation: "Expansionary monetary policy lowers domestic interest rates; with high capital mobility this prompts capital outflows that depreciate the currency. (Fiscal policy's effect is more ambiguous, balancing the rate and trade-balance channels.)",
+  },
+
+  {
+    id: "cfa-l2pm-d1", examSlug: "cfa-l2", topicId: "pm", topicName: "Portfolio Management", difficulty: 2,
+    stem: "Risk-free rate 3%. A portfolio has a sensitivity of 1.2 to a factor with a 5% premium and 0.6 to a factor with a 2% premium. Its APT expected return is closest to:",
+    choices: ["8.0%", "10.2%", "7.2%", "11.4%"],
+    answerIndex: 1,
+    explanation: "E(R) = R_f + Σ(βⱼ × λⱼ) = 3% + (1.2 × 5%) + (0.6 × 2%) = 3% + 6.0% + 1.2% = 10.2%.",
+  },
+  {
+    id: "cfa-l2pm-d2", examSlug: "cfa-l2", topicId: "pm", topicName: "Portfolio Management", difficulty: 1,
+    stem: "Compared with the CAPM, arbitrage pricing theory (APT):",
+    choices: ["Requires the market portfolio and uses a single factor", "Uses multiple factors and does not require identifying the market portfolio", "Assumes investors are risk-neutral", "Cannot price expected returns"],
+    answerIndex: 1,
+    explanation: "APT is a multifactor, no-arbitrage model: E(R) = R_f + Σβλ. Unlike the CAPM, it doesn't specify the factors or require the market portfolio — it rests on a factor structure, diversification, and the absence of arbitrage.",
+  },
+  {
+    id: "cfa-l2pm-d3", examSlug: "cfa-l2", topicId: "pm", topicName: "Portfolio Management", difficulty: 1,
+    stem: "The Carhart four-factor model adds which factor to the Fama–French three-factor model?",
+    choices: ["Liquidity", "Momentum (WML)", "Credit spread", "Inflation"],
+    answerIndex: 1,
+    explanation: "Carhart adds momentum — 'winners minus losers' (WML/UMD) — to market (RMRF), size (SMB), and value (HML). Controlling for these four exposures isolates a manager's true alpha from factor tilts.",
+  },
+  {
+    id: "cfa-l2pm-d4", examSlug: "cfa-l2", topicId: "pm", topicName: "Portfolio Management", difficulty: 2,
+    stem: "A portfolio returns 9.5% versus an 8.0% benchmark with tracking error of 3.0%. Its information ratio is:",
+    choices: ["0.50", "1.50", "3.17", "0.32"],
+    answerIndex: 0,
+    explanation: "Information ratio = active return ÷ active risk = (9.5% − 8.0%) ÷ 3.0% = 1.5% ÷ 3.0% = 0.50. It measures the efficiency of active management; higher is better.",
+  },
+  {
+    id: "cfa-l2pm-d5", examSlug: "cfa-l2", topicId: "pm", topicName: "Portfolio Management", difficulty: 3,
+    stem: "Active risk (tracking error) is decomposed correctly by the relationship:",
+    choices: ["Active risk = active factor risk + active specific risk", "Active risk² = active factor risk + active specific risk", "Active risk = active factor risk − active specific risk", "Active risk² = active factor risk − active specific risk"],
+    answerIndex: 1,
+    explanation: "Active risk is a standard deviation, so it's the VARIANCES that add: active risk² = active factor risk + active specific risk. You cannot simply add the standard deviations.",
+  },
+  {
+    id: "cfa-l2pm-d6", examSlug: "cfa-l2", topicId: "pm", topicName: "Portfolio Management", difficulty: 2,
+    stem: "In a FUNDAMENTAL factor model (as opposed to a macroeconomic one), the quantity typically ESTIMATED is the:",
+    choices: ["Factor sensitivities (betas), via regression on factor surprises", "Factor returns, given attribute-based sensitivities", "Risk-free rate", "Number of factors, via principal-components analysis"],
+    answerIndex: 1,
+    explanation: "Fundamental models specify the betas from firm attributes (size, value, P/E — often standardized) and ESTIMATE the factor returns. Macroeconomic models do the reverse: they estimate the betas by regressing returns on factor surprises.",
+  },
+
+  {
+    id: "cfa-l2cs-d1", examSlug: "cfa-l2", topicId: "corp", topicName: "Corporate Issuers", difficulty: 2,
+    stem: "An all-equity firm has a 10% cost of capital. It moves to a 50/50 debt/equity structure with 6% cost of debt. Under MM (no taxes), its cost of equity becomes:",
+    choices: ["10%", "12%", "14%", "16%"],
+    answerIndex: 2,
+    explanation: "MM Proposition II (no taxes): r_e = r₀ + (r₀ − r_d)(D/E) = 10% + (10% − 6%)(1.0) = 14%. WACC stays at r₀ = 10% — the cheaper debt is exactly offset by riskier equity.",
+  },
+  {
+    id: "cfa-l2cs-d2", examSlug: "cfa-l2", topicId: "corp", topicName: "Corporate Issuers", difficulty: 2,
+    stem: "Under MM with corporate taxes, the value of a levered firm relative to an otherwise identical unlevered firm equals V_U plus:",
+    choices: ["The cost of financial distress", "The present value of the interest tax shield (t × D)", "The cost of equity times debt", "Zero — value is unchanged"],
+    answerIndex: 1,
+    explanation: "With taxes, V_L = V_U + (t × D): deductible interest creates a tax shield that adds value, pushing the theoretical optimum toward all debt. The static trade-off theory caps this where rising distress and agency costs offset the shield.",
+  },
+  {
+    id: "cfa-l2cs-d3", examSlug: "cfa-l2", topicId: "corp", topicName: "Corporate Issuers", difficulty: 2,
+    stem: "According to the pecking-order theory, a firm's most preferred source of financing is:",
+    choices: ["New equity", "Long-term debt", "Internally generated funds", "Preferred stock"],
+    answerIndex: 2,
+    explanation: "The pecking order — driven by asymmetric information — runs internal funds first, then debt, then equity last (issuing equity signals possible overvaluation). This implies profitable firms tend to carry LESS debt, since they can self-fund.",
+  },
+  {
+    id: "cfa-l2cs-d4", examSlug: "cfa-l2", topicId: "corp", topicName: "Corporate Issuers", difficulty: 3,
+    stem: "A firm with EPS of $2.00 and a $25 share price buys back stock using cash that was earning 4% after tax. The buyback will:",
+    choices: ["Decrease EPS, because share count falls", "Increase EPS, because the earnings yield (8%) exceeds the 4% funding cost", "Leave EPS unchanged", "Increase EPS only if funded with new debt"],
+    answerIndex: 1,
+    explanation: "The earnings yield is E/P = $2.00 ÷ $25 = 8%, above the 4% after-tax cost of the cash used, so the buyback is accretive (EPS rises). If the funding cost had exceeded 8%, EPS would have fallen.",
+  },
+  {
+    id: "cfa-l2cs-d5", examSlug: "cfa-l2", topicId: "corp", topicName: "Corporate Issuers", difficulty: 2,
+    stem: "A company repurchases shares at a market price ABOVE its book value per share. The effect on book value per share (BVPS) is to:",
+    choices: ["Increase BVPS", "Decrease BVPS", "Leave BVPS unchanged", "Eliminate BVPS"],
+    answerIndex: 1,
+    explanation: "Repurchasing above book value per share reduces BVPS (you pay out more book equity per share than the average). Buying below book value would raise BVPS.",
+  },
+  {
+    id: "cfa-l2cs-d6", examSlug: "cfa-l2", topicId: "corp", topicName: "Corporate Issuers", difficulty: 1,
+    stem: "The 'bird-in-hand' argument for dividend policy holds that:",
+    choices: ["Dividends are irrelevant to firm value", "Investors prefer certain dividends to uncertain capital gains, lowering the cost of equity", "Dividends should be minimized for tax reasons", "Repurchases always dominate dividends"],
+    answerIndex: 1,
+    explanation: "The bird-in-hand view argues investors value a certain dividend today over uncertain future gains, so higher payouts lower the required return on equity. It contrasts with MM dividend irrelevance and the tax-aversion view.",
+  },
+
+  {
+    id: "cfa-l2ai-d1", examSlug: "cfa-l2", topicId: "alts", topicName: "Alternative Investments", difficulty: 2,
+    stem: "A private equity fund's total value to paid-in (TVPI) multiple is composed of:",
+    choices: ["DPI minus RVPI", "DPI plus RVPI", "Committed capital divided by paid-in", "Management fee plus carried interest"],
+    answerIndex: 1,
+    explanation: "TVPI = DPI (distributions to paid-in, the realized portion) + RVPI (residual value to paid-in, the unrealized portion). It expresses total value created per dollar of capital actually paid in.",
+  },
+  {
+    id: "cfa-l2ai-d2", examSlug: "cfa-l2", topicId: "alts", topicName: "Alternative Investments", difficulty: 1,
+    stem: "The 'J-curve' in private equity refers to the pattern that fund returns are:",
+    choices: ["Always positive and rising", "Negative in early years, then turning positive as exits occur", "Constant throughout the fund's life", "Highest at inception"],
+    answerIndex: 1,
+    explanation: "Early on, management fees and write-downs depress returns before value is created; as portfolio companies mature and exit, returns turn positive — tracing a J shape.",
+  },
+  {
+    id: "cfa-l2ai-d3", examSlug: "cfa-l2", topicId: "alts", topicName: "Alternative Investments", difficulty: 2,
+    stem: "A fund earns a $40M total profit. The GP receives 20% carried interest (the 8% hurdle is met). The carried interest is:",
+    choices: ["$4M", "$8M", "$20M", "$32M"],
+    answerIndex: 1,
+    explanation: "Carried interest = 20% × $40M = $8M, leaving $32M for LPs. The management fee (~2% of committed capital) is charged separately. A whole-fund waterfall would defer carry until LPs recoup capital plus the hurdle.",
+  },
+  {
+    id: "cfa-l2ai-d4", examSlug: "cfa-l2", topicId: "alts", topicName: "Alternative Investments", difficulty: 2,
+    stem: "A property has stabilized NOI of $1.2M and the market cap rate is 6%. Using direct capitalization, its value is:",
+    choices: ["$7.2M", "$14.4M", "$20.0M", "$72.0M"],
+    answerIndex: 2,
+    explanation: "Value = NOI ÷ cap rate = $1.2M ÷ 0.06 = $20M. A lower cap rate (say 5%) would imply a higher value ($24M) for the same income — cap-rate compression lifts real-estate values.",
+  },
+  {
+    id: "cfa-l2ai-d5", examSlug: "cfa-l2", topicId: "alts", topicName: "Alternative Investments", difficulty: 1,
+    stem: "Net operating income (NOI) used in real-estate valuation is calculated BEFORE deducting:",
+    choices: ["Vacancy losses", "Operating expenses", "Financing costs and depreciation", "Property management fees"],
+    answerIndex: 2,
+    explanation: "NOI = rental income − vacancy − operating expenses, but it is computed BEFORE financing costs (interest), income taxes, and depreciation. That makes it a measure of the property's operating cash generation independent of how it's financed.",
+  },
+  {
+    id: "cfa-l2ai-d6", examSlug: "cfa-l2", topicId: "alts", topicName: "Alternative Investments", difficulty: 2,
+    stem: "A REIT reports net income of $50M, real-estate depreciation of $30M, and a $5M gain on a property sale. Its funds from operations (FFO) is:",
+    choices: ["$50M", "$75M", "$85M", "$25M"],
+    answerIndex: 1,
+    explanation: "FFO = net income + depreciation − gains on property sales = $50M + $30M − $5M = $75M. AFFO would further subtract recurring maintenance capex and normalize straight-line rent.",
+  },
+
+  {
+    id: "cfa-l2cr-d1", examSlug: "cfa-l2", topicId: "fixed", topicName: "Fixed Income", difficulty: 2,
+    stem: "A $1,000 bond has a 3% probability of default and an expected recovery rate of 40%. Its expected loss is:",
+    choices: ["$12", "$18", "$30", "$60"],
+    answerIndex: 1,
+    explanation: "LGD = 1 − recovery = 0.60. Expected loss = PD × LGD × exposure = 0.03 × 0.60 × $1,000 = $18.",
+  },
+  {
+    id: "cfa-l2cr-d2", examSlug: "cfa-l2", topicId: "fixed", topicName: "Fixed Income", difficulty: 1,
+    stem: "Loss given default (LGD) is best defined as:",
+    choices: ["The probability the borrower defaults", "One minus the recovery rate, times exposure", "The credit spread over the benchmark", "The present value of expected losses"],
+    answerIndex: 1,
+    explanation: "LGD is the fraction of exposure lost in default — equal to (1 − recovery rate) — applied to the amount at risk. It is distinct from the probability of default (PD); expected loss combines the two.",
+  },
+  {
+    id: "cfa-l2cr-d3", examSlug: "cfa-l2", topicId: "fixed", topicName: "Fixed Income", difficulty: 2,
+    stem: "In a structural (Merton-type) credit model, a firm's equity is modeled as:",
+    choices: ["A risk-free bond", "A call option on the firm's assets", "A put option on the firm's debt", "A statistical hazard process"],
+    answerIndex: 1,
+    explanation: "Structural models treat equity as a call option on the firm's assets: shareholders keep the firm only if asset value exceeds debt at maturity, otherwise they default. PD and LGD are derived endogenously from asset value and volatility.",
+  },
+  {
+    id: "cfa-l2cr-d4", examSlug: "cfa-l2", topicId: "fixed", topicName: "Fixed Income", difficulty: 2,
+    stem: "Compared with a structural model, a reduced-form credit model:",
+    choices: ["Requires the firm's asset value and asset volatility as inputs", "Models default as a statistical process driven by observable variables", "Explains the economic cause of default", "Assumes the firm's assets are publicly traded"],
+    answerIndex: 1,
+    explanation: "Reduced-form models treat default as an exogenous statistical (hazard-rate) process estimated from observable macro and firm-specific variables. They don't need unobservable asset values and allow cycle-varying default risk, but are backward-looking and don't explain WHY default occurs.",
+  },
+  {
+    id: "cfa-l2cr-d5", examSlug: "cfa-l2", topicId: "fixed", topicName: "Fixed Income", difficulty: 2,
+    stem: "The value of a credit-risky bond is best expressed as:",
+    choices: ["Its risk-free value plus the credit valuation adjustment", "Its risk-free value minus the credit valuation adjustment", "The present value of expected losses only", "Its coupon divided by the credit spread"],
+    answerIndex: 1,
+    explanation: "Value of a risky bond = value if risk-free − CVA, where the CVA is the present value of expected credit losses over the bond's life. Higher PD, higher LGD, or a larger risk premium raise the CVA and lower the price.",
+  },
+  {
+    id: "cfa-l2cr-d6", examSlug: "cfa-l2", topicId: "fixed", topicName: "Fixed Income", difficulty: 1,
+    stem: "A bond's credit spread over a comparable risk-free benchmark compensates the investor for all of the following EXCEPT:",
+    choices: ["Expected credit loss", "A risk premium for credit uncertainty", "A liquidity premium", "Changes in the benchmark risk-free rate"],
+    answerIndex: 3,
+    explanation: "The credit spread compensates for expected loss, a credit risk premium, and a liquidity premium. Movements in the benchmark risk-free rate are separate from the spread — they affect the benchmark yield, not the credit compensation on top of it.",
+  },
+
+  {
+    id: "cfa-l2qr-d1", examSlug: "cfa-l2", topicId: "fra", topicName: "Financial Reporting & Analysis", difficulty: 2,
+    stem: "Two firms each report $100M net income; Firm A has $95M operating cash flow and Firm B has $40M. Regarding earnings quality:",
+    choices: ["Firm B has higher earnings quality (more accruals)", "Firm A has higher earnings quality (earnings backed by cash)", "Both are identical because net income is the same", "Earnings quality cannot be assessed from this"],
+    answerIndex: 1,
+    explanation: "Firm A's earnings are mostly cash (small accrual component), which is more persistent. Firm B's earnings rest heavily on accruals (~$60M), which are less persistent and more vulnerable to reversal — lower earnings quality.",
+  },
+  {
+    id: "cfa-l2qr-d2", examSlug: "cfa-l2", topicId: "fra", topicName: "Financial Reporting & Analysis", difficulty: 2,
+    stem: "Which best distinguishes reporting quality from earnings (results) quality?",
+    choices: ["They are the same concept", "Reporting quality concerns whether the numbers are trustworthy; earnings quality concerns whether the earnings are sustainable", "Reporting quality concerns sustainability; earnings quality concerns GAAP compliance", "Both refer only to cash flow"],
+    answerIndex: 1,
+    explanation: "Reporting quality asks whether the financials are accurate, complete, and decision-useful; earnings quality asks whether the reported results are sustainable and adequate. If reporting quality is low, earnings quality can't even be assessed — you don't trust the inputs.",
+  },
+  {
+    id: "cfa-l2qr-d3", examSlug: "cfa-l2", topicId: "fra", topicName: "Financial Reporting & Analysis", difficulty: 2,
+    stem: "Which is an example of AGGRESSIVE accounting that borrows from future earnings?",
+    choices: ["Expensing a cost that could be capitalized", "Recognizing revenue earlier than warranted", "Increasing bad-debt reserves", "Shortening depreciable asset lives"],
+    answerIndex: 1,
+    explanation: "Recognizing revenue early boosts current earnings at the expense of future periods — aggressive accounting. The other choices are conservative (they reduce current earnings or accelerate expense recognition).",
+  },
+  {
+    id: "cfa-l2qr-d4", examSlug: "cfa-l2", topicId: "fra", topicName: "Financial Reporting & Analysis", difficulty: 1,
+    stem: "The Beneish M-score is used to:",
+    choices: ["Predict bankruptcy", "Estimate the probability of earnings manipulation", "Measure the cost of capital", "Compute the credit spread"],
+    answerIndex: 1,
+    explanation: "The Beneish M-score combines eight ratios into a probability that a firm is manipulating earnings (higher = more likely). Bankruptcy prediction is the role of the Altman Z-score.",
+  },
+  {
+    id: "cfa-l2qr-d5", examSlug: "cfa-l2", topicId: "fra", topicName: "Financial Reporting & Analysis", difficulty: 3,
+    stem: "Which pattern is the strongest warning sign of low earnings quality?",
+    choices: ["Operating cash flow consistently exceeding net income", "Net income growing while operating cash flow stagnates and receivables outpace sales", "A stable, low accruals ratio", "Dividends growing in line with earnings"],
+    answerIndex: 1,
+    explanation: "A widening gap between net income and operating cash flow, combined with receivables growing faster than sales, suggests earnings are being driven by accruals and possibly premature revenue recognition — a classic low-quality signal warranting investigation.",
+  },
+  {
+    id: "cfa-l2qr-d6", examSlug: "cfa-l2", topicId: "fra", topicName: "Financial Reporting & Analysis", difficulty: 2,
+    stem: "The 'accrual anomaly' refers to the empirical finding that firms with high accruals tend to:",
+    choices: ["Outperform, because accruals signal growth", "Underperform, as accrual-based earnings mean-revert downward", "Have higher credit ratings", "Pay larger dividends"],
+    answerIndex: 1,
+    explanation: "High-accrual firms tend to subsequently underperform because the accrual component of earnings is less persistent and mean-reverts, whereas cash-based earnings persist. This is the basis for using the accruals ratio as an earnings-quality screen.",
   },
 ];
