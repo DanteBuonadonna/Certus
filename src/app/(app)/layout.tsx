@@ -1,6 +1,5 @@
 import Sidebar from "@/components/layout/Sidebar";
 import { createClient } from "@/lib/supabase/server";
-import { redirect } from "next/navigation";
 import AuthScope from "@/components/AuthScope";
 import SyncGate from "@/components/SyncGate";
 import RotateHint from "@/components/RotateHint";
@@ -9,11 +8,11 @@ import { AccessProvider } from "@/lib/AccessContext";
 // Render app pages on-demand (not statically prerendered).
 export const dynamic = "force-dynamic";
 
-// ACCOUNT MODEL: login required. Every page in the (app) group is gated —
-// no authenticated Supabase user means a redirect to /login. The marketing
-// landing page, /login, /signup and /auth/callback live OUTSIDE this group
-// and stay public. Pro is read server-side from public.users.is_pro and
-// handed down through AccessProvider so the browser can't forge it.
+// ACCOUNT MODEL: try-before-you-sign-up. Anyone — including a guest with no
+// account — can use the app; their progress lives in localStorage and is
+// adopted into an account when they create one (see AuthScope/SyncGate).
+// Signed-in users additionally get cloud sync and (if subscribed) Pro, read
+// server-side from public.users.is_pro so the browser can't forge it.
 export default async function AppLayout({
   children,
 }: {
@@ -41,15 +40,12 @@ export default async function AppLayout({
       pro = row?.is_pro === true;
     }
   } catch {
-    // Supabase unreachable / not configured — treat as signed out.
+    // Supabase unreachable / not configured — treat as a guest.
     signedIn = false;
   }
 
-  // The wall. redirect() must live outside the try/catch (it throws by design).
-  if (!signedIn || !userId) redirect("/login");
-
   return (
-    <AccessProvider pro={pro}>
+    <AccessProvider pro={pro} signedIn={signedIn}>
       <div style={{ display: "flex", minHeight: "100vh" }}>
         <AuthScope userId={userId} />
         <RotateHint />

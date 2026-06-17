@@ -36,7 +36,7 @@ export default function LandingPage() {
         </div>
         <div className="flex items-center gap-3">
           <Link href="/login" className="text-sm px-3 py-2 rounded-lg hover:opacity-70 transition-opacity" style={{ color: "var(--text-secondary)" }}>Sign in</Link>
-          <Link href="/signup" className="btn-primary text-sm">Start free</Link>
+          <Link href="/dashboard" className="btn-primary text-sm">Start free</Link>
         </div>
       </nav>
 
@@ -84,11 +84,11 @@ export default function LandingPage() {
             </p>
 
             <div className="flex items-center justify-center lg:justify-start gap-3 flex-wrap">
-              <Link href="/signup" className="btn-primary text-base px-7 py-3">Start your track →</Link>
-              <Link href="/signup" className="btn-secondary text-base px-7 py-3">Explore the exams</Link>
+              <Link href="/dashboard" className="btn-primary text-base px-7 py-3">Start learning free →</Link>
+              <Link href="/dashboard" className="btn-secondary text-base px-7 py-3">Explore the exams</Link>
             </div>
             <p className="text-xs mt-4" style={{ color: "var(--text-muted)" }}>
-              Free to start · Preview every exam · The full CFA track on the house
+              No signup needed to start · Jump right in · Make an account later to save your progress
             </p>
           </div>
 
@@ -233,7 +233,7 @@ export default function LandingPage() {
           <p className="text-sm mb-8" style={{ color: "var(--text-secondary)" }}>
             The candidates who pass aren&apos;t the smartest — they&apos;re the most consistent. {BRAND.name} makes consistency the easy part.
           </p>
-          <Link href="/signup" className="btn-primary text-base px-8 py-3.5">Start free →</Link>
+          <Link href="/dashboard" className="btn-primary text-base px-8 py-3.5">Start free →</Link>
         </div>
       </section>
 

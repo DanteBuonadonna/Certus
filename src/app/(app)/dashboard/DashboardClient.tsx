@@ -11,6 +11,7 @@ import Tour, { TourStep } from "@/components/Tour";
 import { DailyBonusModal } from "@/components/Rewards";
 import { dailyBonusInfo } from "@/lib/rewards";
 import StreakFlame from "@/components/StreakFlame";
+import { useSignedIn } from "@/lib/AccessContext";
 import { EXAMS, getExam } from "@/lib/exams";
 import {
   EMPTY_STATE,
@@ -107,6 +108,7 @@ export default function DashboardClient() {
   const [showTour, setShowTour] = useState(false);
   const [showDaily, setShowDaily] = useState(false);
   const [dailyChecked, setDailyChecked] = useState(false);
+  const signedIn = useSignedIn();
 
   // Hydrate from localStorage on mount.
   useEffect(() => {
@@ -208,6 +210,28 @@ export default function DashboardClient() {
         />
       )}
       {showTour && !showQuickStart && <Tour steps={TOUR_STEPS} onDone={finishTour} />}
+
+      {/* Guest → account nudge: progress is local until they make an account */}
+      {!signedIn && (
+        <div
+          className="mb-6 rise-in flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4"
+          style={{ borderRadius: 16, border: "2px solid var(--primary)", borderBottom: "5px solid var(--primary-hover)", background: "var(--primary-light)" }}
+        >
+          <div className="flex items-center gap-3">
+            <span style={{ fontSize: 26 }}>💾</span>
+            <div>
+              <div className="text-sm font-extrabold" style={{ color: "var(--text-primary)" }}>You&apos;re playing as a guest</div>
+              <div className="text-xs" style={{ color: "var(--text-secondary)" }}>
+                Make a free account to save your streak, XP, and progress — and sync across devices.
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <Link href="/signup" className="btn-duo" style={{ padding: "0.55rem 1.1rem", fontSize: "0.78rem" }}>Save my progress</Link>
+            <Link href="/login" className="text-xs font-semibold px-2" style={{ color: "var(--primary)" }}>Sign in</Link>
+          </div>
+        </div>
+      )}
 
       {/* New-hire onboarding nudge */}
       {!profile && !showQuickStart && (

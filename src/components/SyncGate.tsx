@@ -17,7 +17,7 @@ import {
 // and writes it to localStorage BEFORE rendering children, so the screens
 // never read stale/empty state and then clobber the cloud. After hydration it
 // pushes local changes every few seconds and on tab hide.
-export default function SyncGate({ userId, children }: { userId: string; children: React.ReactNode }) {
+export default function SyncGate({ userId, children }: { userId: string | null; children: React.ReactNode }) {
   const [ready, setReady] = useState(false);
   const cleanupRef = useRef<(() => void) | null>(null);
 

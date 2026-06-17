@@ -15,9 +15,9 @@ import { useEffect } from "react";
  */
 const OWNER_KEY = "certus_owner";
 
-export default function AuthScope({ userId }: { userId: string }) {
+export default function AuthScope({ userId }: { userId: string | null }) {
   useEffect(() => {
-    if (!userId) return;
+    if (!userId) return; // guest — nothing to scope
     let owner: string | null = null;
     try {
       owner = localStorage.getItem(OWNER_KEY);
@@ -27,15 +27,25 @@ export default function AuthScope({ userId }: { userId: string }) {
     if (owner === userId) return;
 
     try {
+      if (!owner) {
+        // No prior owner: this browser's progress was earned as a GUEST (or by
+        // this same person before sign-in). ADOPT it into the new account
+        // rather than wiping — so creating an account never loses progress.
+        // SyncGate then reconciles with any cloud state for this account.
+        localStorage.setItem(OWNER_KEY, userId);
+        return;
+      }
+      // A DIFFERENT account previously used this browser → isolate accounts by
+      // wiping the prior account's local data, then reload to re-read fresh.
       const stale = Object.keys(localStorage).filter(
         (k) => k.startsWith("certus_") && k !== OWNER_KEY
       );
       stale.forEach((k) => localStorage.removeItem(k));
       localStorage.setItem(OWNER_KEY, userId);
+      window.location.reload();
     } catch {
       return;
     }
-    window.location.reload();
   }, [userId]);
 
   return null;

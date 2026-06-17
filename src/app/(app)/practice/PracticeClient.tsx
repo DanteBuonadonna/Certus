@@ -11,6 +11,7 @@ import { levelProgress, rankTitle, XP_PER_CORRECT } from "@/lib/studyPlan";
 import { grantBonus } from "@/lib/economy";
 import { loadProfile, AvatarConfig } from "@/lib/profile";
 import { LevelUpOverlay } from "@/components/ui";
+import { useSignedIn } from "@/lib/AccessContext";
 import { buildRun, RUN_SIZE } from "@/lib/practiceRotation";
 import { useAccess } from "@/lib/useAccess";
 import { UpgradeCard } from "@/components/UpgradeGate";
@@ -317,6 +318,7 @@ function Results({ exam, questions, answers, maxCombo, earnedXp, levelUpInfo, on
   const [streak, setStreak] = useState(0);
   const [avatar, setAvatar] = useState<AvatarConfig | undefined>(undefined);
   const [showLevelUp, setShowLevelUp] = useState(true);
+  const signedIn = useSignedIn();
   const perfect = pct === 100;
 
   // Roll for a loot chest once, based on this run's accuracy.
@@ -413,6 +415,18 @@ function Results({ exam, questions, answers, maxCombo, earnedXp, levelUpInfo, on
             ))}
           </div>
         </>
+      )}
+
+      {!signedIn && (
+        <div className="card-i p-4 mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3" style={{ borderColor: "var(--primary)", borderWidth: 2 }}>
+          <div className="flex items-center gap-2.5">
+            <span style={{ fontSize: 24 }}>💾</span>
+            <span className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>
+              Don&apos;t lose this — make a free account to save your XP, streak, and Division spot.
+            </span>
+          </div>
+          <Link href="/signup" className="btn-duo flex-shrink-0" style={{ padding: "0.55rem 1.1rem", fontSize: "0.78rem" }}>Save progress</Link>
+        </div>
       )}
 
       <div className="flex items-center gap-3">
