@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { BRAND } from "@/lib/brand";
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
   title: `${BRAND.name} — Prep for finance's hardest exams`,
@@ -15,7 +16,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
