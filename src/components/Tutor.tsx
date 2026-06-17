@@ -10,6 +10,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { creditBalance, spendCredit, CREDIT_PACKS } from "@/lib/credits";
+import AssociateCharacter from "@/components/Associate";
 
 interface Msg {
   role: "user" | "assistant";
@@ -29,10 +30,13 @@ function CoinIcon({ size = 14 }: { size?: number }) {
 export default function Tutor({
   context,
   suggestions = ["Explain this simply", "Give me a worked example", "Quiz me on this"],
+  intro = false,
 }: {
   /** What the student is currently looking at — chapter section, question, etc. */
   context: string;
   suggestions?: string[];
+  /** Show a one-time coachmark introducing the tutor (e.g. on the Practice screen). */
+  intro?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([]);
@@ -41,11 +45,24 @@ export default function Tutor({
   const [error, setError] = useState<string | null>(null);
   const [credits, setCredits] = useState<number | null>(null);
   const [buying, setBuying] = useState<string | null>(null);
+  const [showIntro, setShowIntro] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setCredits(creditBalance()); // issues the 3 free starter credits on first run
   }, []);
+
+  useEffect(() => {
+    if (!intro) return;
+    try {
+      if (localStorage.getItem("certus_tutor_intro") !== "1") setShowIntro(true);
+    } catch {}
+  }, [intro]);
+
+  function dismissIntro() {
+    try { localStorage.setItem("certus_tutor_intro", "1"); } catch {}
+    setShowIntro(false);
+  }
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
@@ -103,29 +120,69 @@ export default function Tutor({
 
   return (
     <>
-      {/* Floating launcher */}
+      {/* Floating launcher + one-time coachmark */}
       {!open && (
-        <button
-          onClick={() => setOpen(true)}
-          className="fixed z-40 flex items-center gap-2.5 pop-in"
-          style={{
-            bottom: 22,
-            right: 22,
-            background: "var(--primary)",
-            color: "#fff",
-            border: "none",
-            borderRadius: 100,
-            padding: "0.7rem 1.15rem",
-            fontWeight: 700,
-            fontSize: "0.82rem",
-            cursor: "pointer",
-            boxShadow: "0 4px 0 var(--primary-deep), var(--shadow-lg)",
-          }}
-          title="Ask The Associate"
-        >
-          <AssociateMark size={22} />
-          Ask The Associate
-        </button>
+        <div className="fixed z-40" style={{ bottom: 22, right: 22 }}>
+          {showIntro && (
+            <div
+              className="pop-in"
+              style={{
+                position: "absolute",
+                bottom: 70,
+                right: 0,
+                width: 256,
+                background: "var(--bg-card)",
+                border: "2px solid var(--primary)",
+                borderRadius: 16,
+                padding: "13px 14px",
+                boxShadow: "var(--shadow-lg)",
+              }}
+            >
+              <div className="flex items-start gap-2.5 mb-2.5">
+                <span className="flex-shrink-0"><AssociateCharacter size={40} /></span>
+                <p className="text-xs" style={{ color: "var(--text-primary)", lineHeight: 1.45 }}>
+                  Hi, I&apos;m <strong>The Associate</strong> — your tutor. Stuck on a question? Tap me for a hint or a full explanation. Your first 3 are on the house.
+                </p>
+              </div>
+              <div className="flex gap-2">
+                <button className="btn-duo" style={{ flex: 1, padding: "0.45rem", fontSize: "0.72rem", borderRadius: 11 }} onClick={() => { dismissIntro(); setOpen(true); }}>
+                  Show me
+                </button>
+                <button className="btn-duo duo-ghost" style={{ flex: 1, padding: "0.45rem", fontSize: "0.72rem", borderRadius: 11 }} onClick={dismissIntro}>
+                  Got it
+                </button>
+              </div>
+              <div style={{ position: "absolute", bottom: -9, right: 30, width: 0, height: 0, borderLeft: "9px solid transparent", borderRight: "9px solid transparent", borderTop: "9px solid var(--primary)" }} />
+            </div>
+          )}
+
+          <button
+            onClick={() => { setOpen(true); dismissIntro(); }}
+            className={`flex items-center gap-2 pop-in ${showIntro ? "anim-bounce" : ""}`}
+            style={{
+              background: "var(--primary)",
+              color: "#fff",
+              border: "none",
+              borderRadius: 100,
+              padding: "0.55rem 0.95rem 0.55rem 0.6rem",
+              fontWeight: 700,
+              fontSize: "0.82rem",
+              cursor: "pointer",
+              boxShadow: "0 4px 0 var(--primary-deep), var(--shadow-lg)",
+            }}
+            title="Ask The Associate"
+          >
+            <span style={{ background: "rgba(255,255,255,0.16)", borderRadius: 100, padding: 2, display: "inline-flex" }}>
+              <AssociateCharacter size={30} />
+            </span>
+            Ask The Associate
+            {credits !== null && (
+              <span className="flex items-center gap-1 text-[11px] font-extrabold" style={{ background: "rgba(255,255,255,0.2)", borderRadius: 100, padding: "2px 7px" }}>
+                <CoinIcon size={11} /> {credits}
+              </span>
+            )}
+          </button>
+        </div>
       )}
 
       {/* Panel */}
@@ -151,7 +208,7 @@ export default function Tutor({
             className="flex items-center gap-2.5 px-4 py-3 flex-shrink-0"
             style={{ background: "var(--primary)", color: "#fff" }}
           >
-            <AssociateMark size={26} />
+            <span style={{ background: "rgba(255,255,255,0.16)", borderRadius: 10, padding: 2, display: "inline-flex" }}><AssociateCharacter size={30} animated={false} /></span>
             <div className="flex-1 min-w-0">
               <div className="text-sm font-bold leading-none">The Associate</div>
               <div className="text-[10px] opacity-80 mt-0.5">
@@ -300,20 +357,3 @@ export default function Tutor({
   );
 }
 
-/** Small suit-and-specs mark for The Associate. */
-function AssociateMark({ size = 24 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden>
-      <circle cx="16" cy="16" r="15" fill="rgba(255,255,255,0.16)" />
-      <circle cx="16" cy="12.5" r="5.6" fill="#f1c27d" />
-      <g stroke="#2b2b33" strokeWidth="1.1" fill="none">
-        <rect x="11.4" y="11" width="3.8" height="3" rx="1.2" />
-        <rect x="16.8" y="11" width="3.8" height="3" rx="1.2" />
-        <path d="M15.2 12.3h1.6" />
-      </g>
-      <path d="M16 8.2c-3 0-4.6 1.6-4.8 3.6 1-1.4 2.4-1.7 4.8-1.7s3.8.3 4.8 1.7c-.2-2-1.8-3.6-4.8-3.6z" fill="#3b2a1d" />
-      <path d="M7.5 27c.7-4.6 4-6.8 8.5-6.8s7.8 2.2 8.5 6.8" fill="#27355c" />
-      <path d="M14.2 20.5L16 23l1.8-2.5c-.6-.2-3-.2-3.6 0z" fill="#fff" />
-    </svg>
-  );
-}

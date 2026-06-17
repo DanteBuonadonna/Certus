@@ -292,6 +292,7 @@ function Quiz({ questions, onFinish }: { questions: Question[]; onFinish: (answe
             ? ["Why is my answer wrong?", "Explain this concept from scratch", "Give me a similar question"]
             : ["Teach me the concept behind this", "How do I approach this question?", "Define the terms in this question"]
         }
+        intro
       />
     </div>
   );
