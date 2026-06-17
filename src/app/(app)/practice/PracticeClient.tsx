@@ -6,7 +6,11 @@ import { useSearchParams } from "next/navigation";
 import { EXAMS, getExam } from "@/lib/exams";
 import { examsWithContent, getQuestions } from "@/content";
 import { Question } from "@/content/types";
-import { recordStudy, loadState } from "@/lib/gameStore";
+import { recordQuiz, loadState } from "@/lib/gameStore";
+import { levelProgress, rankTitle, XP_PER_CORRECT } from "@/lib/studyPlan";
+import { grantBonus } from "@/lib/economy";
+import { loadProfile, AvatarConfig } from "@/lib/profile";
+import { LevelUpOverlay } from "@/components/ui";
 import { buildRun, RUN_SIZE } from "@/lib/practiceRotation";
 import { useAccess } from "@/lib/useAccess";
 import { UpgradeCard } from "@/components/UpgradeGate";
@@ -15,7 +19,8 @@ import Confetti from "@/components/Confetti";
 import { ChestModal } from "@/components/Rewards";
 import { rollChest, ChestDrop } from "@/lib/rewards";
 import { Coin } from "@/components/Coin";
-import { playCorrect, playWrong, playCombo, playComplete, isMuted, toggleMuted } from "@/lib/sound";
+import { playCorrect, playWrong, playCombo, playComplete, isMuted, toggleMuted, hapticCorrect, hapticWrong } from "@/lib/sound";
+import StreakFlame from "@/components/StreakFlame";
 
 type Phase = "setup" | "quiz" | "results";
 
@@ -34,6 +39,8 @@ export default function PracticeClient() {
   const [session, setSession] = useState<Question[]>([]);
   const [answers, setAnswers] = useState<(number | null)[]>([]);
   const [maxCombo, setMaxCombo] = useState(0);
+  const [earnedXp, setEarnedXp] = useState(0);
+  const [levelUpInfo, setLevelUpInfo] = useState<{ level: number; rank: string } | null>(null);
 
   const topics = useMemo(() => {
     const qs = getQuestions(exam);
@@ -54,7 +61,14 @@ export default function PracticeClient() {
   }
 
   function finish(finalAnswers: (number | null)[], combo: number) {
-    recordStudy(exam, Math.max(5, Math.round(session.length * 1.5)), topic === "all" ? undefined : topic);
+    const correct = finalAnswers.filter((a, i) => a === session[i]?.answerIndex).length;
+    const result = recordQuiz(exam, correct, session.length, topic === "all" ? undefined : topic, { combo });
+    setEarnedXp(result.xpEarned);
+    if (result.leveledUp) {
+      const nl = levelProgress(result.state.xp).level;
+      grantBonus(nl * 50); // promotion Comp raise
+      setLevelUpInfo({ level: nl, rank: rankTitle(nl) });
+    }
     setAnswers(finalAnswers);
     setMaxCombo(combo);
     setPhase("results");
@@ -65,7 +79,7 @@ export default function PracticeClient() {
   }
 
   if (phase === "results") {
-    return <Results exam={exam} questions={session} answers={answers} maxCombo={maxCombo} runMinutes={Math.max(5, Math.round(session.length * 1.5))} onRetry={() => setPhase("setup")} />;
+    return <Results exam={exam} questions={session} answers={answers} maxCombo={maxCombo} earnedXp={earnedXp} levelUpInfo={levelUpInfo} onRetry={() => setPhase("setup")} />;
   }
 
   // ---- setup ----
@@ -137,6 +151,7 @@ function Quiz({ questions, onFinish }: { questions: Question[]; onFinish: (answe
   const [maxCombo, setMaxCombo] = useState(0);
   const [shakeKey, setShakeKey] = useState(0);
   const [muted, setMutedState] = useState(false);
+  const [floatKey, setFloatKey] = useState(0);
 
   useEffect(() => setMutedState(isMuted()), []);
 
@@ -152,11 +167,14 @@ function Quiz({ questions, onFinish }: { questions: Question[]; onFinish: (answe
       const nc = combo + 1;
       setCombo(nc);
       setMaxCombo((m) => Math.max(m, nc));
+      setFloatKey((k) => k + 1);
       playCorrect();
+      hapticCorrect();
       if (nc >= 2) playCombo(nc);
     } else {
       setCombo(0);
       playWrong();
+      hapticWrong();
       setShakeKey((k) => k + 1);
     }
   }
@@ -171,7 +189,17 @@ function Quiz({ questions, onFinish }: { questions: Question[]; onFinish: (answe
   const progressPct = Math.round(((idx + (checked ? 1 : 0)) / questions.length) * 100);
 
   return (
-    <div className="px-4 py-6 md:px-8 md:py-8 max-w-2xl mx-auto" style={{ paddingBottom: 180 }}>
+    <div className="px-4 py-6 md:px-8 md:py-8 max-w-2xl mx-auto" style={{ position: "relative", paddingBottom: 180 }}>
+      {/* Floating +XP on a correct answer */}
+      {floatKey > 0 && (
+        <span
+          key={floatKey}
+          className="anim-xp"
+          style={{ position: "absolute", top: 44, left: "50%", transform: "translateX(-50%)", fontWeight: 900, fontSize: 22, color: "var(--duo-green)", pointerEvents: "none", zIndex: 30 }}
+        >
+          +{XP_PER_CORRECT} XP
+        </span>
+      )}
       {/* Top bar: fat progress + combo + mute */}
       <div className="flex items-center gap-3 mb-5">
         <div className="duo-bar flex-1">
@@ -276,17 +304,18 @@ function comboLabel(combo: number): string {
   return "Correct!";
 }
 
-function Results({ exam, questions, answers, maxCombo, runMinutes, onRetry }: { exam: string; questions: Question[]; answers: (number | null)[]; maxCombo: number; runMinutes: number; onRetry: () => void }) {
+function Results({ exam, questions, answers, maxCombo, earnedXp, levelUpInfo, onRetry }: { exam: string; questions: Question[]; answers: (number | null)[]; maxCombo: number; earnedXp: number; levelUpInfo: { level: number; rank: string } | null; onRetry: () => void }) {
   const correctCount = answers.filter((a, i) => a === questions[i]?.answerIndex).length;
   const pct = questions.length ? Math.round((correctCount / questions.length) * 100) : 0;
   const wrong = questions.map((q, i) => ({ q, a: answers[i] })).filter((x) => x.a !== x.q.answerIndex);
 
-  const baseXp = runMinutes * 2;
+  const totalXp = earnedXp;
   const comboBonus = maxCombo >= 3 ? maxCombo * 5 : 0;
-  const totalXp = baseXp + comboBonus;
 
   const [shownXp, setShownXp] = useState(0);
   const [streak, setStreak] = useState(0);
+  const [avatar, setAvatar] = useState<AvatarConfig | undefined>(undefined);
+  const [showLevelUp, setShowLevelUp] = useState(true);
   const perfect = pct === 100;
 
   // Roll for a loot chest once, based on this run's accuracy.
@@ -297,6 +326,7 @@ function Results({ exam, questions, answers, maxCombo, runMinutes, onRetry }: { 
   useEffect(() => {
     playComplete();
     setStreak(loadState().currentStreak);
+    setAvatar(loadProfile()?.avatar);
     // Tick the XP up for a satisfying count.
     let cur = 0;
     const step = Math.max(1, Math.round(totalXp / 28));
@@ -336,7 +366,7 @@ function Results({ exam, questions, answers, maxCombo, runMinutes, onRetry }: { 
 
       {streak > 0 && (
         <div className="card-i p-4 mb-7 flex items-center justify-center gap-3" style={{ borderColor: "var(--duo-orange)" }}>
-          <span className="anim-flame" style={{ fontSize: 28 }}>🔥</span>
+          <StreakFlame streak={streak} size={34} />
           <span className="text-base font-extrabold" style={{ color: "var(--duo-orange)" }}>
             {streak}-day streak alive!
           </span>
@@ -388,6 +418,10 @@ function Results({ exam, questions, answers, maxCombo, runMinutes, onRetry }: { 
         <button className="btn-duo flex-1" onClick={onRetry}>Practice again</button>
         <Link href={`/learn?exam=${exam}`} className="btn-duo duo-ghost flex-1 text-center">Back to reading</Link>
       </div>
+
+      {levelUpInfo && showLevelUp && (
+        <LevelUpOverlay level={levelUpInfo.level} rank={levelUpInfo.rank} avatar={avatar} onDone={() => setShowLevelUp(false)} />
+      )}
     </div>
   );
 }

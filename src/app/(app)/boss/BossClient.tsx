@@ -15,7 +15,8 @@ import {
   BossResult,
   BossTrophies,
 } from "@/lib/bossExam";
-import { recordStudy } from "@/lib/gameStore";
+import { recordQuiz } from "@/lib/gameStore";
+import { hapticCorrect, hapticWrong } from "@/lib/sound";
 import { useAccess } from "@/lib/useAccess";
 import { canStartBoss, recordBossAttempt } from "@/lib/access";
 import { UpgradeCard } from "@/components/UpgradeGate";
@@ -63,7 +64,7 @@ export default function BossClient() {
     const res = analyzeBoss(sliced, answers, cfg.passPct);
     const passed = res.passed && !defeatedByHearts;
     const finalRes = { ...res, passed };
-    recordStudy(exam, passed ? 45 : 20);
+    recordQuiz(exam, res.correct, res.total, undefined, { passed, isBoss: true });
     if (passed) { recordVictory(exam, res.pct); }
     setResult(finalRes);
     setPhase("result");
@@ -204,8 +205,8 @@ function Battle({
     setPicked(choice);
     setAnswered(true);
     const isCorrect = choice === q.answerIndex;
-    if (!isCorrect) setHearts((h) => h - 1);
-    else setHitKey((k) => k + 1); // land a hit on the monster
+    if (!isCorrect) { setHearts((h) => h - 1); hapticWrong(); }
+    else { setHitKey((k) => k + 1); hapticCorrect(); } // land a hit on the monster
     setFx(isCorrect ? "gold-flash" : "shake");
     setTimeout(() => setFx(null), 650);
   }

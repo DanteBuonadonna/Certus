@@ -57,9 +57,17 @@ export function daysBetween(a: string, b: string): number {
 }
 
 // ---- XP & Levels ---------------------------------------------------------
-// 1 minute studied = 2 XP. Hitting your daily goal and keeping a streak
-// add multipliers (applied in logSession).
-export const XP_PER_MINUTE = 2;
+// XP (and therefore Comp) is EARNED THROUGH PERFORMANCE, not time. Answering
+// questions correctly is the main source; reading and logged minutes keep your
+// streak and pacing alive but mint little or nothing. This keeps the economy
+// honest — you can't farm coins by scrolling or spam-clicking.
+export const XP_PER_MINUTE = 2; // legacy fallback only (manual logs pass 0)
+export const XP_PER_CORRECT = 10; // each correct practice question
+export const READING_XP = 4; // one-time, per chapter finished
+export const FLASHCARD_XP = 3; // per correct recall (daily-capped elsewhere)
+export const FLASHCARD_DAILY_CARD_CAP = 25; // correct cards that earn XP per day
+export const BOSS_PASS_BONUS = 250; // clearing a Final
+export const ACCURACY_BONUS = 40; // for an 80%+ practice run
 
 // Cumulative XP required to *reach* a given level.
 export function xpForLevel(level: number): number {
@@ -181,7 +189,7 @@ export function logSession(
   state: GameState,
   examSlug: string,
   minutes: number,
-  opts?: { topicId?: string; dailyGoalMet?: boolean }
+  opts?: { topicId?: string; dailyGoalMet?: boolean; xpOverride?: number }
 ): LogResult {
   const t = today();
   const prevLevel = levelFromXp(state.xp);
@@ -199,8 +207,9 @@ export function logSession(
     streakChanged = true;
   }
 
-  // XP: base + streak bonus + daily-goal bonus.
-  const base = Math.round(minutes * XP_PER_MINUTE);
+  // XP: performance-based amount (xpOverride) — or, for legacy/manual logs,
+  // a small time-based fallback. A streak amplifies it; the daily goal tops it.
+  const base = opts?.xpOverride !== undefined ? opts.xpOverride : Math.round(minutes * XP_PER_MINUTE);
   const streakMult = 1 + Math.min(streak, 30) * 0.02; // up to +60% at a 30-day streak
   const goalBonus = opts?.dailyGoalMet ? 50 : 0;
   const xpEarned = Math.round(base * streakMult) + goalBonus;

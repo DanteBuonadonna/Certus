@@ -9,7 +9,7 @@ import { Chapter, Block } from "@/content/types";
 import { useAccess } from "@/lib/useAccess";
 import { UpgradeCard } from "@/components/UpgradeGate";
 import { loadReading, markChapterRead, isChapterRead, ReadingStore } from "@/lib/readingProgress";
-import { recordStudy } from "@/lib/gameStore";
+import { recordReadingXp } from "@/lib/gameStore";
 import { GoldBurst } from "@/components/ui";
 import { ArrowLeftIcon, BookIcon, CheckCircleIcon, CheckIcon, ListIcon } from "@/components/icons";
 import Tutor from "@/components/Tutor";
@@ -222,7 +222,7 @@ function Reader({ chapter, onBack }: { chapter: Chapter; onBack: () => void }) {
   function complete() {
     if (completed) return;
     markChapterRead(chapter.examSlug, chapter.id);
-    const xp = recordStudy(chapter.examSlug, chapter.readingMinutes, chapter.topicId);
+    const xp = recordReadingXp(chapter.examSlug, chapter.readingMinutes, chapter.topicId);
     setCompleted(true);
     setJustEarned(xp);
   }

@@ -8,7 +8,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Avatar } from "./avatar";
 import type { AvatarConfig } from "@/lib/profile";
-import { playUnlock } from "@/lib/sound";
+import { playUnlock, hapticLevelUp } from "@/lib/sound";
 
 // ---- AnimatedNumber ------------------------------------------------------
 // Counts from the previously rendered value to `value` with ease-out.
@@ -384,6 +384,7 @@ export function LevelUpOverlay({
   const raise = level * 50; // Comp "raise" celebrated at each promotion
   useEffect(() => {
     playUnlock();
+    hapticLevelUp();
     const t = setTimeout(onDone, 4200);
     return () => clearTimeout(t);
   }, [onDone]);

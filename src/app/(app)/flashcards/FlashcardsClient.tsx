@@ -16,7 +16,7 @@ import {
   dueCount,
   masteredCount,
 } from "@/lib/flashcards";
-import { recordStudy } from "@/lib/gameStore";
+import { recordFlashcards } from "@/lib/gameStore";
 import { useAccess } from "@/lib/useAccess";
 import { UpgradeCard } from "@/components/UpgradeGate";
 
@@ -51,8 +51,8 @@ export default function FlashcardsClient() {
         deck={deck}
         store={store}
         onGrade={(id, known) => setStore((s) => grade(s, id, known))}
-        onDone={(reviewed) => {
-          if (reviewed > 0) recordStudy(exam, Math.max(3, Math.round(reviewed * 0.5)));
+        onDone={(reviewed, known) => {
+          if (reviewed > 0) recordFlashcards(exam, known, reviewed);
           setStudying(false);
         }}
       />
@@ -120,7 +120,7 @@ function StudySession({
   deck: Flashcard[];
   store: FlashStore;
   onGrade: (id: string, known: boolean) => void;
-  onDone: (reviewed: number) => void;
+  onDone: (reviewed: number, known: number) => void;
 }) {
   // Prefer due cards; if none due, study the whole deck.
   const queue = useMemo(() => {
@@ -130,11 +130,14 @@ function StudySession({
 
   const [idx, setIdx] = useState(0);
   const [flipped, setFlipped] = useState(false);
+  const [knownCount, setKnownCount] = useState(0);
   const card = queue[idx];
 
   function answer(known: boolean) {
     onGrade(card.id, known);
-    if (idx + 1 >= queue.length) onDone(queue.length);
+    const newKnown = knownCount + (known ? 1 : 0);
+    setKnownCount(newKnown);
+    if (idx + 1 >= queue.length) onDone(queue.length, newKnown);
     else { setIdx(idx + 1); setFlipped(false); }
   }
 
@@ -143,7 +146,7 @@ function StudySession({
       <div className="px-4 py-8 md:px-8 md:py-10 max-w-2xl mx-auto text-center">
         <div className="text-4xl mb-3">🎉</div>
         <p className="text-sm" style={{ color: "var(--text-secondary)" }}>No cards to review. Come back later.</p>
-        <button className="btn-secondary mt-4" onClick={() => onDone(0)}>Back</button>
+        <button className="btn-secondary mt-4" onClick={() => onDone(0, 0)}>Back</button>
       </div>
     );
   }

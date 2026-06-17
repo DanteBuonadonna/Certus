@@ -111,3 +111,16 @@ export function playUnlock(): void {
   tone(880, 0.08, 0.16, "triangle", 0.15);
   tone(1175, 0.16, 0.26, "triangle", 0.14);
 }
+
+// ---- Haptics (mobile) ------------------------------------------------------
+// Respects the same mute flag. Patterns are subtle by design.
+export function haptic(pattern: number | number[]): void {
+  if (isMuted()) return;
+  if (typeof navigator === "undefined" || !("vibrate" in navigator)) return;
+  try {
+    navigator.vibrate(pattern);
+  } catch {}
+}
+export const hapticCorrect = () => haptic(18);
+export const hapticWrong = () => haptic([0, 40, 40, 40]);
+export const hapticLevelUp = () => haptic([0, 30, 50, 30, 50, 60]);

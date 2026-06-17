@@ -10,7 +10,7 @@ import QuickStart from "@/components/QuickStart";
 import Tour, { TourStep } from "@/components/Tour";
 import { DailyBonusModal } from "@/components/Rewards";
 import { dailyBonusInfo } from "@/lib/rewards";
-import { grantBonus } from "@/lib/economy";
+import StreakFlame from "@/components/StreakFlame";
 import { EXAMS, getExam } from "@/lib/exams";
 import {
   EMPTY_STATE,
@@ -160,17 +160,14 @@ export default function DashboardClient() {
   const calendarData = useMemo(() => heatmap(state, 126), [state]);
 
   function handleLog(minutes: number) {
-    const goalMet = progress ? progress.todayHours * 60 + minutes >= dailyGoalMin : false;
-    const result = logSession(state, activePlan?.examSlug ?? "general", minutes, { dailyGoalMet: goalMet });
+    // Logged minutes keep your streak and pacing alive but DON'T mint XP/Comp —
+    // coins are earned by answering questions correctly, not by logging time.
+    const result = logSession(state, activePlan?.examSlug ?? "general", minutes, { xpOverride: 0 });
     setState(result.state);
-    if (result.leveledUp) {
-      const newLevel = levelProgress(result.state.xp).level;
-      grantBonus(newLevel * 50); // celebrate the promotion with a Comp raise
-      setLevelUp({ level: newLevel, rank: rankTitle(newLevel) });
-    } else if (result.newBadges.length) {
+    if (result.newBadges.length) {
       showToast(`Badge unlocked: ${result.newBadges[0].name}`);
     } else {
-      showToast(`+${result.xpEarned} XP · ${minutes} min logged`);
+      showToast(`${minutes} min logged · streak safe — earn XP in Practice`);
     }
   }
 
@@ -712,7 +709,7 @@ function DuoHero({ state, dailyGoalMin, examSlug }: { state: GameState; dailyGoa
 
       {/* Streak fire */}
       <div className="flex items-center gap-2 px-3">
-        <span className={streak > 0 ? "anim-flame" : ""} style={{ fontSize: 34, filter: streak > 0 ? "none" : "grayscale(1)", opacity: streak > 0 ? 1 : 0.5 }}>🔥</span>
+        <StreakFlame streak={streak} size={38} />
         <div className="leading-none">
           <div className="text-2xl font-extrabold" style={{ color: "var(--duo-orange)" }}>{streak}</div>
           <div className="text-[10px] font-bold uppercase tracking-wide" style={{ color: "var(--text-muted)" }}>day streak</div>
