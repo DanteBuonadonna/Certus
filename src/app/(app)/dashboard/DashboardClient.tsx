@@ -59,7 +59,7 @@ const TOUR_STEPS: TourStep[] = [
   {
     target: "[data-tour='stats']",
     title: "Your vitals",
-    body: "Streak, XP, and total hours. Study any amount today to keep the streak alive — XP also mints Comp ($) you can spend later.",
+    body: "Streak, XP, and total hours. Show up daily to keep the streak alive — but XP (and the Comp you spend in the shop) is earned by answering questions correctly, not by logging time or skimming readings.",
   },
   {
     target: "[data-tour='plan']",
@@ -72,19 +72,24 @@ const TOUR_STEPS: TourStep[] = [
     body: "Your Readiness Rating (0–100, graded like a bond: CCC to AAA). It moves when you finish chapters, master flashcards, and clear mock exams. Get it to AAA and you're exam-ready.",
   },
   {
+    target: "[data-tour='challenges-promo']",
+    title: "Challenge modes",
+    body: "Three fast ways to rack up XP and climb your Division: Lightning Round (a 60-second sprint), The Open (a daily mock everyone takes — compare your score), and Wager (stake Comp and double it if you hit your target).",
+  },
+  {
     target: "[data-tour='challenges']",
     title: "Daily challenges",
-    body: "Quick hits that pay bonus XP every day. Stack them with your streak to level up faster.",
+    body: "Quick daily goals that pay bonus XP. Stack them with your streak to level up faster.",
   },
   {
     target: "[data-tour='nav-train']",
     title: "Where the work happens",
-    body: "Reading is the textbook (in-depth chapters). Practice drills real questions. Flashcards lock in key terms. The Final is the full timed mock — clear it to prove you're ready.",
+    body: "Reading is the textbook (in-depth chapters). Practice and Challenges drill real questions — and getting them right is how you earn XP. Flashcards lock in key terms. The Final is the full timed mock.",
   },
   {
     target: "[data-tour='nav-career']",
-    title: "The game layer",
-    body: "Your Profile (character + trophies), The Ladder (quests that pay Comp at every rank), and the Perks Desk (spend Comp on gear for your character).",
+    title: "Compete and customize",
+    body: "Divisions are weekly XP leagues you climb against a cohort and a rival. Your Profile holds your character and trophies, The Ladder pays Comp for quests, and the Perks Desk is where you spend it on gear.",
   },
   {
     title: "That's it — set your date",
@@ -272,6 +277,29 @@ export default function DashboardClient() {
         </div>
         <ProgressBar pct={lp.pct} color="linear-gradient(90deg, var(--primary), var(--gold-bright))" />
       </div>
+
+      {/* Challenges promo — show off the fast XP modes */}
+      <Link
+        href={`/challenges?exam=${activePlan?.examSlug ?? "cfa"}`}
+        data-tour="challenges-promo"
+        className="block mb-6 rise-in"
+        style={{ animationDelay: "0.07s", textDecoration: "none" }}
+      >
+        <div
+          className="p-4 flex items-center gap-4 card-i"
+          style={{ borderRadius: 18, border: "2px solid var(--duo-blue)", borderBottom: "5px solid var(--duo-blue-shadow)", background: "linear-gradient(135deg, color-mix(in srgb, var(--duo-blue) 12%, var(--bg-card)), var(--bg-card))" }}
+        >
+          <span style={{ fontSize: 34 }}>⚡</span>
+          <div className="flex-1 min-w-0">
+            <div className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "var(--duo-blue)" }}>New · Challenges</div>
+            <div className="text-base font-extrabold" style={{ color: "var(--text-primary)" }}>Race the clock, take the daily Open, or wager Comp</div>
+            <p className="text-xs mt-0.5" style={{ color: "var(--text-secondary)" }}>
+              Fast XP modes that climb your Division — Lightning Round, The Open, and Wager.
+            </p>
+          </div>
+          <span className="btn-duo duo-blue flex-shrink-0" style={{ padding: "0.6rem 1.1rem", fontSize: "0.8rem" }}>Play</span>
+        </div>
+      </Link>
 
       {!activePlan ? (
         <PlanSetup onCreate={createPlan} />

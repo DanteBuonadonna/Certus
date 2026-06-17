@@ -6,6 +6,7 @@
 // ============================================================
 
 import { Chapter, Question, ExamContent } from "./types";
+import { deepChaptersL2, deepQuestionsL2 } from "./cfa-l2-deep";
 
 const chapters: Chapter[] = [
   {
@@ -1634,6 +1635,6 @@ const questions: Question[] = [
 
 export const cfaL2Content: ExamContent = {
   examSlug: "cfa-l2",
-  chapters,
-  questions,
+  chapters: [...deepChaptersL2, ...chapters],
+  questions: [...deepQuestionsL2, ...questions],
 };
