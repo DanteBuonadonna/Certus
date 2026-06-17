@@ -8,6 +8,7 @@
 import { Chapter, Question, ExamContent } from "./types";
 import { extraChapters, extraQuestions } from "./cfa-extra";
 import { ethicsChapter, ethicsQuestions } from "./cfa-ethics";
+import { deepChapters, deepQuestions } from "./cfa-l1-deep";
 
 const chapters: Chapter[] = [
   // --------------------------------------------------------------------
@@ -588,6 +589,6 @@ const questions: Question[] = [
 // by the new aligned bank.
 export const cfaContent: ExamContent = {
   examSlug: "cfa",
-  chapters: [ethicsChapter, ...chapters.filter((c) => c.id !== "cfa-ethics"), ...extraChapters],
-  questions: [...questions, ...ethicsQuestions, ...extraQuestions],
+  chapters: [ethicsChapter, ...deepChapters, ...chapters.filter((c) => c.id !== "cfa-ethics"), ...extraChapters],
+  questions: [...deepQuestions, ...questions, ...ethicsQuestions, ...extraQuestions],
 };
