@@ -47,6 +47,14 @@ export function grantBonus(amount: number): Wallet {
   return w;
 }
 
+// Spend Comp (e.g., a wager stake). Increases `spent`, lowering the balance.
+export function spendComp(amount: number): Wallet {
+  const w = loadWallet();
+  w.spent += amount;
+  saveWallet(w);
+  return w;
+}
+
 /** Returns updated wallet, or null if it can't be afforded / already owned. */
 export function buyItem(state: GameState, itemId: string): Wallet | null {
   const item = getItem(itemId);
