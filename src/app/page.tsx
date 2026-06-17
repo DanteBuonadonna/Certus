@@ -248,7 +248,6 @@ export default function LandingPage() {
           <Link href="/privacy" className="text-xs hover:opacity-70 transition-opacity" style={{ color: "var(--text-muted)" }}>Privacy</Link>
           <Link href="/refund" className="text-xs hover:opacity-70 transition-opacity" style={{ color: "var(--text-muted)" }}>Refunds</Link>
           <a href={`mailto:${BRAND.supportEmail}`} className="text-xs hover:opacity-70 transition-opacity" style={{ color: "var(--text-muted)" }}>Support</a>
-          <Link href="/optimizer" className="text-xs hover:opacity-70 transition-opacity" style={{ color: "var(--text-muted)" }}>{BRAND.legacyToolName}</Link>
           <p className="text-xs" style={{ color: "var(--text-muted)" }}>© {BRAND.year} {BRAND.name}</p>
         </div>
       </footer>

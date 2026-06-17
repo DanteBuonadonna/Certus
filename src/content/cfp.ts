@@ -444,6 +444,331 @@ const chapters: Chapter[] = [
       "Communication and trust are what let a planner coach a client through panic — behavior decides whether the plan survives.",
     ],
   },
+
+  {
+    id: "cfp-benefits",
+    examSlug: "cfp",
+    topicId: "benefits",
+    topicName: "Employee Benefits & Equity Comp",
+    title: "Employee Benefits and Equity Compensation",
+    readingMinutes: 15,
+    summary: "Group benefits, the tax-advantaged spending accounts, and how stock options and RSUs are taxed — the workplace side of a financial plan.",
+    intro:
+      "A large share of a client's wealth and protection comes through their employer. The CFP professional must understand group benefits, the alphabet soup of tax-advantaged accounts, and — increasingly — how equity compensation like stock options and RSUs is taxed, since a single grant can dwarf a salary.",
+    sections: [
+      {
+        heading: "Group benefits and spending accounts",
+        blocks: [
+          { kind: "p", text: "Employers commonly provide group life and disability insurance (cheaper than individual coverage but often not portable), and group health plans (HMO, PPO, high-deductible plans). Tax-advantaged accounts stretch those dollars: a Flexible Spending Account (FSA) lets employees set aside pre-tax money for medical or dependent-care costs but is largely 'use it or lose it'; a Health Savings Account (HSA), paired with a high-deductible plan, offers a triple tax advantage and rolls over year to year. A cafeteria (Section 125) plan lets employees choose among pre-tax benefits." },
+          { kind: "callout", label: "COBRA", body: "COBRA lets employees continue group health coverage after leaving a job (typically up to 18 months), but they pay the full premium plus an administrative fee — so it's often expensive." },
+        ],
+      },
+      {
+        heading: "Equity compensation",
+        blocks: [
+          { kind: "p", text: "Stock-based pay is taxed differently depending on type. With a non-qualified stock option (NSO), the bargain element (market price minus exercise price) is taxed as ORDINARY income at exercise. An incentive stock option (ISO) can receive favorable long-term capital gains treatment if holding-period rules are met, but the bargain element is an AMT preference item at exercise. Restricted stock units (RSUs) are taxed as ordinary income when they VEST, based on the share value at vesting." },
+          { kind: "table", table: { caption: "Table 1 — How equity comp is taxed.", headers: ["Type", "Tax treatment"], rows: [["NSO", "Bargain element taxed as ordinary income at exercise"], ["ISO", "Possible LTCG if holding rules met; bargain element is an AMT item"], ["RSU", "Ordinary income at vesting, on the vest-date value"]] } },
+        ],
+      },
+      {
+        heading: "Concentration risk",
+        blocks: [
+          { kind: "p", text: "Equity compensation often leaves a client dangerously concentrated in their employer's stock — the same source as their paycheck, so a downturn can hit income and portfolio at once. The planner's job is to diversify prudently over time, mindful of taxes, trading windows, and any company holding requirements. The behavioral pull to hold 'my company's' stock is strong, which is exactly why a disciplined diversification plan matters." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Group life/disability insurance", def: "Employer-provided coverage, cheaper but often not portable when you leave." },
+      { term: "Flexible Spending Account (FSA)", def: "Pre-tax account for medical/dependent-care costs, largely use-it-or-lose-it." },
+      { term: "Health Savings Account (HSA)", def: "Triple-tax-advantaged account paired with a high-deductible health plan; rolls over." },
+      { term: "Cafeteria (Section 125) plan", def: "A plan letting employees choose among pre-tax benefit options." },
+      { term: "COBRA", def: "Continuation of group health coverage after leaving a job, at the employee's full cost." },
+      { term: "Non-qualified stock option (NSO)", def: "Option whose bargain element is taxed as ordinary income at exercise." },
+      { term: "Incentive stock option (ISO)", def: "Option eligible for LTCG treatment if held long enough; the bargain element is an AMT preference." },
+      { term: "Restricted stock unit (RSU)", def: "Equity taxed as ordinary income at vesting on the vest-date value." },
+      { term: "Bargain element", def: "Market price minus exercise price on an option at exercise." },
+      { term: "Vesting", def: "When an employee gains nonforfeitable rights to a benefit or grant." },
+      { term: "Concentration risk", def: "Excessive exposure to one holding (often employer stock), tying income and portfolio together." },
+      { term: "Deferred compensation", def: "Pay earned now but received (and taxed) in a later year." },
+    ],
+    takeaways: [
+      "Group benefits are cheap but often non-portable; HSAs (triple-tax) beat FSAs (use-it-or-lose-it).",
+      "NSOs are ordinary income at exercise; ISOs can get LTCG but trigger AMT; RSUs are ordinary income at vesting.",
+      "Equity comp often creates dangerous concentration in employer stock — diversify deliberately.",
+      "COBRA continues health coverage after a job, but at full cost.",
+    ],
+  },
+
+  {
+    id: "cfp-income",
+    examSlug: "cfp",
+    topicId: "income",
+    topicName: "Retirement Income Planning",
+    title: "Retirement Income: Annuities, Withdrawals, and Sequence Risk",
+    readingMinutes: 16,
+    summary: "Turning a nest egg into income — annuity types and payouts, sustainable withdrawal strategies, and the sequence-of-returns risk that sinks retirees.",
+    intro:
+      "Accumulating a nest egg is only half the job; converting it into income that lasts is the harder half. The CFP professional must know the annuity menu, sustainable withdrawal strategies, and the sequence-of-returns risk that can sink an otherwise-adequate portfolio if a bad market hits early in retirement.",
+    sections: [
+      {
+        heading: "Annuities",
+        blocks: [
+          { kind: "p", text: "Annuities convert savings into income. A fixed annuity guarantees a rate and is the insurer's obligation; a variable annuity invests in subaccounts so returns and risk pass to the owner; an indexed annuity ties returns to an index with caps and floors. An immediate annuity starts paying right away (good for longevity risk), while a deferred annuity grows first. Payout options trade income for protection: a life-only option pays the most but stops at death; joint-and-survivor and period-certain options pay less but protect a spouse or beneficiary." },
+          { kind: "callout", label: "The longevity-risk tool", body: "An immediate annuity is the cleanest hedge against longevity risk — outliving your money — because it guarantees income for life. The cost is liquidity: once annuitized, the lump sum is gone." },
+        ],
+      },
+      {
+        heading: "Sustainable withdrawals",
+        blocks: [
+          { kind: "p", text: "For a self-managed portfolio, the question is how much can be withdrawn without running out. The classic '4% rule' suggests withdrawing about 4% of the initial portfolio in year one, then adjusting for inflation, as a starting point for a ~30-year horizon — a guideline, not a guarantee. More dynamic approaches adjust spending with market performance. Tax-efficient withdrawal sequencing (which accounts to tap first) and managing required minimum distributions can materially extend a portfolio's life." },
+          { kind: "example", example: { title: "the 4% starting withdrawal", prompt: "A retiree has a $1,000,000 portfolio. Using the 4% guideline, what is the first-year withdrawal?", steps: ["First-year withdrawal = 4% × $1,000,000.", "= $40,000.", "In later years, adjust the $40,000 up for inflation, not recalculated off the balance."], answer: "$40,000 in year one, then inflation-adjusted — a starting framework for a ~30-year retirement." } },
+        ],
+      },
+      {
+        heading: "Sequence-of-returns risk",
+        blocks: [
+          { kind: "p", text: "Two retirees with the SAME average return can end up wildly differently depending on the ORDER of returns. Poor returns early in retirement — while withdrawals are being taken — permanently shrink the base that later gains compound on, a danger called sequence-of-returns risk. It's why retirees hold a cushion of cash/bonds to avoid selling stocks into a downturn, and why Monte Carlo simulation (which tests many return orderings) is more honest than a single average-return projection." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Fixed annuity", def: "An annuity guaranteeing a rate; the insurer bears the investment risk." },
+      { term: "Variable annuity", def: "An annuity investing in subaccounts; returns and risk pass to the owner." },
+      { term: "Indexed annuity", def: "An annuity tying returns to an index with caps and floors." },
+      { term: "Immediate vs deferred annuity", def: "One that begins paying now vs one that grows before paying." },
+      { term: "Life-only payout", def: "The highest annuity income, but payments stop at the annuitant's death." },
+      { term: "Joint-and-survivor payout", def: "Lower income that continues to a surviving spouse." },
+      { term: "Longevity risk", def: "The risk of outliving your assets, hedged by lifetime income like an annuity." },
+      { term: "4% rule", def: "A guideline to withdraw ~4% of the initial portfolio, then adjust for inflation." },
+      { term: "Sequence-of-returns risk", def: "The danger that poor early-retirement returns, amid withdrawals, permanently impair a portfolio." },
+      { term: "Withdrawal sequencing", def: "Choosing which accounts to draw first for tax efficiency and longevity." },
+      { term: "Required minimum distribution (RMD)", def: "Mandatory taxable withdrawals from traditional accounts starting at the statutory age." },
+      { term: "Monte Carlo simulation", def: "Testing many return sequences to estimate the probability a plan succeeds." },
+    ],
+    takeaways: [
+      "Annuities convert savings to income: fixed (insurer risk), variable (owner risk), indexed (capped); immediate annuities hedge longevity.",
+      "The 4% rule is a starting withdrawal guideline (~30-year horizon), then inflation-adjusted.",
+      "Sequence-of-returns risk means the ORDER of returns matters — bad early years amid withdrawals do lasting damage.",
+      "Hold a cash/bond cushion and use Monte Carlo, not a single average, to plan income.",
+    ],
+  },
+
+  {
+    id: "cfp-trusts",
+    examSlug: "cfp",
+    topicId: "trusts",
+    topicName: "Trusts & Advanced Estate Strategies",
+    title: "Trusts and Advanced Estate Strategies",
+    readingMinutes: 16,
+    summary: "The major trust types and the estate-tax tools — revocable vs irrevocable, ILITs, bypass and QTIP trusts, portability, and the GST tax.",
+    intro:
+      "Beyond a basic will, trusts are the workhorses of estate planning. The CFP professional must know the major trust types and what each accomplishes, plus the estate-tax levers — portability, the marital deduction, and generation-skipping — that move wealth efficiently across generations.",
+    sections: [
+      {
+        heading: "Revocable vs irrevocable trusts",
+        blocks: [
+          { kind: "p", text: "A revocable living trust lets the grantor keep control and amend or revoke it during life; it avoids probate (privacy and speed) but offers NO estate-tax savings or creditor protection, because the grantor still effectively owns the assets. An irrevocable trust gives up that control — the grantor generally can't amend it — and in exchange can remove assets from the taxable estate and shield them from creditors. The trade-off is always control versus tax/protection benefits." },
+          { kind: "callout", label: "The core trade-off", body: "Keep control (revocable) → probate avoidance only, no tax savings. Give up control (irrevocable) → potential estate-tax and creditor benefits. You generally can't have both." },
+        ],
+      },
+      {
+        heading: "Specialized trusts",
+        blocks: [
+          { kind: "p", text: "Several irrevocable trusts solve specific problems. An irrevocable life insurance trust (ILIT) owns a life policy so the death benefit passes outside the taxable estate — powerful because life insurance proceeds are otherwise included if the insured owned the policy. A bypass (credit-shelter) trust uses a deceased spouse's exemption to shelter assets from estate tax at the second death. A QTIP trust qualifies for the marital deduction while letting the first spouse control the ultimate beneficiaries (common in blended families). A grantor trust shifts assets but keeps the grantor responsible for income tax, which can be a feature." },
+        ],
+      },
+      {
+        heading: "The transfer-tax toolkit",
+        blocks: [
+          { kind: "p", text: "The estate and gift tax shares a unified lifetime exemption, and the unlimited marital deduction lets spouses transfer any amount to each other tax-free. Portability lets a surviving spouse use a deceased spouse's unused exemption. The annual gift tax exclusion (per recipient, per year) shrinks an estate without using the lifetime exemption. The generation-skipping transfer (GST) tax is a separate tax on transfers that skip a generation (e.g., to grandchildren), preventing families from avoiding a layer of estate tax. And the step-up in basis resets inherited assets to date-of-death value, often erasing capital-gains tax on a lifetime of appreciation." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Revocable living trust", def: "A trust the grantor controls and can amend; avoids probate but gives no tax savings." },
+      { term: "Irrevocable trust", def: "A trust the grantor can't amend; can remove assets from the estate and shield from creditors." },
+      { term: "Irrevocable life insurance trust (ILIT)", def: "Owns a life policy so the death benefit passes outside the taxable estate." },
+      { term: "Bypass (credit-shelter) trust", def: "Uses a deceased spouse's exemption to shelter assets from estate tax at the second death." },
+      { term: "QTIP trust", def: "Qualifies for the marital deduction while the first spouse controls the ultimate beneficiaries." },
+      { term: "Grantor trust", def: "A trust whose income is taxed to the grantor, sometimes used intentionally." },
+      { term: "Unlimited marital deduction", def: "Allows spouses to transfer any amount to each other free of gift/estate tax." },
+      { term: "Portability", def: "A surviving spouse's ability to use a deceased spouse's unused estate-tax exemption." },
+      { term: "Annual gift tax exclusion", def: "An amount giftable per recipient per year without using lifetime exemption." },
+      { term: "Lifetime exemption", def: "The cumulative amount sheltered from gift and estate tax." },
+      { term: "Generation-skipping transfer (GST) tax", def: "A separate tax on transfers that skip a generation (e.g., to grandchildren)." },
+      { term: "Step-up in basis", def: "Resetting an inherited asset's basis to date-of-death value, erasing prior gains." },
+    ],
+    takeaways: [
+      "Revocable trusts avoid probate but save no tax; irrevocable trusts trade control for estate-tax and creditor benefits.",
+      "ILITs keep life insurance out of the estate; bypass trusts use a spouse's exemption; QTIPs serve blended families.",
+      "Marital deduction, portability, annual exclusion, and lifetime exemption are the transfer-tax levers.",
+      "The GST tax stops skipping a generation tax-free; step-up in basis erases a lifetime of capital gains at death.",
+    ],
+  },
+
+  {
+    id: "cfp-tvm",
+    examSlug: "cfp",
+    topicId: "tvm",
+    topicName: "Time Value of Money",
+    title: "Time Value of Money and Financial Calculations",
+    readingMinutes: 17,
+    summary: "The quantitative engine of planning — present and future value, annuities, and the goal-funding calculations behind every retirement and education plan.",
+    intro:
+      "Almost every CFP recommendation rests on a time-value-of-money calculation: how much to save, whether a goal is on track, what a stream of payments is worth today. This chapter builds the core math — present and future value, annuities, and the inflation-adjusted goal calculations the exam demands — so the numbers behind the plan are sound.",
+    sections: [
+      {
+        heading: "Present and future value",
+        blocks: [
+          { kind: "p", text: "Money has time value: a dollar today is worth more than a dollar tomorrow because it can earn a return. FUTURE VALUE compounds a present amount forward at a rate; PRESENT VALUE discounts a future amount back to today. The five variables that drive every calculation are present value (PV), future value (FV), the interest rate (i), the number of periods (n), and the payment (PMT). Given any four, you solve for the fifth — the foundation of a financial calculator. Compounding more frequently than annually raises the effective rate, so always match the rate and the number of periods to the compounding frequency." },
+          { kind: "formula", formula: { label: "Future value of a lump sum", expr: "FV = PV × (1 + i)ⁿ", note: "Discounting just rearranges this: PV = FV ÷ (1 + i)ⁿ." } },
+        ],
+      },
+      {
+        heading: "Annuities and goal funding",
+        blocks: [
+          { kind: "p", text: "An ANNUITY is a series of equal payments. An ordinary annuity pays at the END of each period (most loans and bonds); an annuity DUE pays at the BEGINNING (most rents and savings deposits), making it worth slightly more because each payment compounds one extra period. Planning problems chain these together: to fund a future goal you compute the future value needed, then solve for the level payment (PMT) that accumulates it. Education and retirement problems add a twist — the goal grows with inflation, and the savings earn a return, so the exam often asks for the INFLATION-ADJUSTED (real) rate of return." },
+          { kind: "example", example: { title: "saving for a goal", prompt: "A client needs $50,000 in 10 years and can earn 6% annually. Roughly how much must they invest TODAY as a lump sum?", steps: ["PV = FV ÷ (1 + i)ⁿ = 50,000 ÷ (1.06)¹⁰.", "(1.06)¹⁰ ≈ 1.7908.", "PV = 50,000 ÷ 1.7908 ≈ 27,920."], answer: "About $27,920 invested today grows to $50,000 in 10 years at 6%. If instead they save annually, you'd solve for PMT rather than PV." } },
+        ],
+      },
+      {
+        heading: "Real returns and serial payments",
+        blocks: [
+          { kind: "p", text: "Because goals inflate, planners often work in real terms. The inflation-adjusted (real) rate is found by dividing, not just subtracting: [(1 + nominal) ÷ (1 + inflation)] − 1, which is slightly less than the simple difference. Some goals require SERIAL payments that grow each year with inflation rather than a level payment; these keep the saving constant in purchasing-power terms. The net present value (NPV) and internal rate of return (IRR) extend the same machinery to uneven cash flows, letting a planner compare investments or evaluate whether a stream of costs and benefits is worthwhile." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Time value of money", def: "The principle that a dollar today is worth more than a dollar later." },
+      { term: "Future value (FV)", def: "What a present amount grows to at a given rate and time." },
+      { term: "Present value (PV)", def: "Today's worth of a future amount, found by discounting." },
+      { term: "Interest rate (i)", def: "The growth or discount rate per period." },
+      { term: "Number of periods (n)", def: "The count of compounding periods in a calculation." },
+      { term: "Payment (PMT)", def: "The equal periodic cash flow in an annuity." },
+      { term: "Ordinary annuity", def: "Equal payments made at the END of each period." },
+      { term: "Annuity due", def: "Equal payments made at the BEGINNING of each period; worth slightly more." },
+      { term: "Compounding frequency", def: "How often interest is added; more frequent raises the effective rate." },
+      { term: "Inflation-adjusted (real) rate", def: "[(1 + nominal) ÷ (1 + inflation)] − 1; used for inflating goals." },
+      { term: "Serial payment", def: "A payment that grows each year with inflation to keep real saving constant." },
+      { term: "Net present value (NPV)", def: "The discounted value of uneven cash flows minus cost." },
+      { term: "Internal rate of return (IRR)", def: "The discount rate that sets NPV to zero; the compound return." },
+    ],
+    takeaways: [
+      "Five variables — PV, FV, i, n, PMT — drive every TVM calculation; given four, solve the fifth.",
+      "Future value compounds forward; present value discounts back: FV = PV × (1 + i)ⁿ.",
+      "Annuity due (start-of-period) is worth more than an ordinary annuity (end-of-period).",
+      "Inflating goals use the real rate [(1+nominal)/(1+inflation) − 1]; NPV/IRR handle uneven cash flows.",
+    ],
+  },
+
+  {
+    id: "cfp-cashflow",
+    examSlug: "cfp",
+    topicId: "cashflow",
+    topicName: "Cash Flow & Debt Management",
+    title: "Cash Flow, Debt, and Personal Financial Statements",
+    readingMinutes: 15,
+    summary: "The foundation of every plan — personal financial statements, budgeting and emergency reserves, and the debt and credit ratios that gauge financial health.",
+    intro:
+      "Before investing or insuring, a planner must understand a client's cash flow and balance sheet. The CFP exam tests personal financial statements, budgeting and emergency funds, and the debt-management ratios that signal whether a household is on solid ground. This is the groundwork the rest of the plan stands on.",
+    sections: [
+      {
+        heading: "Personal financial statements",
+        blocks: [
+          { kind: "p", text: "Two statements describe a household. The STATEMENT OF FINANCIAL POSITION (personal balance sheet) lists assets at fair market value and liabilities at their outstanding balance; assets minus liabilities equals NET WORTH. The CASH FLOW STATEMENT lists income (inflows) and expenses (outflows) over a period; the surplus or deficit is what's available to save or what must be borrowed. These statements are the diagnostic starting point — a planner reads them to find savings capacity, dangerous debt, and assets that aren't working." },
+          { kind: "callout", label: "Balance sheet vs cash flow", body: "The statement of financial position is a SNAPSHOT at a point in time (net worth today). The cash flow statement covers a PERIOD (the year's inflows and outflows). Assets are shown at current market value, not what was paid for them." },
+        ],
+      },
+      {
+        heading: "Budgeting and emergency reserves",
+        blocks: [
+          { kind: "p", text: "Budgeting allocates income across needs, wants, and savings, and the planner's first goal is usually an adequate EMERGENCY FUND. The common guideline is three to six months of nondiscretionary living expenses held in liquid, safe accounts — more for those with unstable income or a single earner, less for dual-income households with stable jobs. The emergency fund protects the rest of the plan: without it, a job loss or large expense forces selling investments at a bad time or taking on costly debt. Surplus cash flow then funds goals in priority order, typically after securing the reserve and any employer retirement match." },
+        ],
+      },
+      {
+        heading: "Debt and credit ratios",
+        blocks: [
+          { kind: "p", text: "Planners use ratios to judge debt health. The consumer (non-mortgage) debt ratio — monthly consumer debt payments divided by net (after-tax) monthly income — should generally stay at or below about 20%. The housing ratio — monthly housing costs divided by GROSS monthly income — is generally kept at or below 28%, and the total debt ratio (housing plus all other debt over gross income) at or below 36%, the classic 28/36 lending guideline. Beyond ratios, the planner distinguishes 'good' debt that builds wealth or has low rates from high-cost revolving debt that should be eliminated first, and weighs strategies like refinancing or debt consolidation." },
+          { kind: "table", table: { caption: "Table 1 — Common debt-ratio guidelines.", headers: ["Ratio", "Guideline"], rows: [["Consumer debt ÷ net income", "≤ ~20%"], ["Housing ÷ gross income", "≤ 28%"], ["Total debt ÷ gross income", "≤ 36%"]] } },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Statement of financial position", def: "A personal balance sheet of assets, liabilities, and net worth at a point in time." },
+      { term: "Net worth", def: "Assets minus liabilities; the bottom line of the balance sheet." },
+      { term: "Cash flow statement", def: "Income and expenses over a period, yielding a surplus or deficit." },
+      { term: "Assets at fair market value", def: "Personal assets shown at current value, not original cost." },
+      { term: "Budgeting", def: "Allocating income across needs, wants, and savings." },
+      { term: "Emergency fund", def: "3–6 months of nondiscretionary expenses held in liquid, safe accounts." },
+      { term: "Nondiscretionary expenses", def: "Essential costs (housing, food, utilities) the reserve must cover." },
+      { term: "Consumer debt ratio", def: "Monthly non-mortgage debt payments ÷ net income; target ≤ ~20%." },
+      { term: "Housing ratio", def: "Monthly housing costs ÷ gross income; target ≤ 28%." },
+      { term: "Total debt ratio", def: "All debt payments ÷ gross income; target ≤ 36%." },
+      { term: "28/36 guideline", def: "The classic housing/total-debt lending limits." },
+      { term: "Debt consolidation", def: "Combining debts, often to lower the rate or simplify payments." },
+    ],
+    takeaways: [
+      "The statement of financial position is a snapshot (net worth); the cash flow statement covers a period (surplus/deficit).",
+      "Build an emergency fund of 3–6 months of nondiscretionary expenses before pursuing other goals (after any employer match).",
+      "Keep consumer debt ≤ ~20% of net income, housing ≤ 28% and total debt ≤ 36% of gross income.",
+      "Eliminate high-cost revolving debt first; consider refinancing or consolidation where it lowers cost.",
+    ],
+  },
+
+  {
+    id: "cfp-pc-health",
+    examSlug: "cfp",
+    topicId: "pc-health",
+    topicName: "Property, Casualty & Health Insurance",
+    title: "Property, Casualty, and Health Insurance",
+    readingMinutes: 16,
+    summary: "Protecting against everyday catastrophes — homeowners and auto coverage, liability and umbrella policies, and the health and long-term-care coverage that guards retirement.",
+    intro:
+      "Life and disability insurance protect income, but a plan is incomplete without coverage for property loss, liability, and medical costs. The CFP exam tests homeowners and auto policies, the umbrella liability that backs them, and the health and long-term-care coverage that can otherwise devastate a retirement. The unifying idea is transferring catastrophic risk.",
+    sections: [
+      {
+        heading: "Risk management and property coverage",
+        blocks: [
+          { kind: "p", text: "Insurance is one of four risk-handling methods: avoid, reduce, retain, or TRANSFER. Insurance transfers risk, and the rule is to insure high-severity, low-frequency risks (a house fire) while retaining low-severity ones (a small deductible). Homeowners policies (forms HO-2 through HO-8) cover the dwelling, personal property, loss of use, and personal liability; HO-3, the most common, insures the dwelling on an open-perils basis and contents on named-perils. A crucial feature is the COINSURANCE clause: insure the dwelling to at least 80% of replacement cost or a partial loss is only partially reimbursed. Auto policies similarly bundle liability, collision, and comprehensive coverage." },
+          { kind: "callout", label: "The coinsurance penalty", body: "If a homeowner insures below the required percentage (usually 80% of replacement cost), a partial-loss claim is reduced by the ratio of coverage carried to coverage required. Carrying $160,000 on a home requiring $200,000 (80% of a $250,000 replacement cost) pays only 160/200 = 80% of a partial loss." },
+        ],
+      },
+      {
+        heading: "Liability and umbrella coverage",
+        blocks: [
+          { kind: "p", text: "Liability exposure — being sued for injuring someone or damaging their property — can exceed the limits in a homeowners or auto policy. A personal UMBRELLA policy sits on top, providing an extra layer (commonly $1 million or more) above the underlying limits and broadening coverage to some claims the base policies exclude. Umbrellas are inexpensive relative to the protection because they only pay after the underlying coverage is exhausted, so they require the client to carry specified minimum underlying limits. For affluent clients with significant assets to protect, an umbrella is often the highest-value, lowest-cost recommendation a planner makes." },
+        ],
+      },
+      {
+        heading: "Health and long-term-care insurance",
+        blocks: [
+          { kind: "p", text: "Medical costs are a leading financial risk. Working-age clients use health plans defined by cost-sharing — the deductible (paid before coverage starts), copays and coinsurance (shared costs), and the out-of-pocket maximum (the annual cap). A high-deductible health plan paired with a Health Savings Account (HSA) offers a triple tax advantage: deductible contributions, tax-free growth, and tax-free qualified medical withdrawals. At 65, Medicare takes over: Part A (hospital), Part B (medical), Part C (Medicare Advantage), and Part D (drugs), often supplemented by Medigap. Finally, LONG-TERM-CARE insurance covers custodial care (help with activities of daily living) that Medicare largely does NOT — a major, often-overlooked retirement risk, with premiums that rise sharply the longer a client waits to buy." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Risk transfer", def: "Shifting risk to an insurer; one of avoid/reduce/retain/transfer." },
+      { term: "Insure high-severity, low-frequency", def: "The rule to insure catastrophes and retain small risks." },
+      { term: "Homeowners HO-3", def: "The common policy: open-perils on the dwelling, named-perils on contents." },
+      { term: "Coinsurance clause", def: "Requires insuring to ~80% of replacement cost or face a partial-loss penalty." },
+      { term: "Replacement cost", def: "The cost to rebuild/replace without depreciation, the basis for adequate coverage." },
+      { term: "Auto coverage parts", def: "Liability, collision, and comprehensive bundled in an auto policy." },
+      { term: "Personal umbrella policy", def: "Excess liability coverage above home/auto limits, broadly protective." },
+      { term: "Deductible", def: "The amount paid out of pocket before insurance coverage begins." },
+      { term: "Out-of-pocket maximum", def: "The annual cap on a member's cost-sharing in a health plan." },
+      { term: "Health Savings Account (HSA)", def: "A triple-tax-advantaged account paired with a high-deductible health plan." },
+      { term: "Medicare Parts A–D", def: "Hospital (A), medical (B), Advantage (C), and drug (D) coverage at 65." },
+      { term: "Medigap", def: "Supplemental insurance covering Medicare's gaps." },
+      { term: "Long-term-care insurance", def: "Covers custodial care for activities of daily living that Medicare largely excludes." },
+      { term: "Activities of daily living (ADLs)", def: "Bathing, dressing, eating, etc.; trigger long-term-care benefits." },
+    ],
+    takeaways: [
+      "Insurance transfers risk; insure high-severity, low-frequency losses and retain small ones.",
+      "Homeowners HO-3 insures the dwelling on open perils; the coinsurance clause penalizes underinsuring below ~80% of replacement cost.",
+      "A personal umbrella adds inexpensive excess liability above home/auto limits — high value for asset-rich clients.",
+      "HSAs give triple tax benefits; Medicare (A–D) starts at 65; long-term-care insurance covers custodial care Medicare won't.",
+    ],
+  },
 ];
 
 const questions: Question[] = [
@@ -726,6 +1051,228 @@ const questions: Question[] = [
     choices: ["A budgeting software feature", "Often-unconscious beliefs about money, formed early in life, that drive financial behavior", "A type of estate document"],
     answerIndex: 1,
     explanation: "Money scripts are largely unconscious beliefs about money (money avoidance, worship, status, vigilance) formed in childhood that quietly shape financial decisions. Recognizing them helps a planner address the pattern behind a client's behavior. Choices A and C are unrelated to the concept.",
+  },
+
+  // ---- Employee Benefits & Equity Comp ----
+  {
+    id: "cfp-ben-q1", examSlug: "cfp", topicId: "benefits", topicName: "Employee Benefits & Equity Comp", difficulty: 2,
+    stem: "At exercise, the bargain element of a non-qualified stock option (NSO) is taxed as:",
+    choices: ["A long-term capital gain", "Ordinary income", "Tax-free"],
+    answerIndex: 1,
+    explanation: "For an NSO, the bargain element (market price minus exercise price) is taxed as ordinary income at exercise. Choice A describes potential ISO treatment if holding rules are met. Choice C is wrong; the spread is taxable.",
+  },
+  {
+    id: "cfp-ben-q2", examSlug: "cfp", topicId: "benefits", topicName: "Employee Benefits & Equity Comp", difficulty: 2,
+    stem: "Restricted stock units (RSUs) are generally taxed as ordinary income:",
+    choices: ["When granted", "When they vest, based on the vest-date value", "Only when sold"],
+    answerIndex: 1,
+    explanation: "RSUs are taxed as ordinary income at vesting, valued at the share price on the vest date; later sales create capital gain or loss from that basis. Choice A is too early (grant isn't taxable). Choice C ignores the vesting event.",
+  },
+  {
+    id: "cfp-ben-q3", examSlug: "cfp", topicId: "benefits", topicName: "Employee Benefits & Equity Comp", difficulty: 3,
+    stem: "A distinctive tax wrinkle of incentive stock options (ISOs) is that the bargain element at exercise:",
+    choices: ["Is always tax-free", "Is a preference item for the Alternative Minimum Tax (AMT)", "Is deductible by the employee"],
+    answerIndex: 1,
+    explanation: "ISOs can qualify for favorable long-term capital gains treatment, but the bargain element at exercise is an AMT preference item, which can trigger AMT even though there's no regular-tax event. Choice A overstates the benefit. Choice C is incorrect.",
+  },
+  {
+    id: "cfp-ben-q4", examSlug: "cfp", topicId: "benefits", topicName: "Employee Benefits & Equity Comp", difficulty: 2,
+    stem: "A key advantage of an HSA over an FSA is that the HSA:",
+    choices: ["Is use-it-or-lose-it", "Rolls over year to year and offers a triple tax advantage", "Requires no health plan"],
+    answerIndex: 1,
+    explanation: "HSA balances roll over and grow (contributions deductible, growth tax-free, qualified withdrawals tax-free). Choice A describes the FSA's main drawback. Choice C is false — an HSA requires a qualifying high-deductible health plan.",
+  },
+  {
+    id: "cfp-ben-q5", examSlug: "cfp", topicId: "benefits", topicName: "Employee Benefits & Equity Comp", difficulty: 2,
+    stem: "Equity compensation most often creates which planning problem?",
+    choices: ["Too much liquidity", "Concentration risk in the employer's stock", "Excessive diversification"],
+    answerIndex: 1,
+    explanation: "Heavy equity comp ties a client's portfolio AND paycheck to one company, creating dangerous concentration risk that a downturn can hit on both fronts. Choices A and C are the opposite of the actual problem.",
+  },
+
+  // ---- Retirement Income Planning ----
+  {
+    id: "cfp-inc-q1", examSlug: "cfp", topicId: "income", topicName: "Retirement Income Planning", difficulty: 2,
+    stem: "The cleanest tool to hedge longevity risk (outliving your money) is:",
+    choices: ["A short-term bond ladder", "An immediate annuity that pays for life", "A money-market fund"],
+    answerIndex: 1,
+    explanation: "An immediate annuity guarantees income for life, directly addressing longevity risk; the cost is lost liquidity once annuitized. Choices A and C provide safety/liquidity but no lifetime-income guarantee.",
+  },
+  {
+    id: "cfp-inc-q2", examSlug: "cfp", topicId: "income", topicName: "Retirement Income Planning", difficulty: 2,
+    stem: "Under the 4% rule, a retiree with a $750,000 portfolio would withdraw in year one about:",
+    choices: ["$7,500", "$30,000", "$75,000"],
+    answerIndex: 1,
+    explanation: "4% × $750,000 = $30,000 for the first year, then adjusted for inflation thereafter. Choice A uses 1%; choice C uses 10% — both far from the guideline.",
+  },
+  {
+    id: "cfp-inc-q3", examSlug: "cfp", topicId: "income", topicName: "Retirement Income Planning", difficulty: 3,
+    stem: "Sequence-of-returns risk is the danger that:",
+    choices: ["Average returns are too low", "Poor returns EARLY in retirement, while withdrawing, permanently impair the portfolio", "Inflation erodes purchasing power"],
+    answerIndex: 1,
+    explanation: "Two retirees with the same average return can fare very differently based on the ORDER of returns; bad early years combined with withdrawals shrink the base that later gains compound on. Choice A ignores ordering. Choice C describes inflation risk, a different threat.",
+  },
+  {
+    id: "cfp-inc-q4", examSlug: "cfp", topicId: "income", topicName: "Retirement Income Planning", difficulty: 2,
+    stem: "A 'life-only' annuity payout option, compared with joint-and-survivor, generally provides:",
+    choices: ["Lower income but continues to a spouse", "Higher income but stops at the annuitant's death", "The same income with a death benefit"],
+    answerIndex: 1,
+    explanation: "Life-only pays the most because payments cease at death with nothing to survivors; joint-and-survivor pays less but continues to a spouse. Choice A describes joint-and-survivor. Choice C misstates the trade-off between income and protection.",
+  },
+  {
+    id: "cfp-inc-q5", examSlug: "cfp", topicId: "income", topicName: "Retirement Income Planning", difficulty: 2,
+    stem: "In a variable annuity, investment risk is borne by:",
+    choices: ["The insurance company", "The contract owner (subaccount performance drives returns)", "The federal government"],
+    answerIndex: 1,
+    explanation: "A variable annuity invests in subaccounts, so investment performance and risk pass to the owner — unlike a fixed annuity, where the insurer guarantees a rate. Choice A describes a fixed annuity. Choice C is incorrect; annuities are not government-guaranteed.",
+  },
+
+  // ---- Trusts & Advanced Estate Strategies ----
+  {
+    id: "cfp-tr-q1", examSlug: "cfp", topicId: "trusts", topicName: "Trusts & Advanced Estate Strategies", difficulty: 2,
+    stem: "A revocable living trust primarily provides:",
+    choices: ["Estate-tax savings and creditor protection", "Probate avoidance, but no estate-tax savings", "A guaranteed investment return"],
+    answerIndex: 1,
+    explanation: "A revocable trust avoids probate (privacy, speed) but gives no estate-tax savings or creditor protection because the grantor retains control. Choice A describes irrevocable trusts. Choice C is unrelated to trusts.",
+  },
+  {
+    id: "cfp-tr-q2", examSlug: "cfp", topicId: "trusts", topicName: "Trusts & Advanced Estate Strategies", difficulty: 3,
+    stem: "An irrevocable life insurance trust (ILIT) is used to:",
+    choices: ["Keep life insurance proceeds OUT of the taxable estate", "Guarantee the policy never lapses", "Convert term insurance to whole life"],
+    answerIndex: 0,
+    explanation: "An ILIT owns the life policy so the death benefit passes outside the insured's taxable estate (proceeds are otherwise included if the insured owned the policy). Choices B and C are unrelated to the ILIT's estate-tax purpose.",
+  },
+  {
+    id: "cfp-tr-q3", examSlug: "cfp", topicId: "trusts", topicName: "Trusts & Advanced Estate Strategies", difficulty: 3,
+    stem: "A QTIP trust is especially useful when a client wants to:",
+    choices: ["Give the surviving spouse complete control of where assets ultimately go", "Provide for a spouse while controlling the ultimate beneficiaries (e.g., children from a prior marriage)", "Avoid making any marital transfer"],
+    answerIndex: 1,
+    explanation: "A QTIP qualifies for the marital deduction while letting the first spouse dictate who ultimately receives the assets — ideal for blended families. Choice A is the opposite (the point is to limit the survivor's control over the remainder). Choice C contradicts its marital-deduction purpose.",
+  },
+  {
+    id: "cfp-tr-q4", examSlug: "cfp", topicId: "trusts", topicName: "Trusts & Advanced Estate Strategies", difficulty: 2,
+    stem: "Portability allows a surviving spouse to:",
+    choices: ["Move a 401(k) between employers", "Use the deceased spouse's unused estate-tax exemption", "Avoid all income tax"],
+    answerIndex: 1,
+    explanation: "Portability lets a surviving spouse add the deceased spouse's unused estate-tax exemption to their own, increasing the amount shielded from estate tax. Choice A confuses it with a rollover. Choice C overstates it; portability concerns estate, not income, tax.",
+  },
+  {
+    id: "cfp-tr-q5", examSlug: "cfp", topicId: "trusts", topicName: "Trusts & Advanced Estate Strategies", difficulty: 3,
+    stem: "The generation-skipping transfer (GST) tax exists to:",
+    choices: ["Encourage gifts to grandchildren", "Prevent families from skipping a generation to avoid a layer of estate tax", "Tax all gifts to children"],
+    answerIndex: 1,
+    explanation: "The GST tax applies to transfers that skip a generation (e.g., directly to grandchildren), stopping families from avoiding the estate tax that would apply at the skipped generation. Choice A is backwards. Choice C misstates its scope.",
+  },
+
+  // Time Value of Money
+  {
+    id: "cfp-tvm-q1", examSlug: "cfp", topicId: "tvm", topicName: "Time Value of Money", difficulty: 2,
+    stem: "A client needs $20,000 in 5 years and can earn 6% annually. Approximately how much must be invested today as a lump sum?",
+    choices: ["$14,945", "$16,400", "$18,868"],
+    answerIndex: 0,
+    explanation: "PV = FV ÷ (1 + i)ⁿ = 20,000 ÷ (1.06)⁵ = 20,000 ÷ 1.3382 ≈ $14,945. Compounding at 6% for five years turns roughly $14,945 into $20,000. Choice C uses too short a period; choice B mis-discounts. This single-sum present-value calculation underlies most goal-funding work.",
+  },
+  {
+    id: "cfp-tvm-q2", examSlug: "cfp", topicId: "tvm", topicName: "Time Value of Money", difficulty: 2,
+    stem: "Why is an annuity due worth more than an otherwise identical ordinary annuity?",
+    choices: ["It has more payments", "Each payment is made at the beginning of the period, compounding one extra period", "It uses a higher interest rate"],
+    answerIndex: 1,
+    explanation: "An annuity due pays at the BEGINNING of each period, so every payment earns an additional period of compounding compared with an ordinary (end-of-period) annuity, raising its value. The number of payments (A) and the rate (C) are the same; only the timing differs.",
+  },
+  {
+    id: "cfp-tvm-q3", examSlug: "cfp", topicId: "tvm", topicName: "Time Value of Money", difficulty: 3,
+    stem: "With a nominal return of 8% and inflation of 3%, the inflation-adjusted (real) rate used to fund an inflating goal is closest to:",
+    choices: ["5.00%", "4.85%", "11.00%"],
+    answerIndex: 1,
+    explanation: "The real rate is computed by dividing, not subtracting: [(1.08 ÷ 1.03) − 1] = 1.0485 − 1 ≈ 4.85%, slightly below the simple 5% difference (A). Adding the rates (C) is incorrect. Planners use this serial/real rate when a goal grows with inflation.",
+  },
+  {
+    id: "cfp-tvm-q4", examSlug: "cfp", topicId: "tvm", topicName: "Time Value of Money", difficulty: 1,
+    stem: "Which five variables drive a standard time-value-of-money calculation?",
+    choices: ["PV, FV, i, n, and PMT", "Assets, liabilities, income, expenses, and net worth", "Alpha, beta, Sharpe, NPV, and IRR"],
+    answerIndex: 0,
+    explanation: "Every TVM problem uses present value, future value, the interest rate, the number of periods, and the payment (PV, FV, i, n, PMT); given any four, you solve for the fifth. Choice B lists financial-statement items; choice C lists performance metrics — neither is the TVM variable set.",
+  },
+  {
+    id: "cfp-tvm-q5", examSlug: "cfp", topicId: "tvm", topicName: "Time Value of Money", difficulty: 2,
+    stem: "Increasing the compounding frequency from annual to monthly, holding the stated rate constant, will:",
+    choices: ["Lower the effective annual rate", "Raise the effective annual rate", "Have no effect"],
+    answerIndex: 1,
+    explanation: "More frequent compounding means interest earns interest sooner, raising the effective annual rate above the stated nominal rate. Annual compounding (A) would give the lowest effective rate. The effect is real (C is wrong) — always match the rate and period count to the compounding frequency.",
+  },
+
+  // Cash Flow & Debt Management
+  {
+    id: "cfp-cf-q1", examSlug: "cfp", topicId: "cashflow", topicName: "Cash Flow & Debt Management", difficulty: 1,
+    stem: "A client's net worth is calculated as:",
+    choices: ["Income minus expenses", "Assets minus liabilities", "Gross income times a factor"],
+    answerIndex: 1,
+    explanation: "Net worth equals total assets (at fair market value) minus total liabilities — the bottom line of the statement of financial position. Income minus expenses (A) is the cash flow statement's surplus/deficit, a different measure over a period. Choice C is not a recognized calculation.",
+  },
+  {
+    id: "cfp-cf-q2", examSlug: "cfp", topicId: "cashflow", topicName: "Cash Flow & Debt Management", difficulty: 2,
+    stem: "A common guideline for an emergency fund is to hold liquid reserves covering:",
+    choices: ["1 week of income", "3–6 months of nondiscretionary expenses", "2 years of total spending"],
+    answerIndex: 1,
+    explanation: "The standard recommendation is three to six months of nondiscretionary living expenses in liquid, safe accounts — more for unstable or single income, less for stable dual incomes. One week (A) is far too little, and two years (C) would needlessly tie up capital that could fund goals.",
+  },
+  {
+    id: "cfp-cf-q3", examSlug: "cfp", topicId: "cashflow", topicName: "Cash Flow & Debt Management", difficulty: 2,
+    stem: "Under the classic 28/36 guideline, total monthly debt payments should not exceed what percentage of GROSS monthly income?",
+    choices: ["20%", "28%", "36%"],
+    answerIndex: 2,
+    explanation: "The 28/36 rule caps housing costs at 28% and TOTAL debt (housing plus all other debt) at 36% of gross monthly income. The 20% figure (A) is the separate consumer-debt-to-NET-income guideline. 28% (B) is the housing-only limit, not the total-debt limit.",
+  },
+  {
+    id: "cfp-cf-q4", examSlug: "cfp", topicId: "cashflow", topicName: "Cash Flow & Debt Management", difficulty: 1,
+    stem: "On a personal statement of financial position, assets are generally reported at:",
+    choices: ["Original purchase cost", "Fair market value", "Insured value"],
+    answerIndex: 1,
+    explanation: "Personal financial statements show assets at their current fair market value so net worth reflects today's reality. Original cost (A) is a historical figure that can be far from current value. Insured value (C) is set for coverage purposes and isn't the basis for the balance sheet.",
+  },
+  {
+    id: "cfp-cf-q5", examSlug: "cfp", topicId: "cashflow", topicName: "Cash Flow & Debt Management", difficulty: 2,
+    stem: "When prioritizing the use of monthly surplus cash flow, a planner generally recommends first:",
+    choices: ["Speculative investments", "Capturing any employer retirement match and building an emergency fund", "Paying extra on a low-rate mortgage"],
+    answerIndex: 1,
+    explanation: "High-priority uses come first: capturing 'free money' from an employer match and establishing an emergency reserve protect the entire plan. Speculative investments (A) come much later, after foundations are set. Prepaying a low-rate mortgage (C) is low priority versus a match and reserve given its modest, certain return.",
+  },
+
+  // Property, Casualty & Health Insurance
+  {
+    id: "cfp-pc-q1", examSlug: "cfp", topicId: "pc-health", topicName: "Property, Casualty & Health Insurance", difficulty: 1,
+    stem: "Insurance is an example of which risk-management technique?",
+    choices: ["Risk retention", "Risk transfer", "Risk avoidance"],
+    answerIndex: 1,
+    explanation: "Buying insurance transfers the financial consequences of a risk to the insurer — risk transfer. Retention (A) means bearing the risk yourself (e.g., a deductible). Avoidance (C) means not engaging in the risky activity at all. The rule is to transfer high-severity, low-frequency risks.",
+  },
+  {
+    id: "cfp-pc-q2", examSlug: "cfp", topicId: "pc-health", topicName: "Property, Casualty & Health Insurance", difficulty: 3,
+    stem: "A home has a $250,000 replacement cost and an 80% coinsurance clause, but is insured for only $160,000. A partial loss will be reimbursed at approximately what fraction (before the deductible)?",
+    choices: ["100%", "80%", "64%"],
+    answerIndex: 1,
+    explanation: "Required coverage = 80% × $250,000 = $200,000. Reimbursement ratio = carried ÷ required = $160,000 ÷ $200,000 = 80%. So partial losses are paid at about 80%. Full coverage (A) would require meeting the $200,000 requirement; 64% (C) wrongly divides by the full replacement cost rather than the required amount.",
+  },
+  {
+    id: "cfp-pc-q3", examSlug: "cfp", topicId: "pc-health", topicName: "Property, Casualty & Health Insurance", difficulty: 2,
+    stem: "A personal umbrella liability policy primarily provides:",
+    choices: ["Coverage for the client's own medical bills", "Excess liability coverage above home and auto limits", "Replacement of damaged personal property"],
+    answerIndex: 1,
+    explanation: "An umbrella policy adds a layer of liability coverage (often $1 million+) above the limits of the underlying homeowners and auto policies, and is inexpensive because it pays only after those are exhausted. It is not health coverage (A) or property replacement (C); its job is catastrophic liability protection.",
+  },
+  {
+    id: "cfp-pc-q4", examSlug: "cfp", topicId: "pc-health", topicName: "Property, Casualty & Health Insurance", difficulty: 2,
+    stem: "A Health Savings Account (HSA) offers which tax advantage?",
+    choices: ["Only tax-free withdrawals", "Deductible contributions, tax-free growth, and tax-free qualified withdrawals", "A deduction only at retirement"],
+    answerIndex: 1,
+    explanation: "An HSA, paired with a high-deductible health plan, has a triple tax advantage: contributions are deductible, growth is tax-free, and qualified medical withdrawals are tax-free. Choice A captures only one leg, and choice C misstates the timing — the deduction applies when contributions are made.",
+  },
+  {
+    id: "cfp-pc-q5", examSlug: "cfp", topicId: "pc-health", topicName: "Property, Casualty & Health Insurance", difficulty: 2,
+    stem: "Which type of care is primarily covered by long-term-care insurance but largely NOT by Medicare?",
+    choices: ["Custodial care assisting with activities of daily living", "Emergency hospital care", "Prescription drugs"],
+    answerIndex: 0,
+    explanation: "Long-term-care insurance covers custodial care — ongoing help with activities of daily living like bathing and dressing — which Medicare largely does not cover. Hospital care (B) is Medicare Part A, and prescription drugs (C) are Part D. The custodial-care gap is a major, often-overlooked retirement risk.",
   },
 ];
 

@@ -41,5 +41,5 @@ export const PLAN_FEATURES = [
   "Unlimited Finals (full timed mock exams)",
   "Full question bank with trap-aware explanations",
   "Adaptive study plan, streaks & readiness rating",
-  "Resume optimizer included",
+  "Spaced-repetition flashcards & The Associate AI tutor",
 ];

@@ -55,9 +55,6 @@ const I = {
   perks: (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.6 13.4L11 3.8a2 2 0 00-1.4-.6H4a1 1 0 00-1 1v5.6c0 .5.2 1 .6 1.4l9.6 9.6a2 2 0 002.8 0l4.6-4.6a2 2 0 000-2.8z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg>
   ),
-  resume: (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-  ),
 };
 
 const SECTIONS: { label: string; items: NavItem[] }[] = [
@@ -188,14 +185,6 @@ export default function Sidebar({ email }: SidebarProps) {
             <div className="space-y-0.5">{section.items.map((item) => renderItem(item))}</div>
           </div>
         ))}
-
-        {/* Tools */}
-        <div className="mb-2">
-          <div className="px-3 pb-1.5">
-            <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>Tools</span>
-          </div>
-          {renderItem({ label: BRAND.legacyToolName, href: "/optimizer", icon: I.resume }, true)}
-        </div>
       </nav>
 
       {/* Bottom: plan + user */}

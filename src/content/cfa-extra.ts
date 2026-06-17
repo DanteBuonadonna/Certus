@@ -384,6 +384,173 @@ export const extraChapters: Chapter[] = [
       "The IPS (objectives + constraints) drives asset allocation — the single biggest driver of long-run results.",
     ],
   },
+
+  {
+    id: "cfa-quant-stats",
+    examSlug: "cfa",
+    topicId: "quant-stats",
+    topicName: "Probability & Distributions",
+    title: "Probability, Distributions, and Hypothesis Testing",
+    readingMinutes: 18,
+    summary: "The statistical core of Level I — probability and expected value, the normal distribution and z-scores, and the logic of confidence intervals and hypothesis tests.",
+    intro:
+      "Beyond the time value of money, Level I quant is built on probability and statistics. You need expected value and variance, the normal distribution and standardization, and the inference framework — sampling, confidence intervals, and hypothesis testing. These tools recur throughout the curriculum, so a firm grip pays off everywhere.",
+    sections: [
+      {
+        heading: "Probability and expected value",
+        blocks: [
+          { kind: "p", text: "A probability is a number between 0 and 1. Two rules drive most calculations: the addition rule for the probability of A or B, and the multiplication rule for A and B (using conditional probability when events aren't independent). The expected value of a random variable is the probability-weighted average of its outcomes — the long-run mean. Variance (and its square root, standard deviation) measures how spread out the outcomes are around that mean." },
+          { kind: "callout", label: "Conditional probability", body: "P(A | B) is the probability of A GIVEN that B occurred. Events are independent when P(A | B) = P(A) — knowing B tells you nothing about A. Bayes' formula updates a probability as new information arrives." },
+        ],
+      },
+      {
+        heading: "The normal distribution",
+        blocks: [
+          { kind: "p", text: "The normal (bell-shaped) distribution is central because of two properties: it's fully described by its mean and standard deviation, and roughly 68% of observations fall within one standard deviation of the mean, 95% within two, and 99.7% within three. To use a normal table for any variable, you STANDARDIZE it into a z-score — the number of standard deviations an observation lies from the mean: z = (x − mean) ÷ standard deviation. Asset returns are often modeled as normal, while PRICES are better modeled as lognormal (they can't go below zero)." },
+          { kind: "example", example: { title: "a z-score", prompt: "A portfolio's annual returns are normal with a mean of 8% and a standard deviation of 12%. How many standard deviations below the mean is a −16% return?", steps: ["z = (x − mean) ÷ std dev = (−16% − 8%) ÷ 12%.", "= −24% ÷ 12% = −2.0."], answer: "z = −2.0 — the −16% return is two standard deviations below the mean, an outcome in roughly the bottom 2.5% of the distribution." } },
+        ],
+      },
+      {
+        heading: "Sampling and hypothesis testing",
+        blocks: [
+          { kind: "p", text: "Analysts infer population facts from samples. The Central Limit Theorem says that, for a large enough sample, the distribution of the sample mean is approximately normal regardless of the population's shape — which is what makes confidence intervals work. A confidence interval gives a range likely to contain the true parameter (e.g., 'we're 95% confident the mean lies between X and Y'). Hypothesis testing formalizes a yes/no question: state a null hypothesis, compute a test statistic, and reject the null if the result is extreme (a small p-value). Two errors lurk: a Type I error rejects a true null (a false positive), and a Type II error fails to reject a false null." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Probability", def: "A number from 0 to 1 expressing how likely an event is." },
+      { term: "Conditional probability", def: "P(A | B): the probability of A given that B has occurred." },
+      { term: "Expected value", def: "The probability-weighted average of a random variable's outcomes." },
+      { term: "Variance / standard deviation", def: "Measures of dispersion of outcomes around the mean." },
+      { term: "Normal distribution", def: "A bell curve fully described by its mean and standard deviation (68/95/99.7 rule)." },
+      { term: "Z-score", def: "(x − mean) ÷ standard deviation; the number of standard deviations from the mean." },
+      { term: "Lognormal distribution", def: "Used for asset PRICES because they cannot fall below zero." },
+      { term: "Central Limit Theorem", def: "The sample mean's distribution approaches normal as sample size grows." },
+      { term: "Confidence interval", def: "A range likely (e.g., 95%) to contain the true population parameter." },
+      { term: "Null hypothesis", def: "The default claim a hypothesis test seeks to reject." },
+      { term: "Type I error", def: "Rejecting a true null hypothesis (a false positive)." },
+      { term: "Type II error", def: "Failing to reject a false null hypothesis (a false negative)." },
+      { term: "p-value", def: "The probability of a result at least as extreme as observed if the null were true; small → reject." },
+      { term: "Coefficient of variation", def: "Standard deviation divided by the mean; risk per unit of return." },
+    ],
+    takeaways: [
+      "Expected value is the probability-weighted mean; variance/std dev measure dispersion.",
+      "The normal curve follows 68/95/99.7; standardize with z = (x − mean) ÷ std dev.",
+      "The CLT makes the sample mean approximately normal, enabling confidence intervals.",
+      "Hypothesis testing rejects the null when the p-value is small; beware Type I (false positive) and Type II (false negative) errors.",
+    ],
+  },
+
+  {
+    id: "cfa-fra-ratios",
+    examSlug: "cfa",
+    topicId: "fra-ratios",
+    topicName: "Financial Ratios & Analysis",
+    title: "Financial Ratios and Statement Analysis",
+    readingMinutes: 17,
+    summary: "The four ratio families, the DuPont decomposition of ROE, and the common-size and quality lenses analysts use to read a company.",
+    intro:
+      "Ratios turn raw statements into comparisons. Level I expects fluency in the four ratio families, the DuPont decomposition that explains WHY return on equity is what it is, and the common-size and earnings-quality lenses that reveal what the headline numbers hide. Know which ratio answers which question.",
+    sections: [
+      {
+        heading: "The four ratio families",
+        blocks: [
+          { kind: "p", text: "Ratios group by what they measure. Liquidity ratios gauge short-term solvency — the current ratio (current assets ÷ current liabilities) and the stricter quick ratio (excluding inventory). Solvency ratios gauge long-term debt load — debt-to-equity and the interest coverage ratio (EBIT ÷ interest). Profitability ratios measure how well sales convert to profit — gross, operating, and net margins, plus return on assets (ROA) and return on equity (ROE). Activity (efficiency) ratios measure how well assets are used — inventory turnover, receivables turnover, and total asset turnover." },
+          { kind: "table", table: { caption: "Table 1 — The four ratio families and what they answer.", headers: ["Family", "Question / example"], rows: [["Liquidity", "Can it pay short-term bills? (current, quick ratio)"], ["Solvency", "Can it handle its debt? (debt-to-equity, interest coverage)"], ["Profitability", "How profitable? (margins, ROA, ROE)"], ["Activity", "How efficiently are assets used? (turnover ratios)"]] } },
+        ],
+      },
+      {
+        heading: "The DuPont decomposition",
+        blocks: [
+          { kind: "p", text: "DuPont analysis breaks return on equity into its drivers so you can see WHERE the return comes from. The three-step version: ROE = net profit margin × total asset turnover × financial leverage. A high ROE built on thin margins but high turnover (a discount retailer) is a different business from one built on fat margins (a luxury brand) or heavy leverage (a bank). Decomposing ROE prevents you from praising a number that's really just risky leverage in disguise." },
+          { kind: "example", example: { title: "DuPont in action", prompt: "A firm has a net profit margin of 5%, asset turnover of 2.0, and financial leverage (assets/equity) of 1.5. What is its ROE?", steps: ["ROE = margin × turnover × leverage.", "= 5% × 2.0 × 1.5.", "= 15%."], answer: "ROE = 15% — and you can see it's driven by efficient asset use (2.0 turnover) plus modest leverage, not fat margins." } },
+        ],
+      },
+      {
+        heading: "Common-size analysis and quality",
+        blocks: [
+          { kind: "p", text: "Common-size statements restate every line as a percentage — income-statement items as a percent of revenue, balance-sheet items as a percent of total assets — so companies of different sizes (and the same company over time) can be compared on structure, not scale. Finally, analysts watch earnings quality: are profits backed by cash flow, or inflated by aggressive accruals and one-time items? High accruals relative to cash earnings are a warning sign that reported income may not persist." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Current ratio", def: "Current assets ÷ current liabilities; a basic liquidity measure." },
+      { term: "Quick ratio", def: "A stricter liquidity ratio excluding inventory from current assets." },
+      { term: "Debt-to-equity ratio", def: "Total debt ÷ equity; a solvency/leverage measure." },
+      { term: "Interest coverage ratio", def: "EBIT ÷ interest expense; ability to service debt." },
+      { term: "Gross / operating / net margin", def: "Profit at each level as a percent of revenue." },
+      { term: "Return on assets (ROA)", def: "Net income ÷ total assets; profitability per dollar of assets." },
+      { term: "Return on equity (ROE)", def: "Net income ÷ equity; profitability per dollar of equity." },
+      { term: "Asset turnover", def: "Revenue ÷ total assets; how efficiently assets generate sales." },
+      { term: "Inventory turnover", def: "COGS ÷ average inventory; how quickly inventory sells." },
+      { term: "Receivables turnover", def: "Revenue ÷ average receivables; how quickly customers pay." },
+      { term: "DuPont analysis", def: "ROE = net margin × asset turnover × financial leverage." },
+      { term: "Common-size analysis", def: "Restating statements as percentages for size-neutral comparison." },
+      { term: "Financial leverage", def: "Total assets ÷ equity; the use of debt to amplify returns." },
+      { term: "Earnings quality", def: "Whether reported profits are backed by cash flow rather than aggressive accruals." },
+    ],
+    takeaways: [
+      "Four families: liquidity, solvency, profitability, activity — know which ratio answers which question.",
+      "DuPont: ROE = net margin × asset turnover × financial leverage; it reveals the SOURCE of return.",
+      "Common-size statements compare structure across sizes and over time.",
+      "Watch earnings quality — high accruals vs cash flow warn that reported income may not last.",
+    ],
+  },
+
+  {
+    id: "cfa-equity-markets",
+    examSlug: "cfa",
+    topicId: "equity-markets",
+    topicName: "Equity Markets & Efficiency",
+    title: "Equity Markets, Indexes, and Market Efficiency",
+    readingMinutes: 16,
+    summary: "How markets are organized, how indexes are built and weighted, and what the three forms of market efficiency mean for active investing.",
+    intro:
+      "Before valuing a stock, you must understand the market it trades in. Level I covers how markets are organized, how the indexes that benchmark them are constructed, and the efficient-market hypothesis that frames the whole active-vs-passive debate. The index-weighting and efficiency-form distinctions are reliable exam points.",
+    sections: [
+      {
+        heading: "Market organization",
+        blocks: [
+          { kind: "p", text: "The primary market is where issuers raise capital by selling new securities (an IPO); the secondary market is where those securities then trade among investors, providing liquidity and price discovery. Investors use order types — a market order for immediate execution at the best price, a limit order to cap the price, and a stop order that triggers at a set level. Positions can be long (own it, profit if it rises) or short (sell borrowed shares, profit if it falls, with unlimited risk). Buying on margin uses borrowed money to amplify returns and risk." },
+        ],
+      },
+      {
+        heading: "Security market indexes",
+        blocks: [
+          { kind: "p", text: "An index summarizes a market's performance, and how it's WEIGHTED changes its behavior. A price-weighted index (like the Dow) weights by share price, so high-priced stocks dominate and stock splits distort it. A market-cap (value) weighted index (like the S&P 500) weights by total market value, so large companies dominate — the most common method. An equal-weighted index gives every stock the same weight, requiring frequent rebalancing. Indexes serve as benchmarks, as the basis for index funds and ETFs, and as gauges of market sentiment." },
+          { kind: "table", table: { caption: "Table 1 — Index weighting methods.", headers: ["Method", "Weights by", "Note"], rows: [["Price-weighted", "Share price", "High-priced stocks dominate; splits distort (e.g., the Dow)"], ["Market-cap (value) weighted", "Market value", "Large caps dominate; most common (e.g., S&P 500)"], ["Equal-weighted", "Equal per stock", "Needs frequent rebalancing"]] } },
+        ],
+      },
+      {
+        heading: "Market efficiency",
+        blocks: [
+          { kind: "p", text: "The efficient market hypothesis comes in three forms. Weak form says prices already reflect all PAST price data — so technical analysis can't consistently beat the market. Semi-strong form says prices reflect all PUBLIC information — so fundamental analysis of public data can't reliably beat the market, and prices adjust quickly to news. Strong form says prices reflect ALL information, public and private — implying even insider information wouldn't help (a form most evidence rejects). The more efficient the market, the stronger the case for low-cost passive investing. Behavioral finance pushes back, documenting anomalies and biases that suggest markets aren't perfectly efficient." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Primary market", def: "Where issuers sell new securities to raise capital (e.g., an IPO)." },
+      { term: "Secondary market", def: "Where existing securities trade among investors, providing liquidity." },
+      { term: "Market order", def: "An order to execute immediately at the best available price." },
+      { term: "Limit order", def: "An order with a price cap (buy at or below / sell at or above)." },
+      { term: "Stop order", def: "A dormant order that becomes active when a trigger price is reached." },
+      { term: "Short selling", def: "Selling borrowed shares to profit from a decline; potential loss is unlimited." },
+      { term: "Margin (buying)", def: "Using borrowed money to buy securities, amplifying gains and losses." },
+      { term: "Price-weighted index", def: "An index weighted by share price; distorted by splits (e.g., the Dow)." },
+      { term: "Market-cap-weighted index", def: "An index weighted by market value; the most common method (e.g., S&P 500)." },
+      { term: "Equal-weighted index", def: "An index giving each stock the same weight, needing frequent rebalancing." },
+      { term: "Weak-form efficiency", def: "Prices reflect all past price data; technical analysis can't reliably beat the market." },
+      { term: "Semi-strong-form efficiency", def: "Prices reflect all public information; fundamental analysis of public data can't reliably beat it." },
+      { term: "Strong-form efficiency", def: "Prices reflect all information including private; even insider info wouldn't help (mostly rejected)." },
+      { term: "Behavioral finance", def: "The study of biases and anomalies suggesting markets aren't perfectly efficient." },
+    ],
+    takeaways: [
+      "Primary market raises capital; secondary market provides liquidity and price discovery.",
+      "Index weighting matters: price-weighted (Dow, split-distorted), cap-weighted (S&P, large-cap), equal-weighted (rebalanced).",
+      "Efficiency forms: weak (past prices) kills technicals; semi-strong (public info) challenges fundamentals; strong (all info) is mostly rejected.",
+      "More efficiency favors passive investing; behavioral finance documents the cracks.",
+    ],
+  },
 ];
 
 export const extraQuestions: Question[] = [
@@ -518,5 +685,116 @@ export const extraQuestions: Question[] = [
     choices: ["Risk tolerance", "Return requirement", "Liquidity needs"],
     answerIndex: 2,
     explanation: "An IPS separates objectives (return requirement and risk tolerance) from constraints (liquidity, time horizon, taxes, legal/regulatory, and unique circumstances). Liquidity needs are a constraint. Choices A and B — risk tolerance and return requirement — are the two OBJECTIVES, not constraints. Keeping this split straight is a common Level I test point.",
+  },
+
+  // Probability & Distributions
+  {
+    id: "cfa-qs-q1", examSlug: "cfa", topicId: "quant-stats", topicName: "Probability & Distributions", difficulty: 2,
+    stem: "Returns are normal with a mean of 10% and a standard deviation of 5%. What is the z-score of a 0% return?",
+    choices: ["−2.0", "−1.0", "−0.5"],
+    answerIndex: 0,
+    explanation: "z = (x − mean) ÷ std dev = (0% − 10%) ÷ 5% = −10 ÷ 5 = −2.0. The 0% return lies two standard deviations below the mean. Choice B (−1.0) would correspond to a 5% return, and choice C (−0.5) to a 7.5% return — both mis-scale the distance.",
+  },
+  {
+    id: "cfa-qs-q2", examSlug: "cfa", topicId: "quant-stats", topicName: "Probability & Distributions", difficulty: 1,
+    stem: "Approximately what percentage of observations of a normal distribution fall within two standard deviations of the mean?",
+    choices: ["68%", "95%", "99.7%"],
+    answerIndex: 1,
+    explanation: "The empirical rule: about 68% fall within one standard deviation, 95% within two, and 99.7% within three. So within two standard deviations is roughly 95%. Choice A (68%) is one std dev; choice C (99.7%) is three. Memorizing 68/95/99.7 is a quick Level I win.",
+  },
+  {
+    id: "cfa-qs-q3", examSlug: "cfa", topicId: "quant-stats", topicName: "Probability & Distributions", difficulty: 2,
+    stem: "A hypothesis test rejects a null hypothesis that is actually true. This is which type of error?",
+    choices: ["Type I error", "Type II error", "Sampling error"],
+    answerIndex: 0,
+    explanation: "A Type I error rejects a true null hypothesis — a false positive. A Type II error (choice B) is the opposite: failing to reject a false null (a false negative). 'Sampling error' (choice C) is the general noise from using a sample, not a specific test-decision error. The significance level is the probability of a Type I error.",
+  },
+  {
+    id: "cfa-qs-q4", examSlug: "cfa", topicId: "quant-stats", topicName: "Probability & Distributions", difficulty: 2,
+    stem: "Which theorem lets analysts treat the distribution of the sample mean as approximately normal for a large sample, regardless of the population's shape?",
+    choices: ["Bayes' theorem", "The Central Limit Theorem", "The law of large numbers"],
+    answerIndex: 1,
+    explanation: "The Central Limit Theorem states that the sampling distribution of the mean approaches normal as sample size grows, whatever the population distribution — the foundation of confidence intervals. Bayes' theorem (A) updates probabilities with new information. The law of large numbers (C) says the sample mean converges to the population mean, but doesn't establish normality of its distribution.",
+  },
+  {
+    id: "cfa-qs-q5", examSlug: "cfa", topicId: "quant-stats", topicName: "Probability & Distributions", difficulty: 1,
+    stem: "Why are asset PRICES often modeled with a lognormal rather than a normal distribution?",
+    choices: ["Prices can be negative", "Prices cannot fall below zero", "Lognormal is symmetric"],
+    answerIndex: 1,
+    explanation: "A lognormal distribution is bounded below by zero, matching the fact that an asset's price can't go negative. A normal distribution extends to negative infinity, which is unrealistic for prices. Choice A is backwards; choice C is wrong because the lognormal is right-skewed, not symmetric. Returns (which can be negative) are commonly modeled as normal instead.",
+  },
+
+  // Financial Ratios & Analysis
+  {
+    id: "cfa-fr-q1", examSlug: "cfa", topicId: "fra-ratios", topicName: "Financial Ratios & Analysis", difficulty: 2,
+    stem: "Using DuPont, a firm has a net profit margin of 4%, asset turnover of 2.5, and financial leverage of 2.0. What is its ROE?",
+    choices: ["10%", "16%", "20%"],
+    answerIndex: 2,
+    explanation: "ROE = net margin × asset turnover × financial leverage = 4% × 2.5 × 2.0 = 20%. The decomposition shows the return is driven by efficient asset use and leverage rather than fat margins. Choice A (10%) ignores leverage; choice B (16%) mis-multiplies. DuPont reveals the SOURCE of ROE.",
+  },
+  {
+    id: "cfa-fr-q2", examSlug: "cfa", topicId: "fra-ratios", topicName: "Financial Ratios & Analysis", difficulty: 1,
+    stem: "Which ratio measures a company's ability to pay short-term obligations EXCLUDING inventory?",
+    choices: ["Current ratio", "Quick ratio", "Debt-to-equity ratio"],
+    answerIndex: 1,
+    explanation: "The quick (acid-test) ratio strips out inventory — the least liquid current asset — to give a stricter liquidity measure. The current ratio (A) includes inventory. Debt-to-equity (C) is a solvency/leverage ratio, not a liquidity ratio. Excluding inventory matters most for firms whose stock is slow to convert to cash.",
+  },
+  {
+    id: "cfa-fr-q3", examSlug: "cfa", topicId: "fra-ratios", topicName: "Financial Ratios & Analysis", difficulty: 1,
+    stem: "Restating every income-statement line as a percentage of revenue produces what?",
+    choices: ["A common-size income statement", "A DuPont analysis", "A cash flow statement"],
+    answerIndex: 0,
+    explanation: "Common-size statements express each line as a percentage of a base — revenue for the income statement, total assets for the balance sheet — so firms of different sizes (and the same firm over time) can be compared on structure. DuPont (B) decomposes ROE specifically. A cash flow statement (C) is a separate primary statement, not a restatement.",
+  },
+  {
+    id: "cfa-fr-q4", examSlug: "cfa", topicId: "fra-ratios", topicName: "Financial Ratios & Analysis", difficulty: 2,
+    stem: "Which ratio best measures a firm's ability to service its debt from operating earnings?",
+    choices: ["Interest coverage ratio", "Inventory turnover", "Gross margin"],
+    answerIndex: 0,
+    explanation: "The interest coverage ratio (EBIT ÷ interest expense) shows how many times operating earnings cover interest payments — a core solvency measure. Inventory turnover (B) is an activity ratio; gross margin (C) is a profitability ratio. A low coverage ratio signals that earnings barely cover the firm's debt service, a credit-risk warning.",
+  },
+  {
+    id: "cfa-fr-q5", examSlug: "cfa", topicId: "fra-ratios", topicName: "Financial Ratios & Analysis", difficulty: 3,
+    stem: "A company reports steady net income but its accruals are rising sharply relative to operating cash flow. This is a warning about:",
+    choices: ["Liquidity", "Earnings quality", "Asset turnover"],
+    answerIndex: 1,
+    explanation: "When reported income increasingly diverges from cash generated by operations — high accruals — analysts worry about earnings quality: profits may be propped up by aggressive accounting rather than real cash, and may not persist. It's not primarily a liquidity (A) or efficiency (C) signal. Cash-backed earnings are higher quality than accrual-heavy earnings.",
+  },
+
+  // Equity Markets & Efficiency
+  {
+    id: "cfa-em-q1", examSlug: "cfa", topicId: "equity-markets", topicName: "Equity Markets & Efficiency", difficulty: 1,
+    stem: "Where do companies raise new capital by selling securities for the first time?",
+    choices: ["The secondary market", "The primary market", "The derivatives market"],
+    answerIndex: 1,
+    explanation: "The primary market is where issuers sell NEW securities to investors (e.g., an IPO), raising capital for the company. The secondary market (A) is where those securities then trade among investors — the company receives no new money there. The derivatives market (C) trades contracts on underlying assets, not the issuance of new shares.",
+  },
+  {
+    id: "cfa-em-q2", examSlug: "cfa", topicId: "equity-markets", topicName: "Equity Markets & Efficiency", difficulty: 2,
+    stem: "A price-weighted stock index is most distorted by which corporate action?",
+    choices: ["A stock split", "A cash dividend", "A share buyback"],
+    answerIndex: 0,
+    explanation: "A price-weighted index weights each stock by its share PRICE, so a stock split — which lowers a stock's price without changing company value — reduces that stock's weight and forces a divisor adjustment, distorting the index. Cash dividends (B) and buybacks (C) don't mechanically reweight a price-weighted index the way a split does. The Dow is the classic price-weighted example.",
+  },
+  {
+    id: "cfa-em-q3", examSlug: "cfa", topicId: "equity-markets", topicName: "Equity Markets & Efficiency", difficulty: 2,
+    stem: "If a market is weak-form efficient, which strategy should NOT consistently produce excess returns?",
+    choices: ["Technical analysis of past prices", "Fundamental analysis", "Trading on private information"],
+    answerIndex: 0,
+    explanation: "Weak-form efficiency means prices already reflect all past price and volume data, so technical analysis of that history can't reliably beat the market. Fundamental analysis (B) could still work under weak form (it's challenged only under semi-strong). Trading on private information (C) is addressed by strong form. Each efficiency form rules out a wider information set.",
+  },
+  {
+    id: "cfa-em-q4", examSlug: "cfa", topicId: "equity-markets", topicName: "Equity Markets & Efficiency", difficulty: 1,
+    stem: "An order to buy a stock only if its price falls to $50 or below is a:",
+    choices: ["Market order", "Limit order", "Stop-loss order"],
+    answerIndex: 1,
+    explanation: "A limit order sets a price cap — buy at or below a stated price (or sell at or above) — guaranteeing price but not execution. A market order (A) executes immediately at the best available price, guaranteeing execution but not price. A stop-loss order (C) becomes active only after a trigger price is breached, typically to limit losses on a position.",
+  },
+  {
+    id: "cfa-em-q5", examSlug: "cfa", topicId: "equity-markets", topicName: "Equity Markets & Efficiency", difficulty: 3,
+    stem: "The existence of documented market anomalies and investor biases is the central argument of which field?",
+    choices: ["Behavioral finance", "Modern portfolio theory", "Technical analysis"],
+    answerIndex: 0,
+    explanation: "Behavioral finance documents systematic biases (overconfidence, anchoring, herding) and anomalies that suggest markets aren't perfectly efficient and prices can deviate from fundamental value. Modern portfolio theory (B) assumes rational investors and efficient markets. Technical analysis (C) studies price patterns but isn't the field built around behavioral biases. These anomalies are the main empirical challenge to the efficient-market hypothesis.",
   },
 ];

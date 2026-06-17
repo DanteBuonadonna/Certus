@@ -864,6 +864,181 @@ const chapters: Chapter[] = [
       "Ethics is the highest-weighted topic — treat it as point-scoring, not filler.",
     ],
   },
+
+  {
+    id: "cfa2-quant-ml",
+    examSlug: "cfa-l2",
+    topicId: "quant-ml",
+    topicName: "Regression & Machine Learning",
+    title: "Multiple Regression, Model Misspecification, and Machine Learning",
+    readingMinutes: 26,
+    summary:
+      "The Level II quant workhorse: reading multiple regression output, diagnosing the three classic violations, and the machine-learning vocabulary the exam now tests.",
+    intro:
+      "Level II quant is dominated by multiple regression — interpreting coefficients, testing them, and above all DIAGNOSING when the model is broken. The exam rarely asks you to estimate a regression by hand; it hands you the output and asks what's wrong with it. Layered on top is a newer machine-learning reading that tests vocabulary and intuition rather than computation. Master the three classic violations and the ML taxonomy and you own most of the topic's points.",
+    sections: [
+      {
+        heading: "Reading multiple regression output",
+        blocks: [
+          { kind: "p", text: "A multiple regression explains a dependent variable with several independent variables. Each slope coefficient is a PARTIAL effect: the change in the dependent variable for a one-unit change in that independent variable, holding the others constant. Test a single coefficient with a t-test (coefficient ÷ standard error); test the whole model's joint significance with an F-test. R² always rises as you add variables, so use ADJUSTED R² — which penalizes extra regressors — to compare models of different size." },
+          { kind: "formula", formula: { label: "t-statistic for a coefficient", expr: "t = (b̂ − 0) ÷ standard error of b̂", note: "Reject 'coefficient = 0' when |t| exceeds the critical value — the variable is statistically significant." } },
+          { kind: "callout", label: "Tested nuance", body: "Adjusted R² can FALL when you add a variable that contributes little, which is exactly the signal you want. A high R² with insignificant coefficients is a classic multicollinearity red flag." },
+        ],
+      },
+      {
+        heading: "The three classic violations",
+        blocks: [
+          { kind: "p", text: "Level II drills three assumption violations. HETEROSKEDASTICITY: error variance is non-constant; it doesn't bias the coefficients but makes standard errors wrong, so t-tests mislead — detect with the Breusch-Pagan test, correct with robust standard errors. SERIAL CORRELATION: errors are correlated across observations (common in time series); again coefficients are unbiased but standard errors are understated — detect with the Durbin-Watson test, correct with robust standard errors. MULTICOLLINEARITY: independent variables are highly correlated with each other; the telltale sign is a significant F-test (model works overall) but insignificant individual t-tests, with inflated coefficient standard errors — fix by dropping a redundant variable." },
+          { kind: "table", table: { caption: "Table 1 — The three regression violations.", headers: ["Violation", "Effect", "Detect / fix"], rows: [["Heteroskedasticity", "Wrong standard errors", "Breusch-Pagan / robust SE"], ["Serial correlation", "Understated standard errors", "Durbin-Watson / robust SE"], ["Multicollinearity", "Significant F, insignificant t's", "Drop a redundant variable"]] } },
+        ],
+      },
+      {
+        heading: "Machine learning vocabulary",
+        blocks: [
+          { kind: "p", text: "The ML reading tests concepts, not code. SUPERVISED learning uses labeled data to predict a target (regression for continuous outcomes, classification for categories); UNSUPERVISED learning finds structure in unlabeled data (clustering, dimension reduction). The central tension is OVERFITTING — a model that memorizes noise in the training set and fails out of sample. You manage it with a train/validation/test split and regularization (penalizing complexity, as in LASSO). Know the bias-variance tradeoff: too simple a model is biased (underfits); too complex a model has high variance (overfits)." },
+          { kind: "callout", label: "Key distinction", body: "Supervised = labeled target to predict. Unsupervised = no labels, find patterns. Overfitting shows up as great in-sample fit and poor out-of-sample performance — the validation set exists to catch it." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Partial slope coefficient", def: "The effect of one variable holding the others constant." },
+      { term: "t-test (coefficient)", def: "Coefficient ÷ standard error; tests whether a single coefficient differs from zero." },
+      { term: "F-test", def: "Tests the joint significance of all the regression's independent variables." },
+      { term: "Adjusted R²", def: "R² penalized for the number of regressors; use it to compare models." },
+      { term: "Heteroskedasticity", def: "Non-constant error variance; biases standard errors, not coefficients." },
+      { term: "Breusch-Pagan test", def: "A test for the presence of heteroskedasticity." },
+      { term: "Serial correlation", def: "Correlation of errors across observations; common in time series." },
+      { term: "Durbin-Watson test", def: "A test for first-order serial correlation." },
+      { term: "Multicollinearity", def: "High correlation among independent variables; significant F but insignificant t's." },
+      { term: "Supervised learning", def: "Learning from labeled data to predict a target." },
+      { term: "Unsupervised learning", def: "Finding structure in unlabeled data (clustering, dimension reduction)." },
+      { term: "Overfitting", def: "A model that fits training noise and generalizes poorly out of sample." },
+      { term: "Bias-variance tradeoff", def: "Simple models underfit (bias); complex models overfit (variance)." },
+      { term: "Regularization (LASSO)", def: "Penalizing model complexity to reduce overfitting." },
+    ],
+    takeaways: [
+      "Slopes are partial effects; use t-tests for single coefficients, F for the model, adjusted R² to compare.",
+      "Heteroskedasticity and serial correlation distort standard errors (not coefficients); multicollinearity gives a significant F with insignificant t's.",
+      "Supervised learning predicts a labeled target; unsupervised finds structure in unlabeled data.",
+      "Overfitting is the central ML risk — manage it with train/validation/test splits and regularization.",
+    ],
+  },
+
+  {
+    id: "cfa2-fra-combos",
+    examSlug: "cfa-l2",
+    topicId: "fra-combos",
+    topicName: "Intercorporate Investments",
+    title: "Intercorporate Investments and Business Combinations",
+    readingMinutes: 28,
+    summary:
+      "How the accounting changes as ownership rises — from passive stakes to the equity method to full consolidation — and the acquisition-method mechanics the exam loves.",
+    intro:
+      "When one company invests in another, the accounting depends entirely on how much INFLUENCE the stake conveys. Level II tests the bright lines between passive investments, significant influence (equity method), and control (consolidation), and the very different financial statements each produces from identical economics. Get the influence ladder straight and the rest follows.",
+    sections: [
+      {
+        heading: "The influence ladder",
+        blocks: [
+          { kind: "p", text: "Ownership percentage is a guideline for the level of influence, which drives the method. Below ~20% (no significant influence) the stake is a financial asset, marked to fair value with gains in profit or OCI. From ~20% to 50% (significant influence) you use the EQUITY METHOD: record the investment at cost, then increase it by your share of the investee's earnings and decrease it by dividends received — the investee is NOT consolidated, and only your proportional share of net income hits your income statement on one line. Above 50% (control) you CONSOLIDATE: combine 100% of the subsidiary's assets, liabilities, revenues, and expenses line by line, and show the portion you don't own as non-controlling interest." },
+          { kind: "table", table: { caption: "Table 1 — Influence drives the method.", headers: ["Ownership", "Influence", "Method"], rows: [["< 20%", "None (passive)", "Fair value (financial asset)"], ["20–50%", "Significant", "Equity method (one-line)"], ["> 50%", "Control", "Consolidation (+ NCI)"]] } },
+        ],
+      },
+      {
+        heading: "The equity method in detail",
+        blocks: [
+          { kind: "p", text: "Under the equity method the carrying value of the investment moves with the investee. Buy 30% of a firm for $300; if the investee earns $100 you add 30% ($30) to the investment and to your income; if it pays $40 of dividends you reduce the investment by your 30% share ($12) because dividends are a return OF your investment, not new income. A key consequence: equity-method investors report HIGHER net income relative to revenue and assets than they would if the same stake were consolidated, because none of the investee's debt or revenue appears on their statements — a favorite exam comparison." },
+          { kind: "example", example: { title: "equity-method carrying value", prompt: "An investor buys 25% of a company for $500. The investee earns $200 and pays $80 in total dividends this year. What is the year-end carrying value?", steps: ["Share of earnings: 25% × $200 = +$50.", "Share of dividends: 25% × $80 = −$20.", "Carrying value = $500 + $50 − $20."], answer: "$530. Earnings increase the investment account; dividends reduce it." } },
+        ],
+      },
+      {
+        heading: "Business combinations and the acquisition method",
+        blocks: [
+          { kind: "p", text: "A controlling acquisition uses the ACQUISITION METHOD: the acquirer records the target's identifiable assets and liabilities at FAIR value as of the acquisition date, and any excess of purchase price over the fair value of net identifiable assets becomes GOODWILL — an unamortized asset tested annually for impairment. When the parent owns less than 100%, the stake held by outside shareholders is non-controlling interest, reported in equity. Goodwill is never amortized under either IFRS or US GAAP; it sits on the balance sheet until an impairment test writes it down." },
+          { kind: "callout", label: "Tested nuance", body: "Goodwill = purchase price − fair value of net identifiable assets acquired. It is NOT amortized; it is impairment-tested. Bargain purchases (price below fair value) produce a gain, not negative goodwill on the balance sheet." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Significant influence", def: "Typically 20–50% ownership; triggers the equity method." },
+      { term: "Control", def: "Typically >50% ownership; triggers consolidation." },
+      { term: "Equity method", def: "Investment recorded at cost, adjusted for share of earnings (up) and dividends (down)." },
+      { term: "Consolidation", def: "Combining 100% of a controlled subsidiary line by line." },
+      { term: "Non-controlling interest (NCI)", def: "The portion of a consolidated subsidiary not owned by the parent, shown in equity." },
+      { term: "Acquisition method", def: "Recording an acquired firm's net assets at fair value at the acquisition date." },
+      { term: "Goodwill", def: "Purchase price minus fair value of net identifiable assets; not amortized, only impairment-tested." },
+      { term: "Goodwill impairment", def: "A write-down when goodwill's carrying value exceeds its recoverable amount." },
+      { term: "Financial asset (passive stake)", def: "A sub-20% holding carried at fair value." },
+      { term: "Carrying value (equity method)", def: "Cost + cumulative share of earnings − cumulative share of dividends." },
+      { term: "One-line consolidation", def: "Nickname for the equity method — investee shows up on a single line." },
+      { term: "Fair value at acquisition", def: "The basis for recording an acquired firm's identifiable assets and liabilities." },
+      { term: "Bargain purchase", def: "An acquisition below fair value of net assets, recognized as a gain." },
+      { term: "Identifiable net assets", def: "Acquired assets minus liabilities measured at fair value, excluding goodwill." },
+    ],
+    takeaways: [
+      "Influence drives the method: <20% fair value, 20–50% equity method, >50% consolidation.",
+      "Equity method: investment = cost + share of earnings − share of dividends; investee stays off the balance sheet.",
+      "Consolidation combines 100% of a subsidiary and shows outside owners as non-controlling interest.",
+      "Acquisition method records net assets at fair value; the excess is goodwill — never amortized, only impairment-tested.",
+    ],
+  },
+
+  {
+    id: "cfa2-fi-term",
+    examSlug: "cfa-l2",
+    topicId: "fi-term",
+    topicName: "Term Structure & Bond Valuation",
+    title: "Term Structure and Arbitrage-Free Bond Valuation",
+    readingMinutes: 27,
+    summary:
+      "Spot and forward rates, why arbitrage-free valuation uses the spot curve, and how binomial interest-rate trees value bonds with embedded options via the OAS.",
+    intro:
+      "Level II fixed income moves past a single yield to the whole term structure. You discount each cash flow at its own spot rate, extract the forward rates the curve implies, and — for bonds whose cash flows depend on the path of rates — value them on a binomial interest-rate tree. The option-adjusted spread that falls out is the topic's signature number. Precision with the spot-versus-forward relationship is what the item sets reward.",
+    sections: [
+      {
+        heading: "Spot rates and arbitrage-free valuation",
+        blocks: [
+          { kind: "p", text: "A spot rate is the yield on a single zero-coupon payment at a given maturity. Arbitrage-free valuation discounts EACH of a bond's cash flows at the spot rate matching its timing, rather than using one yield to maturity for all of them. If a bond's market price differs from this spot-rate value, an arbitrageur could strip or reconstitute it for a riskless profit — which is why the spot curve, not the YTM, gives the no-arbitrage price. The YTM is just a single complex average of the spot rates that happens to set price equal to value." },
+          { kind: "formula", formula: { label: "Price from spot rates", expr: "Price = CF₁/(1+z₁)¹ + CF₂/(1+z₂)² + … + CFₙ/(1+zₙ)ⁿ", note: "Each cash flow is discounted at its own maturity-matched spot rate zₜ." } },
+        ],
+      },
+      {
+        heading: "Forward rates",
+        blocks: [
+          { kind: "p", text: "A forward rate is a rate agreed today for a loan that begins in the future, and it's implied by the spot curve through a no-arbitrage condition: rolling over short-term investments must earn the same as locking in a longer rate. The relationship between spot and forward is the engine of the topic. When the spot curve is upward-sloping, forward rates lie ABOVE spot rates; when it's downward-sloping, forwards lie below. The forward curve is the market's break-even path — not a forecast, but the set of future rates at which you'd be indifferent." },
+          { kind: "example", example: { title: "a one-year forward rate", prompt: "The one-year spot rate is 3% and the two-year spot rate is 4%. What is the one-year forward rate one year from now (the 1y1y rate)?", steps: ["No-arbitrage: (1.03)(1 + f) = (1.04)².", "(1 + f) = 1.0816 ÷ 1.03 = 1.0501.", "f ≈ 5.01%."], answer: "About 5.0% — above both spot rates, as expected with an upward-sloping curve." } },
+        ],
+      },
+      {
+        heading: "Binomial trees and option-adjusted spread",
+        blocks: [
+          { kind: "p", text: "Bonds with embedded options (callable, putable) have cash flows that depend on the path of future rates, so a single discount curve won't do. A binomial interest-rate tree models rates moving up or down each period; you value the bond by working BACKWARD from maturity, at each node taking the exercise decision (a callable bond is called when it's advantageous to the issuer) and discounting expected values. The option-adjusted spread (OAS) is the constant spread added to every tree rate that makes the model value equal the market price — it's 'option-adjusted' because the tree already accounts for the embedded option, leaving the OAS to capture credit and liquidity. For a callable bond, OAS is LOWER than the nominal Z-spread because the call option's cost has been removed." },
+          { kind: "callout", label: "Tested nuance", body: "Higher assumed interest-rate volatility raises the value of the embedded option. For a callable bond (option benefits the issuer) that LOWERS the bond's value; for a putable bond (option benefits the holder) it RAISES it. OAS lets you compare option-laden bonds on a clean, credit-and-liquidity basis." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Spot rate", def: "The yield on a single zero-coupon cash flow at a given maturity." },
+      { term: "Arbitrage-free valuation", def: "Discounting each cash flow at its maturity-matched spot rate." },
+      { term: "Yield to maturity", def: "The single rate that sets a bond's price equal to its discounted cash flows." },
+      { term: "Forward rate", def: "A rate set today for a loan beginning in the future, implied by the spot curve." },
+      { term: "No-arbitrage condition", def: "Rolling short rates must equal locking in a long rate, fixing forward rates." },
+      { term: "Forward curve", def: "The market's break-even path of future rates, not a forecast." },
+      { term: "Binomial interest-rate tree", def: "A model of rates moving up/down used to value path-dependent bonds." },
+      { term: "Backward induction", def: "Valuing a bond on a tree by working from maturity to today." },
+      { term: "Embedded option", def: "A call or put feature whose value depends on the rate path." },
+      { term: "Option-adjusted spread (OAS)", def: "The constant spread over tree rates that equates model value to market price." },
+      { term: "Z-spread", def: "The constant spread over spot rates ignoring optionality." },
+      { term: "Callable bond", def: "Issuer can redeem early; the option lowers the bond's value to the holder." },
+      { term: "Putable bond", def: "Holder can sell back early; the option raises the bond's value." },
+      { term: "Interest-rate volatility", def: "Higher assumed volatility raises embedded-option value." },
+    ],
+    takeaways: [
+      "Discount each cash flow at its own spot rate — that's the arbitrage-free price; YTM is just an average of spot rates.",
+      "Forward rates are implied by the spot curve via no-arbitrage; with an upward curve, forwards exceed spots.",
+      "Bonds with embedded options are valued on a binomial tree by backward induction.",
+      "OAS is the spread over tree rates that matches market price; for callables it's below the Z-spread because the option cost is removed.",
+    ],
+  },
 ];
 
 const questions: Question[] = [
@@ -1343,6 +1518,117 @@ const questions: Question[] = [
     choices: ["Trade on it quickly before it becomes public", "Not trade or cause others to trade on it until it is public", "Share it only with their best clients"],
     answerIndex: 1,
     explanation: "Standard II (Integrity of Capital Markets) prohibits acting or causing others to act on material non-public information until it is publicly disseminated. Choice A is illegal insider trading. Choice C (selective disclosure to favored clients) also violates the Standard and the duty of fair dealing.",
+  },
+
+  // Regression & Machine Learning
+  {
+    id: "cfa2-ml-q1", examSlug: "cfa-l2", topicId: "quant-ml", topicName: "Regression & Machine Learning", difficulty: 2,
+    stem: "A regression has a highly significant F-statistic but none of its individual coefficients are significant. This pattern indicates:",
+    choices: ["Heteroskedasticity", "Serial correlation", "Multicollinearity"],
+    answerIndex: 2,
+    explanation: "The classic signature of multicollinearity is a model that works overall (significant F) while individual t-tests are insignificant because correlated regressors inflate the coefficient standard errors. Heteroskedasticity (A) and serial correlation (B) distort standard errors but don't produce this specific F-versus-t contradiction. The fix is to drop a redundant variable.",
+  },
+  {
+    id: "cfa2-ml-q2", examSlug: "cfa-l2", topicId: "quant-ml", topicName: "Regression & Machine Learning", difficulty: 2,
+    stem: "Which test is used to detect heteroskedasticity in a regression?",
+    choices: ["Durbin-Watson test", "Breusch-Pagan test", "Dickey-Fuller test"],
+    answerIndex: 1,
+    explanation: "The Breusch-Pagan test detects heteroskedasticity (non-constant error variance). Durbin-Watson (A) tests for serial correlation. Dickey-Fuller (C) tests for a unit root (non-stationarity) in time series. Heteroskedasticity leaves coefficients unbiased but makes standard errors unreliable, so it's corrected with robust standard errors.",
+  },
+  {
+    id: "cfa2-ml-q3", examSlug: "cfa-l2", topicId: "quant-ml", topicName: "Regression & Machine Learning", difficulty: 1,
+    stem: "Why should adjusted R² rather than R² be used to compare regressions with different numbers of independent variables?",
+    choices: ["R² always increases when variables are added", "Adjusted R² is always higher", "R² ignores the intercept"],
+    answerIndex: 0,
+    explanation: "R² never decreases as you add regressors, so it rewards complexity for its own sake. Adjusted R² penalizes additional variables and can fall when a new variable adds little, making it the fair basis for comparison. Choice B is false — adjusted R² is always ≤ R². Choice C is unrelated to the issue.",
+  },
+  {
+    id: "cfa2-ml-q4", examSlug: "cfa-l2", topicId: "quant-ml", topicName: "Regression & Machine Learning", difficulty: 2,
+    stem: "A machine-learning model fits the training data almost perfectly but performs poorly on new data. This is:",
+    choices: ["Underfitting", "Overfitting", "Regularization"],
+    answerIndex: 1,
+    explanation: "Overfitting is great in-sample fit with poor out-of-sample performance — the model has learned noise rather than signal. Underfitting (A) is the opposite: a too-simple model that fits poorly everywhere. Regularization (C) is a TECHNIQUE (e.g., LASSO) used to REDUCE overfitting, not the problem itself. A validation set is used to detect overfitting.",
+  },
+  {
+    id: "cfa2-ml-q5", examSlug: "cfa-l2", topicId: "quant-ml", topicName: "Regression & Machine Learning", difficulty: 1,
+    stem: "Clustering unlabeled data into groups based on similarity is an example of:",
+    choices: ["Supervised learning", "Unsupervised learning", "Reinforcement learning"],
+    answerIndex: 1,
+    explanation: "Clustering finds structure in data that has no labeled target, which defines unsupervised learning. Supervised learning (A) requires labeled outcomes to predict. Reinforcement learning (C) trains an agent through rewards from interacting with an environment — not relevant to grouping static unlabeled data.",
+  },
+
+  // Intercorporate Investments
+  {
+    id: "cfa2-ic-q1", examSlug: "cfa-l2", topicId: "fra-combos", topicName: "Intercorporate Investments", difficulty: 2,
+    stem: "An investor owns 30% of a company and exercises significant influence. Which accounting method applies?",
+    choices: ["Fair value through profit or loss", "The equity method", "Full consolidation"],
+    answerIndex: 1,
+    explanation: "Ownership of roughly 20–50% with significant influence triggers the equity method: the investment is carried at cost and adjusted for the investor's share of earnings and dividends. Fair value (A) applies to passive stakes below significant influence. Consolidation (C) applies only with control, typically above 50% ownership.",
+  },
+  {
+    id: "cfa2-ic-q2", examSlug: "cfa-l2", topicId: "fra-combos", topicName: "Intercorporate Investments", difficulty: 2,
+    stem: "Under the equity method, an investor buys 25% of a firm for $400. The investee earns $120 and pays $40 in dividends. What is the carrying value at year-end?",
+    choices: ["$410", "$420", "$430"],
+    answerIndex: 1,
+    explanation: "Share of earnings: 25% × $120 = +$30. Share of dividends: 25% × $40 = −$10. Carrying value = $400 + $30 − $10 = $420. Earnings raise the investment account; dividends reduce it as a return of investment. Choice C ($430) forgets to subtract the dividends; choice A ($410) mis-scales the earnings share.",
+  },
+  {
+    id: "cfa2-ic-q3", examSlug: "cfa-l2", topicId: "fra-combos", topicName: "Intercorporate Investments", difficulty: 1,
+    stem: "When a parent consolidates a 70%-owned subsidiary, the 30% held by outside shareholders is reported as:",
+    choices: ["Goodwill", "Non-controlling interest", "An equity-method investment"],
+    answerIndex: 1,
+    explanation: "Consolidation combines 100% of the subsidiary's assets and liabilities; the portion not owned by the parent (30% here) is shown as non-controlling interest within equity. Goodwill (A) is the excess of purchase price over fair value of net identifiable assets. An equity-method investment (C) would apply only to a non-controlled significant-influence stake, not a consolidated subsidiary.",
+  },
+  {
+    id: "cfa2-ic-q4", examSlug: "cfa-l2", topicId: "fra-combos", topicName: "Intercorporate Investments", difficulty: 2,
+    stem: "An acquirer pays $900 for a company whose net identifiable assets have a fair value of $700. How much goodwill is recognized?",
+    choices: ["$0", "$200", "$700"],
+    answerIndex: 1,
+    explanation: "Goodwill = purchase price − fair value of net identifiable assets = $900 − $700 = $200. This goodwill is not amortized; it remains on the balance sheet subject to annual impairment testing. Choice A would apply only if price equaled fair value; choice C confuses goodwill with the net identifiable assets themselves.",
+  },
+  {
+    id: "cfa2-ic-q5", examSlug: "cfa-l2", topicId: "fra-combos", topicName: "Intercorporate Investments", difficulty: 3,
+    stem: "Compared with consolidating the same subsidiary, an equity-method investor will report:",
+    choices: ["Higher total assets and revenue", "The same net income but lower revenue and assets", "Lower net income"],
+    answerIndex: 1,
+    explanation: "Both methods produce the same net income (the equity method captures the investor's share of earnings on one line), but the equity method keeps the investee's revenue, assets, and debt OFF the investor's statements. So revenue and assets are lower than under consolidation while net income matches — a frequent exam comparison that boosts equity-method margin and return ratios.",
+  },
+
+  // Term Structure & Bond Valuation
+  {
+    id: "cfa2-ts-q1", examSlug: "cfa-l2", topicId: "fi-term", topicName: "Term Structure & Bond Valuation", difficulty: 2,
+    stem: "Arbitrage-free valuation of a bond requires discounting each cash flow at:",
+    choices: ["The bond's yield to maturity", "Its maturity-matched spot rate", "The current short-term rate"],
+    answerIndex: 1,
+    explanation: "Arbitrage-free valuation discounts each cash flow at the spot rate corresponding to its timing, preventing strip/reconstitution arbitrage. Using a single yield to maturity (A) for all cash flows is an approximation that can differ from the no-arbitrage price. The current short rate (C) applies only to the nearest cash flow, not all of them.",
+  },
+  {
+    id: "cfa2-ts-q2", examSlug: "cfa-l2", topicId: "fi-term", topicName: "Term Structure & Bond Valuation", difficulty: 3,
+    stem: "The one-year spot rate is 2% and the two-year spot rate is 3%. The implied one-year forward rate one year from now is closest to:",
+    choices: ["1.0%", "4.0%", "5.0%"],
+    answerIndex: 1,
+    explanation: "No-arbitrage: (1.02)(1 + f) = (1.03)² = 1.0609, so 1 + f = 1.0609 ÷ 1.02 ≈ 1.0401, giving f ≈ 4.0%. With an upward-sloping spot curve the forward rate lies above both spot rates. Choice A is below the spot rates (inconsistent with an upward curve); choice C overshoots.",
+  },
+  {
+    id: "cfa2-ts-q3", examSlug: "cfa-l2", topicId: "fi-term", topicName: "Term Structure & Bond Valuation", difficulty: 2,
+    stem: "Why are bonds with embedded options valued using a binomial interest-rate tree rather than a single spot curve?",
+    choices: ["Their cash flows depend on the path of future rates", "They have no coupons", "Spot rates do not apply to corporates"],
+    answerIndex: 0,
+    explanation: "A call or put feature means the bond's future cash flows depend on whether rates make exercise advantageous, so valuation must model the path of rates — a binomial tree does this via backward induction. The bonds do have coupons (B is false), and spot rates apply to all issuers (C is false); the issue is path dependence from optionality.",
+  },
+  {
+    id: "cfa2-ts-q4", examSlug: "cfa-l2", topicId: "fi-term", topicName: "Term Structure & Bond Valuation", difficulty: 3,
+    stem: "For a callable bond, the option-adjusted spread (OAS) is generally:",
+    choices: ["Higher than its Z-spread", "Lower than its Z-spread", "Equal to its Z-spread"],
+    answerIndex: 1,
+    explanation: "The Z-spread ignores optionality, while the OAS removes the value of the embedded call (which benefits the issuer and costs the holder). Stripping out that option cost leaves a smaller spread, so a callable bond's OAS is below its Z-spread. For an option-free bond the two are equal; for a putable bond the OAS exceeds the Z-spread.",
+  },
+  {
+    id: "cfa2-ts-q5", examSlug: "cfa-l2", topicId: "fi-term", topicName: "Term Structure & Bond Valuation", difficulty: 2,
+    stem: "An increase in assumed interest-rate volatility has what effect on the value of a callable bond?",
+    choices: ["Increases it", "Decreases it", "No effect"],
+    answerIndex: 1,
+    explanation: "Higher volatility raises the value of the embedded option. Because a call benefits the ISSUER, a more valuable call reduces the bond's value to the holder. (For a putable bond, higher volatility would RAISE the value because the put benefits the holder.) The bond's value equals the option-free value minus the call value.",
   },
 ];
 

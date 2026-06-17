@@ -243,6 +243,504 @@ const chapters: Chapter[] = [
       "SOX strengthened governance and internal control for public companies.",
     ],
   },
+
+  {
+    id: "cpa-tax-individual",
+    examSlug: "cpa",
+    topicId: "tax-individual",
+    topicName: "Individual Taxation",
+    title: "Individual Taxation: The 1040 from Gross Income to Tax Due",
+    readingMinutes: 18,
+    summary: "The full individual computation — gross income to AGI to taxable income to tax, then credits — plus capital gains, the AMT, and the deduction-vs-credit distinction.",
+    intro:
+      "Individual taxation is the heart of REG. The exam expects you to march income through the 1040: from gross income to adjusted gross income to taxable income to the tax, then apply credits. Master the sequence and the key distinctions — adjustments vs deductions, deductions vs credits, ordinary vs capital — and the rest is plugging in numbers.",
+    sections: [
+      {
+        heading: "The computation sequence",
+        blocks: [
+          { kind: "p", text: "Every individual return follows the same waterfall. Start with gross income (wages, interest, dividends, business income, capital gains). Subtract above-the-line 'adjustments' to reach adjusted gross income (AGI) — the pivotal subtotal that many deductions and credits phase out against. From AGI subtract the greater of the standard deduction or itemized deductions (and the qualified business income deduction) to get taxable income. Apply the progressive rate schedule to compute the tax, then subtract credits to reach tax due." },
+          { kind: "table", table: { caption: "Table 1 — Deduction vs credit: a $1,000 example at a 24% rate.", headers: ["", "$1,000 deduction", "$1,000 credit"], rows: [["Reduces", "Taxable income", "Tax owed"], ["Dollar value", "$240 (24% × 1,000)", "$1,000"], ["Verdict", "Worth your marginal rate", "Worth full face value"]] } },
+        ],
+      },
+      {
+        heading: "Income, deductions, and credits",
+        blocks: [
+          { kind: "p", text: "Deductions reduce taxable income (worth your marginal rate per dollar); credits reduce the tax dollar-for-dollar and are generally more valuable. Credits split into nonrefundable (can reduce tax only to zero) and refundable (can generate a refund beyond the tax owed, like the Earned Income Credit). Above-the-line adjustments (e.g., HSA contributions, certain retirement contributions, student-loan interest) are valuable because they lower AGI itself, easing phase-outs." },
+          { kind: "example", example: { title: "marginal vs effective rate", prompt: "Simplified brackets: 10% on the first $20,000, 22% above. What does a $70,000 taxable income owe, and the two rates?", steps: ["First $20,000 × 10% = $2,000.", "Remaining $50,000 × 22% = $11,000.", "Total tax = $13,000. Marginal = 22%; effective = 13,000 ÷ 70,000 = 18.6%."], answer: "Tax $13,000; marginal 22%, effective ~18.6% — the effective rate is always below the marginal." } },
+        ],
+      },
+      {
+        heading: "Capital gains and the AMT",
+        blocks: [
+          { kind: "p", text: "Investment gains get special treatment: a long-term capital gain (asset held more than one year) is taxed at preferential rates well below ordinary income, while a short-term gain is taxed as ordinary income. Capital losses offset capital gains, with a limited amount usable against ordinary income and the rest carried forward. The Alternative Minimum Tax (AMT) is a parallel system that adds back certain preference items to ensure high-income taxpayers pay a minimum; you pay the higher of regular tax or AMT." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Gross income", def: "All income from whatever source derived, before adjustments and deductions." },
+      { term: "Adjusted gross income (AGI)", def: "Gross income minus above-the-line adjustments; the base for many phase-outs." },
+      { term: "Above-the-line adjustment", def: "A deduction that lowers AGI directly (e.g., HSA, student-loan interest)." },
+      { term: "Standard vs itemized deduction", def: "Taxpayers deduct the greater of a fixed standard amount or their itemized expenses." },
+      { term: "Taxable income", def: "AGI minus the greater of standard or itemized deductions (and QBI)." },
+      { term: "Marginal tax rate", def: "The rate on the next dollar of income; higher than the effective rate." },
+      { term: "Effective tax rate", def: "Total tax divided by total income; always below the marginal rate." },
+      { term: "Nonrefundable credit", def: "A credit that can reduce tax only to zero, with no refund." },
+      { term: "Refundable credit", def: "A credit that can generate a refund beyond the tax owed (e.g., EIC)." },
+      { term: "Long-term capital gain", def: "Gain on an asset held more than a year, taxed at preferential rates." },
+      { term: "Short-term capital gain", def: "Gain on an asset held a year or less, taxed as ordinary income." },
+      { term: "Capital loss limitation", def: "Net capital losses offset a limited amount of ordinary income; the rest carry forward." },
+      { term: "Alternative Minimum Tax (AMT)", def: "A parallel tax adding back preference items to ensure a minimum tax." },
+      { term: "Qualified business income (QBI) deduction", def: "A deduction for certain pass-through business income, taken after AGI." },
+    ],
+    takeaways: [
+      "Sequence: gross income → (− adjustments) AGI → (− deductions) taxable income → tax → (− credits) tax due.",
+      "Deductions are worth your marginal rate; credits are worth full face value (refundable ones can exceed tax).",
+      "Above-the-line adjustments lower AGI itself, easing phase-outs.",
+      "Long-term gains (held > 1 year) get preferential rates; the AMT ensures a minimum tax via add-backs.",
+    ],
+  },
+
+  {
+    id: "cpa-managerial",
+    examSlug: "cpa",
+    topicId: "managerial",
+    topicName: "Cost & Managerial Accounting",
+    title: "Cost & Managerial Accounting: CVP, Costing, and Variances",
+    readingMinutes: 17,
+    summary: "Cost behavior and the contribution-margin engine, the major costing methods, and standard-cost variance analysis — the decision tools BEC drills.",
+    intro:
+      "Managerial accounting supports internal decisions, and the CPA exam tests it quantitatively. The core is cost behavior and the contribution-margin framework (breakeven and target profit), the difference between costing methods, and standard-cost variance analysis. These tools drive pricing, production, and make-or-buy decisions.",
+    sections: [
+      {
+        heading: "Cost behavior and CVP",
+        blocks: [
+          { kind: "p", text: "Costs are fixed (unchanged with volume, like rent), variable (changing with volume, like materials), or mixed. The contribution margin — sales price minus variable cost per unit — is what each unit contributes toward covering fixed costs and then profit. Breakeven (in units) = fixed costs ÷ contribution margin per unit. To hit a target profit, units = (fixed costs + target profit) ÷ contribution margin. The margin of safety is how far sales can fall before reaching breakeven." },
+          { kind: "example", example: { title: "breakeven and target profit", prompt: "Price $40, variable cost $25, fixed costs $90,000. Breakeven units, and units for a $30,000 profit?", steps: ["Contribution margin = 40 − 25 = $15.", "Breakeven = 90,000 ÷ 15 = 6,000 units.", "Target profit = (90,000 + 30,000) ÷ 15 = 8,000 units."], answer: "Breakeven 6,000 units; 8,000 units for a $30,000 profit (2,000 units of profit beyond breakeven)." } },
+        ],
+      },
+      {
+        heading: "Costing methods",
+        blocks: [
+          { kind: "p", text: "How costs attach to products varies. Absorption costing (required for external GAAP reporting) assigns ALL manufacturing costs — including fixed overhead — to units, so some fixed cost sits in inventory. Variable costing (for internal decisions) expenses fixed overhead as a period cost, so it isn't deferred in inventory; this changes reported income when production differs from sales. Job-order costing tracks costs by individual job; process costing averages costs over mass-produced units; activity-based costing assigns overhead using multiple cost drivers for more accuracy." },
+          { kind: "callout", label: "Absorption vs variable income", body: "When production EXCEEDS sales, absorption costing reports HIGHER income than variable costing (fixed overhead is deferred in ending inventory). When sales exceed production, the reverse. This timing difference is a classic exam point." },
+        ],
+      },
+      {
+        heading: "Standard costs and variances",
+        blocks: [
+          { kind: "p", text: "Standard costing sets expected costs and then analyzes variances — the gap between standard and actual. Each input splits into a price (rate) variance and a quantity (efficiency) variance. For materials: a price variance from paying more/less per unit, and a usage variance from using more/less material. For labor: a rate variance and an efficiency variance. A flexible budget adjusts the budget to the actual activity level so the comparison is fair. Variances are flagged favorable or unfavorable and point managers to where to investigate." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Fixed cost", def: "A cost that doesn't change with volume in the relevant range (e.g., rent)." },
+      { term: "Variable cost", def: "A cost that changes proportionally with volume (e.g., materials)." },
+      { term: "Contribution margin", def: "Sales price minus variable cost per unit; covers fixed costs then profit." },
+      { term: "Breakeven point", def: "Fixed costs ÷ contribution margin per unit; the zero-profit volume." },
+      { term: "Target-profit units", def: "(Fixed costs + target profit) ÷ contribution margin per unit." },
+      { term: "Margin of safety", def: "How far sales can fall before hitting breakeven." },
+      { term: "Absorption costing", def: "Assigns all manufacturing costs (incl. fixed overhead) to units; required for GAAP." },
+      { term: "Variable costing", def: "Expenses fixed overhead as a period cost; used for internal decisions." },
+      { term: "Job-order costing", def: "Tracks costs by individual job or batch." },
+      { term: "Process costing", def: "Averages costs across mass-produced, homogeneous units." },
+      { term: "Activity-based costing (ABC)", def: "Allocates overhead using multiple cost drivers for accuracy." },
+      { term: "Standard cost", def: "A predetermined expected cost used to measure variances." },
+      { term: "Price vs quantity variance", def: "The split of a cost variance into a rate component and a usage/efficiency component." },
+      { term: "Flexible budget", def: "A budget adjusted to the actual activity level for fair comparison." },
+    ],
+    takeaways: [
+      "Contribution margin = price − variable cost; breakeven = fixed ÷ CM; target units add the profit to fixed.",
+      "Absorption costing (GAAP) defers fixed overhead in inventory; variable costing expenses it — incomes differ when production ≠ sales.",
+      "Know the costing methods: job-order, process, and activity-based.",
+      "Variances split into price (rate) and quantity (efficiency); flexible budgets make the comparison fair.",
+    ],
+  },
+
+  {
+    id: "cpa-liabilities",
+    examSlug: "cpa",
+    topicId: "liabilities",
+    topicName: "Liabilities, Bonds & Leases",
+    title: "Liabilities: Bonds, Leases, Contingencies, and Deferred Taxes",
+    readingMinutes: 17,
+    summary: "How bonds are issued and amortized, lease accounting under modern rules, when to accrue a contingency, and what creates a deferred tax liability.",
+    intro:
+      "FAR's liability questions reward precision. You need bond issuance and effective-interest amortization, the modern lease rules, the probable/possible/remote test for contingencies, and the timing differences that create deferred taxes. Each has a clean rule the exam tests directly.",
+    sections: [
+      {
+        heading: "Bonds payable",
+        blocks: [
+          { kind: "p", text: "A bond's issue price depends on the stated (coupon) rate versus the market (effective) rate. If the stated rate is below the market rate, the bond sells at a DISCOUNT (below face); if above, at a PREMIUM. Under the effective-interest method, interest expense each period equals the carrying value times the market rate, while the cash paid is the face times the stated rate — the difference amortizes the discount or premium, moving the carrying value toward face by maturity." },
+          { kind: "callout", label: "Stated vs market rate", body: "Stated < market → DISCOUNT (carrying value rises to par over time). Stated > market → PREMIUM (carrying value falls to par). Stated = market → issued at par." },
+        ],
+      },
+      {
+        heading: "Leases",
+        blocks: [
+          { kind: "p", text: "Under modern lease accounting (ASC 842), a lessee records a right-of-use (ROU) asset and a lease liability on the balance sheet for essentially ALL leases beyond short-term ones. Classification still matters for the income statement: a finance lease (which transfers control-like benefits — e.g., ownership transfers, a bargain purchase option, the term covers most of the asset's life, or the present value of payments is substantially all of fair value) records separate amortization and interest expense; an operating lease records a single straight-line lease expense." },
+          { kind: "table", table: { caption: "Table 1 — Finance vs operating lease (lessee).", headers: ["", "Finance lease", "Operating lease"], rows: [["On balance sheet?", "Yes (ROU asset + liability)", "Yes (ROU asset + liability)"], ["Income statement", "Amortization + interest (front-loaded)", "Single straight-line lease expense"], ["Triggered when", "Meets a finance criterion (e.g., ownership transfer)", "Does not meet any finance criterion"]] } },
+        ],
+      },
+      {
+        heading: "Contingencies and deferred taxes",
+        blocks: [
+          { kind: "p", text: "A loss contingency (like a lawsuit or warranty) is ACCRUED as a liability only when the loss is both probable AND reasonably estimable; if only reasonably possible, it is DISCLOSED in the notes; if remote, generally ignored. Deferred taxes arise from temporary differences between book and tax accounting: when book income is recognized before taxable income (or an expense is deducted for tax before book), a deferred tax LIABILITY arises — taxes to be paid later; the reverse creates a deferred tax asset." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Bond payable", def: "A long-term debt obligation repaying face value at maturity with periodic interest." },
+      { term: "Stated (coupon) rate", def: "The fixed rate printed on the bond, applied to face for the cash interest." },
+      { term: "Market (effective) rate", def: "The yield investors demand; sets the issue price relative to face." },
+      { term: "Bond discount", def: "Issued below face because the stated rate is below the market rate." },
+      { term: "Bond premium", def: "Issued above face because the stated rate is above the market rate." },
+      { term: "Effective-interest method", def: "Interest expense = carrying value × market rate; amortizes premium/discount." },
+      { term: "Carrying value", def: "The bond's book value (face ± unamortized premium/discount)." },
+      { term: "Right-of-use (ROU) asset", def: "The lessee's recorded asset representing the right to use a leased item." },
+      { term: "Finance lease", def: "A lease meeting an ownership-like criterion; records amortization plus interest." },
+      { term: "Operating lease", def: "A lease not meeting finance criteria; records a single straight-line expense (still on balance sheet)." },
+      { term: "Loss contingency", def: "Accrued when probable and estimable; disclosed if reasonably possible; ignored if remote." },
+      { term: "Deferred tax liability", def: "Taxes payable in the future from a temporary book-vs-tax difference." },
+      { term: "Temporary difference", def: "A book-vs-tax timing difference that reverses over time, creating deferred taxes." },
+    ],
+    takeaways: [
+      "Stated < market → discount; stated > market → premium; effective interest = carrying value × market rate.",
+      "Under ASC 842 nearly all leases hit the balance sheet (ROU asset + liability); finance vs operating changes the expense pattern.",
+      "Accrue a contingency only if probable AND estimable; disclose if reasonably possible; ignore if remote.",
+      "Temporary book-vs-tax differences create deferred tax liabilities (or assets).",
+    ],
+  },
+
+  {
+    id: "cpa-gov-nfp",
+    examSlug: "cpa",
+    topicId: "gov-nfp",
+    topicName: "Governmental & Nonprofit",
+    title: "Governmental and Not-for-Profit Accounting",
+    readingMinutes: 17,
+    summary: "How government and nonprofit accounting differs from for-profit GAAP — fund accounting, the two measurement focuses, and net asset classifications.",
+    intro:
+      "Governments and nonprofits don't exist to earn profit, so their accounting answers a different question: are resources being used as intended? The CPA exam tests fund accounting, the dual government reporting model, and the nonprofit net-asset classes. The measurement-focus distinction is the concept that ties it together.",
+    sections: [
+      {
+        heading: "Fund accounting and measurement focus",
+        blocks: [
+          { kind: "p", text: "Governments use FUND accounting — segregating resources into funds, each a self-balancing set of accounts, to demonstrate compliance with legal and budgetary restrictions. The three fund categories are governmental funds (the core public services, like the general fund), proprietary funds (business-type activities such as utilities), and fiduciary funds (resources held for others). The key concept is measurement focus: governmental funds use the CURRENT FINANCIAL RESOURCES focus and MODIFIED ACCRUAL basis (revenue recognized when measurable and available), while proprietary funds use the ECONOMIC RESOURCES focus and FULL ACCRUAL basis, like a business." },
+          { kind: "table", table: { caption: "Table 1 — Government fund types.", headers: ["Fund category", "Purpose", "Basis"], rows: [["Governmental", "Core public services", "Modified accrual"], ["Proprietary", "Business-type (utilities)", "Full accrual"], ["Fiduciary", "Resources held for others", "Full accrual"]] } },
+        ],
+      },
+      {
+        heading: "The government reporting model",
+        blocks: [
+          { kind: "p", text: "Government financial reports present TWO perspectives. Fund financial statements show the detail by fund using each fund's basis. Government-wide statements consolidate everything onto the full-accrual, economic-resources basis to show the long-term picture, separating governmental from business-type activities. Because the two use different bases, a reconciliation bridges fund-level modified accrual to government-wide full accrual. The comprehensive annual report (ACFR) packages these statements with management's discussion and analysis (MD&A) and required supplementary information." },
+          { kind: "callout", label: "Modified accrual's tell", body: "Under modified accrual, revenue is recognized when it is both MEASURABLE and AVAILABLE (collectible within the period or soon enough after to pay current liabilities). 'Available' is the word that distinguishes it from full accrual." },
+        ],
+      },
+      {
+        heading: "Not-for-profit net assets",
+        blocks: [
+          { kind: "p", text: "Nonprofits use full accrual but classify net assets by donor restriction into just two buckets: net assets WITHOUT donor restrictions and net assets WITH donor restrictions (which may be temporarily restricted by purpose or time, or permanently restricted as an endowment). Contributions are recognized as revenue when received or unconditionally promised, classified by any restriction. Conditional promises aren't recognized until the condition is met. Nonprofits present a statement of financial position, a statement of activities, and a statement of cash flows, plus functional-expense reporting that splits costs into program services versus supporting (management and fundraising)." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Fund accounting", def: "Segregating resources into self-balancing funds to show compliance with restrictions." },
+      { term: "Governmental funds", def: "Funds for core public services, using modified accrual." },
+      { term: "Proprietary funds", def: "Funds for business-type activities, using full accrual." },
+      { term: "Fiduciary funds", def: "Funds holding resources for parties outside the government." },
+      { term: "Modified accrual", def: "Revenue recognized when measurable and available; used by governmental funds." },
+      { term: "Current financial resources focus", def: "The measurement focus of governmental funds (near-term inflows/outflows)." },
+      { term: "Economic resources focus", def: "The full-accrual focus of proprietary funds and government-wide statements." },
+      { term: "Government-wide statements", def: "Full-accrual statements consolidating all activities for the long-term view." },
+      { term: "ACFR", def: "The annual comprehensive financial report, with MD&A and supplementary information." },
+      { term: "Net assets without restrictions", def: "Nonprofit resources free of donor-imposed limits." },
+      { term: "Net assets with restrictions", def: "Nonprofit resources limited by donor purpose, time, or permanence." },
+      { term: "Conditional promise to give", def: "A pledge not recognized as revenue until its condition is met." },
+      { term: "Functional expenses", def: "Nonprofit costs split into program services versus supporting activities." },
+    ],
+    takeaways: [
+      "Governments use fund accounting; governmental funds use modified accrual (measurable and available), proprietary funds full accrual.",
+      "Reports show two views: fund statements (by basis) and full-accrual government-wide statements, bridged by a reconciliation.",
+      "Nonprofits classify net assets as with or without donor restrictions and recognize contributions when received or unconditionally promised.",
+      "Nonprofit expenses are reported by function: program services vs management and fundraising.",
+    ],
+  },
+
+  {
+    id: "cpa-revenue-leases",
+    examSlug: "cpa",
+    topicId: "revenue-leases",
+    topicName: "Revenue Recognition & Leases",
+    title: "Revenue Recognition and Leases (ASC 606 and ASC 842)",
+    readingMinutes: 18,
+    summary: "The five-step revenue model and the lessee/lessor lease classification rules — two of the most heavily tested FAR standards.",
+    intro:
+      "Two standards reshaped financial reporting and now anchor the FAR section: ASC 606's five-step revenue model and ASC 842's lease rules that put almost every lease on the balance sheet. The CPA exam tests the steps and the classification criteria precisely, so this chapter walks each in order.",
+    sections: [
+      {
+        heading: "The five-step revenue model",
+        blocks: [
+          { kind: "p", text: "ASC 606 recognizes revenue to depict the transfer of goods or services in the amount the entity expects to be entitled to, through five steps: (1) identify the contract with a customer; (2) identify the performance obligations (the distinct promises); (3) determine the transaction price; (4) allocate the transaction price to the performance obligations based on their standalone selling prices; and (5) recognize revenue WHEN (or as) each performance obligation is satisfied — that is, when control transfers to the customer. Control can transfer at a point in time or over time (e.g., a long construction project recognized by progress)." },
+          { kind: "table", table: { caption: "Table 1 — The five revenue steps.", headers: ["Step", "Action"], rows: [["1", "Identify the contract"], ["2", "Identify performance obligations"], ["3", "Determine the transaction price"], ["4", "Allocate price to obligations"], ["5", "Recognize revenue as obligations are satisfied"]] } },
+        ],
+      },
+      {
+        heading: "Variable consideration and contract balances",
+        blocks: [
+          { kind: "p", text: "When the price is variable (discounts, rebates, refunds, performance bonuses), the entity estimates it using the expected-value or most-likely-amount method, but only to the extent it's PROBABLE that a significant reversal won't occur (the constraint). Two contract balances commonly appear: a contract liability (deferred revenue) when the customer pays before the entity performs, and a contract asset when the entity performs before it has an unconditional right to payment. Recognizing revenue before delivering — or ignoring the constraint on variable consideration — are classic errors the exam probes." },
+          { kind: "example", example: { title: "allocating to obligations", prompt: "A company sells a product for $1,000 bundled with two years of support. Standalone prices are $900 (product) and $300 (support). How much of the $1,000 is allocated to the product?", steps: ["Total standalone value = $900 + $300 = $1,200.", "Product proportion = $900 ÷ $1,200 = 75%.", "Allocation = 75% × $1,000 = $750."], answer: "$750 to the product (recognized when delivered) and $250 to support (recognized over the two years), based on relative standalone selling prices." } },
+        ],
+      },
+      {
+        heading: "Lease classification under ASC 842",
+        blocks: [
+          { kind: "p", text: "ASC 842 requires a LESSEE to record nearly every lease on the balance sheet as a right-of-use (ROU) asset and a lease liability (the present value of lease payments). Classification then drives the income statement. A lease is a FINANCE lease if it meets any of five criteria (transfer of ownership, a purchase option reasonably certain to be exercised, the term is a major part of the asset's economic life, the present value of payments is substantially all of the asset's fair value, or the asset is so specialized it has no alternative use). Otherwise it's an OPERATING lease. Finance leases report separate interest and amortization (front-loaded expense); operating leases report a single straight-line lease expense. For LESSORS, the parallel classifications are sales-type, direct financing, and operating leases." },
+          { kind: "callout", label: "The five finance-lease criteria", body: "Ownership transfer, bargain Purchase option, major part of economic Life, present value ≈ Fair value, Specialized asset. Meet ANY one → finance lease. None → operating lease. (Mnemonic: O-P-L-F-S.)" },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "ASC 606", def: "The five-step revenue recognition standard based on transfer of control." },
+      { term: "Performance obligation", def: "A distinct promise to transfer a good or service to a customer." },
+      { term: "Transaction price", def: "The consideration an entity expects to be entitled to for performing." },
+      { term: "Standalone selling price", def: "The price of a good/service sold separately, used to allocate the transaction price." },
+      { term: "Transfer of control", def: "The trigger for revenue recognition, at a point in time or over time." },
+      { term: "Variable consideration", def: "Uncertain amounts (rebates, bonuses) estimated subject to the reversal constraint." },
+      { term: "Contract liability", def: "Deferred revenue when a customer pays before the entity performs." },
+      { term: "Contract asset", def: "A right to payment earned before it is unconditional." },
+      { term: "ASC 842", def: "The lease standard putting nearly all leases on the lessee's balance sheet." },
+      { term: "Right-of-use (ROU) asset", def: "The lessee's recorded right to use a leased asset." },
+      { term: "Lease liability", def: "The present value of lease payments recorded by the lessee." },
+      { term: "Finance lease", def: "A lease meeting any of five criteria; reports interest plus amortization." },
+      { term: "Operating lease", def: "A lease not meeting the finance criteria; single straight-line expense." },
+      { term: "Sales-type lease", def: "A lessor classification recognizing a sale and profit at commencement." },
+    ],
+    takeaways: [
+      "ASC 606's five steps: identify contract, identify obligations, set price, allocate, recognize as control transfers.",
+      "Allocate the transaction price by relative standalone selling prices; constrain variable consideration.",
+      "ASC 842 puts an ROU asset and lease liability on the lessee's books for nearly all leases.",
+      "Meet any one of the five criteria (O-P-L-F-S) → finance lease (interest + amortization); otherwise operating (straight-line).",
+    ],
+  },
+
+  {
+    id: "cpa-audit-reports",
+    examSlug: "cpa",
+    topicId: "audit-reports",
+    topicName: "Audit Reports & Opinions",
+    title: "Audit Reports, Opinions, and Modifications",
+    readingMinutes: 16,
+    summary: "The auditor's product — the four opinion types, what triggers each, and the report elements and paragraphs the AUD section tests.",
+    intro:
+      "The audit opinion is the auditor's bottom line, and the AUD section tests exactly which opinion fits which situation. The two drivers are whether the financial statements are materially misstated and whether the auditor could gather enough evidence. Map those to the four opinions and you've mastered the most testable AUD cluster.",
+    sections: [
+      {
+        heading: "The four opinions",
+        blocks: [
+          { kind: "p", text: "An auditor issues one of four opinions. An UNMODIFIED (unqualified) opinion — a 'clean' opinion — states the statements are presented fairly in all material respects in accordance with the framework. A QUALIFIED opinion ('except for') is issued when a misstatement or scope limitation is material but NOT pervasive. An ADVERSE opinion is issued when misstatements are both material AND pervasive — the statements as a whole are not fairly presented. A DISCLAIMER of opinion is issued when the auditor cannot obtain sufficient evidence and the possible effects are material and pervasive, so the auditor expresses NO opinion." },
+          { kind: "table", table: { caption: "Table 1 — Matching the opinion to the situation.", headers: ["Situation", "Material but not pervasive", "Material AND pervasive"], rows: [["Statements misstated (GAAP departure)", "Qualified", "Adverse"], ["Cannot get evidence (scope limit)", "Qualified", "Disclaimer"]] } },
+        ],
+      },
+      {
+        heading: "Report structure and key paragraphs",
+        blocks: [
+          { kind: "p", text: "The standard report (for issuers under PCAOB and nonissuers under AICPA standards, with some wording differences) opens with the OPINION section, followed by the BASIS FOR OPINION. Other elements address the responsibilities of management and of the auditor. Two paragraphs are heavily tested. An emphasis-of-matter paragraph highlights something properly presented and disclosed in the statements that is fundamental to users' understanding (it does NOT modify the opinion). An other-matter paragraph addresses something not presented in the statements but relevant to the audit. A going-concern uncertainty, when substantial doubt exists, is communicated through such emphasis." },
+          { kind: "callout", label: "Emphasis-of-matter ≠ modification", body: "An emphasis-of-matter paragraph draws attention to a properly handled item; it does NOT change a clean opinion to a qualified one. Only a misstatement or a scope limitation modifies the opinion itself." },
+        ],
+      },
+      {
+        heading: "Going concern and key audit matters",
+        blocks: [
+          { kind: "p", text: "Auditors evaluate whether substantial doubt exists about the entity's ability to continue as a going concern for a reasonable period (generally one year). If doubt is substantial but disclosure is adequate, the auditor typically adds an emphasis/going-concern paragraph while keeping the opinion unmodified; inadequate disclosure can force a qualified or adverse opinion. For issuers, the auditor's report also communicates critical audit matters (CAMs) — matters involving especially challenging or subjective auditor judgment — which inform users without altering the opinion." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Unmodified (unqualified) opinion", def: "A clean opinion: statements are fairly presented in all material respects." },
+      { term: "Qualified opinion", def: "An 'except for' opinion for a material but not pervasive issue." },
+      { term: "Adverse opinion", def: "Issued when misstatements are material AND pervasive." },
+      { term: "Disclaimer of opinion", def: "No opinion, when the auditor lacks sufficient evidence (material and pervasive)." },
+      { term: "Material misstatement", def: "An error or omission large enough to influence users' decisions." },
+      { term: "Pervasive", def: "Affecting the statements as a whole, not confined to specific elements." },
+      { term: "Scope limitation", def: "An inability to obtain sufficient appropriate audit evidence." },
+      { term: "Basis for opinion", def: "The report section supporting the opinion and stating independence." },
+      { term: "Emphasis-of-matter paragraph", def: "Highlights a properly disclosed item without modifying the opinion." },
+      { term: "Other-matter paragraph", def: "Addresses a matter not in the statements but relevant to the audit." },
+      { term: "Going concern", def: "Whether substantial doubt exists about the entity continuing for a reasonable period." },
+      { term: "Critical audit matters (CAMs)", def: "Issuer-report matters involving especially challenging auditor judgment." },
+    ],
+    takeaways: [
+      "Four opinions: unmodified (clean), qualified (material not pervasive), adverse (misstated and pervasive), disclaimer (no evidence and pervasive).",
+      "Two drivers: is there a misstatement, and could the auditor get evidence — map each to the opinion.",
+      "Emphasis-of-matter and other-matter paragraphs add information WITHOUT modifying the opinion.",
+      "Substantial going-concern doubt with adequate disclosure usually keeps a clean opinion plus a going-concern paragraph.",
+    ],
+  },
+
+  {
+    id: "cpa-business-law",
+    examSlug: "cpa",
+    topicId: "business-law",
+    topicName: "Business Law",
+    title: "Business Law: Contracts, Agency, and the UCC",
+    readingMinutes: 16,
+    summary: "The legal foundations on the REG section — contract formation and defenses, agency relationships, and the UCC rules for the sale of goods.",
+    intro:
+      "The REG section isn't all taxes; a meaningful slice is business law. The CPA exam tests how contracts form and fail, the duties inside an agency relationship, and the special rules the Uniform Commercial Code applies to sales of goods. Learn the elements and the common defenses and you can reason through most questions.",
+    sections: [
+      {
+        heading: "Contract formation",
+        blocks: [
+          { kind: "p", text: "A valid contract requires an OFFER, ACCEPTANCE, and CONSIDERATION (a bargained-for exchange of value), plus capacity and a legal purpose. The offer must be communicated with definite terms; acceptance must generally mirror the offer (the mirror-image rule for common-law contracts). Consideration means each side gives up something — a promise to do something one is already legally bound to do is not valid consideration. Without these elements there is no enforceable agreement." },
+          { kind: "callout", label: "Statute of Frauds", body: "Certain contracts MUST be in writing to be enforceable: those for the sale of land, agreements that can't be performed within one year, sale of goods of $500 or more, suretyship (guaranteeing another's debt), and contracts in consideration of marriage. Mnemonic: MY LEGS (Marriage, Year, Land, Executor, Goods $500+, Surety)." },
+        ],
+      },
+      {
+        heading: "Defenses and discharge",
+        blocks: [
+          { kind: "p", text: "Even a formed contract may be unenforceable due to a defense. Common defenses include fraud or misrepresentation, duress, undue influence, mutual mistake of a material fact, lack of capacity (minors, mental incapacity), illegality, and failure to satisfy the Statute of Frauds. Contracts are discharged most often by PERFORMANCE (both sides do what they promised), but also by agreement (mutual rescission, novation), or by operation of law (impossibility, bankruptcy). A material breach by one party generally discharges the other's duty to perform and gives rise to remedies." },
+        ],
+      },
+      {
+        heading: "Agency and the UCC",
+        blocks: [
+          { kind: "p", text: "An AGENCY relationship lets an agent act on behalf of a principal. The agent owes fiduciary duties — loyalty, obedience, care, and to account — while the principal owes compensation and reimbursement. A principal is bound by an agent's acts within actual or APPARENT authority (authority a third party reasonably believes the agent has). For SALES OF GOODS, Article 2 of the Uniform Commercial Code (UCC) relaxes some common-law rules: between merchants, an acceptance with additional terms can still form a contract, and the UCC implies warranties — the warranty of merchantability (goods are fit for ordinary use, given automatically by a merchant seller) and, when the seller knows the buyer's particular purpose, fitness for a particular purpose." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Offer", def: "A communicated, definite proposal to enter a contract." },
+      { term: "Acceptance", def: "Agreement to an offer's terms, generally mirroring the offer at common law." },
+      { term: "Consideration", def: "A bargained-for exchange of value required for an enforceable contract." },
+      { term: "Capacity", def: "The legal ability to contract; minors and the incapacitated may lack it." },
+      { term: "Statute of Frauds", def: "Rule that certain contracts must be in writing (MY LEGS)." },
+      { term: "Fraud / misrepresentation", def: "A defense based on a false statement of material fact inducing the contract." },
+      { term: "Mutual mistake", def: "A shared error about a material fact that can void a contract." },
+      { term: "Discharge by performance", def: "Ending contractual duties by doing what was promised." },
+      { term: "Material breach", def: "A significant failure to perform that discharges the other party and allows remedies." },
+      { term: "Agency", def: "A relationship where an agent acts on behalf of a principal." },
+      { term: "Apparent authority", def: "Authority a third party reasonably believes an agent has, binding the principal." },
+      { term: "UCC Article 2", def: "The code governing sales of goods, relaxing some common-law contract rules." },
+      { term: "Warranty of merchantability", def: "An implied warranty that goods are fit for ordinary use, given by merchant sellers." },
+      { term: "Fitness for a particular purpose", def: "An implied warranty when the seller knows the buyer's special purpose and the buyer relies on the seller." },
+    ],
+    takeaways: [
+      "A contract needs offer, acceptance, and consideration, plus capacity and legal purpose.",
+      "The Statute of Frauds (MY LEGS) requires certain contracts to be in writing.",
+      "Defenses (fraud, duress, mistake, incapacity, illegality) can make a formed contract unenforceable; performance is the usual discharge.",
+      "Agents owe fiduciary duties and bind principals within apparent authority; UCC Article 2 governs goods and implies merchantability/fitness warranties.",
+    ],
+  },
+
+  {
+    id: "cpa-tax-entities",
+    examSlug: "cpa",
+    topicId: "tax-entities",
+    topicName: "Entity Taxation",
+    title: "Taxation of Corporations, Partnerships, and S Corporations",
+    readingMinutes: 17,
+    summary: "How business entities are taxed — C corporation double taxation, partnership and S corporation pass-through, and the basis rules that govern owner gains.",
+    intro:
+      "Beyond individual taxation, the REG section tests how business entities are taxed, and the differences drive real planning. The dividing line is whether income is taxed at the entity level (C corporations) or passed through to owners (partnerships and S corporations). Master the pass-through mechanics and basis tracking and the entity questions become manageable.",
+    sections: [
+      {
+        heading: "C corporations and double taxation",
+        blocks: [
+          { kind: "p", text: "A C corporation is a separate taxpayer: it computes taxable income and pays corporate income tax. When it distributes after-tax profits as dividends, shareholders pay tax AGAIN on those dividends — the classic DOUBLE TAXATION. C corporations can deduct ordinary business expenses and benefit from special provisions like the dividends-received deduction (reducing tax on dividends from other corporations). Corporate capital losses can offset only capital gains (not ordinary income) and carry back/forward to specific years. The entity-level tax is the defining feature distinguishing C corps from pass-throughs." },
+          { kind: "callout", label: "The double-tax bite", body: "C corp earnings are taxed once at the corporate level and again when distributed as dividends to shareholders. Pass-through entities avoid this by taxing income only ONCE, on the owners' returns, whether or not cash is distributed." },
+        ],
+      },
+      {
+        heading: "Partnerships: pass-through and basis",
+        blocks: [
+          { kind: "p", text: "A partnership is not a taxpayer; it files an information return (Form 1065) and passes income, deductions, and credits through to partners on Schedule K-1, who report their share whether or not it's distributed. Each partner tracks OUTSIDE BASIS — starting with contributions, INCREASED by their share of income and additional contributions, and DECREASED by distributions and their share of losses. Basis matters because a partner can deduct losses only to the extent of basis, and distributions in excess of basis create taxable gain. A partner's share of partnership liabilities also increases basis, a frequently tested wrinkle." },
+          { kind: "example", example: { title: "partner's ending basis", prompt: "A partner contributes $50,000, is allocated $20,000 of income, and receives a $15,000 cash distribution. What is the partner's ending basis?", steps: ["Start: $50,000 contribution.", "Add allocated income: +$20,000 → $70,000.", "Subtract distribution: −$15,000."], answer: "$55,000. Income increases basis; distributions reduce it. The partner is taxed on the $20,000 income regardless of the smaller cash distribution." } },
+        ],
+      },
+      {
+        heading: "S corporations",
+        blocks: [
+          { kind: "p", text: "An S corporation is a corporation that ELECTS pass-through taxation, combining liability protection with a single layer of tax. Eligibility is restricted: generally no more than 100 shareholders, only one class of stock, and shareholders must be U.S. individuals, certain trusts, or estates (no corporate or partnership shareholders). Income passes through pro rata by ownership on Schedule K-1, and shareholders track stock basis much like partners, though — unlike partnerships — S corporation shareholders generally do NOT get basis for the entity's debt (only for direct loans they make to the corporation). Reasonable compensation must be paid to shareholder-employees before distributions, a common audit focus." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "C corporation", def: "A separate taxpayer subject to entity-level tax and double taxation on dividends." },
+      { term: "Double taxation", def: "Corporate income taxed once at the entity and again as shareholder dividends." },
+      { term: "Dividends-received deduction", def: "A deduction reducing tax on dividends a corporation receives from another corporation." },
+      { term: "Pass-through entity", def: "An entity whose income is taxed only on the owners' returns." },
+      { term: "Form 1065 / Schedule K-1", def: "The partnership information return and the partner's share statement." },
+      { term: "Outside basis", def: "A partner's basis in the partnership interest, adjusted for income, contributions, and distributions." },
+      { term: "Basis limitation on losses", def: "A partner deducts losses only up to basis; excess is suspended." },
+      { term: "Distribution in excess of basis", def: "A distribution above basis that triggers taxable gain." },
+      { term: "Partnership liability basis", def: "A partner's share of partnership debt that increases outside basis." },
+      { term: "S corporation", def: "A corporation electing pass-through taxation with eligibility limits." },
+      { term: "One class of stock", def: "An S corporation requirement limiting it to a single class of equity." },
+      { term: "Reasonable compensation", def: "Salary that S corp shareholder-employees must receive before distributions." },
+      { term: "Stock basis (S corp)", def: "A shareholder's basis, generally excluding entity-level debt." },
+    ],
+    takeaways: [
+      "C corporations pay entity-level tax and create double taxation when distributing dividends.",
+      "Partnerships pass through income on K-1s; partners track outside basis (up for income/contributions/debt share, down for distributions/losses).",
+      "Losses are deductible only to basis; distributions above basis are taxable gain.",
+      "S corporations elect single-layer pass-through with strict eligibility; shareholders get no basis for entity debt and must take reasonable compensation.",
+    ],
+  },
+
+  {
+    id: "cpa-internal-controls",
+    examSlug: "cpa",
+    topicId: "internal-controls",
+    topicName: "Internal Controls & IT",
+    title: "Internal Controls and Information Systems",
+    readingMinutes: 15,
+    summary: "The control frameworks and IT general controls the AUD and ISC areas test — the COSO components, control types, and segregation of duties.",
+    intro:
+      "Strong internal control is what lets management and auditors trust the numbers. The CPA exam tests the COSO framework that defines control, the distinction between control types, and the IT general controls that protect financial systems. Segregation of duties is the single most tested control concept.",
+    sections: [
+      {
+        heading: "The COSO framework",
+        blocks: [
+          { kind: "p", text: "Internal control is a process designed to provide reasonable assurance about the reliability of financial reporting, effectiveness of operations, and compliance with laws. The COSO framework organizes it into FIVE components: the control environment (the 'tone at the top' and ethical culture), risk assessment (identifying what could go wrong), control activities (the actual policies and procedures), information and communication, and monitoring. Control provides only REASONABLE, not absolute, assurance because of inherent limitations — human error, management override, and collusion can defeat even well-designed controls." },
+          { kind: "table", table: { caption: "Table 1 — The five COSO components.", headers: ["Component", "Role"], rows: [["Control environment", "Tone at the top; ethics and competence"], ["Risk assessment", "Identifying and analyzing risks"], ["Control activities", "The policies and procedures themselves"], ["Information & communication", "Capturing and sharing relevant information"], ["Monitoring", "Evaluating control performance over time"]] } },
+        ],
+      },
+      {
+        heading: "Control activities and segregation of duties",
+        blocks: [
+          { kind: "p", text: "Control activities come in types: preventive controls stop errors before they happen (authorization requirements, segregation of duties), detective controls find errors after the fact (reconciliations, reviews), and corrective controls fix identified problems. The cornerstone is SEGREGATION OF DUTIES: no single person should control a transaction from start to finish. The incompatible functions are Authorization, Recordkeeping, and Custody of assets (sometimes a fourth, reconciliation). When one person both records cash and has custody of it, they can steal and conceal it — which is why these duties are split." },
+          { kind: "callout", label: "ARC of duties", body: "Keep Authorization, Recordkeeping, and Custody in separate hands. If one person has two or more, the risk of undetected fraud rises sharply — the classic exam scenario." },
+        ],
+      },
+      {
+        heading: "IT general controls",
+        blocks: [
+          { kind: "p", text: "As financial systems run on technology, IT general controls (ITGCs) protect the environment those applications run in. They cover ACCESS controls (passwords, user provisioning, least privilege to enforce segregation electronically), CHANGE management (testing and approving program changes before deployment), and operations including backup and disaster recovery. Application controls then operate within a specific system — input validation, edit checks, and processing controls that ensure data is complete and accurate. Weak general controls undermine the reliability of every application that depends on them, so auditors test ITGCs before relying on automated application controls." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Internal control", def: "A process giving reasonable assurance over reporting, operations, and compliance." },
+      { term: "COSO framework", def: "The five-component model defining internal control." },
+      { term: "Control environment", def: "The tone at the top — ethics, competence, and governance." },
+      { term: "Risk assessment", def: "Identifying and analyzing risks to objectives." },
+      { term: "Control activities", def: "The policies and procedures that address risks." },
+      { term: "Monitoring", def: "Ongoing evaluation of whether controls are operating effectively." },
+      { term: "Reasonable assurance", def: "Control's realistic ceiling, limited by error, override, and collusion." },
+      { term: "Preventive control", def: "A control that stops errors before they occur." },
+      { term: "Detective control", def: "A control that identifies errors after they occur (e.g., reconciliations)." },
+      { term: "Segregation of duties", def: "Splitting authorization, recordkeeping, and custody among different people." },
+      { term: "Management override", def: "An inherent limitation where management circumvents controls." },
+      { term: "IT general controls (ITGCs)", def: "Controls over access, change management, and operations of IT systems." },
+      { term: "Application controls", def: "Controls within a system (input validation, edit checks) ensuring data integrity." },
+    ],
+    takeaways: [
+      "COSO has five components: control environment, risk assessment, control activities, information/communication, monitoring.",
+      "Control provides reasonable, not absolute, assurance — limited by human error, override, and collusion.",
+      "Segregation of duties splits Authorization, Recordkeeping, and Custody to prevent fraud (the ARC).",
+      "IT general controls (access, change management, operations) underpin reliable application controls; auditors test ITGCs first.",
+    ],
+  },
 ];
 
 const questions: Question[] = [
@@ -545,6 +1043,339 @@ const questions: Question[] = [
     choices: ["Manage day-to-day operations", "Provide independent oversight of financial reporting and the external auditors", "Set product prices"],
     answerIndex: 1,
     explanation: "The audit committee — composed of independent directors — oversees financial reporting integrity and the relationship with the external auditor, strengthening governance. Choice A is management's job, not the board committee's. Choice C is an operating decision unrelated to the audit committee.",
+  },
+
+  // ---- Individual Taxation ----
+  {
+    id: "cpa-ti-q1", examSlug: "cpa", topicId: "tax-individual", topicName: "Individual Taxation", difficulty: 2,
+    stem: "Adjusted gross income (AGI) is computed as:",
+    choices: ["Gross income minus above-the-line adjustments", "Taxable income minus credits", "Gross income minus the standard deduction"],
+    answerIndex: 0,
+    explanation: "AGI = gross income minus above-the-line adjustments (e.g., HSA, certain retirement, student-loan interest); it's the base for many phase-outs. Choice B applies credits, which come later. Choice C subtracts the standard deduction, which happens AFTER AGI to get taxable income.",
+  },
+  {
+    id: "cpa-ti-q2", examSlug: "cpa", topicId: "tax-individual", topicName: "Individual Taxation", difficulty: 2,
+    stem: "Compared with a $1,000 deduction for a taxpayer in the 24% bracket, a $1,000 tax credit is:",
+    choices: ["Worth less", "Worth more ($1,000 vs $240)", "Equal in value"],
+    answerIndex: 1,
+    explanation: "A credit cuts tax dollar-for-dollar ($1,000), while a $1,000 deduction saves only the marginal rate (24% × $1,000 = $240). So the credit is far more valuable. Choices A and C misjudge the relationship.",
+  },
+  {
+    id: "cpa-ti-q3", examSlug: "cpa", topicId: "tax-individual", topicName: "Individual Taxation", difficulty: 2,
+    stem: "For a gain to be a long-term capital gain, the asset must be held for:",
+    choices: ["More than one year", "More than 30 days", "More than three years"],
+    answerIndex: 0,
+    explanation: "A holding period of more than one year yields a long-term capital gain taxed at preferential rates; one year or less is short-term, taxed as ordinary income. Choices B and C use the wrong threshold.",
+  },
+  {
+    id: "cpa-ti-q4", examSlug: "cpa", topicId: "tax-individual", topicName: "Individual Taxation", difficulty: 3,
+    stem: "A refundable tax credit differs from a nonrefundable one because it:",
+    choices: ["Can only reduce tax to zero", "Can generate a refund beyond the tax owed", "Reduces taxable income, not tax"],
+    answerIndex: 1,
+    explanation: "A refundable credit (e.g., the Earned Income Credit) can produce a refund even after tax is reduced to zero. Choice A describes a NONrefundable credit. Choice C describes a deduction, not a credit.",
+  },
+  {
+    id: "cpa-ti-q5", examSlug: "cpa", topicId: "tax-individual", topicName: "Individual Taxation", difficulty: 3,
+    stem: "The Alternative Minimum Tax (AMT) ensures that taxpayers:",
+    choices: ["Never pay more than the regular tax", "Pay at least a minimum amount by adding back certain preference items", "Are exempt if they itemize"],
+    answerIndex: 1,
+    explanation: "The AMT is a parallel computation that adds back certain preferences/deductions; the taxpayer pays the HIGHER of regular tax or AMT, guaranteeing a minimum. Choice A is backwards. Choice C is false; itemizing doesn't exempt one from AMT.",
+  },
+
+  // ---- Cost & Managerial Accounting ----
+  {
+    id: "cpa-mg-q1", examSlug: "cpa", topicId: "managerial", topicName: "Cost & Managerial Accounting", difficulty: 2,
+    stem: "Contribution margin per unit equals:",
+    choices: ["Selling price − fixed cost per unit", "Selling price − variable cost per unit", "Selling price − total cost"],
+    answerIndex: 1,
+    explanation: "Contribution margin per unit = selling price − variable cost per unit; it covers fixed costs and then profit. Choice A wrongly subtracts fixed cost per unit. Choice C subtracts total cost, which isn't the contribution-margin definition.",
+  },
+  {
+    id: "cpa-mg-q2", examSlug: "cpa", topicId: "managerial", topicName: "Cost & Managerial Accounting", difficulty: 2,
+    stem: "Price $50, variable cost $30, fixed costs $100,000. Breakeven in units is:",
+    choices: ["2,000", "5,000", "3,333"],
+    answerIndex: 1,
+    explanation: "Contribution margin = 50 − 30 = $20; breakeven = fixed ÷ CM = 100,000 ÷ 20 = 5,000 units. Choice A divides by price; choice C divides by variable cost — both use the wrong denominator.",
+  },
+  {
+    id: "cpa-mg-q3", examSlug: "cpa", topicId: "managerial", topicName: "Cost & Managerial Accounting", difficulty: 3,
+    stem: "When production EXCEEDS sales, absorption costing reports income that is:",
+    choices: ["Lower than variable costing", "Higher than variable costing (fixed overhead is deferred in inventory)", "Identical to variable costing"],
+    answerIndex: 1,
+    explanation: "Under absorption costing, fixed overhead attaches to units, so producing more than you sell defers some fixed cost in ending inventory, raising income versus variable costing. Choice A reverses it. Choice C ignores the timing difference that only disappears when production equals sales.",
+  },
+  {
+    id: "cpa-mg-q4", examSlug: "cpa", topicId: "managerial", topicName: "Cost & Managerial Accounting", difficulty: 2,
+    stem: "The margin of safety measures:",
+    choices: ["How far sales can fall before reaching breakeven", "The total fixed costs", "The contribution margin ratio"],
+    answerIndex: 0,
+    explanation: "The margin of safety is the cushion between current (or budgeted) sales and the breakeven point — how far sales can drop before losses begin. Choices B and C are different concepts (cost level and a ratio), not the safety cushion.",
+  },
+  {
+    id: "cpa-mg-q5", examSlug: "cpa", topicId: "managerial", topicName: "Cost & Managerial Accounting", difficulty: 2,
+    stem: "A company making unique custom machines would most appropriately use:",
+    choices: ["Process costing", "Job-order costing", "No costing system"],
+    answerIndex: 1,
+    explanation: "Job-order costing tracks costs by individual job, fitting unique, custom products. Choice A (process costing) averages costs over mass-produced homogeneous units — wrong for custom work. Choice C is not an option for a real business.",
+  },
+
+  // ---- Liabilities, Bonds & Leases ----
+  {
+    id: "cpa-li-q1", examSlug: "cpa", topicId: "liabilities", topicName: "Liabilities, Bonds & Leases", difficulty: 3,
+    stem: "A bond with a 5% stated rate is issued when the market rate is 7%. It is issued at:",
+    choices: ["A premium", "A discount", "Par"],
+    answerIndex: 1,
+    explanation: "When the stated rate (5%) is below the market rate (7%), investors pay less than face, so the bond is issued at a discount. Choice A (premium) occurs when stated exceeds market. Choice C (par) only when the rates are equal.",
+  },
+  {
+    id: "cpa-li-q2", examSlug: "cpa", topicId: "liabilities", topicName: "Liabilities, Bonds & Leases", difficulty: 3,
+    stem: "Under the effective-interest method, periodic interest expense equals:",
+    choices: ["Face value × stated rate", "Carrying value × market (effective) rate", "Carrying value × stated rate"],
+    answerIndex: 1,
+    explanation: "Effective-interest expense = carrying value × market rate; the cash paid is face × stated rate, and the difference amortizes the premium or discount. Choice A is the cash interest paid, not the expense. Choice C mixes the wrong rate with carrying value.",
+  },
+  {
+    id: "cpa-li-q3", examSlug: "cpa", topicId: "liabilities", topicName: "Liabilities, Bonds & Leases", difficulty: 2,
+    stem: "Under modern lease accounting (ASC 842), a lessee's operating lease is:",
+    choices: ["Kept entirely off the balance sheet", "Recorded on the balance sheet as a right-of-use asset and lease liability", "Treated as an immediate expense of the full lease"],
+    answerIndex: 1,
+    explanation: "ASC 842 puts essentially all leases on the balance sheet as a right-of-use asset and lease liability; classification (finance vs operating) changes the income-statement expense pattern, not whether it's recognized. Choice A reflects the old rules. Choice C misstates lease accounting.",
+  },
+  {
+    id: "cpa-li-q4", examSlug: "cpa", topicId: "liabilities", topicName: "Liabilities, Bonds & Leases", difficulty: 3,
+    stem: "A loss contingency should be ACCRUED as a liability when it is:",
+    choices: ["Remote", "Reasonably possible", "Probable AND reasonably estimable"],
+    answerIndex: 2,
+    explanation: "A loss contingency is accrued only when the loss is both probable and reasonably estimable; if only reasonably possible, it is disclosed in the notes; if remote, it is generally ignored. Choices A and B describe disclose-or-ignore situations, not accrual.",
+  },
+  {
+    id: "cpa-li-q5", examSlug: "cpa", topicId: "liabilities", topicName: "Liabilities, Bonds & Leases", difficulty: 3,
+    stem: "A deferred tax liability arises from a temporary difference where:",
+    choices: ["Book income is recognized before taxable income (tax paid later)", "There is a permanent difference", "Book and tax are always identical"],
+    answerIndex: 0,
+    explanation: "A deferred tax liability reflects taxes to be paid in the future — typically when book income is recognized before taxable income (or an expense is deducted for tax first), a temporary difference that reverses later. Choice B (permanent differences) creates no deferred tax. Choice C would create no timing difference at all.",
+  },
+
+  // Governmental & Nonprofit
+  {
+    id: "cpa-gov-q1", examSlug: "cpa", topicId: "gov-nfp", topicName: "Governmental & Nonprofit", difficulty: 2,
+    stem: "Governmental funds use which basis of accounting?",
+    choices: ["Full accrual", "Modified accrual", "Cash basis only"],
+    answerIndex: 1,
+    explanation: "Governmental funds use the modified accrual basis with a current financial resources focus, recognizing revenue when measurable and available. Full accrual (A) is used by proprietary funds and government-wide statements. Pure cash basis (C) is not GAAP for governmental fund reporting.",
+  },
+  {
+    id: "cpa-gov-q2", examSlug: "cpa", topicId: "gov-nfp", topicName: "Governmental & Nonprofit", difficulty: 2,
+    stem: "Under modified accrual, revenue is recognized when it is measurable and:",
+    choices: ["Earned", "Available", "Collected in cash"],
+    answerIndex: 1,
+    explanation: "Modified accrual recognizes revenue when it is both measurable and AVAILABLE — collectible within the period or soon enough afterward to pay current liabilities. 'Earned' (A) is the full-accrual trigger, and strict cash collection (C) describes the cash basis. 'Available' is the defining word for governmental funds.",
+  },
+  {
+    id: "cpa-gov-q3", examSlug: "cpa", topicId: "gov-nfp", topicName: "Governmental & Nonprofit", difficulty: 1,
+    stem: "A nonprofit classifies its net assets into how many categories under current standards?",
+    choices: ["Two (with and without donor restrictions)", "Three (unrestricted, temporarily, permanently)", "Five"],
+    answerIndex: 0,
+    explanation: "Current nonprofit standards use two net-asset classes: with donor restrictions and without donor restrictions. The older three-category model (unrestricted, temporarily restricted, permanently restricted) was collapsed into two (B). Five (C) refers to the COSO components, not net-asset classes.",
+  },
+  {
+    id: "cpa-gov-q4", examSlug: "cpa", topicId: "gov-nfp", topicName: "Governmental & Nonprofit", difficulty: 2,
+    stem: "A water utility operated by a city is most appropriately reported in which fund type?",
+    choices: ["A governmental fund", "A proprietary fund", "A fiduciary fund"],
+    answerIndex: 1,
+    explanation: "A utility is a business-type activity that charges user fees, so it belongs in a proprietary fund using full accrual, like a business. Governmental funds (A) account for tax-supported core services. Fiduciary funds (C) hold resources for parties outside the government, such as pension trusts.",
+  },
+  {
+    id: "cpa-gov-q5", examSlug: "cpa", topicId: "gov-nfp", topicName: "Governmental & Nonprofit", difficulty: 2,
+    stem: "A donor makes a conditional promise to give that depends on the nonprofit raising matching funds. The nonprofit recognizes contribution revenue:",
+    choices: ["Immediately when the promise is made", "When the condition is substantially met", "Only when cash is received"],
+    answerIndex: 1,
+    explanation: "A conditional promise to give is not recognized as revenue until the condition (here, raising matching funds) is substantially met. Recognizing it immediately (A) ignores the condition. Waiting strictly for cash (C) is incorrect because an UNconditional promise is recognized when made, before cash arrives.",
+  },
+
+  // Revenue Recognition & Leases
+  {
+    id: "cpa-rev-q1", examSlug: "cpa", topicId: "revenue-leases", topicName: "Revenue Recognition & Leases", difficulty: 1,
+    stem: "Under ASC 606, revenue is recognized when:",
+    choices: ["Cash is collected", "Control of the good or service transfers to the customer", "The contract is signed"],
+    answerIndex: 1,
+    explanation: "ASC 606 recognizes revenue when (or as) a performance obligation is satisfied — that is, when control transfers to the customer, at a point in time or over time. Cash collection (A) and contract signing (C) don't by themselves trigger revenue; control transfer is the principle.",
+  },
+  {
+    id: "cpa-rev-q2", examSlug: "cpa", topicId: "revenue-leases", topicName: "Revenue Recognition & Leases", difficulty: 2,
+    stem: "A product ($900 standalone) and a service ($300 standalone) are bundled and sold for $1,000. How much is allocated to the service?",
+    choices: ["$250", "$300", "$333"],
+    answerIndex: 0,
+    explanation: "Allocate by relative standalone selling price: total standalone = $1,200; service proportion = $300 ÷ $1,200 = 25%; 25% × $1,000 = $250. Using the full $300 (B) ignores the bundle discount, and $333 (C) misapplies the ratio. The $250 is recognized as the service is performed.",
+  },
+  {
+    id: "cpa-rev-q3", examSlug: "cpa", topicId: "revenue-leases", topicName: "Revenue Recognition & Leases", difficulty: 2,
+    stem: "A customer pays in advance for goods to be delivered next quarter. Before delivery, the seller records a:",
+    choices: ["Contract asset", "Contract liability (deferred revenue)", "Revenue"],
+    answerIndex: 1,
+    explanation: "When a customer pays before the entity performs, the seller has an obligation to deliver, recorded as a contract liability (deferred revenue). A contract asset (A) is the reverse — performance before an unconditional right to payment. Revenue (C) isn't recognized until control transfers at delivery.",
+  },
+  {
+    id: "cpa-rev-q4", examSlug: "cpa", topicId: "revenue-leases", topicName: "Revenue Recognition & Leases", difficulty: 2,
+    stem: "Under ASC 842, a lessee that signs a multi-year equipment lease must generally record:",
+    choices: ["Nothing until payments are made", "A right-of-use asset and a lease liability", "Only a footnote disclosure"],
+    answerIndex: 1,
+    explanation: "ASC 842 requires lessees to put nearly all leases on the balance sheet as a right-of-use asset and a corresponding lease liability (the present value of payments). Off-balance-sheet treatment (A, C) was the old operating-lease approach that ASC 842 eliminated for the lessee's balance sheet.",
+  },
+  {
+    id: "cpa-rev-q5", examSlug: "cpa", topicId: "revenue-leases", topicName: "Revenue Recognition & Leases", difficulty: 3,
+    stem: "Which fact pattern requires a lessee to classify a lease as a FINANCE lease?",
+    choices: ["The lease term is a small fraction of the asset's life", "Ownership transfers to the lessee at the end of the lease", "The asset has many alternative uses"],
+    answerIndex: 1,
+    explanation: "Transfer of ownership at the end of the lease is one of the five finance-lease criteria — meeting ANY one mandates finance classification. A short term relative to the asset's life (A) and an asset with alternative uses (C) point AWAY from finance treatment, suggesting an operating lease.",
+  },
+
+  // Audit Reports & Opinions
+  {
+    id: "cpa-arep-q1", examSlug: "cpa", topicId: "audit-reports", topicName: "Audit Reports & Opinions", difficulty: 2,
+    stem: "An auditor finds a material misstatement that is NOT pervasive and management won't correct it. The appropriate opinion is:",
+    choices: ["Unmodified", "Qualified", "Disclaimer"],
+    answerIndex: 1,
+    explanation: "A material but not pervasive misstatement (a GAAP departure) calls for a qualified ('except for') opinion. An unmodified opinion (A) would be wrong given the misstatement. A disclaimer (C) is for a scope limitation so severe the auditor can't form an opinion, not for a known misstatement.",
+  },
+  {
+    id: "cpa-arep-q2", examSlug: "cpa", topicId: "audit-reports", topicName: "Audit Reports & Opinions", difficulty: 2,
+    stem: "When misstatements are both material AND pervasive, the auditor issues a(n):",
+    choices: ["Qualified opinion", "Adverse opinion", "Emphasis-of-matter paragraph"],
+    answerIndex: 1,
+    explanation: "Material and pervasive misstatements mean the statements as a whole are not fairly presented, requiring an adverse opinion. A qualified opinion (A) is only for material-but-not-pervasive issues. An emphasis-of-matter paragraph (C) adds information without modifying the opinion, so it doesn't address pervasive misstatement.",
+  },
+  {
+    id: "cpa-arep-q3", examSlug: "cpa", topicId: "audit-reports", topicName: "Audit Reports & Opinions", difficulty: 2,
+    stem: "An auditor cannot obtain sufficient evidence, and the possible effects are material and pervasive. The auditor should issue a(n):",
+    choices: ["Adverse opinion", "Disclaimer of opinion", "Qualified opinion"],
+    answerIndex: 1,
+    explanation: "A scope limitation whose possible effects are material and pervasive prevents the auditor from forming an opinion, so a disclaimer of opinion is issued. An adverse opinion (A) is for known pervasive MISSTATEMENT, not lack of evidence. A qualified opinion (C) would fit only a material-but-not-pervasive scope limitation.",
+  },
+  {
+    id: "cpa-arep-q4", examSlug: "cpa", topicId: "audit-reports", topicName: "Audit Reports & Opinions", difficulty: 1,
+    stem: "An emphasis-of-matter paragraph in the auditor's report:",
+    choices: ["Modifies the opinion to qualified", "Draws attention to a properly disclosed matter without modifying the opinion", "Is only used for fraud"],
+    answerIndex: 1,
+    explanation: "An emphasis-of-matter paragraph highlights a matter that is appropriately presented and disclosed and fundamental to users' understanding — it does NOT change the opinion. It does not qualify the opinion (A), and it isn't limited to fraud (C); a common use is a going-concern uncertainty with adequate disclosure.",
+  },
+  {
+    id: "cpa-arep-q5", examSlug: "cpa", topicId: "audit-reports", topicName: "Audit Reports & Opinions", difficulty: 2,
+    stem: "Substantial doubt exists about an entity's ability to continue as a going concern, but the disclosure is adequate. The auditor typically issues:",
+    choices: ["An adverse opinion", "An unmodified opinion with a going-concern paragraph", "A disclaimer"],
+    answerIndex: 1,
+    explanation: "When going-concern doubt is substantial but the entity discloses it adequately, the auditor generally keeps an unmodified opinion and adds a going-concern (emphasis) paragraph. An adverse opinion (A) would require a misstatement; inadequate disclosure — not present here — could force qualification. A disclaimer (C) addresses lack of evidence, not going concern with good disclosure.",
+  },
+
+  // Business Law
+  {
+    id: "cpa-bl-q1", examSlug: "cpa", topicId: "business-law", topicName: "Business Law", difficulty: 1,
+    stem: "Which three elements are required to form a valid contract?",
+    choices: ["Offer, acceptance, and consideration", "Offer, delivery, and notarization", "Writing, witness, and seal"],
+    answerIndex: 0,
+    explanation: "A valid contract requires an offer, acceptance, and consideration (plus capacity and legal purpose). Delivery and notarization (B) aren't general formation elements, and a writing/witness/seal (C) isn't required for most contracts — only those covered by the Statute of Frauds must be in writing.",
+  },
+  {
+    id: "cpa-bl-q2", examSlug: "cpa", topicId: "business-law", topicName: "Business Law", difficulty: 2,
+    stem: "Under the Statute of Frauds, which contract generally must be in writing to be enforceable?",
+    choices: ["A $200 sale of goods", "A contract for the sale of land", "A one-week service agreement"],
+    answerIndex: 1,
+    explanation: "Contracts for the sale of land must be in writing under the Statute of Frauds (the 'L' in MY LEGS). A $200 goods sale (A) is below the $500 UCC threshold, and a one-week service agreement (C) can be performed within a year, so neither requires a writing.",
+  },
+  {
+    id: "cpa-bl-q3", examSlug: "cpa", topicId: "business-law", topicName: "Business Law", difficulty: 2,
+    stem: "A principal is bound by an agent's actions that fall within the agent's apparent authority because:",
+    choices: ["Apparent authority is irrelevant to the principal", "A third party reasonably believed the agent had authority", "Agents can never bind principals"],
+    answerIndex: 1,
+    explanation: "Apparent authority binds the principal when a third party reasonably believes, based on the principal's conduct, that the agent is authorized — even absent actual authority. Choice A is false (apparent authority binds the principal), and choice C is false (agents routinely bind principals within actual or apparent authority).",
+  },
+  {
+    id: "cpa-bl-q4", examSlug: "cpa", topicId: "business-law", topicName: "Business Law", difficulty: 2,
+    stem: "Under UCC Article 2, a merchant who sells goods automatically gives which implied warranty?",
+    choices: ["Warranty of merchantability", "Warranty of title only", "No warranties at all"],
+    answerIndex: 0,
+    explanation: "A merchant seller of goods automatically gives the implied warranty of merchantability — that the goods are fit for their ordinary purpose. While a warranty of title also generally applies, 'title only' (B) understates the merchant's obligations, and 'no warranties' (C) is wrong because merchantability arises by operation of law unless properly disclaimed.",
+  },
+  {
+    id: "cpa-bl-q5", examSlug: "cpa", topicId: "business-law", topicName: "Business Law", difficulty: 1,
+    stem: "Which is a valid defense that can make an otherwise-formed contract unenforceable?",
+    choices: ["Fraud in the inducement", "A good bargain for one side", "Performance by both parties"],
+    answerIndex: 0,
+    explanation: "Fraud in the inducement — a false statement of material fact that induced the agreement — is a recognized defense rendering a contract voidable. A good bargain for one side (B) is not a defense; courts don't police fairness of consideration. Performance by both parties (C) discharges the contract, it doesn't void it.",
+  },
+
+  // Entity Taxation
+  {
+    id: "cpa-ent-q1", examSlug: "cpa", topicId: "tax-entities", topicName: "Entity Taxation", difficulty: 1,
+    stem: "The 'double taxation' of a C corporation refers to tax on:",
+    choices: ["Corporate income, then again on dividends to shareholders", "Two states taxing the same income", "Income and payroll both"],
+    answerIndex: 0,
+    explanation: "Double taxation means a C corporation pays entity-level tax on its income, and shareholders then pay tax again on dividends distributed from that already-taxed income. It's not about two states (B) or income-plus-payroll (C); it's the two layers of income tax that pass-through entities avoid.",
+  },
+  {
+    id: "cpa-ent-q2", examSlug: "cpa", topicId: "tax-entities", topicName: "Entity Taxation", difficulty: 2,
+    stem: "A partner contributes $40,000, is allocated $25,000 of income, and receives a $10,000 distribution. The partner's ending basis is:",
+    choices: ["$45,000", "$55,000", "$65,000"],
+    answerIndex: 1,
+    explanation: "Outside basis = $40,000 + $25,000 income − $10,000 distribution = $55,000. Allocated income increases basis (and is taxed regardless of distribution); distributions reduce it. Choice C forgets the distribution; choice A mis-nets the figures.",
+  },
+  {
+    id: "cpa-ent-q3", examSlug: "cpa", topicId: "tax-entities", topicName: "Entity Taxation", difficulty: 2,
+    stem: "How is partnership income reported to the partners?",
+    choices: ["The partnership pays the tax itself", "It passes through on Schedule K-1 to each partner", "It is tax-free to everyone"],
+    answerIndex: 1,
+    explanation: "A partnership is a pass-through entity: it files an information return (Form 1065) but pays no income tax itself, passing income, deductions, and credits to partners on Schedule K-1, who report their share. The partnership doesn't pay the tax (A), and the income is taxed to partners, not tax-free (C).",
+  },
+  {
+    id: "cpa-ent-q4", examSlug: "cpa", topicId: "tax-entities", topicName: "Entity Taxation", difficulty: 2,
+    stem: "Which is a requirement to qualify as an S corporation?",
+    choices: ["No more than 100 eligible shareholders and one class of stock", "At least one corporate shareholder", "Multiple classes of stock"],
+    answerIndex: 0,
+    explanation: "An S corporation generally may have no more than 100 shareholders and only one class of stock, with shareholders limited to U.S. individuals and certain trusts/estates. A corporate shareholder (B) is NOT allowed, and multiple classes of stock (C) disqualify the election.",
+  },
+  {
+    id: "cpa-ent-q5", examSlug: "cpa", topicId: "tax-entities", topicName: "Entity Taxation", difficulty: 3,
+    stem: "A key basis difference between partnerships and S corporations is that S corporation shareholders generally do NOT receive basis for:",
+    choices: ["Their direct cash contributions", "The entity's general (third-party) debt", "Pass-through income"],
+    answerIndex: 1,
+    explanation: "Unlike partners, S corporation shareholders generally get no basis for the corporation's third-party debt — only for direct loans they personally make to the corporation. They do get basis for cash contributions (A) and for pass-through income (C). This debt-basis distinction is a frequently tested contrast.",
+  },
+
+  // Internal Controls & IT
+  {
+    id: "cpa-ic-q1", examSlug: "cpa", topicId: "internal-controls", topicName: "Internal Controls & IT", difficulty: 1,
+    stem: "How many components make up the COSO internal control framework?",
+    choices: ["Three", "Five", "Seven"],
+    answerIndex: 1,
+    explanation: "COSO defines five components: control environment, risk assessment, control activities, information and communication, and monitoring. Three (A) and seven (C) are incorrect counts. Knowing the five components and their roles is a core AUD/ISC point.",
+  },
+  {
+    id: "cpa-ic-q2", examSlug: "cpa", topicId: "internal-controls", topicName: "Internal Controls & IT", difficulty: 2,
+    stem: "Segregation of duties separates which incompatible functions?",
+    choices: ["Authorization, recordkeeping, and custody", "Sales, marketing, and shipping", "Hiring, training, and payroll"],
+    answerIndex: 0,
+    explanation: "Segregation of duties keeps authorization, recordkeeping, and custody of assets (the ARC) in different hands so no one can both perpetrate and conceal fraud. The other groupings (B, C) are ordinary business functions, not the control-critical incompatible duties.",
+  },
+  {
+    id: "cpa-ic-q3", examSlug: "cpa", topicId: "internal-controls", topicName: "Internal Controls & IT", difficulty: 2,
+    stem: "A monthly bank reconciliation is best described as which type of control?",
+    choices: ["Preventive", "Detective", "Corrective"],
+    answerIndex: 1,
+    explanation: "A reconciliation finds discrepancies after transactions have occurred, making it a detective control. Preventive controls (A) stop errors before they happen, like requiring authorization. Corrective controls (C) fix problems once detected. Reconciliations detect; they don't prevent the error in the first place.",
+  },
+  {
+    id: "cpa-ic-q4", examSlug: "cpa", topicId: "internal-controls", topicName: "Internal Controls & IT", difficulty: 2,
+    stem: "Internal control can provide only 'reasonable assurance' primarily because of:",
+    choices: ["Excessive documentation", "Inherent limitations like human error and management override", "Too many employees"],
+    answerIndex: 1,
+    explanation: "Even well-designed controls can be defeated by inherent limitations — human error, collusion, and management override — so they offer reasonable, not absolute, assurance. Documentation (A) and staffing levels (C) aren't the conceptual reason; the limitations are built into any control system.",
+  },
+  {
+    id: "cpa-ic-q5", examSlug: "cpa", topicId: "internal-controls", topicName: "Internal Controls & IT", difficulty: 2,
+    stem: "Controls over system access, program changes, and IT operations are known as:",
+    choices: ["Application controls", "IT general controls (ITGCs)", "Substantive procedures"],
+    answerIndex: 1,
+    explanation: "IT general controls (ITGCs) govern the overall IT environment — access, change management, and operations — that applications rely on. Application controls (A) operate within a specific system (input edits, validations). Substantive procedures (C) are audit tests of balances and transactions, not controls. Weak ITGCs undermine all dependent application controls.",
   },
 ];
 

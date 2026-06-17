@@ -28,28 +28,57 @@ const KEY = "certus_flashcards_v1";
 // Leitner intervals in days for boxes 1..5.
 const INTERVALS = [0, 1, 3, 7, 16];
 
+// Cards are derived from ALL of a chapter's rich content — key terms, plus
+// formulas, worked examples, tables, and callouts — so each chapter yields a
+// deep deck (20–40 cards) instead of a handful. Front = prompt, back = answer.
 export function buildDeck(examSlug: string, topicId?: string): Flashcard[] {
   const cards: Flashcard[] = [];
   for (const ch of getChapters(examSlug)) {
     if (topicId && ch.topicId !== topicId) continue;
-    for (const t of ch.keyTerms) {
-      cards.push({
-        id: `${examSlug}:${ch.topicId}:${slug(t.term)}`,
-        examSlug,
-        topicId: ch.topicId,
-        topicName: ch.topicName,
-        front: t.term,
-        back: t.def,
+    const base = { examSlug, topicId: ch.topicId, topicName: ch.topicName };
+    const push = (suffix: string, front: string, back: string) => {
+      if (!front || !back) return;
+      cards.push({ id: `${examSlug}:${ch.topicId}:${suffix}`, ...base, front, back });
+    };
+
+    // 1) Key terms.
+    ch.keyTerms.forEach((t) => push(`term-${slug(t.term)}`, t.term, t.def));
+
+    // 2) Rich blocks within each section.
+    ch.sections.forEach((s, si) => {
+      // Legacy section-level callout.
+      if (s.callout) push(`s${si}-callout`, s.callout.label, s.callout.body);
+
+      (s.blocks ?? []).forEach((b, bi) => {
+        if (b.kind === "callout") {
+          push(`s${si}-b${bi}-callout`, b.label, b.body);
+        } else if (b.kind === "formula") {
+          const front = b.formula.label ? `Formula: ${b.formula.label}` : "Recall this formula";
+          const back = b.formula.note ? `${b.formula.expr}  ·  ${b.formula.note}` : b.formula.expr;
+          push(`s${si}-b${bi}-formula`, front, back);
+        } else if (b.kind === "example") {
+          push(`s${si}-b${bi}-example`, b.example.prompt, b.example.answer);
+        } else if (b.kind === "table") {
+          // One card per data row: prompt = first cell, answer = the rest.
+          b.table.rows.forEach((row, ri) => {
+            if (row.length < 2 || !row[0]) return;
+            push(`s${si}-b${bi}-row${ri}`, row[0], row.slice(1).join("  —  "));
+          });
+        }
       });
-    }
+    });
   }
   return cards;
 }
 
 export function deckTopics(examSlug: string): { topicId: string; topicName: string; count: number }[] {
   const out: { topicId: string; topicName: string; count: number }[] = [];
+  const seen = new Set<string>();
   for (const ch of getChapters(examSlug)) {
-    if (ch.keyTerms.length) out.push({ topicId: ch.topicId, topicName: ch.topicName, count: ch.keyTerms.length });
+    if (seen.has(ch.topicId)) continue;
+    seen.add(ch.topicId);
+    const count = buildDeck(examSlug, ch.topicId).length;
+    if (count) out.push({ topicId: ch.topicId, topicName: ch.topicName, count });
   }
   return out;
 }

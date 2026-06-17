@@ -2,7 +2,7 @@ import Sidebar from "@/components/layout/Sidebar";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import AuthScope from "@/components/AuthScope";
-import SyncProvider from "@/components/SyncProvider";
+import SyncGate from "@/components/SyncGate";
 import RotateHint from "@/components/RotateHint";
 import { AccessProvider } from "@/lib/AccessContext";
 
@@ -52,7 +52,6 @@ export default async function AppLayout({
     <AccessProvider pro={pro}>
       <div style={{ display: "flex", minHeight: "100vh" }}>
         <AuthScope userId={userId} />
-        <SyncProvider userId={userId} />
         <RotateHint />
         <Sidebar credits={credits} email={email} />
         {/* Sidebar margin only on md+; mobile gets a top bar instead. */}
@@ -64,7 +63,7 @@ export default async function AppLayout({
             background: "var(--bg)",
           }}
         >
-          {children}
+          <SyncGate userId={userId}>{children}</SyncGate>
         </main>
       </div>
     </AccessProvider>

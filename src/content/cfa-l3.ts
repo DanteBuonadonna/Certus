@@ -685,6 +685,179 @@ const chapters: Chapter[] = [
       "Manager selection weighs process, people, net performance, and operations — then monitors for drift and replaces when the thesis breaks.",
     ],
   },
+
+  {
+    id: "cfa3-currency",
+    examSlug: "cfa-l3",
+    topicId: "currency",
+    topicName: "Currency Management",
+    title: "Currency Management in Global Portfolios",
+    readingMinutes: 25,
+    summary:
+      "Why currency exposure is a separate decision from the asset decision, the strategic spectrum from full hedging to active management, and the hedging tools and their roll costs.",
+    intro:
+      "A global portfolio carries two bets: the foreign assets themselves and the currencies they're denominated in. Level III treats currency as a decision in its own right — one that can be hedged away, left open, or actively managed for return. This chapter lays out the strategic choices in the investment policy statement, the tools (forwards, options, and proxy hedges), and the carry-and-roll mechanics the exam tests." ,
+    sections: [
+      {
+        heading: "Currency as a separate decision",
+        blocks: [
+          { kind: "p", text: "The return on a foreign asset to a domestic investor has two parts: the asset's return in its local currency and the change in the exchange rate. Because the currency component has meaningful volatility but, over the long run, a low expected return, many investors treat the hedging ratio as a strategic policy choice set in the IPS. The spectrum runs from a fully hedged benchmark (neutralize all currency risk), through a strategic partial hedge, to an actively managed currency overlay that seeks alpha. The right point depends on the investor's risk tolerance, the correlation between the asset and the currency, and the cost of hedging." },
+          { kind: "callout", label: "Tested nuance", body: "Currency adds risk but little expected return over long horizons, so the BURDEN OF PROOF favors hedging for risk-averse, short-horizon investors. Longer horizons and diversification benefits (when a currency is negatively correlated with the asset) argue for leaving exposure open." },
+        ],
+      },
+      {
+        heading: "Strategic choices and the overlay",
+        blocks: [
+          { kind: "p", text: "Several considerations push the hedge ratio. A SHORT time horizon, high risk aversion, and a foreign currency highly correlated with the foreign asset argue for MORE hedging. A LONG horizon, the diversification benefit of a low- or negatively-correlated currency, and high hedging costs argue for LESS. Beyond the strategic ratio, a manager may run a currency overlay — a separate mandate to take active currency positions, sometimes by a specialist — and may allow discretion within a band around the strategic hedge ratio to exploit views without abandoning policy." },
+          { kind: "table", table: { caption: "Table 1 — What pushes the hedge ratio.", headers: ["Argues for MORE hedging", "Argues for LESS hedging"], rows: [["Short time horizon", "Long time horizon"], ["High risk aversion", "Currency diversifies the asset"], ["Currency correlated with the asset", "High hedging / roll cost"]] } },
+        ],
+      },
+      {
+        heading: "Tools and roll costs",
+        blocks: [
+          { kind: "p", text: "Forward contracts are the workhorse hedge: cheap, customizable, and exact, but they lock in the rate symmetrically and must be rolled as they expire. Currency options keep the upside while capping downside but cost a premium. When a direct hedge is expensive or unavailable, a proxy (cross) hedge uses a correlated currency — introducing basis risk. The cost of a forward hedge is governed by the interest-rate differential through covered interest rate parity: hedging a higher-yielding currency typically earns positive roll yield, while hedging a lower-yielding one costs carry. Managers minimize cost by netting exposures across the portfolio before hedging the residual." },
+          { kind: "example", example: { title: "the hedging-cost intuition", prompt: "A domestic investor (home rate 4%) holds assets in a foreign currency whose local rate is 1%. Roughly what does fully hedging the currency with forwards do to return?", steps: ["Covered interest parity: the forward sells the foreign currency at a premium because its rate is lower.", "Hedging a lower-yielding currency means buying home / selling foreign forward at a favorable roll.", "The hedge adds approximately the 3% rate differential as positive roll yield."], answer: "Hedging the lower-yielding currency earns roughly +3% of roll yield here — hedging isn't always a cost; the interest-rate differential sets its sign." } },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Currency exposure", def: "The portion of a foreign asset's return that comes from exchange-rate changes." },
+      { term: "Hedge ratio", def: "The fraction of currency exposure neutralized, set as a strategic policy choice." },
+      { term: "Fully hedged benchmark", def: "A policy that removes all currency risk from foreign holdings." },
+      { term: "Currency overlay", def: "A separate active mandate that manages currency positions for return." },
+      { term: "Forward contract (hedge)", def: "A cheap, exact, symmetric hedge that must be rolled at expiry." },
+      { term: "Currency option hedge", def: "Keeps upside and caps downside for a premium." },
+      { term: "Proxy (cross) hedge", def: "Hedging with a correlated currency, introducing basis risk." },
+      { term: "Basis risk", def: "The risk that a proxy hedge moves imperfectly with the exposure." },
+      { term: "Covered interest rate parity", def: "Links the forward premium/discount to the interest-rate differential." },
+      { term: "Roll yield", def: "The gain or cost of rolling forward hedges, set by the rate differential." },
+      { term: "Carry", def: "The return from holding a position given interest-rate differentials." },
+      { term: "Netting exposures", def: "Offsetting opposite currency positions before hedging the residual." },
+      { term: "Active currency management", def: "Taking deliberate currency positions to add return." },
+      { term: "Strategic hedge ratio", def: "The policy hedge level set in the IPS, with discretion allowed in a band." },
+    ],
+    takeaways: [
+      "Currency is a separate decision from the asset; it adds risk but little long-run return, so hedging is the cautious default.",
+      "More hedging suits short horizons, high risk aversion, and currencies correlated with the asset; less suits long horizons and diversifying currencies.",
+      "Forwards are cheap and exact (but symmetric and rolled); options keep upside for a premium; proxy hedges add basis risk.",
+      "Covered interest parity sets the sign of hedging cost — hedging a lower-yielding currency can earn positive roll yield.",
+    ],
+  },
+
+  {
+    id: "cfa3-risk-individuals",
+    examSlug: "cfa-l3",
+    topicId: "risk-individuals",
+    topicName: "Risk Management for Individuals",
+    title: "Risk Management for Individuals: Human Capital, Insurance, and Estate Planning",
+    readingMinutes: 26,
+    summary:
+      "The individual balance sheet of human and financial capital, how insurance manages personal risks, and the core estate-planning tools that transfer wealth tax-efficiently.",
+    intro:
+      "Level III's private-wealth material reframes a person as a balance sheet: human capital (the present value of future earnings) plus financial capital, set against the liabilities of desired consumption and bequests. From that view flow the insurance decisions that protect against personal risks and the estate-planning tools that move wealth across generations efficiently. The human-capital-to-asset-allocation link is the signature idea." ,
+    sections: [
+      {
+        heading: "Human capital and the individual balance sheet",
+        blocks: [
+          { kind: "p", text: "An individual's total wealth is human capital — the present value of expected future labor income — plus financial capital. Human capital is large and bond-like early in a career (stable salary) and shrinks toward retirement as it converts into financial assets through saving. The central implication for asset allocation: someone with safe, bond-like human capital can afford MORE equity in their financial portfolio, because their overall (human + financial) wealth is already heavily weighted toward a stable, fixed-income-like asset. A worker whose income is volatile and equity-like (a commission salesperson, a startup founder) should hold MORE bonds financially to balance the risk." },
+          { kind: "callout", label: "Key link", body: "Safe, bond-like human capital → tilt the financial portfolio toward equities. Risky, equity-like human capital (and especially income correlated with the stock market) → tilt the financial portfolio toward bonds. Total-wealth risk is what matters, not the financial portfolio alone." },
+        ],
+      },
+      {
+        heading: "Managing personal risk with insurance",
+        blocks: [
+          { kind: "p", text: "Insurance transfers personal risks that are too large to self-insure. Life insurance protects dependents against the loss of human capital — its need is greatest when human capital is high and dependents many, and it declines as financial capital accumulates. Term life is pure, temporary protection; whole/permanent life adds a tax-advantaged savings component at higher cost. Annuities do the reverse of life insurance: they hedge LONGEVITY risk (outliving your money) by converting a lump sum into lifetime income. The general rule is to insure low-probability, high-severity risks and to retain (self-insure) high-probability, low-severity ones." },
+          { kind: "table", table: { caption: "Table 1 — Insurance against personal risks.", headers: ["Risk", "Primary tool"], rows: [["Premature death (lost human capital)", "Life insurance (term or permanent)"], ["Outliving assets (longevity)", "Annuity (lifetime income)"], ["Disability / illness", "Disability & health insurance"], ["Property / liability loss", "Property & casualty insurance"]] } },
+        ],
+      },
+      {
+        heading: "Estate planning and wealth transfer",
+        blocks: [
+          { kind: "p", text: "Estate planning moves wealth to heirs and charities while minimizing taxes and frictions. Core tools include lifetime GIFTS (often tax-favored up to annual or lifetime exclusions, and powerful because future growth escapes the donor's estate), BEQUESTS through a will, and TRUSTS, which separate legal control from beneficial ownership and can shield assets, stage distributions, and bypass probate. The core analytics compare the after-tax value of gifting now versus bequeathing later, accounting for the relative tax rates and expected growth. Generation-skipping and charitable structures add further efficiency. The mechanics differ by jurisdiction, so Level III tests the PRINCIPLES — tax-efficient timing and the gift-versus-bequest trade-off — over any single country's code." },
+          { kind: "example", example: { title: "gift now vs bequeath later", prompt: "Why can gifting an appreciating asset during life beat leaving it in the estate, when the gift tax and estate tax rates are similar?", steps: ["A lifetime gift removes the asset AND its future appreciation from the taxable estate.", "All growth after the gift accrues outside the estate, untaxed by estate tax.", "If the recipient's tax situation is also favorable, the family keeps more."], answer: "Gifting early shifts future growth out of the taxable estate, so even at equal rates the family typically retains more wealth — the earlier and faster-growing the asset, the larger the advantage." } },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Human capital", def: "The present value of an individual's expected future labor income." },
+      { term: "Financial capital", def: "An individual's accumulated investable assets." },
+      { term: "Individual balance sheet", def: "Total wealth as human plus financial capital against consumption/bequest liabilities." },
+      { term: "Bond-like human capital", def: "Stable income that lets the financial portfolio hold more equity." },
+      { term: "Equity-like human capital", def: "Volatile income that argues for a more conservative financial portfolio." },
+      { term: "Term life insurance", def: "Pure, temporary death-benefit protection with no savings component." },
+      { term: "Permanent (whole) life insurance", def: "Life cover plus a tax-advantaged savings component at higher cost." },
+      { term: "Annuity", def: "Converts a lump sum into lifetime income, hedging longevity risk." },
+      { term: "Longevity risk", def: "The risk of outliving one's assets." },
+      { term: "Self-insurance (retention)", def: "Bearing high-probability, low-severity risks rather than insuring them." },
+      { term: "Lifetime gift", def: "A transfer during life that removes the asset and its growth from the estate." },
+      { term: "Bequest", def: "A transfer of assets at death, typically through a will." },
+      { term: "Trust", def: "A structure separating legal control from beneficial ownership for transfer and protection." },
+      { term: "Estate planning", def: "Transferring wealth to heirs and charities while minimizing taxes and frictions." },
+    ],
+    takeaways: [
+      "Total wealth = human capital + financial capital; human capital is bond-like early and shrinks toward retirement.",
+      "Safe human capital supports more equity financially; risky/market-correlated income argues for more bonds.",
+      "Insure low-probability, high-severity risks: life insurance for lost human capital, annuities for longevity.",
+      "Estate planning favors tax-efficient timing — lifetime gifts shift future growth out of the taxable estate; trusts stage and protect transfers.",
+    ],
+  },
+
+  {
+    id: "cfa3-institutional",
+    examSlug: "cfa-l3",
+    topicId: "institutional",
+    topicName: "Institutional Investors",
+    title: "Institutional Portfolio Management: Pensions, Endowments, Foundations, and Insurers",
+    readingMinutes: 26,
+    summary:
+      "How the major institutions differ in objectives, time horizon, liquidity, and constraints — and why a pension's liabilities and an insurer's regulations shape their portfolios so differently.",
+    intro:
+      "Each institutional investor type has a characteristic risk profile driven by its liabilities, time horizon, and regulation. Level III expects you to contrast a defined-benefit pension, a university endowment, a private foundation, a bank, and an insurer — and to explain why the same market produces such different portfolios for each. The liability-relative lens unifies the whole topic." ,
+    sections: [
+      {
+        heading: "Pensions: a liability-driven problem",
+        blocks: [
+          { kind: "p", text: "A defined-benefit pension promises future payments to retirees, so its investment problem is fundamentally about funding a LIABILITY. Risk is best measured relative to that liability (a surplus, not absolute-return, frame), and liability-driven investing matches the duration and growth of assets to the pension's obligations. Key drivers of risk tolerance are the plan's funded status (an overfunded plan can take more risk), the age and active/retired mix of the workforce (a younger workforce has a longer horizon and higher risk tolerance), and the correlation of the plan sponsor's business with plan assets (a cyclical sponsor should de-risk). The liability behaves like a long, inflation-sensitive bond, which is why long-duration fixed income anchors LDI." },
+          { kind: "callout", label: "Tested nuance", body: "For a DB pension, RISK IS MEASURED RELATIVE TO THE LIABILITY. A 'safe' all-Treasury portfolio can be RISKY if it's poorly matched to a long, growing liability. Funded status, workforce age, and sponsor financial health drive the risk budget." },
+        ],
+      },
+      {
+        heading: "Endowments and foundations",
+        blocks: [
+          { kind: "p", text: "Endowments (perpetual, supporting a university budget) and foundations (often required to spend a minimum each year) share a long-to-perpetual horizon and a need to preserve real (inflation-adjusted) value while funding spending. That combination — long horizon plus a spending requirement met from a permanent pool — supports high allocations to equities and illiquid alternatives (the 'endowment model'), accepting illiquidity in exchange for higher expected return. A private foundation typically must distribute around 5% of assets annually (a regulatory spending floor in some jurisdictions), making its required return roughly that spending rate plus inflation plus costs, and giving it somewhat higher liquidity needs than a pure endowment." },
+          { kind: "table", table: { caption: "Table 1 — Institutional profiles at a glance.", headers: ["Investor", "Horizon", "Defining constraint"], rows: [["DB pension", "Long (liability-driven)", "Fund the liability; funded status"], ["Endowment", "Perpetual", "Preserve real value + spending"], ["Foundation", "Long/perpetual", "Required annual spending (~5%)"], ["Bank", "Short", "Manage the balance sheet / liquidity"], ["Insurer (life)", "Long", "Match long policy liabilities; regulation"]] } },
+        ],
+      },
+      {
+        heading: "Banks and insurers",
+        blocks: [
+          { kind: "p", text: "Banks and insurers invest to back liabilities under heavy regulation, so safety and asset-liability matching dominate. A bank's securities portfolio manages the residual liquidity and interest-rate risk of its loan-and-deposit balance sheet; it favors high-quality, liquid bonds and is duration-managed against deposit behavior. Life insurers hold long-duration, high-grade fixed income to match long policy liabilities, with tax and regulatory (capital) constraints shaping choices; property-casualty insurers face shorter, lumpier, less predictable claims, so they keep more liquidity and shorter duration. Across both, the watchwords are credit quality, duration matching, and regulatory capital — return is pursued only within those guardrails." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Defined-benefit (DB) pension", def: "A plan promising specified retirement payments; a liability-driven investor." },
+      { term: "Liability-driven investing (LDI)", def: "Matching asset duration and growth to a plan's obligations." },
+      { term: "Funded status", def: "Plan assets relative to the present value of liabilities; drives risk tolerance." },
+      { term: "Surplus", def: "The excess of plan assets over liabilities; the relevant risk frame for pensions." },
+      { term: "Workforce age/mix", def: "A younger or more active workforce lengthens horizon and raises risk tolerance." },
+      { term: "Endowment", def: "A perpetual pool supporting an institution's budget while preserving real value." },
+      { term: "Endowment model", def: "Heavy use of equities and illiquid alternatives for higher long-run return." },
+      { term: "Foundation spending requirement", def: "A regulatory minimum (often ~5%) a foundation must distribute annually." },
+      { term: "Required return (spending-based)", def: "Roughly spending rate + inflation + costs for a perpetual fund." },
+      { term: "Asset-liability matching", def: "Aligning the duration and cash flows of assets with liabilities." },
+      { term: "Bank investment portfolio", def: "High-quality liquid bonds managing the balance sheet's residual risk." },
+      { term: "Life insurer portfolio", def: "Long-duration, high-grade fixed income matching long policy liabilities." },
+      { term: "P&C insurer portfolio", def: "Shorter-duration, more liquid holdings for lumpy, less predictable claims." },
+      { term: "Regulatory capital", def: "Capital rules constraining the risk institutions can take in their portfolios." },
+    ],
+    takeaways: [
+      "A DB pension is a liability problem — measure risk relative to the liability and drive the risk budget off funded status, workforce age, and sponsor health.",
+      "Endowments and foundations have perpetual horizons and spending needs, supporting equities and illiquid alternatives (the endowment model).",
+      "Foundations face a required annual spend (~5%), raising liquidity needs versus a pure endowment.",
+      "Banks and insurers are regulation- and liability-matching-driven: high quality, duration-matched, capital-constrained.",
+    ],
+  },
 ];
 
 const questions: Question[] = [
@@ -1162,6 +1335,117 @@ const questions: Question[] = [
     choices: ["Soft-dollar allocation", "Best execution", "Front running"],
     answerIndex: 1,
     explanation: "Best execution is the fiduciary obligation to seek the most favorable available terms for clients, evaluated over time with transaction cost analysis. Choice A (soft dollars) must itself benefit clients and be disclosed. Choice C (front running) is a prohibited abuse, the opposite of acting in clients' interest.",
+  },
+
+  // Currency Management
+  {
+    id: "cfa3-cur-q1", examSlug: "cfa-l3", topicId: "currency", topicName: "Currency Management", difficulty: 2,
+    stem: "Which investor characteristic most argues for a HIGHER currency hedge ratio?",
+    choices: ["A long time horizon", "A short time horizon and high risk aversion", "A currency that diversifies the asset"],
+    answerIndex: 1,
+    explanation: "Short horizons and high risk aversion favor hedging because currency adds volatility with little long-run expected return. A long horizon (A) and a diversifying (low/negatively correlated) currency (C) both argue for LESS hedging, since time and diversification dilute the currency risk. The default tilt is to hedge when in doubt for risk-averse, short-horizon investors.",
+  },
+  {
+    id: "cfa3-cur-q2", examSlug: "cfa-l3", topicId: "currency", topicName: "Currency Management", difficulty: 1,
+    stem: "Which instrument is the cheapest, most exact tool for hedging a known foreign-currency exposure?",
+    choices: ["A currency option", "A forward contract", "A proxy hedge"],
+    answerIndex: 1,
+    explanation: "Forward contracts are inexpensive, customizable, and exactly offset a known exposure, though they lock in the rate symmetrically and must be rolled. Options (A) preserve upside but cost a premium. A proxy hedge (C) uses a correlated currency and introduces basis risk, used only when a direct hedge is costly or unavailable.",
+  },
+  {
+    id: "cfa3-cur-q3", examSlug: "cfa-l3", topicId: "currency", topicName: "Currency Management", difficulty: 3,
+    stem: "A home-currency investor (home rate 5%) hedges exposure to a currency with a local rate of 2%. The forward roll will most likely:",
+    choices: ["Add positive roll yield", "Cost negative carry", "Have no effect on return"],
+    answerIndex: 0,
+    explanation: "By covered interest rate parity, a lower-yielding foreign currency trades at a forward premium, so selling it forward to hedge earns positive roll yield (roughly the ~3% rate differential). Hedging a HIGHER-yielding currency would instead cost carry. The sign of hedging cost is set by the interest-rate differential, not assumed to be zero.",
+  },
+  {
+    id: "cfa3-cur-q4", examSlug: "cfa-l3", topicId: "currency", topicName: "Currency Management", difficulty: 2,
+    stem: "A proxy (cross) hedge introduces which risk that a direct forward hedge avoids?",
+    choices: ["Counterparty risk", "Basis risk", "Inflation risk"],
+    answerIndex: 1,
+    explanation: "A proxy hedge uses a correlated but different currency, so it carries basis risk — the hedge and the exposure may not move together. A direct forward on the exact currency avoids that mismatch. Counterparty risk (A) exists for both; inflation risk (C) is unrelated to the choice of hedging currency.",
+  },
+  {
+    id: "cfa3-cur-q5", examSlug: "cfa-l3", topicId: "currency", topicName: "Currency Management", difficulty: 1,
+    stem: "A separate active mandate that takes currency positions to generate return independent of the underlying assets is called:",
+    choices: ["A currency overlay", "A fully hedged benchmark", "Covered interest parity"],
+    answerIndex: 0,
+    explanation: "A currency overlay is a distinct mandate—often run by a specialist—that actively manages currency exposure for alpha, separate from the asset managers. A fully hedged benchmark (B) is a passive policy that removes currency risk. Covered interest parity (C) is the no-arbitrage relation pricing forwards, not a management approach.",
+  },
+
+  // Private Wealth & Risk Management
+  {
+    id: "cfa3-ri-q1", examSlug: "cfa-l3", topicId: "risk-individuals", topicName: "Risk Management for Individuals", difficulty: 2,
+    stem: "An investor with stable, bond-like human capital should generally tilt their FINANCIAL portfolio toward:",
+    choices: ["More bonds", "More equities", "More cash"],
+    answerIndex: 1,
+    explanation: "Total wealth is human plus financial capital. Stable, bond-like human capital already weights total wealth toward a fixed-income-like asset, so the financial portfolio can hold more equities to reach the desired overall risk. An investor with risky, equity-like income would do the opposite — hold more bonds financially to balance total-wealth risk.",
+  },
+  {
+    id: "cfa3-ri-q2", examSlug: "cfa-l3", topicId: "risk-individuals", topicName: "Risk Management for Individuals", difficulty: 1,
+    stem: "Which product is designed primarily to hedge longevity risk — the risk of outliving one's assets?",
+    choices: ["Term life insurance", "A life annuity", "Disability insurance"],
+    answerIndex: 1,
+    explanation: "A life annuity converts a lump sum into guaranteed income for life, directly hedging longevity risk. Term life insurance (A) protects dependents against premature death (lost human capital), the opposite risk. Disability insurance (C) replaces income lost to an inability to work, not longevity.",
+  },
+  {
+    id: "cfa3-ri-q3", examSlug: "cfa-l3", topicId: "risk-individuals", topicName: "Risk Management for Individuals", difficulty: 2,
+    stem: "The need for life insurance is generally GREATEST when:",
+    choices: ["Human capital is high and dependents are many", "Financial capital is high and there are no dependents", "The investor is near the end of retirement"],
+    answerIndex: 0,
+    explanation: "Life insurance replaces lost human capital for dependents, so the need peaks early in a career when human capital is large and dependents rely on that income. As financial capital accumulates and dependents become self-sufficient (B, C), the need declines. The product hedges the loss of future earnings, not accumulated assets.",
+  },
+  {
+    id: "cfa3-ri-q4", examSlug: "cfa-l3", topicId: "risk-individuals", topicName: "Risk Management for Individuals", difficulty: 3,
+    stem: "Why can gifting an appreciating asset during one's lifetime be more tax-efficient than bequeathing it, even at similar gift and estate tax rates?",
+    choices: ["Gifts are never taxed", "Future appreciation occurs outside the taxable estate", "Estate tax rates are always lower"],
+    answerIndex: 1,
+    explanation: "A lifetime gift removes both the asset and its FUTURE growth from the donor's taxable estate, so all appreciation after the gift escapes estate tax. Gifts are not universally tax-free (A is false), and the advantage doesn't rely on rate differences (C). The earlier and faster-growing the asset, the larger the benefit of gifting early.",
+  },
+  {
+    id: "cfa3-ri-q5", examSlug: "cfa-l3", topicId: "risk-individuals", topicName: "Risk Management for Individuals", difficulty: 1,
+    stem: "Which estate-planning tool separates legal control of assets from beneficial ownership and can bypass probate?",
+    choices: ["A will", "A trust", "An annuity"],
+    answerIndex: 1,
+    explanation: "A trust holds assets under a trustee's legal control for the benefit of beneficiaries, allowing staged distributions, asset protection, and avoidance of probate. A will (A) directs transfers at death but goes through probate. An annuity (C) is an income product, not a transfer structure.",
+  },
+
+  // Institutional Investors
+  {
+    id: "cfa3-inst-q1", examSlug: "cfa-l3", topicId: "institutional", topicName: "Institutional Investors", difficulty: 2,
+    stem: "For a defined-benefit pension plan, investment risk is most appropriately measured:",
+    choices: ["In absolute return terms", "Relative to the plan's liabilities", "Relative to a peer-group ranking"],
+    answerIndex: 1,
+    explanation: "A DB pension exists to fund a liability, so risk is measured in a surplus (asset-versus-liability) frame — an all-Treasury portfolio can be risky if poorly matched to a long, growing liability. Absolute return (A) ignores the liability; peer rankings (C) aren't the plan's objective. This liability-relative view underpins liability-driven investing.",
+  },
+  {
+    id: "cfa3-inst-q2", examSlug: "cfa-l3", topicId: "institutional", topicName: "Institutional Investors", difficulty: 2,
+    stem: "Which factor increases a defined-benefit pension's ability to take investment risk?",
+    choices: ["A higher (overfunded) funded status", "An older, mostly retired workforce", "A sponsor whose business is highly correlated with plan assets"],
+    answerIndex: 0,
+    explanation: "An overfunded plan has a surplus cushion, raising its risk tolerance. An older, retired-heavy workforce (B) shortens the horizon and demands liquidity, lowering risk tolerance. A sponsor correlated with plan assets (C) should DE-RISK, because a downturn would hit the company and the plan together.",
+  },
+  {
+    id: "cfa3-inst-q3", examSlug: "cfa-l3", topicId: "institutional", topicName: "Institutional Investors", difficulty: 1,
+    stem: "The 'endowment model' is characterized by heavy allocations to:",
+    choices: ["Short-term government bonds", "Equities and illiquid alternatives", "Cash and money-market funds"],
+    answerIndex: 1,
+    explanation: "Endowments have perpetual horizons and need to preserve real value while funding spending, which supports large allocations to equities and illiquid alternatives in exchange for higher expected return. Short-term bonds (A) and cash (C) would sacrifice the long-horizon return needed to outpace inflation and spending.",
+  },
+  {
+    id: "cfa3-inst-q4", examSlug: "cfa-l3", topicId: "institutional", topicName: "Institutional Investors", difficulty: 2,
+    stem: "A private foundation required to distribute about 5% of assets annually has a required return closest to:",
+    choices: ["5% only", "5% plus inflation plus costs", "The risk-free rate"],
+    answerIndex: 1,
+    explanation: "To maintain real value in perpetuity while meeting the spending floor, the required return is roughly the spending rate (~5%) plus expected inflation plus investment and operating costs. Just 5% (A) would erode real purchasing power once inflation and fees are counted. The risk-free rate (C) would fall well short of the spending need.",
+  },
+  {
+    id: "cfa3-inst-q5", examSlug: "cfa-l3", topicId: "institutional", topicName: "Institutional Investors", difficulty: 2,
+    stem: "Compared with a property-casualty insurer, a life insurer typically holds:",
+    choices: ["Shorter-duration, more liquid assets", "Longer-duration, high-grade fixed income", "Mostly equities"],
+    answerIndex: 1,
+    explanation: "Life insurers match long, predictable policy liabilities with long-duration, high-grade fixed income. P&C insurers face shorter, lumpier, less predictable claims, so they hold shorter-duration, more liquid assets (A describes the P&C profile). Neither is equity-dominated (C); regulation and asset-liability matching keep both focused on quality fixed income.",
   },
 ];
 

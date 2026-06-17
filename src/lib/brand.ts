@@ -12,8 +12,6 @@ export const BRAND = {
   tagline: "Earn the title.",
   subtitle:
     "Serious, original prep for finance's hardest exams — built like a career. Read the material, drill real questions, clear every assignment, and rise from Intern to Partner as you go.",
-  // The resume tool is kept but demoted to a small utility.
-  legacyToolName: "Resume Optimizer",
   domain: "certus.website",
   // Public support/contact address (used in legal pages). Set up this inbox
   // (or a forward) or swap in your own email.

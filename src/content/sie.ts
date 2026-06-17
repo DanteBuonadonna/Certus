@@ -183,6 +183,503 @@ const chapters: Chapter[] = [
       "Retail communications (>25 retail investors) need principal approval; all communications must be fair and not misleading.",
     ],
   },
+
+  {
+    id: "sie-equity",
+    examSlug: "sie",
+    topicId: "equity",
+    topicName: "Equity Securities",
+    title: "Equity Securities: Common, Preferred, and Hybrids",
+    readingMinutes: 16,
+    summary: "Ownership in depth — common vs preferred stock, the flavors of preferred, and equity-linked instruments like rights, warrants, and ADRs.",
+    intro:
+      "Equity means ownership. The SIE expects you to know what a shareholder actually owns, how common and preferred stock differ in risk and priority, the named varieties of preferred, and the equity-linked instruments — rights, warrants, and ADRs — that orbit common stock. This chapter goes deeper than the overview so the distinctions stick.",
+    sections: [
+      {
+        heading: "Common stock — the residual owner",
+        blocks: [
+          { kind: "p", text: "Common stockholders are the residual owners of a corporation: they vote (typically one vote per share) to elect the board, may receive dividends when declared, and have the greatest upside if the company grows. The trade-off is priority — in a liquidation, common shareholders are paid LAST, after creditors and preferred shareholders, so they bear the most risk. Dividends are never guaranteed; the board decides whether to pay them." },
+          { kind: "p", text: "Two ownership protections appear on the exam. Preemptive rights let existing shareholders buy newly issued shares first, preserving their proportional ownership. Voting can be statutory (one vote per share per director) or cumulative (votes can be concentrated on fewer candidates), the latter giving minority holders more influence." },
+          { kind: "callout", label: "Par value is mostly an accounting fiction", body: "The par value of common stock is an arbitrary bookkeeping figure with no relation to market price. Don't confuse it with the bond world, where par ($1,000) is the redemption amount that actually matters." },
+        ],
+      },
+      {
+        heading: "Preferred stock and its varieties",
+        blocks: [
+          { kind: "p", text: "Preferred stock pays a fixed dividend and ranks ahead of common stock for both dividends and liquidation — it behaves like an equity/fixed-income hybrid. Because its dividend is fixed, its price is sensitive to interest rates, much like a bond. Preferred usually carries no voting rights." },
+          { kind: "table", table: { caption: "Table 1 — The flavors of preferred stock the SIE tests.", headers: ["Type", "Feature"], rows: [["Cumulative", "Missed (passed) dividends accumulate in arrears and must be paid before common dividends"], ["Non-cumulative", "Missed dividends are gone forever"], ["Participating", "May receive extra dividends above the stated rate"], ["Convertible", "Can be exchanged for a set number of common shares"], ["Callable", "Issuer can redeem it at a set price after a set date"]] } },
+          { kind: "example", example: { title: "cumulative preferred in arrears", prompt: "A 6% cumulative preferred ($100 par) skipped its dividend for two years. Before common shareholders get anything, how much must be paid per share?", steps: ["Annual dividend = 6% × $100 = $6.", "Two years skipped = 2 × $6 = $12 in arrears.", "Plus the current year's $6 = $18 total before common is paid."], answer: "$18 per share — all $12 in arrears plus the current $6, because 'cumulative' means missed dividends accumulate." } },
+        ],
+      },
+      {
+        heading: "Equity-linked instruments",
+        blocks: [
+          { kind: "p", text: "Several instruments are tied to common stock. Rights are short-term (a few weeks) and give existing shareholders the chance to buy new shares at a discount, fulfilling preemptive rights. Warrants are long-term (years) and usually attached to bonds or preferred as a 'sweetener,' letting the holder buy stock at a set price. American Depositary Receipts (ADRs) let U.S. investors buy foreign companies in dollars on U.S. exchanges — convenient, but still exposed to currency risk." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Common stock", def: "Residual ownership with voting rights and dividends, last in liquidation but greatest upside." },
+      { term: "Preferred stock", def: "Fixed-dividend equity that ranks ahead of common for dividends and in liquidation; usually non-voting." },
+      { term: "Cumulative preferred", def: "Preferred whose skipped dividends accumulate and must be paid before any common dividend." },
+      { term: "Participating preferred", def: "Preferred that can receive extra dividends above its stated rate." },
+      { term: "Convertible preferred", def: "Preferred that can be exchanged for a set number of common shares." },
+      { term: "Callable preferred", def: "Preferred the issuer can redeem at a set price after a set date." },
+      { term: "Par value (stock)", def: "An arbitrary accounting figure for stock, unrelated to market price." },
+      { term: "Preemptive right", def: "Existing shareholders' right to buy new shares first to maintain proportional ownership." },
+      { term: "Cumulative voting", def: "Voting that lets shareholders concentrate votes, helping minority holders." },
+      { term: "Rights", def: "Short-term instruments letting existing holders buy new shares at a discount." },
+      { term: "Warrants", def: "Long-term instruments, often attached as sweeteners, to buy stock at a set price." },
+      { term: "ADR", def: "A receipt letting U.S. investors hold foreign shares in dollars on U.S. markets; carries currency risk." },
+      { term: "Treasury stock", def: "Shares the company has repurchased; they have no voting rights or dividends." },
+    ],
+    takeaways: [
+      "Common = residual owner: votes, variable dividend, last in liquidation, most upside.",
+      "Preferred = fixed-dividend hybrid, ahead of common, rate-sensitive, usually non-voting.",
+      "Know the preferred flavors: cumulative (arrears accumulate), participating, convertible, callable.",
+      "Rights are short-term to existing holders; warrants are long-term sweeteners; ADRs hold foreign stock in USD.",
+    ],
+  },
+
+  {
+    id: "sie-debt",
+    examSlug: "sie",
+    topicId: "debt",
+    topicName: "Debt Securities",
+    title: "Debt Securities: Bonds, Yields, and Government Issues",
+    readingMinutes: 18,
+    summary: "Loans in depth — bond mechanics, the four yield measures, the price/yield seesaw, and the full menu of corporate, government, and municipal debt.",
+    intro:
+      "A bond is a loan: the investor lends, and the issuer pays interest and returns principal at maturity. The SIE tests the mechanics (par, coupon, maturity), the yield measures, the inverse price/yield relationship, and the full lineup of issuers from corporations to the U.S. Treasury to municipalities. This chapter builds the whole map.",
+    sections: [
+      {
+        heading: "Bond mechanics and the price/yield seesaw",
+        blocks: [
+          { kind: "p", text: "A standard bond has a par (face) value — usually $1,000 — a coupon (the fixed annual interest rate), and a maturity date when principal is repaid. The single most important relationship in fixed income: bond prices move INVERSELY to interest rates. When rates rise, existing lower-coupon bonds fall in price (trade at a discount); when rates fall, they rise (trade at a premium). Longer maturities swing more for a given rate change." },
+          { kind: "callout", label: "Premium, par, discount", body: "Coupon > market rate → bond trades at a PREMIUM (above par). Coupon = market rate → at PAR. Coupon < market rate → at a DISCOUNT (below par)." },
+        ],
+      },
+      {
+        heading: "The four yields",
+        blocks: [
+          { kind: "p", text: "Four yield measures describe a bond, and their order tells you whether a bond trades at a premium or discount. Nominal yield is just the coupon rate. Current yield = annual coupon ÷ current price. Yield to maturity (YTM) accounts for the coupon plus the gain or loss to par at maturity. Yield to call (YTC) does the same to the call date." },
+          { kind: "table", table: { caption: "Table 1 — Yield ordering reveals premium vs discount.", headers: ["Bond trades at", "Yield order"], rows: [["Discount (below par)", "Nominal < Current < YTM < YTC"], ["Premium (above par)", "YTC < YTM < Current < Nominal"]] } },
+          { kind: "example", example: { title: "current yield", prompt: "A bond with a 5% coupon ($1,000 par) trades at $950. What is its current yield?", steps: ["Annual coupon = 5% × $1,000 = $50.", "Current yield = coupon ÷ price = $50 ÷ $950.", "= 5.26%."], answer: "≈ 5.26% — above the 5% nominal because the bond trades at a discount, so each dollar invested buys more yield." } },
+        ],
+      },
+      {
+        heading: "The issuer menu",
+        blocks: [
+          { kind: "p", text: "Debt is grouped by issuer. Corporate bonds offer higher yields and carry credit risk (a secured bond is backed by collateral; a debenture is backed only by the issuer's general credit). U.S. Treasuries are the credit-risk benchmark: T-bills are short-term and issued at a discount with no coupon; T-notes (2–10 yr) and T-bonds (20–30 yr) pay semiannual coupons; TIPS adjust principal for inflation. Agency securities (e.g., GNMA pass-throughs) add a housing dimension. Municipal bonds — general obligation (backed by taxing power) or revenue (backed by a project's income) — pay interest that is typically exempt from federal tax, prized by high-bracket investors. Money-market instruments (T-bills, commercial paper, CDs) are short-term and highly liquid." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Par value (bond)", def: "The face/redemption amount of a bond, typically $1,000." },
+      { term: "Coupon", def: "The fixed annual interest rate a bond pays on its par value." },
+      { term: "Maturity", def: "The date a bond repays its principal." },
+      { term: "Price/yield inverse relationship", def: "Bond prices fall when rates rise and rise when rates fall." },
+      { term: "Premium / discount", def: "A bond priced above par (premium) or below par (discount)." },
+      { term: "Nominal yield", def: "The bond's coupon rate." },
+      { term: "Current yield", def: "Annual coupon divided by the bond's current market price." },
+      { term: "Yield to maturity (YTM)", def: "Total return if held to maturity, including coupon and gain/loss to par." },
+      { term: "Yield to call (YTC)", def: "Total return if the bond is called at the call date." },
+      { term: "Debenture", def: "An unsecured bond backed only by the issuer's general credit." },
+      { term: "Treasury bill", def: "A short-term government security issued at a discount with no coupon." },
+      { term: "TIPS", def: "Treasury security whose principal adjusts with inflation (CPI)." },
+      { term: "General obligation bond", def: "A municipal bond backed by the issuer's full faith, credit, and taxing power." },
+      { term: "Revenue bond", def: "A municipal bond repaid only from a specific project's revenues." },
+      { term: "Accrued interest", def: "Interest earned since the last coupon, paid by a bond's buyer to the seller." },
+    ],
+    takeaways: [
+      "Bonds are loans: par, coupon, maturity — and price moves inversely to rates.",
+      "Coupon vs market rate sets premium/par/discount; longer maturities swing more.",
+      "Four yields: nominal, current, YTM, YTC — their order reveals premium vs discount.",
+      "Know the issuer menu: corporates (credit risk), Treasuries (benchmark), agencies, munis (tax-exempt), money market.",
+    ],
+  },
+
+  {
+    id: "sie-funds",
+    examSlug: "sie",
+    topicId: "funds",
+    topicName: "Investment Funds",
+    title: "Investment Funds: Mutual Funds, ETFs, and UITs",
+    readingMinutes: 16,
+    summary: "Pooled products in depth — how open-end funds price and charge, the A/B/C share classes and breakpoints, and how closed-end funds, ETFs, and UITs differ.",
+    intro:
+      "Most retail money flows through pooled funds, so the SIE tests them closely. You need to know how an open-end mutual fund prices and charges fees, the difference between the share classes, how breakpoints work, and how closed-end funds, ETFs, and UITs differ from one another. This chapter lays out the whole landscape.",
+    sections: [
+      {
+        heading: "Open-end mutual funds",
+        blocks: [
+          { kind: "p", text: "An open-end mutual fund continuously issues and redeems its own shares directly with investors at net asset value (NAV) — total assets minus liabilities, divided by shares outstanding. Orders fill at the NEXT computed NAV (forward pricing), typically once per day after the market closes. The public offering price (POP) on a front-load fund is the NAV plus the sales charge; investors redeem at NAV." },
+          { kind: "table", table: { caption: "Table 1 — Mutual fund share classes carry the same portfolio, different fee timing.", headers: ["Class", "Fee structure"], rows: [["Class A", "Front-end load (charged at purchase); lower ongoing fees; breakpoints available"], ["Class B", "Back-end load / contingent deferred sales charge that declines over time"], ["Class C", "Level load (higher ongoing 12b-1 fee); no front load"]] } },
+          { kind: "callout", label: "Breakpoints (and the violation)", body: "Class A funds offer breakpoints — reduced sales charges for larger investments. Deliberately keeping a purchase just under a breakpoint to earn a higher commission is 'breakpoint selling,' a prohibited practice." },
+        ],
+      },
+      {
+        heading: "Closed-end funds, ETFs, and UITs",
+        blocks: [
+          { kind: "p", text: "Other pooled vehicles behave differently. A closed-end fund issues a FIXED number of shares in an IPO, after which they trade on an exchange at a market price that can be above (premium) or below (discount) NAV. Exchange-traded funds (ETFs) trade intraday like stocks, usually track an index, and are low-cost and tax-efficient. A unit investment trust (UIT) holds a fixed, unmanaged portfolio for a set term, with units redeemable but no ongoing management." },
+          { kind: "example", example: { title: "POP from NAV and load", prompt: "A Class A fund has a NAV of $19.05 and a 5% sales charge. What is the public offering price (POP)?", steps: ["POP = NAV ÷ (1 − sales charge %) for a percentage load.", "POP = 19.05 ÷ (1 − 0.05) = 19.05 ÷ 0.95.", "= $20.05."], answer: "$20.05 — the investor pays $20.05, of which ~$1.00 (5%) is the sales charge and $19.05 is invested at NAV." } },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Net asset value (NAV)", def: "Fund assets minus liabilities divided by shares; the per-share value at which open-end funds transact." },
+      { term: "Forward pricing", def: "Orders fill at the next computed NAV, typically once daily after market close." },
+      { term: "Public offering price (POP)", def: "NAV plus the sales charge on a front-load fund." },
+      { term: "Open-end fund", def: "A mutual fund that continuously issues/redeems shares at NAV." },
+      { term: "Closed-end fund", def: "A fund with a fixed share count that trades on an exchange at a market price (premium/discount to NAV)." },
+      { term: "ETF", def: "An exchange-traded, usually index-tracking fund that trades intraday at low cost." },
+      { term: "Unit investment trust (UIT)", def: "A fixed, unmanaged portfolio held for a set term, with redeemable units." },
+      { term: "Class A shares", def: "Front-end load shares with lower ongoing fees and breakpoint discounts." },
+      { term: "Class B shares", def: "Shares with a contingent deferred (back-end) sales charge that declines over time." },
+      { term: "Class C shares", def: "Level-load shares with a higher ongoing 12b-1 fee and no front load." },
+      { term: "12b-1 fee", def: "An annual fee for distribution/marketing charged against fund assets." },
+      { term: "Breakpoint", def: "A reduced sales charge for investing a larger dollar amount in Class A shares." },
+      { term: "Breakpoint selling", def: "Prohibited practice of keeping a purchase just below a breakpoint to earn more commission." },
+      { term: "Expense ratio", def: "Annual operating costs as a percent of fund assets, paid by shareholders." },
+    ],
+    takeaways: [
+      "Open-end funds transact at the next NAV (forward pricing); POP = NAV + sales charge.",
+      "Share classes share the portfolio but differ in fee timing: A (front), B (back), C (level).",
+      "Breakpoints reward larger Class A purchases; pushing buys just under one is a violation.",
+      "Closed-end funds and ETFs trade at market prices; UITs hold a fixed, unmanaged portfolio.",
+    ],
+  },
+
+  {
+    id: "sie-options",
+    examSlug: "sie",
+    topicId: "options",
+    topicName: "Options Basics",
+    title: "Options Basics: Calls, Puts, and the Four Positions",
+    readingMinutes: 16,
+    summary: "The vocabulary and payoff logic of options — calls vs puts, the four buyer/seller positions, intrinsic value, and why options expire.",
+    intro:
+      "Options give the SIE candidate trouble because the language is unfamiliar, not because the math is hard. An option is a contract: the right, but not the obligation, to buy or sell a stock at a set price before expiration. Master the four basic positions and what each one wants the stock to do, and the rest falls into place.",
+    sections: [
+      {
+        heading: "Calls, puts, and contract terms",
+        blocks: [
+          { kind: "p", text: "A CALL gives its owner the right to BUY 100 shares at the strike price; a PUT gives the right to SELL 100 shares at the strike. Every option has a strike (exercise) price, an expiration date, and a premium (its cost). One contract covers 100 shares, so a $2 premium costs $200. Buyers pay the premium and hold the right; sellers (writers) receive the premium and take on the obligation if the buyer exercises." },
+          { kind: "callout", label: "Call up, put down", body: "Call buyers are BULLISH — they profit when the stock rises above the strike. Put buyers are BEARISH — they profit when the stock falls below the strike. Sellers take the opposite view and want the option to expire worthless so they keep the premium." },
+        ],
+      },
+      {
+        heading: "The four positions and intrinsic value",
+        blocks: [
+          { kind: "p", text: "There are exactly four basic positions: long call (bullish, limited risk to the premium, large upside), short call (bearish/neutral, premium income, unlimited risk if uncovered), long put (bearish, limited risk, large downside profit), and short put (bullish/neutral, premium income, large risk down to zero). An option's intrinsic value is how much it is in-the-money: a call is in-the-money when the stock is ABOVE the strike, a put when the stock is BELOW the strike. Anything paid above intrinsic value is time value, which decays to zero by expiration." },
+          { kind: "table", table: { caption: "Table 1 — The four basic option positions.", headers: ["Position", "Outlook", "Max gain / max loss"], rows: [["Long call", "Bullish", "Unlimited / premium paid"], ["Short call", "Bearish", "Premium / unlimited (if uncovered)"], ["Long put", "Bearish", "Strike − premium / premium paid"], ["Short put", "Bullish", "Premium / strike − premium"]] } },
+          { kind: "example", example: { title: "a call's intrinsic value", prompt: "An investor owns a call with a $50 strike while the stock trades at $58. The call cost a $5 premium. What is its intrinsic value, and is the position profitable at expiration?", steps: ["Intrinsic value = stock − strike = $58 − $50 = $8 (it's in-the-money).", "Profit = intrinsic value − premium = $8 − $5 = $3 per share.", "Per contract: $3 × 100 = $300."], answer: "Intrinsic value is $8; the position nets $3 per share ($300 per contract) after the premium." } },
+        ],
+      },
+      {
+        heading: "Why investors use options",
+        blocks: [
+          { kind: "p", text: "Options serve three purposes the SIE tests. SPECULATION: a small premium controls 100 shares, magnifying gains (and the risk of total loss of premium). HEDGING: a long put acts like insurance on a stock you own (a 'protective put'), capping downside. INCOME: writing a call against stock you own (a 'covered call') collects premium in exchange for giving up some upside. The key risk asymmetry: option buyers can only lose the premium, while uncovered call writers face theoretically unlimited loss." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Call option", def: "The right to BUY 100 shares at the strike price; bullish for the buyer." },
+      { term: "Put option", def: "The right to SELL 100 shares at the strike price; bearish for the buyer." },
+      { term: "Strike (exercise) price", def: "The price at which the option can be exercised." },
+      { term: "Premium", def: "The price paid for an option; one contract covers 100 shares." },
+      { term: "Writer (seller)", def: "The party that receives the premium and takes the obligation to perform if exercised." },
+      { term: "In-the-money", def: "A call with stock above the strike, or a put with stock below the strike." },
+      { term: "Intrinsic value", def: "How much an option is in-the-money; zero if out-of-the-money." },
+      { term: "Time value", def: "Premium above intrinsic value; decays to zero by expiration." },
+      { term: "Long call", def: "Bullish position with risk limited to the premium and large upside." },
+      { term: "Short (uncovered) call", def: "Bearish/neutral position earning premium but with unlimited risk." },
+      { term: "Protective put", def: "A long put on stock you own, acting as downside insurance." },
+      { term: "Covered call", def: "Writing a call against owned stock to earn premium, capping upside." },
+      { term: "Expiration", def: "The date an option becomes void if not exercised." },
+    ],
+    takeaways: [
+      "A call is the right to buy; a put is the right to sell — each contract is 100 shares.",
+      "Call buyers are bullish, put buyers bearish; sellers want the option to expire worthless.",
+      "Intrinsic value is the in-the-money amount; the rest is time value that decays to expiration.",
+      "Buyers risk only the premium; uncovered call writers face unlimited risk. Protective puts hedge, covered calls earn income.",
+    ],
+  },
+
+  {
+    id: "sie-munis",
+    examSlug: "sie",
+    topicId: "munis",
+    topicName: "Municipal Securities",
+    title: "Municipal Securities: GO Bonds, Revenue Bonds, and Tax Treatment",
+    readingMinutes: 15,
+    summary: "How states and localities borrow — general obligation vs revenue bonds, the federal tax exemption, and the taxable-equivalent yield math.",
+    intro:
+      "Municipal bonds are debt issued by states, cities, and their agencies, and their defining feature is tax treatment: the interest is generally exempt from federal income tax. That exemption drives who buys them and how their yields compare to taxable bonds. The SIE expects the GO-versus-revenue distinction and the taxable-equivalent yield calculation.",
+    sections: [
+      {
+        heading: "Two families: GO and revenue",
+        blocks: [
+          { kind: "p", text: "Municipal bonds split into two main types by what backs them. A general obligation (GO) bond is backed by the issuer's full faith, credit, and TAXING power — repaid from taxes — so it usually requires voter approval and is considered very safe. A revenue bond is repaid only from the income of a specific project (a toll road, airport, or utility), so its safety depends on that project's success and it carries more risk. Because revenue bonds rely on one revenue stream, analysts study the project's feasibility and any debt-service coverage." },
+          { kind: "table", table: { caption: "Table 1 — GO vs revenue bonds.", headers: ["Feature", "General obligation", "Revenue"], rows: [["Backed by", "Taxing power", "Project income"], ["Voter approval", "Usually required", "Usually not"], ["Relative risk", "Lower", "Higher"]] } },
+        ],
+      },
+      {
+        heading: "The tax exemption and who buys",
+        blocks: [
+          { kind: "p", text: "Municipal interest is generally exempt from FEDERAL income tax, and often from state tax too if the buyer lives in the issuing state ('double exempt'). This makes munis most valuable to investors in HIGH tax brackets, who keep more of a lower stated yield than they would from a fully taxed bond. The flip side: munis are a poor fit for tax-advantaged accounts like IRAs, because the account is already tax-sheltered, so the exemption is wasted." },
+          { kind: "example", example: { title: "taxable-equivalent yield", prompt: "A municipal bond yields 4%. An investor is in the 32% federal tax bracket. What taxable yield would be equivalent?", steps: ["Taxable-equivalent yield = muni yield ÷ (1 − tax rate).", "= 4% ÷ (1 − 0.32) = 4% ÷ 0.68.", "= 5.88%."], answer: "≈ 5.88% — the investor would need a taxable bond yielding 5.88% to match the tax-free 4% muni, which is why high-bracket investors favor munis." } },
+        ],
+      },
+      {
+        heading: "Trading and oversight",
+        blocks: [
+          { kind: "p", text: "The municipal market is regulated by the Municipal Securities Rulemaking Board (MSRB), which writes rules for dealers (though it has no enforcement arm of its own — FINRA and the SEC enforce). Key disclosure tool: the official statement, the muni equivalent of a prospectus. Munis trade over-the-counter and are quoted on a yield basis for most maturities. Short-term municipal notes (such as TANs and RANs) help issuers manage cash flow until taxes or revenues arrive." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Municipal bond", def: "Debt issued by a state or local government; interest is generally federally tax-exempt." },
+      { term: "General obligation (GO) bond", def: "A muni backed by the issuer's full faith, credit, and taxing power." },
+      { term: "Revenue bond", def: "A muni repaid only from a specific project's revenues; higher risk than a GO." },
+      { term: "Federal tax exemption", def: "Municipal interest is generally exempt from federal income tax." },
+      { term: "Double exempt", def: "A muni free of both federal and the buyer's state tax (in-state purchase)." },
+      { term: "Taxable-equivalent yield", def: "Muni yield ÷ (1 − tax rate); the taxable yield needed to match a muni." },
+      { term: "Official statement", def: "The municipal disclosure document, equivalent to a prospectus." },
+      { term: "MSRB", def: "The Municipal Securities Rulemaking Board, which writes muni dealer rules." },
+      { term: "Debt-service coverage", def: "A revenue bond's project income relative to its debt payments." },
+      { term: "TAN / RAN", def: "Short-term municipal notes issued in anticipation of taxes or revenues." },
+      { term: "Voter approval", def: "Typically required to issue GO bonds because they pledge taxing power." },
+      { term: "High tax bracket appeal", def: "Munis benefit high-bracket investors most due to the tax exemption." },
+    ],
+    takeaways: [
+      "GO bonds are backed by taxing power (safer); revenue bonds by a single project's income (riskier).",
+      "Municipal interest is generally federal-tax-exempt, making munis ideal for high-bracket investors and wasteful in IRAs.",
+      "Taxable-equivalent yield = muni yield ÷ (1 − tax rate).",
+      "The MSRB writes muni rules; the official statement is the muni disclosure document.",
+    ],
+  },
+
+  {
+    id: "sie-accounts",
+    examSlug: "sie",
+    topicId: "accounts",
+    topicName: "Customer Accounts",
+    title: "Customer Accounts: Types, Registration, and Retirement Plans",
+    readingMinutes: 16,
+    summary: "How brokerage accounts are opened and titled — cash vs margin, ownership forms, discretionary authority, and the main retirement-account types.",
+    intro:
+      "Before any trade, a customer needs an account, and the SIE tests how accounts are opened, who can act on them, and how they're titled. Layer on the retirement-account menu — IRAs and employer plans — and you have a frequently examined cluster. Know the ownership forms and the IRA distinctions cold.",
+    sections: [
+      {
+        heading: "Opening and operating an account",
+        blocks: [
+          { kind: "p", text: "Opening an account requires gathering customer information (identity, financial status, objectives) to satisfy know-your-customer and anti-money-laundering rules; a principal must approve the new account. A cash account requires full payment for purchases. A margin account lets the customer borrow part of the purchase price from the firm, requiring a signed margin agreement and a hypothecation agreement (pledging securities as collateral). Discretionary authority — letting the rep choose the security, amount, or action without prior approval — requires WRITTEN authorization from the customer and principal approval; discretionary accounts get extra supervision." },
+          { kind: "callout", label: "What counts as discretion", body: "An order is discretionary only if the rep decides the asset, the amount, OR the action (buy/sell). Deciding just the time or price of an order the customer already specified is NOT discretion and needs no written authority." },
+        ],
+      },
+      {
+        heading: "Account ownership and registration",
+        blocks: [
+          { kind: "p", text: "How an account is titled determines who controls it and what happens at death. An individual account has one owner. Joint accounts have two or more: joint tenants with right of survivorship (JTWROS) passes a deceased owner's share to the survivors, while tenants in common (TIC) passes it to the deceased's estate. Other forms include custodial accounts (UGMA/UTMA) for minors, trust accounts, and corporate or partnership accounts requiring documentation of authority." },
+          { kind: "table", table: { caption: "Table 1 — Common account registrations.", headers: ["Type", "Key feature"], rows: [["Individual", "One owner"], ["JTWROS", "Deceased's share goes to surviving owner(s)"], ["Tenants in common", "Deceased's share goes to their estate"], ["UGMA/UTMA custodial", "One minor, one custodian; irrevocable gift"]] } },
+        ],
+      },
+      {
+        heading: "Retirement accounts",
+        blocks: [
+          { kind: "p", text: "Retirement accounts are tax-advantaged. A Traditional IRA gives a potential up-front tax DEDUCTION; contributions grow tax-deferred and withdrawals in retirement are taxed as ordinary income, with required minimum distributions starting in the early 70s. A Roth IRA has no deduction, but qualified withdrawals are entirely TAX-FREE and there are no lifetime RMDs. Early withdrawals before 59½ generally face a 10% penalty plus tax. Employer plans include the 401(k) (private employers) and 403(b) (schools and nonprofits), often with matching contributions. Contribution limits are set annually by the IRS." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Know-your-customer (KYC)", def: "The rule requiring firms to learn essential facts about each customer." },
+      { term: "Cash account", def: "An account requiring full payment for all purchases." },
+      { term: "Margin account", def: "An account allowing the customer to borrow part of a purchase from the firm." },
+      { term: "Hypothecation agreement", def: "The customer's pledge of securities as collateral in a margin account." },
+      { term: "Discretionary authority", def: "Written power letting a rep choose asset, amount, or action without prior approval." },
+      { term: "JTWROS", def: "Joint tenants with right of survivorship; a deceased owner's share passes to survivors." },
+      { term: "Tenants in common (TIC)", def: "Joint ownership where a deceased owner's share goes to their estate." },
+      { term: "UGMA/UTMA account", def: "A custodial account for a minor; the gift is irrevocable." },
+      { term: "Traditional IRA", def: "Pre-tax contributions, tax-deferred growth, taxable withdrawals, with RMDs." },
+      { term: "Roth IRA", def: "After-tax contributions with tax-free qualified withdrawals and no lifetime RMDs." },
+      { term: "Required minimum distribution (RMD)", def: "Mandatory withdrawals beginning in one's early 70s for traditional accounts." },
+      { term: "401(k) / 403(b)", def: "Employer-sponsored retirement plans for companies / nonprofits and schools." },
+      { term: "Early-withdrawal penalty", def: "A 10% penalty (plus tax) on most withdrawals before age 59½." },
+    ],
+    takeaways: [
+      "Cash accounts require full payment; margin accounts require a signed margin and hypothecation agreement.",
+      "Discretion (choosing asset, amount, or action) needs written authority; choosing only time/price does not.",
+      "JTWROS passes to survivors; tenants in common passes to the estate; UGMA/UTMA is an irrevocable minor's account.",
+      "Traditional IRA: deduct now, taxed later, RMDs. Roth: no deduction, tax-free later, no lifetime RMDs.",
+    ],
+  },
+
+  {
+    id: "sie-economics",
+    examSlug: "sie",
+    topicId: "economics",
+    topicName: "Economic Factors",
+    title: "Economic Factors: The Business Cycle, Policy, and Interest Rates",
+    readingMinutes: 15,
+    summary: "The macro backdrop the SIE tests — the business cycle, fiscal vs monetary policy, the Fed's tools, and how interest rates ripple through markets.",
+    intro:
+      "Securities don't trade in a vacuum; they respond to the economy. The SIE expects a working grasp of the business cycle, the difference between fiscal and monetary policy, the Federal Reserve's toolkit, and the way interest rates and inflation move asset prices. This chapter ties the macro picture to the markets.",
+    sections: [
+      {
+        heading: "The business cycle",
+        blocks: [
+          { kind: "p", text: "Economies move through a repeating cycle: expansion (rising output and employment), peak, contraction (falling output — a recession if it lasts two consecutive quarters of declining GDP), and trough, before recovering. Gross domestic product (GDP) is the headline measure of output. Indicators are grouped by timing: leading indicators (stock prices, building permits, new orders) turn BEFORE the economy; coincident indicators move with it; lagging indicators (unemployment, corporate profits) turn after. Knowing which is which is a common exam point." },
+          { kind: "callout", label: "Recession rule of thumb", body: "Two consecutive quarters of declining real GDP is the classic shorthand for a recession. Depression is a prolonged, severe version (often cited as six consecutive quarters or more of decline)." },
+        ],
+      },
+      {
+        heading: "Fiscal vs monetary policy",
+        blocks: [
+          { kind: "p", text: "Two levers steer the economy. FISCAL policy is run by Congress and the President through government spending and taxation — cutting taxes or raising spending stimulates; the reverse restrains. MONETARY policy is run by the Federal Reserve, which manages the money supply and short-term interest rates. The Fed's main tools are open market operations (buying or selling Treasuries — the most-used tool), the discount rate (what it charges banks), and reserve requirements. Buying securities injects money and lowers rates (easing/expansionary); selling does the opposite (tightening)." },
+          { kind: "table", table: { caption: "Table 1 — Who controls which lever.", headers: ["Policy", "Controlled by", "Main tools"], rows: [["Fiscal", "Congress / President", "Spending and taxation"], ["Monetary", "Federal Reserve", "Open market operations, discount rate, reserve requirement"]] } },
+        ],
+      },
+      {
+        heading: "Interest rates and inflation",
+        blocks: [
+          { kind: "p", text: "Interest rates are the economy's price of money. The federal funds rate is what banks charge each other overnight; the discount rate is what the Fed charges banks; the prime rate is what banks charge their best customers. When the Fed RAISES rates, borrowing slows, bond prices fall, and growth cools; when it LOWERS rates, the reverse. Inflation — a sustained rise in the general price level, measured by the Consumer Price Index (CPI) — erodes purchasing power and the real value of fixed bond payments, which is why bond prices and inflation expectations move inversely. A small, steady amount of inflation is normal; deflation (falling prices) signals economic weakness." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Business cycle", def: "The repeating sequence of expansion, peak, contraction, and trough." },
+      { term: "Gross domestic product (GDP)", def: "The total output of an economy; the headline growth measure." },
+      { term: "Recession", def: "Commonly, two consecutive quarters of declining real GDP." },
+      { term: "Leading indicators", def: "Measures (stock prices, permits) that turn before the economy does." },
+      { term: "Lagging indicators", def: "Measures (unemployment, profits) that turn after the economy." },
+      { term: "Fiscal policy", def: "Government spending and taxation, set by Congress and the President." },
+      { term: "Monetary policy", def: "The Fed's management of the money supply and interest rates." },
+      { term: "Open market operations", def: "The Fed's buying/selling of Treasuries; its most-used tool." },
+      { term: "Discount rate", def: "The rate the Federal Reserve charges banks for loans." },
+      { term: "Federal funds rate", def: "The overnight rate banks charge each other." },
+      { term: "Reserve requirement", def: "The fraction of deposits banks must hold; a blunt Fed tool." },
+      { term: "Inflation / CPI", def: "A sustained rise in prices, measured by the Consumer Price Index." },
+      { term: "Deflation", def: "A sustained fall in the general price level, signaling weakness." },
+    ],
+    takeaways: [
+      "The cycle runs expansion → peak → contraction → trough; know leading vs lagging indicators.",
+      "Fiscal policy (Congress) uses spending and taxes; monetary policy (the Fed) uses open market operations, the discount rate, and reserves.",
+      "The Fed buying securities eases (lower rates); selling tightens (higher rates).",
+      "Rising rates and inflation push bond prices down; deflation signals economic weakness.",
+    ],
+  },
+
+  {
+    id: "sie-suitability",
+    examSlug: "sie",
+    topicId: "suitability",
+    topicName: "Suitability & Recommendations",
+    title: "Suitability, Know-Your-Customer, and Making Recommendations",
+    readingMinutes: 14,
+    summary: "The customer-profile rules that govern recommendations — KYC, the suitability standard, Regulation BI, and how risk tolerance and objectives map to products.",
+    intro:
+      "A recommendation must fit the customer, not just the salesperson's incentives. The SIE tests the framework for gathering a customer profile, the suitability obligations a recommendation must meet, and the higher best-interest standard introduced by Regulation BI. This is the conduct heart of the exam.",
+    sections: [
+      {
+        heading: "Building the customer profile",
+        blocks: [
+          { kind: "p", text: "Every recommendation rests on a customer profile assembled under the know-your-customer rule: financial situation (income, net worth, liquidity), investment objectives (growth, income, preservation, speculation), risk tolerance, time horizon, tax status, and experience. Non-financial factors matter too — age, family obligations, and employment. A recommendation must be suitable in light of ALL this information; recommending a high-risk, illiquid product to a retiree needing income and safety is a classic violation." },
+          { kind: "callout", label: "Objectives shorthand", body: "Match the objective to the product: growth → equities; income → bonds and dividend stocks; preservation/safety → government bonds and money market; speculation → options and volatile securities. Liquidity needs argue against illiquid products like DPPs." },
+        ],
+      },
+      {
+        heading: "Suitability and Regulation BI",
+        blocks: [
+          { kind: "p", text: "FINRA's suitability rule has three prongs: reasonable-basis suitability (the product is suitable for SOME investors and the rep understands it), customer-specific suitability (it fits THIS customer's profile), and quantitative suitability (a series of recommendations isn't excessive — guarding against churning). Layered on top, the SEC's Regulation Best Interest (Reg BI) raises the bar for broker-dealers: recommendations to retail customers must be in the customer's BEST INTEREST, not merely suitable, with care, disclosure, conflict-of-interest, and compliance obligations. The customer relationship summary (Form CRS) discloses the relationship and its costs." },
+          { kind: "table", table: { caption: "Table 1 — The three prongs of suitability.", headers: ["Prong", "Question"], rows: [["Reasonable-basis", "Is it suitable for anyone, and do I understand it?"], ["Customer-specific", "Is it suitable for THIS customer?"], ["Quantitative", "Is the pattern of trading excessive (churning)?"]] } },
+        ],
+      },
+      {
+        heading: "Risk tolerance to product",
+        blocks: [
+          { kind: "p", text: "The exam asks you to translate a profile into appropriate products. A young investor with a long horizon and high risk tolerance can hold a growth-tilted, equity-heavy portfolio. A near-retiree needing income and stability belongs in higher-grade bonds, dividend payers, and cash equivalents. Diversification reduces unsystematic (company-specific) risk but cannot eliminate systematic (market) risk. When a customer's stated willingness to take risk conflicts with their financial ability to bear it, the more conservative ABILITY generally governs the recommendation." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Know-your-customer (KYC)", def: "The duty to learn a customer's financial and personal profile before recommending." },
+      { term: "Customer profile", def: "Income, net worth, objectives, risk tolerance, horizon, tax status, and experience." },
+      { term: "Investment objective", def: "The customer's goal: growth, income, preservation, or speculation." },
+      { term: "Risk tolerance", def: "A customer's willingness and ability to bear investment loss." },
+      { term: "Reasonable-basis suitability", def: "A product is suitable for some investors and the rep understands it." },
+      { term: "Customer-specific suitability", def: "A recommendation fits the particular customer's profile." },
+      { term: "Quantitative suitability", def: "A series of recommendations isn't excessive; guards against churning." },
+      { term: "Churning", def: "Excessive trading to generate commissions, a prohibited practice." },
+      { term: "Regulation Best Interest (Reg BI)", def: "SEC rule requiring retail recommendations to be in the customer's best interest." },
+      { term: "Form CRS", def: "The customer relationship summary disclosing the relationship and its costs." },
+      { term: "Diversification", def: "Spreading investments to reduce unsystematic (company-specific) risk." },
+      { term: "Systematic risk", def: "Market-wide risk that diversification cannot remove." },
+      { term: "Ability vs willingness", def: "When they conflict, the more conservative ability generally governs." },
+    ],
+    takeaways: [
+      "Recommendations rest on a full KYC profile: finances, objectives, risk tolerance, horizon, and tax status.",
+      "Match objective to product: growth→equities, income→bonds, safety→government/cash, speculation→options.",
+      "Suitability has three prongs (reasonable-basis, customer-specific, quantitative); Reg BI raises it to a best-interest standard.",
+      "Diversification cuts unsystematic but not systematic risk; when ability and willingness conflict, ability usually wins.",
+    ],
+  },
+
+  {
+    id: "sie-underwriting",
+    examSlug: "sie",
+    topicId: "underwriting",
+    topicName: "Issuing & Underwriting",
+    title: "Issuing Securities: The Primary Market, Underwriting, and the Prospectus",
+    readingMinutes: 15,
+    summary: "How new securities reach the market — the registration process under the Securities Act of 1933, underwriting commitments, the prospectus, and exempt offerings.",
+    intro:
+      "The primary market is where capital is actually raised: a company sells new securities to investors for the first time. The SIE tests the registration process created by the Securities Act of 1933, the roles underwriters play, the documents involved, and the exemptions that let some offerings skip full registration. Know the timeline and the commitment types.",
+    sections: [
+      {
+        heading: "Registration and the 1933 Act",
+        blocks: [
+          { kind: "p", text: "The Securities Act of 1933 governs the issuance of new securities and is about DISCLOSURE: an issuer must register with the SEC and provide investors a prospectus with material facts so they can make an informed decision. The process runs through three periods. In the pre-filing period the issuer prepares but cannot offer the security. After filing comes the cooling-off period (at least 20 days) when the SEC reviews; during it, the firm may circulate a preliminary prospectus (the 'red herring') and gather indications of interest — but cannot take orders or money. Once the registration is effective, the security can be sold with a final prospectus." },
+          { kind: "callout", label: "The SEC does not approve", body: "SEC review confirms adequate DISCLOSURE — it never approves the merits or guarantees a security. Claiming the SEC 'approved' an offering is a prohibited misrepresentation." },
+        ],
+      },
+      {
+        heading: "Underwriting commitments",
+        blocks: [
+          { kind: "p", text: "Underwriters (investment banks) help issuers bring securities to market, and the commitment type sets who bears the risk. In a FIRM COMMITMENT, the underwriter buys the entire issue and resells it, bearing the risk of unsold shares — the most common method. In a BEST EFFORTS deal, the underwriter only agrees to try to sell, returning unsold shares to the issuer (no risk to the underwriter). Variations of best efforts include all-or-none and mini-max. A syndicate of multiple firms often shares a large deal. The spread — the difference between what the public pays and what the issuer receives — is the underwriters' compensation." },
+          { kind: "table", table: { caption: "Table 1 — Underwriting commitments.", headers: ["Type", "Who bears unsold-share risk"], rows: [["Firm commitment", "Underwriter (buys the whole issue)"], ["Best efforts", "Issuer (underwriter just tries)"], ["All-or-none", "Deal cancelled unless fully sold"]] } },
+        ],
+      },
+      {
+        heading: "Exempt securities and transactions",
+        blocks: [
+          { kind: "p", text: "Some offerings skip full registration. Exempt SECURITIES include U.S. government and municipal bonds, and securities of banks and certain nonprofits. Exempt TRANSACTIONS include private placements under Regulation D (sales to accredited or a limited number of investors) and Regulation A (smaller offerings with lighter requirements). An accredited investor meets income or net-worth thresholds and is presumed able to bear more risk. These exemptions reduce cost and time but limit who can buy or how the securities can be resold." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Primary market", def: "Where issuers sell new securities and raise capital for the first time." },
+      { term: "Securities Act of 1933", def: "The disclosure law governing new issues and requiring registration." },
+      { term: "Prospectus", def: "The disclosure document delivered to investors in a registered offering." },
+      { term: "Cooling-off period", def: "The ≥20-day SEC review period after filing; no sales allowed." },
+      { term: "Preliminary prospectus (red herring)", def: "A pre-effective document used to gather indications of interest." },
+      { term: "Indication of interest", def: "A non-binding expression of buying interest during the cooling-off period." },
+      { term: "Effective date", def: "When registration clears and the security may be sold." },
+      { term: "Firm commitment", def: "Underwriter buys the whole issue, bearing unsold-share risk." },
+      { term: "Best efforts", def: "Underwriter only tries to sell; the issuer keeps the risk." },
+      { term: "Underwriting spread", def: "The difference between the public price and the issuer's proceeds." },
+      { term: "Syndicate", def: "A group of underwriters sharing a large offering." },
+      { term: "Regulation D", def: "An exemption for private placements to accredited/limited investors." },
+      { term: "Accredited investor", def: "An investor meeting income or net-worth thresholds, presumed able to bear risk." },
+      { term: "Exempt security", def: "A security (e.g., government, municipal) not requiring registration." },
+    ],
+    takeaways: [
+      "The 1933 Act is about disclosure: register and deliver a prospectus; the SEC reviews disclosure, never approves merits.",
+      "Timeline: pre-filing → cooling-off (≥20 days, red herring, indications of interest) → effective → sale with final prospectus.",
+      "Firm commitment puts unsold-share risk on the underwriter; best efforts leaves it with the issuer.",
+      "Exempt securities (government, muni) and exempt transactions (Reg D private placements) skip full registration.",
+    ],
+  },
 ];
 
 const questions: Question[] = [
@@ -485,6 +982,339 @@ const questions: Question[] = [
     choices: ["Writes rules for municipal securities but does not enforce them itself", "Insures municipal bonds", "Sets monetary policy"],
     answerIndex: 0,
     explanation: "The MSRB writes rules governing the municipal securities market, but enforcement is carried out by other regulators (such as FINRA and the SEC). Choice B is false; the MSRB doesn't insure bonds. Choice C describes the Federal Reserve, not the MSRB.",
+  },
+
+  // ---- Equity Securities ----
+  {
+    id: "sie-eq-q1", examSlug: "sie", topicId: "equity", topicName: "Equity Securities", difficulty: 2,
+    stem: "A 5% cumulative preferred ($100 par) missed last year's dividend. Before common shareholders are paid this year, the company must pay preferred holders:",
+    choices: ["$5", "$10", "$0"],
+    answerIndex: 1,
+    explanation: "Cumulative preferred accumulates skipped dividends: last year's missed $5 plus this year's $5 = $10 per share must be paid before any common dividend. Choice A pays only the current year, ignoring the arrears. Choice C ignores the cumulative feature entirely.",
+  },
+  {
+    id: "sie-eq-q2", examSlug: "sie", topicId: "equity", topicName: "Equity Securities", difficulty: 1,
+    stem: "In a corporate liquidation, common stockholders are paid:",
+    choices: ["First, before creditors", "Last, after creditors and preferred shareholders", "At the same time as bondholders"],
+    answerIndex: 1,
+    explanation: "Common stockholders are residual owners — they're paid last, after secured creditors, general creditors, and preferred shareholders. Choices A and C overstate common's priority; equity always sits behind debt in the capital structure.",
+  },
+  {
+    id: "sie-eq-q3", examSlug: "sie", topicId: "equity", topicName: "Equity Securities", difficulty: 2,
+    stem: "Compared with rights, warrants are:",
+    choices: ["Short-term, issued to existing shareholders", "Long-term, often attached to other securities as a sweetener", "Identical to rights"],
+    answerIndex: 1,
+    explanation: "Warrants are long-term (years) instruments to buy stock at a set price, frequently attached to bonds or preferred as a sweetener. Choice A describes rights, which are short-term and given to existing holders. Choice C is false; they differ in term and purpose.",
+  },
+  {
+    id: "sie-eq-q4", examSlug: "sie", topicId: "equity", topicName: "Equity Securities", difficulty: 2,
+    stem: "An American Depositary Receipt (ADR) exposes a U.S. investor to:",
+    choices: ["No risk because it trades in dollars", "Currency (exchange-rate) risk, despite trading in dollars", "Only U.S. tax risk"],
+    answerIndex: 1,
+    explanation: "Even though an ADR trades in dollars on a U.S. exchange, the underlying foreign shares carry currency risk — exchange-rate moves affect the ADR's value. Choice A wrongly assumes dollar trading removes currency risk. Choice C ignores the foreign-currency exposure.",
+  },
+  {
+    id: "sie-eq-q5", examSlug: "sie", topicId: "equity", topicName: "Equity Securities", difficulty: 2,
+    stem: "Convertible preferred stock gives the holder the right to:",
+    choices: ["Force the company to repurchase it", "Exchange it for a set number of common shares", "Receive a guaranteed extra dividend"],
+    answerIndex: 1,
+    explanation: "Convertible preferred can be exchanged for a fixed number of common shares, letting the holder participate in common-stock upside. Choice A describes a different (put/callable-style) feature. Choice C describes participating preferred, not convertible.",
+  },
+
+  // ---- Debt Securities ----
+  {
+    id: "sie-debt-q1", examSlug: "sie", topicId: "debt", topicName: "Debt Securities", difficulty: 1,
+    stem: "If interest rates fall, the price of an existing fixed-coupon bond will:",
+    choices: ["Fall", "Rise (trade toward a premium)", "Not change"],
+    answerIndex: 1,
+    explanation: "Bond prices move inversely to rates, so when rates fall, an existing higher-coupon bond becomes more attractive and rises in price, potentially to a premium. Choice A reverses the relationship. Choice C ignores the inverse price/yield mechanism.",
+  },
+  {
+    id: "sie-debt-q2", examSlug: "sie", topicId: "debt", topicName: "Debt Securities", difficulty: 2,
+    stem: "A bond with a 6% coupon ($1,000 par) trades at $1,200. Its current yield is:",
+    choices: ["6.0%", "5.0%", "7.2%"],
+    answerIndex: 1,
+    explanation: "Current yield = annual coupon ÷ price = $60 ÷ $1,200 = 5.0%. The current yield is BELOW the 6% nominal because the bond trades at a premium. Choice A is the nominal yield. Choice C inverts the relationship.",
+  },
+  {
+    id: "sie-debt-q3", examSlug: "sie", topicId: "debt", topicName: "Debt Securities", difficulty: 2,
+    stem: "Treasury bills pay interest by:",
+    choices: ["A semiannual coupon", "Being issued at a discount and maturing at face value", "Adjusting principal for inflation"],
+    answerIndex: 1,
+    explanation: "T-bills are short-term, zero-coupon instruments sold at a discount; the gain to face value at maturity is the interest. Choice A describes T-notes/bonds. Choice C describes TIPS, a different Treasury security.",
+  },
+  {
+    id: "sie-debt-q4", examSlug: "sie", topicId: "debt", topicName: "Debt Securities", difficulty: 2,
+    stem: "A municipal bond backed by the issuer's full faith, credit, and taxing power is a:",
+    choices: ["Revenue bond", "General obligation (GO) bond", "Debenture"],
+    answerIndex: 1,
+    explanation: "A GO bond is backed by the issuer's taxing power, generally making it safer than a revenue bond, which is repaid only from a specific project's income. Choice A is the project-revenue type. Choice C (debenture) is unsecured corporate debt, not municipal.",
+  },
+  {
+    id: "sie-debt-q5", examSlug: "sie", topicId: "debt", topicName: "Debt Securities", difficulty: 2,
+    stem: "A debenture is a bond backed by:",
+    choices: ["Specific collateral", "The issuer's general credit only (unsecured)", "The federal government"],
+    answerIndex: 1,
+    explanation: "A debenture is unsecured — backed only by the issuer's general creditworthiness, not by pledged assets. Choice A describes a secured bond. Choice C is incorrect; corporate debentures are not government-backed.",
+  },
+
+  // ---- Investment Funds ----
+  {
+    id: "sie-fund-q1", examSlug: "sie", topicId: "funds", topicName: "Investment Funds", difficulty: 1,
+    stem: "Open-end mutual fund shares are priced using:",
+    choices: ["Continuous intraday market prices", "Forward pricing at the next-computed NAV", "A fixed price set at issuance"],
+    answerIndex: 1,
+    explanation: "Open-end funds use forward pricing: orders fill at the next NAV calculated (typically once daily after close). Choice A describes ETFs/closed-end funds trading on an exchange. Choice C is false; NAV changes daily with the portfolio.",
+  },
+  {
+    id: "sie-fund-q2", examSlug: "sie", topicId: "funds", topicName: "Investment Funds", difficulty: 2,
+    stem: "Class C mutual fund shares are characterized by:",
+    choices: ["A front-end load and breakpoints", "A level load with a higher ongoing 12b-1 fee and no front load", "No fees of any kind"],
+    answerIndex: 1,
+    explanation: "Class C shares charge a level load — a higher ongoing 12b-1 fee — with no front-end sales charge, which can make them costly for long holding periods. Choice A describes Class A shares. Choice C is false; all share classes have fees.",
+  },
+  {
+    id: "sie-fund-q3", examSlug: "sie", topicId: "funds", topicName: "Investment Funds", difficulty: 2,
+    stem: "Breakpoints on Class A mutual fund shares provide:",
+    choices: ["Higher commissions for the rep", "Reduced sales charges for larger investment amounts", "Guaranteed returns"],
+    answerIndex: 1,
+    explanation: "Breakpoints lower the front-end sales charge as the investment amount rises. Deliberately keeping a purchase just below a breakpoint to earn more commission ('breakpoint selling') is prohibited. Choice A is the abuse, not the purpose. Choice C is never true.",
+  },
+  {
+    id: "sie-fund-q4", examSlug: "sie", topicId: "funds", topicName: "Investment Funds", difficulty: 2,
+    stem: "Unlike an open-end fund, a closed-end fund:",
+    choices: ["Always trades at NAV", "Issues a fixed number of shares that trade on an exchange at a market price (premium or discount to NAV)", "Can issue unlimited new shares daily"],
+    answerIndex: 1,
+    explanation: "A closed-end fund issues a fixed share count in an IPO; the shares then trade on an exchange at a market price that can be above (premium) or below (discount) NAV. Choice A describes open-end funds. Choice C also describes open-end funds, which continuously issue/redeem.",
+  },
+  {
+    id: "sie-fund-q5", examSlug: "sie", topicId: "funds", topicName: "Investment Funds", difficulty: 3,
+    stem: "A Class A fund has a NAV of $9.50 and a 5% sales charge. Its public offering price (POP) is closest to:",
+    choices: ["$9.98", "$10.00", "$9.03"],
+    answerIndex: 1,
+    explanation: "POP = NAV ÷ (1 − sales charge) = $9.50 ÷ 0.95 = $10.00, of which $0.50 (5%) is the sales charge. Choice A adds 5% of NAV instead of grossing up. Choice C subtracts the charge, which is backwards.",
+  },
+
+  // Options Basics
+  {
+    id: "sie-opt-q1", examSlug: "sie", topicId: "options", topicName: "Options Basics", difficulty: 1,
+    stem: "An investor who buys a call option is expressing what market view?",
+    choices: ["Bullish", "Bearish", "Neutral"],
+    answerIndex: 0,
+    explanation: "A long call profits when the stock rises above the strike, so the call buyer is bullish. A put buyer would be bearish. The call seller (writer) takes the opposite, bearish-to-neutral view, hoping the option expires worthless so they keep the premium.",
+  },
+  {
+    id: "sie-opt-q2", examSlug: "sie", topicId: "options", topicName: "Options Basics", difficulty: 1,
+    stem: "One standard equity option contract covers how many shares of the underlying stock?",
+    choices: ["10", "100", "1,000"],
+    answerIndex: 1,
+    explanation: "Each standard equity option contract represents 100 shares, so a $3 premium costs $300 total. This multiplier is essential for every options calculation on the exam — premiums and intrinsic values are quoted per share but settle per 100-share contract.",
+  },
+  {
+    id: "sie-opt-q3", examSlug: "sie", topicId: "options", topicName: "Options Basics", difficulty: 2,
+    stem: "A call option has a $40 strike while the stock trades at $46. What is the call's intrinsic value?",
+    choices: ["$0", "$6", "$46"],
+    answerIndex: 1,
+    explanation: "A call's intrinsic value is stock price minus strike when in-the-money: $46 − $40 = $6. The call is in-the-money because the stock is above the strike. Any premium above $6 would be time value, which decays to zero by expiration. Choice A would apply only if the option were at- or out-of-the-money.",
+  },
+  {
+    id: "sie-opt-q4", examSlug: "sie", topicId: "options", topicName: "Options Basics", difficulty: 2,
+    stem: "Which option position carries theoretically unlimited risk?",
+    choices: ["Long call", "Long put", "Uncovered (naked) short call"],
+    answerIndex: 2,
+    explanation: "An uncovered short call obligates the writer to deliver shares at the strike no matter how high the stock climbs, so the loss is theoretically unlimited. A long call (A) and long put (B) each risk only the premium paid. This asymmetry — buyers risk the premium, naked call writers risk everything — is a core SIE point.",
+  },
+  {
+    id: "sie-opt-q5", examSlug: "sie", topicId: "options", topicName: "Options Basics", difficulty: 2,
+    stem: "An investor owns stock and writes a call against it to earn premium income. This strategy is a:",
+    choices: ["Protective put", "Covered call", "Naked call"],
+    answerIndex: 1,
+    explanation: "Writing a call against stock you already own is a covered call: it generates premium income in exchange for capping upside above the strike. A protective put (A) instead buys a put as downside insurance. A naked call (C) is written WITHOUT owning the stock, which is the unlimited-risk version.",
+  },
+
+  // Municipal Securities
+  {
+    id: "sie-mun-q1", examSlug: "sie", topicId: "munis", topicName: "Municipal Securities", difficulty: 1,
+    stem: "A municipal bond backed by the issuer's full faith, credit, and taxing power is a:",
+    choices: ["Revenue bond", "General obligation bond", "Industrial development bond"],
+    answerIndex: 1,
+    explanation: "A general obligation (GO) bond is repaid from the issuer's taxing power, making it relatively safe and usually requiring voter approval. A revenue bond (A) is backed only by a specific project's income and carries more risk. Industrial development bonds (C) are a private-activity revenue type, not tax-power-backed.",
+  },
+  {
+    id: "sie-mun-q2", examSlug: "sie", topicId: "munis", topicName: "Municipal Securities", difficulty: 2,
+    stem: "A municipal bond yields 3.5%. For an investor in the 30% tax bracket, the taxable-equivalent yield is closest to:",
+    choices: ["2.45%", "4.55%", "5.00%"],
+    answerIndex: 2,
+    explanation: "Taxable-equivalent yield = muni yield ÷ (1 − tax rate) = 3.5% ÷ (1 − 0.30) = 3.5% ÷ 0.70 = 5.0%. The investor would need a 5% taxable yield to match the tax-free 3.5% muni. Choice A mistakenly multiplies by the bracket (lowering the yield); the exemption raises, not lowers, the equivalent yield.",
+  },
+  {
+    id: "sie-mun-q3", examSlug: "sie", topicId: "munis", topicName: "Municipal Securities", difficulty: 1,
+    stem: "Interest from a typical municipal bond is generally exempt from which tax?",
+    choices: ["Federal income tax", "State sales tax", "Capital gains tax on price appreciation"],
+    answerIndex: 0,
+    explanation: "Municipal interest is generally exempt from federal income tax (and often state tax for in-state buyers). It is not a sales-tax matter (B). And while the INTEREST is exempt, any capital GAIN from selling a muni above its cost is still taxable (C) — the exemption covers interest, not price appreciation.",
+  },
+  {
+    id: "sie-mun-q4", examSlug: "sie", topicId: "munis", topicName: "Municipal Securities", difficulty: 2,
+    stem: "Why are municipal bonds generally a poor choice inside a traditional IRA?",
+    choices: ["IRAs cannot hold bonds", "The account is already tax-sheltered, wasting the exemption", "Munis are too risky for retirement"],
+    answerIndex: 1,
+    explanation: "A traditional IRA is already tax-deferred, so the muni's federal tax exemption provides no extra benefit there — the investor gives up yield for an exemption they can't use. IRAs can hold bonds (A is false), and munis aren't inherently too risky (C). Put higher-yielding taxable bonds in the IRA and munis in taxable accounts.",
+  },
+  {
+    id: "sie-mun-q5", examSlug: "sie", topicId: "munis", topicName: "Municipal Securities", difficulty: 1,
+    stem: "The disclosure document for a new municipal bond issue is called the:",
+    choices: ["Prospectus", "Official statement", "Red herring"],
+    answerIndex: 1,
+    explanation: "Municipalities provide an official statement, the muni equivalent of a corporate prospectus. The term 'prospectus' (A) applies to corporate registered offerings, and a 'red herring' (C) is a preliminary corporate prospectus. Munis are largely exempt from the 1933 Act's registration but still disclose via the official statement.",
+  },
+
+  // Customer Accounts
+  {
+    id: "sie-acc-q1", examSlug: "sie", topicId: "accounts", topicName: "Customer Accounts", difficulty: 2,
+    stem: "In a joint account titled JTWROS, what happens to a deceased owner's share?",
+    choices: ["It passes to the surviving owner(s)", "It passes to the deceased's estate", "The account is frozen permanently"],
+    answerIndex: 0,
+    explanation: "Joint tenants with right of survivorship (JTWROS) means a deceased owner's share automatically passes to the surviving owner(s), bypassing the estate. Tenants in common (B) is the registration where the share goes to the estate. The account is not permanently frozen (C); it transitions to the survivor.",
+  },
+  {
+    id: "sie-acc-q2", examSlug: "sie", topicId: "accounts", topicName: "Customer Accounts", difficulty: 2,
+    stem: "A registered rep wants to choose the security and amount for a customer's trades without prior approval each time. What is required?",
+    choices: ["Nothing beyond a verbal okay", "Prior written discretionary authority", "Only principal approval"],
+    answerIndex: 1,
+    explanation: "Deciding the security, amount, or action makes an order discretionary, which requires PRIOR WRITTEN authorization from the customer (plus principal approval and heightened supervision). A verbal okay (A) is insufficient. Principal approval alone (C) doesn't grant discretion — the written customer authorization is the key requirement.",
+  },
+  {
+    id: "sie-acc-q3", examSlug: "sie", topicId: "accounts", topicName: "Customer Accounts", difficulty: 1,
+    stem: "Which account requires the customer to sign a margin agreement and a hypothecation agreement?",
+    choices: ["A cash account", "A margin account", "A custodial account"],
+    answerIndex: 1,
+    explanation: "A margin account lets the customer borrow from the firm, so it requires a margin agreement and a hypothecation agreement (pledging securities as collateral). A cash account (A) requires full payment and no such borrowing documents. A custodial account (C) is about ownership for a minor, not margin borrowing.",
+  },
+  {
+    id: "sie-acc-q4", examSlug: "sie", topicId: "accounts", topicName: "Customer Accounts", difficulty: 2,
+    stem: "Which statement about a Roth IRA is correct?",
+    choices: ["Contributions are tax-deductible", "Qualified withdrawals are tax-free with no lifetime RMDs", "It requires distributions starting in the early 70s"],
+    answerIndex: 1,
+    explanation: "A Roth IRA is funded with after-tax dollars, so qualified withdrawals are entirely tax-free and there are no required minimum distributions during the owner's lifetime. Contributions are NOT deductible (A — that's the traditional IRA). Lifetime RMDs (C) apply to traditional IRAs, not Roths.",
+  },
+  {
+    id: "sie-acc-q5", examSlug: "sie", topicId: "accounts", topicName: "Customer Accounts", difficulty: 1,
+    stem: "A withdrawal from a traditional IRA before age 59½ is generally subject to:",
+    choices: ["No penalty", "A 10% penalty plus ordinary income tax", "Only a 10% penalty, no tax"],
+    answerIndex: 1,
+    explanation: "Early withdrawals from a traditional IRA before 59½ generally incur a 10% penalty ON TOP of ordinary income tax on the distribution, absent an exception. Choice A ignores the penalty; choice C forgets that traditional IRA withdrawals are also taxed as ordinary income because the contributions were pre-tax.",
+  },
+
+  // Economic Factors
+  {
+    id: "sie-eco-q1", examSlug: "sie", topicId: "economics", topicName: "Economic Factors", difficulty: 1,
+    stem: "A recession is commonly defined as:",
+    choices: ["One quarter of declining GDP", "Two consecutive quarters of declining real GDP", "Any rise in unemployment"],
+    answerIndex: 1,
+    explanation: "The classic rule of thumb for a recession is two consecutive quarters of declining real GDP. A single quarter (A) is not enough, and rising unemployment alone (C) — a lagging indicator — doesn't define a recession. A prolonged, severe decline is termed a depression.",
+  },
+  {
+    id: "sie-eco-q2", examSlug: "sie", topicId: "economics", topicName: "Economic Factors", difficulty: 2,
+    stem: "Open market operations — the buying and selling of Treasury securities — are a tool of:",
+    choices: ["Fiscal policy", "Monetary policy", "Tax policy"],
+    answerIndex: 1,
+    explanation: "Open market operations are the Federal Reserve's primary monetary-policy tool: buying Treasuries injects money and lowers rates; selling drains money and raises rates. Fiscal policy (A) and tax policy (C) are controlled by Congress and the President through spending and taxation, not the Fed.",
+  },
+  {
+    id: "sie-eco-q3", examSlug: "sie", topicId: "economics", topicName: "Economic Factors", difficulty: 2,
+    stem: "Which is classified as a LEADING economic indicator?",
+    choices: ["Unemployment rate", "Building permits", "Corporate profits"],
+    answerIndex: 1,
+    explanation: "Building permits turn before the broader economy, making them a leading indicator. Unemployment (A) and corporate profits (C) are lagging indicators that turn after the economy has moved. The exam frequently asks you to sort indicators into leading, coincident, and lagging.",
+  },
+  {
+    id: "sie-eco-q4", examSlug: "sie", topicId: "economics", topicName: "Economic Factors", difficulty: 2,
+    stem: "If the Federal Reserve wants to stimulate a slowing economy, it will most likely:",
+    choices: ["Buy securities to lower interest rates", "Sell securities to raise interest rates", "Raise the reserve requirement"],
+    answerIndex: 0,
+    explanation: "To stimulate, the Fed eases policy: buying securities injects money into the banking system and pushes interest rates down, encouraging borrowing and spending. Selling securities (B) and raising reserve requirements (C) are tightening moves that restrain the economy — the opposite of stimulus.",
+  },
+  {
+    id: "sie-eco-q5", examSlug: "sie", topicId: "economics", topicName: "Economic Factors", difficulty: 1,
+    stem: "Inflation is measured most commonly by which index?",
+    choices: ["The Dow Jones Industrial Average", "The Consumer Price Index (CPI)", "The federal funds rate"],
+    answerIndex: 1,
+    explanation: "The Consumer Price Index (CPI) tracks the average change in prices of a basket of consumer goods and is the standard inflation gauge. The Dow (A) measures stock prices, and the federal funds rate (C) is an interest rate set in the money market, not an inflation measure.",
+  },
+
+  // Suitability & Recommendations
+  {
+    id: "sie-sui-q1", examSlug: "sie", topicId: "suitability", topicName: "Suitability & Recommendations", difficulty: 1,
+    stem: "Which investment objective best matches a recommendation of high-grade bonds and dividend-paying stocks?",
+    choices: ["Speculation", "Income", "Aggressive growth"],
+    answerIndex: 1,
+    explanation: "High-grade bonds and dividend payers generate steady cash flow, fitting an income objective. Speculation (A) points to options and volatile securities; aggressive growth (C) points to higher-risk equities. Matching products to the stated objective is the core of suitability.",
+  },
+  {
+    id: "sie-sui-q2", examSlug: "sie", topicId: "suitability", topicName: "Suitability & Recommendations", difficulty: 2,
+    stem: "Excessive trading in a customer's account primarily to generate commissions is called:",
+    choices: ["Churning", "Front running", "Breakpoint selling"],
+    answerIndex: 0,
+    explanation: "Churning is excessive trading driven by the rep's commission interest rather than the customer's benefit, and it violates the quantitative-suitability prong. Front running (B) is trading ahead of a customer's order. Breakpoint selling (C) is steering purchases to avoid mutual-fund discounts — both prohibited, but distinct from churning.",
+  },
+  {
+    id: "sie-sui-q3", examSlug: "sie", topicId: "suitability", topicName: "Suitability & Recommendations", difficulty: 2,
+    stem: "The SEC standard requiring broker-dealers to put retail customers' interests first when making recommendations is:",
+    choices: ["The suitability rule", "Regulation Best Interest (Reg BI)", "The prudent investor rule"],
+    answerIndex: 1,
+    explanation: "Regulation Best Interest (Reg BI) raises the bar above mere suitability, requiring broker-dealers to act in the retail customer's best interest with care, disclosure, conflict, and compliance obligations. The suitability rule (A) is the older, lower FINRA standard. The prudent investor rule (C) governs fiduciaries like trustees, not BD recommendations specifically.",
+  },
+  {
+    id: "sie-sui-q4", examSlug: "sie", topicId: "suitability", topicName: "Suitability & Recommendations", difficulty: 2,
+    stem: "Diversification across many stocks reduces which type of risk?",
+    choices: ["Systematic (market) risk", "Unsystematic (company-specific) risk", "Interest-rate risk"],
+    answerIndex: 1,
+    explanation: "Diversification reduces unsystematic risk — the risk tied to a single company or industry — by spreading exposure. It cannot remove systematic (market-wide) risk (A), which affects all securities. Interest-rate risk (C) is a systematic factor that diversification across stocks does not eliminate.",
+  },
+  {
+    id: "sie-sui-q5", examSlug: "sie", topicId: "suitability", topicName: "Suitability & Recommendations", difficulty: 3,
+    stem: "A customer says they want aggressive growth, but their finances show little income, no savings, and an immediate need for the money. The rep should:",
+    choices: ["Follow the stated willingness and recommend aggressive growth", "Let the lower financial ability to take risk govern the recommendation", "Refuse to open the account"],
+    answerIndex: 1,
+    explanation: "When a customer's willingness to take risk conflicts with their financial ability to bear it, the more conservative ability generally governs a suitable recommendation — here, limited income and an immediate need argue against aggressive growth. Simply following stated willingness (A) ignores the ability constraint, and refusing the account (C) is unwarranted.",
+  },
+
+  // Issuing & Underwriting
+  {
+    id: "sie-und-q1", examSlug: "sie", topicId: "underwriting", topicName: "Issuing & Underwriting", difficulty: 1,
+    stem: "The Securities Act of 1933 is primarily concerned with:",
+    choices: ["Secondary-market trading rules", "Disclosure for new securities issues", "Regulating investment advisers"],
+    answerIndex: 1,
+    explanation: "The Securities Act of 1933 governs the issuance of NEW securities and centers on disclosure — registration and a prospectus so investors can make informed decisions. Secondary-market trading (A) is the domain of the Securities Exchange Act of 1934. Adviser regulation (C) falls under the Investment Advisers Act of 1940.",
+  },
+  {
+    id: "sie-und-q2", examSlug: "sie", topicId: "underwriting", topicName: "Issuing & Underwriting", difficulty: 2,
+    stem: "During the cooling-off period, a preliminary prospectus (red herring) may be used to:",
+    choices: ["Accept orders and payment", "Gather non-binding indications of interest", "Confirm final pricing only"],
+    answerIndex: 1,
+    explanation: "During the cooling-off period the red herring circulates to gather non-binding indications of interest; firms may NOT accept orders or money yet. Choice A is prohibited until the registration is effective. The final price (C) isn't set in the preliminary prospectus, which omits final price and is used precisely to gauge demand.",
+  },
+  {
+    id: "sie-und-q3", examSlug: "sie", topicId: "underwriting", topicName: "Issuing & Underwriting", difficulty: 2,
+    stem: "In a firm-commitment underwriting, who bears the risk of unsold shares?",
+    choices: ["The issuer", "The underwriter", "The customers"],
+    answerIndex: 1,
+    explanation: "In a firm commitment the underwriter buys the entire issue and resells it, so the underwriter bears the risk of any shares it cannot sell. In a best-efforts deal the issuer keeps that risk (A) because the underwriter only agrees to try. Customers (C) never bear unsold-inventory risk in an underwriting.",
+  },
+  {
+    id: "sie-und-q4", examSlug: "sie", topicId: "underwriting", topicName: "Issuing & Underwriting", difficulty: 1,
+    stem: "When the SEC declares a registration effective, it means the SEC has:",
+    choices: ["Approved the security as a good investment", "Confirmed the disclosure appears adequate", "Guaranteed against loss"],
+    answerIndex: 1,
+    explanation: "SEC review confirms that required disclosures appear complete; it never approves the merits of a security or guarantees against loss. Claiming SEC 'approval' (A) or any guarantee (C) is a prohibited misrepresentation. The investor still bears all investment risk.",
+  },
+  {
+    id: "sie-und-q5", examSlug: "sie", topicId: "underwriting", topicName: "Issuing & Underwriting", difficulty: 2,
+    stem: "Which is an example of an exempt security under the Securities Act of 1933?",
+    choices: ["A corporate IPO", "A U.S. government or municipal bond", "A new technology stock offering"],
+    answerIndex: 1,
+    explanation: "U.S. government and municipal securities are exempt securities that don't require full 1933 Act registration. A corporate IPO (A) and a new tech stock offering (C) are exactly the kinds of new corporate issues that DO require registration and a prospectus. Exemptions cut cost and time but limit how some securities are sold.",
   },
 ];
 
