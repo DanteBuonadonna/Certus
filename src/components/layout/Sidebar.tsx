@@ -55,6 +55,9 @@ const I = {
   perks: (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.6 13.4L11 3.8a2 2 0 00-1.4-.6H4a1 1 0 00-1 1v5.6c0 .5.2 1 .6 1.4l9.6 9.6a2 2 0 002.8 0l4.6-4.6a2 2 0 000-2.8z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg>
   ),
+  league: (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9H4.5a2.5 2.5 0 010-5H6"/><path d="M18 9h1.5a2.5 2.5 0 000-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0012 0V2z"/></svg>
+  ),
 };
 
 const SECTIONS: { label: string; items: NavItem[] }[] = [
@@ -78,6 +81,7 @@ const SECTIONS: { label: string; items: NavItem[] }[] = [
   {
     label: "Career",
     items: [
+      { label: "Divisions", href: "/league", icon: I.league },
       { label: "Profile", href: "/profile", icon: I.profile },
       { label: "The Ladder", href: "/career", icon: I.ladder },
       { label: "Perks Desk", href: "/shop", icon: I.perks },

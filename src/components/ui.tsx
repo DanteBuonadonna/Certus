@@ -6,6 +6,9 @@
 // ============================================================
 
 import { useEffect, useRef, useState } from "react";
+import { Avatar } from "./avatar";
+import type { AvatarConfig } from "@/lib/profile";
+import { playUnlock } from "@/lib/sound";
 
 // ---- AnimatedNumber ------------------------------------------------------
 // Counts from the previously rendered value to `value` with ease-out.
@@ -371,53 +374,85 @@ export function LevelUpOverlay({
   level,
   rank,
   onDone,
+  avatar,
 }: {
   level: number;
   rank: string;
   onDone: () => void;
+  avatar?: AvatarConfig;
 }) {
+  const raise = level * 50; // Comp "raise" celebrated at each promotion
   useEffect(() => {
-    const t = setTimeout(onDone, 3200);
+    playUnlock();
+    const t = setTimeout(onDone, 4200);
     return () => clearTimeout(t);
   }, [onDone]);
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center"
-      style={{ background: "rgba(13,13,20,0.62)", backdropFilter: "blur(4px)" }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-6"
+      style={{ background: "rgba(13,13,20,0.66)", backdropFilter: "blur(4px)" }}
       onClick={onDone}
     >
       <div
         className="pop-in"
         style={{
           position: "relative",
-          padding: "3rem 3.8rem",
+          padding: "2.4rem 2.8rem 2rem",
           textAlign: "center",
           background: "var(--bg-card)",
           border: "2.5px solid var(--gold)",
           borderRadius: 24,
           boxShadow: "0 6px 0 var(--gold-deep), var(--shadow-lg), var(--glow-gold)",
           overflow: "hidden",
+          maxWidth: 380,
         }}
       >
         <div className="rays" style={{ opacity: 0.7 }} />
-        <CoinShower count={18} />
+        <CoinShower count={22} />
         <div style={{ position: "relative" }}>
-          <GoldBurst count={24} />
+          <GoldBurst count={26} />
           <div className="pill-gold" style={{ marginBottom: 14, fontSize: "0.85rem", padding: "5px 16px" }}>
             PROMOTION
           </div>
+
+          {/* The player, celebrating */}
+          {avatar && (
+            <div className="flex justify-center mb-3">
+              <div style={{ borderRadius: 20, border: "3px solid var(--gold)", boxShadow: "var(--glow-gold)", overflow: "hidden" }}>
+                <Avatar config={avatar} size={104} rounded={17} cheer />
+              </div>
+            </div>
+          )}
+
           <div
             className="font-display"
-            style={{ fontSize: "3.4rem", lineHeight: 1, color: "var(--text-primary)", textShadow: "0 2px 0 rgba(201,162,39,0.3)" }}
+            style={{ fontSize: "2.8rem", lineHeight: 1, color: "var(--text-primary)", textShadow: "0 2px 0 rgba(201,162,39,0.3)" }}
           >
             Level {level}
           </div>
-          <div style={{ fontSize: "1.15rem", color: "var(--gold)", fontWeight: 800, marginTop: 8, letterSpacing: "0.02em" }}>
+          {/* Engraved rank nameplate */}
+          <div
+            style={{
+              display: "inline-block",
+              marginTop: 10,
+              padding: "5px 18px",
+              borderRadius: 8,
+              background: "var(--gold-bg)",
+              border: "1.5px solid var(--gold-border)",
+              fontSize: "1.1rem",
+              color: "var(--gold)",
+              fontWeight: 800,
+              letterSpacing: "0.04em",
+            }}
+          >
             {rank}
           </div>
-          <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", marginTop: 12, fontWeight: 600 }}>
-            Keep compounding.
+          <div className="anim-xp" style={{ fontSize: "0.95rem", color: "var(--ats-green)", marginTop: 14, fontWeight: 800 }}>
+            Comp raise +${raise.toLocaleString()}
+          </div>
+          <div style={{ fontSize: "0.74rem", color: "var(--text-muted)", marginTop: 10, fontWeight: 600 }}>
+            The desk noticed. Keep compounding.
           </div>
         </div>
       </div>

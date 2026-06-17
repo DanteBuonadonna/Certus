@@ -8,6 +8,9 @@ import { Avatar } from "@/components/avatar";
 import { getItem } from "@/lib/economy";
 import QuickStart from "@/components/QuickStart";
 import Tour, { TourStep } from "@/components/Tour";
+import { DailyBonusModal } from "@/components/Rewards";
+import { dailyBonusInfo } from "@/lib/rewards";
+import { grantBonus } from "@/lib/economy";
 import { EXAMS, getExam } from "@/lib/exams";
 import {
   EMPTY_STATE,
@@ -97,6 +100,8 @@ export default function DashboardClient() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [showQuickStart, setShowQuickStart] = useState(false);
   const [showTour, setShowTour] = useState(false);
+  const [showDaily, setShowDaily] = useState(false);
+  const [dailyChecked, setDailyChecked] = useState(false);
 
   // Hydrate from localStorage on mount.
   useEffect(() => {
@@ -127,6 +132,13 @@ export default function DashboardClient() {
     if (loaded) localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   }, [state, loaded]);
 
+  // Offer the daily Market Open bonus once onboarding/tour are out of the way.
+  useEffect(() => {
+    if (!loaded || dailyChecked || showQuickStart || showTour) return;
+    if (dailyBonusInfo().available) setShowDaily(true);
+    setDailyChecked(true);
+  }, [loaded, dailyChecked, showQuickStart, showTour]);
+
   function showToast(msg: string) {
     setToast(msg);
     setTimeout(() => setToast(null), 2600);
@@ -153,6 +165,7 @@ export default function DashboardClient() {
     setState(result.state);
     if (result.leveledUp) {
       const newLevel = levelProgress(result.state.xp).level;
+      grantBonus(newLevel * 50); // celebrate the promotion with a Comp raise
       setLevelUp({ level: newLevel, rank: rankTitle(newLevel) });
     } else if (result.newBadges.length) {
       showToast(`Badge unlocked: ${result.newBadges[0].name}`);
@@ -402,7 +415,15 @@ export default function DashboardClient() {
       )}
 
       {/* Level-up */}
-      {levelUp && <LevelUpOverlay level={levelUp.level} rank={levelUp.rank} onDone={() => setLevelUp(null)} />}
+      {levelUp && <LevelUpOverlay level={levelUp.level} rank={levelUp.rank} avatar={profile?.avatar} onDone={() => setLevelUp(null)} />}
+
+      {/* Daily Market Open bonus */}
+      {showDaily && (
+        <DailyBonusModal
+          onClaim={(amt) => showToast(`+${amt} Comp — Market Open bonus`)}
+          onClose={() => setShowDaily(false)}
+        />
+      )}
     </div>
   );
 }

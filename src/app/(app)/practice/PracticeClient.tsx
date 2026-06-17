@@ -12,6 +12,9 @@ import { useAccess } from "@/lib/useAccess";
 import { UpgradeCard } from "@/components/UpgradeGate";
 import Tutor from "@/components/Tutor";
 import Confetti from "@/components/Confetti";
+import { ChestModal } from "@/components/Rewards";
+import { rollChest, ChestDrop } from "@/lib/rewards";
+import { Coin } from "@/components/Coin";
 import { playCorrect, playWrong, playCombo, playComplete, isMuted, toggleMuted } from "@/lib/sound";
 
 type Phase = "setup" | "quiz" | "results";
@@ -286,6 +289,11 @@ function Results({ exam, questions, answers, maxCombo, runMinutes, onRetry }: { 
   const [streak, setStreak] = useState(0);
   const perfect = pct === 100;
 
+  // Roll for a loot chest once, based on this run's accuracy.
+  const [chest] = useState<ChestDrop | null>(() => rollChest(pct));
+  const [chestOpen, setChestOpen] = useState(false);
+  const [chestDone, setChestDone] = useState(false);
+
   useEffect(() => {
     playComplete();
     setStreak(loadState().currentStreak);
@@ -333,6 +341,25 @@ function Results({ exam, questions, answers, maxCombo, runMinutes, onRetry }: { 
             {streak}-day streak alive!
           </span>
         </div>
+      )}
+
+      {/* Surprise loot chest */}
+      {chest && !chestDone && (
+        <button
+          onClick={() => setChestOpen(true)}
+          className="card-i w-full p-4 mb-7 flex items-center gap-3 wiggle"
+          style={{ borderColor: "var(--gold)", borderWidth: 2 }}
+        >
+          <span style={{ fontSize: 30 }}>🎁</span>
+          <div className="flex-1 text-left">
+            <div className="text-sm font-extrabold" style={{ color: "var(--text-primary)" }}>A chest dropped!</div>
+            <div className="text-xs font-semibold" style={{ color: "var(--text-secondary)" }}>Tap to open your bonus Comp</div>
+          </div>
+          <Coin size={22} spin />
+        </button>
+      )}
+      {chestOpen && chest && (
+        <ChestModal drop={chest} onClose={() => { setChestOpen(false); setChestDone(true); }} />
       )}
 
       {wrong.length > 0 && (
