@@ -188,7 +188,6 @@ function Reader({ chapter, onBack }: { chapter: Chapter; onBack: () => void }) {
   const [scrollPct, setScrollPct] = useState(0);
   const [activeSection, setActiveSection] = useState(0);
   const [completed, setCompleted] = useState(false);
-  const [justEarned, setJustEarned] = useState<number | null>(null);
   const articleRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -222,9 +221,8 @@ function Reader({ chapter, onBack }: { chapter: Chapter; onBack: () => void }) {
   function complete() {
     if (completed) return;
     markChapterRead(chapter.examSlug, chapter.id);
-    const xp = recordReadingXp(chapter.examSlug, chapter.readingMinutes, chapter.topicId);
+    recordReadingXp(chapter.examSlug, chapter.readingMinutes, chapter.topicId); // streak/pacing only — no XP
     setCompleted(true);
-    setJustEarned(xp);
   }
 
   function jumpTo(i: number) {
@@ -362,7 +360,7 @@ function Reader({ chapter, onBack }: { chapter: Chapter; onBack: () => void }) {
             transition: "all 0.4s ease",
           }}
         >
-          {justEarned !== null && <GoldBurst count={20} />}
+          {completed && <GoldBurst count={20} />}
           {completed ? (
             <>
               <div className="flex items-center justify-center gap-2 mb-1" style={{ color: "var(--gold)" }}>
@@ -370,16 +368,16 @@ function Reader({ chapter, onBack }: { chapter: Chapter; onBack: () => void }) {
                 <span className="font-display text-lg">Chapter complete</span>
               </div>
               <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
-                {justEarned !== null ? `+${justEarned} XP banked. ` : ""}Now make it stick — drill this topic.
+                Logged toward your readiness rating. Now make it stick — drill this topic to earn XP.
               </p>
             </>
           ) : (
             <>
               <p className="text-sm mb-3" style={{ color: "var(--text-secondary)" }}>
-                Done reading? Bank the XP and log this chapter toward your readiness rating.
+                Done reading? Mark it complete to log it toward your readiness rating. (XP is earned in Practice — by getting questions right.)
               </p>
               <button className="btn-primary" onClick={complete}>
-                Mark chapter complete · +{chapter.readingMinutes * 2} XP
+                Mark chapter complete
               </button>
             </>
           )}
