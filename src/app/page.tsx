@@ -2,6 +2,8 @@ import Link from "next/link";
 import { BRAND } from "@/lib/brand";
 import { EXAMS, difficultyLabel, totalHours } from "@/lib/exams";
 import { examsWithContent } from "@/content";
+import { statHeadline } from "@/lib/contentStats";
+import { liveTestimonials, hasRealTestimonials } from "@/lib/testimonials";
 import { LogoMark } from "@/components/Logo";
 
 const RANKS = ["Intern", "Analyst", "Associate", "VP", "Director", "MD", "Partner"];
@@ -12,6 +14,8 @@ export default function LandingPage() {
   const liveExams = EXAMS.filter((e) => live.has(e.slug));
   const featured = liveExams.slice(0, 6);
   const ticker = [...EXAMS, ...EXAMS];
+  const stats = statHeadline();
+  const testimonials = liveTestimonials();
 
   return (
     <div style={{ background: "var(--bg)", minHeight: "100vh", overflowX: "hidden" }}>
@@ -121,6 +125,26 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ---------- By the numbers (live depth proof) ---------- */}
+      <section className="px-6 py-14" style={{ borderBottom: "0.5px solid var(--border)" }}>
+        <p className="text-center text-xs uppercase tracking-wider mb-8" style={{ color: "var(--text-muted)" }}>
+          A real curriculum — not thin summaries
+        </p>
+        <div className="max-w-3xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
+          {[
+            { n: stats.hours, l: "hours of textbook-depth readings" },
+            { n: stats.questions, l: "trap-aware practice questions" },
+            { n: stats.lessons, l: "lessons across the library" },
+            { n: `${stats.exams}`, l: "exam tracks, one subscription" },
+          ].map((x) => (
+            <div key={x.l}>
+              <div className="font-display text-3xl sm:text-4xl mb-1" style={{ color: "var(--primary)" }}>{x.n}</div>
+              <div className="text-xs" style={{ color: "var(--text-secondary)", lineHeight: 1.4 }}>{x.l}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* ---------- Rank ladder ---------- */}
       <section className="px-6 py-20" style={{ borderBottom: "0.5px solid var(--border)" }}>
         <div className="max-w-3xl mx-auto text-center">
@@ -222,6 +246,26 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      {/* ---------- Testimonials (only render once REAL quotes exist) ---------- */}
+      {hasRealTestimonials() && (
+        <section className="py-20 px-6" style={{ borderBottom: "0.5px solid var(--border)" }}>
+          <h2 className="text-center font-display text-2xl mb-10" style={{ color: "var(--text-primary)" }}>
+            What early students say
+          </h2>
+          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5">
+            {testimonials.map((t, i) => (
+              <div key={i} className="card p-6 flex flex-col" style={{ border: "0.5px solid var(--border)" }}>
+                <p className="text-sm mb-4 flex-1" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>
+                  &ldquo;{t.quote}&rdquo;
+                </p>
+                <div className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>{t.name}</div>
+                <div className="text-xs" style={{ color: "var(--text-muted)" }}>{t.exam}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* ---------- CTA ---------- */}
       <section className="relative py-24 px-6 text-center" style={{ overflow: "hidden" }}>

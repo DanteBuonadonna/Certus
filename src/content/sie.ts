@@ -6,6 +6,7 @@
 // ============================================================
 
 import { Chapter, Question, ExamContent } from "./types";
+import { sieDeepChapters, sieDeepQuestions } from "./sie-deep";
 
 const chapters: Chapter[] = [
   // 1. CAPITAL MARKETS
@@ -1320,6 +1321,6 @@ const questions: Question[] = [
 
 export const sieContent: ExamContent = {
   examSlug: "sie",
-  chapters,
-  questions,
+  chapters: [...sieDeepChapters, ...chapters],
+  questions: [...sieDeepQuestions, ...questions],
 };

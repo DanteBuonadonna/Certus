@@ -7,6 +7,7 @@
 // ============================================================
 
 import { Chapter, Question, ExamContent } from "./types";
+import { s66DeepChapters, s66DeepQuestions } from "./series66-deep";
 
 const chapters: Chapter[] = [
   // 1. REGULATION OF INVESTMENT ADVISERS
@@ -1243,6 +1244,6 @@ const questions: Question[] = [
 
 export const series66Content: ExamContent = {
   examSlug: "series-66",
-  chapters,
-  questions,
+  chapters: [...s66DeepChapters, ...chapters],
+  questions: [...s66DeepQuestions, ...questions],
 };

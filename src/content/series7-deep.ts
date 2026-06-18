@@ -398,6 +398,253 @@ export const s7DeepChapters: Chapter[] = [
       "Fixed annuities are guaranteed insurance products (not securities); variable annuities use a separate account, put investment risk on the holder, and ARE securities.",
     ],
   },
+
+  {
+    id: "s7-equity-deep",
+    examSlug: "series-7",
+    topicId: "equity",
+    topicName: "Equity Securities",
+    title: "Equity Securities: Common, Preferred, Rights, and Warrants",
+    readingMinutes: 56,
+    summary:
+      "The ownership side of the capital markets — common stock and its voting and residual claims, preferred stock and its fixed-dividend priority (including cumulative preferred), and the equity-linked instruments rights and warrants, plus dividend mechanics.",
+    intro:
+      "Equity securities represent OWNERSHIP in a corporation, and the Series 7 tests the rights that come with each type. COMMON stock carries voting and a residual claim; PREFERRED stock trades those for a fixed-dividend priority; and RIGHTS and WARRANTS give the ability to buy stock on set terms. This reading covers each, the key preferred-stock features (especially cumulative), and the dividend dates that determine who gets paid.",
+    sections: [
+      {
+        heading: "1. Common stock",
+        blocks: [
+          { kind: "p", text: "COMMON STOCK represents residual ownership. Holders get VOTING rights — electing the board and approving major actions, by either statutory voting (one vote per share per issue) or CUMULATIVE voting (votes can be concentrated, helping minority holders). They have a RESIDUAL claim: in liquidation, common shareholders are paid LAST, after creditors and preferred holders. They benefit from DIVIDENDS (declared at the board's discretion — never guaranteed) and CAPITAL APPRECIATION, and enjoy LIMITED LIABILITY (the most they can lose is their investment). Many also have PREEMPTIVE rights to maintain their proportional ownership when new shares are issued." },
+        ],
+      },
+      {
+        heading: "2. Preferred stock",
+        blocks: [
+          { kind: "p", text: "PREFERRED STOCK is equity with bond-like features: it pays a FIXED DIVIDEND (stated as a percentage of par, usually $100 par, or a dollar amount) and has PRIORITY over common stock for both dividends and liquidation proceeds — but it is generally NONVOTING and does not share in the company's growth. Several variations are tested. CUMULATIVE preferred accrues any skipped dividends as dividends 'in arrears' that must be paid in full before common shareholders receive anything. PARTICIPATING preferred can receive extra dividends beyond the stated rate. CONVERTIBLE preferred can be exchanged for common shares. CALLABLE preferred can be redeemed by the issuer. ADJUSTABLE-RATE preferred has a dividend that resets with a benchmark." },
+          { kind: "example", example: { title: "Cumulative preferred in arrears", prompt: "A company has $6 cumulative preferred stock and skips dividends for two years, then resumes. How much must preferred holders receive before common shareholders get any dividend in year 3?", steps: ["Cumulative preferred accrues skipped dividends in arrears.", "Two years missed = 2 × $6 = $12 in arrears per share.", "Plus the current year's $6.", "Total = $12 + $6 = $18 per share must be paid to preferred first."], answer: "$18 per share — the $12 in arrears plus the current $6 — must go to cumulative preferred before any common dividend. With noncumulative preferred, only the current $6 would be required." } },
+        ],
+      },
+      {
+        heading: "3. Rights and warrants",
+        blocks: [
+          { kind: "p", text: "RIGHTS and WARRANTS both let the holder buy stock at a set price, but they differ sharply. A RIGHT (preemptive right) is SHORT-TERM (weeks), issued to EXISTING shareholders, with a subscription price BELOW the current market price, letting holders maintain their ownership percentage in a new offering (typically one right per share owned). A WARRANT is LONG-TERM (years), with an exercise price ABOVE the market price when issued, and is often attached to a bond or preferred stock as a 'sweetener' to make the offering more attractive. Rights have immediate intrinsic value (price below market); warrants are a longer-term bet that the stock will rise above the exercise price." },
+          { kind: "table", table: { caption: "Rights vs warrants", headers: ["Feature", "Rights", "Warrants"], rows: [["Term", "Short (weeks)", "Long (years)"], ["Exercise price vs market", "Below market", "Above market at issue"], ["Issued to", "Existing shareholders", "Often attached to bonds/preferred"], ["Purpose", "Preserve proportional ownership", "Sweetener to aid an offering"]] } },
+        ],
+      },
+      {
+        heading: "4. Dividends, ADRs, and synthesis",
+        blocks: [
+          { kind: "p", text: "DIVIDENDS follow a calendar: the DECLARATION DATE (the board declares), the EX-DIVIDEND DATE (the cutoff — buyers on or after this date do NOT receive the dividend), the RECORD DATE (holders of record are paid), and the PAYMENT DATE. To receive a dividend, an investor must own the stock BEFORE the ex-dividend date; the stock price typically drops by the dividend amount on the ex-date. Dividends may be cash or additional STOCK; a STOCK SPLIT increases shares and lowers price proportionally without changing total value. AMERICAN DEPOSITARY RECEIPTS (ADRs) let US investors hold foreign companies' shares conveniently, trading in dollars on US markets. The chapter's core: common stock = voting + residual claim + growth; preferred stock = fixed-dividend priority, generally nonvoting, with cumulative preferred accruing arrears; rights are short-term, below-market, for existing holders, while warrants are long-term, above-market sweeteners; and you must buy before the ex-dividend date to receive a dividend. Over-learn the cumulative-preferred arrears rule and the rights-vs-warrants distinction." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Common stock", def: "Residual ownership with voting rights, dividends (discretionary), and limited liability." },
+      { term: "Cumulative voting", def: "Lets shareholders concentrate votes, helping minority holders elect directors." },
+      { term: "Residual claim", def: "Common holders are paid last in liquidation, after creditors and preferred." },
+      { term: "Preemptive right", def: "Right to buy new shares to maintain proportional ownership." },
+      { term: "Preferred stock", def: "Fixed dividend with priority over common; generally nonvoting; no growth participation." },
+      { term: "Cumulative preferred", def: "Skipped dividends accrue 'in arrears' and must be paid before common dividends." },
+      { term: "Participating/convertible/callable preferred", def: "Extra dividends / convertible to common / redeemable by issuer." },
+      { term: "Right (subscription right)", def: "Short-term; subscription price below market; issued to existing shareholders." },
+      { term: "Warrant", def: "Long-term; exercise price above market at issue; often a bond/preferred sweetener." },
+      { term: "Ex-dividend date", def: "Cutoff; buyers on or after do not receive the dividend; price drops by the dividend." },
+      { term: "American Depositary Receipt (ADR)", def: "A US-traded, dollar-denominated claim on foreign company shares." },
+    ],
+    takeaways: [
+      "Common stock carries voting rights and a residual claim (paid last in liquidation), with discretionary dividends, capital appreciation, and limited liability.",
+      "Preferred stock pays a fixed dividend with priority over common for dividends and liquidation but is generally nonvoting and doesn't share in growth.",
+      "Cumulative preferred accrues skipped dividends in arrears, which must be paid in full before common shareholders receive any dividend.",
+      "Rights are short-term, issued to existing shareholders at a subscription price below market to preserve proportional ownership.",
+      "Warrants are long-term, with an exercise price above market at issuance, often attached to bonds as a sweetener.",
+      "To receive a dividend, buy before the ex-dividend date; the price typically falls by the dividend amount on the ex-date.",
+    ],
+  },
+
+  {
+    id: "s7-underwriting-deep",
+    examSlug: "series-7",
+    topicId: "underwriting",
+    topicName: "Underwriting & Regulation",
+    title: "Securities Regulation: The 1933 and 1934 Acts and Underwriting",
+    readingMinutes: 58,
+    summary:
+      "How securities reach the market and stay regulated — the Securities Act of 1933 governing new issues (registration, the prospectus, the cooling-off period), the underwriting commitments, the Securities Exchange Act of 1934 governing the secondary market and the SEC, and the key exemptions.",
+    intro:
+      "Two federal laws frame the securities industry. The SECURITIES ACT OF 1933 regulates the PRIMARY market — new issues sold to the public — requiring registration and disclosure. The SECURITIES EXCHANGE ACT OF 1934 regulates the SECONDARY market and created the SEC. Between them sit the UNDERWRITING process that brings issues to market and the EXEMPTIONS that let some securities and transactions skip registration. The Series 7 tests these distinctions precisely.",
+    sections: [
+      {
+        heading: "1. The Securities Act of 1933",
+        blocks: [
+          { kind: "p", text: "The SECURITIES ACT OF 1933 (the 'Paper Act' or 'Prospectus Act') governs the PRIMARY market — the issuance of NEW securities — to ensure full and fair DISCLOSURE. An issuer must file a REGISTRATION STATEMENT with the SEC and deliver a PROSPECTUS to buyers. After filing, a COOLING-OFF PERIOD (a minimum of 20 days) begins, during which the security can't be sold but indications of interest can be gathered using a PRELIMINARY PROSPECTUS (the 'red herring'); a TOMBSTONE advertisement may announce the upcoming offering. SEC registration is NOT approval or endorsement — it only means the required disclosures were made. The Act's antifraud provisions prohibit misrepresentation in the sale of new securities." },
+        ],
+      },
+      {
+        heading: "2. Underwriting commitments",
+        blocks: [
+          { kind: "p", text: "Issuers sell new securities to the public through UNDERWRITERS (investment banks), usually organized into a SYNDICATE to spread risk. The commitment type defines who bears the risk. In a FIRM COMMITMENT, the underwriter BUYS the entire issue from the issuer and resells it, bearing the risk of any unsold shares — the issuer is guaranteed its proceeds. In a BEST EFFORTS arrangement, the underwriter acts only as an AGENT, selling what it can with NO guarantee, and unsold shares return to the issuer. Variations include ALL-OR-NONE (the deal is canceled unless the entire issue sells) and STANDBY (an underwriter agrees to buy shares not taken up in a rights offering). The underwriter's compensation is the SPREAD between the price paid to the issuer and the public offering price." },
+          { kind: "table", table: { caption: "Underwriting commitments", headers: ["Type", "Underwriter's role", "Who bears unsold-share risk"], rows: [["Firm commitment", "Buys the whole issue (principal)", "Underwriter"], ["Best efforts", "Sells as agent", "Issuer"], ["All-or-none", "Agent; deal voided if not fully sold", "Issuer"]] } },
+        ],
+      },
+      {
+        heading: "3. The Securities Exchange Act of 1934",
+        blocks: [
+          { kind: "p", text: "The SECURITIES EXCHANGE ACT OF 1934 (the 'People Act') regulates the SECONDARY market — trading among investors after issuance — and created the SECURITIES AND EXCHANGE COMMISSION (SEC) as the industry's federal regulator. It governs the registration and conduct of EXCHANGES, BROKER-DEALERS, and securities professionals; mandates ongoing ISSUER REPORTING (annual 10-K, quarterly 10-Q, current 8-K); prohibits INSIDER TRADING and market manipulation; and sets rules on margin (via the Federal Reserve's Regulation T), short sales, and proxies. Where the 1933 Act is about getting securities issued with disclosure, the 1934 Act is about policing the markets where they trade." },
+        ],
+      },
+      {
+        heading: "4. Exemptions and synthesis",
+        blocks: [
+          { kind: "p", text: "Some securities and transactions are EXEMPT from 1933 Act registration. EXEMPT SECURITIES include US government and agency securities, municipal securities, and bank issues. EXEMPT TRANSACTIONS include private placements under REGULATION D (sales to ACCREDITED INVESTORS — those meeting income or net-worth thresholds — and a limited number of others, without a public offering), REGULATION A (smaller offerings with lighter requirements), and intrastate offerings. RULE 144 governs the resale of RESTRICTED stock (acquired in a private placement) and CONTROL stock (held by insiders/affiliates), imposing holding-period and volume limits. The chapter's core: the 1933 Act regulates new issues (registration, prospectus, 20-day cooling-off, red herring) and registration is disclosure, not approval; underwriting is firm commitment (underwriter bears risk) or best efforts (issuer bears risk); the 1934 Act regulates the secondary market and created the SEC; and exemptions cover government/muni securities and private placements (Reg D to accredited investors), with Rule 144 limiting restricted/control-stock resales. Over-learn the 1933-vs-1934 split and firm-commitment-vs-best-efforts." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Securities Act of 1933", def: "Regulates the primary market (new issues): registration, prospectus, disclosure." },
+      { term: "Registration statement / prospectus", def: "SEC filing and the disclosure document delivered to buyers." },
+      { term: "Cooling-off period", def: "Minimum 20 days after filing; no sales, but indications of interest allowed." },
+      { term: "Red herring", def: "Preliminary prospectus used during the cooling-off period." },
+      { term: "Registration is not approval", def: "SEC registration means disclosures were made, not endorsement of the security." },
+      { term: "Firm commitment", def: "Underwriter buys the whole issue and bears unsold-share risk." },
+      { term: "Best efforts", def: "Underwriter sells as agent with no guarantee; issuer bears the risk." },
+      { term: "Spread", def: "Underwriter's compensation: public price minus price paid to the issuer." },
+      { term: "Securities Exchange Act of 1934", def: "Regulates the secondary market; created the SEC; governs exchanges, broker-dealers, reporting, insider trading." },
+      { term: "Exempt securities", def: "Government, agency, municipal, and bank securities exempt from 1933 registration." },
+      { term: "Regulation D / accredited investor", def: "Private placements to accredited investors without a public offering." },
+      { term: "Rule 144", def: "Limits resale of restricted and control stock (holding period and volume)." },
+    ],
+    takeaways: [
+      "The Securities Act of 1933 regulates new issues in the primary market — registration, a prospectus, and a minimum 20-day cooling-off period (using a red herring).",
+      "SEC registration means required disclosures were made; it is NOT approval or endorsement of the security.",
+      "In a firm commitment the underwriter buys the whole issue and bears unsold-share risk; in best efforts it sells as agent and the issuer bears the risk.",
+      "The Securities Exchange Act of 1934 regulates the secondary market, created the SEC, and governs exchanges, broker-dealers, issuer reporting, and insider trading.",
+      "Exempt securities include government, agency, and municipal issues; exempt transactions include Regulation D private placements to accredited investors.",
+      "Rule 144 limits the resale of restricted (privately acquired) and control (insider-held) stock through holding-period and volume restrictions.",
+    ],
+  },
+
+  {
+    id: "s7-govt-deep",
+    examSlug: "series-7",
+    topicId: "govt",
+    topicName: "Government & Agency Securities",
+    title: "U.S. Government and Agency Securities",
+    readingMinutes: 54,
+    summary:
+      "The safest corner of the bond market — Treasury bills, notes, bonds, TIPS, and STRIPS, their tax treatment, and the agency and mortgage-backed securities (including Ginnie Mae and CMOs) with their prepayment risk.",
+    intro:
+      "U.S. government securities are the benchmark for safety, backed by the full faith and credit of the Treasury, and the Series 7 tests their types, quoting, and taxation. Alongside them sit AGENCY and MORTGAGE-BACKED securities, which add yield but introduce PREPAYMENT risk. This reading covers the Treasury lineup, the special inflation and zero-coupon variants, and the agency/MBS world including Ginnie Mae and CMOs.",
+    sections: [
+      {
+        heading: "1. Treasury securities",
+        blocks: [
+          { kind: "p", text: "The U.S. Treasury issues several instruments differing by maturity and structure. TREASURY BILLS (T-bills) mature in one year or less, pay no coupon, and are issued at a DISCOUNT (the return is the difference between the discounted purchase price and face value). TREASURY NOTES (T-notes) mature in 2 to 10 years and pay semiannual interest. TREASURY BONDS (T-bonds) mature in more than 10 years (up to 30) and also pay semiannual interest. All are backed by the FULL FAITH AND CREDIT of the U.S. government — essentially free of default risk — and are quoted in 32nds of a point." },
+        ],
+      },
+      {
+        heading: "2. TIPS and STRIPS",
+        blocks: [
+          { kind: "p", text: "Two specialized Treasuries are tested. TIPS (Treasury Inflation-Protected Securities) protect against inflation: the PRINCIPAL is adjusted up (or down) with the Consumer Price Index, and the fixed coupon rate is applied to the adjusted principal, so both the interest payment and the final principal keep pace with inflation. STRIPS (Separate Trading of Registered Interest and Principal Securities) are ZERO-COUPON Treasuries created by 'stripping' a bond's coupons and principal into separate zero-coupon pieces, each bought at a discount and maturing at face value — useful for locking in a known future amount with no reinvestment risk (though holders owe tax on the annual 'phantom' accreted interest)." },
+          { kind: "example", example: { title: "TIPS principal adjustment", prompt: "An investor holds $10,000 of TIPS with a 2% coupon. Over a year, inflation (CPI) rises 3%. What happens to the principal and the next interest payment?", steps: ["Principal adjusts up by inflation: $10,000 × 1.03 = $10,300.", "The 2% coupon applies to the ADJUSTED principal.", "Annual interest ≈ 2% × $10,300 = $206 (vs $200 before adjustment)."], answer: "Principal rises to $10,300 and the interest payment rises with it (~$206), so the investor's purchasing power is protected. At maturity, the investor receives the inflation-adjusted principal." } },
+        ],
+      },
+      {
+        heading: "3. Agency and mortgage-backed securities",
+        blocks: [
+          { kind: "p", text: "AGENCY securities are issued by government-sponsored enterprises and federal agencies. FANNIE MAE (FNMA) and FREDDIE MAC (FHLMC) are government-sponsored enterprises (GSEs) whose securities are NOT backed by the full faith and credit of the U.S. government. GINNIE MAE (GNMA) is the exception — a government agency whose mortgage-backed securities ARE backed by the full faith and credit of the U.S. government. Many agency securities are MORTGAGE-BACKED SECURITIES (MBS): pools of mortgages whose PASS-THROUGH payments of principal and interest flow to investors. Their distinctive risk is PREPAYMENT — when interest rates fall, homeowners refinance and pay off early, returning principal to investors at exactly the wrong time (to reinvest at lower rates)." },
+        ],
+      },
+      {
+        heading: "4. CMOs, taxation, and synthesis",
+        blocks: [
+          { kind: "p", text: "COLLATERALIZED MORTGAGE OBLIGATIONS (CMOs) repackage mortgage cash flows into TRANCHES with different maturities and prepayment exposures, letting investors choose a risk/return profile; they are complex products with suitability considerations. On TAXATION: interest on Treasury securities is subject to FEDERAL income tax but EXEMPT from state and local tax — the mirror image of municipal bonds (federal-exempt, sometimes state-exempt). Agency and MBS interest is generally fully taxable at all levels (with some exceptions). The chapter's core: Treasuries (bills at a discount, notes/bonds with semiannual coupons, TIPS inflation-adjusted, STRIPS zero-coupon) are full-faith-and-credit and state-tax-exempt; agency/MBS add yield and prepayment risk, with Ginnie Mae alone carrying the government's full faith and credit, and CMOs slicing mortgage cash flows into tranches. Over-learn the Treasury types, the TIPS mechanism, and the Treasury state-tax exemption." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Treasury bill (T-bill)", def: "Matures ≤1 year; no coupon; issued at a discount." },
+      { term: "Treasury note (T-note)", def: "2–10 year maturity; semiannual interest." },
+      { term: "Treasury bond (T-bond)", def: "Over 10 years (up to 30); semiannual interest." },
+      { term: "Full faith and credit", def: "Backed by the U.S. government; effectively default-free." },
+      { term: "TIPS", def: "Principal adjusts with CPI; the coupon applies to adjusted principal — inflation protection." },
+      { term: "STRIPS", def: "Zero-coupon Treasuries; bought at a discount, mature at face; phantom-income tax annually." },
+      { term: "Fannie Mae / Freddie Mac", def: "GSEs; securities NOT backed by U.S. full faith and credit." },
+      { term: "Ginnie Mae (GNMA)", def: "Government agency; MBS ARE backed by U.S. full faith and credit." },
+      { term: "Mortgage-backed security (MBS)", def: "Pass-through of pooled mortgage principal and interest; carries prepayment risk." },
+      { term: "Prepayment risk", def: "Falling rates spur refinancing, returning principal early to reinvest at lower rates." },
+      { term: "Collateralized mortgage obligation (CMO)", def: "Mortgage cash flows split into tranches with differing maturities/prepayment exposure." },
+      { term: "Treasury taxation", def: "Interest is federally taxable but exempt from state and local tax." },
+    ],
+    takeaways: [
+      "Treasury bills mature in a year or less and are issued at a discount; notes (2–10 yr) and bonds (>10 yr) pay semiannual interest; all carry full faith and credit.",
+      "TIPS adjust principal with the CPI and apply the coupon to the adjusted principal, protecting purchasing power; STRIPS are zero-coupon Treasuries bought at a discount.",
+      "Treasury interest is subject to federal tax but exempt from state and local tax (the mirror image of municipal bonds).",
+      "Fannie Mae and Freddie Mac are GSEs NOT backed by U.S. full faith and credit; Ginnie Mae alone carries the government's full faith and credit.",
+      "Mortgage-backed securities pass pooled mortgage payments to investors and carry prepayment risk — refinancing returns principal early when rates fall.",
+      "CMOs slice mortgage cash flows into tranches with different maturities and prepayment profiles, a complex product with suitability considerations.",
+    ],
+  },
+
+  {
+    id: "s7-dpp-deep",
+    examSlug: "series-7",
+    topicId: "dpp",
+    topicName: "Direct Participation Programs",
+    title: "Direct Participation Programs and Limited Partnerships",
+    readingMinutes: 52,
+    summary:
+      "Pass-through investment vehicles — how limited partnerships flow income, gains, losses, and deductions directly to investors, the roles and liability of general versus limited partners, the passive activity rules, and why economic viability must come before tax benefits.",
+    intro:
+      "DIRECT PARTICIPATION PROGRAMS (DPPs) are limited partnerships that pass their tax items directly through to investors rather than being taxed at the entity level. The Series 7 tests the partnership structure, the sharply different liability of general and limited partners, the PASSIVE activity rules that limit loss deductions, and the principle that a DPP must make economic sense on its own — not merely as a tax shelter.",
+    sections: [
+      {
+        heading: "1. The pass-through structure",
+        blocks: [
+          { kind: "p", text: "A DPP is organized as a LIMITED PARTNERSHIP that does NOT pay tax at the entity level. Instead, all of its tax items — income, gains, losses, deductions, and credits — FLOW THROUGH to the individual investors (the limited partners), who report them on their own returns. This single layer of taxation (versus a corporation's double taxation) and the ability to pass through deductions historically made DPPs attractive. Common types are REAL ESTATE partnerships, OIL AND GAS programs (exploratory or income), and EQUIPMENT LEASING programs, each with different income and risk profiles." },
+        ],
+      },
+      {
+        heading: "2. General vs limited partners",
+        blocks: [
+          { kind: "p", text: "A limited partnership has two kinds of partner with very different roles. The GENERAL PARTNER (GP) MANAGES the program, makes the decisions, and has UNLIMITED personal liability for the partnership's debts — bearing the operational responsibility and risk. The LIMITED PARTNERS (LPs) are PASSIVE investors who supply capital; their liability is LIMITED to their investment (plus any recourse debt they've agreed to), and they may NOT take an active management role without jeopardizing that limited-liability protection. The partnership agreement and a subscription process (with suitability standards, since DPPs are illiquid and often high-risk) govern admission of limited partners." },
+          { kind: "callout", label: "Liability split", body: "GENERAL partner: manages and has UNLIMITED liability. LIMITED partner: passive, liability LIMITED to the investment. A limited partner who starts managing the business can lose the limited-liability shield." },
+        ],
+      },
+      {
+        heading: "3. Passive activity rules",
+        blocks: [
+          { kind: "p", text: "Because DPP interests are passive, their tax losses are PASSIVE LOSSES, and the IRS restricts how they can be used: PASSIVE losses can generally offset only PASSIVE income — NOT salary (earned income) or portfolio income (interest, dividends, capital gains). Unused passive losses are suspended and carried forward to offset future passive income or are released when the investor disposes of the interest. This rule sharply limited the tax-shelter appeal that DPPs once had. An investor's ability to deduct losses is also capped by their BASIS, which includes their capital contribution and their share of certain (recourse) partnership debt." },
+        ],
+      },
+      {
+        heading: "4. Evaluating a DPP and synthesis",
+        blocks: [
+          { kind: "p", text: "A core suitability principle: a DPP must be evaluated FIRST on its ECONOMIC viability — whether the underlying business can generate real returns — and only THEN on its tax benefits. An investment that only 'works' because of tax write-offs is a poor one; the tax tail should not wag the economic dog. DPPs are also ILLIQUID (no active secondary market), long-term, and often high-risk, so they suit only investors who can bear illiquidity and loss. The chapter's core: DPPs are limited partnerships that pass income, gains, losses, and deductions through to investors (single taxation); the general partner manages with unlimited liability while limited partners are passive with liability capped at their investment; passive losses can offset only passive income; and economic viability must precede tax benefits. Over-learn the GP/LP liability split and the passive-loss limitation." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Direct participation program (DPP)", def: "A limited partnership that passes tax items through to investors; no entity-level tax." },
+      { term: "Flow-through (pass-through)", def: "Income, gains, losses, deductions, and credits reported by the investors directly." },
+      { term: "Types of DPP", def: "Real estate, oil and gas, and equipment leasing partnerships." },
+      { term: "General partner (GP)", def: "Manages the program; has unlimited personal liability." },
+      { term: "Limited partner (LP)", def: "Passive investor; liability limited to the investment (plus recourse debt)." },
+      { term: "Loss of limited liability", def: "An LP who actively manages can forfeit the limited-liability shield." },
+      { term: "Passive loss", def: "DPP losses that can offset only passive income, not salary or portfolio income." },
+      { term: "Suspended passive losses", def: "Carried forward to future passive income or released on disposition." },
+      { term: "Basis limitation", def: "Loss deductions capped by capital contributed plus the share of recourse debt." },
+      { term: "Economic viability first", def: "Evaluate the underlying business before any tax benefits." },
+      { term: "Illiquidity", def: "DPPs have no active secondary market and are long-term, high-risk investments." },
+    ],
+    takeaways: [
+      "A DPP is a limited partnership that passes income, gains, losses, deductions, and credits through to investors, avoiding entity-level (double) taxation.",
+      "The general partner manages the program and has unlimited personal liability; limited partners are passive with liability limited to their investment.",
+      "A limited partner who takes an active management role can lose the limited-liability protection.",
+      "Passive losses from a DPP can offset only passive income — not salary or portfolio income; unused losses are suspended and carried forward.",
+      "Loss deductions are also capped by the investor's basis (contribution plus share of recourse debt).",
+      "Evaluate a DPP on economic viability FIRST and tax benefits second; DPPs are illiquid, long-term, and suited only to investors who can bear the risk.",
+    ],
+  },
 ];
 
 export const s7DeepQuestions: Question[] = [
@@ -657,5 +904,177 @@ export const s7DeepQuestions: Question[] = [
     choices: ["Guarantees a fixed rate of return", "Invests in a separate account, placing investment risk on the contract holder, and is a security", "Is not subject to securities regulation", "Has no surrender charges"],
     answerIndex: 1,
     explanation: "A variable annuity invests in a separate account of subaccounts; the contract holder bears the investment risk and returns vary, so it IS a security requiring a prospectus. A fixed annuity guarantees a rate (the insurer bears the risk) and is an insurance product, not a security.",
+  },
+
+  {
+    id: "s7eq-d1", examSlug: "series-7", topicId: "equity", topicName: "Equity Securities", difficulty: 1,
+    stem: "In a corporate liquidation, common stockholders are paid:",
+    choices: ["First, before all creditors", "After secured creditors but before bondholders", "Last, after creditors and preferred shareholders", "At the same time as preferred shareholders"],
+    answerIndex: 2,
+    explanation: "Common stockholders have a residual claim — they are paid last, after creditors and preferred shareholders. In exchange, they hold voting rights and benefit most from growth.",
+  },
+  {
+    id: "s7eq-d2", examSlug: "series-7", topicId: "equity", topicName: "Equity Securities", difficulty: 3,
+    stem: "A company has $6 cumulative preferred and skipped dividends for two years. Before common shareholders receive any dividend in year 3, preferred holders must receive:",
+    choices: ["$6", "$12", "$18", "$0"],
+    answerIndex: 2,
+    explanation: "Cumulative preferred accrues skipped dividends in arrears: 2 years × $6 = $12, plus the current $6 = $18 per share must be paid before any common dividend. Noncumulative preferred would require only the current $6.",
+  },
+  {
+    id: "s7eq-d3", examSlug: "series-7", topicId: "equity", topicName: "Equity Securities", difficulty: 2,
+    stem: "Compared with a warrant, a stock right typically has:",
+    choices: ["A longer term and an exercise price above market", "A short term and a subscription price below market", "No expiration", "Voting rights"],
+    answerIndex: 1,
+    explanation: "Rights are short-term (weeks), issued to existing shareholders at a subscription price below the current market price. Warrants are long-term (years) with an exercise price above market at issuance, often attached to bonds as sweeteners.",
+  },
+  {
+    id: "s7eq-d4", examSlug: "series-7", topicId: "equity", topicName: "Equity Securities", difficulty: 2,
+    stem: "To be entitled to a declared dividend, an investor must purchase the stock:",
+    choices: ["On the ex-dividend date", "Before the ex-dividend date", "On the payment date", "On the record date"],
+    answerIndex: 1,
+    explanation: "An investor must buy before the ex-dividend date to receive the dividend; buying on or after the ex-date excludes them. The stock price typically drops by the dividend amount on the ex-date.",
+  },
+  {
+    id: "s7eq-d5", examSlug: "series-7", topicId: "equity", topicName: "Equity Securities", difficulty: 1,
+    stem: "Preferred stock is best described as:",
+    choices: ["A debt security with a maturity date", "Equity with a fixed dividend and priority over common, generally nonvoting", "A short-term money-market instrument", "A type of stock right"],
+    answerIndex: 1,
+    explanation: "Preferred stock is equity that pays a fixed dividend and has priority over common stock for dividends and liquidation, but it is generally nonvoting and does not participate in the company's growth.",
+  },
+  {
+    id: "s7eq-d6", examSlug: "series-7", topicId: "equity", topicName: "Equity Securities", difficulty: 2,
+    stem: "An American Depositary Receipt (ADR) allows a US investor to:",
+    choices: ["Buy US Treasury bonds at a discount", "Hold shares of a foreign company trading in US dollars on US markets", "Receive guaranteed dividends", "Avoid all currency risk"],
+    answerIndex: 1,
+    explanation: "An ADR is a US-traded, dollar-denominated receipt representing shares of a foreign company, letting US investors hold foreign equities conveniently. (Currency risk still exists in the underlying foreign shares.)",
+  },
+
+  {
+    id: "s7uw-d1", examSlug: "series-7", topicId: "underwriting", topicName: "Underwriting & Regulation", difficulty: 1,
+    stem: "The Securities Act of 1933 primarily regulates:",
+    choices: ["The secondary trading market", "The issuance of new securities (primary market)", "Insider trading", "Stock exchanges"],
+    answerIndex: 1,
+    explanation: "The Securities Act of 1933 governs the primary market — new issues — requiring registration and a prospectus for full disclosure. The Securities Exchange Act of 1934 regulates the secondary market.",
+  },
+  {
+    id: "s7uw-d2", examSlug: "series-7", topicId: "underwriting", topicName: "Underwriting & Regulation", difficulty: 2,
+    stem: "In a FIRM COMMITMENT underwriting, the underwriter:",
+    choices: ["Acts only as an agent with no risk", "Buys the entire issue and bears the risk of unsold shares", "Guarantees the stock price will rise", "Is exempt from registration"],
+    answerIndex: 1,
+    explanation: "In a firm commitment, the underwriter buys the whole issue from the issuer and resells it, bearing the risk of any unsold shares — the issuer is guaranteed its proceeds. In a best-efforts deal, the underwriter is only an agent and the issuer bears the risk.",
+  },
+  {
+    id: "s7uw-d3", examSlug: "series-7", topicId: "underwriting", topicName: "Underwriting & Regulation", difficulty: 2,
+    stem: "The preliminary prospectus used to gather indications of interest during the cooling-off period is called the:",
+    choices: ["Tombstone", "Red herring", "Final prospectus", "Registration statement"],
+    answerIndex: 1,
+    explanation: "The red herring is the preliminary prospectus used during the minimum 20-day cooling-off period; securities cannot be sold yet, but indications of interest may be gathered. A tombstone is a brief announcement ad.",
+  },
+  {
+    id: "s7uw-d4", examSlug: "series-7", topicId: "underwriting", topicName: "Underwriting & Regulation", difficulty: 2,
+    stem: "SEC registration of a new securities offering means that the SEC:",
+    choices: ["Approves and endorses the security", "Guarantees the investment", "Has confirmed required disclosures were made, not that it endorses the security", "Sets the offering price"],
+    answerIndex: 2,
+    explanation: "SEC registration only confirms that required disclosures were made; it is explicitly NOT approval, endorsement, or a guarantee of the security's merit or accuracy.",
+  },
+  {
+    id: "s7uw-d5", examSlug: "series-7", topicId: "underwriting", topicName: "Underwriting & Regulation", difficulty: 1,
+    stem: "The Securities Exchange Act of 1934 created which regulator?",
+    choices: ["FINRA", "The Federal Reserve", "The SEC", "The MSRB"],
+    answerIndex: 2,
+    explanation: "The Securities Exchange Act of 1934 created the Securities and Exchange Commission (SEC) and regulates the secondary market, exchanges, broker-dealers, issuer reporting, and insider trading.",
+  },
+  {
+    id: "s7uw-d6", examSlug: "series-7", topicId: "underwriting", topicName: "Underwriting & Regulation", difficulty: 3,
+    stem: "A private placement sold under Regulation D is generally offered to:",
+    choices: ["The general public via a prospectus", "Accredited investors without a public offering", "Only foreign investors", "Government agencies only"],
+    answerIndex: 1,
+    explanation: "Regulation D permits private placements to accredited investors (meeting income/net-worth thresholds) and a limited number of others, without a public offering or full registration. Rule 144 then governs the resale of the resulting restricted stock.",
+  },
+
+  {
+    id: "s7gov-d1", examSlug: "series-7", topicId: "govt", topicName: "Government & Agency Securities", difficulty: 1,
+    stem: "Treasury bills (T-bills) are:",
+    choices: ["Long-term bonds paying semiannual interest", "Short-term securities issued at a discount with no coupon", "Inflation-protected with adjusting principal", "Backed only by a GSE"],
+    answerIndex: 1,
+    explanation: "T-bills mature in one year or less, pay no coupon, and are issued at a discount; the return is the difference between the discounted price and face value. Notes and bonds pay semiannual interest.",
+  },
+  {
+    id: "s7gov-d2", examSlug: "series-7", topicId: "govt", topicName: "Government & Agency Securities", difficulty: 2,
+    stem: "Interest on U.S. Treasury securities is:",
+    choices: ["Exempt from federal tax but subject to state tax", "Subject to federal tax but exempt from state and local tax", "Exempt from all taxes", "Taxed only at the local level"],
+    answerIndex: 1,
+    explanation: "Treasury interest is subject to federal income tax but exempt from state and local tax — the mirror image of municipal bonds, which are federally exempt.",
+  },
+  {
+    id: "s7gov-d3", examSlug: "series-7", topicId: "govt", topicName: "Government & Agency Securities", difficulty: 3,
+    stem: "An investor holds $10,000 of 2% TIPS; over a year inflation is 3%. The adjusted principal becomes:",
+    choices: ["$10,000", "$10,200", "$10,300", "$9,700"],
+    answerIndex: 2,
+    explanation: "TIPS principal adjusts with inflation: $10,000 × 1.03 = $10,300. The 2% coupon then applies to the adjusted principal (~$206), protecting the investor's purchasing power.",
+  },
+  {
+    id: "s7gov-d4", examSlug: "series-7", topicId: "govt", topicName: "Government & Agency Securities", difficulty: 2,
+    stem: "Which agency's mortgage-backed securities ARE backed by the full faith and credit of the U.S. government?",
+    choices: ["Fannie Mae (FNMA)", "Freddie Mac (FHLMC)", "Ginnie Mae (GNMA)", "None of them"],
+    answerIndex: 2,
+    explanation: "Ginnie Mae (GNMA) is a government agency whose MBS carry the full faith and credit of the U.S. government. Fannie Mae and Freddie Mac are GSEs whose securities do not.",
+  },
+  {
+    id: "s7gov-d5", examSlug: "series-7", topicId: "govt", topicName: "Government & Agency Securities", difficulty: 3,
+    stem: "The distinctive risk of a mortgage-backed pass-through security is:",
+    choices: ["Default risk on Treasuries", "Prepayment risk when rates fall and homeowners refinance", "Currency risk", "That it never returns principal"],
+    answerIndex: 1,
+    explanation: "Prepayment risk: when interest rates fall, homeowners refinance and repay early, returning principal to investors precisely when it must be reinvested at lower rates. CMOs redistribute this risk across tranches.",
+  },
+  {
+    id: "s7gov-d6", examSlug: "series-7", topicId: "govt", topicName: "Government & Agency Securities", difficulty: 1,
+    stem: "STRIPS are best described as:",
+    choices: ["Inflation-protected Treasuries", "Zero-coupon Treasury securities bought at a discount", "Short-term agency notes", "Municipal bonds"],
+    answerIndex: 1,
+    explanation: "STRIPS are zero-coupon Treasuries created by separating a bond's coupon and principal payments; each piece is bought at a discount and matures at face value, with annual phantom-income taxation.",
+  },
+
+  {
+    id: "s7dpp-d1", examSlug: "series-7", topicId: "dpp", topicName: "Direct Participation Programs", difficulty: 1,
+    stem: "A direct participation program (DPP) is taxed:",
+    choices: ["At the entity level like a C corporation", "As a pass-through, with items flowing to investors", "Only when the partnership dissolves", "At a flat 21% rate"],
+    answerIndex: 1,
+    explanation: "A DPP (limited partnership) pays no entity-level tax; income, gains, losses, deductions, and credits pass through to the limited partners, who report them individually — a single layer of taxation.",
+  },
+  {
+    id: "s7dpp-d2", examSlug: "series-7", topicId: "dpp", topicName: "Direct Participation Programs", difficulty: 2,
+    stem: "In a limited partnership, the general partner:",
+    choices: ["Is a passive investor with limited liability", "Manages the program and has unlimited personal liability", "Cannot make decisions", "Has liability capped at the investment"],
+    answerIndex: 1,
+    explanation: "The general partner manages the program and bears unlimited personal liability for partnership debts. Limited partners are passive, with liability limited to their investment.",
+  },
+  {
+    id: "s7dpp-d3", examSlug: "series-7", topicId: "dpp", topicName: "Direct Participation Programs", difficulty: 3,
+    stem: "Passive losses generated by a DPP may generally be used to offset:",
+    choices: ["Salary (earned income)", "Portfolio income such as dividends", "Passive income only", "Any type of income"],
+    answerIndex: 2,
+    explanation: "Passive losses can offset only passive income — not salary or portfolio income. Unused passive losses are suspended and carried forward to future passive income or released when the interest is disposed of.",
+  },
+  {
+    id: "s7dpp-d4", examSlug: "series-7", topicId: "dpp", topicName: "Direct Participation Programs", difficulty: 2,
+    stem: "A limited partner who begins actively managing the partnership's business risks:",
+    choices: ["A higher dividend", "Losing limited-liability protection", "Becoming tax-exempt", "Automatic conversion to a C corporation"],
+    answerIndex: 1,
+    explanation: "Limited partners must remain passive; taking an active management role can cause them to be treated as general partners and lose their limited-liability protection.",
+  },
+  {
+    id: "s7dpp-d5", examSlug: "series-7", topicId: "dpp", topicName: "Direct Participation Programs", difficulty: 2,
+    stem: "When evaluating a DPP, a representative should consider FIRST:",
+    choices: ["The tax write-offs it generates", "Its economic viability as a business", "The general partner's tax bracket", "The size of the sales commission"],
+    answerIndex: 1,
+    explanation: "A DPP must make economic sense on its own; economic viability is evaluated first, and tax benefits second. An investment that only works because of tax write-offs is unsuitable.",
+  },
+  {
+    id: "s7dpp-d6", examSlug: "series-7", topicId: "dpp", topicName: "Direct Participation Programs", difficulty: 1,
+    stem: "A key liquidity characteristic of DPPs is that they are:",
+    choices: ["Traded actively on exchanges", "Illiquid, with no active secondary market", "Redeemable daily at NAV", "Guaranteed by the SEC"],
+    answerIndex: 1,
+    explanation: "DPPs are illiquid, long-term investments with no active secondary market, so they suit only investors who can bear illiquidity and the associated risk.",
   },
 ];

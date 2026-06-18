@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useSignedIn } from "@/lib/AccessContext";
+import { statHeadline } from "@/lib/contentStats";
 import posthog from "posthog-js";
 
 export function UpgradeCard({
@@ -12,6 +13,7 @@ export function UpgradeCard({
   reason?: string;
 }) {
   const signedIn = useSignedIn();
+  const s = statHeadline();
   // Guests must create an account before subscribing — Pro attaches to the
   // Supabase user via Stripe, so send them to signup first, then billing.
   const ctaHref = signedIn ? "/billing" : "/signup?next=/billing";
@@ -29,10 +31,24 @@ export function UpgradeCard({
         {reason}
       </p>
 
+      {/* Live depth-proof — computed from the real content library */}
+      <div className="flex justify-center gap-5 mb-5">
+        {[
+          { n: s.hours, l: "hours of readings" },
+          { n: s.questions, l: "trap-aware Qs" },
+          { n: `${s.exams}`, l: "exam tracks" },
+        ].map((x) => (
+          <div key={x.l}>
+            <div className="font-display text-2xl" style={{ color: "var(--primary)" }}>{x.n}</div>
+            <div className="text-[11px] leading-tight" style={{ color: "var(--text-muted)" }}>{x.l}</div>
+          </div>
+        ))}
+      </div>
+
       {/* What Pro gets you */}
       <div className="text-left text-sm mx-auto mb-5" style={{ maxWidth: 320, color: "var(--text-secondary)" }}>
         {[
-          "Every chapter of every exam — 15-20h of textbook-depth reading each",
+          "Every chapter of every exam — textbook-depth, not thin summaries",
           "Unlimited Finals (full timed mock exams)",
           "The whole question bank with trap-aware explanations",
           "Your streak, Division rank, and progress — kept",

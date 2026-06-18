@@ -7,6 +7,7 @@
 // ============================================================
 
 import { Chapter, Question, ExamContent } from "./types";
+import { cfpDeepChapters, cfpDeepQuestions } from "./cfp-deep";
 
 const chapters: Chapter[] = [
   // 1. GENERAL PRINCIPLES
@@ -1278,6 +1279,6 @@ const questions: Question[] = [
 
 export const cfpContent: ExamContent = {
   examSlug: "cfp",
-  chapters,
-  questions,
+  chapters: [...cfpDeepChapters, ...chapters],
+  questions: [...cfpDeepQuestions, ...questions],
 };
