@@ -26,9 +26,24 @@ export function loadState(): GameState {
   if (typeof window === "undefined") return EMPTY_STATE;
   try {
     const raw = localStorage.getItem(GAME_KEY);
-    if (raw) return { ...EMPTY_STATE, ...JSON.parse(raw) };
+    if (raw) return migrateState({ ...EMPTY_STATE, ...JSON.parse(raw) });
   } catch {}
   return EMPTY_STATE;
+}
+
+// The CPA exam was split into 4 tracks (cpa-aud/far/reg/disc). Any saved
+// progress under the retired single "cpa" slug is remapped to the FAR core
+// section so existing plans/sessions stay valid instead of dangling.
+function migrateState(state: GameState): GameState {
+  const plans = (state.plans ?? []).map((p) =>
+    p.examSlug === "cpa"
+      ? { ...p, examSlug: "cpa-far", examName: "CPA · FAR", levelName: "FAR — Financial Accounting & Reporting" }
+      : p
+  );
+  const sessions = (state.sessions ?? []).map((s) =>
+    s.examSlug === "cpa" ? { ...s, examSlug: "cpa-far" } : s
+  );
+  return { ...state, plans, sessions };
 }
 
 export function saveState(state: GameState): void {

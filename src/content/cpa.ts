@@ -6,6 +6,10 @@
 // ============================================================
 
 import { Chapter, Question, ExamContent } from "./types";
+import { farDeepChapters, farDeepQuestions } from "./cpa-far-deep";
+import { audDeepChapters, audDeepQuestions } from "./cpa-aud-deep";
+import { regDeepChapters, regDeepQuestions } from "./cpa-reg-deep";
+import { discDeepChapters, discDeepQuestions } from "./cpa-disc-deep";
 
 const chapters: Chapter[] = [
   // 1. FINANCIAL REPORTING (FAR)
@@ -1379,8 +1383,58 @@ const questions: Question[] = [
   },
 ];
 
-export const cpaContent: ExamContent = {
-  examSlug: "cpa",
-  chapters,
-  questions,
+// ============================================================
+// CPA is split into four exam tracks, mirroring the CFA L1/L2/L3 split:
+//   cpa-aud  — AUD (Auditing & Attestation)            [Core]
+//   cpa-far  — FAR (Financial Accounting & Reporting)  [Core]
+//   cpa-reg  — REG (Taxation & Regulation)             [Core]
+//   cpa-disc — Discipline (BAR / ISC / TCP, combined)  [pick one]
+// The 2024 "CPA Evolution" retired BEC; its content now seeds the
+// Discipline track (mostly BAR — Business Analysis & Reporting).
+// Chapters/questions are grouped by topicId into each section.
+// ============================================================
+const CPA_SECTION_TOPICS: Record<string, string[]> = {
+  "cpa-aud": ["aud", "audit-reports", "internal-controls"],
+  "cpa-far": ["far", "liabilities", "gov-nfp", "revenue-leases"],
+  "cpa-reg": ["reg", "tax-individual", "tax-entities", "business-law"],
+  "cpa-disc": ["bec", "managerial"],
+};
+
+function cpaSection(slug: string): ExamContent {
+  const topics = CPA_SECTION_TOPICS[slug];
+  return {
+    examSlug: slug,
+    chapters: chapters
+      .filter((c) => topics.includes(c.topicId))
+      .map((c) => ({ ...c, examSlug: slug })),
+    questions: questions
+      .filter((q) => topics.includes(q.topicId))
+      .map((q) => ({ ...q, examSlug: slug })),
+  };
+}
+
+// Each core section leads with textbook-depth chapters, then the existing lighter chapters.
+const audBase = cpaSection("cpa-aud");
+export const cpaAudContent: ExamContent = {
+  examSlug: "cpa-aud",
+  chapters: [...audDeepChapters, ...audBase.chapters],
+  questions: [...audDeepQuestions, ...audBase.questions],
+};
+const farBase = cpaSection("cpa-far");
+export const cpaFarContent: ExamContent = {
+  examSlug: "cpa-far",
+  chapters: [...farDeepChapters, ...farBase.chapters],
+  questions: [...farDeepQuestions, ...farBase.questions],
+};
+const regBase = cpaSection("cpa-reg");
+export const cpaRegContent: ExamContent = {
+  examSlug: "cpa-reg",
+  chapters: [...regDeepChapters, ...regBase.chapters],
+  questions: [...regDeepQuestions, ...regBase.questions],
+};
+const discBase = cpaSection("cpa-disc");
+export const cpaDiscContent: ExamContent = {
+  examSlug: "cpa-disc",
+  chapters: [...discDeepChapters, ...discBase.chapters],
+  questions: [...discDeepQuestions, ...discBase.questions],
 };

@@ -61,11 +61,29 @@ const BOSSES: Record<string, Boss> = {
     intro: "Insurance, tax, retirement, estate — a whole financial life. Present a plan with no gaps.",
     defeatTaunt: "A real plan leaves nothing exposed. Patch your weak areas and re-present.",
   },
-  cpa: {
-    name: "CPA Exam Day · The Audit Board",
+  "cpa-aud": {
+    name: "AUD Exam Day · The Audit Board",
+    emoji: "🔍",
+    intro: "Risk, evidence, controls, independence, and the report. Sign off only if it holds.",
+    defeatTaunt: "An auditor gathers sufficient evidence. Shore up your weak spots and re-sit.",
+  },
+  "cpa-far": {
+    name: "FAR Exam Day · The Reporting Board",
     emoji: "📊",
-    intro: "Reporting, audit, tax, and controls. Balance the books or be balanced yourself.",
-    defeatTaunt: "The numbers don't lie. Reconcile your weak spots and re-sit.",
+    intro: "Statements, accruals, revenue, leases, and government accounting. Balance every account.",
+    defeatTaunt: "The statements must tie out. Reconcile your weak areas and re-sit.",
+  },
+  "cpa-reg": {
+    name: "REG Exam Day · The Tax Board",
+    emoji: "⚖️",
+    intro: "Individual and entity tax, business law, and ethics. File a flawless return.",
+    defeatTaunt: "The code is unforgiving. Patch your gaps and re-sit.",
+  },
+  "cpa-disc": {
+    name: "Discipline Exam Day · BAR / ISC / TCP",
+    emoji: "🎯",
+    intro: "Your chosen specialty — analysis, systems, or advanced tax. Prove your depth.",
+    defeatTaunt: "Specialists don't guess. Sharpen your discipline and re-sit.",
   },
 };
 

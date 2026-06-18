@@ -272,6 +272,10 @@ export function BossCrest({
           </g>
         );
       case "cpa":
+      case "cpa-aud":
+      case "cpa-far":
+      case "cpa-reg":
+      case "cpa-disc":
         return (
           // Bars — The Audit Board
           <g strokeWidth="1.4">

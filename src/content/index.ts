@@ -11,7 +11,7 @@ import { cfaL3Content } from "./cfa-l3";
 import { series7Content } from "./series7";
 import { series66Content } from "./series66";
 import { cfpContent } from "./cfp";
-import { cpaContent } from "./cpa";
+import { cpaAudContent, cpaFarContent, cpaRegContent, cpaDiscContent } from "./cpa";
 import { sieContent } from "./sie";
 
 const REGISTRY: Record<string, ExamContent> = {
@@ -22,7 +22,11 @@ const REGISTRY: Record<string, ExamContent> = {
   "series-7": series7Content,
   "series-66": series66Content,
   cfp: cfpContent,
-  cpa: cpaContent,
+  // CPA — split into 4 tracks (3 Core + 1 combined Discipline), mirroring CFA.
+  "cpa-aud": cpaAudContent,
+  "cpa-far": cpaFarContent,
+  "cpa-reg": cpaRegContent,
+  "cpa-disc": cpaDiscContent,
   // future: frm, caia, ...
 };
 

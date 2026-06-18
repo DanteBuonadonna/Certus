@@ -108,19 +108,102 @@ export const EXAMS: Exam[] = [
       },
     ],
   },
+  // CPA is split into four separate tracks (2024 "CPA Evolution" model):
+  // three Core sections everyone takes (AUD, FAR, REG) plus one Discipline
+  // the candidate picks (BAR / ISC / TCP), here combined into one track.
   {
-    slug: "cpa",
-    name: "CPA",
-    fullName: "Certified Public Accountant",
+    slug: "cpa-aud",
+    name: "CPA · AUD",
+    fullName: "CPA — Auditing & Attestation (Core)",
     category: "Accounting",
-    blurb: "Four sections, an 18-month window, and a ~50% pass rate per part. The accounting gatekeeper.",
+    blurb:
+      "The auditor's craft: risk, evidence, internal controls, independence, and reports. A Core CPA section. ~72 hours, ~47% pass rate.",
     difficulty: 4,
     accent: "#1D9E75",
     levels: [
-      { id: "aud", name: "AUD — Auditing", recommendedHours: 90, passRate: 47, topics: [] },
-      { id: "far", name: "FAR — Financial Reporting", recommendedHours: 120, passRate: 43, topics: [] },
-      { id: "reg", name: "REG — Regulation", recommendedHours: 90, passRate: 59, topics: [] },
-      { id: "disc", name: "Discipline (BAR/ISC/TCP)", recommendedHours: 90, passRate: 50, topics: [] },
+      {
+        id: "aud",
+        name: "AUD — Auditing & Attestation",
+        recommendedHours: 80,
+        passRate: 47,
+        topics: [
+          { id: "aud", name: "Audit Process, Evidence & Independence", weight: 55 },
+          { id: "internal-controls", name: "Internal Controls & IT", weight: 22 },
+          { id: "audit-reports", name: "Reports, Opinions & Modifications", weight: 23 },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "cpa-far",
+    name: "CPA · FAR",
+    fullName: "CPA — Financial Accounting & Reporting (Core)",
+    category: "Accounting",
+    blurb:
+      "The biggest, most feared section: financial statements, accrual accounting, revenue, leases, and government/NFP. A Core CPA section. ~120 hours, ~43% pass rate.",
+    difficulty: 5,
+    accent: "#1D9E75",
+    levels: [
+      {
+        id: "far",
+        name: "FAR — Financial Accounting & Reporting",
+        recommendedHours: 120,
+        passRate: 43,
+        topics: [
+          { id: "far", name: "Framework & Financial Statements", weight: 24 },
+          { id: "assets", name: "Inventory & Long-Lived Assets", weight: 15 },
+          { id: "liabilities", name: "Liabilities, Bonds & Deferred Taxes", weight: 17 },
+          { id: "revenue-leases", name: "Revenue (ASC 606) & Leases (ASC 842)", weight: 18 },
+          { id: "consolidations", name: "Business Combinations & Consolidations", weight: 13 },
+          { id: "gov-nfp", name: "Governmental & Not-for-Profit", weight: 13 },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "cpa-reg",
+    name: "CPA · REG",
+    fullName: "CPA — Taxation & Regulation (Core)",
+    category: "Accounting",
+    blurb:
+      "Federal taxation of individuals and entities, business law, ethics, and professional responsibilities. A Core CPA section. ~90 hours, ~59% pass rate.",
+    difficulty: 4,
+    accent: "#1D9E75",
+    levels: [
+      {
+        id: "reg",
+        name: "REG — Taxation & Regulation",
+        recommendedHours: 90,
+        passRate: 59,
+        topics: [
+          { id: "tax-individual", name: "Individual Taxation", weight: 30 },
+          { id: "tax-entities", name: "Entity Taxation (C/S/Partnership)", weight: 30 },
+          { id: "reg", name: "Ethics & Federal Tax Procedures", weight: 20 },
+          { id: "business-law", name: "Business Law (Contracts, Agency, UCC)", weight: 20 },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "cpa-disc",
+    name: "CPA · Discipline",
+    fullName: "CPA — Discipline (BAR / ISC / TCP)",
+    category: "Accounting",
+    blurb:
+      "Pick one Discipline to pass: BAR (Business Analysis & Reporting), ISC (Information Systems & Control), or TCP (Tax Compliance & Planning). ~90 hours, ~50% pass rate.",
+    difficulty: 4,
+    accent: "#1D9E75",
+    levels: [
+      {
+        id: "disc",
+        name: "Discipline — BAR / ISC / TCP",
+        recommendedHours: 90,
+        passRate: 50,
+        topics: [
+          { id: "bec", name: "Business Analysis & Governance (BAR)", weight: 60 },
+          { id: "managerial", name: "Cost, CVP & Managerial Analysis", weight: 40 },
+        ],
+      },
     ],
   },
   {

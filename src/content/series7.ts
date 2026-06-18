@@ -9,6 +9,7 @@
 import { Chapter, Question, ExamContent } from "./types";
 import { s7ExtraChapters, s7ExtraQuestions } from "./series7-extra";
 import { s7Wave3Chapters, s7Wave3Questions } from "./series7-wave3";
+import { s7DeepChapters, s7DeepQuestions } from "./series7-deep";
 
 const chapters: Chapter[] = [
   // 1. EQUITY SECURITIES
@@ -254,6 +255,6 @@ const questions: Question[] = [
 
 export const series7Content: ExamContent = {
   examSlug: "series-7",
-  chapters: [...chapters, ...s7ExtraChapters, ...s7Wave3Chapters],
-  questions: [...questions, ...s7ExtraQuestions, ...s7Wave3Questions],
+  chapters: [...s7DeepChapters, ...chapters, ...s7ExtraChapters, ...s7Wave3Chapters],
+  questions: [...s7DeepQuestions, ...questions, ...s7ExtraQuestions, ...s7Wave3Questions],
 };
