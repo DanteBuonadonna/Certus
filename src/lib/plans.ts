@@ -26,13 +26,15 @@ export const PLANS: Plan[] = [
     popular: true,
   },
   {
+    // $24.99/mo × 12 = $299.88, so $115/yr ≈ 62% off. Update this if the
+    // monthly price changes.
     id: "annual",
     name: "Annual",
     price: "$115",
     cadence: "/year",
-    sub: "Best for a full exam cycle — under $10/month.",
+    sub: "Just $9.58/mo, billed yearly — 62% off the monthly plan.",
     priceEnvKey: "STRIPE_PRICE_ANNUAL",
-    highlight: "Best value",
+    highlight: "Save 62%",
   },
 ];
 

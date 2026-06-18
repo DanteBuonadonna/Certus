@@ -70,8 +70,13 @@ export default function Tour({
 
   const last = i === valid.length - 1;
 
-  // Tooltip placement: below the target if there's room, else above; centered if no target.
-  const tooltipStyle: React.CSSProperties = rect
+  // Placement. On phones, pin the card as a bottom sheet so it can never
+  // land off-screen; the spotlight still highlights the target above it.
+  // On desktop, place below/above the target (or centered if no target).
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
+  const tooltipStyle: React.CSSProperties = isMobile
+    ? { position: "fixed", left: 12, right: 12, bottom: 12, maxHeight: "78vh", overflowY: "auto" }
+    : rect
     ? (() => {
         const width = Math.min(340, window.innerWidth - 32);
         const below = rect.bottom + PAD + 170 < window.innerHeight;
