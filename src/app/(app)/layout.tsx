@@ -2,7 +2,6 @@ import Sidebar from "@/components/layout/Sidebar";
 import { createClient } from "@/lib/supabase/server";
 import AuthScope from "@/components/AuthScope";
 import SyncGate from "@/components/SyncGate";
-import RotateHint from "@/components/RotateHint";
 import { AccessProvider } from "@/lib/AccessContext";
 
 // Render app pages on-demand (not statically prerendered).
@@ -48,13 +47,15 @@ export default async function AppLayout({
     <AccessProvider pro={pro} signedIn={signedIn}>
       <div style={{ display: "flex", minHeight: "100vh" }}>
         <AuthScope userId={userId} />
-        <RotateHint />
         <Sidebar credits={credits} email={email} />
-        {/* Sidebar margin only on md+; mobile gets a top bar instead. */}
+        {/* Sidebar margin only on md+; mobile gets a top bar instead.
+            minWidth:0 lets this column shrink below its content so wide
+            tables/figures stay contained on a phone instead of overflowing. */}
         <main
           className="md:ml-[232px] pt-12 md:pt-0"
           style={{
             flex: 1,
+            minWidth: 0,
             minHeight: "100vh",
             background: "var(--bg)",
           }}

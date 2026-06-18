@@ -1138,6 +1138,22 @@ body {
   .coin-spin, .coin-fly, .coin-pop, .av-cheer, .spotlight-sweep { animation: none !important; }
 }
 
+/* ---------- Mobile: keep reading content inside the viewport ---------- */
+/* Inline SVG figures scale to the column width instead of overflowing. */
+figure svg, .blog-article svg, .blog-article img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+/* Any wide table inside a card scrolls within the card, never off-screen. */
+.card { max-width: 100%; }
+figure, figure > div { max-width: 100%; }
+@media (max-width: 640px) {
+  /* Tighter reading tables on small screens so more fits before scrolling. */
+  .reading-table { font-size: 0.78rem; }
+  .reading-table th, .reading-table td { padding: 6px 8px; }
+}
+
 /* ---------- Blog article typography ---------- */
 .blog-article { color: var(--text-secondary); font-size: 16px; line-height: 1.75; }
 .blog-article h1 {

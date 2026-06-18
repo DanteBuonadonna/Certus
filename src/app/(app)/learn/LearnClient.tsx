@@ -472,8 +472,8 @@ function BlockView({ block }: { block: Block }) {
     case "table":
       return (
         <div className="my-5">
-          <div className="card" style={{ overflowX: "auto" }}>
-            <table style={{ width: "100%", minWidth: 380, borderCollapse: "collapse", fontSize: "0.85rem", fontFamily: "var(--sans)" }}>
+          <div className="card" style={{ overflowX: "auto", maxWidth: "100%" }}>
+            <table className="reading-table" style={{ width: "100%", minWidth: 300, borderCollapse: "collapse", fontSize: "0.85rem", fontFamily: "var(--sans)" }}>
               <thead>
                 <tr style={{ background: "var(--bg)" }}>
                   {block.table.headers.map((h, k) => (
