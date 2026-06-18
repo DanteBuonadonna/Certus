@@ -91,12 +91,6 @@ function daysLeftInWeek(d: Date): number {
   end.setDate(end.getDate() + 7);
   return Math.max(0, Math.ceil((end.getTime() - d.getTime()) / 86400000));
 }
-function weekProgress(d: Date): number {
-  const start = weekStart(d);
-  const elapsed = (d.getTime() - start.getTime()) / 86400000;
-  return Math.min(1, Math.max(0.04, elapsed / 7));
-}
-
 // XP the player earned within a given week.
 function weeklyXpForWeek(state: GameState, weekKeyStr: string): number {
   const start = new Date(weekKeyStr + "T00:00:00");
@@ -170,6 +164,36 @@ function genBots(weekKeyStr: string, tierIndex: number): Bot[] {
   return bots;
 }
 
+// Each bot earns a DIFFERENT amount each day (seeded), so the table reshuffles
+// daily instead of everyone climbing in lockstep. Averages out to ~target over
+// the week, but day-to-day order changes and it even drifts within a day.
+function botDailyGain(weekKeyStr: string, tierIndex: number, botIndex: number, target: number, day: number): number {
+  const rng = mulberry32(hash(`${weekKeyStr}:${tierIndex}:${botIndex}:d${day}`));
+  // ~target/7 per day on average, swinging 0.3x–1.7x: some days a grind, some slack.
+  return (target / 7) * (0.3 + rng() * 1.4);
+}
+
+// XP a bot has accumulated so far this week (full elapsed days + partial today).
+function botXpNow(weekKeyStr: string, tierIndex: number, botIndex: number, target: number, now: Date): number {
+  const start = weekStart(now);
+  const elapsedMs = now.getTime() - start.getTime();
+  const fullDays = Math.min(6, Math.floor(elapsedMs / 86400000));
+  const todayFrac = Math.min(1, (elapsedMs % 86400000) / 86400000);
+  let xp = 0;
+  for (let d = 0; d <= fullDays; d++) {
+    const gain = botDailyGain(weekKeyStr, tierIndex, botIndex, target, d);
+    xp += d < fullDays ? gain : gain * todayFrac;
+  }
+  return Math.round(xp);
+}
+
+// A bot's final XP for the whole week — used when settling promotion/relegation.
+function botWeekTotal(weekKeyStr: string, tierIndex: number, botIndex: number, target: number): number {
+  let xp = 0;
+  for (let d = 0; d < 7; d++) xp += botDailyGain(weekKeyStr, tierIndex, botIndex, target, d);
+  return Math.round(xp);
+}
+
 function load(): StoredLeague | null {
   if (typeof window === "undefined") return null;
   try {
@@ -188,7 +212,7 @@ function save(s: StoredLeague): void {
 // Settle last week given the player's final weekly XP, returning the new tier.
 function settle(prev: StoredLeague, playerFinalXp: number): { tierIndex: number; result: LeagueResult } {
   const finals = [
-    ...prev.bots.map((b) => b.target),
+    ...prev.bots.map((b, idx) => botWeekTotal(prev.weekKey, prev.tierIndex, idx, b.target)),
     playerFinalXp,
   ].sort((a, b) => b - a);
   const rank = finals.indexOf(playerFinalXp) + 1; // 1-based (ties: player gets first matching slot)
@@ -222,12 +246,11 @@ export function getLeague(state: GameState, profileAvatar?: AvatarConfig, youNam
   }
 
   const tier = TIERS[stored.tierIndex];
-  const frac = weekProgress(now);
   const youXp = weeklyXpForWeek(state, wk);
 
-  const botStandings: Standing[] = stored.bots.map((b) => ({
+  const botStandings: Standing[] = stored.bots.map((b, idx) => ({
     name: b.name,
-    xp: Math.round(b.target * frac),
+    xp: botXpNow(wk, stored.tierIndex, idx, b.target, now),
     avatar: b.avatar,
     you: false,
     rival: !!b.rival,
