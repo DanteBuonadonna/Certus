@@ -288,6 +288,7 @@ export default function LandingPage() {
           <span className="text-sm" style={{ color: "var(--text-muted)" }}>{BRAND.name}</span>
         </div>
         <div className="flex items-center gap-4 flex-wrap">
+          <Link href="/blog" className="text-xs hover:opacity-70 transition-opacity" style={{ color: "var(--text-muted)" }}>Blog</Link>
           <Link href="/terms" className="text-xs hover:opacity-70 transition-opacity" style={{ color: "var(--text-muted)" }}>Terms</Link>
           <Link href="/privacy" className="text-xs hover:opacity-70 transition-opacity" style={{ color: "var(--text-muted)" }}>Privacy</Link>
           <Link href="/refund" className="text-xs hover:opacity-70 transition-opacity" style={{ color: "var(--text-muted)" }}>Refunds</Link>

@@ -333,7 +333,16 @@ function Results({ exam, questions, answers, maxCombo, earnedXp, levelUpInfo, on
   const [avatar, setAvatar] = useState<AvatarConfig | undefined>(undefined);
   const [showLevelUp, setShowLevelUp] = useState(true);
   const signedIn = useSignedIn();
+  const access = useAccess();
   const perfect = pct === 100;
+  // Peak-intent paywall: a signed-in free user who just had a strong run is
+  // the highest-converting moment to pitch Pro. (Guests instead see the
+  // "save progress" nudge — they need an account before they can subscribe.)
+  const showUpgrade = access.ready && !access.pro && signedIn && pct >= 50;
+  useEffect(() => {
+    if (showUpgrade) posthog.capture("paywall_shown", { trigger: "post_practice", accuracy_pct: pct, exam });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showUpgrade]);
 
   // Roll for a loot chest once, based on this run's accuracy.
   const [chest] = useState<ChestDrop | null>(() => rollChest(pct));
@@ -440,6 +449,15 @@ function Results({ exam, questions, answers, maxCombo, earnedXp, levelUpInfo, on
             </span>
           </div>
           <Link href="/signup" className="btn-duo flex-shrink-0" style={{ padding: "0.55rem 1.1rem", fontSize: "0.78rem" }}>Save progress</Link>
+        </div>
+      )}
+
+      {showUpgrade && (
+        <div className="mb-5">
+          <UpgradeCard
+            title="You're on a roll — unlock every exam"
+            reason={`${pct}% on that set. Pro opens every chapter, every exam, and unlimited Finals so you can keep this pace across your whole prep.`}
+          />
         </div>
       )}
 
