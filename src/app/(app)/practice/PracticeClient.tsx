@@ -63,6 +63,15 @@ export default function PracticeClient() {
     setPhase("quiz");
   }
 
+  // Auto-start a first set when handed off from onboarding (?start=1), so
+  // new users drop straight into the fun answer loop instead of a menu.
+  useEffect(() => {
+    if (params.get("start") === "1" && phase === "setup" && getQuestions(exam, topic === "all" ? undefined : topic).length > 0) {
+      start();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   function finish(finalAnswers: (number | null)[], combo: number) {
     const correct = finalAnswers.filter((a, i) => a === session[i]?.answerIndex).length;
     const result = recordQuiz(exam, correct, session.length, topic === "all" ? undefined : topic, { combo });

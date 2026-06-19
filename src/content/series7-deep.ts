@@ -645,6 +645,188 @@ export const s7DeepChapters: Chapter[] = [
       "Evaluate a DPP on economic viability FIRST and tax benefits second; DPPs are illiquid, long-term, and suited only to investors who can bear the risk.",
     ],
   },
+
+  {
+    id: "s7-optionsadv-deep",
+    examSlug: "series-7",
+    topicId: "options-adv",
+    topicName: "Advanced Options",
+    title: "Advanced Options Strategies: Spreads, Straddles, and Hedging",
+    readingMinutes: 64,
+    summary:
+      "The harder options material that decides Series 7 scores — vertical spreads (debit vs credit) and their max gain/loss/breakeven math, straddles and strangles, and how options hedge long and short stock positions.",
+    intro:
+      "Basic calls and puts get you started, but the Series 7 lives in the COMBINATIONS — spreads and straddles — and the calculations behind them. This reading builds the advanced strategies: vertical SPREADS and the debit-versus-credit distinction, STRADDLES and STRANGLES for volatility, and the HEDGING strategies that protect stock positions. Master the spread math (it's the most-tested options calculation) and you turn the section's hardest questions into points.",
+    sections: [
+      {
+        heading: "1. Vertical spreads",
+        blocks: [
+          { kind: "p", text: "A VERTICAL SPREAD buys one option and sells another of the same type (both calls or both puts) and same expiration, but at DIFFERENT strikes. Spreads cap both risk and reward. A DEBIT spread costs net premium (you pay more for the option you buy than you receive for the one you sell) and profits when the spread WIDENS; a CREDIT spread brings in net premium and profits when the spread NARROWS (ideally expiring worthless). The maximum gain and loss are bounded, and they always sum (in absolute terms) to the difference between the strike prices times 100." },
+          { kind: "formula", formula: { label: "Vertical spread max gain/loss/breakeven", expr: "Difference in strikes − Net premium = the 'other' max     |Max gain| + |Max loss| = (Strike difference × 100)", note: "For a DEBIT spread: max loss = net debit; max gain = strike difference − net debit. For a CREDIT spread: max gain = net credit; max loss = strike difference − net credit." } },
+          { kind: "example", example: { title: "Bull call (debit) spread", prompt: "An investor buys a 50 call for 4 and sells a 60 call for 1.50. What is the net cost, max loss, max gain, and breakeven?", steps: ["Net debit = 4 − 1.50 = 2.50 (paid), so this is a debit spread (bullish).", "Max loss = net debit = 2.50 × 100 = $250 (if both expire worthless).", "Max gain = strike difference − net debit = (60 − 50) − 2.50 = 7.50 × 100 = $750.", "Breakeven = lower strike + net debit = 50 + 2.50 = $52.50."], answer: "Net cost $250; max loss $250; max gain $750; breakeven $52.50. A debit call spread is bullish and wants the spread to widen toward the $10 strike difference. Note $250 + $750 = $1,000 = the $10 strike difference × 100." } },
+        ],
+      },
+      {
+        heading: "2. Straddles and strangles",
+        blocks: [
+          { kind: "p", text: "A LONG STRADDLE buys a call and a put at the SAME strike — a bet on a big move in EITHER direction (high volatility). Its two breakevens are the strike plus the total premium and the strike minus the total premium; max loss (both premiums) occurs if the stock finishes exactly at the strike. A SHORT straddle sells both and profits if the stock stays near the strike, with large risk. A STRANGLE is similar but uses DIFFERENT strikes (typically an out-of-the-money call and out-of-the-money put) — cheaper than a straddle, but the stock must move further to profit. Long straddles/strangles are 'long volatility'; short ones are 'short volatility.'" },
+          { kind: "example", example: { title: "Long straddle breakevens", prompt: "An investor buys a 50 call for 3 and a 50 put for 2. What are the breakevens and the maximum loss?", steps: ["Total premium = 3 + 2 = 5.", "Upside breakeven = strike + total premium = 50 + 5 = $55.", "Downside breakeven = strike − total premium = 50 − 5 = $45.", "Max loss = total premium = 5 × 100 = $500, at exactly $50."], answer: "Breakevens $45 and $55; max loss $500. The stock must move outside $45–$55 to profit — a pure volatility bet." } },
+        ],
+      },
+      {
+        heading: "3. Hedging stock positions",
+        blocks: [
+          { kind: "p", text: "Options hedge stock. For a LONG stock position: a PROTECTIVE PUT (buy a put) caps the downside while keeping upside (insurance), and a COVERED CALL (sell a call) generates income but caps the upside. A COLLAR combines both (buy a put, sell a call) to bound the outcome cheaply. For a SHORT stock position (where the risk is the stock RISING), the hedge flips: a PROTECTIVE CALL (buy a call) caps the upside loss, and a COVERED PUT (sell a put) earns income against the short. Knowing which option protects which stock position is heavily tested." },
+          { kind: "table", table: { caption: "Hedging stock with options", headers: ["Stock position", "Insurance (limit loss)", "Income (cap profit)"], rows: [["Long stock", "Buy a put (protective put)", "Sell a call (covered call)"], ["Short stock", "Buy a call (protective call)", "Sell a put (covered put)"]] } },
+          { kind: "p", text: "The chapter's core: vertical spreads cap risk and reward — debit spreads pay net premium and want the spread to widen (max loss = debit, max gain = strike difference − debit), credit spreads collect premium and want it to narrow; straddles/strangles bet on volatility with two breakevens at the strike ± total premium; and options hedge stock — protective put/covered call for long stock, protective call/covered put for short stock. Over-learn the spread max gain/loss/breakeven and the long-vs-short hedging pairs." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Vertical spread", def: "Buy and sell same-type options at different strikes; caps risk and reward." },
+      { term: "Debit spread", def: "Net premium paid; profits when the spread widens; max loss = the debit." },
+      { term: "Credit spread", def: "Net premium received; profits when the spread narrows; max gain = the credit." },
+      { term: "Spread max gain/loss", def: "|Max gain| + |Max loss| = strike difference × 100." },
+      { term: "Bull call spread", def: "Debit call spread; bullish; buy lower strike, sell higher strike." },
+      { term: "Long straddle", def: "Buy call + put at same strike; volatility bet; breakevens = strike ± total premium." },
+      { term: "Strangle", def: "Call and put at different (OTM) strikes; cheaper, needs a bigger move." },
+      { term: "Long vs short volatility", def: "Long straddle/strangle profit from big moves; short profit from calm." },
+      { term: "Protective put / covered call", def: "Hedge a LONG stock position — insurance vs income." },
+      { term: "Protective call / covered put", def: "Hedge a SHORT stock position — insurance vs income." },
+    ],
+    takeaways: [
+      "Vertical spreads buy and sell same-type options at different strikes, capping both risk and reward; |max gain| + |max loss| = strike difference × 100.",
+      "A debit spread pays net premium and profits as the spread widens (max loss = debit, max gain = strike difference − debit); a credit spread collects premium and profits as it narrows.",
+      "A bull call spread's breakeven is the lower strike + net debit.",
+      "A long straddle (call + put, same strike) bets on volatility with breakevens at strike ± total premium; a strangle uses different strikes and needs a bigger move.",
+      "Hedge LONG stock with a protective put (insurance) or covered call (income).",
+      "Hedge SHORT stock with a protective call (insurance) or covered put (income).",
+    ],
+  },
+
+  {
+    id: "s7-economics-deep",
+    examSlug: "series-7",
+    topicId: "economics",
+    topicName: "Economics & Analysis",
+    title: "Economic Factors, Interest Rates, and Market Analysis",
+    readingMinutes: 56,
+    summary:
+      "The macro backdrop the Series 7 expects you to know — the business cycle and economic indicators, how the Federal Reserve's monetary policy and fiscal policy work, the inverse rate/bond-price relationship and the yield curve, and fundamental versus technical analysis.",
+    intro:
+      "The Series 7 tests the ECONOMIC environment because it drives every security's value. This reading covers the business cycle and the indicators that track it, the Federal Reserve's MONETARY policy tools and government FISCAL policy, the all-important relationship between interest rates and bond prices, the yield curve, and the two schools of market analysis. These concepts recur throughout the exam's bond and recommendation questions.",
+    sections: [
+      {
+        heading: "1. The business cycle and indicators",
+        blocks: [
+          { kind: "p", text: "The economy moves through a BUSINESS CYCLE: EXPANSION (growth), a PEAK, CONTRACTION (a recession is two or more consecutive quarters of declining GDP), and a TROUGH before recovery. Economists track it with INDICATORS classified by timing: LEADING indicators (which change before the economy, e.g., stock prices, building permits, new orders) predict; COINCIDENT indicators (industrial production, personal income) move with the economy; and LAGGING indicators (unemployment duration, corporate profits) confirm a trend after the fact. GROSS DOMESTIC PRODUCT (GDP) measures total output, and the CONSUMER PRICE INDEX (CPI) measures inflation." },
+        ],
+      },
+      {
+        heading: "2. Monetary and fiscal policy",
+        blocks: [
+          { kind: "p", text: "Two levers steer the economy. MONETARY POLICY is run by the FEDERAL RESERVE, which controls the money supply with three tools: OPEN MARKET OPERATIONS (buying/selling Treasuries — the most-used tool; buying adds money and lowers rates), the DISCOUNT RATE (what the Fed charges banks), and RESERVE REQUIREMENTS (how much banks must hold — the most powerful, least-used). 'Easy' (loose) money lowers rates to stimulate; 'tight' money raises rates to fight inflation. The FED FUNDS RATE (banks lending reserves overnight to each other) is the key short-term rate. FISCAL POLICY is run by Congress and the President through TAXING and SPENDING — cutting taxes or raising spending stimulates the economy." },
+          { kind: "callout", label: "Tight money → rates up → bond prices down", body: "When the Fed tightens (sells Treasuries, raises the discount rate, or raises reserve requirements), interest rates RISE — and because bond prices move inversely to rates, existing bond prices FALL. This chain is one of the most-tested ideas on the exam." },
+        ],
+      },
+      {
+        heading: "3. Interest rates, bonds, and the yield curve",
+        blocks: [
+          { kind: "p", text: "The single most important relationship for the Series 7: bond prices move INVERSELY to interest rates. When rates rise, existing (lower-coupon) bonds fall in price; when rates fall, they rise. Longer-maturity and lower-coupon bonds are MORE sensitive to rate changes. The YIELD CURVE plots yield against maturity: a NORMAL (ascending) curve has higher yields for longer maturities (the usual state, reflecting term risk); a FLAT curve has similar yields across maturities; and an INVERTED (descending) curve — short rates above long rates — often signals an expected economic slowdown and typically appears when the Fed has tightened aggressively." },
+        ],
+      },
+      {
+        heading: "4. Fundamental vs technical analysis",
+        blocks: [
+          { kind: "p", text: "Two approaches analyze securities. FUNDAMENTAL analysis studies the underlying value — a company's financial statements, earnings, ratios (P/E, current ratio), management, and industry — to decide WHAT to buy. TECHNICAL analysis ignores fundamentals and studies PRICE and VOLUME patterns on charts — trends, support and resistance levels, moving averages, and momentum — to decide WHEN to buy or sell. Fundamental analysts ask whether a stock is a good company at a fair price; technical analysts ask whether the chart shows a good entry point. The chapter's core: the economy cycles through expansion/peak/contraction/trough tracked by leading/coincident/lagging indicators; the Fed runs monetary policy (open market operations, discount rate, reserve requirements) while Congress runs fiscal policy; tight money raises rates and lowers bond prices; the yield curve (normal/flat/inverted) signals conditions; and analysis is fundamental (value) or technical (charts). Over-learn the Fed's tools and the rate/bond-price/yield-curve relationships." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Business cycle", def: "Expansion → peak → contraction (recession) → trough." },
+      { term: "Recession", def: "Two or more consecutive quarters of declining GDP." },
+      { term: "Leading/coincident/lagging indicators", def: "Change before / with / after the economy." },
+      { term: "GDP / CPI", def: "Total output / inflation measure." },
+      { term: "Monetary policy (the Fed)", def: "Controls money supply via open market operations, discount rate, reserve requirements." },
+      { term: "Open market operations", def: "Fed buying/selling Treasuries; the most-used tool (buying lowers rates)." },
+      { term: "Fiscal policy", def: "Government taxing and spending, run by Congress/President." },
+      { term: "Fed funds rate", def: "Overnight rate banks charge each other for reserves." },
+      { term: "Rate/bond-price inverse", def: "Rates up → bond prices down; longer/lower-coupon bonds are more sensitive." },
+      { term: "Yield curve", def: "Yield vs maturity: normal (ascending), flat, or inverted (slowdown signal)." },
+      { term: "Fundamental analysis", def: "Studies value (financials, ratios) — what to buy." },
+      { term: "Technical analysis", def: "Studies price/volume charts (trends, support/resistance) — when to buy." },
+    ],
+    takeaways: [
+      "The business cycle runs expansion → peak → contraction → trough; indicators are leading, coincident, or lagging.",
+      "The Federal Reserve runs monetary policy with open market operations (most-used), the discount rate, and reserve requirements (most powerful); Congress runs fiscal policy (taxing/spending).",
+      "Tight money raises interest rates, and because bond prices move inversely to rates, existing bond prices fall.",
+      "Longer-maturity and lower-coupon bonds are most sensitive to interest-rate changes.",
+      "The yield curve is normal (ascending), flat, or inverted (short rates above long — often a slowdown signal).",
+      "Fundamental analysis studies value (financials/ratios) to decide what to buy; technical analysis studies price/volume charts to decide when.",
+    ],
+  },
+
+  {
+    id: "s7-regulations-deep",
+    examSlug: "series-7",
+    topicId: "regulations",
+    topicName: "FINRA Rules & Conduct",
+    title: "FINRA Rules, Communications, and Prohibited Practices",
+    readingMinutes: 58,
+    summary:
+      "The conduct rules that govern a registered rep — the regulatory hierarchy and registration, the prohibited practices that draw discipline, the rules for communicating with the public, and how customer disputes are resolved through arbitration versus the Code of Procedure.",
+    intro:
+      "Beyond the securities acts, the Series 7 tests the day-to-day RULES a representative must follow under FINRA. This reading covers the regulatory structure and registration, the PROHIBITED PRACTICES that get reps fined or barred, the standards for COMMUNICATIONS with the public, and the dispute-resolution system. These are bright-line conduct rules — exactly the kind the exam loves.",
+    sections: [
+      {
+        heading: "1. Regulatory structure and registration",
+        blocks: [
+          { kind: "p", text: "The SECURITIES AND EXCHANGE COMMISSION (SEC) is the top federal regulator. Beneath it, SELF-REGULATORY ORGANIZATIONS (SROs) regulate their members: FINRA oversees broker-dealers and registered representatives, the MSRB writes municipal-securities rules, and the exchanges set member rules. To become a registered rep you pass the SIE plus a 'top-off' exam (the Series 7), register through FINRA via FORM U4, disclose your background, and complete CONTINUING EDUCATION. Certain disqualifying events (felonies, certain misdemeanors, regulatory bars) cause STATUTORY DISQUALIFICATION from association with a member firm." },
+        ],
+      },
+      {
+        heading: "2. Prohibited practices",
+        blocks: [
+          { kind: "p", text: "A long list of practices is forbidden and heavily tested. CHURNING (excessive trading to generate commissions); FRONT-RUNNING (trading ahead of a known large customer order); MARKET MANIPULATION (matched orders, painting the tape, marking the close — creating fake activity); INSIDER TRADING (trading on material nonpublic information); SELLING AWAY (private securities transactions without firm approval); COMMINGLING customer funds with the firm's; GUARANTEEING a customer against loss; SHARING in a customer's account without written authorization and proportional investment; and UNAUTHORIZED trading. Markups must be fair under the 5% POLICY (a guideline, not a hard rule), and customers must receive trade CONFIRMATIONS." },
+          { kind: "callout", label: "The classics", body: "Guaranteeing against loss, sharing in customer accounts without authorization, churning, front-running, and selling away are the most-tested prohibited practices. When in doubt on a conduct question, the answer is usually 'disclose and get firm/customer approval' or 'don't do it.'" },
+        ],
+      },
+      {
+        heading: "3. Communications with the public",
+        blocks: [
+          { kind: "p", text: "FINRA classifies COMMUNICATIONS into three types, with different review rules. RETAIL COMMUNICATIONS (distributed to more than 25 retail investors in 30 days — ads, websites, sales literature) generally require PRINCIPAL approval before use and may need FINRA filing. CORRESPONDENCE (to 25 or fewer retail investors in 30 days — most individual emails/letters) is subject to supervision and review but not pre-approval. INSTITUTIONAL COMMUNICATIONS (to institutional investors only) need internal policies but not principal pre-approval. All communications must be FAIR, BALANCED, and NOT MISLEADING — no guarantees, no omission of material risks, and any performance claims must be accurate. Telemarketing follows DO-NOT-CALL rules (calls only 8 a.m.–9 p.m. local time, maintain firm and national do-not-call lists)." },
+        ],
+      },
+      {
+        heading: "4. Dispute resolution and synthesis",
+        blocks: [
+          { kind: "p", text: "FINRA resolves matters through two distinct systems. The CODE OF ARBITRATION handles MONETARY disputes — between a customer and a firm, or between industry members — and arbitration decisions are BINDING with very limited appeal (customer arbitration requires a signed agreement, standard in account paperwork). The CODE OF PROCEDURE handles alleged RULE VIOLATIONS — FINRA's disciplinary process against a member or rep, which can result in fines, suspension, or a bar. (Memory aid: ARBITRATION = money disputes; CODE OF PROCEDURE = rule-violation discipline.) The chapter's core: the SEC sits atop SROs (FINRA, MSRB, exchanges); reps register via Form U4 and can be statutorily disqualified; prohibited practices include churning, front-running, manipulation, selling away, commingling, guaranteeing against loss, and unauthorized sharing/trading; communications are retail (principal approval), correspondence (review), or institutional, and must be fair and not misleading; and disputes go to arbitration (money) or the Code of Procedure (rule violations). Over-learn the prohibited-practices list and the arbitration-vs-Code-of-Procedure distinction." },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "SEC / SROs", def: "Top federal regulator; FINRA, MSRB, and exchanges regulate members under it." },
+      { term: "Form U4 / statutory disqualification", def: "Registration form; disqualifying events bar association with a member." },
+      { term: "Churning", def: "Excessive trading to generate commissions." },
+      { term: "Front-running", def: "Trading ahead of a known large customer order." },
+      { term: "Market manipulation", def: "Matched orders, painting the tape, marking the close — faking activity." },
+      { term: "Selling away", def: "Private securities transactions without firm approval; prohibited." },
+      { term: "Guaranteeing against loss / sharing", def: "Prohibited; sharing needs written authorization and proportional investment." },
+      { term: "5% policy", def: "Markup/commission fairness guideline (not a hard limit)." },
+      { term: "Retail communication", def: ">25 retail investors/30 days; needs principal approval, maybe FINRA filing." },
+      { term: "Correspondence", def: "≤25 retail investors/30 days; supervised/reviewed, not pre-approved." },
+      { term: "Code of Arbitration", def: "Resolves binding MONETARY disputes (customer/firm, member/member)." },
+      { term: "Code of Procedure", def: "FINRA's disciplinary process for RULE VIOLATIONS." },
+    ],
+    takeaways: [
+      "The SEC oversees SROs (FINRA, MSRB, exchanges); reps register via Form U4, meet continuing education, and can be statutorily disqualified by certain events.",
+      "Prohibited practices include churning, front-running, market manipulation, insider trading, selling away, commingling, guaranteeing against loss, unauthorized sharing, and unauthorized trading.",
+      "Markups must be fair under the 5% policy (a guideline), and customers must get trade confirmations.",
+      "Communications are retail (>25 retail/30 days — principal approval), correspondence (≤25 — reviewed), or institutional; all must be fair, balanced, and not misleading.",
+      "Telemarketing follows do-not-call rules (8 a.m.–9 p.m. local; firm and national lists).",
+      "Disputes go to arbitration (binding MONETARY disputes) or the Code of Procedure (FINRA discipline for RULE VIOLATIONS).",
+    ],
+  },
 ];
 
 export const s7DeepQuestions: Question[] = [
@@ -1076,5 +1258,134 @@ export const s7DeepQuestions: Question[] = [
     choices: ["Traded actively on exchanges", "Illiquid, with no active secondary market", "Redeemable daily at NAV", "Guaranteed by the SEC"],
     answerIndex: 1,
     explanation: "DPPs are illiquid, long-term investments with no active secondary market, so they suit only investors who can bear illiquidity and the associated risk.",
+  },
+
+  {
+    id: "s7oa-d1", examSlug: "series-7", topicId: "options-adv", topicName: "Advanced Options", difficulty: 2,
+    stem: "A vertical spread that costs net premium (you pay more than you receive) is a:",
+    choices: ["Credit spread that profits as the spread narrows", "Debit spread that profits as the spread widens", "Straddle", "Covered call"],
+    answerIndex: 1,
+    explanation: "A debit spread is paid for (net premium out) and profits when the spread widens. A credit spread brings in net premium and profits when the spread narrows toward worthless.",
+  },
+  {
+    id: "s7oa-d2", examSlug: "series-7", topicId: "options-adv", topicName: "Advanced Options", difficulty: 3,
+    stem: "An investor buys a 50 call for 4 and sells a 60 call for 1.50. The maximum gain is:",
+    choices: ["$250", "$750", "$1,000", "Unlimited"],
+    answerIndex: 1,
+    explanation: "Net debit = 4 − 1.50 = 2.50. Max gain = strike difference − net debit = (60 − 50) − 2.50 = 7.50 × 100 = $750. (Max loss is the $250 debit; the two sum to the $1,000 strike difference × 100.)",
+  },
+  {
+    id: "s7oa-d3", examSlug: "series-7", topicId: "options-adv", topicName: "Advanced Options", difficulty: 3,
+    stem: "For the same 50/60 call spread (net debit 2.50), the breakeven is:",
+    choices: ["$50.00", "$52.50", "$57.50", "$60.00"],
+    answerIndex: 1,
+    explanation: "A debit call spread's breakeven is the lower strike plus the net debit: 50 + 2.50 = $52.50.",
+  },
+  {
+    id: "s7oa-d4", examSlug: "series-7", topicId: "options-adv", topicName: "Advanced Options", difficulty: 2,
+    stem: "A long straddle (buy a call and a put at the same strike) is a bet that the stock will:",
+    choices: ["Stay near the strike", "Make a big move in either direction", "Rise only", "Pay a dividend"],
+    answerIndex: 1,
+    explanation: "A long straddle profits from a large move in either direction (long volatility), with breakevens at the strike ± total premium. A short straddle profits if the stock stays near the strike.",
+  },
+  {
+    id: "s7oa-d5", examSlug: "series-7", topicId: "options-adv", topicName: "Advanced Options", difficulty: 2,
+    stem: "To hedge a SHORT stock position against the stock rising, an investor would:",
+    choices: ["Buy a put", "Buy a call (protective call)", "Sell a call", "Do nothing"],
+    answerIndex: 1,
+    explanation: "A short seller's risk is the stock rising, so buying a call (a protective call) caps that upside loss. For a LONG stock position, the protective hedge is buying a put instead.",
+  },
+  {
+    id: "s7oa-d6", examSlug: "series-7", topicId: "options-adv", topicName: "Advanced Options", difficulty: 1,
+    stem: "A strangle differs from a straddle in that it uses:",
+    choices: ["The same strike for both options", "Different strikes (typically out-of-the-money)", "Only calls", "Only puts"],
+    answerIndex: 1,
+    explanation: "A strangle buys (or sells) a call and a put at DIFFERENT strikes — usually out-of-the-money — making it cheaper than a same-strike straddle but requiring a bigger move to profit.",
+  },
+
+  {
+    id: "s7ec-d1", examSlug: "series-7", topicId: "economics", topicName: "Economics & Analysis", difficulty: 2,
+    stem: "Which is the Federal Reserve's most-used tool for influencing the money supply?",
+    choices: ["Changing reserve requirements", "Open market operations (buying/selling Treasuries)", "Fiscal policy", "Setting tax rates"],
+    answerIndex: 1,
+    explanation: "Open market operations — buying and selling Treasury securities — are the Fed's most-used tool. Buying adds money and lowers rates; selling drains money and raises rates. Reserve requirements are the most powerful but least-used; taxing/spending is fiscal policy (Congress).",
+  },
+  {
+    id: "s7ec-d2", examSlug: "series-7", topicId: "economics", topicName: "Economics & Analysis", difficulty: 2,
+    stem: "If the Fed tightens monetary policy, interest rates rise. Existing bond prices will:",
+    choices: ["Rise", "Fall", "Stay the same", "Become tax-free"],
+    answerIndex: 1,
+    explanation: "Bond prices move inversely to interest rates. Tight money raises rates, so existing (lower-coupon) bond prices fall — one of the most-tested chains on the exam.",
+  },
+  {
+    id: "s7ec-d3", examSlug: "series-7", topicId: "economics", topicName: "Economics & Analysis", difficulty: 1,
+    stem: "A recession is generally defined as:",
+    choices: ["One month of falling stock prices", "Two or more consecutive quarters of declining GDP", "Any rise in unemployment", "A single bad earnings season"],
+    answerIndex: 1,
+    explanation: "A recession is commonly defined as two or more consecutive quarters of declining real GDP — the contraction phase of the business cycle.",
+  },
+  {
+    id: "s7ec-d4", examSlug: "series-7", topicId: "economics", topicName: "Economics & Analysis", difficulty: 2,
+    stem: "An INVERTED yield curve (short-term rates higher than long-term rates) often signals:",
+    choices: ["Strong expected growth", "An expected economic slowdown", "Rising inflation", "A stock market rally"],
+    answerIndex: 1,
+    explanation: "An inverted (descending) yield curve, where short rates exceed long rates, often signals an expected slowdown and typically appears after aggressive Fed tightening. A normal curve ascends with maturity.",
+  },
+  {
+    id: "s7ec-d5", examSlug: "series-7", topicId: "economics", topicName: "Economics & Analysis", difficulty: 2,
+    stem: "An analyst who studies a company's financial statements, earnings, and P/E ratio is using:",
+    choices: ["Technical analysis", "Fundamental analysis", "Open market operations", "The yield curve"],
+    answerIndex: 1,
+    explanation: "Fundamental analysis studies underlying value — financial statements, earnings, ratios, management, industry — to decide WHAT to buy. Technical analysis instead studies price and volume charts to decide WHEN to buy.",
+  },
+  {
+    id: "s7ec-d6", examSlug: "series-7", topicId: "economics", topicName: "Economics & Analysis", difficulty: 1,
+    stem: "Fiscal policy is controlled by:",
+    choices: ["The Federal Reserve", "Congress and the President (taxing and spending)", "FINRA", "The stock exchanges"],
+    answerIndex: 1,
+    explanation: "Fiscal policy — government taxing and spending — is set by Congress and the President. Monetary policy (the money supply and rates) is run by the Federal Reserve.",
+  },
+
+  {
+    id: "s7rg-d1", examSlug: "series-7", topicId: "regulations", topicName: "FINRA Rules & Conduct", difficulty: 2,
+    stem: "A registered representative who sells a private securities investment without their firm's approval has committed:",
+    choices: ["Churning", "Selling away", "Front-running", "Painting the tape"],
+    answerIndex: 1,
+    explanation: "Selling away — engaging in private securities transactions without firm approval — is prohibited. Churning is excessive trading; front-running is trading ahead of a customer order; painting the tape is market manipulation.",
+  },
+  {
+    id: "s7rg-d2", examSlug: "series-7", topicId: "regulations", topicName: "FINRA Rules & Conduct", difficulty: 2,
+    stem: "Which is a PROHIBITED practice?",
+    choices: ["Disclosing a conflict of interest", "Guaranteeing a customer against loss", "Recommending a suitable investment", "Delivering a prospectus"],
+    answerIndex: 1,
+    explanation: "Guaranteeing a customer against loss is prohibited. Sharing in a customer account also requires written authorization and proportional investment. The other choices are proper conduct.",
+  },
+  {
+    id: "s7rg-d3", examSlug: "series-7", topicId: "regulations", topicName: "FINRA Rules & Conduct", difficulty: 3,
+    stem: "A firm advertisement distributed to more than 25 retail investors in 30 days is a 'retail communication' that generally requires:",
+    choices: ["No review at all", "Principal approval before use", "Only the customer's signature", "SEC pre-clearance"],
+    answerIndex: 1,
+    explanation: "Retail communications (more than 25 retail investors in 30 days) generally require principal approval before first use and may need FINRA filing. Correspondence (25 or fewer) is reviewed/supervised but not pre-approved.",
+  },
+  {
+    id: "s7rg-d4", examSlug: "series-7", topicId: "regulations", topicName: "FINRA Rules & Conduct", difficulty: 3,
+    stem: "A customer's MONETARY dispute with a brokerage firm is resolved through FINRA's:",
+    choices: ["Code of Procedure", "Code of Arbitration", "Form U4 process", "Telemarketing rules"],
+    answerIndex: 1,
+    explanation: "The Code of Arbitration resolves binding monetary disputes (customer/firm or member/member). The Code of Procedure is FINRA's disciplinary process for rule violations (fines, suspension, bar).",
+  },
+  {
+    id: "s7rg-d5", examSlug: "series-7", topicId: "regulations", topicName: "FINRA Rules & Conduct", difficulty: 1,
+    stem: "A registered representative registers with FINRA by filing:",
+    choices: ["Form U4", "Form 1040", "Form ADV", "A prospectus"],
+    answerIndex: 0,
+    explanation: "Associated persons register through FINRA via Form U4, disclosing background and disciplinary history. Form ADV is for investment advisers; Form 1040 is a tax return.",
+  },
+  {
+    id: "s7rg-d6", examSlug: "series-7", topicId: "regulations", topicName: "FINRA Rules & Conduct", difficulty: 2,
+    stem: "Under telemarketing (do-not-call) rules, cold calls to prospects are generally permitted only:",
+    choices: ["Any time, day or night", "Between 8 a.m. and 9 p.m. in the called party's local time", "Only on weekends", "Only after a sale"],
+    answerIndex: 1,
+    explanation: "Telemarketing rules limit cold calls to 8 a.m.–9 p.m. in the called party's local time, and firms must maintain firm-specific and national do-not-call lists.",
   },
 ];
