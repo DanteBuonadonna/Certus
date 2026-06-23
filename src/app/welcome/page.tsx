@@ -18,9 +18,9 @@ import { LogoMark } from "@/components/Logo";
 
 const FLAG = "certus_onboarded";
 
-type Step = "intro" | "exam" | "when" | "bg" | "hours" | "worry" | "why" | "build" | "reveal" | "quiz" | "result";
-const ORDER: Step[] = ["intro", "exam", "when", "bg", "hours", "worry", "why", "build", "reveal", "quiz", "result"];
-const BARW: Record<Step, number> = { intro: 8, exam: 20, when: 31, bg: 43, hours: 55, worry: 66, why: 78, build: 88, reveal: 92, quiz: 97, result: 100 };
+type Step = "intro" | "exam" | "when" | "bg" | "hours" | "worry" | "why" | "build" | "reveal" | "quizintro" | "quiz" | "result";
+const ORDER: Step[] = ["intro", "exam", "when", "bg", "hours", "worry", "why", "build", "reveal", "quizintro", "quiz", "result"];
+const BARW: Record<Step, number> = { intro: 8, exam: 20, when: 31, bg: 43, hours: 55, worry: 66, why: 78, build: 88, reveal: 90, quizintro: 94, quiz: 97, result: 100 };
 
 const Q: Record<string, { q: string; sub: string; opts: string[] }> = {
   when: { q: "When's your exam?", sub: "This sets your daily pace.", opts: ["In about a month", "2–3 months out", "4–6 months out", "Not scheduled yet"] },
@@ -106,7 +106,7 @@ export default function WelcomePage() {
       </div>
       <div className="flex items-center justify-between px-5 py-3">
         <div className="flex items-center gap-2"><LogoMark size={18} /><span className="font-display text-sm" style={{ color: "var(--text-primary)" }}>Certus</span></div>
-        {step !== "intro" && step !== "build" && step !== "reveal" && step !== "result" && (
+        {step !== "intro" && step !== "build" && step !== "reveal" && step !== "quizintro" && step !== "result" && (
           <button onClick={skip} className="text-xs" style={{ color: "var(--text-muted)" }}>Skip</button>
         )}
       </div>
@@ -119,7 +119,8 @@ export default function WelcomePage() {
             <QuestionStep step={step} onPick={(v) => pick(step, v)} />
           )}
           {step === "build" && <BuildStep when={ans.when} onDone={() => go("reveal")} />}
-          {step === "reveal" && <RevealStep ans={ans} onStart={() => go("quiz")} />}
+          {step === "reveal" && <RevealStep ans={ans} onStart={() => go("quizintro")} />}
+          {step === "quizintro" && <QuizIntro onDone={() => go("quiz")} />}
           {step === "quiz" && <Diagnostic examSlug={ans.examSlug} onDone={(s, t) => { setScore({ s, t }); go("result"); }} />}
           {step === "result" && <ResultStep score={score} onEnter={finish} />}
         </div>
@@ -276,6 +277,26 @@ function RevealStep({ ans, onStart }: { ans: Record<string, string>; onStart: ()
 
       <button onClick={onStart} className="btn-duo w-full" style={{ marginTop: 20 }}>Continue →</button>
       <div className="mt-3" style={{ fontSize: 12, color: "var(--text-muted)" }}>Next: a quick 3-question gut-check.</div>
+    </div>
+  );
+}
+
+function QuizIntro({ onDone }: { onDone: () => void }) {
+  useEffect(() => {
+    const t = setTimeout(onDone, 2700);
+    return () => clearTimeout(t);
+  }, [onDone]);
+  return (
+    <div className="text-center" style={{ padding: "44px 0" }}>
+      <div className="ob-bigword" style={{ fontSize: 12, color: "var(--primary)", textTransform: "uppercase", letterSpacing: "0.18em", marginBottom: 16 }}>
+        Plan locked in
+      </div>
+      <h2 className="font-display ob-bigword" style={{ fontSize: 30, color: "var(--text-primary)", lineHeight: 1.22, animationDelay: "0.18s" }}>
+        Now, let&apos;s see<br />what you know.
+      </h2>
+      <div className="ob-bigword" style={{ marginTop: 26, animationDelay: "0.55s" }}>
+        <span className="ob-spin" style={{ display: "inline-block", color: "var(--primary)", fontSize: 22 }}>◌</span>
+      </div>
     </div>
   );
 }
