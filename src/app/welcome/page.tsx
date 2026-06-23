@@ -45,10 +45,12 @@ export default function WelcomePage() {
     return EXAMS.filter((e) => live.has(e.slug));
   }, []);
 
-  // First-visit gate: onboarded users skip straight to the app.
+  // First-visit gate: onboarded users skip straight to the app — UNLESS the URL
+  // has ?replay=1 (so you can re-watch/test the whole flow anytime).
   useEffect(() => {
     try {
-      if (localStorage.getItem(FLAG) === "1") {
+      const replay = typeof window !== "undefined" && window.location.search.includes("replay=1");
+      if (!replay && localStorage.getItem(FLAG) === "1") {
         router.replace("/dashboard");
         return;
       }
