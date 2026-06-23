@@ -18,9 +18,9 @@ import { LogoMark } from "@/components/Logo";
 
 const FLAG = "certus_onboarded";
 
-type Step = "intro" | "exam" | "when" | "bg" | "hours" | "worry" | "why" | "build" | "reveal";
-const ORDER: Step[] = ["intro", "exam", "when", "bg", "hours", "worry", "why", "build", "reveal"];
-const BARW: Record<Step, number> = { intro: 8, exam: 22, when: 35, bg: 48, hours: 61, worry: 74, why: 87, build: 95, reveal: 100 };
+type Step = "intro" | "exam" | "when" | "bg" | "hours" | "worry" | "why" | "build" | "reveal" | "quiz" | "result";
+const ORDER: Step[] = ["intro", "exam", "when", "bg", "hours", "worry", "why", "build", "reveal", "quiz", "result"];
+const BARW: Record<Step, number> = { intro: 8, exam: 20, when: 31, bg: 43, hours: 55, worry: 66, why: 78, build: 88, reveal: 92, quiz: 97, result: 100 };
 
 const Q: Record<string, { q: string; sub: string; opts: string[] }> = {
   when: { q: "When's your exam?", sub: "This sets your daily pace.", opts: ["In about a month", "2–3 months out", "4–6 months out", "Not scheduled yet"] },
@@ -38,6 +38,7 @@ export default function WelcomePage() {
   const [ready, setReady] = useState(false);
   const [step, setStep] = useState<Step>("intro");
   const [ans, setAns] = useState<Record<string, string>>({});
+  const [score, setScore] = useState<{ s: number; t: number }>({ s: 0, t: 0 });
 
   const liveExams = useMemo(() => {
     const live = new Set(examsWithContent());
@@ -84,7 +85,9 @@ export default function WelcomePage() {
       saveState({ ...state, plans: [plan, ...(state.plans ?? []).filter((p) => p.examSlug !== plan.examSlug)] });
       localStorage.setItem(FLAG, "1");
     } catch {}
-    router.push(`/practice?exam=${exam.slug}&topic=all&start=1`);
+    // Into the app — the dashboard runs character creation + the tutorial on
+    // first visit, then they're in their plan.
+    router.push("/dashboard");
   }, [ans, router]);
 
   const skip = useCallback(() => {
@@ -101,7 +104,7 @@ export default function WelcomePage() {
       </div>
       <div className="flex items-center justify-between px-5 py-3">
         <div className="flex items-center gap-2"><LogoMark size={18} /><span className="font-display text-sm" style={{ color: "var(--text-primary)" }}>Certus</span></div>
-        {step !== "intro" && step !== "build" && step !== "reveal" && (
+        {step !== "intro" && step !== "build" && step !== "reveal" && step !== "result" && (
           <button onClick={skip} className="text-xs" style={{ color: "var(--text-muted)" }}>Skip</button>
         )}
       </div>
@@ -114,7 +117,9 @@ export default function WelcomePage() {
             <QuestionStep step={step} onPick={(v) => pick(step, v)} />
           )}
           {step === "build" && <BuildStep when={ans.when} onDone={() => go("reveal")} />}
-          {step === "reveal" && <RevealStep ans={ans} onStart={finish} />}
+          {step === "reveal" && <RevealStep ans={ans} onStart={() => go("quiz")} />}
+          {step === "quiz" && <Diagnostic examSlug={ans.examSlug} onDone={(s, t) => { setScore({ s, t }); go("result"); }} />}
+          {step === "result" && <ResultStep score={score} onEnter={finish} />}
         </div>
       </div>
     </div>
@@ -267,8 +272,70 @@ function RevealStep({ ans, onStart }: { ans: Record<string, string>; onStart: ()
         )}
       </div>
 
-      <button onClick={onStart} className="btn-duo w-full" style={{ marginTop: 20 }}>Start studying →</button>
-      <div className="mt-3" style={{ fontSize: 12, color: "var(--text-muted)" }}>Jump into your first lesson — no card needed.</div>
+      <button onClick={onStart} className="btn-duo w-full" style={{ marginTop: 20 }}>Continue →</button>
+      <div className="mt-3" style={{ fontSize: 12, color: "var(--text-muted)" }}>Next: a quick 3-question gut-check.</div>
+    </div>
+  );
+}
+
+function Diagnostic({ examSlug, onDone }: { examSlug: string; onDone: (s: number, t: number) => void }) {
+  const qs = useMemo(() => {
+    const all = getQuestions(examSlug);
+    return [...all].sort(() => Math.random() - 0.5).slice(0, 3);
+  }, [examSlug]);
+  const [i, setI] = useState(0);
+  const [score, setScore] = useState(0);
+  const [picked, setPicked] = useState<number | null>(null);
+  const q = qs[i];
+
+  useEffect(() => { if (qs.length === 0) onDone(0, 0); }, [qs.length, onDone]);
+  if (!q) return null;
+
+  function answer(idx: number) {
+    if (picked !== null) return;
+    setPicked(idx);
+    const newScore = score + (idx === q.answerIndex ? 1 : 0);
+    setTimeout(() => {
+      if (i + 1 >= qs.length) onDone(newScore, qs.length);
+      else { setScore(newScore); setI(i + 1); setPicked(null); }
+    }, 750);
+  }
+
+  return (
+    <div>
+      <div style={{ fontSize: 11, color: "var(--text-muted)", marginBottom: 8, textTransform: "uppercase", letterSpacing: ".07em" }}>
+        Let&apos;s see what you know · {i + 1} of {qs.length}
+      </div>
+      <h2 className="font-display mb-5" style={{ fontSize: 19, color: "var(--text-primary)", lineHeight: 1.4 }}>{q.stem}</h2>
+      <div className="flex flex-col gap-2.5">
+        {q.choices.map((c, idx) => {
+          const show = picked !== null;
+          const isAns = idx === q.answerIndex;
+          const bg = show && isAns ? "var(--ats-green-bg)" : show && idx === picked ? "var(--ats-red-bg)" : "var(--bg-card)";
+          const bc = show && isAns ? "var(--ats-green)" : show && idx === picked ? "var(--ats-red)" : "var(--border)";
+          return (
+            <button key={idx} onClick={() => answer(idx)} disabled={picked !== null} className="ob-opt" style={{ background: bg, borderColor: bc }}>
+              <span className="ob-num">{String.fromCharCode(65 + idx)}</span><span>{c}</span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function ResultStep({ score, onEnter }: { score: { s: number; t: number }; onEnter: () => void }) {
+  const { s, t } = score;
+  const pct = t ? s / t : 0;
+  let emoji = "📈", title = "Alright — we've got work to do.", body = `${s}/${t}, and that's exactly why you're here. Your plan is built to turn this around fast.`;
+  if (pct >= 0.99) { emoji = "🎯"; title = "Flawless — you're ahead of the game."; body = `${s}/${t}. You clearly know your stuff. Your plan will keep you sharp and close the last gaps.`; }
+  else if (pct >= 0.5) { emoji = "💪"; title = "Solid start."; body = `${s}/${t}. You've got a real foundation — now we build on it, a little every day.`; }
+  return (
+    <div className="text-center">
+      <div style={{ fontSize: 44, marginBottom: 8 }}>{emoji}</div>
+      <h2 className="font-display" style={{ fontSize: 23, color: "var(--text-primary)", marginBottom: 8 }}>{title}</h2>
+      <p style={{ fontSize: 15, color: "var(--text-secondary)", lineHeight: 1.6, maxWidth: 360, margin: "0 auto 24px" }}>{body}</p>
+      <button onClick={onEnter} className="btn-duo" style={{ padding: "0.85rem 2rem", fontSize: 16 }}>Let&apos;s get to it →</button>
     </div>
   );
 }

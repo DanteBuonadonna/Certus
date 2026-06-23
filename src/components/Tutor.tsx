@@ -31,12 +31,15 @@ export default function Tutor({
   context,
   suggestions = ["Explain this simply", "Give me a worked example", "Quiz me on this"],
   intro = false,
+  bottomInset = 22,
 }: {
   /** What the student is currently looking at — chapter section, question, etc. */
   context: string;
   suggestions?: string[];
   /** Show a one-time coachmark introducing the tutor (e.g. on the Practice screen). */
   intro?: boolean;
+  /** Raise the floating launcher/panel so it clears a bottom action bar (e.g. the Check button). */
+  bottomInset?: number;
 }) {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([]);
@@ -122,7 +125,7 @@ export default function Tutor({
     <>
       {/* Floating launcher + one-time coachmark */}
       {!open && (
-        <div className="fixed z-40" style={{ bottom: 22, right: 22 }}>
+        <div className="fixed z-40" style={{ bottom: bottomInset, right: 22 }}>
           {showIntro && (
             <div
               className="pop-in"
@@ -190,7 +193,7 @@ export default function Tutor({
         <div
           className="fixed z-50 flex flex-col animate-in"
           style={{
-            bottom: 18,
+            bottom: Math.max(18, bottomInset - 4),
             right: 18,
             width: 372,
             maxWidth: "calc(100vw - 36px)",

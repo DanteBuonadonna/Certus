@@ -317,6 +317,7 @@ function Quiz({ questions, onFinish }: { questions: Question[]; onFinish: (answe
             : ["Teach me the concept behind this", "How do I approach this question?", "Define the terms in this question"]
         }
         intro
+        bottomInset={92}
       />
     </div>
   );

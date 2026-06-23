@@ -170,8 +170,8 @@ export default function Sidebar({ email }: SidebarProps) {
       )}
 
     <aside
-      className={`fixed left-0 top-0 h-full flex flex-col transition-transform duration-200 ${mobileOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
-      style={{ width: "var(--sidebar-width)", background: "var(--bg-sidebar)", borderRight: "0.5px solid var(--border)", zIndex: 40 }}
+      className={`fixed left-0 top-0 bottom-0 flex flex-col transition-transform duration-200 ${mobileOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
+      style={{ width: "var(--sidebar-width)", height: "100dvh", background: "var(--bg-sidebar)", borderRight: "0.5px solid var(--border)", zIndex: 40 }}
     >
       {/* Logo */}
       <div className="px-5 py-5">
