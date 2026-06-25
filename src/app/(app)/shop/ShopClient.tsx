@@ -19,7 +19,7 @@ import {
 import { GameState, EMPTY_STATE } from "@/lib/studyPlan";
 import { loadState } from "@/lib/gameStore";
 import { Profile, loadProfile, saveProfile } from "@/lib/profile";
-import { Avatar } from "@/components/avatar";
+import { Avatar, ItemIcon } from "@/components/avatar";
 import { AnimatedNumber, GoldBurst } from "@/components/ui";
 import { Coin, CoinBurst } from "@/components/Coin";
 import { playCoin, playUnlock } from "@/lib/sound";
@@ -260,7 +260,6 @@ export default function ShopClient() {
           const affordable = balance >= item.price;
           const tier = TIER_META[item.tier];
           const frame = TIER_FRAME[item.tier];
-          const preview = profile ? previewConfig(profile, item) : null;
           const isLegacy = item.tier === "legacy";
           return (
             <div
@@ -298,24 +297,20 @@ export default function ShopClient() {
               </div>
 
               <div className="p-4 flex items-start gap-3.5">
-                {/* Art */}
-                {preview && item.slot !== "title" ? (
-                  <Avatar config={preview} size={76} rounded={14} animated={false} />
+                {/* Art — the actual item, on a rarity-tinted tile */}
+                {item.slot === "title" ? (
+                  <div
+                    className="flex items-center justify-center text-center font-display"
+                    style={{ width: 76, height: 76, borderRadius: 14, background: frame.bg, border: `2px solid ${frame.frame}`, color: frame.frame, fontSize: 11, fontWeight: 800, lineHeight: 1.18, padding: "0 7px", flexShrink: 0 }}
+                  >
+                    {item.name}
+                  </div>
                 ) : (
                   <div
-                    className="flex items-center justify-center font-display"
-                    style={{
-                      width: 76,
-                      height: 76,
-                      borderRadius: 14,
-                      background: frame.bg,
-                      border: `2px solid ${frame.frame}`,
-                      color: frame.frame,
-                      fontSize: 26,
-                      flexShrink: 0,
-                    }}
+                    className="flex items-center justify-center"
+                    style={{ width: 76, height: 76, borderRadius: 14, background: frame.bg, border: `2px solid ${frame.frame}`, flexShrink: 0 }}
                   >
-                    &ldquo;&rdquo;
+                    <ItemIcon id={item.id} slot={item.slot} size={62} />
                   </div>
                 )}
 
@@ -370,14 +365,3 @@ function tierStars(t: ItemTier): number {
   return t === "standard" ? 1 : t === "premium" ? 2 : t === "executive" ? 3 : 4;
 }
 
-/** Preview the item on the player's current avatar. */
-function previewConfig(profile: Profile, item: ShopItem) {
-  const a = { ...profile.avatar };
-  if (item.slot === "suit") a.suit = item.id;
-  else if (item.slot === "hat") a.hat = item.id;
-  else if (item.slot === "eyewear") a.eyewear = item.id;
-  else if (item.slot === "neckwear") a.neckwear = item.id;
-  else if (item.slot === "accessory") a.accessory = item.id;
-  else if (item.slot === "background") a.background = item.id;
-  return a;
-}

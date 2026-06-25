@@ -11,7 +11,7 @@ import {
   loadProfile,
   saveProfile,
 } from "@/lib/profile";
-import { Avatar, EXPRESSIONS } from "@/components/avatar";
+import { Avatar, ItemIcon, EXPRESSIONS } from "@/components/avatar";
 import {
   Wallet,
   loadWallet,
@@ -286,38 +286,79 @@ function ItemRow({
   allowNone?: boolean;
   onSelect: (id: string | null) => void;
 }) {
+  const selectedItem = selected ? items.find((i) => i.id === selected) : null;
   return (
     <div>
-      <SectionLabel>{label}</SectionLabel>
-      <div className="flex items-center gap-2 flex-wrap">
-        {allowNone && <Chip label="None" active={selected === null} onClick={() => onSelect(null)} />}
+      <div className="flex items-baseline justify-between mb-2">
+        <SectionLabel>{label}</SectionLabel>
+        <span className="text-[11px] font-semibold" style={{ color: "var(--text-muted)" }}>
+          {selectedItem ? selectedItem.name : "None"}
+        </span>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(60px, 1fr))", gap: 9 }}>
+        {allowNone && <LockerTile active={selected === null} owned onClick={() => onSelect(null)} />}
         {items.map((item) => {
           const owned = ownsItem(item.id, wallet);
-          const active = selected === item.id;
           return (
-            <button
+            <LockerTile
               key={item.id}
-              disabled={!owned}
-              onClick={() => onSelect(item.id)}
-              title={owned ? item.desc : `${item.name} — ${formatComp(item.price)} at the Perks Desk`}
-              className="text-xs px-3 py-1.5 flex items-center gap-1.5 transition-all"
-              style={{
-                borderRadius: 12,
-                fontWeight: 600,
-                background: active ? "var(--primary-light)" : "var(--bg)",
-                border: active ? "2px solid var(--primary)" : "2px solid var(--border)",
-                color: !owned ? "var(--text-muted)" : active ? "var(--primary)" : "var(--text-secondary)",
-                opacity: owned ? 1 : 0.55,
-                cursor: owned ? "pointer" : "not-allowed",
-              }}
-            >
-              {!owned && <LockIcon size={11} />}
-              {item.name}
-            </button>
+              item={item}
+              active={selected === item.id}
+              owned={owned}
+              onClick={() => owned && onSelect(item.id)}
+            />
           );
         })}
       </div>
     </div>
+  );
+}
+
+function LockerTile({
+  item,
+  active,
+  owned,
+  onClick,
+}: {
+  item?: ReturnType<typeof itemsBySlot>[number];
+  active: boolean;
+  owned: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      title={item ? (owned ? item.name : `${item.name} — ${formatComp(item.price)} at the Perks Desk`) : "None"}
+      className="transition-all"
+      style={{
+        position: "relative",
+        aspectRatio: "1 / 1",
+        borderRadius: 14,
+        background: active ? "var(--primary-light)" : "var(--bg)",
+        border: active ? "2px solid var(--primary)" : "2px solid var(--border)",
+        boxShadow: active ? "0 3px 0 var(--primary-deep)" : "0 3px 0 var(--border)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        opacity: owned ? 1 : 0.6,
+        cursor: owned ? "pointer" : "not-allowed",
+        overflow: "hidden",
+      }}
+    >
+      {item ? (
+        <ItemIcon id={item.id} slot={item.slot} size={42} />
+      ) : (
+        <span style={{ fontSize: 11, fontWeight: 800, color: "var(--text-muted)" }}>None</span>
+      )}
+      {item && !owned && (
+        <span style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(120,120,140,0.28)" }}>
+          <LockIcon size={14} />
+        </span>
+      )}
+      {active && (
+        <span style={{ position: "absolute", top: 4, right: 4, width: 15, height: 15, borderRadius: "50%", background: "var(--primary)", color: "#fff", fontSize: 9, fontWeight: 900, display: "flex", alignItems: "center", justifyContent: "center" }}>✓</span>
+      )}
+    </button>
   );
 }
 

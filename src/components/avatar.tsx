@@ -11,6 +11,7 @@
 
 import { useId } from "react";
 import { AvatarConfig } from "@/lib/profile";
+import type { ItemSlot } from "@/lib/economy";
 
 export type AvatarMood = "confident" | "determined" | "neutral" | "friendly";
 
@@ -297,5 +298,66 @@ export function Avatar({
         </g>
       </g>
     </svg>
+  );
+}
+
+// ============================================================
+// ItemIcon — a clean, isolated icon of a single shop item, drawn
+// so the shop + locker show *what you're buying* (not the bull).
+// ============================================================
+const ICON_PATHS: Record<string, string> = {
+  "hat-grad": '<path d="M14 28 L32 20 L50 28 L32 36 Z" fill="#16223a"/><path d="M22 31 q10 5 20 0 v6 q-10 5 -20 0 z" fill="#23314f"/><circle cx="32" cy="24" r="2.4" fill="#f2b50a"/><path d="M32 24 q14 3 14 14" stroke="#f2b50a" stroke-width="2" fill="none"/><circle cx="46" cy="40" r="2.6" fill="#f2b50a"/>',
+  "hat-top": '<rect x="22" y="14" width="20" height="22" rx="2" fill="#1a2438"/><rect x="14" y="34" width="36" height="6" rx="3" fill="#11192b"/><rect x="22" y="29" width="20" height="5" fill="#f2b50a"/>',
+  "hat-fedora": '<path d="M16 34 q16 -15 32 0 q-9 -5 -16 -5 q-7 0 -16 5 z" fill="#3a2c1c"/><ellipse cx="32" cy="34" rx="20" ry="5" fill="#2c2114"/><rect x="22" y="27" width="20" height="5" fill="#1c150c"/>',
+  "hat-beanie": '<path d="M16 36 Q16 16 32 16 Q48 16 48 36 Z" fill="#b9472f"/><rect x="14" y="34" width="36" height="7" rx="3.5" fill="#9c3a25"/><circle cx="32" cy="15" r="4" fill="#e0c08a"/>',
+  "hat-party": '<path d="M32 10 L20 40 L44 40 Z" fill="#5b54d6"/><path d="M32 10 L26 26 L38 26 Z" fill="#f2b50a"/><circle cx="32" cy="10" r="3.4" fill="#ff5a5a"/>',
+  "hat-visor": '<path d="M14 30 q18 -7 36 0 l3 7 q-21 -6 -42 0 z" fill="#1fb87a"/><rect x="18" y="25" width="28" height="7" rx="3.5" fill="#179463"/>',
+  "hat-halo": '<ellipse cx="32" cy="30" rx="18" ry="6" fill="none" stroke="#ffe07a" stroke-width="5"/>',
+  "hat-crown": '<path d="M14 40 L19 20 L26 31 L32 16 L38 31 L45 20 L50 40 Z" fill="#f2b50a" stroke="#c8920a" stroke-width="1.2"/><circle cx="32" cy="20" r="2.4" fill="#ff5a5a"/><circle cx="20" cy="23" r="2" fill="#5b54d6"/><circle cx="44" cy="23" r="2" fill="#5b54d6"/>',
+  "acc-specs": '<g fill="none" stroke="#2c3343" stroke-width="3"><circle cx="22" cy="32" r="9"/><circle cx="42" cy="32" r="9"/><path d="M31 32 h2"/><path d="M13 32 h-4"/><path d="M51 32 h4"/></g>',
+  "eye-nerd": '<g fill="#dbe6f5" stroke="#1b1b1b" stroke-width="3.5"><rect x="12" y="24" width="18" height="16" rx="3"/><rect x="34" y="24" width="18" height="16" rx="3"/></g><path d="M30 30 h4" stroke="#1b1b1b" stroke-width="3"/>',
+  "acc-shades": '<rect x="12" y="26" width="18" height="13" rx="6" fill="#16223a"/><rect x="34" y="26" width="18" height="13" rx="6" fill="#16223a"/><rect x="29" y="29" width="6" height="3" fill="#16223a"/><rect x="14" y="28" width="6" height="3" rx="1.5" fill="#46577a"/>',
+  "eye-monocle": '<circle cx="32" cy="30" r="11" fill="none" stroke="#c8920a" stroke-width="3"/><path d="M32 41 q5 12 -6 16" stroke="#c8920a" stroke-width="2" fill="none"/>',
+  "eye-visor": '<path d="M12 28 q20 -5 40 0 l0 9 q-20 -3 -40 0 z" fill="#0e1a2e"/><path d="M16 30 q16 -3 32 0" stroke="#1fb87a" stroke-width="2.5" fill="none"/>',
+  "acc-pocket": '<path d="M18 30 L46 30 L42 52 L22 52 Z" fill="#27355c"/><path d="M27 34 l9 0 -1.6 6 -5.8 0 z" fill="#f2f4fb"/>',
+  "acc-rose": '<circle cx="32" cy="27" r="7" fill="#e23d3d"/><circle cx="32" cy="27" r="3" fill="#a01f1f"/><path d="M32 34 l0 13" stroke="#1fb87a" stroke-width="2.5"/><path d="M32 41 q6 -2 8 -6" stroke="#1fb87a" stroke-width="2" fill="none"/>',
+  "acc-watch": '<rect x="28" y="9" width="8" height="11" fill="#3a2c1c"/><rect x="28" y="41" width="8" height="11" fill="#3a2c1c"/><circle cx="32" cy="30" r="11" fill="#1b2330" stroke="#c8920a" stroke-width="3"/><circle cx="32" cy="30" r="6.5" fill="#cfd6e2"/><path d="M32 30 l0 -4 M32 30 l3.5 1.5" stroke="#1b2330" stroke-width="1.6"/>',
+  "acc-chain": '<path d="M12 22 q20 16 40 0" fill="none" stroke="#d9b443" stroke-width="3.5" stroke-dasharray="2 3"/><circle cx="32" cy="36" r="3" fill="#f2b50a"/>',
+  "acc-lapel-gold": '<path d="M32 15 l4.7 9.5 10.5 1.5 -7.6 7.4 1.8 10.4 -9.4 -4.9 -9.4 4.9 1.8 -10.4 -7.6 -7.4 10.5 -1.5 z" fill="#f2b50a" stroke="#c8920a" stroke-width="1"/>',
+};
+function tieIcon(color: string, dark: string, bow?: boolean): string {
+  if (bow) return `<path d="M32 31 l-12 -7 0 16 12 -7 z" fill="${color}"/><path d="M32 31 l12 -7 0 16 -12 -7 z" fill="${color}"/><rect x="29" y="27" width="6" height="8" rx="2" fill="${dark}"/>`;
+  return `<path d="M28 13 h8 l-1.5 5 h-5 z" fill="${dark}"/><path d="M27.5 18 h9 l-2 23 -2.5 6 -2.5 -6 z" fill="${color}"/>`;
+}
+function suitIcon(id: string): string {
+  const s = suitOf(id);
+  const tie = s.darkTie ? "#11141c" : "#f2b50a";
+  const lines = s.pin ? '<g opacity="0.5" stroke="#9fb0d6" stroke-width="0.8"><path d="M22 33 v21"/><path d="M42 33 v21"/></g>' : "";
+  const gold = s.gold ? '<g fill="none" stroke="#f2b50a" stroke-width="1.4"><path d="M32 29 L23 38 L29 52"/><path d="M32 29 L41 38 L35 52"/></g>' : "";
+  return `<path d="M12 54 C12 34 24 27 32 27 C40 27 52 34 52 54 Z" fill="${s.body}"/>${lines}<path d="M28 27 L32 35 L36 27 Z" fill="#fff"/><path d="M32 29 L23 38 L29 54 L32 45 Z" fill="${s.lapel}"/><path d="M32 29 L41 38 L35 54 L32 45 Z" fill="${s.lapel}"/>${gold}<path d="M32 33 l-2.5 3 2.5 13 2.5 -13 z" fill="${tie}"/>`;
+}
+
+export function ItemIcon({ id, slot, size = 56 }: { id: string; slot: ItemSlot; size?: number }) {
+  const uid = useId().replace(/[:]/g, "");
+  if (slot === "background") {
+    const [a, b] = BACKDROPS[id] ?? BACKDROPS["bg-slate"];
+    return (
+      <svg width={size} height={size} viewBox="0 0 64 64" style={{ display: "block", borderRadius: 12 }}>
+        <defs><linearGradient id={`${uid}-s`} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor={a} /><stop offset="1" stopColor={b} /></linearGradient></defs>
+        <rect width="64" height="64" rx="12" fill={`url(#${uid}-s)`} />
+        <ellipse cx="32" cy="20" rx="30" ry="14" fill="#ffffff" opacity="0.08" />
+        <path d="M0 50 q16 -8 32 0 t32 0 v14 h-64 z" fill="#000" opacity="0.12" />
+      </svg>
+    );
+  }
+  let inner = "";
+  if (slot === "suit") inner = suitIcon(id);
+  else if (slot === "neckwear") {
+    const t = (TIES[id] ?? { color: "#f2b50a" }) as { color: string; bow?: boolean };
+    const darks: Record<string, string> = { "#e23d3d": "#b81f1f", "#1fb87a": "#147a54", "#3b5bd6": "#2a3f9b", "#c7ccd6": "#9aa0ae", "#16223a": "#0c1320", "#f2b50a": "#c8920a" };
+    inner = tieIcon(t.color, darks[t.color] ?? "#0c1320", t.bow);
+  } else inner = ICON_PATHS[id] ?? "";
+  return (
+    <svg width={size} height={size} viewBox="0 0 64 64" style={{ display: "block" }} dangerouslySetInnerHTML={{ __html: inner }} />
   );
 }
