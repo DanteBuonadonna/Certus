@@ -2,8 +2,8 @@
 
 // ============================================================
 // QuickStart — 20-second character creation shown on first open.
-// Name + look, one screen, with a randomize dice. Full editing
-// lives in /profile; this just gets the player in the door.
+// Meet Sterling, give him a starter look + your name. Full
+// customization (and the rest of his wardrobe) lives in /profile.
 // ============================================================
 
 import { useState } from "react";
@@ -14,18 +14,28 @@ import {
   ARCHETYPES,
   saveProfile,
 } from "@/lib/profile";
-import { Avatar, SKINS, HAIRS, HAIR_COLORS, FACIAL_HAIR } from "@/components/avatar";
+import { Avatar } from "@/components/avatar";
 import { playUnlock } from "@/lib/sound";
+
+const SUIT_CHOICES = [
+  { id: "suit-navy", label: "Navy" },
+  { id: "suit-charcoal", label: "Charcoal" },
+];
+const HAT_CHOICES = [
+  { id: "hat-none", label: "Bare" },
+  { id: "hat-grad", label: "Grad cap" },
+];
+const BG_CHOICES = [
+  { id: "bg-slate", label: "Slate" },
+  { id: "bg-dawn", label: "Dawn" },
+];
 
 function randomAvatar(): AvatarConfig {
   const pick = <T,>(arr: readonly T[]) => arr[Math.floor(Math.random() * arr.length)];
   return {
     ...DEFAULT_AVATAR,
-    skin: pick(SKINS).id,
-    hair: pick(HAIRS).id,
-    hairColor: pick(HAIR_COLORS).id,
-    facialHair: pick(FACIAL_HAIR).id,
     suit: pick(["suit-navy", "suit-charcoal"] as const),
+    hat: pick(["hat-none", "hat-grad"] as const),
     background: pick(["bg-slate", "bg-dawn"] as const),
   };
 }
@@ -75,10 +85,10 @@ export default function QuickStart({
         <div className="px-6 pt-6 pb-2 text-center">
           <div className="pill-gold mb-2">DAY ONE</div>
           <h2 className="font-display text-2xl" style={{ color: "var(--text-primary)" }}>
-            Make it yours — 20 seconds
+            Meet Sterling
           </h2>
           <p className="text-xs mt-1" style={{ color: "var(--text-secondary)" }}>
-            Quick look + a name. Fine-tune everything later in your Profile.
+            Your study partner. Give him a starter look and a name — dress him up later as you earn Comp.
           </p>
         </div>
 
@@ -106,85 +116,9 @@ export default function QuickStart({
               onChange={(e) => setName(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && finish()}
             />
-            <div>
-              <div className="text-[10px] font-bold uppercase tracking-widest mb-1.5" style={{ color: "var(--text-muted)" }}>
-                Skin
-              </div>
-              <div className="flex items-center gap-1.5 flex-wrap">
-                {SKINS.map((s) => (
-                  <button
-                    key={s.id}
-                    onClick={() => setAvatar({ ...avatar, skin: s.id })}
-                    className="rounded-full"
-                    style={{
-                      width: 24,
-                      height: 24,
-                      background: s.color,
-                      border: avatar.skin === s.id ? "2.5px solid var(--primary)" : "2px solid var(--border-strong)",
-                    }}
-                    aria-label="skin tone"
-                  />
-                ))}
-              </div>
-            </div>
-            <div>
-              <div className="text-[10px] font-bold uppercase tracking-widest mb-1.5" style={{ color: "var(--text-muted)" }}>
-                Hair
-              </div>
-              <div className="flex items-center gap-1.5 flex-wrap">
-                {HAIRS.map((h) => (
-                  <button
-                    key={h.id}
-                    onClick={() => setAvatar({ ...avatar, hair: h.id })}
-                    className="text-[10px] px-2 py-1 rounded-md font-semibold"
-                    style={{
-                      background: avatar.hair === h.id ? "var(--primary-light)" : "var(--bg)",
-                      border: avatar.hair === h.id ? "1.5px solid var(--primary)" : "1.5px solid var(--border)",
-                      color: avatar.hair === h.id ? "var(--primary)" : "var(--text-secondary)",
-                    }}
-                  >
-                    {h.name}
-                  </button>
-                ))}
-              </div>
-              <div className="flex items-center gap-1.5 mt-1.5">
-                {HAIR_COLORS.map((c) => (
-                  <button
-                    key={c.id}
-                    onClick={() => setAvatar({ ...avatar, hairColor: c.id })}
-                    className="rounded-full"
-                    style={{
-                      width: 18,
-                      height: 18,
-                      background: c.color,
-                      border: avatar.hairColor === c.id ? "2.5px solid var(--primary)" : "2px solid var(--border-strong)",
-                    }}
-                    aria-label="hair color"
-                  />
-                ))}
-              </div>
-            </div>
-            <div>
-              <div className="text-[10px] font-bold uppercase tracking-widest mb-1.5" style={{ color: "var(--text-muted)" }}>
-                Facial hair
-              </div>
-              <div className="flex items-center gap-1.5 flex-wrap">
-                {FACIAL_HAIR.map((f) => (
-                  <button
-                    key={f.id}
-                    onClick={() => setAvatar({ ...avatar, facialHair: f.id })}
-                    className="text-[10px] px-2 py-1 rounded-md font-semibold"
-                    style={{
-                      background: avatar.facialHair === f.id ? "var(--primary-light)" : "var(--bg)",
-                      border: avatar.facialHair === f.id ? "1.5px solid var(--primary)" : "1.5px solid var(--border)",
-                      color: avatar.facialHair === f.id ? "var(--primary)" : "var(--text-secondary)",
-                    }}
-                  >
-                    {f.name}
-                  </button>
-                ))}
-              </div>
-            </div>
+            <QuickPick label="Suit" choices={SUIT_CHOICES} selected={avatar.suit} onPick={(id) => setAvatar({ ...avatar, suit: id })} />
+            <QuickPick label="Hat" choices={HAT_CHOICES} selected={avatar.hat} onPick={(id) => setAvatar({ ...avatar, hat: id })} />
+            <QuickPick label="Backdrop" choices={BG_CHOICES} selected={avatar.background} onPick={(id) => setAvatar({ ...avatar, background: id })} />
           </div>
         </div>
 
@@ -200,6 +134,45 @@ export default function QuickStart({
             Later
           </button>
         </div>
+      </div>
+    </div>
+  );
+}
+
+function QuickPick({
+  label,
+  choices,
+  selected,
+  onPick,
+}: {
+  label: string;
+  choices: { id: string; label: string }[];
+  selected: string;
+  onPick: (id: string) => void;
+}) {
+  return (
+    <div>
+      <div className="text-[10px] font-bold uppercase tracking-widest mb-1.5" style={{ color: "var(--text-muted)" }}>
+        {label}
+      </div>
+      <div className="flex items-center gap-1.5 flex-wrap">
+        {choices.map((c) => {
+          const active = selected === c.id;
+          return (
+            <button
+              key={c.id}
+              onClick={() => onPick(c.id)}
+              className="text-[11px] px-2.5 py-1 rounded-md font-semibold"
+              style={{
+                background: active ? "var(--primary-light)" : "var(--bg)",
+                border: active ? "1.5px solid var(--primary)" : "1.5px solid var(--border)",
+                color: active ? "var(--primary)" : "var(--text-secondary)",
+              }}
+            >
+              {c.label}
+            </button>
+          );
+        })}
       </div>
     </div>
   );

@@ -6,14 +6,19 @@
 const KEY = "certus_profile_v1";
 
 export interface AvatarConfig {
-  skin: string;       // skin tone id
-  hair: string;       // hair style id
-  hairColor: string;  // hair color id
-  facialHair: string; // facial-hair style id ("none" = clean shaven)
-  expression: string; // expression id (maps to avatar mood)
-  suit: string;       // shop item id (suit slot)
-  accessory: string | null; // shop item id (accessory slot)
-  background: string; // shop item id (background slot)
+  // ---- Sterling the bull cosmetics ----
+  suit: string;             // shop item id (suit slot)
+  hat: string;              // shop item id (hat slot, "hat-none" = bare)
+  eyewear: string;          // shop item id (eyewear slot, "eye-none")
+  neckwear: string;         // shop item id (neckwear slot, "neck-gold")
+  accessory: string | null; // shop item id (chest-flair slot)
+  background: string;       // shop item id (background slot)
+  expression: string;       // expression id (maps to bull mood)
+  // ---- Legacy human fields (ignored by the bull; optional for back-compat) ----
+  skin?: string;
+  hair?: string;
+  hairColor?: string;
+  facialHair?: string;
 }
 
 export interface Profile {
@@ -25,14 +30,13 @@ export interface Profile {
 }
 
 export const DEFAULT_AVATAR: AvatarConfig = {
-  skin: "s3",
-  hair: "h2",
-  hairColor: "c2",
-  facialHair: "none",
-  expression: "confident",
   suit: "suit-navy",
+  hat: "hat-none",
+  eyewear: "eye-none",
+  neckwear: "neck-gold",
   accessory: null,
   background: "bg-slate",
+  expression: "confident",
 };
 
 // ---- Study archetypes (flavor + recommended cadence) ----------------------

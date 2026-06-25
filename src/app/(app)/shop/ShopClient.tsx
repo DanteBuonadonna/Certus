@@ -28,7 +28,10 @@ import { CheckIcon, LockIcon } from "@/components/icons";
 const SLOT_TABS: { slot: ItemSlot | "all"; label: string }[] = [
   { slot: "all", label: "All" },
   { slot: "suit", label: "Suits" },
-  { slot: "accessory", label: "Accessories" },
+  { slot: "hat", label: "Hats" },
+  { slot: "eyewear", label: "Eyewear" },
+  { slot: "neckwear", label: "Ties" },
+  { slot: "accessory", label: "Flair" },
   { slot: "background", label: "Backdrops" },
   { slot: "title", label: "Titles" },
 ];
@@ -92,6 +95,9 @@ export default function ShopClient() {
     if (!profile) return;
     const p: Profile = { ...profile };
     if (item.slot === "suit") p.avatar = { ...p.avatar, suit: item.id };
+    else if (item.slot === "hat") p.avatar = { ...p.avatar, hat: item.id };
+    else if (item.slot === "eyewear") p.avatar = { ...p.avatar, eyewear: item.id };
+    else if (item.slot === "neckwear") p.avatar = { ...p.avatar, neckwear: item.id };
     else if (item.slot === "accessory") p.avatar = { ...p.avatar, accessory: item.id };
     else if (item.slot === "background") p.avatar = { ...p.avatar, background: item.id };
     else if (item.slot === "title") p.title = item.id;
@@ -111,6 +117,9 @@ export default function ShopClient() {
     const item = previewId ? SHOP_ITEMS.find((i) => i.id === previewId) : null;
     if (item) {
       if (item.slot === "suit") a.suit = item.id;
+      else if (item.slot === "hat") a.hat = item.id;
+      else if (item.slot === "eyewear") a.eyewear = item.id;
+      else if (item.slot === "neckwear") a.neckwear = item.id;
       else if (item.slot === "accessory") a.accessory = item.id;
       else if (item.slot === "background") a.background = item.id;
     }
@@ -120,6 +129,9 @@ export default function ShopClient() {
   function isEquipped(item: ShopItem): boolean {
     if (!profile) return false;
     if (item.slot === "suit") return profile.avatar.suit === item.id;
+    if (item.slot === "hat") return profile.avatar.hat === item.id;
+    if (item.slot === "eyewear") return profile.avatar.eyewear === item.id;
+    if (item.slot === "neckwear") return profile.avatar.neckwear === item.id;
     if (item.slot === "accessory") return profile.avatar.accessory === item.id;
     if (item.slot === "background") return profile.avatar.background === item.id;
     return profile.title === item.id;
@@ -362,6 +374,9 @@ function tierStars(t: ItemTier): number {
 function previewConfig(profile: Profile, item: ShopItem) {
   const a = { ...profile.avatar };
   if (item.slot === "suit") a.suit = item.id;
+  else if (item.slot === "hat") a.hat = item.id;
+  else if (item.slot === "eyewear") a.eyewear = item.id;
+  else if (item.slot === "neckwear") a.neckwear = item.id;
   else if (item.slot === "accessory") a.accessory = item.id;
   else if (item.slot === "background") a.background = item.id;
   return a;

@@ -8,7 +8,6 @@
 
 import { GameState } from "./studyPlan";
 import { AvatarConfig, DEFAULT_AVATAR } from "./profile";
-import { SKINS, HAIRS, HAIR_COLORS, FACIAL_HAIR } from "@/components/avatar";
 
 const KEY = "certus_league_v1";
 const COHORT = 15; // you + 14 bots
@@ -130,11 +129,10 @@ function botAvatar(rng: () => number): AvatarConfig {
   const pick = <T,>(arr: readonly T[]) => arr[Math.floor(rng() * arr.length)];
   return {
     ...DEFAULT_AVATAR,
-    skin: pick(SKINS).id,
-    hair: pick(HAIRS).id,
-    hairColor: pick(HAIR_COLORS).id,
-    facialHair: pick(FACIAL_HAIR).id,
-    suit: pick(["suit-navy", "suit-charcoal", "suit-slate", "suit-pinstripe"]),
+    suit: pick(["suit-navy", "suit-charcoal", "suit-slate", "suit-pinstripe", "suit-burgundy", "suit-royal", "suit-forest"]),
+    hat: pick(["hat-none", "hat-none", "hat-none", "hat-grad", "hat-fedora", "hat-visor", "hat-top"]),
+    eyewear: pick(["eye-none", "eye-none", "acc-specs", "acc-shades", "eye-nerd"]),
+    neckwear: pick(["neck-gold", "neck-red", "neck-royal", "neck-emerald", "neck-silver"]),
     background: pick(["bg-slate", "bg-dawn"]),
   };
 }

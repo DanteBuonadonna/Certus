@@ -76,7 +76,7 @@ export function ownsItem(itemId: string, w?: Wallet): boolean {
 }
 
 // ---- Catalog ---------------------------------------------------------------
-export type ItemSlot = "suit" | "accessory" | "background" | "title";
+export type ItemSlot = "suit" | "hat" | "eyewear" | "neckwear" | "accessory" | "background" | "title";
 export type ItemTier = "standard" | "premium" | "executive" | "legacy";
 
 export interface ShopItem {
@@ -97,22 +97,48 @@ export const TIER_META: Record<ItemTier, { label: string; color: string }> = {
 };
 
 export const SHOP_ITEMS: ShopItem[] = [
-  // ---- Suits ----
+  // ---- Suits (Sterling's tailoring) ----
   { id: "suit-navy", slot: "suit", name: "Navy Two-Piece", desc: "Day-one issue. Dependable.", price: 0, tier: "standard", free: true },
   { id: "suit-charcoal", slot: "suit", name: "Charcoal Classic", desc: "Reads serious in any meeting.", price: 0, tier: "standard", free: true },
   { id: "suit-slate", slot: "suit", name: "Slate Modern", desc: "Slim cut for the new class.", price: 400, tier: "standard" },
+  { id: "suit-forest", slot: "suit", name: "Forest Tweed", desc: "Old money, quiet confidence.", price: 700, tier: "standard" },
   { id: "suit-pinstripe", slot: "suit", name: "Banker's Pinstripe", desc: "The old guard nods as you pass.", price: 1200, tier: "premium" },
+  { id: "suit-royal", slot: "suit", name: "Royal Blue", desc: "Stand out on the trading floor.", price: 1600, tier: "premium" },
   { id: "suit-burgundy", slot: "suit", name: "Burgundy Power", desc: "For closers only.", price: 2000, tier: "executive" },
   { id: "suit-tux", slot: "suit", name: "Black-Tie", desc: "Awards-dinner ready.", price: 3500, tier: "executive" },
+  { id: "suit-ivory", slot: "suit", name: "Ivory Dinner Jacket", desc: "Monte Carlo energy.", price: 4200, tier: "executive" },
   { id: "suit-gold-trim", slot: "suit", name: "Partner's Midnight", desc: "Midnight wool, gold thread. Whisper-loud.", price: 6000, tier: "legacy" },
 
-  // ---- Accessories ----
-  { id: "acc-specs", slot: "accessory", name: "Analyst Spectacles", desc: "You read the footnotes.", price: 250, tier: "standard" },
-  { id: "acc-shades", slot: "accessory", name: "Aviators", desc: "Post-exam victory lap.", price: 600, tier: "premium" },
-  { id: "acc-tie-red", slot: "accessory", name: "Power Tie", desc: "Crimson. Unmissable.", price: 450, tier: "standard" },
-  { id: "acc-bowtie", slot: "accessory", name: "Professor's Bow Tie", desc: "You've read the primary sources.", price: 700, tier: "premium" },
+  // ---- Hats ----
+  { id: "hat-grad", slot: "hat", name: "Grad Cap", desc: "You earned the tassel.", price: 0, tier: "standard", free: true },
+  { id: "hat-visor", slot: "hat", name: "Dealer's Visor", desc: "Counting cards, counting coupons.", price: 300, tier: "standard" },
+  { id: "hat-beanie", slot: "hat", name: "Startup Beanie", desc: "Casual-Friday Sterling.", price: 500, tier: "standard" },
+  { id: "hat-party", slot: "hat", name: "Party Hat", desc: "Streak milestone vibes.", price: 600, tier: "standard" },
+  { id: "hat-fedora", slot: "hat", name: "Felt Fedora", desc: "Smooth operator.", price: 800, tier: "premium" },
+  { id: "hat-top", slot: "hat", name: "Top Hat", desc: "Tycoon territory.", price: 1200, tier: "premium" },
+  { id: "hat-halo", slot: "hat", name: "Saintly Halo", desc: "Never missed a day.", price: 2500, tier: "executive" },
+  { id: "hat-crown", slot: "hat", name: "Gold Crown", desc: "For charterholders only.", price: 5000, tier: "legacy" },
+
+  // ---- Eyewear ----
+  { id: "acc-specs", slot: "eyewear", name: "Analyst Spectacles", desc: "You read the footnotes.", price: 250, tier: "standard" },
+  { id: "eye-nerd", slot: "eyewear", name: "Thick Frames", desc: "Quant-desk chic.", price: 350, tier: "standard" },
+  { id: "acc-shades", slot: "eyewear", name: "Aviators", desc: "Post-exam victory lap.", price: 600, tier: "premium" },
+  { id: "eye-monocle", slot: "eyewear", name: "Gold Monocle", desc: "Distinguished. Slightly absurd.", price: 1500, tier: "executive" },
+  { id: "eye-visor", slot: "eyewear", name: "Cyber Visor", desc: "Algo-trading the future.", price: 1800, tier: "executive" },
+
+  // ---- Neckwear ----
+  { id: "neck-red", slot: "neckwear", name: "Power Tie", desc: "Crimson. Unmissable.", price: 200, tier: "standard" },
+  { id: "neck-emerald", slot: "neckwear", name: "Emerald Tie", desc: "Green across the board.", price: 350, tier: "standard" },
+  { id: "neck-royal", slot: "neckwear", name: "Royal Tie", desc: "Cool and composed.", price: 450, tier: "standard" },
+  { id: "neck-bow", slot: "neckwear", name: "Professor's Bow Tie", desc: "You've read the primary sources.", price: 700, tier: "premium" },
+  { id: "neck-silver", slot: "neckwear", name: "Silver Silk", desc: "Boardroom polish.", price: 900, tier: "premium" },
+  { id: "neck-bow-gold", slot: "neckwear", name: "Gold Bow Tie", desc: "Black-tie, gold-standard.", price: 2200, tier: "executive" },
+
+  // ---- Accessories (lapel flair) ----
   { id: "acc-pocket", slot: "accessory", name: "Silk Pocket Square", desc: "Detail is a strategy.", price: 900, tier: "premium" },
+  { id: "acc-rose", slot: "accessory", name: "Boutonnière", desc: "Closing-day rose.", price: 700, tier: "premium" },
   { id: "acc-watch", slot: "accessory", name: "Heirloom Watch", desc: "Time in the market.", price: 1800, tier: "executive" },
+  { id: "acc-chain", slot: "accessory", name: "Pocket-Watch Chain", desc: "Old-school class.", price: 2600, tier: "executive" },
   { id: "acc-lapel-gold", slot: "accessory", name: "Gold Lapel Pin", desc: "Charter energy.", price: 4000, tier: "legacy" },
 
   // ---- Office backdrops ----
@@ -121,6 +147,8 @@ export const SHOP_ITEMS: ShopItem[] = [
   { id: "bg-ticker", slot: "background", name: "Ticker Wall", desc: "Green across the board.", price: 800, tier: "premium" },
   { id: "bg-skyline", slot: "background", name: "Corner Office Skyline", desc: "Forty-second floor, north face.", price: 1500, tier: "executive" },
   { id: "bg-library", slot: "background", name: "The Reading Room", desc: "Leather, mahogany, first editions.", price: 1500, tier: "executive" },
+  { id: "bg-trading", slot: "background", name: "Trading Floor", desc: "Adrenaline in teal and navy.", price: 2200, tier: "executive" },
+  { id: "bg-charter", slot: "background", name: "Charter Hall", desc: "Where the ceremony happens.", price: 3000, tier: "executive" },
   { id: "bg-vault", slot: "background", name: "The Gold Vault", desc: "For those who finished the ladder.", price: 5000, tier: "legacy" },
 
   // ---- Titles ----

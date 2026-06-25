@@ -1,196 +1,211 @@
 // ============================================================
-// Avatar v2 — an expressive game character in a suit.
-// Bigger head, lit eyes, moods, detailed tailoring, and life:
-// CSS blink (.av-eyes) + idle bob (.av-idle) from globals.css.
+// Sterling the Bull — the Certus mascot, fully customizable.
+// Renders a head-and-shoulders "bust" of Sterling with equipped
+// cosmetics (suit, hat, eyewear, neckwear, accessory, backdrop)
+// plus idle bob + blink (.av-idle / .av-eyes from globals.css).
+//
+// Keeps the historical <Avatar config .../> prop API so every
+// existing call site (dashboard, shop, league, profile, level-up)
+// keeps working — the human avatar was swapped for the bull.
 // ============================================================
 
-import React, { useId } from "react";
+import { useId } from "react";
 import { AvatarConfig } from "@/lib/profile";
 
 export type AvatarMood = "confident" | "determined" | "neutral" | "friendly";
 
-// ---- Creation options (free; chosen at onboarding) -------------------------
-export const SKINS = [
-  { id: "s1", color: "#8d5524" },
-  { id: "s2", color: "#a96b3c" },
-  { id: "s3", color: "#c68642" },
-  { id: "s4", color: "#e0ac69" },
-  { id: "s5", color: "#f1c27d" },
-  { id: "s6", color: "#ffdbac" },
-];
-
-export const HAIRS = [
-  { id: "h1", name: "Buzz" },
-  { id: "h2", name: "Side part" },
-  { id: "h3", name: "Slick back" },
-  { id: "h4", name: "Curls" },
-  { id: "h5", name: "Bun" },
-  { id: "h7", name: "Pompadour" },
-  { id: "h8", name: "Afro" },
-  { id: "h6", name: "Bald" },
-];
-
-export const HAIR_COLORS = [
-  { id: "c1", color: "#1b1b1b" },
-  { id: "c2", color: "#3b2a1d" },
-  { id: "c3", color: "#6b4a2b" },
-  { id: "c4", color: "#a8743d" },
-  { id: "c5", color: "#8e8e96" },
-  { id: "c6", color: "#d64b3a" },
-];
-
-// ---- Facial hair (free customization axis) ---------------------------------
-export const FACIAL_HAIR = [
-  { id: "none", name: "Clean" },
-  { id: "stubble", name: "Stubble" },
-  { id: "mustache", name: "Mustache" },
-  { id: "goatee", name: "Goatee" },
-  { id: "beard", name: "Full beard" },
-];
-
-// ---- Expression (free; maps to a mood the avatar renders) -------------------
+// ---- Legacy option lists (kept so older callers / NPC generators that
+// still import them keep compiling; the bull ignores skin/hair). -------------
+export const SKINS = [{ id: "s1", color: "#8d5524" }, { id: "s2", color: "#a96b3c" }, { id: "s3", color: "#c68642" }];
+export const HAIRS = [{ id: "h1", name: "Buzz" }, { id: "h2", name: "Side part" }];
+export const HAIR_COLORS = [{ id: "c1", color: "#1b1b1b" }, { id: "c2", color: "#3b2a1d" }];
+export const FACIAL_HAIR = [{ id: "none", name: "Clean" }, { id: "stubble", name: "Stubble" }];
 export const EXPRESSIONS = [
   { id: "confident", name: "Confident" },
+  { id: "determined", name: "Determined" },
   { id: "friendly", name: "Friendly" },
-  { id: "focused", name: "Focused" },
-  { id: "stoic", name: "Stoic" },
+  { id: "neutral", name: "Stoic" },
 ];
 
-function expressionToMood(id: string): AvatarMood {
-  if (id === "focused") return "determined";
-  if (id === "stoic") return "neutral";
+export function expressionToMood(id: string): AvatarMood {
+  if (id === "determined") return "determined";
   if (id === "friendly") return "friendly";
+  if (id === "neutral") return "neutral";
   return "confident";
 }
 
-// ---- Suit palettes (keyed by shop item id) ----------------------------------
-const SUITS: Record<string, { base: string; lapel: string; stripe?: string; trim?: string }> = {
-  "suit-navy": { base: "#2b3a66", lapel: "#1f2c50" },
-  "suit-charcoal": { base: "#41414c", lapel: "#30303a" },
-  "suit-slate": { base: "#53617a", lapel: "#414d62" },
-  "suit-pinstripe": { base: "#2e3450", lapel: "#22273d", stripe: "rgba(255,255,255,0.25)" },
-  "suit-burgundy": { base: "#67293b", lapel: "#511f2d" },
-  "suit-tux": { base: "#191921", lapel: "#06060a" },
-  "suit-gold-trim": { base: "#191c33", lapel: "#111324", trim: "#c9a227" },
+// ---- Cosmetic visual maps (keyed by shop item id) --------------------------
+type SuitSkin = { body: string; lapel: string; shirt?: string; pin?: boolean; gold?: boolean; darkTie?: boolean };
+const SUITS: Record<string, SuitSkin> = {
+  "suit-navy": { body: "#1f2c49", lapel: "#27355c" },
+  "suit-charcoal": { body: "#31343c", lapel: "#42454f" },
+  "suit-slate": { body: "#46506a", lapel: "#566079" },
+  "suit-forest": { body: "#1f3a2e", lapel: "#27493a" },
+  "suit-pinstripe": { body: "#22305a", lapel: "#2c3b66", pin: true },
+  "suit-royal": { body: "#26307a", lapel: "#2f3b93" },
+  "suit-burgundy": { body: "#5c2433", lapel: "#6e2c3f" },
+  "suit-tux": { body: "#14161d", lapel: "#0c0e13", darkTie: true },
+  "suit-ivory": { body: "#e7e2d3", lapel: "#d6d0bd", darkTie: true },
+  "suit-gold-trim": { body: "#161a2e", lapel: "#1f2540", gold: true },
 };
+function suitOf(id: string): SuitSkin {
+  return SUITS[id] ?? SUITS["suit-navy"];
+}
 
-function Backdrop({ id, uid }: { id: string; uid: string }) {
+const TIES: Record<string, { color: string; bow?: boolean }> = {
+  "neck-gold": { color: "#f2b50a" },
+  "neck-red": { color: "#e23d3d" },
+  "neck-emerald": { color: "#1fb87a" },
+  "neck-royal": { color: "#3b5bd6" },
+  "neck-silver": { color: "#c7ccd6" },
+  "neck-bow": { color: "#16223a", bow: true },
+  "neck-bow-gold": { color: "#f2b50a", bow: true },
+};
+function tieOf(id: string, darkDefault?: boolean) {
+  return TIES[id] ?? { color: darkDefault ? "#11141c" : "#f2b50a" };
+}
+
+const BACKDROPS: Record<string, [string, string]> = {
+  "bg-slate": ["#eef0f6", "#dde1ea"],
+  "bg-dawn": ["#ffe9d6", "#ffcdb0"],
+  "bg-ticker": ["#0f2a1e", "#16412c"],
+  "bg-skyline": ["#2a3961", "#415489"],
+  "bg-library": ["#3c2c1e", "#5c422a"],
+  "bg-vault": ["#3c3013", "#6e5720"],
+  "bg-trading": ["#13243f", "#1f4b5c"],
+  "bg-charter": ["#2a2540", "#473f73"],
+};
+function Backdrop({ id }: { id: string }) {
+  const [a, b] = BACKDROPS[id] ?? BACKDROPS["bg-slate"];
+  const gid = useId().replace(/[:]/g, "");
+  return (
+    <>
+      <defs>
+        <linearGradient id={`${gid}-bg`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor={a} />
+          <stop offset="1" stopColor={b} />
+        </linearGradient>
+      </defs>
+      <rect width="120" height="120" fill={`url(#${gid}-bg)`} />
+      <ellipse cx="60" cy="34" rx="70" ry="40" fill="#ffffff" opacity="0.06" />
+    </>
+  );
+}
+
+// ---- Cosmetic SVG snippets (bull-space coords, 130x150) --------------------
+function Hat({ id }: { id: string }) {
   switch (id) {
-    case "bg-dawn":
-      return (
-        <>
-          <defs>
-            <linearGradient id={`${uid}-dawn`} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#f6d8b8" />
-              <stop offset="100%" stopColor="#d9a8a0" />
-            </linearGradient>
-          </defs>
-          <rect width="120" height="120" fill={`url(#${uid}-dawn)`} />
-          <circle cx="60" cy="80" r="28" fill="#f3b87f" opacity="0.75" />
-          <circle cx="60" cy="80" r="40" fill="#f3b87f" opacity="0.25" />
-        </>
-      );
-    case "bg-ticker":
-      return (
-        <>
-          <rect width="120" height="120" fill="#0e251c" />
-          {[12, 32, 52, 72, 92].map((x, i) => (
-            <g key={x} opacity="0.55">
-              <rect x={x} y={28 - (i % 3) * 7} width="6" height={14 + (i % 4) * 8} fill="#1D9E75" rx="1.5" />
-              <rect x={x + 9} y={20 + (i % 2) * 10} width="6" height={10 + ((i + 2) % 3) * 9} fill="#2cc28f" rx="1.5" />
-            </g>
-          ))}
-          <path d="M8 58 L30 46 L48 53 L72 38 L94 44 L114 30" stroke="#36e0a4" strokeWidth="2" fill="none" opacity="0.65" strokeLinecap="round" />
-        </>
-      );
-    case "bg-skyline":
-      return (
-        <>
-          <defs>
-            <linearGradient id={`${uid}-sky`} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#1d2440" />
-              <stop offset="100%" stopColor="#46406b" />
-            </linearGradient>
-          </defs>
-          <rect width="120" height="120" fill={`url(#${uid}-sky)`} />
-          <circle cx="92" cy="22" r="9" fill="#f3e9c8" opacity="0.9" />
-          {[[4, 42, 17], [25, 30, 15], [44, 50, 19], [67, 36, 14], [85, 46, 18], [105, 32, 13]].map(([x, y, w]) => (
-            <g key={x}>
-              <rect x={x} y={y} width={w} height={120 - y} fill="#141a30" />
-              {[0, 1, 2].map((r) => (
-                <rect key={r} x={x + 2.5} y={y + 5 + r * 10} width={w - 5} height="3.4" fill="#f3d98b" opacity={0.35 + (r % 2) * 0.3} />
-              ))}
-            </g>
-          ))}
-        </>
-      );
-    case "bg-library":
-      return (
-        <>
-          <rect width="120" height="120" fill="#42302a" />
-          {[8, 42, 76].map((y) => (
-            <g key={y}>
-              <rect x="0" y={y} width="120" height="26" fill="#2e211a" />
-              {[6, 21, 35, 51, 66, 80, 95, 108].map((x, i) => (
-                <rect key={x} x={x} y={y + 3} width={8 + (i % 3) * 2.5} height="23" rx="1.5" fill={["#7c4434", "#8d6740", "#566552", "#65425c", "#4f6173"][i % 5]} />
-              ))}
-            </g>
-          ))}
-        </>
-      );
-    case "bg-vault":
-      return (
-        <>
-          <defs>
-            <radialGradient id={`${uid}-vault`} cx="50%" cy="40%" r="75%">
-              <stop offset="0%" stopColor="#9a7a24" />
-              <stop offset="100%" stopColor="#241c06" />
-            </radialGradient>
-          </defs>
-          <rect width="120" height="120" fill={`url(#${uid}-vault)`} />
-          {[0, 1, 2, 3].map((row) =>
-            [0, 1, 2, 3, 4].map((col) => (
-              <g key={`${row}-${col}`}>
-                <rect
-                  x={6 + col * 23 + (row % 2) * 11}
-                  y={12 + row * 17}
-                  width="19"
-                  height="11"
-                  rx="2"
-                  fill="#d9b23a"
-                  opacity="0.7"
-                />
-                <rect
-                  x={6 + col * 23 + (row % 2) * 11}
-                  y={12 + row * 17}
-                  width="19"
-                  height="4"
-                  rx="2"
-                  fill="#f0d27a"
-                  opacity="0.5"
-                />
-              </g>
-            ))
-          )}
-        </>
-      );
-    case "bg-slate":
+    case "hat-grad":
+      return (<g>
+        <path d="M40 16 L65 7 L90 16 L65 25 Z" fill="#16223a" />
+        <path d="M55 21 q10 5 20 0 v5 q-10 5 -20 0 z" fill="#23314f" />
+        <circle cx="65" cy="11" r="2.2" fill="#f2b50a" />
+        <path d="M65 11 q15 3 15 13" stroke="#f2b50a" strokeWidth="1.7" fill="none" />
+        <circle cx="80" cy="25" r="2.4" fill="#f2b50a" />
+      </g>);
+    case "hat-top":
+      return (<g transform="rotate(-7 65 11)">
+        <rect x="52" y="2" width="26" height="14" rx="2" fill="#1a2438" />
+        <rect x="43" y="14" width="44" height="5" rx="2.5" fill="#11192b" />
+        <rect x="52" y="11" width="26" height="4" fill="#f2b50a" />
+      </g>);
+    case "hat-fedora":
+      return (<g>
+        <path d="M40 22 q25 -14 50 0 q-10 -4 -25 -4 q-15 0 -25 4 z" fill="#3a2c1c" />
+        <ellipse cx="65" cy="22" rx="27" ry="6" fill="#2c2114" />
+        <rect x="49" y="16" width="32" height="5" fill="#1c150c" />
+      </g>);
+    case "hat-beanie":
+      return (<g>
+        <path d="M40 26 Q40 8 65 8 Q90 8 90 26 Z" fill="#b9472f" />
+        <rect x="38" y="24" width="54" height="6" rx="3" fill="#9c3a25" />
+        <circle cx="65" cy="9" r="4" fill="#e0c08a" />
+      </g>);
+    case "hat-party":
+      return (<g>
+        <path d="M65 0 L54 26 L76 26 Z" fill="#5b54d6" />
+        <path d="M65 0 L60 13 L70 13 Z" fill="#f2b50a" />
+        <circle cx="65" cy="0" r="3.4" fill="#ff5a5a" />
+      </g>);
+    case "hat-visor":
+      return (<g>
+        <path d="M40 28 q25 -6 50 0 l4 6 q-29 -6 -58 0 z" fill="#1fb87a" />
+        <rect x="44" y="24" width="42" height="6" rx="3" fill="#179463" />
+      </g>);
+    case "hat-halo":
+      return (<ellipse cx="65" cy="10" rx="20" ry="6" fill="none" stroke="#ffe07a" strokeWidth="4" opacity="0.95" />);
+    case "hat-crown":
+      return (<g>
+        <path d="M48 27 L52 14 L58 22 L65 11 L72 22 L78 14 L82 27 Z" fill="#f2b50a" stroke="#c8920a" strokeWidth="1" />
+        <circle cx="65" cy="14" r="2" fill="#ff5a5a" /><circle cx="53" cy="16" r="1.6" fill="#5b54d6" /><circle cx="77" cy="16" r="1.6" fill="#5b54d6" />
+      </g>);
     default:
-      return (
-        <>
-          <defs>
-            <radialGradient id={`${uid}-slate`} cx="50%" cy="38%" r="75%">
-              <stop offset="0%" stopColor="#5a6175" />
-              <stop offset="100%" stopColor="#3b404f" />
-            </radialGradient>
-          </defs>
-          <rect width="120" height="120" fill={`url(#${uid}-slate)`} />
-        </>
-      );
+      return null;
   }
 }
 
-// ---- The character -----------------------------------------------------------
+function Eyewear({ id }: { id: string }) {
+  switch (id) {
+    case "acc-specs":
+      return (<g fill="none" stroke="#2c3343" strokeWidth="2.4">
+        <circle cx="54" cy="42" r="10" /><circle cx="76" cy="42" r="10" />
+        <path d="M64 42 h2" /><path d="M44 42 h-9" /><path d="M86 42 h9" />
+      </g>);
+    case "eye-nerd":
+      return (<g fill="none" stroke="#1b1b1b" strokeWidth="3.4">
+        <rect x="44" y="33" width="19" height="17" rx="3" /><rect x="67" y="33" width="19" height="17" rx="3" />
+        <path d="M63 40 h4" />
+      </g>);
+    case "acc-shades":
+      return (<g>
+        <rect x="45" y="35" width="18" height="13" rx="5" fill="#16223a" /><rect x="67" y="35" width="18" height="13" rx="5" fill="#16223a" />
+        <rect x="62" y="39" width="6" height="3" fill="#16223a" /><rect x="33" y="39" width="13" height="3" rx="1.5" fill="#16223a" /><rect x="84" y="39" width="13" height="3" rx="1.5" fill="#16223a" />
+        <rect x="47" y="37" width="6" height="3" rx="1.5" fill="#46577a" />
+      </g>);
+    case "eye-monocle":
+      return (<g><g fill="none" stroke="#c8920a" strokeWidth="2.6"><circle cx="76" cy="42" r="10" /></g>
+        <path d="M76 52 q4 13 -7 18" stroke="#c8920a" strokeWidth="1.5" fill="none" /></g>);
+    case "eye-visor":
+      return (<g>
+        <path d="M40 38 q25 -5 50 0 l0 7 q-25 -3 -50 0 z" fill="#0e1a2e" opacity="0.92" />
+        <path d="M44 40 q21 -3 42 0" stroke="#1fb87a" strokeWidth="2" fill="none" />
+      </g>);
+    default:
+      return null;
+  }
+}
+
+function Accessory({ id }: { id: string }) {
+  switch (id) {
+    case "acc-pocket":
+      return (<path d="M44 110 l10 0 -2 7 -6 0 z" fill="#f2f4fb" />);
+    case "acc-rose":
+      return (<g><circle cx="49" cy="112" r="4" fill="#e23d3d" /><circle cx="49" cy="112" r="1.6" fill="#a01f1f" /><path d="M49 116 l-2 7" stroke="#1fb87a" strokeWidth="1.6" /></g>);
+    case "acc-watch":
+      return (<g><path d="M47 108 q-3 9 2 16" stroke="#c8920a" strokeWidth="1.5" fill="none" /><circle cx="48" cy="122" r="2.4" fill="#f2b50a" /></g>);
+    case "acc-chain":
+      return (<path d="M50 110 q15 8 30 0" fill="none" stroke="#d9b443" strokeWidth="1.8" strokeDasharray="1.5 2" />);
+    case "acc-lapel-gold":
+      return (<g><circle cx="50" cy="112" r="3.4" fill="#f2b50a" stroke="#c8920a" strokeWidth="0.8" /><path d="M50 109.6 l0.8 2 2 .2 -1.5 1.4 .4 2 -1.7 -1 -1.7 1 .4 -2 -1.5 -1.4 2 -.2z" fill="#fff8dc" /></g>);
+    default:
+      return null;
+  }
+}
+
+// ---- Mood-driven brows + mouth ---------------------------------------------
+function moodFace(mood: AvatarMood, cheer: boolean) {
+  const happy = cheer || mood === "friendly" || mood === "confident";
+  const brows = mood === "determined"
+    ? (<g><rect x="46" y="32" width="15" height="3.6" rx="2" fill="#2c3343" transform="rotate(10 53 34)" /><rect x="69" y="32" width="15" height="3.6" rx="2" fill="#2c3343" transform="rotate(-10 77 34)" /></g>)
+    : (<g><rect x="46" y="31" width="15" height="3.6" rx="2" fill="#2c3343" /><rect x="69" y="31" width="15" height="3.6" rx="2" fill="#2c3343" /></g>);
+  const mouth = cheer || mood === "friendly"
+    ? (<path d="M53 66 Q65 81 77 66" stroke="#6b7486" strokeWidth="3.4" fill="none" strokeLinecap="round" />)
+    : happy
+      ? (<path d="M55 67 Q65 78 75 67" stroke="#6b7486" strokeWidth="3.2" fill="none" strokeLinecap="round" />)
+      : (<rect x="58" y="68" width="14" height="3.2" rx="1.6" fill="#6b7486" />);
+  return { brows, mouth };
+}
+
 export function Avatar({
   config,
   size = 96,
@@ -207,13 +222,11 @@ export function Avatar({
   cheer?: boolean;
 }) {
   const uid = useId().replace(/[:]/g, "");
-  const skin = SKINS.find((s) => s.id === config.skin) ?? SKINS[2];
-  const hairColor = (HAIR_COLORS.find((c) => c.id === config.hairColor) ?? HAIR_COLORS[1]).color;
-  const suit = SUITS[config.suit] ?? SUITS["suit-navy"];
-  const acc = config.accessory;
-  const skinShade = "rgba(0,0,0,0.16)";
+  const suit = suitOf(config.suit);
+  const tie = tieOf(config.neckwear ?? "neck-gold", suit.darkTie);
   const effMood: AvatarMood = mood ?? expressionToMood(config.expression ?? "confident");
   const bodyClass = cheer ? "av-cheer" : animated ? "av-idle" : undefined;
+  const { brows, mouth } = moodFace(effMood, cheer);
 
   return (
     <svg
@@ -221,248 +234,68 @@ export function Avatar({
       height={size}
       viewBox="0 0 120 120"
       style={{ borderRadius: rounded, display: "block", flexShrink: 0 }}
-      aria-label="Avatar"
+      aria-label="Sterling the bull"
     >
       <clipPath id={`${uid}-clip`}>
         <rect width="120" height="120" rx={Math.max(0, (rounded / size) * 120)} />
       </clipPath>
       <g clipPath={`url(#${uid}-clip)`}>
-        <Backdrop id={config.background} uid={uid} />
+        <Backdrop id={config.background} />
+        <g className={bodyClass} style={{ transformOrigin: "center bottom" }}>
+          <g transform="translate(6 2) scale(0.9)">
+            <defs>
+              <linearGradient id={`${uid}-fur`} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#5b6579" /><stop offset="1" stopColor="#3a4356" /></linearGradient>
+              <linearGradient id={`${uid}-horn`} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#f6efda" /><stop offset="1" stopColor="#d6c6a0" /></linearGradient>
+              <radialGradient id={`${uid}-muzz`} cx="50%" cy="38%" r="62%"><stop offset="0" stopColor="#cdd4e0" /><stop offset="1" stopColor="#a9b2c3" /></radialGradient>
+            </defs>
 
-        {/* soft ground shadow */}
-        <ellipse cx="60" cy="119" rx="38" ry="7" fill="rgba(0,0,0,0.22)" />
+            {/* neck */}
+            <path d="M54 62 L52 95 L78 95 L76 62 Z" fill="#454e60" />
+            <ellipse cx="65" cy="63" rx="13" ry="6" fill="#3f4859" />
+            {/* suit */}
+            <path d="M10 150 C8 110 32 93 65 93 C98 93 122 110 120 150 Z" fill={suit.body} />
+            {suit.pin && (<g opacity="0.45" stroke="#9fb0d6" strokeWidth="0.5">
+              <path d="M22 110 v40" /><path d="M32 104 v46" /><path d="M100 110 v40" /><path d="M90 104 v46" />
+            </g>)}
+            <path d="M50 94 L65 116 L80 94 Z" fill={suit.shirt ?? "#ffffff"} />
+            <path d="M65 96 L50 106 L59 140 L65 124 Z" fill={suit.lapel} />
+            <path d="M65 96 L80 106 L71 140 L65 124 Z" fill={suit.lapel} />
+            {suit.gold && (<g fill="none" stroke="#f2b50a" strokeWidth="1.4"><path d="M65 96 L50 106 L59 138" /><path d="M65 96 L80 106 L71 138" /></g>)}
+            <path d="M55 93 L65 103 L62 94 Z" fill={suit.shirt ?? "#fff"} /><path d="M75 93 L65 103 L68 94 Z" fill={suit.shirt ?? "#fff"} />
 
-        <g className={bodyClass}>
-          {/* ---- Body / tailoring ---- */}
-          <path d="M15 120 C17 91 35 79.5 60 79.5 C85 79.5 103 91 105 120 Z" fill={suit.base} />
-          {suit.stripe && (
-            <g stroke={suit.stripe} strokeWidth="1.2">
-              {[26, 34, 42, 50, 70, 78, 86, 94].map((x) => (
-                <line key={x} x1={x} y1="86" x2={x - 2.5} y2="120" />
-              ))}
+            {/* neckwear */}
+            {tie.bow
+              ? (<g><path d="M58 100 l-9 -5 0 12 9 -5 z" fill={tie.color} /><path d="M72 100 l9 -5 0 12 -9 -5 z" fill={tie.color} /><rect x="62" y="97" width="6" height="7" rx="2" fill={tie.color} /></g>)
+              : (<g><path d="M65 100 l-5.5 6 5.5 26 5.5 -26 z" fill={tie.color} /><rect x="61" y="96" width="8" height="6" rx="1.5" fill="rgba(0,0,0,.2)" /></g>)}
+
+            {/* horns + ears + head */}
+            <path d="M44 32 C33 24 24 24 13 11 C18 25 30 29 42 36 Z" fill={`url(#${uid}-horn)`} stroke="#c9b888" strokeWidth="1" />
+            <path d="M86 32 C97 24 106 24 117 11 C112 25 100 29 88 36 Z" fill={`url(#${uid}-horn)`} stroke="#c9b888" strokeWidth="1" />
+            <ellipse cx="29" cy="47" rx="11" ry="7" fill="#3a4356" transform="rotate(-22 29 47)" />
+            <ellipse cx="101" cy="47" rx="11" ry="7" fill="#3a4356" transform="rotate(22 101 47)" />
+            <ellipse cx="65" cy="47" rx="30" ry="27" fill={`url(#${uid}-fur)`} />
+            <path d="M54 24 q11 -9 22 0 q-4 7 -11 7 q-7 0 -11 -7z" fill="#2c3343" />
+
+            {/* muzzle */}
+            <ellipse cx="65" cy="58" rx="20.5" ry="15.5" fill={`url(#${uid}-muzz)`} />
+            <ellipse cx="57" cy="57" rx="3.1" ry="4.1" fill="#6b7486" /><ellipse cx="73" cy="57" rx="3.1" ry="4.1" fill="#6b7486" />
+            <path d="M60 65 a6 5 0 0 0 10 0" fill="none" stroke="#f2b50a" strokeWidth="2.6" />
+
+            {/* eyes */}
+            <g className={animated ? "av-eyes" : undefined} style={{ transformOrigin: "center" }}>
+              <ellipse cx="54" cy="42" rx="8" ry="9.5" fill="#fff" /><circle cx="55.5" cy="43" r="4.4" fill="#23232b" /><circle cx="57" cy="41" r="1.5" fill="#fff" />
+              <ellipse cx="76" cy="42" rx="8" ry="9.5" fill="#fff" /><circle cx="77.5" cy="43" r="4.4" fill="#23232b" /><circle cx="79" cy="41" r="1.5" fill="#fff" />
             </g>
-          )}
-          {/* shirt */}
-          <path d="M50.5 80.5 L60 100 L69.5 80.5 C65.5 78.6 54.5 78.6 50.5 80.5 Z" fill="#f5f5f9" />
-          {/* collar wings */}
-          <path d="M53 79.5 L60 84.5 L56 88.5 L51 81.5 Z" fill="#ffffff" />
-          <path d="M67 79.5 L60 84.5 L64 88.5 L69 81.5 Z" fill="#ffffff" />
+            {brows}
+            {mouth}
 
-          {/* tie / bow tie */}
-          {acc === "acc-tie-red" && (
-            <g>
-              <path d="M60 86 L56 91 L60 114 L64 91 Z" fill="#a31621" />
-              <path d="M56.8 83 L63.2 83 L60 88.5 Z" fill="#c01a27" />
-            </g>
-          )}
-          {acc === "acc-bowtie" && (
-            <g fill="#2b3a66">
-              <path d="M58.5 84.5 L46.5 79 L46.5 91 Z" />
-              <path d="M61.5 84.5 L73.5 79 L73.5 91 Z" />
-              <rect x="56.5" y="81.5" width="7" height="6.5" rx="2" />
-            </g>
-          )}
-
-          {/* lapels */}
-          <path d="M60 81 L45.5 120 L33.5 114.5 C38 97.5 46.5 84.5 60 81 Z" fill={suit.lapel} />
-          <path d="M60 81 L74.5 120 L86.5 114.5 C82 97.5 73.5 84.5 60 81 Z" fill={suit.lapel} />
-          {suit.trim && (
-            <g stroke={suit.trim} strokeWidth="1.6" fill="none">
-              <path d="M60 81 L45.5 120" />
-              <path d="M60 81 L74.5 120" />
-            </g>
-          )}
-          {/* buttons */}
-          <circle cx="60" cy="106" r="1.5" fill="rgba(0,0,0,0.4)" />
-          <circle cx="60" cy="114" r="1.5" fill="rgba(0,0,0,0.4)" />
-
-          {/* pocket square */}
-          {acc === "acc-pocket" && <path d="M72.5 102 L82.5 98.5 L81.5 108.5 Z" fill="#e7c5cf" />}
-          {/* gold lapel pin */}
-          {acc === "acc-lapel-gold" && (
-            <g>
-              <circle cx="43.5" cy="99" r="3" fill="#c9a227" stroke="#8a6d1f" strokeWidth="0.8" />
-              <circle cx="42.6" cy="98" r="0.9" fill="#f0d27a" />
-            </g>
-          )}
-          {/* heirloom watch — raised wrist */}
-          {acc === "acc-watch" && (
-            <g>
-              <path d="M95 120 L95 107 C95 100.5 105 100.5 105 107 L105 120 Z" fill={suit.base} />
-              <rect x="93.8" y="104.5" width="12.4" height="6" rx="2.5" fill="#c9a227" />
-              <circle cx="100" cy="107.5" r="4" fill="#f4f1e4" stroke="#c9a227" strokeWidth="1.6" />
-              <path d="M100 105.5 L100 107.5 L101.6 108.6" stroke="#3a2e07" strokeWidth="0.9" fill="none" strokeLinecap="round" />
-            </g>
-          )}
-
-          {/* ---- Neck & head ---- */}
-          <rect x="54" y="63" width="12" height="16" rx="5.5" fill={skin.color} />
-          <rect x="54" y="63" width="12" height="7.5" rx="3.5" fill={skinShade} opacity="0.55" />
-
-          {/* ears */}
-          <circle cx="38.5" cy="48" r="3.8" fill={skin.color} />
-          <circle cx="81.5" cy="48" r="3.8" fill={skin.color} />
-          {/* head */}
-          <ellipse cx="60" cy="44" rx="21.5" ry="23" fill={skin.color} />
-
-          {/* brows */}
-          <rect x="47" y="37.5" width="9.5" height="2.6" rx="1.3" fill={hairColor} opacity="0.9"
-            transform={effMood === "determined" ? "rotate(7 51.75 38.8)" : undefined} />
-          <rect x="63.5" y="37.5" width="9.5" height="2.6" rx="1.3" fill={hairColor} opacity="0.9"
-            transform={effMood === "determined" ? "rotate(-7 68.25 38.8)" : undefined} />
-
-          {/* eyes — blink as a group */}
-          <g className={animated ? "av-eyes" : undefined}>
-            <ellipse cx="52.5" cy="45.5" rx="2.9" ry="3.4" fill="#23232b" />
-            <ellipse cx="67.5" cy="45.5" rx="2.9" ry="3.4" fill="#23232b" />
-            <circle cx="53.5" cy="44.2" r="1.1" fill="#ffffff" opacity="0.95" />
-            <circle cx="68.5" cy="44.2" r="1.1" fill="#ffffff" opacity="0.95" />
+            {/* cosmetics on top */}
+            <Eyewear id={config.eyewear ?? "eye-none"} />
+            <Accessory id={config.accessory ?? "acc-none"} />
+            <Hat id={config.hat ?? "hat-none"} />
           </g>
-
-          {/* nose */}
-          <path d="M60 49 L58.2 55.5 L61.8 55.5 Z" fill={skinShade} />
-
-          {/* facial hair (under the mouth so lips read on top) */}
-          <FacialHair id={config.facialHair} color={hairColor} />
-
-          {/* mouth by mood */}
-          {effMood === "confident" && (
-            <path d="M52 59 Q60 65.5 68 59" stroke="#23232b" strokeWidth="2" strokeLinecap="round" fill="none" opacity="0.8" />
-          )}
-          {effMood === "friendly" && (
-            <g>
-              <path d="M51 58.5 Q60 68 69 58.5 Q60 61 51 58.5 Z" fill="#23232b" opacity="0.85" />
-              <path d="M53.5 59.5 Q60 62 66.5 59.5 Z" fill="#ffffff" opacity="0.9" />
-            </g>
-          )}
-          {effMood === "determined" && (
-            <path d="M54.5 61 Q60 62.5 65.5 61" stroke="#23232b" strokeWidth="2" strokeLinecap="round" fill="none" opacity="0.8" />
-          )}
-          {effMood === "neutral" && (
-            <path d="M54.5 60.5 L65.5 60.5" stroke="#23232b" strokeWidth="2" strokeLinecap="round" fill="none" opacity="0.7" />
-          )}
-
-          {/* hair */}
-          <Hair id={config.hair} color={hairColor} />
-
-          {/* glasses */}
-          {acc === "acc-specs" && (
-            <g stroke="#2b2b33" strokeWidth="1.8" fill="none">
-              <rect x="45" y="41" width="13" height="9.5" rx="4" />
-              <rect x="62" y="41" width="13" height="9.5" rx="4" />
-              <path d="M58 45.5 L62 45.5" />
-              <path d="M45 45 L39.5 44" />
-              <path d="M75 45 L80.5 44" />
-            </g>
-          )}
-          {acc === "acc-shades" && (
-            <g>
-              <rect x="44.5" y="40.5" width="14" height="10" rx="4" fill="#1b1b22" />
-              <rect x="61.5" y="40.5" width="14" height="10" rx="4" fill="#1b1b22" />
-              <path d="M58.5 45 L61.5 45 M44.5 44.5 L39.5 43.5 M75.5 44.5 L80.5 43.5" stroke="#1b1b22" strokeWidth="2" />
-              <rect x="46.5" y="42.5" width="5" height="2.5" rx="1.2" fill="#ffffff" opacity="0.25" />
-              <rect x="63.5" y="42.5" width="5" height="2.5" rx="1.2" fill="#ffffff" opacity="0.25" />
-            </g>
-          )}
         </g>
       </g>
     </svg>
   );
-}
-
-function Hair({ id, color }: { id: string; color: string }) {
-  switch (id) {
-    case "h1": // buzz
-      return (
-        <path
-          d="M38.5 46 C38.5 26.5 47 20.5 60 20.5 C73 20.5 81.5 26.5 81.5 46 C81.5 37.5 74.5 31.5 60 31.5 C45.5 31.5 38.5 37.5 38.5 46 Z"
-          fill={color}
-        />
-      );
-    case "h2": // side part
-      return (
-        <path
-          d="M38.5 48 C38 25.5 49 19 60 19 C72 19 82 25.5 81.5 48 C81 38 77.5 34 72 33.5 C62.5 32.6 48 32 44.5 36.5 C41.5 40.2 39 43.5 38.5 48 Z"
-          fill={color}
-        />
-      );
-    case "h3": // slick back
-      return (
-        <g fill={color}>
-          <path d="M38.5 46.5 C38.5 24.5 47.5 18.5 60 18.5 C72.5 18.5 81.5 24.5 81.5 46.5 C81.5 35.5 75 30.5 60 30.5 C45 30.5 38.5 35.5 38.5 46.5 Z" />
-          <path d="M80.5 38 C84 40.5 84.5 45.5 83.2 49 L80.5 48.2 Z" />
-        </g>
-      );
-    case "h4": // curls
-      return (
-        <g fill={color}>
-          <circle cx="45.5" cy="30.5" r="7" />
-          <circle cx="55" cy="25" r="7.5" />
-          <circle cx="65.5" cy="25.5" r="7.2" />
-          <circle cx="74.5" cy="31" r="6.5" />
-          <path d="M38.5 46 C38.5 34 44 29 60 29 C76 29 81.5 34 81.5 46 C78.5 38 72 35 60 35 C48 35 41.5 38 38.5 46 Z" />
-        </g>
-      );
-    case "h5": // bun
-      return (
-        <g fill={color}>
-          <circle cx="60" cy="15.5" r="6.5" />
-          <path d="M38.5 48 C38 26.5 49 20 60 20 C71 20 82 26.5 81.5 48 C79 38.5 73 34.5 60 34.5 C47 34.5 41 38.5 38.5 48 Z" />
-        </g>
-      );
-    case "h7": // pompadour — tall volume up front
-      return (
-        <g fill={color}>
-          <path d="M38.5 47 C38.5 28 46 14 60 13 C72 13 78 19 76 25 C73 21 66 21 60 23 C49 26.5 41 33 38.5 47 Z" />
-          <path d="M55 13.5 C62 7 75 9 78 19 C73 14 64 14 58 18 Z" />
-          <path d="M80.5 38 C84 41 84 46 82.6 49.5 L80.5 48.5 Z" />
-        </g>
-      );
-    case "h8": // afro — rounded volume
-      return (
-        <g fill={color}>
-          <circle cx="60" cy="24" r="24" />
-          <circle cx="40" cy="33" r="10" />
-          <circle cx="80" cy="33" r="10" />
-          <path d="M38 44 C40 34 48 30 60 30 C72 30 80 34 82 44 C78 38 70 35 60 35 C50 35 42 38 38 44 Z" fill="rgba(0,0,0,0.12)" />
-        </g>
-      );
-    case "h6": // bald
-    default:
-      return null;
-  }
-}
-
-function FacialHair({ id, color }: { id: string; color: string }) {
-  switch (id) {
-    case "stubble":
-      return (
-        <path
-          d="M39 49 C40 62 50 68 60 68 C70 68 80 62 81 49 C76 56 70 59 60 59 C50 59 44 56 39 49 Z"
-          fill={color}
-          opacity="0.28"
-        />
-      );
-    case "mustache":
-      return (
-        <path d="M52 56 Q56 54.5 60 56.5 Q64 54.5 68 56 Q64 59.5 60 58 Q56 59.5 52 56 Z" fill={color} />
-      );
-    case "goatee":
-      return (
-        <g fill={color}>
-          <path d="M52 56 Q56 54.5 60 56.5 Q64 54.5 68 56 Q64 59.5 60 58 Q56 59.5 52 56 Z" />
-          <path d="M54 62 C54 69 66 69 66 62 C63 65 57 65 54 62 Z" />
-        </g>
-      );
-    case "beard":
-      return (
-        <g fill={color}>
-          <path d="M39 49 C40 63 50 70 60 70 C70 70 80 63 81 49 C76 57 70 59.5 60 59.5 C50 59.5 44 57 39 49 Z" />
-          <path d="M52 55.5 Q56 54 60 56 Q64 54 68 55.5 Q64 59 60 57.5 Q56 59 52 55.5 Z" />
-        </g>
-      );
-    case "none":
-    default:
-      return null;
-  }
 }

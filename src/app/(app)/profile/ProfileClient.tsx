@@ -11,7 +11,7 @@ import {
   loadProfile,
   saveProfile,
 } from "@/lib/profile";
-import { Avatar, SKINS, HAIRS, HAIR_COLORS, FACIAL_HAIR, EXPRESSIONS } from "@/components/avatar";
+import { Avatar, EXPRESSIONS } from "@/components/avatar";
 import {
   Wallet,
   loadWallet,
@@ -241,45 +241,16 @@ function AvatarEditor({
   onChange: (a: AvatarConfig) => void;
 }) {
   const suits = itemsBySlot("suit");
+  const hats = itemsBySlot("hat");
+  const eyewear = itemsBySlot("eyewear");
+  const neckwear = itemsBySlot("neckwear");
   const accessories = itemsBySlot("accessory");
   const backgrounds = itemsBySlot("background");
 
   return (
     <div className="card-game p-5 space-y-4">
       <div>
-        <SectionLabel>Skin tone</SectionLabel>
-        <div className="flex items-center gap-2.5">
-          {SKINS.map((s) => (
-            <Swatch key={s.id} color={s.color} active={avatar.skin === s.id} onClick={() => onChange({ ...avatar, skin: s.id })} />
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <SectionLabel>Hair</SectionLabel>
-        <div className="flex items-center gap-2 flex-wrap mb-2.5">
-          {HAIRS.map((h) => (
-            <Chip key={h.id} label={h.name} active={avatar.hair === h.id} onClick={() => onChange({ ...avatar, hair: h.id })} />
-          ))}
-        </div>
-        <div className="flex items-center gap-2.5">
-          {HAIR_COLORS.map((c) => (
-            <Swatch key={c.id} color={c.color} active={avatar.hairColor === c.id} onClick={() => onChange({ ...avatar, hairColor: c.id })} />
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <SectionLabel>Facial hair</SectionLabel>
-        <div className="flex items-center gap-2 flex-wrap">
-          {FACIAL_HAIR.map((f) => (
-            <Chip key={f.id} label={f.name} active={(avatar.facialHair ?? "none") === f.id} onClick={() => onChange({ ...avatar, facialHair: f.id })} />
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <SectionLabel>Expression</SectionLabel>
+        <SectionLabel>Sterling&apos;s mood</SectionLabel>
         <div className="flex items-center gap-2 flex-wrap">
           {EXPRESSIONS.map((e) => (
             <Chip key={e.id} label={e.name} active={(avatar.expression ?? "confident") === e.id} onClick={() => onChange({ ...avatar, expression: e.id })} />
@@ -288,7 +259,10 @@ function AvatarEditor({
       </div>
 
       <ItemRow label="Suit" items={suits} selected={avatar.suit} wallet={wallet} onSelect={(id) => id && onChange({ ...avatar, suit: id })} />
-      <ItemRow label="Accessory" items={accessories} selected={avatar.accessory} wallet={wallet} allowNone onSelect={(id) => onChange({ ...avatar, accessory: id })} />
+      <ItemRow label="Hat" items={hats} selected={avatar.hat === "hat-none" ? null : avatar.hat} wallet={wallet} allowNone onSelect={(id) => onChange({ ...avatar, hat: id ?? "hat-none" })} />
+      <ItemRow label="Eyewear" items={eyewear} selected={avatar.eyewear === "eye-none" ? null : avatar.eyewear} wallet={wallet} allowNone onSelect={(id) => onChange({ ...avatar, eyewear: id ?? "eye-none" })} />
+      <ItemRow label="Tie" items={neckwear} selected={avatar.neckwear === "neck-gold" ? null : avatar.neckwear} wallet={wallet} allowNone onSelect={(id) => onChange({ ...avatar, neckwear: id ?? "neck-gold" })} />
+      <ItemRow label="Flair" items={accessories} selected={avatar.accessory} wallet={wallet} allowNone onSelect={(id) => onChange({ ...avatar, accessory: id })} />
       <ItemRow label="Backdrop" items={backgrounds} selected={avatar.background} wallet={wallet} onSelect={(id) => id && onChange({ ...avatar, background: id })} />
       <p className="text-[11px]" style={{ color: "var(--text-muted)" }}>
         Locked gear is sold at the <Link href="/shop" className="hover:underline font-semibold" style={{ color: "var(--primary)" }}>Perks Desk</Link> for Comp you earn by studying.
@@ -517,24 +491,6 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
     <div className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "var(--text-muted)" }}>
       {children}
     </div>
-  );
-}
-
-function Swatch({ color, active, onClick }: { color: string; active: boolean; onClick: () => void }) {
-  return (
-    <button
-      onClick={onClick}
-      className={`rounded-full transition-transform ${active ? "pop-in" : ""}`}
-      style={{
-        width: 30,
-        height: 30,
-        background: color,
-        border: active ? "3px solid var(--primary)" : "2.5px solid var(--border-strong)",
-        boxShadow: active ? "0 2.5px 0 var(--primary-deep)" : "0 2.5px 0 var(--border-strong)",
-        transform: active ? "scale(1.1)" : "scale(1)",
-      }}
-      aria-label={color}
-    />
   );
 }
 
