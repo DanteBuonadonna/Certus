@@ -77,10 +77,13 @@ function BillingInner() {
     posthog.capture("checkout_initiated", { plan });
     setLoading(plan);
     try {
+      // PromoteKit affiliate attribution: pass the referral id (set by the
+      // PromoteKit script) so the sale credits the right affiliate.
+      const referral = typeof window !== "undefined" ? (window as unknown as { promotekit_referral?: string }).promotekit_referral : undefined;
       const res = await fetch("/api/stripe/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ plan }),
+        body: JSON.stringify({ plan, referral }),
       });
       const data = await res.json();
       if (data.url) window.location.href = data.url;

@@ -41,7 +41,9 @@ export async function POST(request: Request) {
       // No auth configured — proceed as guest.
     }
 
-    const { plan } = await request.json();
+    const { plan, referral } = await request.json();
+    // PromoteKit reads client_reference_id to attribute the sale to an affiliate.
+    const refId: string | undefined = typeof referral === "string" && referral ? referral : undefined;
 
     // Derive the app URL from the actual request so success/cancel
     // redirects work on any deployment (preview, prod, localhost).
@@ -62,7 +64,7 @@ export async function POST(request: Request) {
       const session = await stripe.checkout.sessions.create({
         mode: "payment",
         line_items: [{ price: pack.priceId, quantity: 1 }],
-        metadata: { user_id: userId ?? "guest", plan, credits: String(pack.credits) },
+        metadata: { user_id: userId ?? "guest", plan, credits: String(pack.credits), ...(refId ? { promotekit_referral: refId } : {}) },
         ...(userEmail ? { customer_email: userEmail } : {}),
         success_url: `${origin}/billing?credits_added=${pack.credits}&session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${origin}/billing?canceled=true`,
@@ -89,7 +91,7 @@ export async function POST(request: Request) {
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
       line_items: [{ price: priceId, quantity: 1 }],
-      metadata: { user_id: userId ?? "guest", plan },
+      metadata: { user_id: userId ?? "guest", plan, ...(refId ? { promotekit_referral: refId } : {}) },
       subscription_data: { metadata: { user_id: userId ?? "guest", plan } },
       ...(userEmail ? { customer_email: userEmail } : {}),
       allow_promotion_codes: true,

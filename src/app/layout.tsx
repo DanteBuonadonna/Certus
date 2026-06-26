@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import { BRAND } from "@/lib/brand";
 import { Analytics } from "@vercel/analytics/next";
+
+// PromoteKit affiliate tracking ID (public — it's exposed in the page anyway).
+const PROMOTEKIT_ID = "e6d2ffa2-d50b-4906-a83c-30192b9bcd85";
 
 export const metadata: Metadata = {
   title: `${BRAND.name} — Prep for finance's hardest exams`,
@@ -19,6 +23,11 @@ export default function RootLayout({
       <body>
         {children}
         <Analytics />
+        <Script
+          src="https://cdn.promotekit.com/pk.js"
+          data-promotekit={PROMOTEKIT_ID}
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
