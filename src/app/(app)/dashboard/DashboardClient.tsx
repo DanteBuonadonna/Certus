@@ -7,7 +7,6 @@ import { Profile, loadProfile } from "@/lib/profile";
 import { Avatar } from "@/components/avatar";
 import { getItem } from "@/lib/economy";
 import QuickStart from "@/components/QuickStart";
-import Tour, { TourStep } from "@/components/Tour";
 import { DailyBonusModal } from "@/components/Rewards";
 import { dailyBonusInfo } from "@/lib/rewards";
 import StreakFlame from "@/components/StreakFlame";
@@ -50,53 +49,6 @@ import {
 } from "@/components/icons";
 
 const STORAGE_KEY = GAME_KEY;
-const TOUR_KEY = "certus_tour_v1";
-
-const TOUR_STEPS: TourStep[] = [
-  {
-    title: "Welcome to the firm",
-    body: "Certus is exam prep built like a career. Read, drill, and test your way from Intern to Partner — here's the 30-second lay of the land.",
-  },
-  {
-    target: "[data-tour='stats']",
-    title: "Your vitals",
-    body: "Streak, XP, and total hours. Show up daily to keep the streak alive — but XP (and the Comp you spend in the shop) is earned by answering questions correctly, not by logging time or skimming readings.",
-  },
-  {
-    target: "[data-tour='plan']",
-    title: "Your track",
-    body: "Pick your exam and test date here. Certus builds a daily plan, paces you to exam day, and this is where you log study sessions.",
-  },
-  {
-    target: "[data-tour='readiness']",
-    title: "The number that matters",
-    body: "Your Readiness Rating (0–100, graded like a bond: CCC to AAA). It moves when you finish chapters, master flashcards, and clear mock exams. Get it to AAA and you're exam-ready.",
-  },
-  {
-    target: "[data-tour='challenges-promo']",
-    title: "Challenge modes",
-    body: "Three fast ways to rack up XP and climb your Division: Lightning Round (a 60-second sprint), The Open (a daily mock everyone takes — compare your score), and Wager (stake Comp and double it if you hit your target).",
-  },
-  {
-    target: "[data-tour='challenges']",
-    title: "Daily challenges",
-    body: "Quick daily goals that pay bonus XP. Stack them with your streak to level up faster.",
-  },
-  {
-    target: "[data-tour='nav-train']",
-    title: "Where the work happens",
-    body: "Reading is the textbook (in-depth chapters). Practice and Challenges drill real questions — and getting them right is how you earn XP. Flashcards lock in key terms. The Final is the full timed mock.",
-  },
-  {
-    target: "[data-tour='nav-career']",
-    title: "Compete and customize",
-    body: "Divisions are weekly XP leagues you climb against a cohort and a rival. Your Profile holds your character and trophies, The Ladder pays Comp for quests, and the Perks Desk is where you spend it on gear.",
-  },
-  {
-    title: "That's it — set your date",
-    body: "Pick your exam, set the test date, and read your first chapter today. The streak starts now.",
-  },
-];
 
 export default function DashboardClient() {
   const [state, setState] = useState<GameState>(EMPTY_STATE);
@@ -105,34 +57,24 @@ export default function DashboardClient() {
   const [levelUp, setLevelUp] = useState<{ level: number; rank: string } | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [showQuickStart, setShowQuickStart] = useState(false);
-  const [showTour, setShowTour] = useState(false);
   const [showDaily, setShowDaily] = useState(false);
   const [dailyChecked, setDailyChecked] = useState(false);
   const signedIn = useSignedIn();
 
   // Hydrate from localStorage on mount.
   useEffect(() => {
+    let xp = 0;
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) setState({ ...EMPTY_STATE, ...JSON.parse(raw) });
+      if (raw) { const parsed = JSON.parse(raw); setState({ ...EMPTY_STATE, ...parsed }); xp = parsed.xp ?? 0; }
     } catch {}
     const p = loadProfile();
     setProfile(p);
     setLoaded(true);
-    // First-open flow: quick character creation, then the guided tour.
-    try {
-      const tourDone = localStorage.getItem(TOUR_KEY) === "1";
-      if (!p) setShowQuickStart(true);
-      else if (!tourDone) setShowTour(true);
-    } catch {}
+    // Character creation is a reward AFTER the first lesson (once they've earned
+    // some XP) — never a gate on first entry, and no guided tour.
+    if (!p && xp > 0) setShowQuickStart(true);
   }, []);
-
-  function finishTour() {
-    try {
-      localStorage.setItem(TOUR_KEY, "1");
-    } catch {}
-    setShowTour(false);
-  }
 
   // Persist on change.
   useEffect(() => {
@@ -141,10 +83,10 @@ export default function DashboardClient() {
 
   // Offer the daily Market Open bonus once onboarding/tour are out of the way.
   useEffect(() => {
-    if (!loaded || dailyChecked || showQuickStart || showTour) return;
+    if (!loaded || dailyChecked || showQuickStart) return;
     if (dailyBonusInfo().available) setShowDaily(true);
     setDailyChecked(true);
-  }, [loaded, dailyChecked, showQuickStart, showTour]);
+  }, [loaded, dailyChecked, showQuickStart]);
 
   function showToast(msg: string) {
     setToast(msg);
@@ -195,21 +137,16 @@ export default function DashboardClient() {
 
   return (
     <div className="px-4 py-6 md:px-8 md:py-8 max-w-5xl mx-auto">
-      {/* First-open: 20-second character creation, then the guided tour */}
+      {/* Character creation — offered as a reward after the first lesson */}
       {showQuickStart && (
         <QuickStart
           onDone={(p) => {
             setProfile(p);
             setShowQuickStart(false);
-            setShowTour(true);
           }}
-          onSkip={() => {
-            setShowQuickStart(false);
-            setShowTour(true);
-          }}
+          onSkip={() => setShowQuickStart(false)}
         />
       )}
-      {showTour && !showQuickStart && <Tour steps={TOUR_STEPS} onDone={finishTour} />}
 
       {/* Guest → account nudge: progress is local until they make an account */}
       {!signedIn && (

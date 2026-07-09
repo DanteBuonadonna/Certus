@@ -18,9 +18,9 @@ import { LogoMark } from "@/components/Logo";
 
 const FLAG = "certus_onboarded";
 
-type Step = "intro" | "exam" | "when" | "bg" | "hours" | "worry" | "why" | "build" | "reveal" | "quizintro" | "quiz" | "result";
-const ORDER: Step[] = ["intro", "exam", "when", "bg", "hours", "worry", "why", "build", "reveal", "quizintro", "quiz", "result"];
-const BARW: Record<Step, number> = { intro: 8, exam: 20, when: 31, bg: 43, hours: 55, worry: 66, why: 78, build: 88, reveal: 90, quizintro: 94, quiz: 97, result: 100 };
+type Step = "intro" | "exam" | "when" | "hours" | "build" | "reveal" | "quizintro" | "quiz" | "result";
+const ORDER: Step[] = ["intro", "exam", "when", "hours", "build", "reveal", "quizintro", "quiz", "result"];
+const BARW: Record<Step, number> = { intro: 8, exam: 24, when: 42, hours: 60, build: 74, reveal: 84, quizintro: 92, quiz: 97, result: 100 };
 
 const Q: Record<string, { q: string; sub: string; opts: string[] }> = {
   when: { q: "When's your exam?", sub: "This sets your daily pace.", opts: ["In about a month", "2–3 months out", "4–6 months out", "Not scheduled yet"] },
@@ -87,8 +87,8 @@ export default function WelcomePage() {
       saveState({ ...state, plans: [plan, ...(state.plans ?? []).filter((p) => p.examSlug !== plan.examSlug)] });
       localStorage.setItem(FLAG, "1");
     } catch {}
-    // Into the app — the dashboard runs character creation + the tutorial on
-    // first visit, then they're in their plan.
+    // Straight into the app with their plan set. Character creation is offered
+    // later as a reward, after they finish their first lesson.
     router.push("/dashboard");
   }, [ans, router]);
 
@@ -115,7 +115,7 @@ export default function WelcomePage() {
         <div key={step} className="ob-step w-full" style={{ maxWidth: 460 }}>
           {step === "intro" && <Intro onStart={() => go("exam")} />}
           {step === "exam" && <ExamStep exams={liveExams} onPick={(slug) => pick("examSlug", slug)} />}
-          {(step === "when" || step === "bg" || step === "hours" || step === "worry" || step === "why") && (
+          {(step === "when" || step === "hours") && (
             <QuestionStep step={step} onPick={(v) => pick(step, v)} />
           )}
           {step === "build" && <BuildStep when={ans.when} onDone={() => go("reveal")} />}
