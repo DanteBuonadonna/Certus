@@ -18,9 +18,9 @@ import { LogoMark } from "@/components/Logo";
 
 const FLAG = "certus_onboarded";
 
-type Step = "intro" | "exam" | "when" | "hours" | "build" | "reveal" | "quizintro" | "quiz" | "result";
-const ORDER: Step[] = ["intro", "exam", "when", "hours", "build", "reveal", "quizintro", "quiz", "result"];
-const BARW: Record<Step, number> = { intro: 8, exam: 24, when: 42, hours: 60, build: 74, reveal: 84, quizintro: 92, quiz: 97, result: 100 };
+type Step = "intro" | "exam" | "when" | "hours" | "why" | "build" | "reveal" | "quizintro" | "quiz" | "result";
+const ORDER: Step[] = ["intro", "exam", "when", "hours", "why", "build", "reveal", "quizintro", "quiz", "result"];
+const BARW: Record<Step, number> = { intro: 8, exam: 22, when: 38, hours: 52, why: 66, build: 76, reveal: 85, quizintro: 92, quiz: 97, result: 100 };
 
 const Q: Record<string, { q: string; sub: string; opts: string[] }> = {
   when: { q: "When's your exam?", sub: "This sets your daily pace.", opts: ["In about a month", "2–3 months out", "4–6 months out", "Not scheduled yet"] },
@@ -115,7 +115,7 @@ export default function WelcomePage() {
         <div key={step} className="ob-step w-full" style={{ maxWidth: 460 }}>
           {step === "intro" && <Intro onStart={() => go("exam")} />}
           {step === "exam" && <ExamStep exams={liveExams} onPick={(slug) => pick("examSlug", slug)} />}
-          {(step === "when" || step === "hours") && (
+          {(step === "when" || step === "hours" || step === "why") && (
             <QuestionStep step={step} onPick={(v) => pick(step, v)} />
           )}
           {step === "build" && <BuildStep when={ans.when} onDone={() => go("reveal")} />}
