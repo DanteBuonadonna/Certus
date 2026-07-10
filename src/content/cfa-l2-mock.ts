@@ -944,7 +944,710 @@ export const L2_SESSION_1: ItemSet[] = [
     ],
   },
 ];
-export const L2_SESSION_2: ItemSet[] = [];
+export const L2_SESSION_2: ItemSet[] = [
+  {
+    id: "l2s2-ethics",
+    title: "Copeland Capital Case Scenario",
+    vignette: [
+      "Rhea Copeland, CFA, founded Copeland Capital three years ago. Marketing materials state: 'Copeland Capital is GIPS compliant. Our flagship strategy returned 14.2% annualized since inception, ranking in the top decile of its peer group.' The 14.2% figure is the return of the strategy's oldest account, which is also its largest; two smaller accounts in the same strategy returned 11.0% and 12.1%.",
+      "Copeland directs trades through Fairway Brokers, which charges commissions 15% above the lowest available rate. In exchange, Fairway provides Copeland with research on small-cap industrials used in managing all client accounts, plus two terminals used exclusively by Copeland's marketing team.",
+      "A prospective client asks Copeland whether her CFA designation means her recommendations are certified by CFA Institute. Copeland replies: 'The charter is the most rigorous credential in investment management, and passing all three levels on my first attempts reflects the standard I hold myself to.'",
+    ],
+    questions: [
+      q(
+        "l2s2-eth-1",
+        "ethics",
+        "Ethical & Professional Standards",
+        2,
+        "Copeland's presentation of the 14.2% return most likely violates the Standards because it:",
+        [
+          "presents a single, best-performing account as the strategy's record rather than a composite of all similar accounts.",
+          "uses an annualized figure, which is prohibited for periods under five years.",
+          "compares results to a peer group without that group's permission.",
+        ],
+        0,
+        "Correct: A. Standard III(D) requires performance presentations that are fair, accurate, and complete — presenting the oldest/largest (and conveniently best) account as 'the strategy' while omitting accounts returning 11.0% and 12.1% is textbook cherry-picking; a composite of all similar discretionary accounts is the remedy. And since GIPS requires exactly that, claiming GIPS compliance while doing this compounds the violation. B invents a rule — annualization of periods over a year is standard practice; C invents a permission requirement that does not exist."
+      ),
+      q(
+        "l2s2-eth-2",
+        "ethics",
+        "Ethical & Professional Standards",
+        3,
+        "Under the soft dollar principles in the Standards, Copeland's arrangement with Fairway is most problematic with respect to:",
+        [
+          "the small-cap research, because it was not produced by Copeland internally.",
+          "the marketing team's terminals, because client commissions paid for a benefit that does not aid the investment decision-making process.",
+          "the entire arrangement, because paying above-lowest commissions always violates best execution.",
+        ],
+        1,
+        "Correct: B. Client brokerage may buy research and services that benefit CLIENTS' investment decisions — the small-cap research qualifies (A is wrong). Terminals used exclusively by MARKETING serve the firm, not the clients whose commissions bought them: that is the classic mixed-use failure requiring the firm to pay for that portion itself. C overstates: best execution is a total-value judgment, and paying somewhat higher commissions for genuine client-benefiting research is permissible."
+      ),
+      q(
+        "l2s2-eth-3",
+        "ethics",
+        "Ethical & Professional Standards",
+        2,
+        "Copeland's reply to the prospective client most likely:",
+        [
+          "violates Standard VII(B), because citing first-attempt passes is prohibited.",
+          "complies with the Standards, because both statements are factual and no CFA Institute endorsement is implied.",
+          "violates Standard VII(B), because describing the charter as rigorous overstates the designation.",
+        ],
+        1,
+        "Correct: B. Standard VII(B) permits factual statements about the designation and one's own program history: passing all levels on first attempts is verifiable fact, and expressing pride in the charter's rigor is acceptable opinion — what is PROHIBITED is implying the charter certifies performance or superior ability, which her answer, notably, avoided claiming (she also implicitly corrected the client's 'certified' premise). A and C both ban statements the Standard explicitly allows."
+      ),
+      q(
+        "l2s2-eth-4",
+        "ethics",
+        "Ethical & Professional Standards",
+        3,
+        "For Copeland Capital's GIPS compliance claim to be legitimate, the firm must, at minimum:",
+        [
+          "include all actual, fee-paying discretionary accounts in appropriate composites and meet all applicable GIPS requirements firm-wide.",
+          "have its results verified by an independent third party.",
+          "report performance gross of all fees.",
+        ],
+        0,
+        "Correct: A. GIPS compliance is all-or-nothing at the FIRM level: every actual, fee-paying, discretionary portfolio assigned to a composite, all requirements met, with compliant presentations available to prospects. Her single-account marketing makes the current claim false. B is a common misconception — verification is RECOMMENDED, not required, for compliance claims. C is also wrong: GIPS has specific rules about gross and net presentation, but 'gross only' is not among them."
+      ),
+    ],
+  },
+  {
+    id: "l2s2-quant",
+    title: "Aldrich Research Case Scenario",
+    vignette: [
+      "Noor Aldrich, CFA, models quarterly demand growth for a retailer using an autoregressive model of order one, AR(1): x̂ₜ = b₀ + b₁xₜ₋₁, estimated as x̂ₜ = 2.0 + 0.6xₜ₋₁ (growth in percent). Residual diagnostics show no serial correlation, and Aldrich confirms the series is covariance stationary.",
+      "The most recent observed value is x = 4.0%. Aldrich prepares one- and two-step-ahead forecasts and computes the model's mean-reverting level.",
+      "A colleague, reviewing a different series, reports an estimated AR(1) coefficient statistically indistinguishable from 1.0 and asks Aldrich how to proceed before using that model for forecasting.",
+    ],
+    questions: [
+      q(
+        "l2s2-qnt-1",
+        "quant",
+        "Quantitative Methods",
+        2,
+        "The mean-reverting level of Aldrich's AR(1) model is closest to:",
+        ["2.0%", "5.0%", "6.0%"],
+        1,
+        "Correct: B. The mean-reverting level of an AR(1) is b₀ / (1 − b₁) = 2.0 / (1 − 0.6) = 5.0% — the value at which the forecast equals the current value, toward which all forecasts converge. A mistakes the intercept itself for the long-run mean; C computes 2.0/(1 − 0.6667) or similar arithmetic slip. Forecasts above 5.0 drift down, forecasts below drift up — the signature of stationarity."
+      ),
+      q(
+        "l2s2-qnt-2",
+        "quant",
+        "Quantitative Methods",
+        2,
+        "Given the most recent value of 4.0%, the two-step-ahead forecast is closest to:",
+        ["4.40%", "4.64%", "5.00%"],
+        1,
+        "Correct: B. Chain the model: one step ahead x̂ = 2.0 + 0.6 × 4.0 = 4.40%; two steps ahead x̂ = 2.0 + 0.6 × 4.40 = 4.64%. A stops at the one-step forecast; C jumps straight to the mean-reverting level, which is where the forecasts converge eventually, not after two quarters. Note the path: 4.00 → 4.40 → 4.64, climbing toward 5.0 exactly as mean reversion predicts."
+      ),
+      q(
+        "l2s2-qnt-3",
+        "quant",
+        "Quantitative Methods",
+        3,
+        "The colleague's series, with an AR(1) coefficient statistically indistinguishable from 1.0, most likely:",
+        [
+          "has a unit root and is not covariance stationary, so it should be first-differenced before modeling.",
+          "is strongly mean reverting and ideal for AR forecasting.",
+          "should be modeled with more lags to restore stationarity.",
+        ],
+        0,
+        "Correct: A. b₁ = 1 defines a random walk: no finite mean-reverting level exists (b₀/(1−b₁) divides by zero), variance grows with time, and regression statistics become unreliable. The standard remedy is modeling the FIRST DIFFERENCE (the change), which is stationary. B is the opposite of the truth — a unit root means NO mean reversion. C misdiagnoses: adding lags addresses serial correlation in residuals, not a unit root."
+      ),
+      q(
+        "l2s2-qnt-4",
+        "quant",
+        "Quantitative Methods",
+        2,
+        "If Aldrich's residuals HAD shown significant serial correlation, the most direct consequence for her model would be that:",
+        [
+          "the coefficient standard errors would be invalid, making t-tests unreliable.",
+          "the model's forecasts would become unbiased.",
+          "the intercept would automatically equal zero.",
+        ],
+        0,
+        "Correct: A. Serial correlation in an AR model's residuals means the model has left predictable structure on the table — the estimated standard errors (and thus t-statistics and significance tests) are no longer trustworthy, and the specification needs additional lags. B is backwards — misspecification harms forecasts, it doesn't bless them. C has no connection to serial correlation at all."
+      ),
+    ],
+  },
+  {
+    id: "l2s2-econ",
+    title: "Brennan Macro Advisory Case Scenario",
+    vignette: [
+      "Callum Brennan, CFA, assesses monetary policy for client portfolios. The central bank he follows communicates policy using a Taylor-type rule: policy rate = neutral real rate + expected inflation + 0.5 × (expected inflation − target inflation) + 0.5 × (output gap).",
+      "Brennan's inputs: neutral real rate 1.0%, expected inflation 4.0%, target inflation 2.0%, and output running 1.0% above potential.",
+      "The central bank's actual policy rate stands at 5.0%. Brennan considers what the gap between the rule-implied rate and the actual rate suggests about the policy stance, and how bond and equity markets typically react when a central bank is perceived to be 'behind the curve.'",
+    ],
+    questions: [
+      q(
+        "l2s2-eco-1",
+        "econ",
+        "Economics",
+        2,
+        "The Taylor-rule-implied policy rate is closest to:",
+        ["5.5%", "6.5%", "7.0%"],
+        1,
+        "Correct: B. Rate = 1.0 + 4.0 + 0.5 × (4.0 − 2.0) + 0.5 × (1.0) = 1.0 + 4.0 + 1.0 + 0.5 = 6.5%. The rule stacks the neutral real rate, expected inflation, and half-weighted penalties for the inflation overshoot and the positive output gap. A (5.5%) drops the output gap term and half the inflation gap; C (7.0%) double-counts by applying full rather than half weights to the gaps."
+      ),
+      q(
+        "l2s2-eco-2",
+        "econ",
+        "Economics",
+        2,
+        "With the actual policy rate at 5.0% versus the rule-implied rate, the central bank's stance is best described as:",
+        [
+          "accommodative — the bank is 'behind the curve' relative to the rule.",
+          "restrictive — policy is tighter than the rule prescribes.",
+          "neutral — the difference is within measurement error.",
+        ],
+        0,
+        "Correct: A. Actual (5.0%) sits 150 bps BELOW the rule-implied 6.5%: with inflation two points over target and the economy above potential, the rule calls for notably tighter policy than the bank is running — the definition of accommodative, or colloquially 'behind the curve.' B reads the gap backwards. C waves off a full 1.5-percentage-point gap, far beyond any plausible input uncertainty here."
+      ),
+      q(
+        "l2s2-eco-3",
+        "econ",
+        "Economics",
+        3,
+        "If markets conclude the central bank is behind the curve on inflation, longer-term bond yields would most likely:",
+        [
+          "rise, as investors demand compensation for higher expected inflation and a steeper future tightening path.",
+          "fall, because accommodative policy always lowers all yields.",
+          "be unaffected, since long yields depend only on the current policy rate.",
+        ],
+        0,
+        "Correct: A. Long yields embed expected future short rates plus an inflation risk premium: a bank tolerating 4% inflation with the economy above potential raises BOTH — markets price more inflation and a harder eventual tightening. B captures only the mechanical short-end effect while missing the expectations channel that dominates the long end. C contradicts the term-structure logic that connects the entire curve to the expected policy path."
+      ),
+      q(
+        "l2s2-eco-4",
+        "econ",
+        "Economics",
+        3,
+        "The equity market's reaction to a central bank perceived as behind the curve is most accurately described as:",
+        [
+          "ambiguous — near-term earnings benefit from loose policy, but higher discount rates and the risk of harsher future tightening weigh on valuations.",
+          "unambiguously positive, since low rates always raise equity values.",
+          "unambiguously negative, since inflation always destroys equity value.",
+        ],
+        0,
+        "Correct: A. Two forces fight: accommodative policy stokes nominal demand and near-term earnings (positive), while rising inflation expectations lift discount rates, compress multiples, and raise the odds of a recession-inducing catch-up tightening (negative). Which dominates varies by horizon and starting valuations — the honest answer is tension, not a slogan. B prices only the numerator-friendly half; C only the denominator-hostile half."
+      ),
+    ],
+  },
+  {
+    id: "l2s2-fra",
+    title: "Quarry Point Research Case Scenario",
+    vignette: [
+      "Ivy Chen, CFA, screens companies for earnings quality at Quarry Point Research. She is examining Dorset Fabrication, whose reported net income has grown 12% annually for three years while cash flow from operations has been roughly flat. Exhibit 1 shows selected data for the most recent year.",
+      "Chen notes three items from the filings: (1) days sales outstanding rose from 48 to 71 over two years; (2) in the fourth quarter, Dorset sold receivables to a financial institution and recorded the proceeds within operating cash flow; (3) depreciable lives on machinery were extended from 8 to 12 years, which the footnotes describe as 'aligning with industry practice.'",
+      "Chen computes accruals-based measures and prepares questions for management's next earnings call.",
+    ],
+    exhibits: [
+      {
+        caption: "Exhibit 1 — Dorset Fabrication, most recent year ($ millions)",
+        headers: ["Item", "Amount"],
+        rows: [
+          ["Net income", "240"],
+          ["Cash flow from operations", "150"],
+          ["Average total assets", "2,000"],
+        ],
+      },
+    ],
+    questions: [
+      q(
+        "l2s2-fra-1",
+        "fra",
+        "Financial Statement Analysis",
+        2,
+        "Using the cash-flow approach, Dorset's accruals ratio (aggregate accruals scaled by average total assets) is closest to:",
+        ["4.5%", "7.5%", "12.0%"],
+        0,
+        "Correct: A. Aggregate accruals (simplified cash-flow method) = net income − CFO = 240 − 150 = 90; scaled by average assets: 90 / 2,000 = 4.5%. A positive and RISING accruals ratio flags earnings outrunning cash — the least persistent kind of earnings. B halves the denominator; C is net income over assets (ROA), a profitability measure that says nothing about accrual intensity."
+      ),
+      q(
+        "l2s2-fra-2",
+        "fra",
+        "Financial Statement Analysis",
+        2,
+        "The rise in days sales outstanding from 48 to 71 most likely signals:",
+        [
+          "revenue being recognized faster than cash is collected — possible channel stuffing or loosened credit terms.",
+          "improved collection efficiency.",
+          "nothing noteworthy, since DSO varies randomly.",
+        ],
+        0,
+        "Correct: A. DSO jumping ~50% means receivables are growing far faster than sales — the classic footprint of pulling revenue forward (shipping ahead of demand, extending credit to book sales, or recognizing aggressively). It is among the most reliable single red flags in earnings-quality work. B is the opposite reading — falling DSO would signal that. C dismisses a large, sustained, directional move as noise."
+      ),
+      q(
+        "l2s2-fra-3",
+        "fra",
+        "Financial Statement Analysis",
+        3,
+        "The fourth-quarter sale of receivables most importantly means that Dorset's reported operating cash flow:",
+        [
+          "is boosted by a financing-like, non-recurring action — future-period collections were effectively pulled into today's CFO.",
+          "is understated, since the receivables were sold at a discount.",
+          "is unaffected, because receivables sales are investing activities.",
+        ],
+        0,
+        "Correct: A. Factoring receivables converts future collections into immediate cash — economically it's borrowing against receivables, but it lands in CFO, flattering exactly the metric analysts watch when they distrust earnings (and conveniently in Q4). The boost is non-recurring unless Dorset factors ever-larger amounts — a treadmill worth probing on the call. B is a second-order effect dwarfed by the timing shift; C misstates the classification."
+      ),
+      q(
+        "l2s2-fra-4",
+        "fra",
+        "Financial Statement Analysis",
+        2,
+        "Extending machinery lives from 8 to 12 years most directly has the effect of:",
+        [
+          "reducing annual depreciation expense, increasing current earnings without any cash flow impact.",
+          "increasing cash flow from operations through lower expenses.",
+          "reducing the carrying value of the machinery.",
+        ],
+        0,
+        "Correct: A. Longer depreciable lives spread the same cost over more years — lower annual expense, higher reported income, zero cash consequence (depreciation is non-cash). Whether justified or cosmetic, the change deserves scrutiny arriving alongside the other flags. B fails because a non-cash expense change doesn't alter CFO (under the indirect method, lower depreciation is offset by higher net income). C is backwards: slower depreciation keeps carrying value HIGHER."
+      ),
+    ],
+  },
+  {
+    id: "l2s2-corp",
+    title: "Halberd & Voss Case Scenario",
+    vignette: [
+      "Halberd Industries has agreed to acquire Voss Precision in an all-cash deal. Halberd's deal team estimates Voss's standalone intrinsic value at $500 million and expects the combination to generate synergies with a present value of $120 million. Halberd will pay $560 million in cash for all of Voss's shares.",
+      "Voss's board obtained the price after soliciting competing bids. A Halberd director asks the deal team to quantify how the transaction's value creation is split between the two companies' shareholders, and why cash was chosen over stock as consideration.",
+      "An analyst covering the deal notes that empirical studies of acquisitions offer a caution for Halberd's shareholders.",
+    ],
+    questions: [
+      q(
+        "l2s2-cor-1",
+        "corp",
+        "Corporate Issuers",
+        2,
+        "The takeover premium Halberd is paying for Voss is closest to:",
+        ["12%", "24%", "4%"],
+        0,
+        "Correct: A. Premium = (price paid − standalone value) / standalone value = (560 − 500) / 500 = 12%. The premium is measured against the target's UNAFFECTED standalone worth. B doubles it by measuring against half the base; C (4%) measures the premium against the synergy-inclusive value (620), which mixes up what the premium is being paid FOR."
+      ),
+      q(
+        "l2s2-cor-2",
+        "corp",
+        "Corporate Issuers",
+        2,
+        "The value created for HALBERD's shareholders by the transaction, if the synergy estimate proves accurate, is closest to:",
+        ["$60 million", "$120 million", "$0"],
+        0,
+        "Correct: A. Acquirer's gain = synergies − premium paid = 120 − (560 − 500) = $60m: the deal creates 120 of combined value, of which Voss's shareholders capture 60 up front through the premium, leaving 60 for Halberd — the arithmetic identity of deal-making. B awards Halberd ALL the synergies, forgetting the premium hands over half. C would hold only if the premium exactly exhausted the synergies (a $620m price)."
+      ),
+      q(
+        "l2s2-cor-3",
+        "corp",
+        "Corporate Issuers",
+        3,
+        "Compared with a stock-for-stock offer, Halberd's choice of cash consideration most importantly means that:",
+        [
+          "Halberd's shareholders bear the risk (and keep the reward) if realized synergies differ from the $120 million estimate.",
+          "Voss's shareholders share in any synergy shortfall.",
+          "the deal's risk allocation is identical either way.",
+        ],
+        0,
+        "Correct: A. Cash fixes the target's take at $560m: Voss's shareholders exit fully paid, so every dollar of synergy surprise — up or down — lands on Halberd. In a STOCK deal, Voss's holders become part-owners of the combined firm and share both risk and upside (which is why confident acquirers lean toward cash, and uncertain ones prefer stock). B describes the stock deal; C denies the entire consideration-choice trade-off."
+      ),
+      q(
+        "l2s2-cor-4",
+        "corp",
+        "Corporate Issuers",
+        2,
+        "The empirical caution most relevant to Halberd's shareholders is that, on average, historical evidence shows:",
+        [
+          "acquirers tend to earn little or no announcement gain, with most deal value captured by target shareholders.",
+          "acquirers capture most merger gains through superior bargaining.",
+          "both sides reliably lose value, making all M&A irrational.",
+        ],
+        0,
+        "Correct: A. The empirical record is one-sided: target shareholders earn large announcement premiums, while acquirer returns average roughly zero to slightly negative — competitive bidding, overconfident management, and the winner's curse routinely transfer the synergies to the seller. Halberd's positive spread here (60) depends entirely on the synergy estimate surviving integration. B reverses the evidence. C overshoots it — deals aren't reliably value-destroying in AGGREGATE; the split is just lopsided."
+      ),
+    ],
+  },
+  {
+    id: "l2s2-equity-h",
+    title: "Ostrander Equity Research Case Scenario",
+    vignette: [
+      "Felix Ostrander, CFA, is valuing Brightline Logistics, which just paid an annual dividend of $2.00 per share. Brightline is growing quickly — dividends have recently grown 10% per year — but Ostrander expects growth to decline linearly over the next six years to a sustainable long-run rate of 4%, and he selects the H-model. His required return on equity is 9%.",
+      "In the H-model, V₀ = [D₀ × (1 + g_L) + D₀ × H × (g_S − g_L)] / (r − g_L), where H is half the length of the fade period.",
+      "A colleague challenges Ostrander: 'If growth is 10% now, why not simply use the Gordon growth model at 10%?' Ostrander also considers under what conditions the H-model's approximation becomes unreliable.",
+    ],
+    questions: [
+      q(
+        "l2s2-heq-1",
+        "equity",
+        "Equity Investments",
+        3,
+        "Using the H-model, Brightline's intrinsic value per share is closest to:",
+        ["$41.60", "$44.00", "$48.80"],
+        2,
+        "Correct: C. With a six-year fade, H = 3. V₀ = [2.00 × 1.04 + 2.00 × 3 × (0.10 − 0.04)] / (0.09 − 0.04) = [2.08 + 0.36] / 0.05 = 2.44 / 0.05 = $48.80. The first term is the Gordon value at long-run growth; the second adds the premium from the fading high-growth phase. A ($41.60) is the Gordon value alone, ignoring the extra growth entirely; B ($44.00) capitalizes D₀ × 1.10 at the long-run denominator — mixing the two growth rates incorrectly."
+      ),
+      q(
+        "l2s2-heq-2",
+        "equity",
+        "Equity Investments",
+        2,
+        "The best response to the colleague's Gordon-at-10% suggestion is that doing so would:",
+        [
+          "be impossible as stated, because the 10% growth rate exceeds the 9% required return, making the model's denominator negative.",
+          "produce a slightly conservative value.",
+          "be acceptable for any horizon under five years.",
+        ],
+        0,
+        "Correct: A. The Gordon model requires g < r; at g = 10% and r = 9% the denominator (r − g) turns negative and the formula produces a meaningless negative value — mathematically it assumes the dividend outgrows the discount rate FOREVER, an infinite-value absurdity. That is precisely why multi-stage and H-models exist: temporarily supernormal growth must fade below r. B and C treat an undefined calculation as a usable approximation."
+      ),
+      q(
+        "l2s2-heq-3",
+        "equity",
+        "Equity Investments",
+        3,
+        "The H-model's approximation is LEAST reliable when:",
+        [
+          "the initial growth rate is very high and the fade period is very long.",
+          "the initial growth rate is close to the long-run rate.",
+          "the fade period is short.",
+        ],
+        0,
+        "Correct: A. The H-model assumes a LINEAR decline in growth and approximates the resulting value in closed form; the approximation error grows with the size of the growth spread (g_S − g_L) and the length of the fade — exactly when the linearization is being asked to carry the most weight (it tends to understate value in those cases, since actual dividends compound above the linear path). B and C describe the friendly cases where the H-model is nearly exact."
+      ),
+      q(
+        "l2s2-heq-4",
+        "equity",
+        "Equity Investments",
+        2,
+        "If Ostrander's fade-period assumption lengthened from six years to ten (H from 3 to 5), all else equal, his H-model estimate would:",
+        ["increase, because the high-growth premium term scales with H.", "decrease, because distant growth is worth less.", "be unchanged, since H affects only timing, not value."],
+        0,
+        "Correct: A. The premium term, D₀ × H × (g_S − g_L) / (r − g_L), is linear in H — stretching the fade means more years of above-trend growth. At H = 3 the premium is 2.00 × 3 × 0.06 / 0.05 = $7.20 per share; at H = 5 it becomes 2.00 × 5 × 0.06 / 0.05 = $12.00, lifting the total value from $48.80 to $53.60. B inverts the effect — the model already discounts, and more high growth is unambiguously worth more. C misreads H as a mere timing parameter when it directly scales the excess-growth value."
+      ),
+    ],
+  },
+  {
+    id: "l2s2-equity-pvt",
+    title: "Marrow Valuation Group Case Scenario",
+    vignette: [
+      "Talia Marrow, CFA, is valuing a 15% equity interest in Kestrel Packaging, a private family-held manufacturer, for a shareholder considering a sale. Using guideline public company multiples, Marrow first estimates a value of $100.00 per share. She notes this estimate reflects a marketable, minority (noncontrolling) basis, since it derives from freely traded minority shares of public comparables.",
+      "For the private, minority stake she is valuing, Marrow applies a discount for lack of marketability (DLOM) of 20%. Separately, for a different engagement, she is asked what adjustments would apply when valuing a CONTROLLING stake in a private company starting from the same guideline public multiples, where a discount for lack of control (DLOC) of 10% and the same DLOM are relevant considerations.",
+      "Kestrel's CFO argues no marketability discount should apply because 'the family will probably take the company public within a few years.'",
+    ],
+    questions: [
+      q(
+        "l2s2-pvt-1",
+        "equity",
+        "Equity Investments",
+        2,
+        "The value per share of the private minority interest, after Marrow's DLOM, is closest to:",
+        ["$72.00", "$80.00", "$90.00"],
+        1,
+        "Correct: B. The guideline public multiple value of $100 is already on a MINORITY, marketable basis — the only missing adjustment for a private minority stake is marketability: 100 × (1 − 0.20) = $80.00. A ($72) also strips a control discount that doesn't apply (the basis is already minority); C applies only a 10% discount, conflating DLOC with DLOM."
+      ),
+      q(
+        "l2s2-pvt-2",
+        "equity",
+        "Equity Investments",
+        3,
+        "When BOTH a 10% DLOC and a 20% DLOM apply to an interest, the combined discount from the marketable-control basis is closest to:",
+        ["28%", "30%", "32%"],
+        0,
+        "Correct: A. Discounts compound multiplicatively, not additively: combined = 1 − (1 − 0.10)(1 − 0.20) = 1 − 0.90 × 0.80 = 1 − 0.72 = 28%. The DLOM applies to the already-control-discounted value — the sequence matters conceptually even though multiplication commutes. B (simple addition) overstates the discount; it is the single most common error in private valuation exams and practice alike."
+      ),
+      q(
+        "l2s2-pvt-3",
+        "equity",
+        "Equity Investments",
+        2,
+        "The most appropriate response to the CFO's 'probably going public' argument is that:",
+        [
+          "a credible, near-term IPO prospect may REDUCE the DLOM but rarely eliminates it, given execution uncertainty and interim illiquidity.",
+          "he is correct — expected IPOs eliminate marketability discounts.",
+          "marketability discounts are fixed by convention at 20% regardless of circumstances.",
+        ],
+        0,
+        "Correct: A. DLOM sizing is a judgment scaled to the expected path to liquidity: a genuine IPO trajectory (bankers engaged, timeline, audited statements) compresses the discount, but 'probably, within a few years' still leaves years of lock-up risk, market-window risk, and deal failure — a smaller DLOM, not zero. B converts a probability into a certainty; C denies that the discount responds to facts and circumstances, which is exactly what valuation standards require it to do."
+      ),
+      q(
+        "l2s2-pvt-4",
+        "equity",
+        "Equity Investments",
+        3,
+        "Compared with the guideline public company method Marrow used, a guideline TRANSACTIONS method (based on prices paid in acquisitions of comparable companies) would most likely produce a starting value that:",
+        [
+          "already reflects a control basis, because acquisition prices include control premiums.",
+          "is identical in basis, since both methods use market evidence.",
+          "reflects a minority basis, because most acquisitions involve minority stakes.",
+        ],
+        0,
+        "Correct: A. The two market methods differ in the BASIS of the evidence: public share prices are minority, marketable trades; M&A transaction prices are typically for WHOLE companies and embed control premiums. Starting from transactions, valuing a minority stake requires SUBTRACTING for lack of control — the reverse of the adjustment path from public multiples. B ignores the premium embedded in takeovers (the Halberd case's 12% premium is exactly this); C misstates deal practice."
+      ),
+    ],
+  },
+  {
+    id: "l2s2-fixed",
+    title: "Ashford Credit Strategies Case Scenario",
+    vignette: [
+      "Priya Ashford, CFA, manages credit exposure with credit default swaps. She is quoting a five-year CDS on Radley Corp, a BB-rated issuer. The contract carries the standard 1% coupon for investment-grade/crossover conventions in her market, while the credit spread consistent with Radley's default risk is 2.0%. The CDS has an effective spread duration of 4.0.",
+      "Ashford's client wishes to BUY protection on a $10 million notional. Ashford explains how the upfront payment settles the difference between the standardized coupon and the fair spread, and what happens to the position's value if Radley's creditworthiness deteriorates after inception.",
+      "The client also asks Ashford to explain the difference between physical and cash settlement following a credit event.",
+    ],
+    questions: [
+      q(
+        "l2s2-cds-1",
+        "fixed",
+        "Fixed Income",
+        3,
+        "The approximate upfront payment on the CDS is closest to:",
+        [
+          "4% of notional, paid BY the protection buyer.",
+          "4% of notional, paid TO the protection buyer.",
+          "1% of notional, paid by the protection seller.",
+        ],
+        0,
+        "Correct: A. Upfront ≈ (credit spread − fixed coupon) × effective spread duration = (2.0% − 1.0%) × 4.0 = 4.0% of notional ($400,000). Radley's risk justifies a 2% running premium but the standardized contract pays only 1%, so the protection BUYER compensates the seller upfront for the shortfall. B reverses the direction — the buyer would RECEIVE upfront only if the fair spread were BELOW the coupon; C confuses the coupon itself with the upfront."
+      ),
+      q(
+        "l2s2-cds-2",
+        "fixed",
+        "Fixed Income",
+        2,
+        "If Radley's credit spread widens to 3.0% shortly after inception, the mark-to-market effect is most likely a:",
+        [
+          "gain for the protection buyer of roughly 4% of notional.",
+          "gain for the protection seller.",
+          "loss for the protection buyer, since spreads and protection values move inversely.",
+        ],
+        0,
+        "Correct: A. The buyer locked in protection priced at a 2% spread; at 3% the same protection is worth more: ΔV ≈ Δspread × duration × notional = 1.0% × 4.0 = 4% of notional (~$400,000 gain). Buying protection is being SHORT credit — deterioration pays. B and C both have the sign backwards; the seller is long credit and loses as spreads widen."
+      ),
+      q(
+        "l2s2-cds-3",
+        "fixed",
+        "Fixed Income",
+        2,
+        "Following a credit event, cash settlement of the CDS most accurately involves the protection seller paying:",
+        [
+          "the difference between par and the auction-determined market value of the cheapest eligible deliverable obligation.",
+          "the full notional amount, with the buyer keeping the defaulted bonds.",
+          "nothing until the defaulted bonds mature.",
+        ],
+        0,
+        "Correct: A. The payout equals the LOSS: notional × (1 − recovery), where recovery is set by the ISDA-run auction on eligible deliverable obligations (the cheapest-to-deliver among them anchors the price). B describes par payment with no offset — that's physical settlement's ECONOMICS only if the buyer also delivers the bonds; keeping bonds AND full notional would pay out more than the loss. C invents a deferral that exists in no CDS contract."
+      ),
+      q(
+        "l2s2-cds-4",
+        "fixed",
+        "Fixed Income",
+        3,
+        "The client holds no Radley bonds. Buying CDS protection anyway creates a position best described as:",
+        [
+          "a naked short credit position that profits from Radley's deterioration.",
+          "a hedge, since CDS positions are hedges by definition.",
+          "economically impossible, since CDS requires owning the reference obligation.",
+        ],
+        0,
+        "Correct: A. Without underlying exposure, protection bought is a pure directional bet against Radley's credit — profitable on spread widening or default, losing the premium/upfront otherwise. That's a legitimate (and common) use of the CDS market: expressing credit views without sourcing bonds. B mislabels speculation as hedging — the hedge label requires an offsetting exposure. C confuses CDS with insurance's insurable-interest requirement, which credit derivatives deliberately do not impose."
+      ),
+    ],
+  },
+  {
+    id: "l2s2-deriv",
+    title: "Nakamura Options Desk Case Scenario",
+    vignette: [
+      "Emi Nakamura, CFA, runs an equity options desk. She has just SOLD 100 call option contracts (each on 100 shares) on Corvid Media. The calls are slightly out of the money with 45 days to expiration; their current delta is 0.60 and the position's gamma is significant.",
+      "Nakamura intends to delta-hedge the position with shares of Corvid, and asks a junior trader to compute the initial hedge. She also quizzes the trader: 'Where is gamma largest — and what does that mean for how often we re-hedge?' and 'What is time working for, and against, on this desk?'",
+    ],
+    questions: [
+      q(
+        "l2s2-der-1",
+        "deriv",
+        "Derivatives",
+        2,
+        "To delta-hedge the short call position initially, Nakamura should:",
+        ["buy 6,000 Corvid shares.", "sell 6,000 Corvid shares.", "buy 10,000 Corvid shares."],
+        0,
+        "Correct: A. Short 100 contracts × 100 shares × delta 0.60 = a position delta of −6,000; neutralizing it requires BUYING 6,000 shares. The short calls lose as the stock rises, and the long shares offset that loss one-for-one — locally. B doubles the short exposure instead of hedging it; C hedges as if delta were 1.0, which is only true for deep in-the-money calls at expiration."
+      ),
+      q(
+        "l2s2-der-2",
+        "deriv",
+        "Derivatives",
+        3,
+        "Gamma for these options is largest when the options are:",
+        [
+          "at the money and close to expiration.",
+          "deep in the money with long maturity.",
+          "deep out of the money with long maturity.",
+        ],
+        0,
+        "Correct: A. Gamma — the rate at which delta changes — peaks where delta is most unstable: near the strike, near expiry, where a small stock move flips the option between 'probably exercised' (delta → 1) and 'probably worthless' (delta → 0). Deep ITM or OTM options (B, C) have deltas pinned near 1 or 0 that barely move. For Nakamura's desk, high gamma means the 6,000-share hedge decays quickly and needs frequent rebalancing — the practical cost of being short options."
+      ),
+      q(
+        "l2s2-der-3",
+        "deriv",
+        "Derivatives",
+        2,
+        "Regarding theta, Nakamura's short call position most likely:",
+        [
+          "benefits from time decay, all else equal.",
+          "suffers from time decay, all else equal.",
+          "is unaffected by the passage of time.",
+        ],
+        0,
+        "Correct: A. Long options bleed value as expiration approaches (negative theta); the SHORT side collects that decay — time is the option seller's ally, and 45 days of remaining premium is what Nakamura is harvesting. The desk's trade-off is precise: theta income in exchange for gamma risk — small daily gains punctuated by hedging losses when the stock gaps. B describes the option BUYER's position; C denies the most reliable Greek there is."
+      ),
+      q(
+        "l2s2-der-4",
+        "deriv",
+        "Derivatives",
+        3,
+        "If Corvid's stock suddenly jumps sharply higher before Nakamura can re-hedge, her delta-hedged position will most likely show:",
+        [
+          "a loss, because the short calls' delta rose during the jump and the hedge was sized for the old delta.",
+          "a profit, because the long shares gained value.",
+          "no effect, because the position was delta-neutral.",
+        ],
+        0,
+        "Correct: A. Delta-neutrality is only LOCAL. In a jump, the short calls' delta climbs (gamma effect) mid-move, so the calls lose value faster than the 6,000 shares gain — a net loss that grows with the square of the move. This is negative gamma's signature: hedged short-option books lose on large moves in EITHER direction. B counts only the hedge's leg; C mistakes a tangent-line hedge for a full replication."
+      ),
+    ],
+  },
+  {
+    id: "l2s2-alts",
+    title: "Beacon Rock Advisors Case Scenario",
+    vignette: [
+      "Beacon Rock Advisors evaluates private equity funds for institutional clients. Analyst Jonah Wells, CFA, reviews Fund IV, a 2019-vintage buyout fund, using the data in Exhibit 1.",
+      "A client trustee asks Wells to interpret the fund's DPI and TVPI multiples, and to explain why the fund's reported since-inception IRR of 19% should be read with caution relative to these multiples.",
+      "The trustee also asks why Fund IV's reported returns showed the familiar early-years dip before turning positive.",
+    ],
+    exhibits: [
+      {
+        caption: "Exhibit 1 — Fund IV, as of latest quarter ($ millions)",
+        headers: ["Item", "Amount"],
+        rows: [
+          ["Committed capital", "100"],
+          ["Capital called (paid-in)", "80"],
+          ["Cumulative distributions to LPs", "60"],
+          ["Net asset value (residual)", "70"],
+        ],
+      },
+    ],
+    questions: [
+      q(
+        "l2s2-alt-1",
+        "alts",
+        "Alternative Investments",
+        2,
+        "Fund IV's DPI (distributed to paid-in) multiple is closest to:",
+        ["0.60", "0.75", "0.86"],
+        1,
+        "Correct: B. DPI = cumulative distributions / paid-in capital = 60 / 80 = 0.75× — LPs have received back 75 cents of realized cash per dollar actually invested. It is the 'money in the bank' multiple, immune to valuation opinions. A (0.60) divides by COMMITTED capital rather than paid-in; C (0.86) divides NAV by distributions plus other confusion — neither matches the definition."
+      ),
+      q(
+        "l2s2-alt-2",
+        "alts",
+        "Alternative Investments",
+        2,
+        "Fund IV's TVPI (total value to paid-in) multiple is closest to:",
+        ["1.30", "1.63", "0.88"],
+        1,
+        "Correct: B. TVPI = (distributions + NAV) / paid-in = (60 + 70) / 80 = 130 / 80 = 1.625× — total value created per dollar invested, combining realized (DPI = 0.75) and unrealized (RVPI = 0.875) components. A divides by committed capital (130/100); C inverts a component ratio. The realized/unrealized split matters: more than half of Fund IV's value is still an appraisal, not cash."
+      ),
+      q(
+        "l2s2-alt-3",
+        "alts",
+        "Alternative Investments",
+        3,
+        "The most important caution when reading the fund's 19% since-inception IRR is that IRR:",
+        [
+          "is sensitive to the timing of early cash flows and relies on interim NAVs, so it can be flattered by early exits and subjective valuations.",
+          "understates performance because it ignores the time value of money.",
+          "is identical to TVPI expressed as a percentage.",
+        ],
+        0,
+        "Correct: A. Since-inception IRR is powerfully shaped by EARLY distributions (a quick profitable exit locks in a high rate that later years dilute slowly) and, until the fund is fully realized, by GP-marked NAVs — 70 of Fund IV's 130 of value is unrealized appraisal. Subscription credit lines further flatter IRR by delaying capital calls. That is why sophisticated LPs read IRR and multiples TOGETHER. B is backwards — IRR is precisely a time-value measure; C confuses a rate with a multiple."
+      ),
+      q(
+        "l2s2-alt-4",
+        "alts",
+        "Alternative Investments",
+        2,
+        "The early-years dip in Fund IV's reported returns is best explained by the:",
+        [
+          "J-curve effect — fees and costs are charged on committed capital while portfolio companies are still carried near cost.",
+          "denominator effect from public market declines.",
+          "fund's use of leverage at the portfolio company level.",
+        ],
+        0,
+        "Correct: A. The J-curve: in early years the fund pays management fees (on committed capital) and deal costs while investments sit at or near cost — so measured returns start NEGATIVE and turn positive only as value creation and exits emerge. It is a reporting-timing artifact more than an economic loss. B is an LP allocation phenomenon (private weights ballooning when public markets fall), unrelated to the return path; C describes buyout financing generally, not the early dip."
+      ),
+    ],
+  },
+  {
+    id: "l2s2-pm",
+    title: "Corliss Risk Office Case Scenario",
+    vignette: [
+      "Mara Corliss, CFA, heads the risk office of an endowment. For a $10 million equity portfolio with an expected annual return of 8% and annual return volatility of 20%, she computes annual value at risk (VaR) at the 5% significance level using the parametric (variance–covariance) method, with a z-value of 1.65.",
+      "Presenting to the investment committee, Corliss is careful to state precisely what the VaR figure does and does not say. A committee member asks why the risk team supplements VaR with conditional VaR (expected shortfall) and stress tests.",
+    ],
+    questions: [
+      q(
+        "l2s2-pm-1",
+        "pm",
+        "Portfolio Management",
+        2,
+        "The portfolio's annual 5% parametric VaR is closest to:",
+        ["$2.5 million", "$3.3 million", "$0.8 million"],
+        0,
+        "Correct: A. 5% VaR = −(μ − 1.65σ) × portfolio value = −(0.08 − 1.65 × 0.20) × 10m = −(0.08 − 0.33) × 10m = 0.25 × 10m = $2.5 million. B (3.3m) ignores the expected return, using 1.65σ alone; C (0.8m) uses the expected return alone with no volatility term. The expected return partially offsets the tail distance — a feature (and critique) of parametric VaR at long horizons."
+      ),
+      q(
+        "l2s2-pm-2",
+        "pm",
+        "Portfolio Management",
+        2,
+        "The most precise interpretation of Corliss's VaR figure is that:",
+        [
+          "in 5% of years, the portfolio is expected to lose AT LEAST $2.5 million.",
+          "the portfolio's maximum possible annual loss is $2.5 million.",
+          "the portfolio will lose exactly $2.5 million once every 20 years.",
+        ],
+        0,
+        "Correct: A. VaR is a threshold, not a ceiling: it says losses should EXCEED $2.5m in about one year in twenty — and says nothing about how bad those exceedance years get. B is the fatal misreading (VaR as 'maximum loss') that risk officers spend careers correcting. C misstates it twice: the loss in a bad year is at least, not exactly, the VaR, and the 1-in-20 is an expectation, not a schedule."
+      ),
+      q(
+        "l2s2-pm-3",
+        "pm",
+        "Portfolio Management",
+        3,
+        "The primary reason to supplement VaR with conditional VaR (expected shortfall) is that CVaR:",
+        [
+          "measures the average loss in the scenarios BEYOND the VaR threshold, describing the tail VaR ignores.",
+          "is always smaller than VaR, providing a more optimistic view.",
+          "eliminates the need for distributional assumptions.",
+        ],
+        0,
+        "Correct: A. CVaR answers the question VaR leaves hanging: WHEN we breach the threshold, how bad is it on average? It conditions on the worst 5% of outcomes and averages them — so two portfolios with identical VaR but different tail depths are finally distinguished. B is impossible: averaging losses beyond the threshold makes CVaR at least as LARGE as VaR. C overpromises — parametric CVaR inherits the same distributional assumptions."
+      ),
+      q(
+        "l2s2-pm-4",
+        "pm",
+        "Portfolio Management",
+        2,
+        "The committee member's implicit concern about parametric VaR during market crises is best summarized as:",
+        [
+          "normal-distribution assumptions understate fat tails, and correlations tend to rise toward one exactly when diversification is needed most.",
+          "VaR becomes too conservative in crises, overstating risk.",
+          "stress tests and VaR are redundant, since both assume normality.",
+        ],
+        0,
+        "Correct: A. The two classic failures: real return distributions have fatter tails than the normal curve admits (extreme losses arrive far more often than 1.65σ suggests), and crisis correlations converge — assets that diversified each other in calm markets fall together, so the portfolio's TRUE tail risk exceeds the model's. Stress tests attack both problems by replaying or inventing specific extreme scenarios with no distributional assumptions (which is also why C is wrong). B has the direction of the failure backwards."
+      ),
+    ],
+  },
+];
 
 export const L2_FULL_READY =
   L2_SESSION_1.length >= 11 && L2_SESSION_2.length >= 11;
