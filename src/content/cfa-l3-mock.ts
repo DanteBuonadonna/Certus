@@ -660,8 +660,448 @@ export const L3_SESSION_ESSAYS_1: Essay[] = [
     ],
   },
 ];
-export const L3_SESSION_SETS_2: ItemSet[] = [];
-export const L3_SESSION_ESSAYS_2: Essay[] = [];
+export const L3_SESSION_SETS_2: ItemSet[] = [
+  {
+    id: "l3s2-goals",
+    title: "Harmon Wealth Partners Case Scenario",
+    vignette: [
+      "Adviser Nadia Harmon, CFA, uses a goals-based framework for the Okafor family. She structures the portfolio in layers: a 'safety' layer of short-duration bonds sized to fund five years of essential spending; a 'lifestyle' layer of diversified stocks and bonds for ongoing wants; and an 'aspirational' layer of concentrated private investments aimed at a family business ambition.",
+      "Mr. Okafor loves the framework: 'Finally a portfolio I can actually understand — each bucket has a job.' Harmon's colleague objects that the layered approach is 'behavioral coddling' that sacrifices efficiency versus a single mean–variance optimized portfolio.",
+    ],
+    questions: [
+      q(
+        "l3s2-gb-1",
+        "behavioral",
+        "Behavioral Finance",
+        2,
+        "Harmon's layered structure most directly reflects:",
+        [
+          "behavioral portfolio theory — portfolios built as goal-matched layers of a pyramid rather than as a single covariance-optimized whole.",
+          "the Markowitz efficient frontier applied three times.",
+          "a violation of suitability standards.",
+        ],
+        0,
+        "Correct: A. Behavioral portfolio theory formalizes what investors naturally do: fund distinct goals with distinct sub-portfolios whose risk matches each goal's importance — safety first, aspiration last. It harnesses mental accounting rather than fighting it. B mislabels it: layers are built goal-by-goal, typically WITHOUT cross-layer covariance optimization (that omission is the colleague's exact critique). C is wrong — mapping risk to client goals is suitability done well, not violated."
+      ),
+      q(
+        "l3s2-gb-2",
+        "behavioral",
+        "Behavioral Finance",
+        3,
+        "The most accurate assessment of the colleague's efficiency objection is that layered goals-based portfolios are:",
+        [
+          "technically sub-optimal by mean–variance standards because cross-layer correlations are ignored, but the efficiency loss is typically small and the adherence benefit real.",
+          "exactly as efficient as MVO portfolios in all cases.",
+          "dramatically inefficient, forfeiting most of the portfolio's expected return.",
+        ],
+        0,
+        "Correct: A. Research on goals-based investing consistently finds the aggregate of layered portfolios sits only slightly inside the efficient frontier — the cost of ignoring cross-bucket correlations is measured in basis points. Against that stands the behavioral payoff: clients who understand their portfolio abandon it less in crises, and abandonment is the true efficiency killer. B overclaims; C wildly overstates a small, well-quantified cost."
+      ),
+      q(
+        "l3s2-gb-3",
+        "behavioral",
+        "Behavioral Finance",
+        2,
+        "Mr. Okafor's enthusiasm — 'each bucket has a job' — leverages which bias PRODUCTIVELY?",
+        ["mental accounting.", "hindsight bias.", "self-control bias, by eliminating the need for saving discipline."],
+        0,
+        "Correct: A. Mental accounting — normally a distortion — becomes a feature here: earmarking layers to goals converts an abstract volatility number into 'my essentials are safe for five years,' which clients grasp and stick with. This is the adapt-to-biases philosophy in action. B has no role in the structure; C misstates the mechanism — bucketing supports discipline, it doesn't remove the need for it."
+      ),
+      q(
+        "l3s2-gb-4",
+        "behavioral",
+        "Behavioral Finance",
+        3,
+        "During a severe equity drawdown, the layered structure's PRIMARY practical defense against panic selling is that:",
+        [
+          "the safety layer visibly covers years of essential spending, removing the forced-seller fear that drives capitulation.",
+          "the aspirational layer will offset equity losses.",
+          "clients cannot access layered accounts during drawdowns.",
+        ],
+        0,
+        "Correct: A. Panic selling is usually fear of NEEDING money that's evaporating; a client who can see five years of essentials in short bonds has no forced-sale scenario, so the lifestyle layer's drawdown becomes tolerable paper volatility. That visible runway is the framework's crisis payload. B is backwards — concentrated aspirational assets likely fall hardest; C is false and would be a custody problem, not a feature."
+      ),
+    ],
+  },
+  {
+    id: "l3s2-fitr",
+    title: "Danvers Fixed Income Case Scenario",
+    vignette: [
+      "Elias Danvers, CFA, builds expected-return decompositions for bond portfolios. For his corporate bond portfolio over the coming year he estimates: yield income of 4.0%; rolldown return of 0.6% assuming an unchanged curve; an expected price change of −0.8% from his view that benchmark rates will rise moderately; and expected credit losses of 0.2%. The portfolio is unhedged and domestic (no currency component).",
+      "Danvers presents the decomposition to the investment committee, noting which components are 'earned by standing still' versus dependent on his rate view. A committee member asks what happens to the rolldown component if the yield curve is flat rather than upward-sloping.",
+    ],
+    questions: [
+      q(
+        "l3s2-fi-1",
+        "fixed",
+        "Fixed Income",
+        2,
+        "Danvers's expected total return for the portfolio is closest to:",
+        ["3.6%", "4.4%", "4.6%"],
+        0,
+        "Correct: A. E(R) = yield income + rolldown + expected price change from the rate view − expected credit losses = 4.0 + 0.6 − 0.8 − 0.2 = 3.6%. B (4.4%) ignores the −0.8% rate view; C (4.6%) additionally ignores credit losses — counting only the friendly components. The decomposition's discipline is exactly that every component, hostile ones included, must appear."
+      ),
+      q(
+        "l3s2-fi-2",
+        "fixed",
+        "Fixed Income",
+        2,
+        "The components 'earned by standing still' — the rolling yield, requiring no change in the curve — are:",
+        ["yield income plus rolldown, totaling 4.6%.", "yield income alone, 4.0%.", "all four components."],
+        0,
+        "Correct: A. The rolling yield = coupon/yield income (4.0%) + rolldown (0.6%) = 4.6%: what the portfolio earns if the curve simply stays where it is, as bonds age down an unchanged upward-sloping curve and appreciate. The −0.8% is a VIEW, not carry; credit losses are an expected cost. B omits rolldown, which requires no forecast — only an unchanged curve; C sweeps the forecast-dependent component into carry."
+      ),
+      q(
+        "l3s2-fi-3",
+        "fixed",
+        "Fixed Income",
+        2,
+        "If the yield curve were FLAT, the rolldown component would most likely be:",
+        ["approximately zero.", "unchanged at 0.6%.", "negative 0.6%."],
+        0,
+        "Correct: A. Rolldown exists because a bond ages into a LOWER-yield point on an upward-sloping curve, gaining price. On a flat curve, next year's yield equals this year's — no repricing from aging, rolldown ≈ 0. (On an INVERTED curve it turns negative — bonds roll UP to higher yields.) B ignores the mechanism's dependence on slope; C describes the inverted case, not the flat one."
+      ),
+      q(
+        "l3s2-fi-4",
+        "fixed",
+        "Fixed Income",
+        3,
+        "If Danvers's rate view proves wrong and benchmark yields FALL moderately instead, his realized return would most likely be:",
+        [
+          "above 4.6%, as the price component turns positive on top of the rolling yield.",
+          "exactly 3.6%, since the decomposition fixes the return in advance.",
+          "below 3.6%, since any forecast error reduces returns.",
+        ],
+        0,
+        "Correct: A. The decomposition is an EXPECTATION, not a contract: rolling yield (4.6%) is locked in by an unchanged curve, and the price component swings with reality. Falling yields flip the −0.8% into a gain, pushing realized return above the carry. B mistakes a forecast framework for a guarantee; C assumes errors only hurt — a rate forecast wrong in the FAVORABLE direction helps."
+      ),
+    ],
+  },
+  {
+    id: "l3s2-fx",
+    title: "Marlowe Currency Overlay Case Scenario",
+    vignette: [
+      "Isla Marlowe, CFA, manages currency exposure for a US institutional investor holding a large euro-denominated equity portfolio. The euro currently trades at a 1.0% one-year forward DISCOUNT to the dollar (hedging via forwards costs the portfolio the discount as negative roll yield... or equivalently, selling EUR forward locks in 1.0% less than spot).",
+      "The investment committee's policy allows hedge ratios between 0% and 100%. Marlowe outlines the standard considerations: the cost of the hedge, the euro's correlation with the underlying equities, the investor's risk tolerance, and the alternative of using an options-based collar instead of forwards.",
+      "A committee member asks Marlowe to explain the minimum-variance hedge ratio (MVHR) her team estimated at 0.85 by regressing the portfolio's domestic-currency returns on the currency's returns.",
+    ],
+    questions: [
+      q(
+        "l3s2-fx-1",
+        "pm",
+        "Portfolio Management",
+        2,
+        "Fully hedging the euro exposure with forwards, given the 1.0% forward discount, most directly means the investor:",
+        [
+          "locks in selling euros 1.0% below spot — a certain cost accepted in exchange for eliminating currency risk.",
+          "earns a 1.0% bonus for hedging.",
+          "pays nothing, since forwards are zero-cost instruments.",
+        ],
+        0,
+        "Correct: A. Hedging means selling EUR forward; with the euro at a forward discount, each hedged euro is pre-sold below today's spot — a negative roll yield of ~1.0% annually that recurs each time the hedge rolls. That certain cost buys the removal of currency volatility. B describes hedging a currency at a forward PREMIUM (the pleasant case); C confuses zero INITIAL VALUE with zero expected cost — the forward points are the cost."
+      ),
+      q(
+        "l3s2-fx-2",
+        "pm",
+        "Portfolio Management",
+        3,
+        "The MVHR of 0.85 (rather than 1.0) most likely reflects that:",
+        [
+          "the euro's movements partially offset the equities' local returns, so hedging less than fully minimizes total portfolio variance.",
+          "the regression was misestimated, since correct MVHRs always equal 1.0.",
+          "15% of the position cannot legally be hedged.",
+        ],
+        0,
+        "Correct: A. The MVHR is the regression beta of domestic-currency portfolio returns on currency returns: when currency and underlying asset returns are correlated (e.g., a weaker euro tends to LIFT euro-area exporters' equity prices), part of the currency move is a natural hedge already, and full hedging would over-hedge — ADDING variance. 0.85 says variance is minimized by hedging 85%. B is false — MVHR equals 1.0 only when asset and currency returns are uncorrelated; C invents a constraint."
+      ),
+      q(
+        "l3s2-fx-3",
+        "pm",
+        "Portfolio Management",
+        2,
+        "Compared with the forward hedge, a zero-cost collar on the euro (buy EUR puts, sell EUR calls) most notably:",
+        [
+          "retains limited upside participation and downside exposure within a band, rather than locking a single rate.",
+          "provides identical outcomes to the forward at identical cost.",
+          "eliminates all currency risk with no trade-offs.",
+        ],
+        0,
+        "Correct: A. The collar brackets outcomes: protected below the put strike, capped above the call strike, exposed in between — a band, versus the forward's single locked rate. It suits investors who want catastrophe protection while keeping some participation (and avoiding the forward's full opportunity cost if the euro rallies). B collapses the distinction; C overclaims — inside the band, currency risk lives on, and the cap is itself a trade-off."
+      ),
+      q(
+        "l3s2-fx-4",
+        "pm",
+        "Portfolio Management",
+        2,
+        "The consideration that argues most strongly for a LOWER hedge ratio in Marlowe's situation is:",
+        [
+          "the persistent 1.0% annual cost of hedging a discount currency, compounded over a long horizon.",
+          "the committee's requirement for certainty of near-term funded outcomes.",
+          "high investor sensitivity to short-term currency swings.",
+        ],
+        0,
+        "Correct: A. The forward discount is a recurring toll: over a decade, ~1% a year of certain negative roll is a heavy price for insurance against a risk that partially diversifies away in a long-horizon equity portfolio (and the MVHR already trims the ratio). B and C argue the OPPOSITE direction — certainty needs and volatility sensitivity both push hedge ratios UP; the question asks what pushes them down."
+      ),
+    ],
+  },
+  {
+    id: "l3s2-opt",
+    title: "Beaumont Overlay Strategies Case Scenario",
+    vignette: [
+      "Theo Beaumont, CFA, advises equity clients on option overlay programs. Client Ada Lin holds 20,000 shares of Corvex Industrial at $60.00. Her outlook: 'sideways to modestly higher over the next six months; I'd happily sell at $66, and I want some income meanwhile.'",
+      "Beaumont proposes writing six-month covered calls at a $66 strike for a $1.80 premium per share. A second client with the same holding but a different concern — 'I can't stomach a fall below $52' — asks about protective alternatives, including a collar combining the $66 covered call with a $52 put costing $1.70.",
+    ],
+    questions: [
+      q(
+        "l3s2-opt-1",
+        "pm",
+        "Portfolio Management",
+        2,
+        "The covered call is well matched to Lin's stated outlook primarily because it:",
+        [
+          "monetizes upside she does not expect (beyond $66) into current income, at a price she pre-approved as a seller.",
+          "protects her fully against declines in Corvex.",
+          "leverages her upside participation above the strike.",
+        ],
+        0,
+        "Correct: A. The overlay converts the improbable-to-her upside tail (above $66) into $36,000 of premium income now — and $66 is a price at which she declared herself a willing seller, making assignment a planned outcome rather than a loss. The strategy's fit IS the outlook match. B is the great covered-call misconception: downside protection extends only $1.80 deep. C is backwards — above the strike her shares are called; upside is capped, not levered."
+      ),
+      q(
+        "l3s2-opt-2",
+        "pm",
+        "Portfolio Management",
+        2,
+        "If Corvex trades at $70.00 at expiration, Lin's effective sale price per share (ignoring taxes and transaction costs) is:",
+        ["$67.80", "$70.00", "$66.00"],
+        0,
+        "Correct: A. Called away at the $66 strike plus the $1.80 premium collected = $67.80 effective exit — versus the $70 an unhedged holder realizes. The $2.20 shortfall is the realized cost of the cap: covered calls underperform in strong rallies, which is precisely the outcome Lin judged unlikely. B forgets the shares were called at the strike; C forgets she keeps the premium."
+      ),
+      q(
+        "l3s2-opt-3",
+        "pm",
+        "Portfolio Management",
+        3,
+        "For the second client, the $52/$66 collar's net cost and downside outcome are best described as:",
+        [
+          "a net CREDIT of $0.10 per share, with losses stopped at $52 — about 13% below the current price.",
+          "a net cost of $1.70 per share, with unlimited downside.",
+          "a net credit of $3.50 per share, with losses stopped at $60.",
+        ],
+        0,
+        "Correct: A. Net premium = call received − put paid = 1.80 − 1.70 = +$0.10 credit. Below $52 the put floors the position; the client's maximum decline is to $52 (plus the small credit), roughly 13% below $60, in exchange for capping gains at $66. It's the classic near-zero-cost collar: paying for the floor with the ceiling. B prices the put but forgets the financing call; C invents both numbers."
+      ),
+      q(
+        "l3s2-opt-4",
+        "pm",
+        "Portfolio Management",
+        3,
+        "The most important BEHAVIORAL risk of running covered-call programs continuously across market cycles is that clients:",
+        [
+          "anchor on the income and abandon the program after the first strong rally leaves them well behind the uncapped market.",
+          "receive too much downside protection and take excessive risk elsewhere.",
+          "become immune to loss aversion.",
+        ],
+        0,
+        "Correct: A. Covered-call P&L is psychologically treacherous: years of steady premium income (satisfying), then a roaring bull market in which capped positions visibly lag by wide margins (enraging) — regret peaks exactly when discipline matters, and clients quit at the worst point of the cycle. Setting expectations about rally underperformance UP FRONT is the adviser's main defense. B misstates the strategy (protection is minimal); C reverses how loss aversion behaves — relative losses versus the uncapped benchmark sting sharply."
+      ),
+    ],
+  },
+  {
+    id: "l3s2-tax",
+    title: "Whitfield Private Client Case Scenario",
+    vignette: [
+      "Adviser Rosa Whitfield, CFA, manages taxable portfolios. Client Ben Ashe holds two positions in his TAXABLE account with identical market values: a bond fund generating 4.2% of annual interest income (taxed yearly at his 35% ordinary rate) and an equity index fund with 1.5% dividend yield whose gains are otherwise deferred until sale (long-term rate 20%). Ashe also has a tax-deferred retirement account of equal size currently holding the same equity index fund.",
+      "Whitfield reviews two opportunities: an asset LOCATION swap between the accounts, and harvesting a $50,000 unrealized loss in a separate taxable position, with the proceeds immediately reinvested in a similar — but not substantially identical — exposure.",
+    ],
+    questions: [
+      q(
+        "l3s2-tax-1",
+        "pm",
+        "Portfolio Management",
+        2,
+        "The asset location principle applied to Ashe's accounts most clearly recommends:",
+        [
+          "holding the bond fund in the tax-deferred account and the equity index fund in the taxable account.",
+          "holding the equity fund in the tax-deferred account and bonds in taxable, as currently arranged.",
+          "keeping location as is, since location has no effect on after-tax wealth.",
+        ],
+        0,
+        "Correct: A. Tax-inefficient assets — the bond fund's 4.2% of annually taxed ordinary income — belong in the tax-DEFERRED wrapper, where the drag is suspended; tax-efficient assets (low-dividend, gain-deferring index equity, eventually taxed at the 20% long-term rate) belong in taxable. The current arrangement pays 35% annually on the least shelterable income stream while wasting the shelter on the asset that barely needs it. C denies one of the most quantifiable sources of after-tax alpha there is."
+      ),
+      q(
+        "l3s2-tax-2",
+        "pm",
+        "Portfolio Management",
+        2,
+        "If Ashe's marginal rate on harvested losses is 35% against ordinary income offsets, the immediate maximum tax value of harvesting the $50,000 loss is closest to:",
+        ["$10,000", "$17,500", "$50,000"],
+        1,
+        "Correct: B. Tax value = loss × applicable rate = 50,000 × 35% = $17,500 of tax reduced (assuming sufficient offsettable income/gains at that rate; against 20% long-term gains it would be $10,000 — choice A — which is why WHAT the loss offsets matters). C confuses the loss itself with its tax value. Note the honest footnote: harvesting also RESETS cost basis lower, so part of the benefit is deferral and rate arbitrage, not permanent savings."
+      ),
+      q(
+        "l3s2-tax-3",
+        "pm",
+        "Portfolio Management",
+        2,
+        "Reinvesting the harvest proceeds in a 'similar but not substantially identical' exposure primarily serves to:",
+        [
+          "maintain the portfolio's market exposure while respecting wash-sale-type rules that would disallow the loss.",
+          "increase expected return through the new security's superior alpha.",
+          "eliminate the position's market risk during the harvest window.",
+        ],
+        0,
+        "Correct: A. The twin constraints of loss harvesting: realize the loss for tax purposes WITHOUT (1) stepping out of the market (missing a rebound is the classic harvesting own-goal) or (2) repurchasing something so identical that tax rules disallow the loss. A similar-but-different fund (e.g., a different index of the same asset class) threads both needles. B is not the goal — exposure equivalence is; C is the opposite of the design."
+      ),
+      q(
+        "l3s2-tax-4",
+        "pm",
+        "Portfolio Management",
+        3,
+        "Over multi-year horizons, the LARGEST driver of the equity index fund's tax efficiency in the taxable account is:",
+        [
+          "deferral — unrealized gains compound untaxed until realization, and the eventual tax applies at preferential long-term rates.",
+          "the 1.5% dividend yield being fully tax-exempt.",
+          "annual mark-to-market taxation at 20%.",
+        ],
+        0,
+        "Correct: A. The engine is deferral: the government's share stays invested and compounding until sale, then is taxed at the preferential rate — the combination can add tens of basis points annually versus an annually-taxed equivalent (and basis step-up provisions at death, where applicable, can convert deferral into exemption). B is false — dividends are taxed currently, they're just small; C describes a taxation regime that index funds specifically avoid triggering."
+      ),
+    ],
+  },
+];
+export const L3_SESSION_ESSAYS_2: Essay[] = [
+  {
+    id: "l3s2-essay-ips",
+    topicId: "pm",
+    topicName: "Portfolio Management",
+    title: "Alder College Endowment IPS — Constructed Response",
+    scenario: [
+      "The Alder College endowment supports 30% of the college's operating budget. Its spending policy distributes 4.5% of a three-year average of assets annually. Long-term inflation relevant to college costs is expected at 2.0%, and investment management costs run 0.3% per year. The endowment is intended to support the college in perpetuity.",
+      "The board is drafting a revised investment policy statement and has asked the consultant to specify the return objective, the time horizon, and the liquidity constraint.",
+    ],
+    parts: [
+      {
+        label: "A",
+        prompt: "State the endowment's return objective and CALCULATE the required annual return. Show your work. (3 points)",
+        points: 3,
+        guideline:
+          "Objective: maintain the endowment's purchasing power in perpetuity AFTER funding the spending policy and costs — i.e., intergenerational equity. Required return ≈ spending rate + expected inflation + investment costs = 4.5% + 2.0% + 0.3% = 6.8% (additive; the multiplicative form (1.045)(1.02)(1.003) − 1 ≈ 6.9% earns full credit). GRADING: 1 point for the purchasing-power/perpetuity framing; 1 point for including ALL three components (omitting costs is the common error); 1 point for correct arithmetic (6.8–6.9%).",
+      },
+      {
+        label: "B",
+        prompt: "State the appropriate time horizon and ONE direct implication of that horizon for asset allocation. (3 points)",
+        points: 3,
+        guideline:
+          "Horizon: perpetual (effectively infinite), though operationally reviewed in multi-year cycles. Implication (any one, 1.5 pts after 1.5 for horizon): high ability to bear short-term volatility and illiquidity supports substantial allocations to equities and private/illiquid assets; short-term drawdowns matter mainly through the spending-smoothing rule rather than forcing sales. GRADING: 1.5 points for perpetual horizon; 1.5 for a coherent allocation implication tied to it.",
+      },
+      {
+        label: "C",
+        prompt: "Formulate the liquidity constraint, identifying the endowment's TWO principal liquidity demands. (3 points)",
+        points: 3,
+        guideline:
+          "The endowment must reliably fund: (1) the annual spending distribution (~4.5% of assets, smoothed by the three-year averaging rule — which reduces but does not eliminate year-to-year cash needs), and (2) capital calls and rebalancing needs arising from private-market commitments, which persist in stressed markets. The IPS should mandate a liquidity sleeve (cash/short bonds plus liquid equities) sized against both demands under stress scenarios, noting the 30%-of-budget dependence makes spending interruptions unacceptable. GRADING: 1 point per demand identified; 1 point for a sizing/stress or dependence observation.",
+      },
+    ],
+  },
+  {
+    id: "l3s2-essay-fx",
+    topicId: "pm",
+    topicName: "Portfolio Management",
+    title: "Halvorsen Currency Decision — Constructed Response",
+    scenario: [
+      "A US investor holds a European equity portfolio expected to return +7.0% in euro (local) terms over the coming year. The investor's currency analyst expects the euro to DEPRECIATE 3.0% against the dollar over the same period. Hedging the euro exposure with one-year forwards would cost the portfolio 1.0% (the euro trades at a 1.0% forward discount).",
+      "The investment committee asks for the numbers behind the hedge decision and the considerations beyond the point estimates.",
+    ],
+    parts: [
+      {
+        label: "A",
+        prompt: "Calculate the expected one-year return in US dollar terms if the exposure is left UNHEDGED, and if it is FULLY HEDGED with forwards. Show your work. (3 points)",
+        points: 3,
+        guideline:
+          "Unhedged: R$ = (1 + R_local)(1 + R_fx) − 1 = (1.07)(0.97) − 1 = 3.79% (the additive approximation 7 − 3 = 4.0% earns partial credit if the multiplicative form is acknowledged). Hedged: local return minus the forward discount cost = 7.0% − 1.0% = 6.0%. GRADING: 1.5 points per calculation; multiplicative form (or explicit note of the approximation) required for full credit on the unhedged leg.",
+      },
+      {
+        label: "B",
+        prompt: "State the recommendation these expectations support, AND identify the key risk of acting on it. (3 points)",
+        points: 3,
+        guideline:
+          "Recommendation: HEDGE — the expected hedged return (6.0%) exceeds the expected unhedged return (3.79%) by over 2 percentage points, because the expected depreciation (3%) far exceeds the certain hedge cost (1%). Key risk: the currency FORECAST is the fragile input — currency forecasting has notoriously low reliability; if the euro instead appreciates (say +3%), the unhedged position would return ~10.2% and the hedge would have cost the difference. The certain 1% cost is known; the 3% depreciation is a guess. GRADING: 1 point for recommending hedging with the numeric comparison; 2 points for locating the risk in forecast error, ideally with the reversal illustration.",
+      },
+      {
+        label: "C",
+        prompt: "Independent of the current forecast, state TWO structural considerations that determine an appropriate PERMANENT (policy) hedge ratio for this investor. (3 points)",
+        points: 3,
+        guideline:
+          "Any two (1.5 points each): (1) the correlation between the euro and the underlying equities — natural offsets argue for hedging less than 100% (minimum-variance hedge ratio logic); (2) the recurring cost/carry of hedging a forward-discount currency over long horizons; (3) the investor's horizon and risk tolerance — currency noise matters more to short-horizon or drawdown-sensitive investors; (4) operational/rollover and cash flow management burdens of a forward program (margin/settlement cash needs). GRADING: 1.5 per distinct structural (not forecast-based) factor.",
+      },
+    ],
+  },
+  {
+    id: "l3s2-essay-curve",
+    topicId: "fixed",
+    topicName: "Fixed Income",
+    title: "Radcliffe Curve Positioning — Constructed Response",
+    scenario: [
+      "Fixed income manager Dana Radcliffe expects the yield curve to STEEPEN over the next year: short-term yields roughly unchanged, long-term yields materially higher. Her mandate keeps portfolio duration equal to the benchmark's, but she may position along the curve. She is choosing between a BULLET structure (concentrated in intermediate maturities) and a BARBELL structure (short and long maturities combined), each matching the benchmark duration.",
+    ],
+    parts: [
+      {
+        label: "A",
+        prompt: "Recommend bullet or barbell for Radcliffe's steepening view, and explain the mechanism. (3 points)",
+        points: 3,
+        guideline:
+          "BULLET. In a steepening, the damage is concentrated at the LONG end, where the barbell holds a substantial wing; the bullet's intermediate concentration avoids the hardest-hit maturities. With duration held equal, the barbell's long-wing losses exceed what its short wing avoids, so the bullet outperforms in bear steepeners. GRADING: 1 point for bullet; 2 points for the mechanism (long-end exposure differential at matched duration).",
+      },
+      {
+        label: "B",
+        prompt: "Identify which structure benefits from HIGHER convexity, and state the scenario in which that convexity advantage dominates. (3 points)",
+        points: 3,
+        guideline:
+          "The BARBELL has higher convexity (cash flows more dispersed around the duration point). Convexity wins in LARGE parallel moves in either direction — and in volatile, whipsawing markets generally — because the barbell gains more when rates fall sharply and loses less when they rise sharply, at matched duration. The cost is lower yield (convexity is 'paid for' in carry) and underperformance in the steepening Radcliffe actually expects. GRADING: 1 point for barbell; 2 points for the large-move/high-volatility scenario and the yield give-up trade-off.",
+      },
+      {
+        label: "C",
+        prompt: "State TWO distinct risks to Radcliffe's positioning if her curve view is wrong or incomplete. (3 points)",
+        points: 3,
+        guideline:
+          "Any two (1.5 each): (1) a FLATTENING instead — long yields fall or short yields rise — reverses the trade; the bullet then lags the barbell; (2) a large parallel shift or volatility spike, where the bullet's convexity deficit hurts even if the slope view is directionally right; (3) carry/rolldown differences: during the waiting period, the structures earn different rolling yields, and an on-hold curve may favor the other structure; (4) benchmark-relative tracking risk if the repositioning is sizable. GRADING: 1.5 points per distinct, correctly reasoned risk.",
+      },
+    ],
+  },
+  {
+    id: "l3s2-essay-mgr",
+    topicId: "pm",
+    topicName: "Portfolio Management",
+    title: "Selwyn Manager Selection — Constructed Response",
+    scenario: [
+      "A consultant screens active equity managers for the Selwyn Trust. One candidate, Foxhall Capital, reports a gross-of-fees alpha of 1.2% per year over ten years and charges a 0.9% flat management fee. The consultant sources candidate data from a commercial manager database to which managers voluntarily report.",
+      "The trustees ask three questions: what Foxhall's record is worth after fees; whether a performance-based fee would serve the trust better than the flat fee; and what biases in the database could distort the entire search.",
+    ],
+    parts: [
+      {
+        label: "A",
+        prompt: "Calculate Foxhall's expected NET alpha, and state the additional consideration that determines whether even that figure is achievable going forward. (3 points)",
+        points: 3,
+        guideline:
+          "Net alpha = gross alpha − fee = 1.2% − 0.9% = 0.3% per year: the fee consumes 75% of the documented value added, leaving a thin margin. The additional consideration: PERSISTENCE — whether the historical alpha is skill likely to continue (process, people, capacity unchanged?) rather than luck or a favorable regime; capacity growth and asset bloat commonly erode a once-real edge. GRADING: 1 point for 0.3%; 1 point for observing the fee's share of the alpha; 1 point for persistence/capacity reasoning.",
+      },
+      {
+        label: "B",
+        prompt: "State ONE argument FOR and ONE argument AGAINST replacing the flat fee with a performance-based fee, from the trust's perspective. (3 points)",
+        points: 3,
+        guideline:
+          "FOR (1.5): alignment — the manager is paid well only when the trust actually receives value added; in poor years the fee burden falls, cushioning net results. AGAINST (1.5): asymmetric incentives — performance fees can encourage risk-taking (the manager shares upside but not downside), and fee structures without high-water marks/hurdles can pay for volatility rather than skill; fee variability also complicates budgeting. Any coherent, correctly reasoned pair earns full credit.",
+      },
+      {
+        label: "C",
+        prompt: "Identify TWO biases in voluntary-reporting manager databases and state the direction in which each distorts reported performance. (3 points)",
+        points: 3,
+        guideline:
+          "Any two (1.5 each), each with direction: (1) SURVIVORSHIP bias — failed/closed funds drop out, biasing the surviving universe's returns UPWARD; (2) BACKFILL (instant history) bias — managers join the database after good early results and import that history, biasing records UPWARD; (3) self-selection/reporting cessation — managers stop reporting after bad stretches, again inflating apparent performance. All three distort in the SAME direction: the database overstates what the average investor could have earned. GRADING: 1 point per bias named, 0.5 per correct direction, capped at 3.",
+      },
+    ],
+  },
+];
 
 export const L3_FULL_READY =
   L3_SESSION_SETS_1.length >= 5 &&
