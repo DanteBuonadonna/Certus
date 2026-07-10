@@ -1,14 +1,15 @@
 "use client";
 
 // ============================================================
-// Certus — Mock Exam (CFA Level I replica)
-// The "proper" exam room: a faithful reproduction of the real
-// computer-based testing experience. Deliberately formal — no
-// XP, streaks, hearts, or bosses anywhere in this flow.
+// Certus — Mock Exam Center (CFA Levels I, II, III)
+// Faithful replicas of the real computer-based exams.
+// Deliberately formal — no XP, streaks, hearts, or bosses.
 //
-// Two modes:
-//   quick — 15 blueprint-weighted questions → rough readiness read
-//   full  — 2 sessions × 90 questions × 2h15m, optional break
+//   Level I   — 180 standalone MCQs, 2 × 2h15m (90 s/question)
+//   Level II  — vignette item sets, 4 Qs each (3 min/question)
+//   Level III — item sets + constructed-response essays,
+//               self-graded against guideline answers
+//               (Portfolio Management pathway first)
 // ============================================================
 
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
@@ -21,47 +22,163 @@ import {
   MOCK_SESSION_2,
   FULL_MOCK_READY,
 } from "@/content/cfa-mock";
+import { L2_QUICK, L2_SESSION_1, L2_SESSION_2, L2_FULL_READY } from "@/content/cfa-l2-mock";
 import {
-  sessionSeconds,
+  L3_QUICK_SETS,
+  L3_QUICK_ESSAYS,
+  L3_SESSION_SETS_1,
+  L3_SESSION_ESSAYS_1,
+  L3_SESSION_SETS_2,
+  L3_SESSION_ESSAYS_2,
+  L3_FULL_READY,
+} from "@/content/cfa-l3-mock";
+import {
+  SECONDS_PER_QUESTION,
+  SECONDS_PER_VIGNETTE_QUESTION,
+  SECONDS_PER_ESSAY_POINT,
   scoreMock,
+  estimateReadiness,
   saveAttempt,
   saveProgress,
   loadProgress,
   clearProgress,
+  essayTotalPoints,
   MockScore,
   MockProgress,
+  ItemSet,
+  Essay,
+  TopicScore,
 } from "@/lib/mockExam";
 
+type ExamSlug = "cfa" | "cfa-l2" | "cfa-l3";
 type Mode = "quick" | "full";
-type Phase =
-  | "home"
-  | "instructions" // pre-session briefing
-  | "exam" // a session in progress
-  | "review" // end-of-session review screen
-  | "break" // between full-mock sessions
-  | "result";
+type Phase = "home" | "instructions" | "exam" | "break" | "grade" | "result";
 
+// ---- Exam registry ---------------------------------------------
+interface RunSession {
+  questions: Question[]; // flattened MCQs
+  setForQ: (ItemSet | null)[]; // vignette context per question (null = standalone)
+  essays: Essay[];
+  seconds: number;
+}
+
+function fromSets(sets: ItemSet[], essays: Essay[]): RunSession {
+  const questions = sets.flatMap((s) => s.questions);
+  const setForQ = sets.flatMap((s) => s.questions.map(() => s));
+  return {
+    questions,
+    setForQ,
+    essays,
+    seconds:
+      questions.length * SECONDS_PER_VIGNETTE_QUESTION +
+      essayTotalPoints(essays) * SECONDS_PER_ESSAY_POINT,
+  };
+}
+
+function fromFlat(questions: Question[]): RunSession {
+  return {
+    questions,
+    setForQ: questions.map(() => null),
+    essays: [],
+    seconds: questions.length * SECONDS_PER_QUESTION,
+  };
+}
+
+const EXAM_DEFS: Record<
+  ExamSlug,
+  {
+    name: string;
+    quickTitle: string;
+    quickSpec: string;
+    quickBlurb: string;
+    fullTitle: string;
+    fullSpec: string;
+    fullBlurb: string;
+    fullReady: boolean;
+    quick: () => RunSession[];
+    full: () => RunSession[];
+  }
+> = {
+  cfa: {
+    name: "Level I",
+    quickTitle: "Readiness check",
+    quickSpec: "15 questions · 22 min 30 sec · exam pacing",
+    quickBlurb:
+      "Fifteen blueprint-weighted questions at the real exam's 90-seconds-per-question pace. A first estimate of your odds — rough by design, because fifteen questions can only tell you so much.",
+    fullTitle: "Full mock examination",
+    fullSpec: "180 questions · two 2 h 15 m sessions · optional break",
+    fullBlurb:
+      "The complete Level I experience: 90 questions per session, three answer choices, blueprint topic weights, flag-and-review navigation, and a formal per-topic score report with a readiness estimate.",
+    fullReady: FULL_MOCK_READY,
+    quick: () => [fromFlat(MOCK_QUICK)],
+    full: () => [fromFlat(MOCK_SESSION_1), fromFlat(MOCK_SESSION_2)],
+  },
+  "cfa-l2": {
+    name: "Level II",
+    quickTitle: "Readiness check",
+    quickSpec: "3 item sets · 12 questions · 36 min",
+    quickBlurb:
+      "Three full vignette item sets — case scenario, exhibits, then four questions each — at the real exam's 3-minutes-per-question pace. The format shift from Level I is what surprises candidates; feel it here first.",
+    fullTitle: "Full mock examination",
+    fullSpec: "22 item sets · 88 questions · two 2 h 12 m sessions",
+    fullBlurb:
+      "The complete Level II experience: 11 item sets per session, every question anchored to a case with exhibits, and a formal per-topic report at the end.",
+    fullReady: L2_FULL_READY,
+    quick: () => [fromSets(L2_QUICK, [])],
+    full: () => [fromSets(L2_SESSION_1, []), fromSets(L2_SESSION_2, [])],
+  },
+  "cfa-l3": {
+    name: "Level III",
+    quickTitle: "Readiness check",
+    quickSpec: "2 item sets + 1 essay · 48 min · PM pathway",
+    quickBlurb:
+      "Two vignette item sets plus a constructed-response essay, graded against guideline answers with a point rubric — the Level III format most candidates have never practiced under a clock. Portfolio Management pathway.",
+    fullTitle: "Full mock examination",
+    fullSpec: "Item sets + essays · two 2 h 12 m sessions",
+    fullBlurb:
+      "The complete Level III experience: mixed item sets and constructed-response questions in both sessions, with structured self-grading against guideline answers.",
+    fullReady: L3_FULL_READY,
+    quick: () => [fromSets(L3_QUICK_SETS, L3_QUICK_ESSAYS)],
+    full: () => [
+      fromSets(L3_SESSION_SETS_1, L3_SESSION_ESSAYS_1),
+      fromSets(L3_SESSION_SETS_2, L3_SESSION_ESSAYS_2),
+    ],
+  },
+};
+
+const EXAM_ORDER: ExamSlug[] = ["cfa", "cfa-l2", "cfa-l3"];
+
+// ---- Per-session working state ----------------------------------
 interface SessionState {
   answers: (number | null)[];
   flagged: boolean[];
-  strikes: number[][]; // per-question array of struck choice indexes
+  strikes: number[][];
+  essayTexts: string[][]; // per essay, per part
 }
 
-const emptySession = (n: number): SessionState => ({
-  answers: Array(n).fill(null),
-  flagged: Array(n).fill(false),
-  strikes: Array.from({ length: n }, () => []),
+const emptySession = (run: RunSession): SessionState => ({
+  answers: Array(run.questions.length).fill(null),
+  flagged: Array(run.questions.length).fill(false),
+  strikes: Array.from({ length: run.questions.length }, () => []),
+  essayTexts: run.essays.map((e) => e.parts.map(() => "")),
 });
 
+interface GradedEssay {
+  essay: Essay;
+  texts: string[];
+  points: number[];
+}
+
 export default function MockClient() {
+  const [exam, setExam] = useState<ExamSlug>("cfa");
   const [mode, setMode] = useState<Mode>("quick");
   const [phase, setPhase] = useState<Phase>("home");
-  const [sessionIdx, setSessionIdx] = useState(0); // 0 or 1 (full mock)
+  const [sessionIdx, setSessionIdx] = useState(0);
   const [sessions, setSessions] = useState<SessionState[]>([]);
   const [score, setScore] = useState<MockScore | null>(null);
-  const [showCta, setShowCta] = useState(false); // post-quick popup
+  const [gradedEssays, setGradedEssays] = useState<GradedEssay[]>([]);
   const [finalAnswers, setFinalAnswers] = useState<(number | null)[]>([]);
-  // Resume support: restores question position + clock after a refresh.
+  const [showCta, setShowCta] = useState(false);
   const [resumeInit, setResumeInit] = useState<{ idx: number; seconds: number } | null>(null);
   const [saved, setSaved] = useState<MockProgress | null>(null);
 
@@ -69,72 +186,103 @@ export default function MockClient() {
     if (phase === "home") setSaved(loadProgress());
   }, [phase]);
 
-  const sessionQuestions: Question[][] = useMemo(
-    () =>
-      mode === "quick" ? [MOCK_QUICK] : [MOCK_SESSION_1, MOCK_SESSION_2],
-    [mode]
+  const run = useMemo(
+    () => (mode === "quick" ? EXAM_DEFS[exam].quick() : EXAM_DEFS[exam].full()),
+    [exam, mode]
   );
-  const questions = sessionQuestions[sessionIdx] ?? [];
+  const session = run[sessionIdx];
 
-  const begin = useCallback((m: Mode) => {
+  const begin = useCallback((ex: ExamSlug, m: Mode) => {
     clearProgress();
+    const r = m === "quick" ? EXAM_DEFS[ex].quick() : EXAM_DEFS[ex].full();
+    setExam(ex);
     setMode(m);
     setSessionIdx(0);
-    setSessions(
-      m === "quick"
-        ? [emptySession(MOCK_QUICK.length)]
-        : [emptySession(MOCK_SESSION_1.length), emptySession(MOCK_SESSION_2.length)]
-    );
+    setSessions(r.map((s) => emptySession(s)));
     setScore(null);
+    setGradedEssays([]);
     setShowCta(false);
     setResumeInit(null);
     setPhase("instructions");
-    posthog.capture("mock_started", { mode: m });
+    posthog.capture("mock_started", { exam: ex, mode: m });
   }, []);
 
   const resumeSaved = useCallback(() => {
     const p = loadProgress();
     if (!p) return;
+    const ex = (p.exam as ExamSlug) ?? "cfa";
+    const r = p.mode === "quick" ? EXAM_DEFS[ex].quick() : EXAM_DEFS[ex].full();
+    setExam(ex);
     setMode(p.mode);
     setSessionIdx(p.sessionIdx);
-    setSessions(p.sessions);
+    setSessions(
+      p.sessions.map((s, i) => ({
+        answers: s.answers,
+        flagged: s.flagged,
+        strikes: s.strikes,
+        essayTexts: s.essayTexts ?? (r[i] ? r[i].essays.map((e) => e.parts.map(() => "")) : []),
+      }))
+    );
     setScore(null);
+    setGradedEssays([]);
     setShowCta(false);
     setResumeInit({ idx: p.idx, seconds: Math.max(p.timeLeft, 30) });
     setPhase("exam");
-    posthog.capture("mock_resumed", { mode: p.mode, session: p.sessionIdx + 1 });
+    posthog.capture("mock_resumed", { exam: ex, mode: p.mode, session: p.sessionIdx + 1 });
   }, []);
 
-  const submitSession = useCallback(
-    (state: SessionState) => {
-      const updated = [...sessions];
-      updated[sessionIdx] = state;
-      setSessions(updated);
-
-      const isLast = sessionIdx >= sessionQuestions.length - 1;
-      if (!isLast) {
-        // Session 1 locked in — persist so a closed tab resumes at Session 2.
-        saveProgress({
-          mode,
-          sessionIdx: 1,
-          sessions: updated,
-          idx: 0,
-          timeLeft: sessionSeconds(sessionQuestions[1]?.length ?? 0),
-          savedAt: new Date().toISOString(),
-        });
-        setResumeInit(null);
-        setPhase("break");
-        return;
-      }
-      // Final scoring across every session.
+  const finalize = useCallback(
+    (allSessions: SessionState[], essayPoints: Map<string, number[]>) => {
       clearProgress();
-      const allQs = sessionQuestions.flat();
-      const allAnswers = updated.flatMap((s) => s.answers);
-      const s = scoreMock(allQs, allAnswers);
+      const allQs = run.flatMap((s) => s.questions);
+      const allAnswers = allSessions.flatMap((s) => s.answers);
+      const base = scoreMock(allQs, allAnswers);
+
+      // Fold self-graded essay points into the overall result.
+      const graded: GradedEssay[] = [];
+      run.forEach((rs, si) => {
+        rs.essays.forEach((e, ei) => {
+          graded.push({
+            essay: e,
+            texts: allSessions[si]?.essayTexts[ei] ?? e.parts.map(() => ""),
+            points: essayPoints.get(e.id) ?? e.parts.map(() => 0),
+          });
+        });
+      });
+      const essayEarned = graded.reduce((s, g) => s + g.points.reduce((a, b) => a + b, 0), 0);
+      const essayTotal = graded.reduce(
+        (s, g) => s + g.essay.parts.reduce((a, p) => a + p.points, 0),
+        0
+      );
+
+      const correct = base.correct + essayEarned;
+      const total = base.total + essayTotal;
+      const byTopic: TopicScore[] = [...base.byTopic];
+      if (essayTotal > 0) {
+        byTopic.push({
+          topicId: "constructed-response",
+          topicName: "Constructed Response (self-graded)",
+          correct: essayEarned,
+          total: essayTotal,
+          pct: Math.round((essayEarned / essayTotal) * 100),
+        });
+        byTopic.sort((a, b) => a.pct - b.pct);
+      }
+      const s: MockScore = {
+        correct,
+        total,
+        answered: base.answered + graded.filter((g) => g.texts.some((t) => t.trim())).length,
+        pct: total ? Math.round((correct / total) * 100) : 0,
+        byTopic,
+        readiness: estimateReadiness(correct, total),
+      };
+
       setScore(s);
+      setGradedEssays(graded);
       setFinalAnswers(allAnswers);
       saveAttempt({
         date: new Date().toISOString(),
+        exam,
         mode,
         correct: s.correct,
         total: s.total,
@@ -143,44 +291,81 @@ export default function MockClient() {
         byTopic: s.byTopic.map((t) => ({ topicId: t.topicId, pct: t.pct })),
       });
       posthog.capture("mock_completed", {
+        exam,
         mode,
         score_pct: s.pct,
         correct: s.correct,
         total: s.total,
-        answered: s.answered,
         odds_mid: s.readiness.oddsMid,
         readiness_band: s.readiness.band,
       });
       setPhase("result");
       if (mode === "quick") setTimeout(() => setShowCta(true), 1600);
     },
-    [sessions, sessionIdx, sessionQuestions, mode]
+    [run, exam, mode]
   );
 
-  if (phase === "instructions") {
+  const submitSession = useCallback(
+    (state: SessionState) => {
+      const updated = [...sessions];
+      updated[sessionIdx] = state;
+      setSessions(updated);
+
+      const isLast = sessionIdx >= run.length - 1;
+      if (!isLast) {
+        saveProgress({
+          exam,
+          mode,
+          sessionIdx: sessionIdx + 1,
+          sessions: updated,
+          idx: 0,
+          timeLeft: run[sessionIdx + 1].seconds,
+          savedAt: new Date().toISOString(),
+        });
+        setResumeInit(null);
+        setPhase("break");
+        return;
+      }
+      const hasEssays = run.some((r) => r.essays.length > 0);
+      if (hasEssays) {
+        setPhase("grade");
+      } else {
+        finalize(updated, new Map());
+      }
+    },
+    [sessions, sessionIdx, run, exam, mode, finalize]
+  );
+
+  // ---- phases ----
+  if (phase === "instructions" && session) {
     return (
       <Instructions
+        examName={EXAM_DEFS[exam].name}
+        exam={exam}
         mode={mode}
         sessionIdx={sessionIdx}
-        count={questions.length}
+        sessionCount={run.length}
+        session={session}
         onBegin={() => setPhase("exam")}
         onCancel={() => setPhase("home")}
       />
     );
   }
 
-  if (phase === "exam" && questions.length > 0) {
+  if (phase === "exam" && session && session.questions.length + session.essays.length > 0) {
     return (
       <ExamRoom
-        key={`${mode}-${sessionIdx}`}
+        key={`${exam}-${mode}-${sessionIdx}`}
+        exam={exam}
+        examName={EXAM_DEFS[exam].name}
         mode={mode}
         sessionIdx={sessionIdx}
-        sessionCount={sessionQuestions.length}
-        questions={questions}
+        sessionCount={run.length}
+        session={session}
         initial={sessions[sessionIdx]}
         allSessions={sessions}
         initialIdx={resumeInit?.idx ?? 0}
-        initialSeconds={resumeInit?.seconds ?? sessionSeconds(questions.length)}
+        initialSeconds={resumeInit?.seconds ?? session.seconds}
         onSubmit={submitSession}
       />
     );
@@ -190,9 +375,25 @@ export default function MockClient() {
     return (
       <Break
         onContinue={() => {
-          setSessionIdx(1);
+          setSessionIdx(sessionIdx + 1);
+          setResumeInit(null);
           setPhase("instructions");
         }}
+      />
+    );
+  }
+
+  if (phase === "grade") {
+    const toGrade: { essay: Essay; texts: string[] }[] = [];
+    run.forEach((rs, si) =>
+      rs.essays.forEach((e, ei) =>
+        toGrade.push({ essay: e, texts: sessions[si]?.essayTexts[ei] ?? e.parts.map(() => "") })
+      )
+    );
+    return (
+      <SelfGrade
+        items={toGrade}
+        onDone={(pointsById) => finalize(sessions, pointsById)}
       />
     );
   }
@@ -201,20 +402,26 @@ export default function MockClient() {
     return (
       <>
         <ResultReport
+          examName={EXAM_DEFS[exam].name}
+          exam={exam}
           mode={mode}
           score={score}
-          questions={sessionQuestions.flat()}
+          questions={run.flatMap((s) => s.questions)}
+          setForQ={run.flatMap((s) => s.setForQ)}
           answers={finalAnswers}
+          essays={gradedEssays}
           onRetake={() => setPhase("home")}
-          onFullMock={() => begin("full")}
+          onFullMock={() => begin(exam, "full")}
         />
         {showCta && mode === "quick" && (
           <QuickCta
-            score={score}
+            examName={EXAM_DEFS[exam].name}
+            fullReady={EXAM_DEFS[exam].fullReady}
+            fullSpec={EXAM_DEFS[exam].fullSpec}
             onClose={() => setShowCta(false)}
             onFullMock={() => {
               setShowCta(false);
-              begin("full");
+              begin(exam, "full");
             }}
           />
         )}
@@ -223,6 +430,7 @@ export default function MockClient() {
   }
 
   // ---- home ----
+  const def = EXAM_DEFS[exam];
   return (
     <div className="px-4 py-6 md:px-8 md:py-8 max-w-2xl mx-auto">
       <div
@@ -232,24 +440,45 @@ export default function MockClient() {
         Examination center
       </div>
       <h1 className="font-display text-3xl mb-1" style={{ color: "var(--text-primary)" }}>
-        CFA Level I Mock Exam
+        CFA Mock Exams
       </h1>
-      <p className="text-sm mb-6" style={{ color: "var(--text-secondary)" }}>
-        A faithful replica of the real exam — same length, timing, pacing, and
-        question style. No games in this room: sit it under exam conditions and
-        get an honest read on where you stand.
+      <p className="text-sm mb-5" style={{ color: "var(--text-secondary)" }}>
+        Faithful replicas of the real exams — same length, timing, pacing, and question
+        formats. No games in this room: sit them under exam conditions and get an honest
+        read on where you stand.
       </p>
+
+      {/* Level selector */}
+      <div className="flex items-center gap-2 mb-6">
+        {EXAM_ORDER.map((slug) => {
+          const active = slug === exam;
+          return (
+            <button
+              key={slug}
+              onClick={() => setExam(slug)}
+              className="text-xs px-3.5 py-1.5 rounded-lg font-medium"
+              style={{
+                background: active ? "var(--primary)" : "var(--bg-card)",
+                color: active ? "#fff" : "var(--text-secondary)",
+                border: "0.5px solid var(--border)",
+              }}
+            >
+              {EXAM_DEFS[slug].name}
+            </button>
+          );
+        })}
+      </div>
 
       {/* Resume an interrupted sitting */}
       {saved && (
         <div className="card p-5 mb-4" style={{ borderLeft: "3px solid var(--primary)" }}>
           <div className="text-sm font-semibold mb-1" style={{ color: "var(--text-primary)" }}>
-            Exam in progress
+            Exam in progress — {EXAM_DEFS[(saved.exam as ExamSlug) ?? "cfa"].name}
           </div>
           <p className="text-xs mb-3" style={{ color: "var(--text-secondary)" }}>
-            {saved.mode === "quick" ? "Readiness check" : `Full mock — Session ${saved.sessionIdx + 1} of 2`} ·
-            question {saved.idx + 1} · {Math.floor(saved.timeLeft / 60)} min remaining. Your answers
-            and clock were saved automatically.
+            {saved.mode === "quick" ? "Readiness check" : `Full mock — Session ${saved.sessionIdx + 1}`} ·
+            {" "}question {saved.idx + 1} · {Math.floor(saved.timeLeft / 60)} min remaining. Your
+            answers and clock were saved automatically.
           </p>
           <div className="flex gap-3">
             <button className="btn-primary flex-1" onClick={resumeSaved}>
@@ -268,15 +497,15 @@ export default function MockClient() {
         </div>
       )}
 
-      {/* Quick assessment */}
+      {/* Readiness check */}
       <div className="card p-6 mb-4">
         <div className="flex items-start justify-between gap-4 mb-2">
           <div>
             <div className="text-base font-semibold" style={{ color: "var(--text-primary)" }}>
-              Readiness check
+              {def.quickTitle}
             </div>
             <div className="text-xs mt-0.5" style={{ color: "var(--text-muted)" }}>
-              15 questions · 22 min 30 sec · exam pacing
+              {def.quickSpec}
             </div>
           </div>
           <span
@@ -287,11 +516,9 @@ export default function MockClient() {
           </span>
         </div>
         <p className="text-sm mb-4" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>
-          Fifteen blueprint-weighted questions at the real exam&apos;s 90-seconds-per-question
-          pace. You&apos;ll get a first estimate of your odds of passing — rough by design,
-          because fifteen questions can only tell you so much.
+          {def.quickBlurb}
         </p>
-        <button className="btn-primary w-full" onClick={() => begin("quick")}>
+        <button className="btn-primary w-full" onClick={() => begin(exam, "quick")}>
           Begin readiness check
         </button>
       </div>
@@ -301,10 +528,10 @@ export default function MockClient() {
         <div className="flex items-start justify-between gap-4 mb-2">
           <div>
             <div className="text-base font-semibold" style={{ color: "var(--text-primary)" }}>
-              Full mock examination
+              {def.fullTitle}
             </div>
             <div className="text-xs mt-0.5" style={{ color: "var(--text-muted)" }}>
-              180 questions · two 2 h 15 m sessions · optional break
+              {def.fullSpec}
             </div>
           </div>
           <span
@@ -315,12 +542,10 @@ export default function MockClient() {
           </span>
         </div>
         <p className="text-sm mb-4" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>
-          The complete Level I experience: 90 questions per session, three answer
-          choices, flag-and-review navigation, and a formal per-topic score report
-          with a calibrated readiness estimate at the end.
+          {def.fullBlurb}
         </p>
-        {FULL_MOCK_READY ? (
-          <button className="btn-primary w-full" onClick={() => begin("full")}>
+        {def.fullReady ? (
+          <button className="btn-primary w-full" onClick={() => begin(exam, "full")}>
             Begin full mock — Session 1 of 2
           </button>
         ) : (
@@ -341,38 +566,50 @@ export default function MockClient() {
 
       <div
         className="rounded-lg p-4 text-xs"
-        style={{ background: "var(--bg-card)", border: "0.5px solid var(--border)", color: "var(--text-muted)", lineHeight: 1.6 }}
+        style={{
+          background: "var(--bg-card)",
+          border: "0.5px solid var(--border)",
+          color: "var(--text-muted)",
+          lineHeight: 1.6,
+        }}
       >
         <span className="font-semibold" style={{ color: "var(--text-secondary)" }}>
           How the estimate works.
         </span>{" "}
-        CFA Institute never publishes the minimum passing score; released results
-        suggest it has historically fallen around 60–70% of questions. We compare
-        your score against that range statistically and report your odds as a
-        band, not a promise. Approved calculators (TI BA II Plus, HP 12C) are
-        allowed, exactly as on exam day.
+        CFA Institute never publishes the minimum passing score; released results suggest it
+        has historically fallen around 60–70% of available points. We compare your score
+        against that range statistically and report your odds as a band, not a promise.
+        Approved calculators (TI BA II Plus, HP 12C) are allowed, exactly as on exam day.
       </div>
     </div>
   );
 }
 
 // ---------------------------------------------------------------
-// Pre-session instructions — mirrors the real testing-center brief
+// Pre-session instructions
 // ---------------------------------------------------------------
 function Instructions({
+  examName,
+  exam,
   mode,
   sessionIdx,
-  count,
+  sessionCount,
+  session,
   onBegin,
   onCancel,
 }: {
+  examName: string;
+  exam: ExamSlug;
   mode: Mode;
   sessionIdx: number;
-  count: number;
+  sessionCount: number;
+  session: RunSession;
   onBegin: () => void;
   onCancel: () => void;
 }) {
-  const mins = Math.round(sessionSeconds(count) / 60);
+  const mins = Math.round(session.seconds / 60);
+  const nQ = session.questions.length;
+  const nE = session.essays.length;
   return (
     <div className="px-4 py-6 md:px-8 md:py-10 max-w-xl mx-auto">
       <div className="card p-6">
@@ -380,22 +617,35 @@ function Instructions({
           className="text-[10px] font-semibold uppercase tracking-widest mb-3"
           style={{ color: "var(--text-muted)" }}
         >
-          {mode === "quick"
-            ? "Readiness check · instructions"
-            : `Session ${sessionIdx + 1} of 2 · instructions`}
+          CFA {examName} ·{" "}
+          {mode === "quick" ? "readiness check · instructions" : `Session ${sessionIdx + 1} of ${sessionCount} · instructions`}
         </div>
         <h2 className="font-display text-xl mb-4" style={{ color: "var(--text-primary)" }}>
           Read before you begin
         </h2>
         <ul className="space-y-2.5 text-sm mb-6" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>
-          <li>• {count} multiple-choice questions, three answer choices each.</li>
           <li>
-            • You have <strong style={{ color: "var(--text-primary)" }}>{mins} minutes</strong> —
-            an average of 90 seconds per question. The exam submits automatically
-            when time expires.
+            • {nQ} multiple-choice questions, three answer choices each
+            {nE > 0 && <> — plus {nE} constructed-response (essay) question{nE > 1 ? "s" : ""}</>}.
+          </li>
+          {exam !== "cfa" && (
+            <li>
+              • Questions are grouped into item sets: read the case scenario and exhibits, then
+              answer the questions that follow. Every answer must be supportable from the case.
+            </li>
+          )}
+          <li>
+            • You have <strong style={{ color: "var(--text-primary)" }}>{mins} minutes</strong>. The
+            exam submits automatically when time expires.
           </li>
           <li>• Navigate freely: move back and forth, flag questions, and change answers any time before submitting.</li>
           <li>• Click a choice to select it. Use the small ✕ to strike through choices you&apos;ve eliminated.</li>
+          {nE > 0 && (
+            <li>
+              • Essays are written in the on-screen response box. After the exam you will grade
+              your answers against official-style guideline answers with a point rubric.
+            </li>
+          )}
           <li>• Your answers and the clock save automatically — if the tab closes, you can resume where you left off.</li>
           <li>• An approved calculator (TI BA II Plus or HP 12C) is permitted.</li>
           {mode === "full" && sessionIdx === 0 && (
@@ -416,41 +666,47 @@ function Instructions({
 }
 
 // ---------------------------------------------------------------
-// The exam room — timer, palette, flagging, strikethrough
+// The exam room — MCQs (with vignette pane) + essay editor
 // ---------------------------------------------------------------
 function ExamRoom({
+  exam,
+  examName,
   mode,
   sessionIdx,
   sessionCount,
-  questions,
+  session,
   initial,
   allSessions,
   initialIdx,
   initialSeconds,
   onSubmit,
 }: {
+  exam: ExamSlug;
+  examName: string;
   mode: Mode;
   sessionIdx: number;
   sessionCount: number;
-  questions: Question[];
+  session: RunSession;
   initial: SessionState;
   allSessions: SessionState[];
   initialIdx: number;
   initialSeconds: number;
   onSubmit: (s: SessionState) => void;
 }) {
-  const n = questions.length;
-  const [idx, setIdx] = useState(Math.min(initialIdx, n - 1));
+  const nQ = session.questions.length;
+  const nSlots = nQ + session.essays.length; // essays occupy nav slots after MCQs
+  const [idx, setIdx] = useState(Math.min(initialIdx, nSlots - 1));
   const [answers, setAnswers] = useState<(number | null)[]>(initial.answers);
   const [flagged, setFlagged] = useState<boolean[]>(initial.flagged);
   const [strikes, setStrikes] = useState<number[][]>(initial.strikes);
+  const [essayTexts, setEssayTexts] = useState<string[][]>(initial.essayTexts);
   const [timeLeft, setTimeLeft] = useState(initialSeconds);
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const submittedRef = useRef(false);
 
-  const stateRef = useRef<SessionState>({ answers, flagged, strikes });
-  stateRef.current = { answers, flagged, strikes };
+  const stateRef = useRef<SessionState>({ answers, flagged, strikes, essayTexts });
+  stateRef.current = { answers, flagged, strikes, essayTexts };
   const timeRef = useRef(timeLeft);
   timeRef.current = timeLeft;
 
@@ -475,13 +731,13 @@ function ExamRoom({
     return () => clearInterval(t);
   }, [submit]);
 
-  // Autosave: every answer/flag/strike/navigation change, and every 15 s of
-  // clock, so a refresh or crash costs nothing.
+  // Autosave on every change and every 15 s of clock.
   const timeBucket = Math.floor(timeLeft / 15);
   useEffect(() => {
     if (submittedRef.current) return;
     const merged = allSessions.map((s, i) => (i === sessionIdx ? stateRef.current : s));
     saveProgress({
+      exam,
       mode,
       sessionIdx,
       sessions: merged,
@@ -490,7 +746,7 @@ function ExamRoom({
       savedAt: new Date().toISOString(),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [answers, flagged, strikes, idx, timeBucket]);
+  }, [answers, flagged, strikes, essayTexts, idx, timeBucket]);
 
   // Warn before closing/leaving the tab mid-exam.
   useEffect(() => {
@@ -502,15 +758,19 @@ function ExamRoom({
     return () => window.removeEventListener("beforeunload", warn);
   }, []);
 
-  const q = questions[idx];
-  const answeredCount = answers.filter((a) => a !== null).length;
-  const urgent = timeLeft <= 300; // final five minutes
+  const isEssay = idx >= nQ;
+  const q = isEssay ? null : session.questions[idx];
+  const activeSet = isEssay ? null : session.setForQ[idx];
+  const essay = isEssay ? session.essays[idx - nQ] : null;
+  const answeredCount =
+    answers.filter((a) => a !== null).length +
+    essayTexts.filter((t) => t.some((x) => x.trim().length > 0)).length;
+  const urgent = timeLeft <= 300;
 
   function pick(i: number) {
     const next = [...answers];
     next[idx] = next[idx] === i ? null : i;
     setAnswers(next);
-    // Picking a choice clears any strike on it.
     if (strikes[idx]?.includes(i)) toggleStrike(i);
   }
 
@@ -522,9 +782,17 @@ function ExamRoom({
   }
 
   function toggleFlag() {
+    if (isEssay) return;
     const next = [...flagged];
     next[idx] = !next[idx];
     setFlagged(next);
+  }
+
+  function setEssayText(partIdx: number, text: string) {
+    const eIdx = idx - nQ;
+    setEssayTexts((prev) =>
+      prev.map((parts, i) => (i === eIdx ? parts.map((t, pi) => (pi === partIdx ? text : t)) : parts))
+    );
   }
 
   const hhmmss = (s: number) => {
@@ -542,14 +810,14 @@ function ExamRoom({
         style={{ background: "var(--bg-card)", border: "0.5px solid var(--border)" }}
       >
         <div className="text-xs font-medium" style={{ color: "var(--text-secondary)" }}>
-          CFA Level I Mock
+          CFA {examName} Mock
           {mode === "full" && (
             <span style={{ color: "var(--text-muted)" }}> · Session {sessionIdx + 1} of {sessionCount}</span>
           )}
         </div>
         <div className="flex items-center gap-4">
           <span className="text-xs font-mono" style={{ color: "var(--text-muted)" }}>
-            {answeredCount}/{n} answered
+            {answeredCount}/{nSlots} answered
           </span>
           <span
             className="text-sm font-mono font-bold tabular-nums"
@@ -564,20 +832,22 @@ function ExamRoom({
       {/* Question header row */}
       <div className="flex items-center justify-between mb-3">
         <div className="text-xs font-semibold" style={{ color: "var(--text-muted)" }}>
-          Question {idx + 1} of {n}
+          {isEssay ? `Constructed response ${idx - nQ + 1} of ${session.essays.length}` : `Question ${idx + 1} of ${nQ}`}
         </div>
         <div className="flex items-center gap-2">
-          <button
-            onClick={toggleFlag}
-            className="text-xs px-2.5 py-1 rounded-md font-medium transition-colors"
-            style={{
-              background: flagged[idx] ? "var(--gold-bg)" : "transparent",
-              border: `0.5px solid ${flagged[idx] ? "var(--gold-border)" : "var(--border)"}`,
-              color: flagged[idx] ? "var(--gold)" : "var(--text-muted)",
-            }}
-          >
-            ⚑ {flagged[idx] ? "Flagged" : "Flag for review"}
-          </button>
+          {!isEssay && (
+            <button
+              onClick={toggleFlag}
+              className="text-xs px-2.5 py-1 rounded-md font-medium transition-colors"
+              style={{
+                background: flagged[idx] ? "var(--gold-bg)" : "transparent",
+                border: `0.5px solid ${flagged[idx] ? "var(--gold-border)" : "var(--border)"}`,
+                color: flagged[idx] ? "var(--gold)" : "var(--text-muted)",
+              }}
+            >
+              ⚑ {flagged[idx] ? "Flagged" : "Flag for review"}
+            </button>
+          )}
           <button
             onClick={() => setPaletteOpen(true)}
             className="text-xs px-2.5 py-1 rounded-md font-medium"
@@ -588,50 +858,151 @@ function ExamRoom({
         </div>
       </div>
 
-      {/* Stem */}
-      <p className="text-base mb-5" style={{ color: "var(--text-primary)", lineHeight: 1.6 }}>
-        {q.stem}
-      </p>
-
-      {/* Choices — neutral during the exam (no right/wrong feedback) */}
-      <div className="space-y-2.5 mb-6">
-        {q.choices.map((choice, i) => {
-          const selected = answers[idx] === i;
-          const struck = strikes[idx]?.includes(i);
-          return (
-            <div key={i} className="flex items-stretch gap-2">
-              <button
-                onClick={() => pick(i)}
-                className="flex-1 text-left px-4 py-3 rounded-lg text-sm flex items-start gap-3 transition-all"
-                style={{
-                  background: selected ? "var(--primary-light)" : "var(--bg-card)",
-                  border: `0.5px solid ${selected ? "var(--primary)" : "var(--border-strong)"}`,
-                  color: struck ? "var(--text-muted)" : "var(--text-primary)",
-                  textDecoration: struck ? "line-through" : "none",
-                  opacity: struck ? 0.55 : 1,
-                }}
-              >
-                <span className="font-semibold flex-shrink-0" style={{ color: selected ? "var(--primary)" : undefined }}>
-                  {String.fromCharCode(65 + i)}
-                </span>
-                <span>{choice}</span>
-              </button>
-              <button
-                onClick={() => toggleStrike(i)}
-                title={struck ? "Remove strikethrough" : "Strike through this choice"}
-                className="px-2.5 rounded-lg text-xs"
-                style={{
-                  border: "0.5px solid var(--border)",
-                  color: struck ? "var(--ats-red)" : "var(--text-muted)",
-                  background: "var(--bg-card)",
-                }}
-              >
-                ✕
-              </button>
+      {/* Vignette pane (Levels II & III item sets) */}
+      {activeSet && (
+        <div
+          className="rounded-lg p-4 mb-4 overflow-y-auto"
+          style={{ background: "var(--bg-card)", border: "0.5px solid var(--border)", maxHeight: 320 }}
+        >
+          <div className="text-xs font-semibold mb-2" style={{ color: "var(--primary)" }}>
+            {activeSet.title}
+          </div>
+          {activeSet.vignette.map((p, i) => (
+            <p key={i} className="text-sm mb-2.5" style={{ color: "var(--text-primary)", lineHeight: 1.65 }}>
+              {p}
+            </p>
+          ))}
+          {activeSet.exhibits?.map((ex, i) => (
+            <div key={i} className="mt-3">
+              {ex.caption && (
+                <div className="text-[11px] font-semibold mb-1.5" style={{ color: "var(--text-secondary)" }}>
+                  {ex.caption}
+                </div>
+              )}
+              <table className="w-full text-xs" style={{ borderCollapse: "collapse" }}>
+                <thead>
+                  <tr>
+                    {ex.headers.map((h, hi) => (
+                      <th
+                        key={hi}
+                        className="text-left px-2.5 py-1.5 font-semibold"
+                        style={{ color: "var(--text-secondary)", borderBottom: "1px solid var(--border-strong)" }}
+                      >
+                        {h}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {ex.rows.map((r, ri) => (
+                    <tr key={ri}>
+                      {r.map((c, ci) => (
+                        <td
+                          key={ci}
+                          className="px-2.5 py-1.5"
+                          style={{ color: "var(--text-primary)", borderBottom: "0.5px solid var(--border)" }}
+                        >
+                          {c}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-          );
-        })}
-      </div>
+          ))}
+        </div>
+      )}
+
+      {/* MCQ view */}
+      {q && (
+        <>
+          <p className="text-base mb-5" style={{ color: "var(--text-primary)", lineHeight: 1.6 }}>
+            {q.stem}
+          </p>
+          <div className="space-y-2.5 mb-6">
+            {q.choices.map((choice, i) => {
+              const selected = answers[idx] === i;
+              const struck = strikes[idx]?.includes(i);
+              return (
+                <div key={i} className="flex items-stretch gap-2">
+                  <button
+                    onClick={() => pick(i)}
+                    className="flex-1 text-left px-4 py-3 rounded-lg text-sm flex items-start gap-3 transition-all"
+                    style={{
+                      background: selected ? "var(--primary-light)" : "var(--bg-card)",
+                      border: `0.5px solid ${selected ? "var(--primary)" : "var(--border-strong)"}`,
+                      color: struck ? "var(--text-muted)" : "var(--text-primary)",
+                      textDecoration: struck ? "line-through" : "none",
+                      opacity: struck ? 0.55 : 1,
+                    }}
+                  >
+                    <span className="font-semibold flex-shrink-0" style={{ color: selected ? "var(--primary)" : undefined }}>
+                      {String.fromCharCode(65 + i)}
+                    </span>
+                    <span>{choice}</span>
+                  </button>
+                  <button
+                    onClick={() => toggleStrike(i)}
+                    title={struck ? "Remove strikethrough" : "Strike through this choice"}
+                    className="px-2.5 rounded-lg text-xs"
+                    style={{
+                      border: "0.5px solid var(--border)",
+                      color: struck ? "var(--ats-red)" : "var(--text-muted)",
+                      background: "var(--bg-card)",
+                    }}
+                  >
+                    ✕
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        </>
+      )}
+
+      {/* Essay view */}
+      {essay && (
+        <div className="mb-6">
+          <div
+            className="rounded-lg p-4 mb-4"
+            style={{ background: "var(--bg-card)", border: "0.5px solid var(--border)" }}
+          >
+            <div className="text-xs font-semibold mb-2" style={{ color: "var(--primary)" }}>
+              {essay.title}
+            </div>
+            {essay.scenario.map((p, i) => (
+              <p key={i} className="text-sm mb-2" style={{ color: "var(--text-primary)", lineHeight: 1.65 }}>
+                {p}
+              </p>
+            ))}
+          </div>
+          {essay.parts.map((part, pi) => (
+            <div key={pi} className="mb-4">
+              <div className="text-sm font-semibold mb-1" style={{ color: "var(--text-primary)" }}>
+                Part {part.label} <span style={{ color: "var(--text-muted)", fontWeight: 400 }}>({part.points} points)</span>
+              </div>
+              <p className="text-sm mb-2" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>
+                {part.prompt}
+              </p>
+              <textarea
+                value={essayTexts[idx - nQ]?.[pi] ?? ""}
+                onChange={(e) => setEssayText(pi, e.target.value)}
+                rows={5}
+                placeholder="Type your response…"
+                className="w-full rounded-lg p-3 text-sm"
+                style={{
+                  background: "var(--bg-card)",
+                  border: "0.5px solid var(--border-strong)",
+                  color: "var(--text-primary)",
+                  resize: "vertical",
+                  lineHeight: 1.6,
+                }}
+              />
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Navigation */}
       <div className="flex items-center gap-3">
@@ -643,7 +1014,7 @@ function ExamRoom({
         >
           ← Previous
         </button>
-        {idx + 1 < n ? (
+        {idx + 1 < nSlots ? (
           <button className="btn-primary flex-1" onClick={() => setIdx(idx + 1)}>
             Next →
           </button>
@@ -670,13 +1041,16 @@ function ExamRoom({
             Question navigator
           </div>
           <div className="text-xs mb-4" style={{ color: "var(--text-muted)" }}>
-            {answeredCount} answered · {flagged.filter(Boolean).length} flagged · {n - answeredCount} unanswered
+            {answeredCount} answered · {flagged.filter(Boolean).length} flagged · {nSlots - answeredCount} unanswered
           </div>
           <div className="grid grid-cols-9 sm:grid-cols-10 gap-1.5 mb-4">
-            {questions.map((_, i) => {
+            {Array.from({ length: nSlots }).map((_, i) => {
               const isCur = i === idx;
-              const done = answers[i] !== null;
-              const flag = flagged[i];
+              const isEssaySlot = i >= nQ;
+              const done = isEssaySlot
+                ? (essayTexts[i - nQ] ?? []).some((t) => t.trim().length > 0)
+                : answers[i] !== null;
+              const flag = !isEssaySlot && flagged[i];
               return (
                 <button
                   key={i}
@@ -691,7 +1065,7 @@ function ExamRoom({
                     border: `1px solid ${flag ? "var(--gold)" : isCur ? "var(--primary)" : "var(--border)"}`,
                   }}
                 >
-                  {i + 1}
+                  {isEssaySlot ? `E${i - nQ + 1}` : i + 1}
                 </button>
               );
             })}
@@ -711,11 +1085,11 @@ function ExamRoom({
             Submit this session?
           </div>
           <p className="text-sm mb-1" style={{ color: "var(--text-secondary)" }}>
-            You have answered {answeredCount} of {n} questions.
+            You have answered {answeredCount} of {nSlots} questions.
           </p>
-          {answeredCount < n && (
+          {answeredCount < nSlots && (
             <p className="text-sm mb-1" style={{ color: "var(--ats-red)" }}>
-              {n - answeredCount} unanswered — unanswered questions score as incorrect.
+              {nSlots - answeredCount} unanswered — unanswered questions score as incorrect.
             </p>
           )}
           {flagged.filter(Boolean).length > 0 && (
@@ -754,12 +1128,12 @@ function Break({ onContinue }: { onContinue: () => void }) {
           Optional break
         </h2>
         <p className="text-sm mb-6" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>
-          On exam day you get a scheduled break between sessions — stand up,
-          stretch, drink some water. Your Session 1 answers are locked in.
-          Results are reported only after both sessions are complete.
+          On exam day you get a scheduled break between sessions — stand up, stretch, drink
+          some water. Your Session 1 answers are locked in. Results are reported only after
+          both sessions are complete.
         </p>
         <button className="btn-primary w-full" onClick={onContinue}>
-          Begin Session 2 of 2
+          Begin Session 2
         </button>
       </div>
     </div>
@@ -767,20 +1141,130 @@ function Break({ onContinue }: { onContinue: () => void }) {
 }
 
 // ---------------------------------------------------------------
-// Result report — formal, modeled on the real score report
+// Essay self-grading against guideline answers
+// ---------------------------------------------------------------
+function SelfGrade({
+  items,
+  onDone,
+}: {
+  items: { essay: Essay; texts: string[] }[];
+  onDone: (pointsById: Map<string, number[]>) => void;
+}) {
+  const [points, setPoints] = useState<Map<string, number[]>>(
+    () => new Map(items.map((it) => [it.essay.id, it.essay.parts.map(() => 0)]))
+  );
+
+  function setPartPoints(essayId: string, partIdx: number, value: number) {
+    setPoints((prev) => {
+      const next = new Map(prev);
+      const arr = [...(next.get(essayId) ?? [])];
+      arr[partIdx] = value;
+      next.set(essayId, arr);
+      return next;
+    });
+  }
+
+  return (
+    <div className="px-4 py-6 md:px-8 md:py-8 max-w-2xl mx-auto">
+      <div className="text-[10px] font-semibold uppercase tracking-widest mb-1" style={{ color: "var(--text-muted)" }}>
+        Constructed response · grading
+      </div>
+      <h1 className="font-display text-2xl mb-1" style={{ color: "var(--text-primary)" }}>
+        Grade your essays
+      </h1>
+      <p className="text-sm mb-6" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>
+        Compare each response with the guideline answer — the same way graders work from a
+        rubric on exam day. Award yourself points honestly: the readiness estimate is only as
+        good as your grading.
+      </p>
+
+      {items.map(({ essay, texts }) => (
+        <div key={essay.id} className="card p-5 mb-5">
+          <div className="text-sm font-semibold mb-3" style={{ color: "var(--text-primary)" }}>
+            {essay.title}
+          </div>
+          {essay.parts.map((part, pi) => {
+            const earned = points.get(essay.id)?.[pi] ?? 0;
+            return (
+              <div key={pi} className="mb-5 pb-5" style={{ borderBottom: pi < essay.parts.length - 1 ? "0.5px solid var(--border)" : "none" }}>
+                <div className="text-xs font-semibold mb-1" style={{ color: "var(--text-primary)" }}>
+                  Part {part.label} ({part.points} points)
+                </div>
+                <p className="text-xs mb-2" style={{ color: "var(--text-muted)" }}>{part.prompt}</p>
+                <div className="text-[10px] font-semibold uppercase tracking-wide mb-1" style={{ color: "var(--text-muted)" }}>
+                  Your response
+                </div>
+                <div
+                  className="rounded-md p-3 text-sm mb-3"
+                  style={{
+                    background: "var(--bg)",
+                    border: "0.5px solid var(--border)",
+                    color: texts[pi]?.trim() ? "var(--text-primary)" : "var(--text-muted)",
+                    whiteSpace: "pre-wrap",
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {texts[pi]?.trim() || "(no response)"}
+                </div>
+                <div className="text-[10px] font-semibold uppercase tracking-wide mb-1" style={{ color: "var(--ats-green)" }}>
+                  Guideline answer
+                </div>
+                <p className="text-sm mb-3" style={{ color: "var(--text-secondary)", lineHeight: 1.65 }}>
+                  {part.guideline}
+                </p>
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  <span className="text-xs mr-1" style={{ color: "var(--text-muted)" }}>Points earned:</span>
+                  {Array.from({ length: part.points + 1 }).map((_, v) => (
+                    <button
+                      key={v}
+                      onClick={() => setPartPoints(essay.id, pi, v)}
+                      className="text-xs font-mono rounded px-2.5 py-1"
+                      style={{
+                        background: earned === v ? "var(--primary)" : "var(--bg)",
+                        color: earned === v ? "#fff" : "var(--text-secondary)",
+                        border: "0.5px solid var(--border)",
+                      }}
+                    >
+                      {v}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      ))}
+
+      <button className="btn-primary w-full" onClick={() => onDone(points)}>
+        Finalize grading and see my result
+      </button>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------
+// Result report
 // ---------------------------------------------------------------
 function ResultReport({
+  examName,
+  exam,
   mode,
   score,
   questions,
+  setForQ,
   answers,
+  essays,
   onRetake,
   onFullMock,
 }: {
+  examName: string;
+  exam: ExamSlug;
   mode: Mode;
   score: MockScore;
   questions: Question[];
+  setForQ: (ItemSet | null)[];
   answers: (number | null)[];
+  essays: GradedEssay[];
   onRetake: () => void;
   onFullMock: () => void;
 }) {
@@ -793,6 +1277,7 @@ function ResultReport({
       : r.band === "borderline"
       ? "var(--gold)"
       : "var(--ats-red)";
+  const learnSlug = exam; // /learn?exam=cfa | cfa-l2 | cfa-l3
 
   return (
     <div className="px-4 py-6 md:px-8 md:py-8 max-w-2xl mx-auto">
@@ -805,7 +1290,7 @@ function ResultReport({
             Examination result report
           </div>
           <div className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>
-            CFA Level I Mock — {mode === "quick" ? "Readiness check (15 questions)" : "Full examination (180 questions)"}
+            CFA {examName} Mock — {mode === "quick" ? "Readiness check" : "Full examination"}
           </div>
         </div>
 
@@ -814,13 +1299,10 @@ function ResultReport({
             {score.pct}%
           </div>
           <p className="text-sm mt-1.5" style={{ color: "var(--text-secondary)" }}>
-            {score.correct} of {score.total} correct · {score.answered} answered
+            {score.correct} of {score.total} points · {score.answered} answered
           </p>
 
-          <div
-            className="inline-block mt-4 px-4 py-2 rounded-lg"
-            style={{ border: `1.5px solid ${bandColor}` }}
-          >
+          <div className="inline-block mt-4 px-4 py-2 rounded-lg" style={{ border: `1.5px solid ${bandColor}` }}>
             <div className="text-sm font-semibold" style={{ color: bandColor }}>
               {r.bandLabel}
             </div>
@@ -837,7 +1319,7 @@ function ResultReport({
         </div>
       </div>
 
-      {/* Per-topic performance — the real report's signature table */}
+      {/* Per-topic performance */}
       <h3 className="text-sm font-semibold mb-1" style={{ color: "var(--text-primary)" }}>
         Performance by topic
       </h3>
@@ -880,19 +1362,21 @@ function ResultReport({
                 }}
               />
             </div>
-            <div className="flex items-center gap-3 mt-2">
-              <Link href={`/learn?exam=cfa&topic=${t.topicId}`} className="text-xs font-medium hover:underline" style={{ color: "var(--primary)" }}>
-                Re-read lesson
-              </Link>
-              <Link href={`/practice?exam=cfa&topic=${t.topicId}`} className="text-xs font-medium hover:underline" style={{ color: "var(--primary)" }}>
-                Drill questions
-              </Link>
-            </div>
+            {t.topicId !== "constructed-response" && (
+              <div className="flex items-center gap-3 mt-2">
+                <Link href={`/learn?exam=${learnSlug}&topic=${t.topicId}`} className="text-xs font-medium hover:underline" style={{ color: "var(--primary)" }}>
+                  Re-read lesson
+                </Link>
+                <Link href={`/practice?exam=${learnSlug}&topic=${t.topicId}`} className="text-xs font-medium hover:underline" style={{ color: "var(--primary)" }}>
+                  Drill questions
+                </Link>
+              </div>
+            )}
           </div>
         ))}
       </div>
 
-      {/* Question-by-question review — learn from every miss */}
+      {/* Question-by-question review */}
       {questions.length > 0 && answers.length > 0 && (
         <>
           <div className="flex items-center justify-between mb-1">
@@ -919,6 +1403,7 @@ function ResultReport({
               const a = answers[i] ?? null;
               const correct = a === q.answerIndex;
               if (correct && !showAllReview) return null;
+              const set = setForQ[i];
               return (
                 <details key={q.id} className="card-i" style={{ overflow: "hidden" }}>
                   <summary
@@ -938,7 +1423,7 @@ function ResultReport({
                       Q{i + 1}
                     </span>
                     <span className="truncate text-xs" style={{ color: "var(--text-secondary)" }}>
-                      {q.topicName}
+                      {set ? `${set.title} · ` : ""}{q.topicName}
                     </span>
                   </summary>
                   <div className="px-4 pb-4">
@@ -972,7 +1457,7 @@ function ResultReport({
                     </p>
                     <div className="mt-2.5">
                       <Link
-                        href={`/learn?exam=cfa&topic=${q.topicId}`}
+                        href={`/learn?exam=${learnSlug}&topic=${q.topicId}`}
                         className="text-xs font-medium hover:underline"
                         style={{ color: "var(--primary)" }}
                       >
@@ -987,26 +1472,90 @@ function ResultReport({
         </>
       )}
 
+      {/* Essay review */}
+      {essays.length > 0 && (
+        <>
+          <h3 className="text-sm font-semibold mb-1" style={{ color: "var(--text-primary)" }}>
+            Constructed response review
+          </h3>
+          <p className="text-xs mb-3" style={{ color: "var(--text-muted)" }}>
+            Your responses, the guideline answers, and the points you awarded.
+          </p>
+          <div className="space-y-2 mb-6">
+            {essays.map((g) => {
+              const earned = g.points.reduce((a, b) => a + b, 0);
+              const total = g.essay.parts.reduce((a, p) => a + p.points, 0);
+              return (
+                <details key={g.essay.id} className="card-i" style={{ overflow: "hidden" }}>
+                  <summary
+                    className="px-4 py-3 text-sm flex items-center gap-3"
+                    style={{ cursor: "pointer", color: "var(--text-primary)", listStyle: "none" }}
+                  >
+                    <span
+                      className="text-[10px] font-bold flex-shrink-0 rounded px-1.5 py-0.5"
+                      style={{
+                        background: earned / total >= 0.7 ? "var(--ats-green-bg)" : "var(--ats-red-bg)",
+                        color: earned / total >= 0.7 ? "var(--ats-green)" : "var(--ats-red)",
+                      }}
+                    >
+                      {earned}/{total}
+                    </span>
+                    <span className="truncate text-xs" style={{ color: "var(--text-secondary)" }}>
+                      {g.essay.title}
+                    </span>
+                  </summary>
+                  <div className="px-4 pb-4">
+                    {g.essay.parts.map((part, pi) => (
+                      <div key={pi} className="mb-4">
+                        <div className="text-xs font-semibold mb-1" style={{ color: "var(--text-primary)" }}>
+                          Part {part.label} — {g.points[pi] ?? 0}/{part.points} points
+                        </div>
+                        <div
+                          className="rounded-md p-2.5 text-xs mb-2"
+                          style={{
+                            background: "var(--bg)",
+                            border: "0.5px solid var(--border)",
+                            color: g.texts[pi]?.trim() ? "var(--text-primary)" : "var(--text-muted)",
+                            whiteSpace: "pre-wrap",
+                            lineHeight: 1.6,
+                          }}
+                        >
+                          {g.texts[pi]?.trim() || "(no response)"}
+                        </div>
+                        <p className="text-xs" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>
+                          <span className="font-semibold" style={{ color: "var(--ats-green)" }}>Guideline: </span>
+                          {part.guideline}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </details>
+              );
+            })}
+          </div>
+        </>
+      )}
+
       <div className="flex items-center gap-3">
         <button className="btn-secondary flex-1" onClick={onRetake}>
           Back to exam center
         </button>
-        {mode === "quick" && FULL_MOCK_READY && (
+        {mode === "quick" && EXAM_DEFS[exam].fullReady && (
           <button className="btn-primary flex-1" onClick={onFullMock}>
             Sit the full mock
           </button>
         )}
         {mode === "full" && (
-          <Link href="/practice?exam=cfa" className="btn-primary flex-1 text-center">
+          <Link href={`/practice?exam=${learnSlug}`} className="btn-primary flex-1 text-center">
             Train weak topics
           </Link>
         )}
       </div>
 
       <p className="text-[11px] text-center mt-5" style={{ color: "var(--text-muted)", lineHeight: 1.5 }}>
-        Certus readiness estimates are statistical projections from your mock
-        performance. They are not affiliated with, endorsed by, or a guarantee of
-        results on any examination administered by CFA Institute.
+        Certus readiness estimates are statistical projections from your mock performance.
+        They are not affiliated with, endorsed by, or a guarantee of results on any
+        examination administered by CFA Institute.
       </p>
     </div>
   );
@@ -1016,11 +1565,15 @@ function ResultReport({
 // Post-quick popup — "now test it for real"
 // ---------------------------------------------------------------
 function QuickCta({
-  score,
+  examName,
+  fullReady,
+  fullSpec,
   onClose,
   onFullMock,
 }: {
-  score: MockScore;
+  examName: string;
+  fullReady: boolean;
+  fullSpec: string;
   onClose: () => void;
   onFullMock: () => void;
 }) {
@@ -1028,17 +1581,16 @@ function QuickCta({
     <Overlay onClose={onClose}>
       <div className="text-center">
         <div className="text-[10px] font-semibold uppercase tracking-widest mb-2" style={{ color: "var(--text-muted)" }}>
-          That was 15 questions
+          That was a sample
         </div>
         <div className="font-display text-xl mb-2" style={{ color: "var(--text-primary)" }}>
           Want to test it for real?
         </div>
         <p className="text-sm mb-5" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>
-          A 15-question sample carries wide error bars. The full mock — 180
-          questions across two timed sessions, exactly like exam day — narrows
-          your estimate from a rough read to a serious one.
+          A short sample carries wide error bars. The full {examName} mock — {fullSpec},
+          exactly like exam day — narrows your estimate from a rough read to a serious one.
         </p>
-        {FULL_MOCK_READY ? (
+        {fullReady ? (
           <button className="btn-primary w-full mb-2" onClick={onFullMock}>
             Sit the full mock exam
           </button>

@@ -12,13 +12,55 @@
 
 import { Question } from "@/content/types";
 
-// ---- Exam structure (matches the real CFA Level I CBT exam) ----
-export const SECONDS_PER_QUESTION = 90; // 135 min / 90 questions
+// ---- Exam structure (matches the real CFA CBT exams) -----------
+// Level I:  180 standalone MCQs, 2 × 135 min  → 90 s per question
+// Level II: 22 item sets × 4 Qs, 2 × 132 min  → 180 s per question
+// Level III: item sets + constructed-response essays; essays are
+//            budgeted at ~2 minutes per point, per CFA guidance.
+export const SECONDS_PER_QUESTION = 90; // Level I
+export const SECONDS_PER_VIGNETTE_QUESTION = 180; // Levels II & III
+export const SECONDS_PER_ESSAY_POINT = 120;
 export const FULL_SESSION_QUESTIONS = 90;
 export const QUICK_QUESTIONS = 15;
 
 export function sessionSeconds(questionCount: number): number {
   return questionCount * SECONDS_PER_QUESTION;
+}
+
+// ---- Vignette item sets (Level II / III) ------------------------
+export interface VignetteExhibit {
+  caption?: string;
+  headers: string[];
+  rows: string[][];
+}
+
+export interface ItemSet {
+  id: string;
+  title: string; // e.g. "Tremont Industrials Case Scenario"
+  vignette: string[]; // paragraphs
+  exhibits?: VignetteExhibit[];
+  questions: Question[]; // exactly 4 on the real exam
+}
+
+// ---- Constructed response (Level III essays) --------------------
+export interface EssayPart {
+  label: string; // "A", "B", "C"
+  prompt: string;
+  points: number;
+  guideline: string; // model answer the candidate self-grades against
+}
+
+export interface Essay {
+  id: string;
+  topicId: string;
+  topicName: string;
+  title: string;
+  scenario: string[]; // paragraphs
+  parts: EssayPart[];
+}
+
+export function essayTotalPoints(essays: Essay[]): number {
+  return essays.reduce((s, e) => s + e.parts.reduce((p, x) => p + x.points, 0), 0);
 }
 
 // ---- Readiness estimation -------------------------------------
@@ -157,6 +199,7 @@ export function scoreMock(
 // calibrate predicted vs. actual pass rates.
 export interface MockAttempt {
   date: string; // ISO
+  exam?: string; // "cfa" | "cfa-l2" | "cfa-l3" (absent = legacy L1 record)
   mode: "quick" | "full";
   correct: number;
   total: number;
@@ -187,12 +230,14 @@ export function saveAttempt(a: MockAttempt) {
 // A candidate 90 minutes into a session must never lose work to an
 // accidental refresh. State autosaves locally and offers to resume.
 export interface MockProgress {
+  exam?: string; // absent = legacy Level I save
   mode: "quick" | "full";
   sessionIdx: number;
   sessions: {
     answers: (number | null)[];
     flagged: boolean[];
     strikes: number[][];
+    essayTexts?: string[][]; // per essay, per part (Level III)
   }[];
   idx: number;
   timeLeft: number;
