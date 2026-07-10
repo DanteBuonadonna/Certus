@@ -145,6 +145,47 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ---------- Free mock exams (Levels I–III) ---------- */}
+      <section className="px-6 py-20" style={{ borderBottom: "0.5px solid var(--border)", background: "var(--bg-card)" }}>
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: "var(--primary)" }}>
+            Free — no account, no card
+          </p>
+          <h2 className="font-display text-3xl mb-3" style={{ color: "var(--text-primary)" }}>
+            Would you pass if the exam were today?
+          </h2>
+          <p className="text-sm max-w-2xl mx-auto mb-10" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>
+            Other providers charge up to $1,400 for full-length mocks. Ours are free — faithful
+            replicas of all three CFA exams, with a formal per-topic score report and an honest,
+            data-based estimate of your odds of passing. Start with a short readiness check, or sit
+            the real thing end to end.
+          </p>
+          <div className="grid sm:grid-cols-3 gap-4 mb-10 text-left">
+            {[
+              { lvl: "Level I", spec: "180 questions · two 2 h 15 m sessions", detail: "Blueprint-weighted MCQs at the real 90-seconds-per-question pace, with flag-and-review navigation." },
+              { lvl: "Level II", spec: "22 item sets · 88 questions", detail: "Case vignettes with exhibits — the format shift that surprises every Level II candidate, replicated exactly." },
+              { lvl: "Level III", spec: "Item sets + graded essays", detail: "Constructed-response essays scored against guideline answers with point rubrics, just like exam day." },
+            ].map((x) => (
+              <div key={x.lvl} className="rounded-xl p-5" style={{ background: "var(--bg)", border: "0.5px solid var(--border)" }}>
+                <div className="text-sm font-semibold mb-1" style={{ color: "var(--text-primary)" }}>{x.lvl}</div>
+                <div className="text-[11px] font-mono mb-2" style={{ color: "var(--primary)" }}>{x.spec}</div>
+                <p className="text-xs" style={{ color: "var(--text-secondary)", lineHeight: 1.55 }}>{x.detail}</p>
+              </div>
+            ))}
+          </div>
+          <Link
+            href="/mock"
+            className="inline-block px-8 py-3 rounded-xl text-sm font-semibold"
+            style={{ background: "var(--primary)", color: "#fff" }}
+          >
+            See your odds of passing — free →
+          </Link>
+          <p className="text-[11px] mt-4" style={{ color: "var(--text-muted)" }}>
+            Odds are statistical estimates from your score vs. the historical passing range — never a guarantee.
+          </p>
+        </div>
+      </section>
+
       {/* ---------- Rank ladder ---------- */}
       <section className="px-6 py-20" style={{ borderBottom: "0.5px solid var(--border)" }}>
         <div className="max-w-3xl mx-auto text-center">
