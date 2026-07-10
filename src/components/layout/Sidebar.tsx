@@ -61,6 +61,9 @@ const I = {
   challenges: (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg>
   ),
+  mock: (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 2v3h6V2"/><path d="M8 11h8M8 15h5"/><circle cx="17" cy="17.5" r="3.2"/><path d="M17 16.2v1.3l1 .8"/></svg>
+  ),
 };
 
 const SECTIONS: { label: string; items: NavItem[] }[] = [
@@ -76,6 +79,7 @@ const SECTIONS: { label: string; items: NavItem[] }[] = [
     items: [
       { label: "Reading", href: "/learn", icon: I.reading },
       { label: "Practice", href: "/practice", icon: I.practice },
+      { label: "Mock exam", href: "/mock", icon: I.mock },
       { label: "Challenges", href: "/challenges", icon: I.challenges },
       { label: "Flashcards", href: "/flashcards", icon: I.flashcards },
       { label: "Skill tree", href: "/skilltree", icon: I.skilltree },
