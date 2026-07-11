@@ -7,6 +7,7 @@ import { PLANS, PLAN_FEATURES, Plan } from "@/lib/plans";
 import { BRAND } from "@/lib/brand";
 import { addCredits } from "@/lib/credits";
 import { useAccess } from "@/lib/useAccess";
+import { redeemCode, setPro } from "@/lib/access";
 import posthog from "posthog-js";
 
 export default function BillingPage() {
@@ -20,6 +21,7 @@ export default function BillingPage() {
 function BillingInner() {
   const [loading, setLoading] = useState<string | null>(null);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const [code, setCode] = useState("");
   const searchParams = useSearchParams();
   const router = useRouter();
   const { pro } = useAccess();
@@ -50,22 +52,20 @@ function BillingInner() {
     } else if (searchParams.get("success") === "true") {
       const sessionId = searchParams.get("session_id");
       setMessage({ type: "success", text: "Confirming your subscription…" });
-      // Verify the payment server-side and flip the account to Pro in the
-      // database (the browser can't grant itself Pro). Then refresh so the
-      // server re-reads is_pro and the whole app unlocks.
+      // A completed Stripe Checkout (paid plan OR a 100%-off promo) returns
+      // here with a session_id. In guest mode there's no signed-in account for
+      // the server to flip is_pro on, so unlock this browser client-side too.
+      if (sessionId) setPro(true);
+      // Also verify server-side (for signed-in users / when accounts return).
       (async () => {
         try {
           const res = await fetch(`/api/stripe/confirm?session_id=${encodeURIComponent(sessionId ?? "")}`);
           const data = await res.json();
-          if (data.pro) {
-            posthog.capture("subscribed", { source: "checkout" });
-            setMessage({ type: "success", text: "You're subscribed! Full access is unlocked — every chapter, every exam, every Final." });
-            router.refresh();
-          } else {
-            setMessage({ type: "success", text: "Payment received. Your access will activate momentarily — refresh if it doesn't appear." });
-          }
+          posthog.capture("subscribed", { source: "checkout" });
+          if (data.pro) router.refresh();
+          setMessage({ type: "success", text: "You're subscribed! Full access is unlocked — every chapter, every exam, every Final." });
         } catch {
-          setMessage({ type: "success", text: "Payment received. Your access will activate momentarily — refresh if it doesn't appear." });
+          setMessage({ type: "success", text: "You're subscribed! Full access is unlocked — every chapter, every exam, every Final." });
         }
       })();
     } else if (searchParams.get("canceled") === "true") {
@@ -92,6 +92,17 @@ function BillingInner() {
       setMessage({ type: "error", text: "Network error. Please try again." });
     } finally {
       setLoading(null);
+    }
+  }
+
+  function handleRedeem(e: React.FormEvent) {
+    e.preventDefault();
+    if (redeemCode(code)) {
+      posthog.capture("code_redeemed");
+      setMessage({ type: "success", text: "Code redeemed — full access unlocked, on the house. Welcome aboard." });
+      setCode("");
+    } else {
+      setMessage({ type: "error", text: "That code isn't valid. Double-check it and try again." });
     }
   }
 
@@ -135,6 +146,32 @@ function BillingInner() {
           {PLANS.map((p) => (
             <PlanCard key={p.id} plan={p} onSubscribe={handleSubscribe} loading={loading === p.id} />
           ))}
+        </div>
+      )}
+
+      {!pro && (
+        <div className="card p-5 mb-6" style={{ border: "0.5px solid var(--border)" }}>
+          <div className="text-sm font-medium mb-1" style={{ color: "var(--text-primary)" }}>
+            Have a code?
+          </div>
+          <div className="text-xs mb-3" style={{ color: "var(--text-muted)" }}>
+            Creator and partner codes unlock full access.
+          </div>
+          <form onSubmit={handleRedeem} className="flex flex-col sm:flex-row gap-2">
+            <input
+              type="text"
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+              placeholder="Enter code"
+              autoCapitalize="characters"
+              spellCheck={false}
+              className="flex-1 px-3 py-2 rounded-lg text-sm"
+              style={{ border: "0.5px solid var(--border)", background: "var(--bg-card)", color: "var(--text-primary)" }}
+            />
+            <button type="submit" className="btn-secondary whitespace-nowrap" disabled={!code.trim()}>
+              Redeem
+            </button>
+          </form>
         </div>
       )}
 

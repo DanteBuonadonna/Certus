@@ -33,7 +33,22 @@ export function setPro(on: boolean): void {
   if (typeof window === "undefined") return;
   try {
     localStorage.setItem(PRO_KEY, on ? "1" : "0");
+    // Let any mounted useAccess() consumers update immediately (same tab).
+    window.dispatchEvent(new Event("certus-pro-changed"));
   } catch {}
+}
+
+// Creator / comp access codes. Redeeming a valid code flips this browser to
+// Pro (client-side, MVP) — the same durability as a purchase in guest mode.
+// Compared case-insensitively. When real accounts return, redemptions should
+// be recorded server-side against the account.
+const REDEEM_CODES = new Set(["CERTUSPREP2026"]);
+
+export function redeemCode(input: string): boolean {
+  const code = (input || "").trim().toUpperCase();
+  if (!REDEEM_CODES.has(code)) return false;
+  setPro(true);
+  return true;
 }
 
 // Every exam is previewable by everyone — depth is what's gated.
