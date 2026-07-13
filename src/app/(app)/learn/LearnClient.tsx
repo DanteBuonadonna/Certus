@@ -69,13 +69,16 @@ export default function LearnClient() {
   const chapterIndex = chapter ? chapters.findIndex((c) => c.id === chapter.id) : -1;
 
   if (chapter) {
-    if (access.ready && !access.canChapter(chapterIndex)) {
+    if (access.ready && !access.canChapter(chapterIndex, chapters.length)) {
       return (
         <div className="px-4 py-6 md:px-8 md:py-8 max-w-2xl mx-auto">
           <button onClick={() => setChapterId(null)} className="text-sm mb-6 flex items-center gap-1" style={{ color: "var(--text-secondary)" }}>
             ← All chapters
           </button>
-          <UpgradeCard title="Keep reading with Pro" reason={`The first ${access.freePreview} lessons of every exam are free. Unlock Pro to read the full curriculum.`} />
+          <UpgradeCard
+            title="Unlock the second half"
+            reason={`The first ${access.freeChapters(chapters.length)} of ${chapters.length} chapters are free — that's half the curriculum. Pro unlocks the rest, plus unlimited practice questions.`}
+          />
         </div>
       );
     }
@@ -149,7 +152,7 @@ export default function LearnClient() {
         <div className="space-y-3 stagger">
           {chapters.map((c, i) => {
             const done = isChapterRead(exam, c.id, reading);
-            const chLocked = access.ready && !access.canChapter(i);
+            const chLocked = access.ready && !access.canChapter(i, chapters.length);
             return (
               <button key={c.id} onClick={() => { setChapterId(c.id); if (!chLocked) posthog.capture("chapter_started", { exam, chapter_id: c.id, chapter_title: c.title, topic: c.topicId, topic_name: c.topicName }); }} className="card-i p-5 w-full text-left block" style={{ opacity: chLocked ? 0.9 : 1 }}>
                 <div className="flex items-center justify-between mb-1">

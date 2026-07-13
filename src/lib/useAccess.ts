@@ -1,42 +1,72 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { FREE_PREVIEW_CHAPTERS, isPro } from "./access";
+import {
+  FREE_DAILY_QUESTIONS,
+  freeChapterCount,
+  isPro,
+  questionsUsedToday,
+} from "./access";
 import { useServerPro } from "./AccessContext";
 
-// Gating hook. `pro` is normally server-authoritative (from public.users.is_pro
-// via AccessContext) so it can't be forged. While login is disabled (guest
-// mode) the server value is always false, so we ALSO honor a client-side unlock
-// flag set by a purchase or a creator redeem code (see access.ts). This is the
-// intentional MVP softness; when real accounts return, entitlement is enforced
-// server-side against the Stripe subscription.
+// ============================================================
+// Gating hook.
+//
+// THE MODEL: give away the diagnosis, sell the treatment.
+//   Free → half the readings, a FULL timed mock, your real odds of passing,
+//          and 25 practice questions a day.
+//   Pro  → every reading, unlimited questions, unlimited mock retakes.
+//
+// The mock is the hook (nobody else gives one away). The reps are the product.
+//
+// `pro` is normally server-authoritative (public.users.is_pro via AccessContext).
+// While login is disabled we also honour a client unlock (a purchase or a
+// redeem code — see access.ts). That goes away when accounts come back.
+// ============================================================
 export function useAccess() {
   const serverPro = useServerPro();
   const [clientPro, setClientPro] = useState(false);
+  const [usedToday, setUsedToday] = useState(0);
 
   useEffect(() => {
-    const sync = () => setClientPro(isPro());
+    const sync = () => {
+      setClientPro(isPro());
+      setUsedToday(questionsUsedToday());
+    };
     sync();
-    // Update when the flag changes in this tab (redeem/purchase) or another tab.
     window.addEventListener("certus-pro-changed", sync);
+    window.addEventListener("certus-daily-changed", sync);
     window.addEventListener("storage", sync);
     return () => {
       window.removeEventListener("certus-pro-changed", sync);
+      window.removeEventListener("certus-daily-changed", sync);
       window.removeEventListener("storage", sync);
     };
   }, []);
 
   const pro = serverPro || clientPro;
+  const questionsLeft = pro ? Infinity : Math.max(0, FREE_DAILY_QUESTIONS - usedToday);
 
   return {
     pro,
     ready: true,
-    freePreview: FREE_PREVIEW_CHAPTERS,
-    // Every exam is previewable by everyone; depth is what's gated.
+
+    // Readings: free users get the first HALF of each exam.
+    freeChapters: (total: number) => freeChapterCount(total),
+    canChapter: (index: number, total: number) => pro || index < freeChapterCount(total),
+
+    // Practice: 25 a day free, unlimited on Pro.
+    dailyLimit: FREE_DAILY_QUESTIONS,
+    questionsLeft,
+    canAnswerQuestion: () => pro || questionsLeft > 0,
+
+    // The mock exam and the odds-of-passing score are FREE. That's the hook.
+    canMock: () => true,
+
+    // Every exam is browsable; depth is what's gated.
     canExam: (_slug: string) => true,
-    // A chapter (by its 0-based index) is free inside the preview window.
-    canChapter: (index: number) => pro || index < FREE_PREVIEW_CHAPTERS,
-    // The Final (boss exams) is a Pro feature for unlimited retakes.
+
+    // The Final (boss): one free attempt, unlimited retakes on Pro.
     canBoss: () => pro,
   };
 }

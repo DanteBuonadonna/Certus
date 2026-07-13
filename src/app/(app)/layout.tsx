@@ -1,4 +1,5 @@
 import Sidebar from "@/components/layout/Sidebar";
+import MobileTabBar from "@/components/layout/MobileTabBar";
 import { createClient } from "@/lib/supabase/server";
 import AuthScope from "@/components/AuthScope";
 import SyncGate from "@/components/SyncGate";
@@ -61,7 +62,10 @@ export default async function AppLayout({
           }}
         >
           <SyncGate userId={userId}>{children}</SyncGate>
+          {/* Clear the fixed tab bar so the last card isn't hidden under it. */}
+          <div className="md:hidden" style={{ height: "calc(72px + env(safe-area-inset-bottom, 0px))" }} />
         </main>
+        <MobileTabBar />
       </div>
     </AccessProvider>
   );

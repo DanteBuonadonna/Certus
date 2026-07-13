@@ -16,6 +16,7 @@ import { useSignedIn } from "@/lib/AccessContext";
 import { trackActivated } from "@/lib/analytics";
 import { buildRun, RUN_SIZE } from "@/lib/practiceRotation";
 import { useAccess } from "@/lib/useAccess";
+import { recordQuestionAnswered } from "@/lib/access";
 import { UpgradeCard } from "@/components/UpgradeGate";
 import Tutor from "@/components/Tutor";
 import Confetti from "@/components/Confetti";
@@ -179,13 +180,19 @@ function Quiz({ questions, onFinish }: { questions: Question[]; onFinish: (answe
 
   useEffect(() => setMutedState(isMuted()), []);
 
+  const quizAccess = useAccess();
+
   const q = questions[idx];
   const isLast = idx === questions.length - 1;
   const correct = checked && selected === q.answerIndex;
 
+  // The daily wall. Reps are the product — free gets a real taste, Pro is unlimited.
+  const outOfQuestions = quizAccess.ready && !quizAccess.pro && quizAccess.questionsLeft <= 0;
+
   function check() {
     if (selected === null || checked) return;
     const isRight = selected === q.answerIndex;
+    if (!quizAccess.pro) recordQuestionAnswered();
     setChecked(true);
     if (isRight) {
       const nc = combo + 1;
@@ -211,6 +218,17 @@ function Quiz({ questions, onFinish }: { questions: Question[]; onFinish: (answe
   }
 
   const progressPct = Math.round(((idx + (checked ? 1 : 0)) / questions.length) * 100);
+
+  if (outOfQuestions) {
+    return (
+      <div className="px-4 py-6 md:px-8 md:py-8 max-w-2xl mx-auto">
+        <UpgradeCard
+          title={`That's your ${quizAccess.dailyLimit} questions for today`}
+          reason={`Free gives you ${quizAccess.dailyLimit} practice questions a day, half the readings, and a full timed mock with your real odds of passing. Pro is unlimited reps — and reps are the only thing that actually moves your score. Come back tomorrow, or upgrade and keep going now.`}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="px-4 py-6 md:px-8 md:py-8 max-w-2xl mx-auto" style={{ position: "relative", paddingBottom: 180 }}>
