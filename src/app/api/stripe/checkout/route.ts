@@ -22,10 +22,15 @@ const CREDIT_PACKS: Record<string, { priceId: string | undefined; credits: numbe
 
 export async function POST(request: Request) {
   try {
-    // Login is currently disabled, so checkout works for guests too.
-    // If a Supabase session exists we attach the user; otherwise Stripe
-    // collects the email at checkout and the webhook records it for
-    // when accounts return.
+    // Browsing is free and account-less. CHECKOUT IS NOT.
+    //
+    // On 2026-06-17 the login wall was removed for conversion, but Pro
+    // entitlement still lived on a signed-in account — so every guest who
+    // paid got charged and never unlocked. Two real customers hit that.
+    //
+    // A subscription needs an identity to attach to, or it cannot survive a
+    // cleared cache, a new device, or a cancellation. So: you may read, preview
+    // and practice as a guest, but to buy you need an account.
     let userId: string | null = null;
     let userEmail: string | undefined = undefined;
     try {
@@ -38,7 +43,14 @@ export async function POST(request: Request) {
         userEmail = user.email ?? undefined;
       }
     } catch {
-      // No auth configured — proceed as guest.
+      // Supabase unreachable — fall through to the guard below.
+    }
+
+    if (!userId) {
+      return NextResponse.json(
+        { error: "Create a free account to subscribe — it's how we keep your access on every device.", needsAccount: true },
+        { status: 401 }
+      );
     }
 
     const { plan, referral } = await request.json();

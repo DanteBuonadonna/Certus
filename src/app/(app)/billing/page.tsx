@@ -7,6 +7,7 @@ import { PLANS, PLAN_FEATURES, Plan } from "@/lib/plans";
 import { BRAND } from "@/lib/brand";
 import { addCredits } from "@/lib/credits";
 import { useAccess } from "@/lib/useAccess";
+import { useSignedIn } from "@/lib/AccessContext";
 import { redeemCode, setPro } from "@/lib/access";
 import posthog from "posthog-js";
 
@@ -26,6 +27,7 @@ function BillingInner() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const { pro } = useAccess();
+  const signedIn = useSignedIn();
 
   async function handleManage() {
     // Guests have no account, so the portal needs the email they paid with.
@@ -86,6 +88,13 @@ function BillingInner() {
   }, [searchParams, router]);
 
   async function handleSubscribe(plan: string) {
+    // A subscription has to attach to an account, or it can't survive a cleared
+    // cache or a new device — and it can't be cancelled. Guests sign up first.
+    if (!signedIn) {
+      posthog.capture("checkout_needs_account", { plan });
+      router.push(`/signup?next=/billing&plan=${encodeURIComponent(plan)}`);
+      return;
+    }
     posthog.capture("checkout_initiated", { plan });
     setLoading(plan);
     try {
