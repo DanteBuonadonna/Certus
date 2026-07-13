@@ -22,14 +22,26 @@ function BillingInner() {
   const [loading, setLoading] = useState<string | null>(null);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
   const [code, setCode] = useState("");
+  const [restoreEmail, setRestoreEmail] = useState("");
   const searchParams = useSearchParams();
   const router = useRouter();
   const { pro } = useAccess();
 
   async function handleManage() {
+    // Guests have no account, so the portal needs the email they paid with.
+    // Without this, nobody could cancel — and people who can't cancel charge back.
+    let email = restoreEmail.trim();
+    if (!email) {
+      email = (window.prompt("Enter the email on your receipt to manage or cancel your subscription:") || "").trim();
+      if (!email) return;
+    }
     setLoading("manage");
     try {
-      const res = await fetch("/api/stripe/portal", { method: "POST" });
+      const res = await fetch("/api/stripe/portal", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
       const data = await res.json();
       if (data.url) window.location.href = data.url;
       else setMessage({ type: "error", text: data.error || "Could not open the billing portal." });
@@ -95,6 +107,32 @@ function BillingInner() {
     }
   }
 
+  // Restore access for anyone who paid as a guest and never got unlocked.
+  async function handleRestore(e: React.FormEvent) {
+    e.preventDefault();
+    setLoading("restore");
+    try {
+      const res = await fetch("/api/stripe/restore", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: restoreEmail }),
+      });
+      const data = await res.json();
+      if (data.pro) {
+        setPro(true);
+        posthog.capture("access_restored");
+        setMessage({ type: "success", text: "Found your subscription — full access is back. Sorry about that." });
+        setRestoreEmail("");
+      } else {
+        setMessage({ type: "error", text: data.error || "No subscription found for that email." });
+      }
+    } catch {
+      setMessage({ type: "error", text: "Network error. Please try again." });
+    } finally {
+      setLoading(null);
+    }
+  }
+
   function handleRedeem(e: React.FormEvent) {
     e.preventDefault();
     if (redeemCode(code)) {
@@ -150,6 +188,31 @@ function BillingInner() {
       )}
 
       {!pro && (
+        <div className="card p-5 mb-4" style={{ border: "0.5px solid var(--border)" }}>
+          <div className="text-sm font-medium mb-1" style={{ color: "var(--text-primary)" }}>
+            Already subscribed?
+          </div>
+          <div className="text-xs mb-3" style={{ color: "var(--text-muted)" }}>
+            If you paid but don&apos;t have access, enter the email on your receipt and we&apos;ll restore it.
+          </div>
+          <form onSubmit={handleRestore} className="flex flex-col sm:flex-row gap-2">
+            <input
+              type="email"
+              value={restoreEmail}
+              onChange={(e) => setRestoreEmail(e.target.value)}
+              placeholder="you@email.com"
+              autoComplete="email"
+              className="flex-1 px-3 py-2 rounded-lg text-sm"
+              style={{ border: "0.5px solid var(--border)", background: "var(--bg-card)", color: "var(--text-primary)" }}
+            />
+            <button type="submit" className="btn-secondary whitespace-nowrap" disabled={!restoreEmail.trim() || loading === "restore"}>
+              {loading === "restore" ? "Checking…" : "Restore access"}
+            </button>
+          </form>
+        </div>
+      )}
+
+      {!pro && (
         <div className="card p-5 mb-6" style={{ border: "0.5px solid var(--border)" }}>
           <div className="text-sm font-medium mb-1" style={{ color: "var(--text-primary)" }}>
             Have a code?
@@ -174,6 +237,14 @@ function BillingInner() {
           </form>
         </div>
       )}
+
+      {/* Cancelling must ALWAYS be reachable, whether or not this browser thinks
+          you're Pro. A customer who can't find the cancel button files a chargeback. */}
+      <p className="text-xs text-center mb-4">
+        <button onClick={handleManage} disabled={loading === "manage"} style={{ color: "var(--primary)", fontWeight: 600 }}>
+          {loading === "manage" ? "Opening…" : "Manage or cancel my subscription"}
+        </button>
+      </p>
 
       <p className="text-xs text-center" style={{ color: "var(--text-muted)" }}>
         Payments via Stripe. Cancel anytime. By subscribing you agree to our{" "}

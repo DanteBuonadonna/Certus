@@ -6,33 +6,71 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2024-04-10",
 });
 
-// Opens the Stripe-hosted Customer Portal so a subscriber can update their
-// card or cancel. Requires the Customer Portal to be activated in the Stripe
-// dashboard (Settings → Billing → Customer portal → Activate).
-export async function POST(request: Request) {
-  let userId: string | null = null;
-  try {
-    const supabase = await createClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    userId = user?.id ?? null;
+// ============================================================
+// CUSTOMER PORTAL — update card, cancel subscription.
+//
+// Login is disabled, so every subscriber is a guest and there's no account to
+// hang a stripe_customer_id on. This route used to 401 in that case, which
+// meant NOBODY could cancel or manage their subscription from the app.
+// A customer who can't cancel doesn't email you — they file a chargeback.
+//
+// Signed-in users resolve through their account as before. Guests resolve by
+// the email on their receipt (same soft check as /api/stripe/restore).
+//
+// Requires the Customer Portal to be turned on in Stripe:
+//   Settings → Billing → Customer portal → Activate
+// ============================================================
 
-    if (!userId) {
-      return NextResponse.json({ error: "Not signed in" }, { status: 401 });
+async function customerIdFromEmail(raw: string): Promise<string | null> {
+  const candidates = Array.from(new Set([raw.trim(), raw.trim().toLowerCase()]));
+  for (const email of candidates) {
+    const customers = await stripe.customers.list({ email, limit: 10 });
+    for (const customer of customers.data) {
+      const subs = await stripe.subscriptions.list({ customer: customer.id, status: "all", limit: 20 });
+      if (subs.data.length > 0) return customer.id;
+    }
+  }
+  return null;
+}
+
+export async function POST(request: Request) {
+  try {
+    let email = "";
+    try {
+      const body = await request.json();
+      if (typeof body?.email === "string") email = body.email;
+    } catch {
+      // No body sent — fine, try the signed-in path.
     }
 
-    // The user can read their own row (RLS select policy) to get the customer id.
-    const { data: row } = await supabase
-      .from("users")
-      .select("stripe_customer_id")
-      .eq("id", userId)
-      .single();
+    let customerId: string | null = null;
 
-    const customerId = row?.stripe_customer_id;
+    // 1) Signed-in user → resolve through their account.
+    try {
+      const supabase = await createClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (user) {
+        const { data: row } = await supabase
+          .from("users")
+          .select("stripe_customer_id")
+          .eq("id", user.id)
+          .single();
+        customerId = row?.stripe_customer_id ?? null;
+      }
+    } catch {
+      // Supabase unreachable / guest — fall through to the email path.
+    }
+
+    // 2) Guest → resolve by the email they paid with.
+    if (!customerId && email.includes("@")) {
+      customerId = await customerIdFromEmail(email);
+    }
+
     if (!customerId) {
       return NextResponse.json(
-        { error: "No subscription found for this account yet." },
+        { error: "Enter the email on your receipt so we can find your subscription." },
         { status: 400 }
       );
     }
