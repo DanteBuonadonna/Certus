@@ -1,13 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <defs>
-    <linearGradient id="cg" x1="0.15" y1="0" x2="0.85" y2="1">
-      <stop offset="0%" stop-color="#C74BF2"/>
-      <stop offset="50%" stop-color="#9333EA"/>
+    <linearGradient id="cg" x1="0.1" y1="0.05" x2="0.75" y2="1">
+      <stop offset="0%" stop-color="#D14BF5"/>
+      <stop offset="45%" stop-color="#9B4DEA"/>
       <stop offset="100%" stop-color="#6D28D9"/>
     </linearGradient>
   </defs>
   <!-- Reduced mark: bold C + a single page leaf. The full three-leaf fan
        collapses into noise at favicon size, so the browser tab gets this. -->
-  <path d="M 12.2 16.4 L 15.2 15.1 L 15.2 31.4 L 33.0 38.2 Z" fill="url(#cg)" opacity="0.7"/>
-  <path d="M 38.2 7.8 L 18.8 12.4 L 18.8 30.6 L 38.2 36.2 L 38.2 29.0 L 26.2 25.8 L 26.2 17.4 L 38.2 14.6 Z" fill="url(#cg)"/>
+  <path d="M 21.8 15.8 L 24.8 14.4 L 24.8 41.6 L 47.0 50.8 L 45.0 53.4 L 21.8 43.8 Z" fill="url(#cg)"/>
+  <path d="M 52.0 10.0 L 28.6 15.6 L 28.6 41.0 L 52.0 48.6 L 52.0 39.6 L 37.4 35.0 L 37.4 22.6 L 52.0 19.0 Z" fill="url(#cg)"/>
 </svg>
