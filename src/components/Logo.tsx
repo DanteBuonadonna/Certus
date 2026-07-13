@@ -1,52 +1,69 @@
 // ============================================================
-// Certus logo — the certification seal.
-// A scalloped seal (the universal mark of "certified") in brand
-// purple, holding a serif C with three gold ascending steps in
-// its mouth — the career ladder, sealed.
-// Scales from favicon (16px) to hero (any size). One source of
-// truth: every surface imports from here.
+// Certus logo — the open book that forms a C.
+// A bold "C" (the book's cover + spine) with page leaves fanning
+// out beneath it. Two meanings in one shape: Certus, and studying.
+//
+// Three renderings, one source of truth:
+//   • full   — gradient, page fan. Default. Used ≥ 22px.
+//   • simple — bold C + a single page. Auto-used < 22px (favicon,
+//              tab, tiny UI) because the fan's thin tips mush
+//              together at that size.
+//   • mono   — single flat colour (currentColor) for dark/photo
+//              backgrounds, print, and one-colour contexts.
 // ============================================================
 
 import React from "react";
 
-const SEAL_PATH =
-  "M 24.00 3.80 A 6.1 6.1 0 0 1 34.10 6.51 A 6.1 6.1 0 0 1 41.49 13.90 A 6.1 6.1 0 0 1 44.20 24.00 A 6.1 6.1 0 0 1 41.49 34.10 A 6.1 6.1 0 0 1 34.10 41.49 A 6.1 6.1 0 0 1 24.00 44.20 A 6.1 6.1 0 0 1 13.90 41.49 A 6.1 6.1 0 0 1 6.51 34.10 A 6.1 6.1 0 0 1 3.80 24.00 A 6.1 6.1 0 0 1 6.51 13.90 A 6.1 6.1 0 0 1 13.90 6.51 A 6.1 6.1 0 0 1 24.00 3.80 Z";
+// The C — book cover + spine.
+const C_PATH =
+  "M 38.2 7.8 L 18.8 12.4 L 18.8 30.6 L 38.2 36.2 L 38.2 29.0 L 26.2 25.8 L 26.2 17.4 L 38.2 14.6 Z";
+// Page leaves, fanning out from the spine and tapering to points.
+const PAGE_BACK = "M 8.6 18.6 L 11.6 17.3 L 11.6 32.4 L 28.6 39.4 Z";
+const PAGE_FRONT = "M 12.2 16.4 L 15.2 15.1 L 15.2 31.4 L 33.0 38.2 Z";
+
+let uid = 0;
 
 export function LogoMark({
   size = 28,
   mono = false,
+  /** Force the reduced mark (otherwise it auto-engages below 22px). */
+  simple,
 }: {
   size?: number;
-  /** Single-color version for dark/photo backgrounds. */
+  /** Single-colour version for dark/photo backgrounds. */
   mono?: boolean;
+  simple?: boolean;
 }) {
-  const purple = mono ? "currentColor" : "#534AB7";
-  const gold = mono ? "rgba(255,255,255,0.85)" : "#C9A227";
+  // Below ~22px the tapered page tips collapse into noise, so drop to the
+  // reduced mark. Same silhouette, fewer parts — it still reads as the C.
+  const reduced = simple ?? size < 22;
+
+  // Unique gradient id so multiple marks on one page don't collide.
+  const gid = React.useMemo(() => `certus-g-${++uid}`, []);
+  const fill = mono ? "currentColor" : `url(#${gid})`;
+
   return (
-    <svg width={size} height={size} viewBox="0 0 48 48" aria-label="Certus" role="img">
-      {/* Scalloped seal */}
-      <path d={SEAL_PATH} fill={purple} />
-      {/* Inner engraved rings */}
-      <circle cx="24" cy="24" r="16.6" fill="none" stroke="rgba(255,255,255,0.28)" strokeWidth="0.9" />
-      <circle cx="24" cy="24" r="15.1" fill="none" stroke={gold} strokeWidth="1.1" opacity="0.9" />
-      {/* The C — financial-press serif */}
-      <text
-        x="21.6"
-        y="31.6"
-        textAnchor="middle"
-        fontSize="21.5"
-        fontWeight="600"
-        fontFamily="var(--serif, Georgia), Georgia, 'Times New Roman', serif"
-        fill="#ffffff"
-      >
-        C
-      </text>
-      {/* The ladder — three gold steps rising out of the C's mouth */}
-      <g fill={gold}>
-        <rect x="27.9" y="26.4" width="2.1" height="3.1" rx="0.55" />
-        <rect x="30.8" y="24.4" width="2.1" height="5.1" rx="0.55" />
-        <rect x="33.7" y="22.4" width="2.1" height="7.1" rx="0.55" />
-      </g>
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 48 48"
+      role="img"
+      aria-label="Certus"
+      style={{ display: "block", flexShrink: 0 }}
+    >
+      {!mono && (
+        <defs>
+          <linearGradient id={gid} x1="0.15" y1="0" x2="0.85" y2="1">
+            <stop offset="0%" stopColor="#C74BF2" />
+            <stop offset="50%" stopColor="#9333EA" />
+            <stop offset="100%" stopColor="#6D28D9" />
+          </linearGradient>
+        </defs>
+      )}
+
+      {!reduced && <path d={PAGE_BACK} fill={fill} opacity={mono ? 0.45 : 0.45} />}
+      <path d={PAGE_FRONT} fill={fill} opacity={mono ? 0.7 : 0.7} />
+      <path d={C_PATH} fill={fill} />
     </svg>
   );
 }
@@ -56,14 +73,16 @@ export function Logo({
   markSize = 28,
   textSize = 19,
   color = "var(--text-primary)",
+  mono = false,
 }: {
   markSize?: number;
   textSize?: number;
   color?: string;
+  mono?: boolean;
 }) {
   return (
     <span style={{ display: "inline-flex", alignItems: "center", gap: markSize * 0.32 }}>
-      <LogoMark size={markSize} />
+      <LogoMark size={markSize} mono={mono} />
       <span
         className="font-display"
         style={{ fontSize: textSize, color, fontWeight: 600, letterSpacing: "-0.01em", lineHeight: 1 }}
