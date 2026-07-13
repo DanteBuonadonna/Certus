@@ -56,6 +56,9 @@ export default function DashboardClient() {
   const [toast, setToast] = useState<string | null>(null);
   const [levelUp, setLevelUp] = useState<{ level: number; rank: string } | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
+  // The dashboard used to fire ~12 blocks at once — on mobile that's a wall.
+  // Now: streak, ONE next action, and your odds. Everything else lives behind this.
+  const [showMore, setShowMore] = useState(false);
   const [showQuickStart, setShowQuickStart] = useState(false);
   const [showDaily, setShowDaily] = useState(false);
   const [dailyChecked, setDailyChecked] = useState(false);
@@ -170,8 +173,9 @@ export default function DashboardClient() {
         </div>
       )}
 
-      {/* New-hire onboarding nudge */}
-      {!profile && !showQuickStart && (
+      {/* New-hire onboarding nudge — only if they're signed in, so we never
+          stack two banners on top of each other on first load. */}
+      {signedIn && !profile && !showQuickStart && (
         <div className="card p-4 mb-6 flex items-center justify-between rise-in" style={{ borderColor: "var(--gold-border)", boxShadow: "var(--glow-gold)" }}>
           <div>
             <div className="pill-gold mb-1.5">NEW HIRE</div>
@@ -212,20 +216,92 @@ export default function DashboardClient() {
             color="#E2691A"
             risk={state.currentStreak > 0 && !todayStudied(state)}
           />
-          <StatChip icon={<BoltIcon size={17} />} label="XP" value={state.xp} sub="total" color="var(--primary)" />
-          <StatChip
-            icon={<ClockIcon size={17} />}
-            label="Studied"
-            value={Math.round(totalMinutes(state) / 60)}
-            sub="hrs"
-            color="var(--ats-green)"
-          />
+          {/* XP + hours are vanity metrics — they don't tell you what to do next.
+              Streak stays (it's the habit hook); these hide on mobile. */}
+          <div className="hidden sm:flex items-center gap-3">
+            <StatChip icon={<BoltIcon size={17} />} label="XP" value={state.xp} sub="total" color="var(--primary)" />
+            <StatChip
+              icon={<ClockIcon size={17} />}
+              label="Studied"
+              value={Math.round(totalMinutes(state) / 60)}
+              sub="hrs"
+              color="var(--ats-green)"
+            />
+          </div>
         </div>
       </div>
 
       {/* Duolingo-style daily hero: goal ring + streak fire + big CTA */}
       <DuoHero state={state} dailyGoalMin={dailyGoalMin} examSlug={activePlan?.examSlug ?? "cfa"} />
 
+      {/* No plan yet? Then that IS the next action. Nothing else matters. */}
+      {!activePlan && (
+        <div className="mb-6">
+          <PlanSetup onCreate={createPlan} />
+        </div>
+      )}
+
+      {/* Odds of passing — one line, real numbers. The full gauge is under "Show more". */}
+      {activePlan && readiness && progress && (
+        <button
+          onClick={() => setShowMore(true)}
+          className="w-full card p-4 mb-6 flex items-center justify-between gap-3 text-left rise-in"
+          style={{ animationDelay: "0.05s" }}
+        >
+          <div className="min-w-0">
+            <div className="text-[11px] font-semibold uppercase tracking-wider mb-0.5" style={{ color: "var(--text-muted)" }}>
+              If you sat the exam today
+            </div>
+            <div className="text-sm" style={{ color: "var(--text-secondary)" }}>
+              <strong style={{ color: "var(--text-primary)", fontSize: 21 }}>{readiness.score}%</strong>
+              <span> odds of passing · </span>
+              <strong style={{ color: "var(--text-primary)" }}>{progress.daysRemaining}</strong>
+              <span> days out</span>
+            </div>
+          </div>
+          <span className="text-xs font-semibold flex-shrink-0" style={{ color: "var(--primary)" }}>Details →</span>
+        </button>
+      )}
+
+      {/* Today's challenges — the daily loop. Three, max. */}
+      <h2 className="text-sm font-semibold mb-3 flex items-center gap-2" style={{ color: "var(--text-primary)" }}>
+        <span style={{ color: "var(--primary)" }}><TargetIcon size={15} /></span>
+        Today&apos;s challenges
+      </h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 stagger" data-tour="challenges">
+        {challenges.slice(0, 3).map((c) => (
+          <div key={c.id} className="card-i p-4">
+            <div className="flex items-center justify-between mb-2">
+              <span
+                className="text-sm flex items-center gap-1.5"
+                style={{ color: c.done ? "var(--text-muted)" : "var(--text-primary)", textDecoration: c.done ? "line-through" : "none" }}
+              >
+                {c.done && <span style={{ color: "var(--ats-green)" }}><CheckIcon size={13} /></span>}
+                {c.title}
+              </span>
+              <span className="text-xs font-semibold font-mono" style={{ color: c.done ? "var(--ats-green)" : "var(--primary)" }}>
+                +{c.xpReward} XP
+              </span>
+            </div>
+            <ProgressBar pct={Math.round((c.progress / c.goal) * 100)} height={6} sheen={!c.done} color={c.done ? "var(--ats-green)" : "var(--primary)"} />
+            <p className="text-[11px] mt-1.5 font-mono" style={{ color: "var(--text-muted)" }}>
+              {c.progress} / {c.goal} {c.unit}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      {/* Everything below is opt-in. First load should ask you to do ONE thing. */}
+      <button
+        onClick={() => setShowMore((v) => !v)}
+        className="w-full card p-3 mb-6 text-sm font-semibold"
+        style={{ color: "var(--primary)" }}
+      >
+        {showMore ? "Show less ▴" : "Progress, plan & honors ▾"}
+      </button>
+
+      {showMore && (
+      <>
       {/* Level progress bar */}
       <div className="card p-4 mb-6 rise-in" style={{ animationDelay: "0.05s" }}>
         <div className="flex items-center justify-between mb-2">
@@ -262,9 +338,7 @@ export default function DashboardClient() {
         </div>
       </Link>
 
-      {!activePlan ? (
-        <PlanSetup onCreate={createPlan} />
-      ) : (
+      {activePlan && (
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 mb-6 rise-in" style={{ animationDelay: "0.1s" }}>
           {/* Plan + quick log */}
           <div className="lg:col-span-3" data-tour="plan">
@@ -324,34 +398,6 @@ export default function DashboardClient() {
         </div>
       )}
 
-      {/* Daily challenges */}
-      <h2 className="text-sm font-semibold mt-8 mb-3 flex items-center gap-2" style={{ color: "var(--text-primary)" }}>
-        <span style={{ color: "var(--primary)" }}><TargetIcon size={15} /></span>
-        Today&apos;s challenges
-      </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 stagger" data-tour="challenges">
-        {challenges.map((c) => (
-          <div key={c.id} className="card-i p-4">
-            <div className="flex items-center justify-between mb-2">
-              <span
-                className="text-sm flex items-center gap-1.5"
-                style={{ color: c.done ? "var(--text-muted)" : "var(--text-primary)", textDecoration: c.done ? "line-through" : "none" }}
-              >
-                {c.done && <span style={{ color: "var(--ats-green)" }}><CheckIcon size={13} /></span>}
-                {c.title}
-              </span>
-              <span className="text-xs font-semibold font-mono" style={{ color: c.done ? "var(--ats-green)" : "var(--primary)" }}>
-                +{c.xpReward} XP
-              </span>
-            </div>
-            <ProgressBar pct={Math.round((c.progress / c.goal) * 100)} height={6} sheen={!c.done} color={c.done ? "var(--ats-green)" : "var(--primary)"} />
-            <p className="text-[11px] mt-1.5 font-mono" style={{ color: "var(--text-muted)" }}>
-              {c.progress} / {c.goal} {c.unit}
-            </p>
-          </div>
-        ))}
-      </div>
-
       {/* Activity calendar */}
       <h2 className="text-sm font-semibold mt-8 mb-3 flex items-center gap-2" style={{ color: "var(--text-primary)" }}>
         <span style={{ color: "var(--primary)" }}><CalendarCheckIcon size={15} /></span>
@@ -389,6 +435,8 @@ export default function DashboardClient() {
           );
         })}
       </div>
+      </>
+      )}
 
       {/* Toast */}
       {toast && (
