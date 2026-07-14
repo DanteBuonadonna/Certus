@@ -47,6 +47,13 @@ function SignupForm() {
       // to check an email that will never come.
       posthog.identify(data.session.user.id, { email: email });
       posthog.capture("user_signed_up", { email });
+      // Add them to the marketing list. Fire-and-forget — never block signup
+      // on an email vendor.
+      void fetch("/api/contacts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      }).catch(() => {});
       router.push("/dashboard");
       router.refresh();
     } else if (data.user && data.user.identities && data.user.identities.length === 0) {

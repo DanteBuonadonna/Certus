@@ -10,6 +10,7 @@ import { getChapters } from "@/content";
 import { buildDeck, loadStore, masteredCount } from "./flashcards";
 import { loadTrophies } from "./bossExam";
 import { loadReading, readCount } from "./readingProgress";
+import { loadDiagnostic } from "./diagnostic";
 
 export interface ReadinessComponent {
   id: "coverage" | "mastery" | "boss" | "consistency";
@@ -29,6 +30,7 @@ export function computeReadiness(examSlug: string, state: GameState): Readiness 
   const reading = loadReading();
   const flash = loadStore();
   const trophies = loadTrophies();
+  const diag = loadDiagnostic(examSlug);
 
   // 1) Coverage — chapters completed.
   const read = readCount(examSlug, chapters.map((c) => c.id), reading);
@@ -39,8 +41,10 @@ export function computeReadiness(examSlug: string, state: GameState): Readiness 
   const mastered = masteredCount(deck, flash);
   const masteryPct = deck.length ? Math.round((mastered / deck.length) * 100) : 0;
 
-  // 3) Boss — best mock-exam score (0 until attempted).
-  const bossPct = trophies[examSlug]?.bestPct ?? 0;
+  // 3) Boss — best mock-exam score. If they haven't sat a mock but HAVE taken
+  //    the diagnostic, use that: it's real evidence, and pretending we know
+  //    nothing is how we ended up telling new users they had a 2% chance.
+  const bossPct = trophies[examSlug]?.bestPct ?? diag?.pct ?? 0;
 
   // 4) Consistency — study minutes in the last 7 days vs a 5-hr/wk bar,
   //    blended with streak (capped at 14 days).
@@ -72,7 +76,11 @@ export function computeReadiness(examSlug: string, state: GameState): Readiness 
       label: "Mock exam",
       pct: bossPct,
       weight: 0.25,
-      detail: trophies[examSlug] ? `Best score ${bossPct}%` : "Not yet attempted",
+      detail: trophies[examSlug]
+        ? `Best score ${bossPct}%`
+        : diag
+        ? `Diagnostic: ${diag.correct}/${diag.total}`
+        : "Not yet attempted",
     },
     {
       id: "consistency",
@@ -84,5 +92,19 @@ export function computeReadiness(examSlug: string, state: GameState): Readiness 
   ];
 
   const score = Math.round(components.reduce((s, c) => s + c.pct * c.weight, 0));
+
+  // A brand-new account has zero coverage, zero mastery and zero consistency, so
+  // the weighted blend collapses toward zero — which is how the app ended up
+  // telling a first-time visitor they had a "2% chance of passing" before they'd
+  // done anything at all. That number was nonsense and it destroyed trust.
+  //
+  // If they've taken the diagnostic and genuinely haven't studied here yet, the
+  // diagnostic IS the honest estimate. Don't dilute real evidence with zeros
+  // that only mean "we haven't watched you yet."
+  const hasStudied = coveragePct > 0 || masteryPct > 0 || consistencyPct > 0;
+  if (diag && !hasStudied) {
+    return { score: diag.pct, components };
+  }
+
   return { score, components };
 }
