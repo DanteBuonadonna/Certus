@@ -7,6 +7,12 @@ import { Analytics } from "@vercel/analytics/next";
 // PromoteKit affiliate tracking ID (public — it's exposed in the page anyway).
 const PROMOTEKIT_ID = "e6d2ffa2-d50b-4906-a83c-30192b9bcd85";
 
+// Google Ads conversion tag. Without this, Google is bidding blind — it can't
+// tell you which keyword produced a paying customer, only which produced a
+// click. Cost-per-click is a vanity number; cost-per-customer is the only one
+// that decides whether the channel lives.
+const GOOGLE_ADS_ID = "AW-18273063884";
+
 export const metadata: Metadata = {
   title: `${BRAND.name} — Prep for finance's hardest exams`,
   description:
@@ -28,6 +34,20 @@ export default function RootLayout({
           data-promotekit={PROMOTEKIT_ID}
           strategy="afterInteractive"
         />
+
+        {/* Google Ads (gtag.js) */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GOOGLE_ADS_ID}');
+          `}
+        </Script>
       </body>
     </html>
   );

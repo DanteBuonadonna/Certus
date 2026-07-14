@@ -9,6 +9,7 @@ import { addCredits } from "@/lib/credits";
 import { useAccess } from "@/lib/useAccess";
 import { useSignedIn } from "@/lib/AccessContext";
 import { redeemCode, setPro } from "@/lib/access";
+import { trackPurchase } from "@/lib/gtag";
 import posthog from "posthog-js";
 
 export default function BillingPage() {
@@ -77,6 +78,10 @@ function BillingInner() {
           const res = await fetch(`/api/stripe/confirm?session_id=${encodeURIComponent(sessionId ?? "")}`);
           const data = await res.json();
           posthog.capture("subscribed", { source: "checkout" });
+          // Tell Google Ads a sale happened, and what it was worth, so it can
+          // optimize on money instead of clicks.
+          const planParam = searchParams.get("plan");
+          trackPurchase(planParam === "annual" ? 115 : 24.99, sessionId ?? undefined);
           if (data.pro) router.refresh();
           setMessage({ type: "success", text: "You're subscribed! Full access is unlocked — every chapter, every exam, every Final." });
         } catch {
