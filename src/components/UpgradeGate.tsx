@@ -5,9 +5,28 @@ import { useSignedIn } from "@/lib/AccessContext";
 import { statHeadline } from "@/lib/contentStats";
 import posthog from "posthog-js";
 
+// Real icons. An emoji padlock on the screen where someone decides whether to
+// trust you with $25 is not a design choice, it's a tell.
+function LockIcon({ size = 26 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <rect x="4.5" y="10.5" width="15" height="10" rx="2.5" />
+      <path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" />
+    </svg>
+  );
+}
+
+function CheckIcon({ size = 15 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.6} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M4.5 12.5l5 5 10-11" />
+    </svg>
+  );
+}
+
 export function UpgradeCard({
-  title = "Unlock the full curriculum",
-  reason = "You're at the edge of the free preview. Pro opens every chapter, every exam, and unlimited Finals.",
+  title = "Unlock unlimited practice",
+  reason = "Free gives you half the readings, a full timed mock, and your real odds of passing. Pro is unlimited reps — and reps are the only thing that actually moves your score.",
 }: {
   title?: string;
   reason?: string;
@@ -18,12 +37,25 @@ export function UpgradeCard({
   // Supabase user via Stripe, so send them to signup first, then billing.
   const ctaHref = signedIn ? "/billing" : "/signup?next=/billing";
   const ctaLabel = signedIn ? "Go Pro →" : "Create account to go Pro →";
+
   return (
     <div
       className="text-center max-w-md mx-auto mt-6 p-7"
-      style={{ borderRadius: 20, border: "2px solid var(--primary)", borderBottom: "6px solid var(--primary-hover)", background: "linear-gradient(180deg, var(--primary-light), var(--bg-card) 70%)" }}
+      style={{
+        borderRadius: 20,
+        border: "2px solid var(--primary)",
+        borderBottom: "6px solid var(--primary-hover)",
+        // Flat. Gradients on a paywall read as generated.
+        background: "var(--bg-card)",
+      }}
     >
-      <div className="text-4xl mb-3">🔓</div>
+      <div
+        className="mx-auto mb-3 flex items-center justify-center"
+        style={{ width: 48, height: 48, borderRadius: 14, background: "var(--primary-light)", color: "var(--primary)" }}
+      >
+        <LockIcon />
+      </div>
+
       <h2 className="font-display text-xl mb-1.5" style={{ color: "var(--text-primary)" }}>
         {title}
       </h2>
@@ -45,16 +77,16 @@ export function UpgradeCard({
         ))}
       </div>
 
-      {/* What Pro gets you */}
+      {/* What Pro actually adds on top of the free tier. */}
       <div className="text-left text-sm mx-auto mb-5" style={{ maxWidth: 320, color: "var(--text-secondary)" }}>
         {[
-          "Every chapter of every exam — textbook-depth, not thin summaries",
-          "Unlimited Finals (full timed mock exams)",
-          "The whole question bank with trap-aware explanations",
-          "Your streak, Division rank, and progress — kept",
+          "Unlimited practice questions — no daily cap",
+          "The second half of every reading",
+          "Unlimited full timed mocks and retakes",
+          "Trap-aware explanations on every question",
         ].map((f) => (
           <div key={f} className="flex items-start gap-2 mb-1.5">
-            <span style={{ color: "var(--ats-green)", fontWeight: 800 }}>✓</span>
+            <span style={{ color: "var(--ats-green)", marginTop: 2 }}><CheckIcon /></span>
             <span>{f}</span>
           </div>
         ))}
@@ -66,7 +98,7 @@ export function UpgradeCard({
         onClick={() => posthog.capture("upgrade_cta_clicked", { signed_in: signedIn, title })}
       >{ctaLabel}</Link>
       <p className="text-xs mt-3" style={{ color: "var(--text-muted)" }}>
-        From $115/year — less than a tenth of a typical prep course. Cancel anytime · 100% of it written to rival the $1,000 textbooks.
+        $115/year — less than a tenth of a typical prep course. Cancel anytime.
       </p>
     </div>
   );
@@ -74,5 +106,9 @@ export function UpgradeCard({
 
 // Small lock chip to append to locked exam buttons.
 export function LockChip() {
-  return <span style={{ marginLeft: 4 }}>🔒</span>;
+  return (
+    <span style={{ marginLeft: 5, display: "inline-flex", color: "var(--text-muted)", verticalAlign: "-2px" }}>
+      <LockIcon size={13} />
+    </span>
+  );
 }

@@ -158,7 +158,12 @@ export default function DashboardClient() {
           style={{ borderRadius: 16, border: "2px solid var(--primary)", borderBottom: "5px solid var(--primary-hover)", background: "var(--primary-light)" }}
         >
           <div className="flex items-center gap-3">
-            <span style={{ fontSize: 26 }}>💾</span>
+            <span style={{ color: "var(--primary)", flexShrink: 0 }}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z" />
+                <path d="M17 21v-8H7v8M7 3v5h8" />
+              </svg>
+            </span>
             <div>
               <div className="text-sm font-extrabold" style={{ color: "var(--text-primary)" }}>You&apos;re playing as a guest</div>
               <div className="text-xs" style={{ color: "var(--text-secondary)" }}>
@@ -263,6 +268,26 @@ export default function DashboardClient() {
         </button>
       )}
 
+      {/* If the remaining work can't fit in the remaining days, SAY SO. The app used
+          to just print "0 / 1998 min today" and hope nobody did the arithmetic. */}
+      {activePlan && progress?.paceImpossible && (
+        <div
+          className="card p-4 mb-6 rise-in"
+          style={{ border: "1px solid var(--ats-amber)", background: "var(--ats-amber-bg, var(--bg-card))" }}
+        >
+          <div className="text-sm font-semibold mb-1" style={{ color: "var(--text-primary)" }}>
+            You&apos;re behind, and I&apos;m not going to pretend otherwise.
+          </div>
+          <div className="text-xs" style={{ color: "var(--text-secondary)" }}>
+            Finishing the full {activePlan.targetHours}-hour plan in {progress.daysRemaining} day
+            {progress.daysRemaining === 1 ? "" : "s"} would take <strong>{progress.requiredDailyHours} hrs/day</strong>.
+            That&apos;s not happening. Your goal is capped at a real pace — so stop trying to cover
+            everything and go straight at Ethics and FRA. They&apos;re ~35% of the exam and the
+            highest points-per-hour left on the table.
+          </div>
+        </div>
+      )}
+
       {/* Today's challenges — the daily loop. Three, max. */}
       <h2 className="text-sm font-semibold mb-3 flex items-center gap-2" style={{ color: "var(--text-primary)" }}>
         <span style={{ color: "var(--primary)" }}><TargetIcon size={15} /></span>
@@ -312,7 +337,7 @@ export default function DashboardClient() {
             {lp.xpIntoLevel} / {lp.xpForNext} XP → L{lp.level + 1}
           </span>
         </div>
-        <ProgressBar pct={lp.pct} color="linear-gradient(90deg, var(--primary), var(--gold-bright))" />
+        <ProgressBar pct={lp.pct} color="var(--primary)" />
       </div>
 
       {/* Challenges promo — show off the fast XP modes */}
@@ -324,17 +349,19 @@ export default function DashboardClient() {
       >
         <div
           className="p-4 flex items-center gap-4 card-i"
-          style={{ borderRadius: 18, border: "2px solid var(--duo-blue)", borderBottom: "5px solid var(--duo-blue-shadow)", background: "linear-gradient(135deg, color-mix(in srgb, var(--duo-blue) 12%, var(--bg-card)), var(--bg-card))" }}
+          style={{ borderRadius: 18, border: "2px solid var(--primary)", borderBottom: "5px solid var(--primary-hover)", background: "var(--bg-card)" }}
         >
-          <span style={{ fontSize: 34 }}>⚡</span>
+          <span style={{ color: "var(--primary)", flexShrink: 0 }}>
+            <BoltIcon size={30} />
+          </span>
           <div className="flex-1 min-w-0">
-            <div className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "var(--duo-blue)" }}>New · Challenges</div>
+            <div className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "var(--primary)" }}>New · Challenges</div>
             <div className="text-base font-extrabold" style={{ color: "var(--text-primary)" }}>Race the clock, take the daily Open, or wager Comp</div>
             <p className="text-xs mt-0.5" style={{ color: "var(--text-secondary)" }}>
               Fast XP modes that climb your Division — Lightning Round, The Open, and Wager.
             </p>
           </div>
-          <span className="btn-duo duo-blue flex-shrink-0" style={{ padding: "0.6rem 1.1rem", fontSize: "0.8rem" }}>Play</span>
+          <span className="btn-duo flex-shrink-0" style={{ padding: "0.6rem 1.1rem", fontSize: "0.8rem" }}>Play</span>
         </div>
       </Link>
 
@@ -723,7 +750,7 @@ function DuoHero({ state, dailyGoalMin, examSlug }: { state: GameState; dailyGoa
     <div
       className="mb-6 rise-in flex flex-col sm:flex-row items-center gap-5 p-5"
       style={{
-        background: "linear-gradient(135deg, var(--primary-light), var(--bg-card))",
+        background: "var(--bg-card)",
         border: "2px solid var(--primary)",
         borderBottom: "5px solid var(--primary-hover)",
         borderRadius: 20,

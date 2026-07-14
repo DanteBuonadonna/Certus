@@ -35,8 +35,11 @@
   --shadow-sm: 0 1px 2px rgba(15, 15, 20, 0.05);
   --shadow-md: 0 4px 16px rgba(15, 15, 20, 0.08);
   --shadow-lg: 0 12px 40px rgba(15, 15, 20, 0.14);
+  /* Glows are the #1 "AI-generated app" tell. Duolingo is more gamified than we
+     are and has zero of them. --glow-primary stays as a focus ring (that's
+     accessibility, not decoration). The gold aura is gone. */
   --glow-primary: 0 0 0 3px rgba(83, 74, 183, 0.15);
-  --glow-gold: 0 0 18px rgba(201, 162, 39, 0.35);
+  --glow-gold: none;
 
   /* Type */
   --serif: "Fraunces", Georgia, "Times New Roman", serif;
@@ -68,7 +71,7 @@
     --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
     --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.6);
     --glow-primary: 0 0 0 3px rgba(83, 74, 183, 0.3);
-    --glow-gold: 0 0 18px rgba(212, 175, 94, 0.25);
+    --glow-gold: none;
   }
 }
 

@@ -233,9 +233,9 @@ export default function CareerClient() {
                             cursor: "pointer",
                             display: "flex", alignItems: "center", justifyContent: "center",
                             background: claimed
-                              ? "linear-gradient(180deg, var(--gold-bright), var(--gold))"
+                              ? "var(--gold)"
                               : claimable
-                              ? "linear-gradient(180deg, var(--gold-bright), var(--gold))"
+                              ? "var(--gold)"
                               : !unlocked
                               ? "var(--bg-card)"
                               : pct > 0

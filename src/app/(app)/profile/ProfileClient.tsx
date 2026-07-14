@@ -407,7 +407,7 @@ function Locker({
           {/* XP bar to next level */}
           <div className="mt-3 mb-1">
             <div className="progress-game">
-              <div style={{ width: `${lp.pct}%`, background: "linear-gradient(90deg, var(--primary), var(--gold-bright))" }} />
+              <div style={{ width: `${lp.pct}%`, background: "var(--primary)" }} />
             </div>
             <div className="flex justify-between mt-1">
               <span className="text-[10px] font-mono" style={{ color: "var(--text-muted)" }}>{lp.xpIntoLevel} / {lp.xpForNext} XP</span>

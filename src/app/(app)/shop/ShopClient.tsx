@@ -156,7 +156,7 @@ export default function ShopClient() {
       {/* Wallet bar */}
       <div
         className="card-game p-4 mb-6 flex items-center justify-between rise-in"
-        style={{ borderColor: "var(--gold-border)", background: "linear-gradient(180deg, var(--gold-bg), var(--bg-card) 80%)", position: "relative", overflow: "visible" }}
+        style={{ borderColor: "var(--gold-border)", background: "var(--bg-card)", position: "relative", overflow: "visible" }}
       >
         <div className="flex items-center gap-4">
           {profile && <Avatar config={profile.avatar} size={56} rounded={12} />}

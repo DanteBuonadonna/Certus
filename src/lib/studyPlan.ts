@@ -110,17 +110,26 @@ export function rankTitle(level: number): string {
 // ---- Adaptive plan progress ---------------------------------------------
 export type Pace = "ahead" | "on-track" | "behind" | "at-risk";
 
+// Nobody studies more than this in a day, and pretending otherwise makes the
+// app look like it was never used by a human. If the maths demands more, we
+// cap it and TELL them the truth instead of printing a fantasy.
+export const MAX_DAILY_HOURS = 4;
+
 export interface PlanProgress {
   daysRemaining: number;
   hoursLogged: number;
   hoursRemaining: number;
   percentComplete: number; // of target hours
-  dailyTargetHours: number; // re-balanced for remaining days
+  dailyTargetHours: number; // re-balanced for remaining days, CAPPED at MAX_DAILY_HOURS
   expectedHoursByNow: number;
   pace: Pace;
   todayHours: number;
   todayTargetHours: number;
   todayMet: boolean;
+  /** The pace the maths actually demands — may be absurd. Use for honesty, never as a goal. */
+  requiredDailyHours: number;
+  /** True when the remaining work can't fit in the remaining days at a human pace. */
+  paceImpossible: boolean;
 }
 
 export function planProgress(plan: StudyPlan, sessions: SessionLog[]): PlanProgress {
@@ -134,8 +143,19 @@ export function planProgress(plan: StudyPlan, sessions: SessionLog[]): PlanProgr
   const totalDays = Math.max(1, daysBetween(plan.startDate, plan.examDate));
   const daysElapsed = Math.max(0, Math.min(totalDays, daysBetween(plan.startDate, t)));
 
-  // Re-balanced daily target: spread the remaining work over remaining days.
-  const dailyTargetHours = daysRemaining > 0 ? hoursRemaining / daysRemaining : hoursRemaining;
+  // Re-balanced daily target: spread the remaining work over the remaining days.
+  //
+  // BUT: with a 300-hour target and 9 days left this yields 33 hours a day, and
+  // the app was cheerfully printing "0 / 1998 min today". A goal no human could
+  // ever hit isn't a goal, it's a bug wearing a progress ring — and it destroys
+  // every ounce of trust the rest of the product earns.
+  //
+  // So we cap the GOAL at a humane pace, and separately keep the honest number
+  // so the UI can say "you'd need 33 hrs/day to finish — that's not happening,
+  // here's what to prioritise instead."
+  const requiredDailyHours = daysRemaining > 0 ? hoursRemaining / daysRemaining : hoursRemaining;
+  const paceImpossible = requiredDailyHours > MAX_DAILY_HOURS;
+  const dailyTargetHours = Math.min(requiredDailyHours, MAX_DAILY_HOURS);
   const expectedHoursByNow = (daysElapsed / totalDays) * plan.targetHours;
 
   const todayMinutes = planSessions.filter((s) => s.date === t).reduce((s, x) => s + x.minutes, 0);
@@ -160,6 +180,8 @@ export function planProgress(plan: StudyPlan, sessions: SessionLog[]): PlanProgr
     todayHours: round1(todayHours),
     todayTargetHours: round1(dailyTargetHours),
     todayMet: todayHours >= dailyTargetHours && dailyTargetHours > 0,
+    requiredDailyHours: round1(requiredDailyHours),
+    paceImpossible,
   };
 }
 
