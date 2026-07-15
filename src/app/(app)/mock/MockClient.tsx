@@ -15,6 +15,8 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import Link from "next/link";
 import posthog from "posthog-js";
+import { useSignedIn } from "@/lib/AccessContext";
+import { useAccess } from "@/lib/useAccess";
 import { Question } from "@/content/types";
 import {
   MOCK_QUICK,
@@ -1269,8 +1271,21 @@ function ResultReport({
   onFullMock: () => void;
 }) {
   const r = score.readiness;
+  const signedIn = useSignedIn();
+  const access = useAccess();
   const [showAllReview, setShowAllReview] = useState(false);
   const missedCount = questions.filter((q, i) => answers[i] !== q.answerIndex).length;
+
+  // The mock result is the single highest-intent moment we have: they just
+  // sat a real exam and saw a real score/odds. Everyone lands here, whether or
+  // not they came through /check. So the ask has to live here too — a guest
+  // offer for cold traffic, an upgrade for signed-in free users.
+  const showGuestOffer = access.ready && !signedIn;
+  const showUpgrade = access.ready && signedIn && !access.pro;
+  useEffect(() => {
+    if (showGuestOffer) posthog.capture("paywall_shown", { trigger: "post_mock_guest", accuracy_pct: score.pct, exam });
+    if (showUpgrade) posthog.capture("paywall_shown", { trigger: "post_mock", accuracy_pct: score.pct, exam });
+  }, [showGuestOffer, showUpgrade, score.pct, exam]);
   const bandColor =
     r.band === "on-track"
       ? "var(--ats-green)"
@@ -1534,6 +1549,34 @@ function ResultReport({
             })}
           </div>
         </>
+      )}
+
+      {(showGuestOffer || showUpgrade) && (
+        <div className="card p-5 mb-5" style={{ borderColor: "var(--primary)", borderWidth: 2 }}>
+          <div className="text-base font-extrabold mb-1" style={{ color: "var(--text-primary)" }}>
+            {r.band === "on-track"
+              ? "You're close. Now close it for good."
+              : "This is a map of exactly what to fix."}
+          </div>
+          <div className="text-sm mb-4" style={{ color: "var(--text-secondary)", lineHeight: 1.5 }}>
+            You scored <span style={{ fontWeight: 700 }}>{score.pct}%</span> — odds of passing today around{" "}
+            {r.oddsLow}–{r.oddsHigh}%. Certus turns the weak topics above into targeted lessons and unlimited
+            practice, with every reading and every mock unlocked. The exam costs $1,140. This is $24.99/mo, or
+            $115 for the year.
+          </div>
+          <div className="flex flex-col sm:flex-row gap-2">
+            <Link
+              href={signedIn ? "/billing" : "/signup?next=/billing"}
+              className="btn-primary flex-1 text-center"
+              onClick={() => posthog.capture("upgrade_cta_clicked", { trigger: signedIn ? "post_mock" : "post_mock_guest", exam })}
+            >
+              Unlock my full plan →
+            </Link>
+            <Link href={`/practice?exam=${learnSlug}`} className="btn-secondary flex-1 text-center">
+              Train weak topics free
+            </Link>
+          </div>
+        </div>
       )}
 
       <div className="flex items-center gap-3">

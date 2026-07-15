@@ -145,7 +145,16 @@ function Check() {
       localStorage.setItem("certus_onboarded", "1");
     } catch {}
     posthog.capture("check_plan_built", { exam: examSlug, pct: result.pct });
-    router.push("/dashboard");
+    // Drop them straight into a lesson on the topic they JUST bled points on.
+    // This is the whole psychology: reciprocity (free value) + investment (they
+    // do the work), in the same session, so the upgrade ask at the end of that
+    // lesson lands on a warm, moving lead — not a cold dashboard.
+    const worst = result.weakTopics.find((t) => t.pct < 100);
+    if (worst) {
+      router.push(`/practice?exam=${exam.slug}&topic=${encodeURIComponent(worst.topicId)}&start=1`);
+    } else {
+      router.push("/dashboard");
+    }
   }
 
   const shell = (children: React.ReactNode) => (
@@ -204,10 +213,10 @@ function Check() {
         )}
 
         <button onClick={buildPlan} className="btn-duo w-full" style={{ padding: "0.95rem" }}>
-          Build my plan and start →
+          {worst[0] ? `Start fixing ${worst[0].topicName} →` : "Build my plan and start →"}
         </button>
         <p className="text-xs text-center mt-3" style={{ color: "var(--text-muted)" }}>
-          Free. No card. Half the readings, a full timed mock, and 25 questions a day.
+          Free. No card. Your first lesson targets exactly where you bled points.
         </p>
       </div>
     );

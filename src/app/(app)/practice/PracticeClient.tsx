@@ -367,10 +367,17 @@ function Results({ exam, questions, answers, maxCombo, earnedXp, levelUpInfo, on
   // the highest-converting moment to pitch Pro. (Guests instead see the
   // "save progress" nudge — they need an account before they can subscribe.)
   const showUpgrade = access.ready && !access.pro && signedIn && pct >= 50;
+  // The guest offer is the session-one ask for cold ad traffic: they arrived
+  // via the check, just did a lesson on their weak topic (value + effort), and
+  // now — while they're moving — we offer the full plan. Previously this whole
+  // audience saw only a weak "save your XP" nudge and NEVER an upgrade pitch,
+  // which is why the paywall was shown ~3x/month. This is the fix.
+  const showGuestOffer = access.ready && !signedIn;
   useEffect(() => {
     if (showUpgrade) posthog.capture("paywall_shown", { trigger: "post_practice", accuracy_pct: pct, exam });
+    if (showGuestOffer) posthog.capture("paywall_shown", { trigger: "post_practice_guest", accuracy_pct: pct, exam });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showUpgrade]);
+  }, [showUpgrade, showGuestOffer]);
 
   // Roll for a loot chest once, based on this run's accuracy.
   const [chest] = useState<ChestDrop | null>(() => rollChest(pct));
@@ -468,15 +475,28 @@ function Results({ exam, questions, answers, maxCombo, earnedXp, levelUpInfo, on
         </>
       )}
 
-      {!signedIn && (
-        <div className="card-i p-4 mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3" style={{ borderColor: "var(--primary)", borderWidth: 2 }}>
-          <div className="flex items-center gap-2.5">
-            <span style={{ fontSize: 24 }}>💾</span>
-            <span className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>
-              Don&apos;t lose this — make a free account to save your XP, streak, and Division spot.
-            </span>
+      {showGuestOffer && (
+        <div className="card-i p-5 mb-5" style={{ borderColor: "var(--primary)", borderWidth: 2 }}>
+          <div className="text-base font-extrabold mb-1" style={{ color: "var(--text-primary)" }}>
+            You just closed part of your gap. Keep the momentum.
           </div>
-          <Link href="/signup" className="btn-duo flex-shrink-0" style={{ padding: "0.55rem 1.1rem", fontSize: "0.78rem" }}>Save progress</Link>
+          <div className="text-sm mb-4" style={{ color: "var(--text-secondary)", lineHeight: 1.5 }}>
+            That was one lesson. Your full plan targets <span style={{ fontWeight: 700 }}>every</span> weak
+            topic from your check — with unlimited reps, all the readings, and a streak that keeps you
+            showing up. The exam costs $1,140. This is $24.99/mo, or $115 for the year.
+          </div>
+          <div className="flex flex-col sm:flex-row gap-2">
+            <Link
+              href="/signup?next=/billing"
+              className="btn-duo flex-1 text-center"
+              onClick={() => posthog.capture("upgrade_cta_clicked", { trigger: "post_practice_guest", exam })}
+            >
+              Unlock my full plan →
+            </Link>
+            <button className="btn-duo duo-ghost flex-1" onClick={onRetry}>
+              Keep practicing free
+            </button>
+          </div>
         </div>
       )}
 
