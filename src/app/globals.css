@@ -259,6 +259,36 @@ body {
   animation: riseIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+/* ---- /check cold-open hook ----
+   The curtain sits over question 1 for a beat, then dissolves. It is
+   pointer-events:none in the markup, so it never intercepts the first tap —
+   this is decoration over live content, not a gate in front of it. */
+@keyframes checkHook {
+  0%   { opacity: 1; }
+  70%  { opacity: 1; }
+  100% { opacity: 0; visibility: hidden; }
+}
+@keyframes checkHookLine {
+  0%   { opacity: 0; transform: translateY(10px) scale(0.98); }
+  22%  { opacity: 1; transform: translateY(0) scale(1); }
+  70%  { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-8px) scale(1.01); }
+}
+@keyframes checkHookSub {
+  0%   { opacity: 0; }
+  40%  { opacity: 0; }
+  60%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Anyone who asked the OS to stop moving things gets the question immediately. */
+@media (prefers-reduced-motion: reduce) {
+  @keyframes checkHook     { 0% { opacity: 0; visibility: hidden; } 100% { opacity: 0; visibility: hidden; } }
+  @keyframes checkHookLine { 0%, 100% { opacity: 0; } }
+  @keyframes checkHookSub  { 0%, 100% { opacity: 0; } }
+}
+
 /* Staggered entrance for lists/grids: apply .stagger to the parent. */
 .stagger > * {
   animation: riseIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;

@@ -15,7 +15,6 @@
 
 import { useEffect, useMemo, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
 import posthog from "posthog-js";
 import { LogoMark } from "@/components/Logo";
 import { getExam } from "@/lib/exams";
@@ -48,7 +47,13 @@ function Check() {
   const examSlug = params.get("exam") || "cfa";
   const exam = getExam(examSlug);
 
-  const [started, setStarted] = useState(false);
+  // No intro gate. PostHog was brutal on this: 44 sessions viewed /check and 5
+  // pressed Start — an 89% bounce on a page someone deliberately clicked. The
+  // old intro screen asked for a five-minute commitment before giving anything,
+  // so we deleted it. Question 1 is live on arrival; the hook animates OVER it
+  // and gets out of the way. It must never block the tap — if they're already
+  // reading the question, the hook has done its job.
+  const [hook, setHook] = useState(true);
   const [idx, setIdx] = useState(0);
   const [picked, setPicked] = useState<number | null>(null);
   const [answers, setAnswers] = useState<(number | null)[]>([]);
@@ -79,7 +84,19 @@ function Check() {
 
   useEffect(() => {
     posthog.capture("check_viewed", { exam: examSlug });
+    // Arriving IS starting now — there's no button to press. Keeping the event
+    // so the check_viewed → check_started → check_completed funnel stays
+    // comparable to the old one; the gap between viewed and started should now
+    // be ~0, and any remaining drop is real bounce, not a shut door.
+    posthog.capture("check_started", { exam: examSlug, variant: "no_intro" });
   }, [examSlug]);
+
+  // Retire the hook on a timer, but let any tap kill it early.
+  useEffect(() => {
+    if (!hook) return;
+    const t = setTimeout(() => setHook(false), 1900);
+    return () => clearTimeout(t);
+  }, [hook]);
 
   const q = questions[idx];
 
@@ -222,39 +239,54 @@ function Check() {
     );
   }
 
-  // ---------- INTRO ----------
-  if (!started) {
-    return shell(
-      <div className="rise-in text-center pt-6">
-        <h1 className="font-display mb-3" style={{ fontSize: 30, lineHeight: 1.2, color: "var(--text-primary)" }}>
-          Would you pass {exam.name} today?
-        </h1>
-        <p className="mb-6 mx-auto" style={{ fontSize: 15, color: "var(--text-secondary)", lineHeight: 1.6, maxWidth: 420 }}>
-          Ten real questions. About five minutes. At the end you get your score, the topics you&apos;re
-          bleeding points on, and an honest read on where you stand.
-        </p>
-        <button
-          onClick={() => { setStarted(true); posthog.capture("check_started", { exam: examSlug }); }}
-          className="btn-duo"
-          style={{ padding: "0.9rem 2.2rem", fontSize: 16 }}
-        >
-          Start
-        </button>
-        <div className="mt-4 text-xs" style={{ color: "var(--text-muted)" }}>
-          No card. No signup. No email.
-        </div>
-      </div>
-    );
-  }
-
-  // ---------- QUESTIONS ----------
+  // ---------- QUESTIONS (live on arrival) ----------
   return shell(
     <div>
+      {/* The hook. pointerEvents:none is load-bearing — it lets the very first
+          tap land on the answer underneath instead of being eaten by a curtain. */}
+      {hook && (
+        <div
+          onAnimationEnd={() => setHook(false)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 40,
+            pointerEvents: "none",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "var(--bg)",
+            animation: "checkHook 1.9s ease forwards",
+          }}
+        >
+          <div className="text-center px-6">
+            <div
+              className="font-display"
+              style={{ fontSize: 34, lineHeight: 1.15, color: "var(--text-primary)", animation: "checkHookLine 1.9s ease forwards" }}
+            >
+              Let&apos;s see if you&apos;d pass
+              <br />
+              <span style={{ color: "var(--primary)" }}>{exam.name}</span> today.
+            </div>
+            <div
+              className="text-sm mt-3"
+              style={{ color: "var(--text-muted)", animation: "checkHookSub 1.9s ease forwards" }}
+            >
+              10 real questions. Starting now.
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* No "Skip" link. This is the front door — every ad click lands here, and
+          a Skip was the only competing click on the page, pointing at a dashboard
+          a cold stranger has no reason to want. The back button still exists for
+          anyone who truly wants out; we just stop advertising the exit. */}
       <div className="flex items-center justify-between mb-2 pt-2">
         <span className="text-xs font-semibold" style={{ color: "var(--text-muted)" }}>
           {idx + 1} of {questions.length}
         </span>
-        <Link href="/dashboard" className="text-xs" style={{ color: "var(--text-muted)" }}>Skip</Link>
+        <span className="text-xs" style={{ color: "var(--text-muted)" }}>No card · no signup</span>
       </div>
       <div style={{ height: 6, borderRadius: 99, background: "var(--primary-light)", marginBottom: 22 }}>
         <div
