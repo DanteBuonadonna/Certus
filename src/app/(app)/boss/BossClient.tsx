@@ -23,6 +23,7 @@ import { canStartBoss, recordBossAttempt } from "@/lib/access";
 import { UpgradeCard } from "@/components/UpgradeGate";
 import { ProgressBar, GoldBurst } from "@/components/ui";
 import BossMonster from "@/components/BossMonster";
+import { GATE_PRICE_LINE } from "@/lib/tier";
 import {
   BossCrest,
   ShieldCheckIcon,
@@ -143,7 +144,7 @@ export default function BossClient() {
         {attemptLocked ? (
           <UpgradeCard
             title="You've used your free attempt at this Final"
-            reason="Every exam includes one free sitting so you can feel the real thing. Pro unlocks unlimited retakes — plus every chapter of every exam."
+            reason={`You've used your free sitting for this exam. Pro unlocks unlimited retakes. ${GATE_PRICE_LINE}`}
           />
         ) : (
           <>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSignedIn } from "@/lib/AccessContext";
 import { statHeadline } from "@/lib/contentStats";
 import posthog from "posthog-js";
+import { TIER_SENTENCE, GATE_PRICE_LINE } from "@/lib/tier";
 
 // Real icons. An emoji padlock on the screen where someone decides whether to
 // trust you with $25 is not a design choice, it's a tell.
@@ -26,7 +27,7 @@ function CheckIcon({ size = 15 }: { size?: number }) {
 
 export function UpgradeCard({
   title = "Unlock unlimited practice",
-  reason = "Free gives you half the readings, a full timed mock, and your real odds of passing. Pro is unlimited reps — and reps are the only thing that actually moves your score.",
+  reason = `${TIER_SENTENCE} ${GATE_PRICE_LINE}`,
 }: {
   title?: string;
   reason?: string;

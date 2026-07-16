@@ -12,20 +12,28 @@
 // Owner testing: /unlock grants Pro in this browser, /lock revokes it.
 // ============================================================
 
-// HALF of every exam's readings are free. Not two chapters — half.
-// Two chapters is a teaser; nobody can judge a study app from it. Half is
-// enough to actually trust the content, which is the whole job of the free
-// tier. The full mock exam and the odds-of-passing score are free too (see
-// /mock — no gate). What you pay for is REPS: unlimited practice questions.
+// The first FREE_CHAPTERS of every exam are free.
 //
-// Free  → half the readings · a full timed mock · your real pass odds · 25 questions/day
-// Pro   → every reading · unlimited questions · unlimited mock retakes
-export function freeChapterCount(totalChapters: number): number {
-  return Math.max(1, Math.ceil(totalChapters / 2));
+// This used to be HALF of every exam (13 of 26 on CFA), on the theory that
+// nobody can judge a study app from a teaser. The July 2026 funnel audit
+// disagreed: at ~1 chapter/day a free user didn't meet the paywall for two
+// weeks, but willingness to pay peaks around day 3–7 when the habit forms.
+// Half the readings meant the first ask landed long after the moment had gone.
+//
+// Free  → first 3 chapters · a full timed mock · real pass odds · 25 questions/day
+// Pro   → every reading · unlimited questions · unlimited mock + Final retakes
+//
+// Copy for all of the above lives in ONE place: src/lib/tier.ts. Don't
+// hand-write free/Pro strings in components.
+export const FREE_CHAPTERS = 3;
+
+export function freeChapterCount(_totalChapters: number): number {
+  return FREE_CHAPTERS;
 }
 
 // Free users get this many practice questions per day. The mock is what hooks
-// them; the daily grind is what they pay for.
+// them; the daily grind is what they pay for. The METER is the ad — a visible
+// "14/25 today" does the selling without interrupting anyone.
 export const FREE_DAILY_QUESTIONS = 25;
 
 // Legacy export — some copy still references a preview count.
@@ -77,7 +85,7 @@ export function chapterIsFree(index: number, totalChapters: number): boolean {
   return index < freeChapterCount(totalChapters);
 }
 
-// Pro unlocks every chapter; free users get the first half.
+// Pro unlocks every chapter; free users get the first FREE_CHAPTERS.
 export function canAccessChapter(index: number, totalChapters: number): boolean {
   return isPro() || chapterIsFree(index, totalChapters);
 }

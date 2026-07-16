@@ -15,26 +15,35 @@ export interface Plan {
   popular?: boolean;
 }
 
+// ORDER MATTERS: annual first. It's the plan we want them on — 4.6x the value
+// of a monthly that churns in month two — and it's genuinely better for a
+// candidate whose exam is months away.
+//
+// The badge used to sit on Monthly ("Most popular"), which anchored people onto
+// the worse option while the copy simultaneously pushed 62% off. Two signals
+// fighting each other; the badge won, because badges always do.
 export const PLANS: Plan[] = [
-  {
-    id: "monthly",
-    name: "Monthly",
-    price: "$24.99",
-    cadence: "/month",
-    sub: "Full access, billed monthly. Cancel anytime.",
-    priceEnvKey: "STRIPE_PRICE_MONTHLY",
-    popular: true,
-  },
   {
     // $24.99/mo × 12 = $299.88, so $115/yr ≈ 62% off. Update this if the
     // monthly price changes.
     id: "annual",
     name: "Annual",
-    price: "$115",
-    cadence: "/year",
-    sub: "Just $9.58/mo, billed yearly — 62% off the monthly plan.",
+    // Lead with the monthly-sounding number. Same money, and $9.58 doesn't
+    // trigger the flinch that $115 does from someone who hasn't built a habit.
+    price: "$9.58",
+    cadence: "/mo, billed yearly",
+    sub: "$115 once. 62% off monthly — and less than one hour of a tutor.",
     priceEnvKey: "STRIPE_PRICE_ANNUAL",
-    highlight: "Save 62%",
+    popular: true,
+    highlight: "Best value",
+  },
+  {
+    id: "monthly",
+    name: "Monthly",
+    price: "$24.99",
+    cadence: "/month",
+    sub: "Full flexibility, billed monthly. Cancel anytime.",
+    priceEnvKey: "STRIPE_PRICE_MONTHLY",
   },
 ];
 

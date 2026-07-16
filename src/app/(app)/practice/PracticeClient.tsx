@@ -25,6 +25,7 @@ import { rollChest, ChestDrop } from "@/lib/rewards";
 import { Coin } from "@/components/Coin";
 import { playCorrect, playWrong, playCombo, playComplete, isMuted, toggleMuted, hapticCorrect, hapticWrong } from "@/lib/sound";
 import StreakFlame from "@/components/StreakFlame";
+import { TIER_SENTENCE, GATE_PRICE_LINE } from "@/lib/tier";
 
 type Phase = "setup" | "quiz" | "results";
 
@@ -140,9 +141,11 @@ export default function PracticeClient() {
         })}
       </div>
 
-      {access.ready && !access.canExam(exam) ? (
-        <UpgradeCard title="This exam is Pro" reason="Free includes the full CFA question bank. Upgrade to practice every other exam." />
-      ) : (
+      {/* No exam-level gate here any more. canExam() returns true for everyone
+          — every exam is previewable — so this branch was dead code that still
+          claimed "upgrade to practice every other exam". Depth is what's
+          gated, not breadth: the daily question meter below is the real ask. */}
+      {(
         <>
           <p className="text-xs font-medium mb-2" style={{ color: "var(--text-secondary)" }}>Topic</p>
           <div className="flex items-center gap-2 mb-6 flex-wrap">
@@ -224,7 +227,7 @@ function Quiz({ questions, onFinish }: { questions: Question[]; onFinish: (answe
       <div className="px-4 py-6 md:px-8 md:py-8 max-w-2xl mx-auto">
         <UpgradeCard
           title={`That's your ${quizAccess.dailyLimit} questions for today`}
-          reason={`Free gives you ${quizAccess.dailyLimit} practice questions a day, half the readings, and a full timed mock with your real odds of passing. Pro is unlimited reps — and reps are the only thing that actually moves your score. Come back tomorrow, or upgrade and keep going now.`}
+          reason={`${TIER_SENTENCE} Pro is unlimited reps — and reps are the only thing that actually moves your score. Come back tomorrow, or upgrade and keep going now. ${GATE_PRICE_LINE}`}
         />
       </div>
     );
@@ -503,8 +506,8 @@ function Results({ exam, questions, answers, maxCombo, earnedXp, levelUpInfo, on
       {showUpgrade && (
         <div className="mb-5">
           <UpgradeCard
-            title="You're on a roll — unlock every exam"
-            reason={`${pct}% on that set. Pro opens every chapter, every exam, and unlimited Finals so you can keep this pace across your whole prep.`}
+            title="You're on a roll — keep going"
+            reason={`${pct}% on that set. ${TIER_SENTENCE} ${GATE_PRICE_LINE}`}
           />
         </div>
       )}

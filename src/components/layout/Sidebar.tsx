@@ -9,6 +9,7 @@ import { useAccess } from "@/lib/useAccess";
 import { Profile, loadProfile } from "@/lib/profile";
 import { Avatar } from "@/components/avatar";
 import { LogoMark } from "@/components/Logo";
+import { TIER_SHORT } from "@/lib/tier";
 
 interface SidebarProps {
   credits: number;
@@ -208,7 +209,11 @@ export default function Sidebar({ email }: SidebarProps) {
         ) : (
           <div className="rounded-lg px-3 py-3" style={{ background: "var(--primary-light)", border: "0.5px solid rgba(83,74,183,0.2)" }}>
             <div className="text-xs font-medium mb-1.5" style={{ color: "var(--primary)" }}>Free plan</div>
-            <div className="text-[11px] mb-2" style={{ color: "var(--text-secondary)" }}>CFA unlocked. Get every exam + boss battles.</div>
+            {/* Was: "CFA unlocked. Get every exam + boss battles." — which sold
+                two things that are already free (every exam is previewable, and
+                every exam includes a free Final sitting). Selling what you give
+                away is how a paywall loses credibility. */}
+            <div className="text-[11px] mb-2" style={{ color: "var(--text-secondary)" }}>{TIER_SHORT}. Pro is unlimited.</div>
             <Link href="/billing" className="block text-center text-xs font-medium py-1.5 rounded-md" style={{ background: "var(--primary)", color: "#fff" }}>
               Upgrade to Pro
             </Link>

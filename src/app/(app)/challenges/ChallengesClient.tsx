@@ -28,6 +28,7 @@ import {
 import { Coin, CoinBurst } from "@/components/Coin";
 import Confetti from "@/components/Confetti";
 import { playCorrect, playWrong, playComplete, playCoin, hapticCorrect, hapticWrong } from "@/lib/sound";
+import { TIER_SENTENCE, GATE_PRICE_LINE } from "@/lib/tier";
 
 type Mode = "lightning" | "open" | "wager";
 
@@ -71,7 +72,7 @@ export default function ChallengesClient() {
       </div>
 
       {locked ? (
-        <UpgradeCard title="Challenges are Pro for this exam" reason="Free includes the full CFA track. Upgrade to run challenges on every exam." />
+        <UpgradeCard title="Challenges are Pro" reason={`${TIER_SENTENCE} ${GATE_PRICE_LINE}`} />
       ) : (
         <div className="space-y-4">
           <ModeCard

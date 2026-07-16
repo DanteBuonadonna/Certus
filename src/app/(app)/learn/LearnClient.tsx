@@ -15,6 +15,7 @@ import { trackActivated } from "@/lib/analytics";
 import { GoldBurst } from "@/components/ui";
 import { ArrowLeftIcon, BookIcon, CheckCircleIcon, CheckIcon, ListIcon } from "@/components/icons";
 import Tutor from "@/components/Tutor";
+import { TIER_SENTENCE, GATE_PRICE_LINE } from "@/lib/tier";
 
 /** Flatten a section's content into plain text for the tutor's context. */
 function sectionPlainText(chapter: Chapter, idx: number): string {
@@ -58,7 +59,10 @@ export default function LearnClient() {
   const [exam, setExam] = useState(initialExam);
   const [chapterId, setChapterId] = useState<string | null>(initialChapterId);
   const [reading, setReading] = useState<ReadingStore>({});
-  const locked = access.ready && !access.canExam(exam);
+  // Dead since exams stopped being gated (canExam() is true for everyone).
+  // Kept as a named constant so the intent is explicit: NO exam is locked —
+  // only chapters past FREE_CHAPTERS are. See src/lib/tier.ts.
+  const locked = false;
 
   useEffect(() => {
     setReading(loadReading());
@@ -76,8 +80,8 @@ export default function LearnClient() {
             ← All chapters
           </button>
           <UpgradeCard
-            title="Unlock the second half"
-            reason={`The first ${access.freeChapters(chapters.length)} of ${chapters.length} chapters are free — that's half the curriculum. Pro unlocks the rest, plus unlimited practice questions.`}
+            title="This chapter is Pro"
+            reason={`${TIER_SENTENCE} ${GATE_PRICE_LINE}`}
           />
         </div>
       );
@@ -116,7 +120,9 @@ export default function LearnClient() {
               }}
               title={has ? "" : "Content coming soon"}
             >
-              {e.name}{!has ? " · soon" : access.ready && !access.canExam(e.slug) ? " · Pro" : ""}
+              {/* No " · Pro" suffix — no exam is Pro-only. Labelling free exams
+                  as Pro is exactly the mixed message the audit flagged. */}
+              {e.name}{!has ? " · soon" : ""}
             </button>
           );
         })}

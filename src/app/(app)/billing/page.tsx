@@ -11,6 +11,7 @@ import { useSignedIn } from "@/lib/AccessContext";
 import { redeemCode, setPro } from "@/lib/access";
 import { trackPurchase } from "@/lib/gtag";
 import posthog from "posthog-js";
+import { TIER_SENTENCE, EXAM_COST_ANCHOR } from "@/lib/tier";
 
 export default function BillingPage() {
   return (
@@ -140,7 +141,7 @@ function BillingInner() {
           {BRAND.name} membership
         </h1>
         <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
-          One subscription unlocks every exam, all reading, and the full question bank.
+          {TIER_SENTENCE} {EXAM_COST_ANCHOR}
         </p>
       </div>
 
@@ -224,14 +225,15 @@ function BillingInner() {
 function PlanCard({ plan, onSubscribe, loading }: { plan: Plan; onSubscribe: (id: string) => void; loading: boolean }) {
   return (
     <div className="card p-6 relative" style={{ border: plan.popular ? "1.5px solid var(--primary)" : "0.5px solid var(--border)" }}>
-      {plan.popular && (
-        <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-medium px-3 py-1 rounded-full" style={{ background: "var(--primary)", color: "#fff" }}>
-          Most popular
-        </span>
-      )}
-      {plan.highlight && !plan.popular && (
-        <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-medium px-3 py-1 rounded-full" style={{ background: "var(--ats-green)", color: "#fff" }}>
-          {plan.highlight}
+      {/* One badge, on the plan we actually want them on. `highlight` wins when
+          both are set — otherwise "Most popular" swallowed "Best value" and we
+          were back to badging the wrong option. */}
+      {(plan.popular || plan.highlight) && (
+        <span
+          className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-medium px-3 py-1 rounded-full whitespace-nowrap"
+          style={{ background: plan.highlight ? "var(--ats-green)" : "var(--primary)", color: "#fff" }}
+        >
+          {plan.highlight ?? "Most popular"}
         </span>
       )}
 
