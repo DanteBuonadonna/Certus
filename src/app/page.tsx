@@ -5,6 +5,8 @@ import { examsWithContent } from "@/content";
 import { statHeadline } from "@/lib/contentStats";
 import { liveTestimonials, hasRealTestimonials } from "@/lib/testimonials";
 import { LogoMark } from "@/components/Logo";
+import { FREE_INCLUDES, PRO_INCLUDES, ANNUAL_PER_MONTH, ANNUAL_TOTAL, MONTHLY_PRICE, EXAM_COST_ANCHOR } from "@/lib/tier";
+import { TRIAL_CTA, trialDisclosureShort } from "@/lib/trial";
 
 const RANKS = ["Intern", "Analyst", "Associate", "VP", "Director", "MD", "Partner"];
 
@@ -33,10 +35,15 @@ export default function LandingPage() {
           <LogoMark />
           <span className="font-display text-lg" style={{ color: "var(--text-primary)" }}>{BRAND.name}</span>
         </div>
+        {/* These pointed at /signup — a bare email/password form — which is a dead
+            end for someone in research mode who just wants to know what this is.
+            They anchor-scroll to the real sections now. "Free mock" is here
+            because it's the best thing we give away and it was unfindable. */}
         <div className="hidden md:flex items-center gap-7 text-sm" style={{ color: "var(--text-secondary)" }}>
-          <Link href="/signup" className="hover:opacity-70 transition-opacity">Exams</Link>
-          <Link href="/signup" className="hover:opacity-70 transition-opacity">How it works</Link>
-          <Link href="/billing" className="hover:opacity-70 transition-opacity">Pricing</Link>
+          <Link href="#exams" className="hover:opacity-70 transition-opacity">Exams</Link>
+          <Link href="#how" className="hover:opacity-70 transition-opacity">How it works</Link>
+          <Link href="/mock" className="hover:opacity-70 transition-opacity" style={{ color: "var(--ats-green)", fontWeight: 600 }}>Free mock</Link>
+          <Link href="#pricing" className="hover:opacity-70 transition-opacity">Pricing</Link>
         </div>
         <div className="flex items-center gap-3">
           <Link href="/login" className="text-sm px-3 py-2 rounded-lg hover:opacity-70 transition-opacity" style={{ color: "var(--text-secondary)" }}>Sign in</Link>
@@ -67,33 +74,83 @@ export default function LandingPage() {
         <div className="relative max-w-6xl mx-auto grid lg:grid-cols-[1.05fr_0.95fr] gap-12 items-center">
           {/* left: copy */}
           <div className="text-center lg:text-left rise-in">
+            {/* THE POSITIONING LINE. Four words that tell a stranger the whole
+                category. "Prep that runs like a career, not homework" was ours
+                alone — nobody had a hook for it. Everyone already knows what
+                Duolingo feels like, so this borrows that understanding for free. */}
             <div
               className="inline-flex items-center gap-2 text-xs font-medium px-3 py-1.5 rounded-full mb-6"
               style={{ background: "var(--bg-card)", color: "var(--primary)", border: "0.5px solid var(--border-strong)", boxShadow: "var(--shadow-sm)" }}
             >
               <span style={{ width: 6, height: 6, borderRadius: 99, background: "var(--ats-green)", display: "inline-block", boxShadow: "0 0 0 3px var(--ats-green-bg)" }} />
-              Prep that runs like a career, not homework
+              Duolingo for finance&apos;s hardest exams
             </div>
 
+            {/* THE ASK IS NOW A QUESTION THEY ALREADY HAVE.
+                164 sessions landed here and 121 never clicked anything. The old
+                headline ("Pass finance's hardest exams. Earn the title.") is
+                something Kaplan could run — it names the category, not us. And
+                the old CTA, "Start learning free", asks for an open-ended
+                commitment to studying. Nobody wakes up wanting to start
+                learning. They do wake up wondering whether they'd pass. */}
             <h1 className="font-display text-5xl lg:text-6xl leading-[1.04] mb-5" style={{ color: "var(--text-primary)", letterSpacing: "-0.03em" }}>
-              Pass finance&apos;s
+              Would you pass
               <br />
-              hardest exams.
+              the CFA
               <br />
-              <span className="lp-gradient-text">Earn the title.</span>
+              <span className="lp-gradient-text">today?</span>
             </h1>
 
-            <p className="text-lg mb-8 max-w-lg mx-auto lg:mx-0" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>
-              {`${BRAND.name} turns the CFA, CPA, Series 7, and more into a career you level up — daily assignments, real rewards, and an Exam Day you only face once you've truly earned it.`}
+            <p className="text-lg mb-6 max-w-lg mx-auto lg:mx-0" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>
+              Find out in five minutes. Ten real questions, then your score, the topics
+              you&apos;re bleeding points on, and an honest read on where you stand.
+              Then {BRAND.name} drills exactly those topics — five minutes a day, like Duolingo,
+              until the gap is gone.
             </p>
 
-            <div className="flex items-center justify-center lg:justify-start gap-3 flex-wrap">
-              <Link href="/welcome" className="btn-primary text-base px-7 py-3">Start learning free →</Link>
-              <Link href="/dashboard" className="btn-secondary text-base px-7 py-3">Explore the exams</Link>
+            {/* The differentiator, stated where it can be checked. This is the
+                sharpest thing we own and it wasn't on the page at all. */}
+            <div
+              className="inline-flex items-center gap-2 text-sm font-semibold px-3.5 py-2 rounded-lg mb-7"
+              style={{ background: "var(--ats-green-bg)", color: "var(--ats-green)" }}
+            >
+              <span>✓</span>
+              Full timed mock exam — free. No signup, no card.
             </div>
-            <p className="text-xs mt-4" style={{ color: "var(--text-muted)" }}>
-              No signup needed to start · Jump right in · Make an account later to save your progress
+
+            <div className="flex items-center justify-center lg:justify-start gap-3 flex-wrap">
+              {/* ONE obvious action. "Explore the exams" was a co-equal button
+                  pointing at a dashboard a stranger has no reason to want. */}
+              <Link href="/check?exam=cfa" className="btn-primary text-base px-7 py-3">
+                Take the 5-minute check →
+              </Link>
+              <Link href="/mock" className="btn-secondary text-base px-7 py-3">
+                Or sit the free mock
+              </Link>
+            </div>
+            <p className="text-xs mt-4 mb-5" style={{ color: "var(--text-muted)" }}>
+              No signup. No card. No email. The exam costs $1,140 — finding out where you stand shouldn&apos;t.
             </p>
+
+            {/* The headline names the CFA because it's the biggest audience, but a
+                Series 7 candidate must not read it and think "not for me". Each
+                chip is the same 5-minute check for their exam. */}
+            <div className="flex items-center justify-center lg:justify-start gap-2 flex-wrap">
+              <span className="text-xs" style={{ color: "var(--text-muted)" }}>Studying something else?</span>
+              {liveExams
+                .filter((e) => e.slug !== "cfa")
+                .slice(0, 5)
+                .map((e) => (
+                  <Link
+                    key={e.slug}
+                    href={`/check?exam=${e.slug}`}
+                    className="text-xs font-medium px-2.5 py-1 rounded-md transition-opacity hover:opacity-70"
+                    style={{ background: e.accent + "14", color: e.accent, border: `0.5px solid ${e.accent}33` }}
+                  >
+                    {e.name}
+                  </Link>
+                ))}
+            </div>
           </div>
 
           {/* right: floating promotion mock */}
@@ -219,7 +276,7 @@ export default function LandingPage() {
       </section>
 
       {/* ---------- How it works ---------- */}
-      <section className="py-20 px-6" style={{ borderBottom: "0.5px solid var(--border)" }}>
+      <section id="how" className="py-20 px-6" style={{ borderBottom: "0.5px solid var(--border)" }}>
         <div className="max-w-5xl mx-auto">
           <h2 className="text-center font-display text-3xl mb-3" style={{ color: "var(--text-primary)" }}>A desk you&apos;ll actually want to sit at</h2>
           <p className="text-center text-sm mb-12" style={{ color: "var(--text-secondary)" }}>Four moves from first day to fully credentialed.</p>
@@ -241,7 +298,7 @@ export default function LandingPage() {
       </section>
 
       {/* ---------- Exam grid ---------- */}
-      <section className="py-20 px-6" style={{ borderBottom: "0.5px solid var(--border)" }}>
+      <section id="exams" className="py-20 px-6" style={{ borderBottom: "0.5px solid var(--border)" }}>
         <div className="max-w-5xl mx-auto">
           <h2 className="text-center font-display text-3xl mb-2" style={{ color: "var(--text-primary)" }}>The exams that decide careers</h2>
           <p className="text-center text-sm mb-12" style={{ color: "var(--text-secondary)" }}>
@@ -308,6 +365,69 @@ export default function LandingPage() {
         </section>
       )}
 
+      {/* ---------- Pricing ----------
+          There was NO price anywhere on this page. Not one number. The "Pricing"
+          nav link went to /billing, which needs an account to be useful. A buyer
+          who can't find a price assumes it's expensive and leaves — and we were
+          hiding a number ($9.58/mo) that's cheap next to a $1,140 exam. Hiding
+          your best argument is a strange way to sell. */}
+      <section id="pricing" className="py-20 px-6" style={{ borderBottom: "0.5px solid var(--border)", background: "var(--bg-card)" }}>
+        <div className="max-w-3xl mx-auto">
+          <p className="text-center text-xs uppercase tracking-wider mb-2" style={{ color: "var(--text-muted)" }}>Pricing</p>
+          <h2 className="font-display text-3xl text-center mb-2" style={{ color: "var(--text-primary)", letterSpacing: "-0.02em" }}>
+            Start free. Pay when it&apos;s working.
+          </h2>
+          <p className="text-sm text-center mb-10" style={{ color: "var(--text-secondary)" }}>
+            {EXAM_COST_ANCHOR} This is the cheapest part of your prep.
+          </p>
+
+          <div className="grid sm:grid-cols-2 gap-5">
+            {/* Free */}
+            <div className="card p-6" style={{ border: "0.5px solid var(--border)" }}>
+              <div className="text-sm font-medium mb-1" style={{ color: "var(--text-secondary)" }}>Free</div>
+              <div className="flex items-baseline gap-1 mb-4">
+                <span className="font-display text-4xl" style={{ color: "var(--text-primary)" }}>$0</span>
+                <span className="text-sm" style={{ color: "var(--text-muted)" }}>forever</span>
+              </div>
+              <ul className="space-y-2 mb-6">
+                {FREE_INCLUDES.map((f) => (
+                  <li key={f} className="flex items-start gap-2 text-sm" style={{ color: "var(--text-secondary)" }}>
+                    <span style={{ color: "var(--ats-green)", marginTop: 1 }}>✓</span>{f}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/check?exam=cfa" className="btn-secondary w-full text-center block">Take the 5-minute check</Link>
+            </div>
+
+            {/* Pro — annual badged, monthly-framed price */}
+            <div className="card p-6 relative" style={{ border: "1.5px solid var(--primary)" }}>
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-medium px-3 py-1 rounded-full whitespace-nowrap" style={{ background: "var(--ats-green)", color: "#fff" }}>
+                Best value
+              </span>
+              <div className="text-sm font-medium mb-1" style={{ color: "var(--text-secondary)" }}>Pro</div>
+              <div className="flex items-baseline gap-1">
+                <span className="font-display text-4xl" style={{ color: "var(--text-primary)" }}>{ANNUAL_PER_MONTH}</span>
+                <span className="text-sm" style={{ color: "var(--text-muted)" }}>/mo, billed yearly</span>
+              </div>
+              <div className="text-xs mt-1 mb-4" style={{ color: "var(--text-muted)" }}>
+                ${ANNUAL_TOTAL} once — or ${MONTHLY_PRICE}/mo month to month.
+              </div>
+              <ul className="space-y-2 mb-6">
+                {PRO_INCLUDES.map((f) => (
+                  <li key={f} className="flex items-start gap-2 text-sm" style={{ color: "var(--text-secondary)" }}>
+                    <span style={{ color: "var(--ats-green)", marginTop: 1 }}>✓</span>{f}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/billing" className="btn-primary w-full text-center block">{TRIAL_CTA} →</Link>
+              <p className="text-xs mt-3" style={{ color: "var(--text-muted)", lineHeight: 1.5 }}>
+                {trialDisclosureShort("annual")}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ---------- CTA ---------- */}
       <section className="relative py-24 px-6 text-center" style={{ overflow: "hidden" }}>
         <div aria-hidden className="lp-blob" style={{ width: 420, height: 420, top: -80, left: "50%", marginLeft: -210, background: "var(--primary)", opacity: 0.32 }} />
@@ -318,7 +438,9 @@ export default function LandingPage() {
           <p className="text-sm mb-8" style={{ color: "var(--text-secondary)" }}>
             The candidates who pass aren&apos;t the smartest — they&apos;re the most consistent. {BRAND.name} makes consistency the easy part.
           </p>
-          <Link href="/welcome" className="btn-primary text-base px-8 py-3.5">Start free →</Link>
+          {/* Same ask as the hero. A second, different CTA here would just split
+              intent again — the whole page should be pulling one direction. */}
+          <Link href="/check?exam=cfa" className="btn-primary text-base px-8 py-3.5">Would you pass today? Find out →</Link>
         </div>
       </section>
 

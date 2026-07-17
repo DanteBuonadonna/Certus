@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSignedIn } from "@/lib/AccessContext";
 import { statHeadline } from "@/lib/contentStats";
 import posthog from "posthog-js";
+import { TRIAL_CTA, trialDisclosureShort } from "@/lib/trial";
 import { TIER_SENTENCE, GATE_PRICE_LINE } from "@/lib/tier";
 
 // Real icons. An emoji padlock on the screen where someone decides whether to
@@ -36,8 +37,12 @@ export function UpgradeCard({
   const s = statHeadline();
   // Guests must create an account before subscribing — Pro attaches to the
   // Supabase user via Stripe, so send them to signup first, then billing.
+  //
+  // The ask is now "try it", not "pay me". Same wall, far smaller step: the
+  // decision at this moment is whether to keep going, and $115 is the wrong
+  // question to put in front of someone answering it.
   const ctaHref = signedIn ? "/billing" : "/signup?next=/billing";
-  const ctaLabel = signedIn ? "Go Pro →" : "Create account to go Pro →";
+  const ctaLabel = signedIn ? `${TRIAL_CTA} →` : `${TRIAL_CTA} — free →`;
 
   return (
     <div
@@ -82,8 +87,8 @@ export function UpgradeCard({
       <div className="text-left text-sm mx-auto mb-5" style={{ maxWidth: 320, color: "var(--text-secondary)" }}>
         {[
           "Unlimited practice questions — no daily cap",
-          "The second half of every reading",
-          "Unlimited full timed mocks and retakes",
+          "Every chapter of every exam, not just the first 3",
+          "Unlimited full timed mocks and Final retakes",
           "Trap-aware explanations on every question",
         ].map((f) => (
           <div key={f} className="flex items-start gap-2 mb-1.5">
@@ -98,8 +103,12 @@ export function UpgradeCard({
         className="btn-duo inline-flex"
         onClick={() => posthog.capture("upgrade_cta_clicked", { signed_in: signedIn, title })}
       >{ctaLabel}</Link>
-      <p className="text-xs mt-3" style={{ color: "var(--text-muted)" }}>
-        $115/year — less than a tenth of a typical prep course. Cancel anytime.
+      {/* The disclosure travels WITH the button. A CTA that says "free" over a
+          caption that says "$115/year" is the mismatch that becomes a dispute
+          on day 8 — and disputes cost $15 and a mark on our ratio even when we
+          win. Say the charge date and amount where the click happens. */}
+      <p className="text-xs mt-3" style={{ color: "var(--text-muted)", lineHeight: 1.5 }}>
+        {trialDisclosureShort("annual")}
       </p>
     </div>
   );

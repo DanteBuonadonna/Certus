@@ -11,6 +11,7 @@ import { useSignedIn } from "@/lib/AccessContext";
 import { redeemCode, setPro } from "@/lib/access";
 import { trackPurchase } from "@/lib/gtag";
 import posthog from "posthog-js";
+import { TRIAL_CTA, TRIAL_DAYS, TRIAL_REMINDER_DAYS_BEFORE, trialDisclosure } from "@/lib/trial";
 import { TIER_SENTENCE, EXAM_COST_ANCHOR } from "@/lib/tier";
 
 export default function BillingPage() {
@@ -68,7 +69,8 @@ function BillingInner() {
       });
     } else if (searchParams.get("success") === "true") {
       const sessionId = searchParams.get("session_id");
-      setMessage({ type: "success", text: "Confirming your subscription…" });
+      const isTrial = searchParams.get("trial") === "1";
+      setMessage({ type: "success", text: isTrial ? "Starting your free trial…" : "Confirming your subscription…" });
       // A completed Stripe Checkout (paid plan OR a 100%-off promo) returns
       // here with a session_id. In guest mode there's no signed-in account for
       // the server to flip is_pro on, so unlock this browser client-side too.
@@ -78,15 +80,38 @@ function BillingInner() {
         try {
           const res = await fetch(`/api/stripe/confirm?session_id=${encodeURIComponent(sessionId ?? "")}`);
           const data = await res.json();
-          posthog.capture("subscribed", { source: "checkout" });
-          // Tell Google Ads a sale happened, and what it was worth, so it can
-          // optimize on money instead of clicks.
           const planParam = searchParams.get("plan");
-          trackPurchase(planParam === "annual" ? 115 : 24.99, sessionId ?? undefined);
+          posthog.capture(isTrial ? "trial_started" : "subscribed", { source: "checkout", plan: planParam });
+
+          // Google Ads conversion value.
+          //
+          // A trial start is NOT a $115 sale — no money has moved and it may
+          // never. Reporting full price here would teach Google to chase
+          // trial-starters regardless of whether they ever pay, and overstate
+          // revenue to ourselves.
+          //
+          // But Google has to see SOMETHING near the click or it can't optimize
+          // at all, and the real charge lands on day 8 when nobody's on-site to
+          // fire a tag. So: report expected value — full price × the benchmark
+          // trial→paid rate for card-required trials (~30%). It's a guess, and
+          // it's flagged as one. Once we have a real conversion rate, replace
+          // this with server-side reporting from the Stripe invoice.paid
+          // webhook and delete the estimate.
+          const full = planParam === "annual" ? 115 : 24.99;
+          trackPurchase(isTrial ? Math.round(full * 0.3 * 100) / 100 : full, sessionId ?? undefined);
+
           if (data.pro) router.refresh();
-          setMessage({ type: "success", text: "You're subscribed! Full access is unlocked — every chapter, every exam, every Final." });
+          const okText = isTrial
+            ? `You're in — free for ${TRIAL_DAYS} days. Everything's unlocked. We'll email you ${TRIAL_REMINDER_DAYS_BEFORE} days before your card is charged, and you can cancel in one click any time before then.`
+            : "You're subscribed! Full access is unlocked — every chapter, every exam, every Final.";
+          setMessage({ type: "success", text: okText });
         } catch {
-          setMessage({ type: "success", text: "You're subscribed! Full access is unlocked — every chapter, every exam, every Final." });
+          setMessage({
+            type: "success",
+            text: isTrial
+              ? `You're in — free for ${TRIAL_DAYS} days. Cancel in one click any time before your card is charged.`
+              : "You're subscribed! Full access is unlocked — every chapter, every exam, every Final.",
+          });
         }
       })();
     } else if (searchParams.get("canceled") === "true") {
@@ -256,8 +281,16 @@ function PlanCard({ plan, onSubscribe, loading }: { plan: Plan; onSubscribe: (id
       </ul>
 
       <button className={plan.popular ? "btn-primary w-full" : "btn-secondary w-full"} onClick={() => onSubscribe(plan.id)} disabled={loading}>
-        {loading ? "Redirecting…" : `Choose ${plan.name}`}
+        {loading ? "Redirecting…" : TRIAL_CTA}
       </button>
+
+      {/* CLEAR AND CONSPICUOUS: directly under the button, readable size, not a
+          footnote and not behind a link. That placement is the legal standard
+          (ROSCA / CA ARL) — and separately, it's what stops the day-8 charge
+          from being a surprise, which is what stops it becoming a dispute. */}
+      <p className="text-xs mt-3" style={{ color: "var(--text-muted)", lineHeight: 1.5 }}>
+        {trialDisclosure(plan.id)}
+      </p>
     </div>
   );
 }

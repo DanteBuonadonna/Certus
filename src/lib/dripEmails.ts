@@ -37,6 +37,69 @@ function button(label: string, href: string): string {
   return `<a href="${href}" style="display:inline-block;background:${PRIMARY};color:#ffffff;text-decoration:none;font-weight:700;font-size:15px;padding:13px 26px;border-radius:10px;">${label}</a>`;
 }
 
+/**
+ * Shell for TRANSACTIONAL mail (billing notices). Deliberately has no
+ * unsubscribe link: this is not marketing, it's "we are about to charge your
+ * card." It must reach people who opted out of marketing — that's both the
+ * CAN-SPAM distinction and the entire point, since the person most likely to
+ * dispute is the one least engaged with our emails.
+ */
+function txShell(bodyHtml: string): string {
+  return `<!doctype html><html><body style="margin:0;background:#f4f4f7;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f7;padding:24px 0;">
+    <tr><td align="center">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;background:#ffffff;border-radius:14px;overflow:hidden;border:1px solid #e6e6ef;">
+        <tr><td style="padding:22px 28px;border-bottom:1px solid #eee;">
+          <span style="font-size:18px;font-weight:700;color:${PRIMARY};letter-spacing:-0.3px;">Certus</span>
+          <span style="font-size:12px;color:#9a9aa8;"> — billing notice</span>
+        </td></tr>
+        <tr><td style="padding:28px;color:#33333d;font-size:15px;line-height:1.6;">${bodyHtml}</td></tr>
+        <tr><td style="padding:18px 28px;border-top:1px solid #eee;color:#9a9aa8;font-size:12px;line-height:1.5;">
+          This is a billing notice about your Certus trial, not a marketing email.
+          Questions? Just reply to this message.
+        </td></tr>
+      </table>
+    </td></tr>
+  </table></body></html>`;
+}
+
+/**
+ * "Your trial ends in 2 days." Sent by /api/cron/trial-reminder.
+ *
+ * Written to be genuinely easy to cancel from — the cancel link is as prominent
+ * as the keep-going one. That feels backwards until you price it: a cancellation
+ * costs us $0, and a surprise charge costs $15 plus a mark against a dispute
+ * ratio that can close the Stripe account. We WANT the forgetful ones to leave
+ * cleanly rather than leave via their bank.
+ */
+export function trialEndingEmail(plan: "annual" | "monthly", endsAt: Date): DripEmail {
+  const amount = plan === "annual" ? "$115 for the year" : "$24.99 for the month";
+  const when = endsAt.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" });
+  return {
+    subject: `Your Certus trial ends ${when} — then it's ${plan === "annual" ? "$115" : "$24.99"}`,
+    html: txShell(`
+      <p style="margin:0 0 14px;">Quick heads-up so nothing surprises you.</p>
+      <p style="margin:0 0 14px;">
+        Your free trial ends on <strong>${when}</strong>. On that day we'll charge the card you
+        added <strong>${amount}</strong>, and Certus keeps running — every chapter, unlimited
+        questions, unlimited mocks.
+      </p>
+      <p style="margin:0 0 20px;">
+        If that's not what you want, cancel now and you won't be charged a cent. It takes one click
+        and you keep your trial until ${when} either way.
+      </p>
+      <p style="margin:0 0 10px;">${button("Keep my access", `${APP_URL}/dashboard`)}</p>
+      <p style="margin:0 0 18px;">
+        <a href="${APP_URL}/billing" style="color:#9a9aa8;font-size:14px;text-decoration:underline;">Cancel my trial</a>
+      </p>
+      <p style="margin:0;color:#9a9aa8;font-size:13px;">
+        The exam costs $1,140. We're trying to be the cheapest useful thing you buy this year — but
+        only if you're actually using it.
+      </p>
+    `),
+  };
+}
+
 export interface DripEmail {
   subject: string;
   html: string;

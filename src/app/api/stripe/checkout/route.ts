@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { createClient } from "@/lib/supabase/server";
 import { getPostHogClient } from "@/lib/posthog-server";
+import { TRIAL_DAYS } from "@/lib/trial";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2024-04-10",
@@ -100,14 +101,28 @@ export async function POST(request: Request) {
       );
     }
 
+    // 7 free days, card collected up front.
+    //
+    // trial_settings.end_behavior.missing_payment_method = "cancel" matters:
+    // if the card is gone or dead when the trial ends, Stripe cancels quietly
+    // instead of generating a failed invoice and a dunning cycle. A failed
+    // charge to someone who forgot they subscribed is the exact event that
+    // becomes a dispute, and disputes count against us whether we win or lose.
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
       line_items: [{ price: priceId, quantity: 1 }],
       metadata: { user_id: userId ?? "guest", plan, ...(refId ? { promotekit_referral: refId } : {}) },
-      subscription_data: { metadata: { user_id: userId ?? "guest", plan } },
+      subscription_data: {
+        metadata: { user_id: userId ?? "guest", plan },
+        trial_period_days: TRIAL_DAYS,
+        trial_settings: { end_behavior: { missing_payment_method: "cancel" } },
+      },
+      // Collect the card even though $0 is due today — otherwise there's
+      // nothing to charge on day 8 and the trial is just a giveaway.
+      payment_method_collection: "always",
       ...(userEmail ? { customer_email: userEmail } : {}),
       allow_promotion_codes: true,
-      success_url: `${origin}/billing?success=true&session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${origin}/billing?success=true&trial=1&plan=${encodeURIComponent(plan)}&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/billing?canceled=true`,
     });
     const ph = getPostHogClient();
