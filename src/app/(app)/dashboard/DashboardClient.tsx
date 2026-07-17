@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import posthog from "posthog-js";
 import { BRAND } from "@/lib/brand";
 import { Profile, loadProfile } from "@/lib/profile";
 import { Avatar } from "@/components/avatar";
@@ -29,6 +30,8 @@ import {
 } from "@/lib/studyPlan";
 import { GAME_KEY } from "@/lib/gameStore";
 import { computeReadiness } from "@/lib/readiness";
+import { CHECK_MINUTES } from "@/lib/check";
+import { loadDiagnostic } from "@/lib/diagnostic";
 import {
   AnimatedNumber,
   ProgressBar,
@@ -84,12 +87,23 @@ export default function DashboardClient() {
     if (loaded) localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   }, [state, loaded]);
 
+  // A brand-new user has done NOTHING yet. Until they have, this dashboard must
+  // not scold them, congratulate them, or interrupt them. All three were
+  // happening on first load. One flag, used everywhere below.
+  const isColdStart = loaded && state.xp === 0 && (state.sessions?.length ?? 0) === 0;
+
   // Offer the daily Market Open bonus once onboarding/tour are out of the way.
   useEffect(() => {
     if (!loaded || dailyChecked || showQuickStart) return;
+    // NOT on a cold start. This modal opened on first load, on top of — and
+    // covering — the START A LESSON button, handing out a currency that means
+    // nothing to someone who arrived 4 seconds ago. It reads as "what is this
+    // popup", not "I earned something". It fires after the first lesson now,
+    // when +25 Comp is a reward instead of an interruption.
+    if (isColdStart) return;
     if (dailyBonusInfo().available) setShowDaily(true);
     setDailyChecked(true);
-  }, [loaded, dailyChecked, showQuickStart]);
+  }, [loaded, dailyChecked, showQuickStart, isColdStart]);
 
   function showToast(msg: string) {
     setToast(msg);
@@ -106,6 +120,13 @@ export default function DashboardClient() {
     () => (loaded && activePlan ? computeReadiness(activePlan.examSlug, state) : null),
     [loaded, activePlan, state]
   );
+
+  // Their /check result, so the dashboard remembers what they just did.
+  const diagnostic = useMemo(
+    () => (loaded && activePlan ? loadDiagnostic(activePlan.examSlug) : null),
+    [loaded, activePlan]
+  );
+  const diagWorst = diagnostic?.weakTopics.find((t) => t.pct < 100) ?? null;
 
   // Last 30 days of study minutes for the sparkline.
   const sparkData = useMemo(() => heatmap(state, 30).map((d) => d.minutes), [state]);
@@ -178,14 +199,19 @@ export default function DashboardClient() {
         </div>
       )}
 
-      {/* New-hire onboarding nudge — only if they're signed in, so we never
-          stack two banners on top of each other on first load. */}
-      {signedIn && !profile && !showQuickStart && (
+      {/* Avatar nudge — only if signed in, so we never stack two banners on first
+          load, and never on a cold start.
+          Copy was: "You haven't onboarded yet. Build your professional identity."
+          Shown right after someone finished the welcome quiz — so it told a user
+          who HAD just onboarded that they hadn't. That reads as a bug, and a bug
+          on first load costs you the benefit of the doubt on everything else.
+          It's an avatar. Call it an avatar. */}
+      {signedIn && !profile && !showQuickStart && !isColdStart && (
         <div className="card p-4 mb-6 flex items-center justify-between rise-in" style={{ borderColor: "var(--gold-border)", boxShadow: "var(--glow-gold)" }}>
           <div>
             <div className="pill-gold mb-1.5">NEW HIRE</div>
             <div className="text-sm" style={{ color: "var(--text-primary)" }}>
-              You haven&apos;t onboarded yet. Build your professional identity — portrait, archetype, the works.
+              Create your avatar — portrait, archetype, the works. Takes a minute.
             </div>
           </div>
           <Link href="/profile" className="btn-primary text-sm px-4 py-2 flex-shrink-0">Start onboarding →</Link>
@@ -246,8 +272,67 @@ export default function DashboardClient() {
         </div>
       )}
 
-      {/* Odds of passing — one line, real numbers. The full gauge is under "Show more". */}
-      {activePlan && readiness && progress && (
+      {/* Odds of passing — one line, real numbers. The full gauge is under "Show more".
+          On a cold start there IS no signal, so "0% odds of passing" isn't a
+          measurement — it's a division by zero shown to a human. It reads as
+          broken AND as an insult. Ask for the signal instead; it's 3 minutes and
+          it's the best thing we give away. */}
+      {/* They just took the check — show them what they earned, and ONE next move.
+          Arriving from /check into a dashboard that has forgotten the last 3
+          minutes is the fastest way to make the whole thing feel pointless. */}
+      {activePlan && isColdStart && diagnostic && (
+        <div
+          className="card p-5 mb-6 rise-in"
+          style={{ animationDelay: "0.05s", borderColor: "var(--primary)", borderWidth: 2 }}
+        >
+          <div className="flex items-baseline justify-between gap-3 mb-3">
+            <div className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>
+              Your check · {diagnostic.correct} of {diagnostic.total}
+            </div>
+            <Link href={`/check?exam=${activePlan.examSlug}`} className="text-xs font-semibold" style={{ color: "var(--primary)" }}>
+              Retake
+            </Link>
+          </div>
+          {diagWorst && (
+            <>
+              <div className="text-base font-extrabold mb-1" style={{ color: "var(--text-primary)" }}>
+                {diagWorst.topicName} is where you bled points.
+              </div>
+              <div className="text-sm mb-4" style={{ color: "var(--text-secondary)", lineHeight: 1.5 }}>
+                You got {diagWorst.correct} of {diagWorst.total} there. Five questions, about two minutes —
+                that&apos;s the highest-value thing you can do right now.
+              </div>
+              <Link
+                href={`/practice?exam=${activePlan.examSlug}&topic=${encodeURIComponent(diagWorst.topicId)}&start=1&first=1`}
+                className="btn-duo w-full text-center block"
+                onClick={() => posthog.capture("improve_cta_clicked", { exam: activePlan.examSlug, topic: diagWorst.topicId })}
+              >
+                Fix {diagWorst.topicName} — 5 questions →
+              </Link>
+            </>
+          )}
+        </div>
+      )}
+
+      {/* No check yet, no activity — ask for the signal instead of inventing one. */}
+      {activePlan && isColdStart && !diagnostic && (
+        <Link
+          href={`/check?exam=${activePlan.examSlug}`}
+          className="w-full card p-4 mb-6 flex items-center justify-between gap-3 text-left rise-in"
+          style={{ animationDelay: "0.05s", borderColor: "var(--primary)", borderWidth: 1 }}
+        >
+          <div className="min-w-0">
+            <div className="text-[11px] font-semibold uppercase tracking-wider mb-0.5" style={{ color: "var(--text-muted)" }}>
+              Your odds of passing
+            </div>
+            <div className="text-sm" style={{ color: "var(--text-secondary)" }}>
+              Take the {CHECK_MINUTES}-minute check and we&apos;ll tell you where you actually stand.
+            </div>
+          </div>
+          <span className="text-xs font-semibold flex-shrink-0" style={{ color: "var(--primary)" }}>Start →</span>
+        </Link>
+      )}
+      {activePlan && readiness && progress && !isColdStart && (
         <button
           onClick={() => setShowMore(true)}
           className="w-full card p-4 mb-6 flex items-center justify-between gap-3 text-left rise-in"
@@ -270,7 +355,13 @@ export default function DashboardClient() {
 
       {/* If the remaining work can't fit in the remaining days, SAY SO. The app used
           to just print "0 / 1998 min today" and hope nobody did the arithmetic. */}
-      {activePlan && progress?.paceImpossible && (
+      {/* NEVER on a cold start. This is a great message on day 10 to someone who
+          has drifted. On day 0 it tells a person who has done literally nothing
+          wrong yet that they're already failing — and it fires purely because
+          the plan arithmetic says 300 hours won't fit in 90 days, which is true
+          of every new user by construction. That's not tough love, it's a slap
+          at hello, and it was landing on people 30 seconds after they arrived. */}
+      {activePlan && progress?.paceImpossible && !isColdStart && (
         <div
           className="card p-4 mb-6 rise-in"
           style={{ border: "1px solid var(--ats-amber)", background: "var(--ats-amber-bg, var(--bg-card))" }}

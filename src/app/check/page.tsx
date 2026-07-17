@@ -249,19 +249,15 @@ function Check() {
       localStorage.setItem("certus_onboarded", "1");
     } catch {}
     posthog.capture("check_plan_built", { exam: examSlug, pct: result.pct });
-    // Hand off to a SHORT first lesson on the topic they just bled points on.
+    // Land on the dashboard — DON'T force-start a lesson.
     //
-    // This used to send them into a full 20-question run. Ten check questions
-    // followed immediately by twenty more is thirty questions with no payoff in
-    // between — the reward for finishing the diagnostic was a longer diagnostic.
-    // `first=1` makes it five questions and about two minutes: one clean win,
-    // then the ask.
-    const worst = result.weakTopics.find((t) => t.pct < 100);
-    if (worst) {
-      router.push(`/practice?exam=${exam.slug}&topic=${encodeURIComponent(worst.topicId)}&start=1&first=1`);
-    } else {
-      router.push("/dashboard");
-    }
+    // v1 of this dropped them into a full 20-question run: 6 check questions
+    // straight into 20 more, no payoff between, no way out. That's not a funnel,
+    // it's a corridor. The dashboard gives them the thing they just earned (their
+    // score, their weak topics) plus one obvious next move and the freedom to
+    // ignore it and poke around. People who choose the lesson do it with intent;
+    // people who wander might still come back. Nobody gets marched.
+    router.push("/dashboard");
   }
 
   const shell = (children: React.ReactNode) => (
@@ -330,10 +326,11 @@ function Check() {
             keep, and it's small enough to say yes to. */}
         <div className="rise-in" style={{ animationDelay: "2.15s" }}>
           <button onClick={buildPlan} className="btn-duo w-full" style={{ padding: "0.95rem" }}>
-            {worst[0] ? `Fix ${worst[0].topicName} — 5 questions →` : "Build my plan and start →"}
+            Get my plan →
           </button>
           <p className="text-xs text-center mt-3" style={{ color: "var(--text-muted)" }}>
-            About two minutes. Free, no card. Then we&apos;ll leave you alone — 5 minutes a day is the whole idea.
+            Free, no card, no email. You&apos;ll land on your dashboard with this result saved —
+            fix {worst[0]?.topicName ?? "your weak spots"} first, or just look around.
           </p>
         </div>
       </div>
