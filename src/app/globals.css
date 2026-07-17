@@ -990,6 +990,36 @@ body {
 .duo-sheet {
   animation: duoSheetUp 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+/* ---- Lesson mode ----
+   While answering, the mobile tab bar is hidden. Both it and the quiz's action
+   sheet are fixed to bottom:0 at z-40, and the tab bar renders later in the DOM
+   — so it covered the Check button and the quiz became impossible to advance.
+   See src/lib/useLessonMode.ts. Any component that owns the bottom of the
+   screen must set this, not raise its z-index. */
+body[data-lesson="1"] [data-mobile-tabbar],
+body[data-lesson="1"] [data-status-bar] {
+  display: none;
+}
+
+/* ---- --tabbar-h: how much bottom space the tab bar is eating ----
+   Anything fixed near the bottom must offset by this instead of hardcoding a
+   magic number. Three components had already guessed independently — Tutor
+   (bottom:22, buried behind the bar on /learn), Tour (bottom:12, unreachable),
+   RotateHint (bottom:12, covering the tabs) — and PracticeClient was passing
+   bottomInset={92} to dodge a bar it shouldn't need to know about.
+   0 on desktop (sidebar, no tab bar) and 0 in lesson mode (bar is hidden). */
+:root {
+  --tabbar-h: 0px;
+}
+@media (max-width: 767px) {
+  :root {
+    --tabbar-h: calc(58px + env(safe-area-inset-bottom, 0px));
+  }
+  body[data-lesson="1"] {
+    --tabbar-h: 0px;
+  }
+}
 .duo-sheet.good { background: var(--duo-green-bg); }
 .duo-sheet.bad { background: var(--duo-red-bg); }
 

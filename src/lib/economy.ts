@@ -168,6 +168,22 @@ export function itemsBySlot(slot: ItemSlot): ShopItem[] {
   return SHOP_ITEMS.filter((i) => i.slot === slot);
 }
 
+/**
+ * Comp is a GAME CURRENCY. Never render it with a dollar sign.
+ *
+ * This used to return `$3,180`, and the Perks Desk said "1 XP = $1". A user
+ * looking at a cosmetics shop priced in "$" reasonably concludes either (a)
+ * these hats cost real money, or (b) we're holding $3,180 of their money. Both
+ * are wrong, and both make the REAL paywall harder to read — if "$" means play
+ * money here, what does "$115" mean on the billing page?
+ *
+ * One currency symbol per product. The dollar sign belongs to Stripe.
+ */
 export function formatComp(n: number): string {
-  return `$${n.toLocaleString()}`;
+  return `${n.toLocaleString()} Comp`;
+}
+
+/** Bare number, for places that render the coin icon next to it. */
+export function formatCompShort(n: number): string {
+  return n.toLocaleString();
 }

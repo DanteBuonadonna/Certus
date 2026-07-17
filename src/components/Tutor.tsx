@@ -125,7 +125,7 @@ export default function Tutor({
     <>
       {/* Floating launcher + one-time coachmark */}
       {!open && (
-        <div className="fixed z-40" style={{ bottom: bottomInset, right: 22 }}>
+        <div className="fixed z-40" style={{ bottom: `calc(${bottomInset}px + var(--tabbar-h))`, right: 22 }}>
           {showIntro && (
             <div
               className="pop-in"
@@ -193,7 +193,7 @@ export default function Tutor({
         <div
           className="fixed z-50 flex flex-col animate-in"
           style={{
-            bottom: Math.max(18, bottomInset - 4),
+            bottom: `calc(${Math.max(18, bottomInset - 4)}px + var(--tabbar-h))`,
             right: 18,
             width: 372,
             maxWidth: "calc(100vw - 36px)",

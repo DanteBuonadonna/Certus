@@ -44,7 +44,9 @@ export default function RotateHint() {
         position: "fixed",
         left: 12,
         right: 12,
-        bottom: 12,
+        // Sits above the tab bar rather than covering it. At bottom:12 with
+        // z-60 this hid the tabs behind a hint about rotating your phone.
+        bottom: "calc(12px + var(--tabbar-h))",
         zIndex: 60,
         display: "flex",
         alignItems: "center",

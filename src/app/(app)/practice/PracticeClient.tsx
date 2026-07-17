@@ -16,6 +16,7 @@ import { useSignedIn } from "@/lib/AccessContext";
 import { trackActivated } from "@/lib/analytics";
 import { buildRun, RUN_SIZE, FIRST_LESSON_SIZE } from "@/lib/practiceRotation";
 import { useAccess } from "@/lib/useAccess";
+import { useLessonMode } from "@/lib/useLessonMode";
 import { recordQuestionAnswered } from "@/lib/access";
 import { UpgradeCard } from "@/components/UpgradeGate";
 import Tutor from "@/components/Tutor";
@@ -184,6 +185,9 @@ export default function PracticeClient() {
 }
 
 function Quiz({ questions, onFinish }: { questions: Question[]; onFinish: (answers: (number | null)[], maxCombo: number) => void }) {
+  // The Check button is a fixed bottom sheet — the tab bar sat on top of it and
+  // made the quiz impossible to advance on mobile. Lessons hide the nav.
+  useLessonMode(true);
   const [idx, setIdx] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [checked, setChecked] = useState(false);
@@ -351,7 +355,6 @@ function Quiz({ questions, onFinish }: { questions: Question[]; onFinish: (answe
             : ["Teach me the concept behind this", "How do I approach this question?", "Define the terms in this question"]
         }
         intro
-        bottomInset={92}
       />
     </div>
   );

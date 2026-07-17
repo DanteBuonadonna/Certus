@@ -75,7 +75,16 @@ export default function Tour({
   // On desktop, place below/above the target (or centered if no target).
   const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
   const tooltipStyle: React.CSSProperties = isMobile
-    ? { position: "fixed", left: 12, right: 12, bottom: 12, maxHeight: "78vh", overflowY: "auto" }
+    ? {
+        position: "fixed",
+        left: 12,
+        right: 12,
+        // Clear the mobile tab bar (54px + safe area) — at bottom:12 this sat
+        // underneath it, so the tour's own buttons were unreachable.
+        bottom: "calc(12px + var(--tabbar-h))",
+        maxHeight: "70vh",
+        overflowY: "auto",
+      }
     : rect
     ? (() => {
         const width = Math.min(340, window.innerWidth - 32);

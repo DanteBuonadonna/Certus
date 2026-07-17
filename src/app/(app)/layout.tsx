@@ -1,5 +1,6 @@
 import Sidebar from "@/components/layout/Sidebar";
 import MobileTabBar from "@/components/layout/MobileTabBar";
+import StatusBar from "@/components/layout/StatusBar";
 import { createClient } from "@/lib/supabase/server";
 import AuthScope from "@/components/AuthScope";
 import SyncGate from "@/components/SyncGate";
@@ -61,9 +62,13 @@ export default async function AppLayout({
             background: "var(--bg)",
           }}
         >
+          <StatusBar />
           <SyncGate userId={userId}>{children}</SyncGate>
-          {/* Clear the fixed tab bar so the last card isn't hidden under it. */}
-          <div className="md:hidden" style={{ height: "calc(72px + env(safe-area-inset-bottom, 0px))" }} />
+          {/* Clear the fixed tab bar so the last card isn't hidden under it.
+              Uses --tabbar-h (globals.css) so this can't drift out of sync with
+              the bar's real height — and collapses to 0 in lesson mode, where
+              the bar is hidden and the extra gap would just be dead space. */}
+          <div style={{ height: "var(--tabbar-h)" }} />
         </main>
         <MobileTabBar />
       </div>

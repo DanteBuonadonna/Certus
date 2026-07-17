@@ -48,7 +48,7 @@ function CoinIcon({ size = 14 }: { size?: number }) {
     <svg width={size} height={size} viewBox="0 0 20 20" aria-hidden>
       <circle cx="10" cy="10" r="9" fill="var(--gold-bright)" stroke="var(--gold-deep)" strokeWidth="1.6" />
       <circle cx="10" cy="10" r="5.8" fill="none" stroke="var(--gold-deep)" strokeWidth="1" opacity="0.55" />
-      <text x="10" y="13.6" textAnchor="middle" fontSize="9.5" fontWeight="800" fill="#5d4a12">$</text>
+      <text x="10" y="13.6" textAnchor="middle" fontSize="8.5" fontWeight="800" fill="#5d4a12">C</text>
     </svg>
   );
 }
@@ -166,14 +166,14 @@ export default function ShopClient() {
             </div>
             <div className="font-display text-2xl flex items-center gap-2" style={{ color: "var(--gold)" }}>
               <Coin size={22} spin />
-              $<AnimatedNumber value={balance} />
+              <AnimatedNumber value={balance} />
             </div>
             {walletBurst > 0 && <CoinBurst key={walletBurst} count={8} size={18} />}
           </div>
         </div>
         <div className="text-right text-xs font-semibold" style={{ color: "var(--text-muted)" }}>
           <div>Lifetime earned: {formatComp(compEarned(state, wallet))}</div>
-          <div className="mt-0.5">1 XP = $1 · quests pay bonuses</div>
+          <div className="mt-0.5">1 XP earns 1 Comp · quests pay bonuses</div>
         </div>
       </div>
 

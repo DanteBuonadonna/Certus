@@ -12,7 +12,9 @@ export function Coin({ size = 20, spin = false }: { size?: number; spin?: boolea
       <svg width={size} height={size} viewBox="0 0 20 20" aria-hidden>
         <circle cx="10" cy="10" r="9" fill="var(--gold-bright)" stroke="var(--gold-deep, #8a6d1f)" strokeWidth="1.6" />
         <circle cx="10" cy="10" r="5.8" fill="none" stroke="var(--gold-deep, #8a6d1f)" strokeWidth="1" opacity="0.55" />
-        <text x="10" y="13.8" textAnchor="middle" fontSize="10" fontWeight="800" fill="#5d4a12">$</text>
+        {/* "C" for Comp, not "$". A dollar sign on the play-money coin is what
+            made people think the Perks Desk charged real money. */}
+        <text x="10" y="13.8" textAnchor="middle" fontSize="9" fontWeight="800" fill="#5d4a12">C</text>
       </svg>
     </span>
   );

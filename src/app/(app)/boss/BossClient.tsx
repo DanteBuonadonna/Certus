@@ -19,6 +19,7 @@ import {
 import { recordQuiz } from "@/lib/gameStore";
 import { hapticCorrect, hapticWrong } from "@/lib/sound";
 import { useAccess } from "@/lib/useAccess";
+import { useLessonMode } from "@/lib/useLessonMode";
 import { canStartBoss, recordBossAttempt } from "@/lib/access";
 import { UpgradeCard } from "@/components/UpgradeGate";
 import { ProgressBar, GoldBurst } from "@/components/ui";
@@ -178,6 +179,9 @@ function Battle({
   onFinish: (answers: (number | null)[], answeredCount: number, defeatedByHearts: boolean) => void;
   onQuit: () => void;
 }) {
+  // The Final is a timed exam — hide the nav while it's live.
+  useLessonMode(true);
+
   const [idx, setIdx] = useState(0);
   const [picked, setPicked] = useState<number | null>(null);
   const [answered, setAnswered] = useState(false);

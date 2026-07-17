@@ -74,8 +74,12 @@ export default function ExamsPage() {
                 <span className="text-[11px]" style={{ color: "var(--text-muted)" }}>
                   {ready ? `${e.levels.length} ${e.levels.length === 1 ? "exam" : "levels"} · ~${totalHours(e)} hrs` : "In development"}
                 </span>
+                {/* Was "Set up plan →" pointing at bare /dashboard — which had no
+                    plan editor once a plan existed, so this sent you to a page
+                    that couldn't do the thing it promised. ?plan=1 opens the
+                    editor directly. */}
                 {ready ? (
-                  <Link href="/dashboard" className="text-xs font-medium" style={{ color: "var(--primary)" }}>
+                  <Link href={`/dashboard?plan=1&exam=${e.slug}`} className="text-xs font-medium" style={{ color: "var(--primary)" }}>
                     Set up plan →
                   </Link>
                 ) : (

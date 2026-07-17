@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import posthog from "posthog-js";
 import { BRAND } from "@/lib/brand";
 import { Profile, loadProfile } from "@/lib/profile";
@@ -65,7 +66,15 @@ export default function DashboardClient() {
   const [showQuickStart, setShowQuickStart] = useState(false);
   const [showDaily, setShowDaily] = useState(false);
   const [dailyChecked, setDailyChecked] = useState(false);
+  const [editingPlan, setEditingPlan] = useState(false);
   const signedIn = useSignedIn();
+  const params = useSearchParams();
+
+  // /exams links here with ?plan=1 to open the editor directly — otherwise
+  // "Set up plan →" dumps you on a dashboard and leaves you to find it.
+  useEffect(() => {
+    if (params.get("plan") === "1") setEditingPlan(true);
+  }, [params]);
 
   // Hydrate from localStorage on mount.
   useEffect(() => {
@@ -269,6 +278,53 @@ export default function DashboardClient() {
       {!activePlan && (
         <div className="mb-6">
           <PlanSetup onCreate={createPlan} />
+        </div>
+      )}
+
+      {/* THE PLAN HAS TO BE EDITABLE.
+          PlanSetup only rendered when !activePlan — so once a plan existed there
+          was NO WAY to change your exam or your exam date, anywhere in the app.
+          And /check auto-creates a plan with examDate = today + 90 days. So
+          every check-taker got a fabricated date they never chose and could
+          never fix, and the whole adaptive plan — daily goal, pacing, days-out,
+          readiness — was computed off it. The audit even said "reset it via the
+          Exams page"; there was no reset on the Exams page. */}
+      {activePlan && (
+        <div className="mb-6">
+          {!editingPlan ? (
+            <button
+              onClick={() => setEditingPlan(true)}
+              className="w-full card p-4 flex items-center justify-between gap-3 text-left"
+            >
+              <div className="min-w-0">
+                <div className="text-[11px] font-semibold uppercase tracking-wider mb-0.5" style={{ color: "var(--text-muted)" }}>
+                  Your track
+                </div>
+                <div className="text-sm" style={{ color: "var(--text-primary)" }}>
+                  <strong>{activePlan.examName} {activePlan.levelName}</strong>
+                  <span style={{ color: "var(--text-secondary)" }}> · exam {activePlan.examDate}</span>
+                </div>
+              </div>
+              <span className="text-xs font-semibold flex-shrink-0" style={{ color: "var(--primary)" }}>Change →</span>
+            </button>
+          ) : (
+            <>
+              <PlanSetup
+                onCreate={(p) => {
+                  createPlan(p);
+                  setEditingPlan(false);
+                }}
+                initial={activePlan}
+              />
+              <button
+                onClick={() => setEditingPlan(false)}
+                className="w-full text-xs py-3"
+                style={{ color: "var(--text-muted)" }}
+              >
+                Cancel
+              </button>
+            </>
+          )}
         </div>
       )}
 
@@ -590,10 +646,12 @@ function titleName(id: string): string {
 }
 
 // ---- Plan setup ----------------------------------------------------------
-function PlanSetup({ onCreate }: { onCreate: (p: StudyPlan) => void }) {
-  const [slug, setSlug] = useState("cfa");
-  const [levelId, setLevelId] = useState("l1");
-  const [date, setDate] = useState("");
+function PlanSetup({ onCreate, initial }: { onCreate: (p: StudyPlan) => void; initial?: StudyPlan }) {
+  // `initial` lets this double as the EDITOR. Without it the component could
+  // only ever create a plan, which is why plans were immutable once set.
+  const [slug, setSlug] = useState(initial?.examSlug ?? "cfa");
+  const [levelId, setLevelId] = useState(initial?.levelId ?? "l1");
+  const [date, setDate] = useState(initial?.examDate ?? "");
   const exam = getExam(slug)!;
   const level = exam.levels.find((l) => l.id === levelId) ?? exam.levels[0];
 

@@ -69,6 +69,24 @@ export function UpgradeCard({
         {reason}
       </p>
 
+      {/* THE PRICE TODAY IS ZERO. Lead with it.
+          The decision at this wall isn't "is this worth $115" — it's "do I want
+          to keep going". $0 answers the question they're actually asking, and
+          it's true: the card isn't charged for 7 days. The what-happens-next is
+          directly underneath, because a big $0 with the consequence hidden is
+          how you earn chargebacks. */}
+      <div
+        className="mx-auto mb-4 py-3 px-5 inline-flex flex-col items-center"
+        style={{ borderRadius: 16, background: "var(--ats-green-bg)" }}
+      >
+        <div className="font-display" style={{ fontSize: 46, lineHeight: 1, color: "var(--ats-green)" }}>
+          $0
+        </div>
+        <div className="text-xs font-bold uppercase tracking-wider mt-1" style={{ color: "var(--ats-green)" }}>
+          due today
+        </div>
+      </div>
+
       {/* Live depth-proof — computed from the real content library */}
       <div className="flex justify-center gap-5 mb-5">
         {[

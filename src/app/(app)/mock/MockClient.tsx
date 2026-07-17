@@ -17,6 +17,7 @@ import Link from "next/link";
 import posthog from "posthog-js";
 import { useSignedIn } from "@/lib/AccessContext";
 import { useAccess } from "@/lib/useAccess";
+import { useLessonMode } from "@/lib/useLessonMode";
 import { Question } from "@/content/types";
 import {
   MOCK_QUICK,
@@ -695,6 +696,10 @@ function ExamRoom({
   initialSeconds: number;
   onSubmit: (s: SessionState) => void;
 }) {
+  // A timed exam owns the whole screen — and the palette/submit controls live at
+  // the bottom, where the tab bar would sit on top of them.
+  useLessonMode(true);
+
   const nQ = session.questions.length;
   const nSlots = nQ + session.essays.length; // essays occupy nav slots after MCQs
   const [idx, setIdx] = useState(Math.min(initialIdx, nSlots - 1));
