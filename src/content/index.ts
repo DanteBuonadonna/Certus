@@ -47,6 +47,36 @@ export function getQuestions(slug: string, topicId?: string): Question[] {
   return topicId ? qs.filter((q) => q.topicId === topicId) : qs;
 }
 
+/**
+ * Exams that have content, IN THE CANONICAL ORDER from lib/exams.ts.
+ *
+ * This used to be `Object.keys(REGISTRY)` — i.e. the order the keys happen to
+ * be typed in this file, which starts with `sie`. Seven pages do
+ * `useState(available[0] ?? "cfa")`, so an incidental line-ordering decision in
+ * a registry literal was silently choosing the default exam for Reading,
+ * Practice, Flashcards, Skill tree, Challenges, The Final and Career — landing
+ * everyone on the SIE while their dashboard said CFA. `?? "cfa"` never fired,
+ * because available[0] was always truthy.
+ *
+ * EXAMS is the deliberate order (CFA I → II → III → CPA → … → Series). Sorting
+ * by it means available[0] is CFA Level I, and every exam list in the app reads
+ * in the same sequence instead of registry-insertion order.
+ */
+// Canonical display order. Mirrors EXAMS in lib/exams.ts — kept local rather
+// than importing it, because content/ is the leaf layer and shouldn't depend on
+// lib/exams (which imports nothing from here today, but that's exactly the kind
+// of cycle that bites later). Anything not listed sorts to the end.
+const DISPLAY_ORDER = [
+  "cfa", "cfa-l2", "cfa-l3",
+  "cpa-aud", "cpa-far", "cpa-reg", "cpa-disc",
+  "cfp",
+  "sie", "series-7", "series-66",
+];
+
 export function examsWithContent(): string[] {
-  return Object.keys(REGISTRY);
+  return Object.keys(REGISTRY).sort((a, b) => {
+    const ia = DISPLAY_ORDER.indexOf(a);
+    const ib = DISPLAY_ORDER.indexOf(b);
+    return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
+  });
 }

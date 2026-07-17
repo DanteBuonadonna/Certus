@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { EXAMS, getExam } from "@/lib/exams";
+import { getExam } from "@/lib/exams";
 import {
   Flashcard,
   FlashStore,
@@ -17,6 +17,8 @@ import {
   masteredCount,
 } from "@/lib/flashcards";
 import { recordFlashcards } from "@/lib/gameStore";
+import { preferredExam } from "@/lib/preferredExam";
+import ExamPicker from "@/components/ExamPicker";
 
 export default function FlashcardsClient() {
   const available = examsWithDecks();
@@ -24,7 +26,7 @@ export default function FlashcardsClient() {
 
   // Honor ?exam= and ?topic= so links from the skill tree open the right deck.
   const paramExam = params.get("exam");
-  const initialExam = paramExam && available.includes(paramExam) ? paramExam : available[0] ?? "cfa";
+  const initialExam = preferredExam(available, paramExam);
   const paramTopic = params.get("topic");
   const initialTopic = paramTopic && deckTopics(initialExam).some((t) => t.topicId === paramTopic) ? paramTopic : "all";
 
@@ -66,24 +68,13 @@ export default function FlashcardsClient() {
         Spaced repetition — cards you know come back less often, cards you miss come back soon. Built from every chapter&apos;s key terms.
       </p>
 
-      <div className="flex items-center gap-2 mb-5 flex-wrap">
-        {EXAMS.map((e) => {
-          const has = available.includes(e.slug);
-          const active = e.slug === exam;
-          return (
-            <button key={e.slug} disabled={!has} onClick={() => { setExam(e.slug); setTopic("all"); }}
-              className="text-xs px-3 py-1.5 rounded-lg"
-              style={{
-                background: active ? "var(--primary)" : "var(--bg-card)",
-                color: active ? "#fff" : has ? "var(--text-secondary)" : "var(--text-muted)",
-                border: "0.5px solid var(--border)", opacity: has ? 1 : 0.5, cursor: has ? "pointer" : "not-allowed",
-              }}>
-              {/* No 🔒 — no exam is locked. Padlocking a free exam is exactly
-                  the mixed message that makes the paywall untrustworthy. */}
-              {e.name}{!has ? " · soon" : ""}
-            </button>
-          );
-        })}
+      <div className="mb-6">
+        <ExamPicker
+          value={exam}
+          available={available}
+          onChange={(slug) => { setExam(slug); setTopic("all"); }}
+          label="Deck for"
+        />
       </div>
 
       {/* Dead gate removed. canExam() returns true for everyone — no exam has

@@ -4,11 +4,13 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import posthog from "posthog-js";
-import { EXAMS } from "@/lib/exams";
+
 import { examsWithContent, getChapters, getChapter } from "@/content";
 import { Chapter, Block } from "@/content/types";
 import { useAccess } from "@/lib/useAccess";
 import { UpgradeCard } from "@/components/UpgradeGate";
+import ExamPicker from "@/components/ExamPicker";
+import { preferredExam } from "@/lib/preferredExam";
 import { loadReading, markChapterRead, isChapterRead, ReadingStore } from "@/lib/readingProgress";
 import { recordReadingXp } from "@/lib/gameStore";
 import { trackActivated } from "@/lib/analytics";
@@ -44,7 +46,7 @@ export default function LearnClient() {
   // Honor ?exam= and ?topic=/?chapter= so links from the skill tree, dashboard,
   // etc. open the RIGHT exam and chapter (not the default first exam).
   const paramExam = params.get("exam");
-  const initialExam = paramExam && available.includes(paramExam) ? paramExam : available[0] ?? "cfa";
+  const initialExam = preferredExam(available, paramExam);
   const initialChapterId = (() => {
     const ch = params.get("chapter");
     if (ch) return ch;
@@ -96,32 +98,14 @@ export default function LearnClient() {
         Original, in-depth chapters on each major topic. Read first, then drill it in Practice.
       </p>
 
-      {/* Exam selector */}
-      <div className="flex items-center gap-2 mb-6 flex-wrap">
-        {EXAMS.map((e) => {
-          const has = available.includes(e.slug);
-          const active = e.slug === exam;
-          return (
-            <button
-              key={e.slug}
-              disabled={!has}
-              onClick={() => { setExam(e.slug); setChapterId(null); }}
-              className="text-xs px-3 py-1.5 rounded-lg transition-colors"
-              style={{
-                background: active ? "var(--primary)" : "var(--bg-card)",
-                color: active ? "#fff" : has ? "var(--text-secondary)" : "var(--text-muted)",
-                border: "0.5px solid var(--border)",
-                opacity: has ? 1 : 0.5,
-                cursor: has ? "pointer" : "not-allowed",
-              }}
-              title={has ? "" : "Content coming soon"}
-            >
-              {/* No " · Pro" suffix — no exam is Pro-only. Labelling free exams
-                  as Pro is exactly the mixed message the audit flagged. */}
-              {e.name}{!has ? " · soon" : ""}
-            </button>
-          );
-        })}
+      {/* One ordered dropdown instead of a 12-chip wrap. See ExamPicker. */}
+      <div className="mb-6">
+        <ExamPicker
+          value={exam}
+          available={available}
+          onChange={(slug) => { setExam(slug); setChapterId(null); }}
+          label="Reading for"
+        />
       </div>
 
       {/* Course progress */}

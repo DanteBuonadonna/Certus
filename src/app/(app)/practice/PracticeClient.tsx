@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import posthog from "posthog-js";
-import { EXAMS, getExam } from "@/lib/exams";
+import { getExam } from "@/lib/exams";
 import { examsWithContent, getQuestions } from "@/content";
 import { Question } from "@/content/types";
 import { recordQuiz, loadState } from "@/lib/gameStore";
@@ -19,6 +19,8 @@ import { useAccess } from "@/lib/useAccess";
 import { useLessonMode } from "@/lib/useLessonMode";
 import { recordQuestionAnswered } from "@/lib/access";
 import { UpgradeCard } from "@/components/UpgradeGate";
+import ExamPicker from "@/components/ExamPicker";
+import { preferredExam } from "@/lib/preferredExam";
 import Tutor from "@/components/Tutor";
 import Confetti from "@/components/Confetti";
 import { ChestModal } from "@/components/Rewards";
@@ -35,7 +37,7 @@ export default function PracticeClient() {
   const available = examsWithContent();
   const access = useAccess();
   const paramExam = params.get("exam");
-  const initialExam = paramExam && available.includes(paramExam) ? paramExam : available[0] ?? "cfa";
+  const initialExam = preferredExam(available, paramExam);
 
   const [exam, setExam] = useState(initialExam);
   const [topic, setTopic] = useState(params.get("topic") ?? "all");
@@ -129,28 +131,13 @@ export default function PracticeClient() {
         Every question comes with a full explanation — including why the wrong answers are wrong. That&apos;s where the learning happens.
       </p>
 
-      <div className="flex items-center gap-2 mb-5 flex-wrap">
-        {EXAMS.map((e) => {
-          const has = available.includes(e.slug);
-          const active = e.slug === exam;
-          return (
-            <button
-              key={e.slug}
-              disabled={!has}
-              onClick={() => { setExam(e.slug); setTopic("all"); }}
-              className="text-xs px-3 py-1.5 rounded-lg"
-              style={{
-                background: active ? "var(--primary)" : "var(--bg-card)",
-                color: active ? "#fff" : has ? "var(--text-secondary)" : "var(--text-muted)",
-                border: "0.5px solid var(--border)",
-                opacity: has ? 1 : 0.5,
-                cursor: has ? "pointer" : "not-allowed",
-              }}
-            >
-              {e.name}{!has ? " · soon" : ""}
-            </button>
-          );
-        })}
+      <div className="mb-5">
+        <ExamPicker
+          value={exam}
+          available={available}
+          onChange={(slug) => { setExam(slug); setTopic("all"); }}
+          label="Practising"
+        />
       </div>
 
       {/* No exam-level gate here any more. canExam() returns true for everyone

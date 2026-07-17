@@ -2,11 +2,13 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { EXAMS, getExam } from "@/lib/exams";
+import { getExam } from "@/lib/exams";
 import { examsWithContent, getChapters, getQuestions } from "@/content";
 import { buildDeck, loadStore, masteredCount, FlashStore } from "@/lib/flashcards";
 import { ProgressBar } from "@/components/ui";
 import { CheckIcon, FlagIcon, BuildingIcon, LaurelIcon } from "@/components/icons";
+import { preferredExam } from "@/lib/preferredExam";
+import ExamPicker from "@/components/ExamPicker";
 
 interface Node {
   topicId: string;
@@ -19,7 +21,7 @@ interface Node {
 
 export default function SkillTreeClient() {
   const available = examsWithContent();
-  const [exam, setExam] = useState(available[0] ?? "cfa");
+  const [exam, setExam] = useState(() => preferredExam(available));
   const [store, setStore] = useState<FlashStore>({});
   const [loaded, setLoaded] = useState(false);
 
@@ -67,23 +69,13 @@ export default function SkillTreeClient() {
         Your path to the top floor. Each topic fills in as you master its flashcards — reach 100% to claim it.
       </p>
 
-      <div className="flex items-center gap-2 mb-6 flex-wrap">
-        {EXAMS.map((e) => {
-          const has = available.includes(e.slug);
-          const active = e.slug === exam;
-          return (
-            <button key={e.slug} disabled={!has} onClick={() => setExam(e.slug)}
-              className="text-xs px-3 py-1.5 rounded-lg"
-              style={{
-                background: active ? "var(--primary)" : "var(--bg-card)",
-                color: active ? "#fff" : has ? "var(--text-secondary)" : "var(--text-muted)",
-                border: "0.5px solid var(--border)", opacity: has ? 1 : 0.5, cursor: has ? "pointer" : "not-allowed",
-              }}>
-              {/* No "· Pro" suffix — no exam is Pro-only. */}
-              {e.name}{!has ? " · soon" : ""}
-            </button>
-          );
-        })}
+      <div className="mb-6">
+        <ExamPicker
+          value={exam}
+          available={available}
+          onChange={(slug) => setExam(slug)}
+          label="Track"
+        />
       </div>
 
       {/* Dead gate removed — same reason as flashcards: canExam() is always true,

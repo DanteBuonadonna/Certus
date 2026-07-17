@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { EXAMS, getExam } from "@/lib/exams";
+import { getExam } from "@/lib/exams";
 import { examsWithContent } from "@/content";
 import { Question } from "@/content/types";
 import { recordQuiz, loadState } from "@/lib/gameStore";
@@ -29,13 +29,15 @@ import { Coin, CoinBurst } from "@/components/Coin";
 import Confetti from "@/components/Confetti";
 import { playCorrect, playWrong, playComplete, playCoin, hapticCorrect, hapticWrong } from "@/lib/sound";
 import { TIER_SENTENCE, GATE_PRICE_LINE } from "@/lib/tier";
+import { preferredExam } from "@/lib/preferredExam";
+import ExamPicker from "@/components/ExamPicker";
 
 type Mode = "lightning" | "open" | "wager";
 
 export default function ChallengesClient() {
   const available = examsWithContent();
   const access = useAccess();
-  const [exam, setExam] = useState(available[0] ?? "cfa");
+  const [exam, setExam] = useState(() => preferredExam(available));
   const [mode, setMode] = useState<Mode | null>(null);
 
   if (mode === "lightning") return <Lightning exam={exam} onExit={() => setMode(null)} />;
@@ -56,22 +58,13 @@ export default function ChallengesClient() {
       </p>
 
       {/* Exam selector */}
-      <div className="flex items-center gap-2 mb-6 flex-wrap">
-        {EXAMS.map((e) => {
-          const has = available.includes(e.slug);
-          const active = e.slug === exam;
-          return (
-            <button key={e.slug} disabled={!has} onClick={() => setExam(e.slug)}
-              className="text-xs px-3 py-1.5 rounded-lg"
-              style={{
-                background: active ? "var(--primary)" : "var(--bg-card)",
-                color: active ? "#fff" : has ? "var(--text-secondary)" : "var(--text-muted)",
-                border: "0.5px solid var(--border)", opacity: has ? 1 : 0.5, cursor: has ? "pointer" : "not-allowed",
-              }}>
-              {e.name}{!has && " · soon"}
-            </button>
-          );
-        })}
+      <div className="mb-6">
+        <ExamPicker
+          value={exam}
+          available={available}
+          onChange={(slug) => setExam(slug)}
+          label="Challenges for"
+        />
       </div>
 
       {locked ? (

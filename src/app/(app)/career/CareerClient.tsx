@@ -19,6 +19,7 @@ import { loadState } from "@/lib/gameStore";
 import { Wallet, loadWallet, compBalance, formatComp } from "@/lib/economy";
 import { AnimatedNumber, GoldBurst } from "@/components/ui";
 import { CheckIcon, LockIcon, BriefcaseIcon, TrophyIcon } from "@/components/icons";
+import { preferredExam } from "@/lib/preferredExam";
 
 // Zig-zag x offsets for path nodes (per-tier cycle).
 const OFFSETS = [0, -84, 0, 84];
@@ -35,7 +36,7 @@ function CoinIcon({ size = 16 }: { size?: number }) {
 
 export default function CareerClient() {
   const available = examsWithContent();
-  const [exam, setExam] = useState(available[0] ?? "cfa");
+  const [exam, setExam] = useState(() => preferredExam(available));
   const [state, setState] = useState<GameState>(EMPTY_STATE);
   const [career, setCareer] = useState<CareerStore>({ claimed: [] });
   const [wallet, setWallet] = useState<Wallet>({ bonus: 0, spent: 0, owned: [] });

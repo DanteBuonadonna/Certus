@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { EXAMS, getExam } from "@/lib/exams";
+import { getExam } from "@/lib/exams";
 import posthog from "posthog-js";
 import { examsWithContent } from "@/content";
 import { Question } from "@/content/types";
@@ -25,6 +25,8 @@ import { UpgradeCard } from "@/components/UpgradeGate";
 import { ProgressBar, GoldBurst } from "@/components/ui";
 import BossMonster from "@/components/BossMonster";
 import { GATE_PRICE_LINE } from "@/lib/tier";
+import { preferredExam } from "@/lib/preferredExam";
+import ExamPicker from "@/components/ExamPicker";
 import {
   BossCrest,
   ShieldCheckIcon,
@@ -41,7 +43,7 @@ type Phase = "setup" | "battle" | "result";
 export default function BossClient() {
   const available = examsWithContent();
   const access = useAccess();
-  const [exam, setExam] = useState(available[0] ?? "cfa");
+  const [exam, setExam] = useState(() => preferredExam(available));
   const [phase, setPhase] = useState<Phase>("setup");
   const [questions, setQuestions] = useState<Question[]>([]);
   const [result, setResult] = useState<BossResult | null>(null);
@@ -101,22 +103,13 @@ export default function BossClient() {
         A timed, comprehensive exam across every topic. Wrong answers cost integrity. Survive and score {Math.round(cfg.passPct * 100)}%+ to clear the board.
       </p>
 
-      <div className="flex items-center gap-2 mb-6 flex-wrap">
-        {EXAMS.map((e) => {
-          const has = available.includes(e.slug);
-          const active = e.slug === exam;
-          return (
-            <button key={e.slug} disabled={!has} onClick={() => setExam(e.slug)}
-              className="text-xs px-3 py-1.5 rounded-lg"
-              style={{
-                background: active ? "var(--primary)" : "var(--bg-card)",
-                color: active ? "#fff" : has ? "var(--text-secondary)" : "var(--text-muted)",
-                border: "0.5px solid var(--border)", opacity: has ? 1 : 0.5, cursor: has ? "pointer" : "not-allowed",
-              }}>
-              {e.name}{!has && " · soon"}
-            </button>
-          );
-        })}
+      <div className="mb-6">
+        <ExamPicker
+          value={exam}
+          available={available}
+          onChange={(slug) => setExam(slug)}
+          label="The Final for"
+        />
       </div>
 
       {/* Briefing card */}
