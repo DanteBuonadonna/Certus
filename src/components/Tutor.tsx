@@ -22,7 +22,7 @@ function CoinIcon({ size = 14 }: { size?: number }) {
     <svg width={size} height={size} viewBox="0 0 20 20" aria-hidden>
       <circle cx="10" cy="10" r="9" fill="var(--gold-bright)" stroke="var(--gold-deep)" strokeWidth="1.6" />
       <circle cx="10" cy="10" r="5.8" fill="none" stroke="var(--gold-deep)" strokeWidth="1" opacity="0.55" />
-      <text x="10" y="13.6" textAnchor="middle" fontSize="9.5" fontWeight="800" fill="#5d4a12">$</text>
+      <text x="10" y="13.6" textAnchor="middle" fontSize="8.5" fontWeight="800" fill="#5d4a12">C</text>
     </svg>
   );
 }
@@ -32,6 +32,9 @@ export default function Tutor({
   suggestions = ["Explain this simply", "Give me a worked example", "Quiz me on this"],
   intro = false,
   bottomInset = 22,
+  hideLauncher = false,
+  open: openProp,
+  onOpenChange,
 }: {
   /** What the student is currently looking at — chapter section, question, etc. */
   context: string;
@@ -40,8 +43,28 @@ export default function Tutor({
   intro?: boolean;
   /** Raise the floating launcher/panel so it clears a bottom action bar (e.g. the Check button). */
   bottomInset?: number;
+  /**
+   * Suppress the floating launcher — for screens that own the bottom of the
+   * viewport and open the tutor from their own UI instead.
+   *
+   * The quiz is the case: its Check/Continue sheet is a full-width fixed bar
+   * whose height changes when you answer, and a floating FAB at bottom-right
+   * lands straight on top of it. PracticeClient used to pass bottomInset={92}
+   * to dodge it, which is a magic number racing a variable-height element — it
+   * lost as soon as anything about the sheet changed.
+   */
+  hideLauncher?: boolean;
+  /** Controlled mode: drive open state from the parent (pair with hideLauncher). */
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }) {
-  const [open, setOpen] = useState(false);
+  const [openState, setOpenState] = useState(false);
+  const controlled = openProp !== undefined;
+  const open = controlled ? openProp : openState;
+  const setOpen = (o: boolean) => {
+    if (!controlled) setOpenState(o);
+    onOpenChange?.(o);
+  };
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
@@ -124,7 +147,7 @@ export default function Tutor({
   return (
     <>
       {/* Floating launcher + one-time coachmark */}
-      {!open && (
+      {!open && !hideLauncher && (
         <div className="fixed z-40" style={{ bottom: `calc(${bottomInset}px + var(--tabbar-h))`, right: 22 }}>
           {showIntro && (
             <div

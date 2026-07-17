@@ -184,6 +184,7 @@ function Quiz({ questions, onFinish }: { questions: Question[]; onFinish: (answe
   const [shakeKey, setShakeKey] = useState(0);
   const [muted, setMutedState] = useState(false);
   const [floatKey, setFloatKey] = useState(0);
+  const [tutorOpen, setTutorOpen] = useState(false);
 
   useEffect(() => setMutedState(isMuted()), []);
 
@@ -317,6 +318,19 @@ function Quiz({ questions, onFinish }: { questions: Question[]; onFinish: (answe
                 </p>
               )}
               <p className="text-sm mb-3" style={{ color: "var(--text-primary)", lineHeight: 1.55, opacity: 0.9 }}>{q.explanation}</p>
+              {/* The tutor lives HERE — in the sheet, after you've answered.
+                  That's the moment it can actually teach (before you answer it's
+                  instructed not to reveal anything), and it means no floating
+                  button fighting Check for the same corner. */}
+              {!correct && (
+                <button
+                  onClick={() => setTutorOpen(true)}
+                  className="btn-duo duo-ghost w-full mb-2"
+                  style={{ padding: "0.6rem", fontSize: "0.82rem" }}
+                >
+                  Still confused? Ask the Associate →
+                </button>
+              )}
               <button className={`btn-duo w-full ${correct ? "" : "duo-red"}`} onClick={next}>
                 {isLast ? "See results" : "Continue"}
               </button>
@@ -333,15 +347,24 @@ function Quiz({ questions, onFinish }: { questions: Question[]; onFinish: (answe
         )}
       </div>
 
-      {/* The Associate — sees the current question (and the explanation once answered) */}
+      {/* The Associate — sees the current question (and the explanation once answered).
+          hideLauncher: no floating FAB during a quiz. The Check/Continue sheet is
+          a full-width fixed bar whose height CHANGES when you answer, and the FAB
+          landed on top of it — you couldn't press Check. The old fix was
+          bottomInset={92}, a magic number racing a variable-height element.
+          It's opened from inside the sheet instead (see "Ask the Associate"),
+          which is also the only moment it's useful: before you answer it's under
+          orders not to reveal anything, so it's a help button that can't help. */}
       <Tutor
+        hideLauncher
+        open={tutorOpen}
+        onOpenChange={setTutorOpen}
         context={`The student is doing practice questions (${q.topicName}).\nCurrent question: ${q.stem}\nChoices: ${q.choices.map((c, ci) => `${String.fromCharCode(65 + ci)}. ${c}`).join(" ")}${checked ? `\nCorrect answer: ${String.fromCharCode(65 + q.answerIndex)}. Explanation: ${q.explanation}\nThe student answered ${selected !== null ? String.fromCharCode(65 + selected) : "nothing"} (${correct ? "correct" : "incorrect"}).` : "\nThe student has NOT answered yet — do NOT reveal the answer; teach the underlying concept or how to approach it instead."}`}
         suggestions={
           checked
             ? ["Why is my answer wrong?", "Explain this concept from scratch", "Give me a similar question"]
             : ["Teach me the concept behind this", "How do I approach this question?", "Define the terms in this question"]
         }
-        intro
       />
     </div>
   );
