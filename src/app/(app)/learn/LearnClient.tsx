@@ -59,10 +59,6 @@ export default function LearnClient() {
   const [exam, setExam] = useState(initialExam);
   const [chapterId, setChapterId] = useState<string | null>(initialChapterId);
   const [reading, setReading] = useState<ReadingStore>({});
-  // Dead since exams stopped being gated (canExam() is true for everyone).
-  // Kept as a named constant so the intent is explicit: NO exam is locked —
-  // only chapters past FREE_CHAPTERS are. See src/lib/tier.ts.
-  const locked = false;
 
   useEffect(() => {
     setReading(loadReading());
@@ -129,7 +125,7 @@ export default function LearnClient() {
       </div>
 
       {/* Course progress */}
-      {!locked && chapters.length > 0 && (
+      {chapters.length > 0 && (
         <div className="card p-4 mb-5 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <span style={{ color: "var(--primary)" }}><BookIcon size={18} /></span>
@@ -148,9 +144,13 @@ export default function LearnClient() {
         </div>
       )}
 
-      {locked ? (
-        <UpgradeCard title="This exam is Pro" reason="Free includes the full CFA track. Upgrade to read every other exam." />
-      ) : chapters.length === 0 ? (
+      {/* The "This exam is Pro" branch is gone. `locked` is permanently false —
+          no exam is Pro-only — so it was unreachable, but the string still said
+          "Free includes the full CFA track", which is a model we abandoned.
+          Dead copy is how the paywall ended up telling three stories: nobody
+          reads a branch they think can't run. Only depth is gated; the
+          per-chapter gate above (canChapter) is the real one. */}
+      {chapters.length === 0 ? (
         <div className="card p-8 text-center" style={{ color: "var(--text-muted)" }}>
           Chapters for this exam are being written. Check back soon.
         </div>

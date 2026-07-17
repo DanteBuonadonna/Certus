@@ -1280,7 +1280,9 @@ function ResultReport({
   // sat a real exam and saw a real score/odds. Everyone lands here, whether or
   // not they came through /check. So the ask has to live here too — a guest
   // offer for cold traffic, an upgrade for signed-in free users.
-  const showGuestOffer = access.ready && !signedIn;
+  // Same fix as PracticeClient: a Pro guest (redeemed code / legacy guest payer)
+  // is pro && !signedIn, and was being pitched an upgrade they already own.
+  const showGuestOffer = access.ready && !access.pro && !signedIn;
   const showUpgrade = access.ready && signedIn && !access.pro;
   useEffect(() => {
     if (showGuestOffer) posthog.capture("paywall_shown", { trigger: "post_mock_guest", accuracy_pct: score.pct, exam });

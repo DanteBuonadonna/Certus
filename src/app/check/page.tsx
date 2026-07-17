@@ -31,6 +31,9 @@ import {
 import { loadState, saveState } from "@/lib/gameStore";
 import type { StudyPlan } from "@/lib/studyPlan";
 import { N_QUESTIONS } from "@/lib/check";
+import SignupModal from "@/components/SignupModal";
+import { createClient } from "@/lib/supabase/client";
+import { isPro } from "@/lib/access";
 
 
 
@@ -145,6 +148,26 @@ function Check() {
   const [picked, setPicked] = useState<number | null>(null);
   const [answers, setAnswers] = useState<(number | null)[]>([]);
   const [result, setResult] = useState<DiagnosticResult | null>(null);
+  // Where to send them once they've made an account (set when they hit "Fix X").
+  const [pendingDest, setPendingDest] = useState<string | null>(null);
+
+  // NOT useSignedIn(). /check lives OUTSIDE the (app) route group, so there's no
+  // AccessProvider above it — the context hook would return its default `false`
+  // for everyone, and a signed-in member retaking the check would get hit with a
+  // signup modal and told their own account already exists. Read the session.
+  const [signedIn, setSignedIn] = useState(false);
+  useEffect(() => {
+    let alive = true;
+    createClient()
+      .auth.getSession()
+      .then(({ data }) => {
+        if (alive) setSignedIn(!!data.session);
+      })
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   // A spread of real questions across topics — not 10 from one chapter.
   const questions = useMemo<Question[]>(() => {
@@ -227,8 +250,44 @@ function Check() {
     else setIdx(idx + 1);
   }
 
-  // Build the plan from their result and drop them straight into the app.
-  function buildPlan() {
+  // Build the plan, then go where they chose.
+  //
+  // THE DEFAULT IS THE FIX, not a menu. This screen already showed them the
+  // ring, the score and the topic they bled on — routing to a dashboard so they
+  // can find another card repeating that is the same information twice with a
+  // decision point in between, and decision points are where momentum dies.
+  //
+  // v1 sent them into a 20-question run with no exit, which was a corridor. The
+  // problem there was the LENGTH and the LACK OF AN EXIT, not the routing. So:
+  // 5 questions, and a visible way out sitting right next to the button.
+  //
+  // The escape is deliberately legible, not a hidden "skip". Burying it would
+  // buy a lesson-start from someone who didn't want one — they'd bounce two
+  // minutes later anyway, and we'd have spent trust to get it.
+  // Save the plan, then gate on signup if they're heading into practice.
+  //
+  // The signup wall sits HERE — on the click into the first lesson — per Dante's
+  // call. The trade is explicit: we're buying email addresses with some fraction
+  // of first lessons, because an anonymous guest who studies and leaves is
+  // someone we can never contact again.
+  //
+  // It's a modal, not a redirect to /signup, so their score stays on screen
+  // behind it — the reason they're being asked is still visible.
+  function gateThen(dest: string) {
+    if (!exam || !result) return;
+    savePlanAndTrack(dest);
+    // Never wall someone who has already paid. A Pro guest (redeemed code, or a
+    // legacy guest payer) still needs an account — but the dashboard banner asks
+    // for that, and a paying customer should never be BLOCKED from a lesson.
+    if (signedIn || isPro()) {
+      router.push(dest);
+    } else {
+      setPendingDest(dest);
+      posthog.capture("signup_gate_shown", { exam: examSlug, trigger: "check_to_practice" });
+    }
+  }
+
+  function savePlanAndTrack(dest: string) {
     if (!exam || !result) return;
     const level = exam.levels[0];
     const d = new Date();
@@ -248,16 +307,7 @@ function Check() {
       saveState({ ...state, plans: [plan, ...(state.plans ?? []).filter((p) => p.examSlug !== plan.examSlug)] });
       localStorage.setItem("certus_onboarded", "1");
     } catch {}
-    posthog.capture("check_plan_built", { exam: examSlug, pct: result.pct });
-    // Land on the dashboard — DON'T force-start a lesson.
-    //
-    // v1 of this dropped them into a full 20-question run: 6 check questions
-    // straight into 20 more, no payoff between, no way out. That's not a funnel,
-    // it's a corridor. The dashboard gives them the thing they just earned (their
-    // score, their weak topics) plus one obvious next move and the freedom to
-    // ignore it and poke around. People who choose the lesson do it with intent;
-    // people who wander might still come back. Nobody gets marched.
-    router.push("/dashboard");
+    posthog.capture("check_plan_built", { exam: examSlug, pct: result.pct, next: dest });
   }
 
   const shell = (children: React.ReactNode) => (
@@ -325,14 +375,51 @@ function Check() {
             of a tired person. "5 questions, 2 minutes" is a promise you can
             keep, and it's small enough to say yes to. */}
         <div className="rise-in" style={{ animationDelay: "2.15s" }}>
-          <button onClick={buildPlan} className="btn-duo w-full" style={{ padding: "0.95rem" }}>
-            Get my plan →
+          <button
+            onClick={() =>
+              gateThen(
+                worst[0]
+                  ? `/practice?exam=${exam.slug}&topic=${encodeURIComponent(worst[0].topicId)}&start=1&first=1`
+                  : "/dashboard"
+              )
+            }
+            className="btn-duo w-full"
+            style={{ padding: "0.95rem" }}
+          >
+            {worst[0] ? `Fix ${worst[0].topicName} now — 5 questions →` : "Build my plan and start →"}
           </button>
-          <p className="text-xs text-center mt-3" style={{ color: "var(--text-muted)" }}>
-            Free, no card, no email. You&apos;ll land on your dashboard with this result saved —
-            fix {worst[0]?.topicName ?? "your weak spots"} first, or just look around.
+          <p className="text-xs text-center mt-3 mb-3" style={{ color: "var(--text-muted)" }}>
+            About two minutes. Free, no card.
           </p>
+          {/* The escape stays free of the signup gate — someone who's declining
+              the lesson isn't going to be talked into an account by a form. */}
+          <button
+            onClick={() => {
+              savePlanAndTrack("/dashboard");
+              router.push("/dashboard");
+            }}
+            className="btn-duo duo-ghost w-full"
+            style={{ padding: "0.7rem", fontSize: "0.85rem" }}
+          >
+            Practice later — take me to my dashboard
+          </button>
         </div>
+
+        <SignupModal
+          open={pendingDest !== null}
+          trigger="check_to_practice"
+          title={`One step — then ${worst[0]?.topicName ?? "your plan"}`}
+          reason={`You scored ${result.pct}%. Make a free account and we'll save this result, your plan, and the streak you're about to start.`}
+          onClose={() => {
+            posthog.capture("signup_gate_dismissed", { exam: examSlug, trigger: "check_to_practice" });
+            setPendingDest(null);
+          }}
+          onSuccess={() => {
+            const dest = pendingDest ?? "/dashboard";
+            setPendingDest(null);
+            router.push(dest);
+          }}
+        />
       </div>
     );
   }

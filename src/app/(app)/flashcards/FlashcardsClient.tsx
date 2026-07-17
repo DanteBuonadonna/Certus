@@ -17,12 +17,9 @@ import {
   masteredCount,
 } from "@/lib/flashcards";
 import { recordFlashcards } from "@/lib/gameStore";
-import { useAccess } from "@/lib/useAccess";
-import { UpgradeCard } from "@/components/UpgradeGate";
 
 export default function FlashcardsClient() {
   const available = examsWithDecks();
-  const access = useAccess();
   const params = useSearchParams();
 
   // Honor ?exam= and ?topic= so links from the skill tree open the right deck.
@@ -81,15 +78,20 @@ export default function FlashcardsClient() {
                 color: active ? "#fff" : has ? "var(--text-secondary)" : "var(--text-muted)",
                 border: "0.5px solid var(--border)", opacity: has ? 1 : 0.5, cursor: has ? "pointer" : "not-allowed",
               }}>
-              {e.name}{!has ? " · soon" : access.ready && !access.canExam(e.slug) ? " 🔒" : ""}
+              {/* No 🔒 — no exam is locked. Padlocking a free exam is exactly
+                  the mixed message that makes the paywall untrustworthy. */}
+              {e.name}{!has ? " · soon" : ""}
             </button>
           );
         })}
       </div>
 
-      {access.ready && !access.canExam(exam) ? (
-        <UpgradeCard title="This deck is Pro" reason="Free includes the full CFA flashcard decks. Upgrade to study every other exam." />
-      ) : (
+      {/* Dead gate removed. canExam() returns true for everyone — no exam has
+          been Pro-only since previewing opened up — so this branch could never
+          render, but it still told users "free includes the full CFA decks,
+          upgrade for other exams", which is a third contradicting story about
+          what's paid. Breadth is free; depth is gated. See src/lib/tier.ts. */}
+      {(
       <>
       <p className="text-xs font-medium mb-2" style={{ color: "var(--text-secondary)" }}>Deck</p>
       <div className="flex items-center gap-2 mb-6 flex-wrap">

@@ -3,7 +3,7 @@
 import { useState, Suspense } from "react";
 import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { BRAND } from "@/lib/brand";
 import { LogoMark } from "@/components/Logo";
 import posthog from "posthog-js";
@@ -24,6 +24,20 @@ function SignupForm() {
   const [success, setSuccess] = useState(false);
   const supabase = createClient();
   const router = useRouter();
+  const params = useSearchParams();
+
+  // Honour ?next= — this was IGNORED, and it was a live money leak.
+  // Every "Create account to go Pro" link sends /signup?next=/billing, and every
+  // one of them landed the user on /dashboard instead of checkout. Someone who
+  // had decided to pay got dropped somewhere else and had to find their own way
+  // back. Only allow relative paths so this can't be turned into an open
+  // redirect by a crafted link.
+  const rawNext = params.get("next") ?? "";
+  const plan = params.get("plan");
+  const next =
+    rawNext.startsWith("/") && !rawNext.startsWith("//")
+      ? rawNext + (plan && rawNext.startsWith("/billing") ? `?plan=${encodeURIComponent(plan)}` : "")
+      : "/dashboard";
 
   async function handleSignup(e: React.FormEvent) {
     e.preventDefault();
@@ -46,7 +60,7 @@ function SignupForm() {
       // signed in. Go straight to the dashboard instead of telling them
       // to check an email that will never come.
       posthog.identify(data.session.user.id, { email: email });
-      posthog.capture("user_signed_up", { email });
+      posthog.capture("user_signed_up", { email, next });
       // Add them to the marketing list. Fire-and-forget — never block signup
       // on an email vendor.
       void fetch("/api/contacts", {
@@ -54,7 +68,7 @@ function SignupForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       }).catch(() => {});
-      router.push("/dashboard");
+      router.push(next);
       router.refresh();
     } else if (data.user && data.user.identities && data.user.identities.length === 0) {
       // Supabase quirk: an existing confirmed email returns a user with no

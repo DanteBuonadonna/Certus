@@ -382,13 +382,24 @@ function Results({ exam, questions, answers, maxCombo, earnedXp, levelUpInfo, on
   // Peak-intent paywall: a signed-in free user who just had a strong run is
   // the highest-converting moment to pitch Pro. (Guests instead see the
   // "save progress" nudge — they need an account before they can subscribe.)
-  const showUpgrade = access.ready && !access.pro && signedIn && pct >= 50;
+  // Ask everyone who finishes a set, not just people who scored well.
+  //
+  // Was `pct >= 50`. The theory was "ask on a high" — but someone who scored 30%
+  // has MORE reason to buy, not less: they just found out they're not ready.
+  // Gating the ask on doing well means the people who most need the product
+  // never get offered it.
+  const showUpgrade = access.ready && !access.pro && signedIn;
   // The guest offer is the session-one ask for cold ad traffic: they arrived
   // via the check, just did a lesson on their weak topic (value + effort), and
   // now — while they're moving — we offer the full plan. Previously this whole
   // audience saw only a weak "save your XP" nudge and NEVER an upgrade pitch,
   // which is why the paywall was shown ~3x/month. This is the fix.
-  const showGuestOffer = access.ready && !signedIn;
+  // !access.pro is load-bearing. `pro = serverPro || clientPro`, and clientPro
+  // reads localStorage — so a guest who redeemed a code, or a legacy guest who
+  // paid before checkout required an account, is Pro AND not signed in. Without
+  // this check we pitch an upgrade to someone who already bought it. Nothing
+  // makes a paying customer feel worse than being sold the thing they own.
+  const showGuestOffer = access.ready && !access.pro && !signedIn;
   useEffect(() => {
     if (showUpgrade) posthog.capture("paywall_shown", { trigger: "post_practice", accuracy_pct: pct, exam });
     if (showGuestOffer) posthog.capture("paywall_shown", { trigger: "post_practice_guest", accuracy_pct: pct, exam });

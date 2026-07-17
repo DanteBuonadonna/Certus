@@ -5,8 +5,6 @@ import Link from "next/link";
 import { EXAMS, getExam } from "@/lib/exams";
 import { examsWithContent, getChapters, getQuestions } from "@/content";
 import { buildDeck, loadStore, masteredCount, FlashStore } from "@/lib/flashcards";
-import { useAccess } from "@/lib/useAccess";
-import { UpgradeCard } from "@/components/UpgradeGate";
 import { ProgressBar } from "@/components/ui";
 import { CheckIcon, FlagIcon, BuildingIcon, LaurelIcon } from "@/components/icons";
 
@@ -21,7 +19,6 @@ interface Node {
 
 export default function SkillTreeClient() {
   const available = examsWithContent();
-  const access = useAccess();
   const [exam, setExam] = useState(available[0] ?? "cfa");
   const [store, setStore] = useState<FlashStore>({});
   const [loaded, setLoaded] = useState(false);
@@ -82,15 +79,17 @@ export default function SkillTreeClient() {
                 color: active ? "#fff" : has ? "var(--text-secondary)" : "var(--text-muted)",
                 border: "0.5px solid var(--border)", opacity: has ? 1 : 0.5, cursor: has ? "pointer" : "not-allowed",
               }}>
-              {e.name}{!has ? " · soon" : access.ready && !access.canExam(e.slug) ? " · Pro" : ""}
+              {/* No "· Pro" suffix — no exam is Pro-only. */}
+              {e.name}{!has ? " · soon" : ""}
             </button>
           );
         })}
       </div>
 
-      {access.ready && !access.canExam(exam) ? (
-        <UpgradeCard title="This track is Pro" reason="Free includes the full CFA skill tree. Upgrade to unlock every other exam's track." />
-      ) : (
+      {/* Dead gate removed — same reason as flashcards: canExam() is always true,
+          so this never rendered, but it claimed other exams' tracks were Pro.
+          See src/lib/tier.ts for the one true free/Pro story. */}
+      {(
       <>
       {/* Mastery banner */}
       <div className="card p-4 mb-8 flex items-center justify-between rise-in" style={{ background: "var(--primary-light)", border: "0.5px solid rgba(83,74,183,0.2)" }}>

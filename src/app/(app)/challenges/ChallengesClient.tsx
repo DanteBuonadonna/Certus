@@ -42,7 +42,10 @@ export default function ChallengesClient() {
   if (mode === "open") return <TheOpen exam={exam} onExit={() => setMode(null)} />;
   if (mode === "wager") return <Wager exam={exam} onExit={() => setMode(null)} />;
 
-  const locked = access.ready && !access.canExam(exam);
+  // Was: access.ready && !access.canExam(exam) — permanently false, so the
+  // "Challenges are Pro" card below was unreachable. Challenges are FREE.
+  // See src/lib/tier.ts.
+  const locked = false;
   const openRec = typeof window !== "undefined" ? openResultToday(exam) : null;
 
   return (
