@@ -5,7 +5,7 @@
 //
 // This is where every ad lands. No sidebar, no tab bar, no nav — nothing to
 // click except the next question. A cold stranger will not sit a 4.5-hour mock,
-// but they will answer 10 questions in five minutes to find out if they'd pass.
+// but they will answer six questions in three minutes to find out if they'd pass.
 //
 // The RESULT is the product. We've just told someone "you're at 40% — you'd
 // fail today." That's the highest-intent moment in the entire funnel, so we
@@ -30,14 +30,101 @@ import {
 } from "@/lib/diagnostic";
 import { loadState, saveState } from "@/lib/gameStore";
 import type { StudyPlan } from "@/lib/studyPlan";
+import { N_QUESTIONS } from "@/lib/check";
 
-const N_QUESTIONS = 10;
+
 
 export default function CheckPage() {
   return (
     <Suspense fallback={null}>
       <Check />
     </Suspense>
+  );
+}
+
+// ============================================================
+// The score reveal. THIS IS THE PRODUCT.
+//
+// Everything before it is admin; this is the moment we hand a stranger
+// something true about themselves that they didn't have 3 minutes ago. It was a
+// static number. Now the arc climbs and they watch whether it clears the line.
+//
+// NOTE ON WHAT'S IN THE RING: this shows their SCORE against the pass band —
+// not a "% chance of passing". Off 6 questions the error bar on any odds figure
+// is enormous, and inventing one would reintroduce the exact bug diagnostic.ts
+// exists to fix (a brand-new account being told it had "a 2% chance of passing"
+// based on nothing). The band is drawn ON the dial, so the drama comes from a
+// true number landing above or below a real line. A CFA candidate can smell
+// fake precision, and credibility is the only thing we're selling here.
+// ============================================================
+function ScoreRing({ pct, tone }: { pct: number; tone: string }) {
+  const [shown, setShown] = useState(0);
+
+  // Count the number up in step with the arc so they move as one object.
+  useEffect(() => {
+    // The CSS stagger already collapses under reduced-motion (globals.css), but
+    // a requestAnimationFrame loop doesn't respect that setting on its own —
+    // it'd keep animating for someone who explicitly asked things to hold still.
+    if (typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      setShown(pct);
+      return;
+    }
+    const DURATION = 1300;
+    const start = performance.now();
+    let raf = 0;
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / DURATION);
+      // easeOutCubic — fast then settling, so it feels like it's landing.
+      const eased = 1 - Math.pow(1 - t, 3);
+      setShown(Math.round(eased * pct));
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [pct]);
+
+  const SIZE = 190;
+  const R = 78;
+  const C = 2 * Math.PI * R;
+  // Leave a gap at the bottom: a 270° dial reads as a gauge, not a pie chart.
+  const SWEEP = 0.75;
+  const arcLen = C * SWEEP;
+  const rot = 135; // start bottom-left
+
+  const passLow = (MPS_LOW / 100) * arcLen;
+  const passHigh = (MPS_HIGH / 100) * arcLen;
+
+  return (
+    <div className="relative mx-auto" style={{ width: SIZE, height: SIZE }}>
+      <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} style={{ transform: `rotate(${rot}deg)` }}>
+        {/* track */}
+        <circle
+          cx={SIZE / 2} cy={SIZE / 2} r={R} fill="none"
+          stroke="var(--border)" strokeWidth={13} strokeLinecap="round"
+          strokeDasharray={`${arcLen} ${C}`}
+        />
+        {/* the pass band, drawn on the dial — the line they're trying to clear */}
+        <circle
+          cx={SIZE / 2} cy={SIZE / 2} r={R} fill="none"
+          stroke="var(--text-muted)" strokeWidth={13} opacity={0.32}
+          strokeDasharray={`${passHigh - passLow} ${C}`}
+          strokeDashoffset={-passLow}
+        />
+        {/* their score */}
+        <circle
+          cx={SIZE / 2} cy={SIZE / 2} r={R} fill="none"
+          stroke={tone} strokeWidth={13} strokeLinecap="round"
+          strokeDasharray={`${(shown / 100) * arcLen} ${C}`}
+          style={{ transition: "stroke 0.4s ease" }}
+        />
+      </svg>
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <div className="font-display" style={{ fontSize: 52, lineHeight: 1, color: tone }}>{shown}%</div>
+        <div className="text-[10px] font-semibold uppercase tracking-wider mt-1" style={{ color: "var(--text-muted)" }}>
+          your score
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -162,13 +249,16 @@ function Check() {
       localStorage.setItem("certus_onboarded", "1");
     } catch {}
     posthog.capture("check_plan_built", { exam: examSlug, pct: result.pct });
-    // Drop them straight into a lesson on the topic they JUST bled points on.
-    // This is the whole psychology: reciprocity (free value) + investment (they
-    // do the work), in the same session, so the upgrade ask at the end of that
-    // lesson lands on a warm, moving lead — not a cold dashboard.
+    // Hand off to a SHORT first lesson on the topic they just bled points on.
+    //
+    // This used to send them into a full 20-question run. Ten check questions
+    // followed immediately by twenty more is thirty questions with no payoff in
+    // between — the reward for finishing the diagnostic was a longer diagnostic.
+    // `first=1` makes it five questions and about two minutes: one clean win,
+    // then the ask.
     const worst = result.weakTopics.find((t) => t.pct < 100);
     if (worst) {
-      router.push(`/practice?exam=${exam.slug}&topic=${encodeURIComponent(worst.topicId)}&start=1`);
+      router.push(`/practice?exam=${exam.slug}&topic=${encodeURIComponent(worst.topicId)}&start=1&first=1`);
     } else {
       router.push("/dashboard");
     }
@@ -198,19 +288,24 @@ function Check() {
     return shell(
       <div className="rise-in">
         <div className="card p-6 mb-4 text-center">
-          <div className="text-[11px] font-semibold uppercase tracking-wider mb-2" style={{ color: "var(--text-muted)" }}>
+          <div className="text-[11px] font-semibold uppercase tracking-wider mb-4" style={{ color: "var(--text-muted)" }}>
             If you sat {exam.name} today
           </div>
-          <div className="font-display" style={{ fontSize: 58, lineHeight: 1, color: tone }}>{result.pct}%</div>
-          <div className="text-sm mt-2 font-semibold" style={{ color: "var(--text-primary)" }}>{v.label}</div>
-          <div className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>
+          <ScoreRing pct={result.pct} tone={tone} />
+          <div className="text-base mt-4 font-semibold rise-in" style={{ color: "var(--text-primary)", animationDelay: "1.5s" }}>
+            {v.label}
+          </div>
+          <div className="text-xs mt-1.5 rise-in" style={{ color: "var(--text-muted)", animationDelay: "1.65s" }}>
             You got {result.correct} of {result.total}. The pass mark isn&apos;t published, but it sits
-            around {MPS_LOW}–{MPS_HIGH}%.
+            around {MPS_LOW}–{MPS_HIGH}% — that&apos;s the band on the dial.
           </div>
         </div>
 
+        {/* Staggered so the eye goes: dial → verdict → where you bled → what to
+            do. All at once and the dial has to fight the CTA for attention;
+            the reveal is the thing we made them work for. */}
         {worst.length > 0 && (
-          <div className="card p-5 mb-4">
+          <div className="card p-5 mb-4 rise-in" style={{ animationDelay: "1.9s" }}>
             <div className="text-sm font-semibold mb-3" style={{ color: "var(--text-primary)" }}>
               This is where you bled points
             </div>
@@ -223,18 +318,24 @@ function Check() {
               </div>
             ))}
             <p className="text-xs mt-3" style={{ color: "var(--text-muted)", lineHeight: 1.5 }}>
-              Ten questions is a rough read, not a verdict — but weak topics show up fast, and this is
+              {N_QUESTIONS} questions is a rough read, not a verdict — but weak topics show up fast, and this is
               where your next hours are worth the most.
             </p>
           </div>
         )}
 
-        <button onClick={buildPlan} className="btn-duo w-full" style={{ padding: "0.95rem" }}>
-          {worst[0] ? `Start fixing ${worst[0].topicName} →` : "Build my plan and start →"}
-        </button>
-        <p className="text-xs text-center mt-3" style={{ color: "var(--text-muted)" }}>
-          Free. No card. Your first lesson targets exactly where you bled points.
-        </p>
+        {/* Say the size before they click. They've just done the check —
+            an unlabelled button that turns out to be another 20 is a betrayal
+            of a tired person. "5 questions, 2 minutes" is a promise you can
+            keep, and it's small enough to say yes to. */}
+        <div className="rise-in" style={{ animationDelay: "2.15s" }}>
+          <button onClick={buildPlan} className="btn-duo w-full" style={{ padding: "0.95rem" }}>
+            {worst[0] ? `Fix ${worst[0].topicName} — 5 questions →` : "Build my plan and start →"}
+          </button>
+          <p className="text-xs text-center mt-3" style={{ color: "var(--text-muted)" }}>
+            About two minutes. Free, no card. Then we&apos;ll leave you alone — 5 minutes a day is the whole idea.
+          </p>
+        </div>
       </div>
     );
   }
@@ -264,15 +365,15 @@ function Check() {
               className="font-display"
               style={{ fontSize: 34, lineHeight: 1.15, color: "var(--text-primary)", animation: "checkHookLine 1.9s ease forwards" }}
             >
-              Let&apos;s see if you&apos;d pass
+              {N_QUESTIONS} real questions
               <br />
-              <span style={{ color: "var(--primary)" }}>{exam.name}</span> today.
+              from the <span style={{ color: "var(--primary)" }}>{exam.name}</span>.
             </div>
             <div
               className="text-sm mt-3"
               style={{ color: "var(--text-muted)", animation: "checkHookSub 1.9s ease forwards" }}
             >
-              10 real questions. Starting now.
+              Let&apos;s see how many you get. Starting now.
             </div>
           </div>
         </div>

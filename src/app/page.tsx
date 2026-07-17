@@ -7,6 +7,7 @@ import { liveTestimonials, hasRealTestimonials } from "@/lib/testimonials";
 import { LogoMark } from "@/components/Logo";
 import { FREE_INCLUDES, PRO_INCLUDES, ANNUAL_PER_MONTH, ANNUAL_TOTAL, MONTHLY_PRICE, EXAM_COST_ANCHOR } from "@/lib/tier";
 import { TRIAL_CTA, trialDisclosureShort } from "@/lib/trial";
+import { N_QUESTIONS, CHECK_MINUTES } from "@/lib/check";
 
 const RANKS = ["Intern", "Analyst", "Associate", "VP", "Director", "MD", "Partner"];
 
@@ -102,7 +103,7 @@ export default function LandingPage() {
             </h1>
 
             <p className="text-lg mb-6 max-w-lg mx-auto lg:mx-0" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>
-              Find out in five minutes. Ten real questions, then your score, the topics
+              Find out in {CHECK_MINUTES} minutes. {N_QUESTIONS} real questions, then your score, the topics
               you&apos;re bleeding points on, and an honest read on where you stand.
               Then {BRAND.name} drills exactly those topics — five minutes a day, like Duolingo,
               until the gap is gone.
@@ -122,7 +123,7 @@ export default function LandingPage() {
               {/* ONE obvious action. "Explore the exams" was a co-equal button
                   pointing at a dashboard a stranger has no reason to want. */}
               <Link href="/check?exam=cfa" className="btn-primary text-base px-7 py-3">
-                Take the 5-minute check →
+                Take the {CHECK_MINUTES}-minute check →
               </Link>
               <Link href="/mock" className="btn-secondary text-base px-7 py-3">
                 Or sit the free mock
@@ -134,7 +135,7 @@ export default function LandingPage() {
 
             {/* The headline names the CFA because it's the biggest audience, but a
                 Series 7 candidate must not read it and think "not for me". Each
-                chip is the same 5-minute check for their exam. */}
+                chip is the same check for their exam. */}
             <div className="flex items-center justify-center lg:justify-start gap-2 flex-wrap">
               <span className="text-xs" style={{ color: "var(--text-muted)" }}>Studying something else?</span>
               {liveExams
@@ -396,7 +397,7 @@ export default function LandingPage() {
                   </li>
                 ))}
               </ul>
-              <Link href="/check?exam=cfa" className="btn-secondary w-full text-center block">Take the 5-minute check</Link>
+              <Link href="/check?exam=cfa" className="btn-secondary w-full text-center block">Take the {CHECK_MINUTES}-minute check</Link>
             </div>
 
             {/* Pro — annual badged, monthly-framed price */}

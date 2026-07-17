@@ -14,6 +14,18 @@ const KEY = "certus_practice_seen_v1";
 // How many questions one practice run serves (capped by pool size).
 export const RUN_SIZE = 20;
 
+// THE FIRST LESSON IS DIFFERENT.
+//
+// Someone arriving from /check has just answered 10 questions. Handing them 20
+// more is 30 questions back-to-back with no payoff in between — that's not a
+// funnel, it's an endurance test, and it reads as "this app is just a question
+// grinder". The first lesson has one job: a fast, unambiguous WIN. Five
+// questions, about two minutes, ending in XP and streak day 1.
+//
+// Duolingo's entire funnel is this moment. Get it wrong and nothing downstream
+// matters, because nobody reaches it.
+export const FIRST_LESSON_SIZE = 5;
+
 type SeenMap = Record<string, number>; // questionId -> last-seen epoch ms
 
 function load(): SeenMap {

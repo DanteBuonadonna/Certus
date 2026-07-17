@@ -14,7 +14,7 @@ import { loadProfile, AvatarConfig } from "@/lib/profile";
 import { LevelUpOverlay } from "@/components/ui";
 import { useSignedIn } from "@/lib/AccessContext";
 import { trackActivated } from "@/lib/analytics";
-import { buildRun, RUN_SIZE } from "@/lib/practiceRotation";
+import { buildRun, RUN_SIZE, FIRST_LESSON_SIZE } from "@/lib/practiceRotation";
 import { useAccess } from "@/lib/useAccess";
 import { recordQuestionAnswered } from "@/lib/access";
 import { UpgradeCard } from "@/components/UpgradeGate";
@@ -56,10 +56,14 @@ export default function PracticeClient() {
 
   const poolCount = getQuestions(exam, topic === "all" ? undefined : topic).length;
 
-  function start() {
+  // Arriving from /check with ?first=1 — they've already answered 10 questions
+  // and earned a short win, not another marathon.
+  const isFirstLesson = params.get("first") === "1";
+
+  function start(size: number = RUN_SIZE) {
     // Rotating run: serves the least-recently-seen questions first, so a
     // retake gives a fresh set (and keeps getting fresher as the bank grows).
-    const qs = buildRun(getQuestions(exam, topic === "all" ? undefined : topic), RUN_SIZE);
+    const qs = buildRun(getQuestions(exam, topic === "all" ? undefined : topic), size);
     setSession(qs);
     setAnswers([]);
     setPhase("quiz");
@@ -69,7 +73,9 @@ export default function PracticeClient() {
   // new users drop straight into the fun answer loop instead of a menu.
   useEffect(() => {
     if (params.get("start") === "1" && phase === "setup" && getQuestions(exam, topic === "all" ? undefined : topic).length > 0) {
-      start();
+      // First lesson = 5 questions (~2 min). Everything else = a full run.
+      start(isFirstLesson ? FIRST_LESSON_SIZE : RUN_SIZE);
+      if (isFirstLesson) posthog.capture("first_lesson_start", { exam, topic });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -94,6 +100,11 @@ export default function PracticeClient() {
       best_combo: combo,
       leveled_up: result.leveledUp,
     });
+    if (isFirstLesson) {
+      // The moment the whole funnel is built around. If this number is bad,
+      // nothing downstream matters — nobody's reaching it.
+      posthog.capture("first_lesson_complete", { exam, topic, accuracy_pct: accuracy, xp_earned: result.xpEarned });
+    }
     trackActivated("practice", { exam });
     setAnswers(finalAnswers);
     setMaxCombo(combo);
@@ -161,7 +172,9 @@ export default function PracticeClient() {
             </span>
           </div>
 
-          <button className="btn-primary w-full" disabled={poolCount === 0} onClick={start}>
+          {/* onClick={start} passed the click EVENT in as `size`. Manual starts
+              are always a full run. */}
+          <button className="btn-primary w-full" disabled={poolCount === 0} onClick={() => start(RUN_SIZE)}>
             {poolCount === 0 ? "No questions yet for this topic" : "Start practice →"}
           </button>
         </>
