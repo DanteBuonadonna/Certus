@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { BRAND } from "@/lib/brand";
 import { LogoMark } from "@/components/Logo";
 import posthog from "posthog-js";
+import { TRIAL_DAYS } from "@/lib/trial";
 
 export default function SignupPage() {
   return (
@@ -38,6 +39,14 @@ function SignupForm() {
     rawNext.startsWith("/") && !rawNext.startsWith("//")
       ? rawNext + (plan && rawNext.startsWith("/billing") ? `?plan=${encodeURIComponent(plan)}` : "")
       : "/dashboard";
+
+  // Checkout mode: they clicked "pay" as a guest and got sent here. Both real
+  // prospects who hit this wall bounced off it within ~3 seconds — because it
+  // looked like a detour ("Create free account"?!), not a step toward paying.
+  // Frame it as step 1 of checkout and promise the payment page comes next.
+  // /billing auto-resumes checkout from the ?plan= param after signup, so the
+  // promise is kept — no second click on the plan card.
+  const checkoutMode = rawNext.startsWith("/billing") && !!plan;
 
   async function handleSignup(e: React.FormEvent) {
     e.preventDefault();
@@ -115,9 +124,21 @@ function SignupForm() {
               {BRAND.name}
             </span>
           </div>
-          <p className="text-sm" style={{ color: "var(--text-muted)" }}>
-            Create your free account and start your first day
-          </p>
+          {checkoutMode ? (
+            <>
+              <p className="text-xs font-medium mb-1" style={{ color: "var(--primary)" }}>
+                Step 1 of 2 — create your account
+              </p>
+              <p className="text-sm" style={{ color: "var(--text-muted)" }}>
+                Your subscription needs an account so you can use it on any device
+                — and cancel in one click. Secure payment is next.
+              </p>
+            </>
+          ) : (
+            <p className="text-sm" style={{ color: "var(--text-muted)" }}>
+              Create your free account and start your first day
+            </p>
+          )}
         </div>
 
         <div className="card p-6">
@@ -159,12 +180,21 @@ function SignupForm() {
             <button type="submit" className="btn-primary w-full" disabled={loading}>
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
-                  <span className="spinner" /> Creating account…
+                  <span className="spinner" /> {checkoutMode ? "One moment…" : "Creating account…"}
                 </span>
+              ) : checkoutMode ? (
+                "Continue to secure checkout →"
               ) : (
                 "Create free account"
               )}
             </button>
+
+            {checkoutMode && (
+              <p className="text-xs text-center" style={{ color: "var(--text-muted)" }}>
+                You won&apos;t be charged today — your {TRIAL_DAYS} free days start
+                on the next page.
+              </p>
+            )}
 
             <p className="text-xs text-center" style={{ color: "var(--text-muted)" }}>
               By signing up, you agree to our{" "}

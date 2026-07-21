@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { PLANS, PLAN_FEATURES, Plan } from "@/lib/plans";
@@ -118,6 +118,25 @@ function BillingInner() {
       setMessage({ type: "error", text: "Checkout canceled. No charges were made." });
     }
   }, [searchParams, router]);
+
+  // Resume checkout after the signup detour. The signup page promises
+  // "Continue to secure checkout" — landing back here and making them find and
+  // click the plan card AGAIN breaks that promise at the moment of peak intent.
+  // ?plan= arrives via /signup?next=/billing&plan=X. Guards: only once per
+  // mount, only for a real plan id, never for guests (they'd loop back to
+  // signup), never for existing Pros, and never on Stripe's return trip
+  // (success/canceled URLs also carry ?plan=).
+  const autoResumed = useRef(false);
+  useEffect(() => {
+    const planParam = searchParams.get("plan");
+    if (autoResumed.current) return;
+    if (!planParam || !signedIn || pro) return;
+    if (searchParams.get("success") || searchParams.get("canceled") || searchParams.get("credits_added")) return;
+    if (!PLANS.some((p) => p.id === planParam)) return;
+    autoResumed.current = true;
+    void handleSubscribe(planParam);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams, signedIn, pro]);
 
   async function handleSubscribe(plan: string) {
     // A subscription has to attach to an account, or it can't survive a cleared
