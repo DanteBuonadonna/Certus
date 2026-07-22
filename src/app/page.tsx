@@ -103,10 +103,9 @@ export default function LandingPage() {
             </h1>
 
             <p className="text-lg mb-6 max-w-lg mx-auto lg:mx-0" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>
-              Find out in {CHECK_MINUTES} minutes. {N_QUESTIONS} real questions, then your score, the topics
-              you&apos;re bleeding points on, and an honest read on where you stand.
-              Then {BRAND.name} drills exactly those topics — five minutes a day, like Duolingo,
-              until the gap is gone.
+              {`${N_QUESTIONS} real questions, about ${CHECK_MINUTES} minutes, no signup.`} See your score,
+              your weak topics, and whether you&apos;d pass today — then {BRAND.name} turns those weak spots
+              into 5-minute daily lessons.
             </p>
 
             {/* The differentiator, stated where it can be checked. This is the
