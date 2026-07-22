@@ -48,6 +48,7 @@ export const INTAKE_QUESTIONS: IntakeQuestion[] = [
       { id: "notstarted", label: "Haven't really started" },
       { id: "behind", label: "Behind and stressed about it" },
       { id: "ontrack", label: "On track, but anxious" },
+      { id: "well", label: "Honestly, going well" },
       { id: "again", label: "Failed before — going again" },
     ],
   },
@@ -107,6 +108,8 @@ export function buildReflection(a: IntakeAnswers): { headline: string; body: str
     standing = "You feel behind. Almost everyone who passes felt exactly this — being behind is a triage problem, not a talent problem.";
   } else if (a.prep === "again") {
     standing = "You've taken this before. That's not a mark against you — it means you already know how hard it is, and this time you get to be surgical about it.";
+  } else if (a.prep === "well") {
+    standing = "You feel good about it — and confidence is worth a lot. The one risk at this stage is confusing 'I've covered it' with 'I can do it under the clock.' Let's pressure-test that in a few minutes.";
   } else {
     standing = "You're on track but anxious. That anxiety is normal and it's not information — your prep is, and we're about to look at it.";
   }
