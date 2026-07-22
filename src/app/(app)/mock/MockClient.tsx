@@ -447,7 +447,7 @@ export default function MockClient() {
       </h1>
       <p className="text-sm mb-5" style={{ color: "var(--text-secondary)" }}>
         Faithful replicas of the real exams — same length, timing, pacing, and question
-        formats. No games in this room: sit them under exam conditions and get an honest
+        formats. No games in this room: take them under exam conditions and get an honest
         read on where you stand.
       </p>
 
@@ -1417,7 +1417,7 @@ function ResultReport({
           </div>
           <p className="text-xs mb-3" style={{ color: "var(--text-muted)" }}>
             {missedCount === 0
-              ? "A perfect sitting — every explanation below is a victory lap."
+              ? "A perfect run — every explanation below is a victory lap."
               : "Every question you missed, with the full reasoning. Open each to see why the right answer is right and the tempting ones aren't."}
           </p>
           <div className="space-y-2 mb-6">

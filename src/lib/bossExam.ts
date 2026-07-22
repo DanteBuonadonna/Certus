@@ -23,7 +23,7 @@ const BOSSES: Record<string, Boss> = {
     name: "SIE Exam Day · The Front Desk",
     emoji: "🏢",
     intro: "The industry's front door. Show you know the markets, products, and rules cold before you go further.",
-    defeatTaunt: "Everyone starts here. Shore up the basics and sit it again.",
+    defeatTaunt: "Everyone starts here. Shore up the basics and take it again.",
   },
   cfa: {
     name: "CFA Level I Exam Day · The Charter Board",
@@ -47,7 +47,7 @@ const BOSSES: Record<string, Boss> = {
     name: "Series 7 Exam Day · The Compliance Desk",
     emoji: "🗄️",
     intro: "One rule misquoted and the desk fails you. Prove you're fit to represent clients.",
-    defeatTaunt: "Suitability is everything. Drill your gaps and sit the exam again.",
+    defeatTaunt: "Suitability is everything. Drill your gaps and take the exam again.",
   },
   "series-66": {
     name: "Series 66 Exam Day · The Regulator",
@@ -65,25 +65,25 @@ const BOSSES: Record<string, Boss> = {
     name: "AUD Exam Day · The Audit Board",
     emoji: "🔍",
     intro: "Risk, evidence, controls, independence, and the report. Sign off only if it holds.",
-    defeatTaunt: "An auditor gathers sufficient evidence. Shore up your weak spots and re-sit.",
+    defeatTaunt: "An auditor gathers sufficient evidence. Shore up your weak spots and take it again.",
   },
   "cpa-far": {
     name: "FAR Exam Day · The Reporting Board",
     emoji: "📊",
     intro: "Statements, accruals, revenue, leases, and government accounting. Balance every account.",
-    defeatTaunt: "The statements must tie out. Reconcile your weak areas and re-sit.",
+    defeatTaunt: "The statements must tie out. Reconcile your weak areas and take it again.",
   },
   "cpa-reg": {
     name: "REG Exam Day · The Tax Board",
     emoji: "⚖️",
     intro: "Individual and entity tax, business law, and ethics. File a flawless return.",
-    defeatTaunt: "The code is unforgiving. Patch your gaps and re-sit.",
+    defeatTaunt: "The code is unforgiving. Patch your gaps and take it again.",
   },
   "cpa-disc": {
     name: "Discipline Exam Day · BAR / ISC / TCP",
     emoji: "🎯",
     intro: "Your chosen specialty — analysis, systems, or advanced tax. Prove your depth.",
-    defeatTaunt: "Specialists don't guess. Sharpen your discipline and re-sit.",
+    defeatTaunt: "Specialists don't guess. Sharpen your discipline and take it again.",
   },
 };
 

@@ -396,7 +396,7 @@ export default function DashboardClient() {
         >
           <div className="min-w-0">
             <div className="text-[11px] font-semibold uppercase tracking-wider mb-0.5" style={{ color: "var(--text-muted)" }}>
-              If you sat the exam today
+              If you took the exam today
             </div>
             <div className="text-sm" style={{ color: "var(--text-secondary)" }}>
               <strong style={{ color: "var(--text-primary)", fontSize: 21 }}>{readiness.score}%</strong>

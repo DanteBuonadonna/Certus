@@ -28,7 +28,7 @@ export const FREE_INCLUDES = [
   `First ${FREE_CHAPTERS} chapters of every exam`,
   `${FREE_DAILY_QUESTIONS} practice questions a day`,
   "One full timed mock + your odds of passing",
-  "One free sitting of The Final, per exam",
+  "One free attempt at The Final, per exam",
 ];
 
 export const PRO_INCLUDES = [

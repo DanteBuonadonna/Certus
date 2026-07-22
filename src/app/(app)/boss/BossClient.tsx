@@ -138,7 +138,7 @@ export default function BossClient() {
         {attemptLocked ? (
           <UpgradeCard
             title="You've used your free attempt at this Final"
-            reason={`You've used your free sitting for this exam. Pro unlocks unlimited retakes. ${GATE_PRICE_LINE}`}
+            reason={`You've used your free attempt at this exam. Pro unlocks unlimited retakes. ${GATE_PRICE_LINE}`}
           />
         ) : (
           <>
@@ -426,7 +426,7 @@ function Result({
           <h3 className="text-sm font-semibold mb-1" style={{ color: "var(--text-primary)" }}>
             {result.passed ? "Still worth shoring up" : "Train these before the retake"}
           </h3>
-          <p className="text-xs mb-3" style={{ color: "var(--text-muted)" }}>Your weakest topics in this sitting, weakest first.</p>
+          <p className="text-xs mb-3" style={{ color: "var(--text-muted)" }}>Your weakest topics from this attempt, weakest first.</p>
           <div className="space-y-2 mb-6 stagger">
             {result.weakTopics.map((t) => (
               <div key={t.topicId} className="card-i p-4">

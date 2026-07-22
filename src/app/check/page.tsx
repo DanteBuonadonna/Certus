@@ -329,7 +329,7 @@ function Check() {
     return shell(
       <div className="rise-in">
         <div className="card p-6 mb-4 text-center">
-          <div className="text-[11px] font-semibold uppercase tracking-wider mb-4" style={{ color: "var(--text-muted)" }}>If you sat {exam.name} today</div>
+          <div className="text-[11px] font-semibold uppercase tracking-wider mb-4" style={{ color: "var(--text-muted)" }}>If you took {exam.name} today</div>
           <ScoreRing pct={result.pct} tone={tone} />
           <div className="text-base mt-4 font-semibold rise-in" style={{ color: "var(--text-primary)", animationDelay: "1.5s" }}>{v.label}</div>
           <div className="text-xs mt-1.5 rise-in" style={{ color: "var(--text-muted)", animationDelay: "1.65s" }}>

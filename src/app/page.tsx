@@ -126,7 +126,7 @@ export default function LandingPage() {
                 Take the {CHECK_MINUTES}-minute check →
               </Link>
               <Link href="/mock" className="btn-secondary text-base px-7 py-3">
-                Or sit the free mock
+                Or take the free mock
               </Link>
             </div>
             <p className="text-xs mt-4 mb-5" style={{ color: "var(--text-muted)" }}>
@@ -215,8 +215,8 @@ export default function LandingPage() {
           <p className="text-sm max-w-2xl mx-auto mb-10" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>
             Other providers charge up to $1,400 for full-length mocks. Ours are free — faithful
             replicas of all three CFA exams, with a formal per-topic score report and an honest,
-            data-based estimate of your odds of passing. Start with a short readiness check, or sit
-            the real thing end to end.
+            data-based estimate of your odds of passing. Start with a short readiness check, or take
+            the full mock end to end.
           </p>
           <div className="grid sm:grid-cols-3 gap-4 mb-10 text-left">
             {[

@@ -33,7 +33,7 @@ export interface IntakeQuestion {
 export const INTAKE_QUESTIONS: IntakeQuestion[] = [
   {
     id: "when",
-    prompt: "When do you sit the exam?",
+    prompt: "When do you take the exam?",
     choices: [
       { id: "soon", label: "Less than a month", weeks: 3 },
       { id: "1-2m", label: "1–2 months", weeks: 7 },
@@ -106,7 +106,7 @@ export function buildReflection(a: IntakeAnswers): { headline: string; body: str
   } else if (a.prep === "behind") {
     standing = "You feel behind. Almost everyone who passes felt exactly this — being behind is a triage problem, not a talent problem.";
   } else if (a.prep === "again") {
-    standing = "You've sat this before. That's not a mark against you — it means you already know how hard it is, and this time you get to be surgical about it.";
+    standing = "You've taken this before. That's not a mark against you — it means you already know how hard it is, and this time you get to be surgical about it.";
   } else {
     standing = "You're on track but anxious. That anxiety is normal and it's not information — your prep is, and we're about to look at it.";
   }
