@@ -146,30 +146,46 @@ export function buildReflection(a: IntakeAnswers): { headline: string; body: str
 export interface ProjectionPoint { week: number; mid: number; low: number; high: number; }
 export interface Projection {
   points: ProjectionPoint[];
-  passWeek: number | null;   // first week the band's midpoint reaches MPS_LOW
-  weeks: number;
+  passWeek: number | null;   // week the midpoint reaches MPS_LOW (always set now)
+  weeks: number;             // total weeks DRAWN (extended past exam if needed)
+  examWeek: number;          // where their actual exam falls on the timeline
   startPct: number;
-  reachesPass: boolean;
+  reachesByExam: boolean;    // does the crossing happen on or before exam day?
 }
-export function projection(startPct: number, weeks: number): Projection {
+/**
+ * The chart must ALWAYS show them reaching the pass zone — that's the wow.
+ * A low score + short runway used to produce a line that crawled toward
+ * nothing and stopped: an honest chart of failure, which is a terrible thing
+ * to sell hope with. Now the timeline EXTENDS until the curve crosses, and the
+ * exam date is drawn as a milestone. If the crossing lands after the exam,
+ * that's said plainly — "this gap is what more-than-15-minutes closes" — which
+ * is honest AND a better reason to start today.
+ */
+export function projection(startPct: number, examWeeks: number): Projection {
   const target = 82;                 // realistic ceiling for consistent daily reps
-  const k = 0.22;                    // learning rate — tuned so ~10-14 wks clears the band
+  const k = 0.22;                    // learning rate
+  const midAt = (w: number) => Math.round(target - (target - startPct) * Math.exp(-k * w));
+
+  // How long until the curve clears the pass band? (capped for sanity)
+  let weeksNeeded = 0;
+  while (midAt(weeksNeeded) < MPS_LOW && weeksNeeded < 26) weeksNeeded++;
+
+  const weeks = Math.max(examWeeks, weeksNeeded);
   const pts: ProjectionPoint[] = [];
   let passWeek: number | null = null;
   for (let w = 0; w <= weeks; w++) {
-    const mid = Math.round(target - (target - startPct) * Math.exp(-k * w));
-    const spread = Math.max(3, Math.round(8 * Math.exp(-k * w)) + 3); // tighter over time
-    const low = Math.max(0, mid - spread);
-    const high = Math.min(100, mid + spread);
-    pts.push({ week: w, mid, low, high });
+    const mid = midAt(w);
+    const spread = Math.max(3, Math.round(8 * Math.exp(-k * w)) + 3);
+    pts.push({ week: w, mid, low: Math.max(0, mid - spread), high: Math.min(100, mid + spread) });
     if (passWeek === null && mid >= MPS_LOW) passWeek = w;
   }
   return {
     points: pts,
     passWeek,
     weeks,
+    examWeek: examWeeks,
     startPct,
-    reachesPass: passWeek !== null,
+    reachesByExam: passWeek !== null && passWeek <= examWeeks,
   };
 }
 

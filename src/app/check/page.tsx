@@ -92,33 +92,38 @@ function ScoreRing({ pct, tone }: { pct: number; tone: string }) {
 }
 
 // ---------- STEP 4: the projection — THE WOW. ----------
-// Design was iterated as rendered images before porting (see wow_preview.png):
-// cropped y-domain so the climb reads steep, gradient stroke red→purple→green
-// (you literally watch your colour change as you improve), glowing YOU PASS
-// badge at the crossing, TODAY and end-state chips. Honesty preserved: the
-// shaded band is the realistic range, and the caption says "~15 min/day".
-function ProjectionChart({ proj, examDateLabel }: { proj: Projection; examDateLabel: string }) {
-  const W = 520, H = 330, padL = 20, padR = 20, padT = 46, padB = 56;
-  // Crop the y-domain: full 0-100 made a 30-point climb look flat. Keep the
-  // start dot comfortably on-chart even for very low scores.
-  const YMIN = Math.min(35, Math.max(0, proj.startPct - 10));
-  const YMAX = 92;
+// v2, after v1 shipped a solid purple slab crawling toward failure. Rules:
+//   - ONE line. The confidence band polygon is gone — it rendered as a blob
+//     (a fade-to-opacity-1 animation stomped its 10% opacity) and even fixed
+//     it was clutter. Honesty lives in the caption instead.
+//   - The line ALWAYS reaches the pass zone. projection() extends the
+//     timeline past exam day when needed, and the exam becomes a dashed
+//     milestone the line passes through. No more charts of failure.
+//   - Three animation beats, not six: area+line draw (2s) → exam milestone →
+//     YOU PASS badge. Previewed as rendered PNGs at 17%/3wk and 48%/7wk
+//     before porting (case_low.png / case_mid.png).
+function ProjectionChart({ proj, examDateLabel, passDateLabel }: { proj: Projection; examDateLabel: string; passDateLabel: string }) {
+  const W = 520, H = 300, padL = 26, padR = 20, padT = 44, padB = 52;
+  const endPct = proj.points[proj.points.length - 1].mid;
+  // Crop the y-domain so the climb reads steep: floor just under today's
+  // score, ceiling just above wherever the line ends.
+  const YMIN = Math.max(0, proj.startPct - 8);
+  const YMAX = Math.max(MPS_HIGH + 8, endPct + 6);
   const x = (wk: number) => padL + (wk / Math.max(1, proj.weeks)) * (W - padL - padR);
   const y = (pct: number) => padT + (1 - (pct - YMIN) / (YMAX - YMIN)) * (H - padT - padB);
   const midPath = proj.points.map((p, i) => `${i ? "L" : "M"} ${x(p.week).toFixed(1)} ${y(p.mid).toFixed(1)}`).join(" ");
   const areaPath = `${midPath} L ${x(proj.weeks).toFixed(1)} ${H - padB} L ${x(0).toFixed(1)} ${H - padB} Z`;
-  const band = [
-    ...proj.points.map((p) => `${x(p.week).toFixed(1)},${y(Math.min(YMAX, p.high)).toFixed(1)}`),
-    ...[...proj.points].reverse().map((p) => `${x(p.week).toFixed(1)},${y(Math.max(YMIN, p.low)).toFixed(1)}`),
-  ].join(" ");
   const pathLen = 900;
+  const extended = proj.examWeek < proj.weeks; // crossing lands after exam day
   const passX = proj.passWeek !== null ? x(proj.passWeek) : null;
   const passY = proj.passWeek !== null ? y(proj.points[proj.passWeek].mid) : null;
-  const endX = x(proj.weeks), endY = y(proj.points[proj.points.length - 1].mid);
-  const endPct = proj.points[proj.points.length - 1].mid;
-  const weekTicks = Array.from({ length: Math.floor(proj.weeks / 2) + 1 }, (_, i) => i * 2).filter((w) => w <= proj.weeks);
-  // Keep the TODAY chip on-chart when the start dot is near the left edge.
+  const examX = x(proj.examWeek), examY = y(proj.points[proj.examWeek].mid);
+  // Chips clamp on-chart; the badge pointer tracks the dot even when clamped.
   const todayChipX = Math.max(padL, x(0) + 2);
+  const BW = 132;
+  const badgeX = passX !== null ? Math.min(Math.max(passX - BW / 2, padL), W - padR - BW) : 0;
+  const ptrX = passX !== null ? Math.min(Math.max(passX - badgeX, 14), BW - 14) : 0;
+  const examChipX = Math.min(Math.max(examX - 54, padL), W - padR - 108);
   return (
     <svg width="100%" viewBox={`0 0 ${W} ${H}`} style={{ display: "block" }}>
       <defs>
@@ -128,12 +133,12 @@ function ProjectionChart({ proj, examDateLabel }: { proj: Projection; examDateLa
           <stop offset="100%" stopColor="var(--ats-green)" />
         </linearGradient>
         <linearGradient id="pj-area" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.14" />
+          <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.13" />
           <stop offset="100%" stopColor="var(--primary)" stopOpacity="0" />
         </linearGradient>
         <linearGradient id="pj-zone" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="var(--ats-green)" stopOpacity="0.10" />
-          <stop offset="100%" stopColor="var(--ats-green)" stopOpacity="0.20" />
+          <stop offset="0%" stopColor="var(--ats-green)" stopOpacity="0.09" />
+          <stop offset="100%" stopColor="var(--ats-green)" stopOpacity="0.18" />
         </linearGradient>
         <filter id="pj-glow" x="-60%" y="-60%" width="220%" height="220%">
           <feGaussianBlur stdDeviation="6" result="b" />
@@ -142,62 +147,58 @@ function ProjectionChart({ proj, examDateLabel }: { proj: Projection; examDateLa
       </defs>
 
       {/* honesty caption */}
-      <text x={padL} y={padT - 14} fontSize="11.5" fontWeight="600" fill="var(--text-muted)">
-        Projected readiness at ~15 min/day · shaded = realistic range
+      <text x={padL} y={padT - 16} fontSize="11.5" fontWeight="600" fill="var(--text-muted)">
+        Projected readiness at ~15 min/day of targeted reps
       </text>
 
       {/* pass zone */}
       <rect x={padL} y={y(MPS_HIGH)} width={W - padL - padR} height={y(MPS_LOW) - y(MPS_HIGH)} fill="url(#pj-zone)" />
       <line x1={padL} y1={y(MPS_LOW)} x2={W - padR} y2={y(MPS_LOW)} stroke="var(--ats-green)" strokeWidth="1.5" strokeDasharray="5 5" opacity="0.6" />
-      <text x={padL + 4} y={y(MPS_HIGH) - 7} fontSize="12" fontWeight="800" letterSpacing="1.5" fill="var(--ats-green)">PASS ZONE</text>
+      <text x={padL + 4} y={y(MPS_HIGH) - 7} fontSize="11" fontWeight="800" letterSpacing="1.5" fill="var(--ats-green)">PASS ZONE</text>
 
-      {/* week ticks */}
-      {weekTicks.map((w) => (
-        <line key={w} x1={x(w)} y1={H - padB} x2={x(w)} y2={H - padB + 5} stroke="var(--border-strong)" strokeWidth="1.5" />
-      ))}
-
-      {/* confidence band + area */}
-      <polygon points={band} fill="var(--primary)" opacity="0.10" className="proj-fade" style={{ animationDelay: "0.3s" }} />
-      <path d={areaPath} fill="url(#pj-area)" className="proj-fade" style={{ animationDelay: "0.3s" }} />
-
-      {/* THE CLIMB — red at today, green by the pass */}
+      {/* the climb — area then the single gradient line, red today → green at the pass */}
+      <path d={areaPath} fill="url(#pj-area)" className="proj-fade" style={{ animationDelay: "0.2s" }} />
       <path d={midPath} fill="none" stroke="url(#pj-line)" strokeWidth="5" strokeLinecap="round"
         className="proj-line" style={{ strokeDasharray: pathLen, ["--len" as string]: pathLen }} />
 
+      {/* exam milestone — only when the crossing lands after exam day */}
+      {extended && (
+        <g className="proj-fade" style={{ animationDelay: "1.2s" }}>
+          <line x1={examX} y1={padT + 4} x2={examX} y2={H - padB} stroke="var(--primary)" strokeWidth="1.5" strokeDasharray="4 4" opacity="0.5" />
+          <circle cx={examX} cy={examY} r="5.5" fill="var(--bg-card)" stroke="var(--primary)" strokeWidth="2.5" />
+          <g transform={`translate(${examChipX},${padT - 4})`}>
+            <rect width="108" height="22" rx="11" fill="var(--primary-light)" />
+            <text x="54" y="15" textAnchor="middle" fontSize="11" fontWeight="800" fill="var(--primary)">EXAM · {examDateLabel}</text>
+          </g>
+        </g>
+      )}
+
       {/* today */}
       <circle cx={x(0)} cy={y(proj.startPct)} r="8" fill="var(--ats-red)" stroke="var(--bg-card)" strokeWidth="3" />
-      <g transform={`translate(${todayChipX},${Math.min(y(proj.startPct) + 18, H - padB - 40)})`}>
-        <rect x="0" y="0" width="118" height="34" rx="9" fill="var(--ats-red-bg)" />
-        <text x="10" y="15" fontSize="12" fontWeight="800" fill="var(--ats-red)">TODAY</text>
-        <text x="10" y="29" fontSize="12" fontWeight="700" fill="var(--text-secondary)">{proj.startPct}% ready</text>
+      <g transform={`translate(${todayChipX},${Math.min(y(proj.startPct) + 16, H - padB - 40)})`}>
+        <rect x="0" y="0" width="112" height="34" rx="9" fill="var(--ats-red-bg)" />
+        <text x="10" y="15" fontSize="11.5" fontWeight="800" fill="var(--ats-red)">TODAY</text>
+        <text x="10" y="29" fontSize="11.5" fontWeight="700" fill="var(--text-secondary)">{proj.startPct}% ready</text>
       </g>
 
       {/* THE MOMENT — you pass */}
       {passX !== null && passY !== null && (
-        <g className="proj-fade" style={{ animationDelay: "1.6s" }}>
-          <line x1={passX} y1={passY} x2={passX} y2={H - padB} stroke="var(--ats-green)" strokeWidth="2" strokeDasharray="4 4" opacity="0.55" />
+        <g className="proj-fade" style={{ animationDelay: "1.8s" }}>
           <circle cx={passX} cy={passY} r="9" fill="var(--ats-green)" stroke="var(--bg-card)" strokeWidth="3" filter="url(#pj-glow)" />
-          <g transform={`translate(${Math.min(Math.max(passX - 66, padL), W - padR - 132)},${passY - 54})`}>
-            <rect x="0" y="0" width="132" height="38" rx="19" fill="var(--ats-green)" />
-            <path d={`M 60 38 l 6 8 l 6 -8 z`} fill="var(--ats-green)" />
-            <text x="66" y="24" textAnchor="middle" fontSize="15" fontWeight="800" fill="#ffffff">YOU PASS</text>
+          <g transform={`translate(${badgeX},${passY - 54})`}>
+            <rect x="0" y="0" width={BW} height="38" rx="19" fill="var(--ats-green)" />
+            <path d={`M ${ptrX - 6} 38 l 6 8 l 6 -8 z`} fill="var(--ats-green)" />
+            <text x={BW / 2} y="24" textAnchor="middle" fontSize="15" fontWeight="800" fill="#ffffff">YOU PASS</text>
           </g>
-          {proj.passWeek !== null && (
-            <text x={passX} y={H - 18} textAnchor="middle" fontSize="13" fontWeight="800" fill="var(--ats-green)">Week {proj.passWeek}</text>
-          )}
         </g>
       )}
 
-      {/* end of line */}
-      <circle cx={endX} cy={endY} r="6.5" fill="var(--primary)" stroke="var(--bg-card)" strokeWidth="2.5" className="proj-fade" style={{ animationDelay: "1.9s" }} />
-      <g className="proj-fade" style={{ animationDelay: "1.9s" }} transform={`translate(${endX - 100},${endY - 46})`}>
-        <rect x="0" y="0" width="96" height="28" rx="8" fill="var(--primary-light)" />
-        <text x="48" y="19" textAnchor="middle" fontSize="13" fontWeight="800" fill="var(--primary)">{endPct}% ready</text>
-      </g>
-
       {/* axis */}
-      <text x={padL} y={H - 18} fontSize="13" fontWeight="700" fill="var(--text-muted)">Today</text>
-      <text x={W - padR} y={H - 18} textAnchor="end" fontSize="13" fontWeight="700" fill="var(--text-muted)">Exam · {examDateLabel}</text>
+      <text x={padL} y={H - 16} fontSize="13" fontWeight="700" fill="var(--text-muted)">Today</text>
+      <text x={W - padR} y={H - 16} textAnchor="end" fontSize="13" fontWeight="700"
+        fill={extended ? "var(--ats-green)" : "var(--text-muted)"}>
+        {extended ? `You pass · ${passDateLabel}` : `Exam · ${examDateLabel}`}
+      </text>
     </svg>
   );
 }
@@ -712,18 +713,22 @@ function Check() {
     const proj = projection(result.pct, weeks);
     const d = new Date(); d.setDate(d.getDate() + weeks * 7);
     const examDateLabel = weeks >= 20 ? "Exam" : d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-    const passDate = proj.passWeek !== null ? (() => { const pd = new Date(); pd.setDate(pd.getDate() + proj.passWeek * 7); return pd.toLocaleDateString("en-US", { month: "long", day: "numeric" }); })() : null;
+    const passD = proj.passWeek !== null ? (() => { const pd = new Date(); pd.setDate(pd.getDate() + (proj.passWeek as number) * 7); return pd; })() : null;
+    const passDate = passD ? passD.toLocaleDateString("en-US", { month: "long", day: "numeric" }) : null;
+    const passDateLabel = passD ? `~${passD.toLocaleDateString("en-US", { month: "short", day: "numeric" })}` : "";
     const worst = result.weakTopics.filter((t) => t.pct < 100).slice(0, 3);
     return shell(
       <div className="rise-in">
         <h1 className="font-display mb-1" style={{ fontSize: 28, lineHeight: 1.25, color: "var(--text-primary)" }}>Here&apos;s your path to passing.</h1>
         <p className="text-sm mb-4" style={{ color: "var(--text-secondary)" }}>
-          {proj.reachesPass && passDate
-            ? <>At ~15 minutes a day on your weak topics, you clear the pass band around <strong style={{ color: "var(--ats-green)" }}>{passDate}</strong>.</>
-            : <>You&apos;re close. A focused daily rep on your weak topics moves this fast.</>}
+          {proj.reachesByExam && passDate
+            ? <>At ~15 minutes a day on your weak topics, you clear the pass band around <strong style={{ color: "var(--ats-green)" }}>{passDate}</strong> — before your exam.</>
+            : passDate
+            ? <>At 15 minutes a day you&apos;d clear the pass band around <strong style={{ color: "var(--ats-green)" }}>{passDate}</strong> — after your exam. That gap is the whole game: more daily reps pulls that date left, and your plan is built to do exactly that.</>
+            : <>Consistent daily reps on your weak topics move this number fast — here&apos;s the honest trajectory.</>}
         </p>
         <div className="card p-4 mb-5">
-          <ProjectionChart proj={proj} examDateLabel={examDateLabel} />
+          <ProjectionChart proj={proj} examDateLabel={examDateLabel} passDateLabel={passDateLabel} />
         </div>
 
         {worst.length > 0 && (

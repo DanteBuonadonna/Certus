@@ -309,12 +309,15 @@ body {
 
 /* ---- The projection "wow": the readiness line drawing itself toward passing ---- */
 @keyframes projDraw { from { stroke-dashoffset: var(--len, 1000); } to { stroke-dashoffset: 0; } }
-@keyframes projFade { from { opacity: 0; } to { opacity: 1; } }
-.proj-line { animation: projDraw 1.6s cubic-bezier(0.4,0,0.2,1) forwards; }
-.proj-fade { opacity: 0; animation: projFade 0.5s ease forwards; }
+/* NOTE: the fade target is a custom property, NOT a hardcoded 1 — a hardcoded
+   `to { opacity: 1 }` once overrode an element's intended 10% opacity and
+   rendered the confidence band as a solid purple slab. Never again. */
+@keyframes projFade { from { opacity: 0; } to { opacity: var(--fade-to, 1); } }
+.proj-line { animation: projDraw 2s cubic-bezier(0.55,0,0.3,1) forwards; }
+.proj-fade { opacity: 0; animation: projFade 0.6s ease forwards; }
 @media (prefers-reduced-motion: reduce) {
   .proj-line { animation: none; stroke-dashoffset: 0; }
-  .proj-fade { animation: none; opacity: 1; }
+  .proj-fade { animation: none; opacity: var(--fade-to, 1); }
 }
 
 /* Staggered entrance for lists/grids: apply .stagger to the parent. */
