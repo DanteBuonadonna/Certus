@@ -1,16 +1,18 @@
 "use client";
 
 // ============================================================
-// /check — THE FRONT DOOR.
+// /check — THE FUNNEL. Value-first, in five acts:
 //
-// This is where every ad lands. No sidebar, no tab bar, no nav — nothing to
-// click except the next question. A cold stranger will not sit a 4.5-hour mock,
-// but they will answer six questions in three minutes to find out if they'd pass.
+//   1. ASK about their problems   -> intake (4 taps)
+//   2. FEEL UNDERSTOOD            -> reflection screen
+//   3. SHOW HOW WE SOLVE IT       -> the 6-question diagnostic + their plan
+//   4. WOW                        -> the readiness projection: them, passing
+//   5. THEN the paywall           -> the 7-day trial, on a warm, seen lead
 //
-// The RESULT is the product. We've just told someone "you're at 40% — you'd
-// fail today." That's the highest-intent moment in the entire funnel, so we
-// don't show them a feature list. We show them exactly where they bled points,
-// hand them a plan, and drop them into their first lesson.
+// The old flow dropped a cold stranger straight into questions. This one earns
+// the ask: by the paywall, they've named their fear, been told we understand it,
+// watched an honest arc of themselves clearing the pass line, and only THEN been
+// asked for anything. It's the Noom pattern, applied to the CFA.
 // ============================================================
 
 import { useEffect, useMemo, useState, Suspense } from "react";
@@ -28,6 +30,14 @@ import {
   WeakTopic,
   DiagnosticResult,
 } from "@/lib/diagnostic";
+import {
+  INTAKE_QUESTIONS,
+  IntakeAnswers,
+  buildReflection,
+  projection,
+  weeksToExam,
+  Projection,
+} from "@/lib/intake";
 import { loadState, saveState } from "@/lib/gameStore";
 import type { StudyPlan } from "@/lib/studyPlan";
 import { N_QUESTIONS } from "@/lib/check";
@@ -35,7 +45,7 @@ import SignupModal from "@/components/SignupModal";
 import { createClient } from "@/lib/supabase/client";
 import { isPro } from "@/lib/access";
 
-
+type Phase = "intake" | "reflect" | "quiz" | "result" | "projection";
 
 export default function CheckPage() {
   return (
@@ -45,89 +55,77 @@ export default function CheckPage() {
   );
 }
 
-// ============================================================
-// The score reveal. THIS IS THE PRODUCT.
-//
-// Everything before it is admin; this is the moment we hand a stranger
-// something true about themselves that they didn't have 3 minutes ago. It was a
-// static number. Now the arc climbs and they watch whether it clears the line.
-//
-// NOTE ON WHAT'S IN THE RING: this shows their SCORE against the pass band —
-// not a "% chance of passing". Off 6 questions the error bar on any odds figure
-// is enormous, and inventing one would reintroduce the exact bug diagnostic.ts
-// exists to fix (a brand-new account being told it had "a 2% chance of passing"
-// based on nothing). The band is drawn ON the dial, so the drama comes from a
-// true number landing above or below a real line. A CFA candidate can smell
-// fake precision, and credibility is the only thing we're selling here.
-// ============================================================
+// ---------- The score ring (unchanged: score vs the pass band, no fake odds) ----------
 function ScoreRing({ pct, tone }: { pct: number; tone: string }) {
   const [shown, setShown] = useState(0);
-
-  // Count the number up in step with the arc so they move as one object.
   useEffect(() => {
-    // The CSS stagger already collapses under reduced-motion (globals.css), but
-    // a requestAnimationFrame loop doesn't respect that setting on its own —
-    // it'd keep animating for someone who explicitly asked things to hold still.
     if (typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
-      setShown(pct);
-      return;
+      setShown(pct); return;
     }
-    const DURATION = 1300;
-    const start = performance.now();
-    let raf = 0;
+    const DURATION = 1300; const start = performance.now(); let raf = 0;
     const tick = (now: number) => {
       const t = Math.min(1, (now - start) / DURATION);
-      // easeOutCubic — fast then settling, so it feels like it's landing.
-      const eased = 1 - Math.pow(1 - t, 3);
-      setShown(Math.round(eased * pct));
+      setShown(Math.round((1 - Math.pow(1 - t, 3)) * pct));
       if (t < 1) raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
   }, [pct]);
-
-  const SIZE = 190;
-  const R = 78;
-  const C = 2 * Math.PI * R;
-  // Leave a gap at the bottom: a 270° dial reads as a gauge, not a pie chart.
-  const SWEEP = 0.75;
-  const arcLen = C * SWEEP;
-  const rot = 135; // start bottom-left
-
-  const passLow = (MPS_LOW / 100) * arcLen;
-  const passHigh = (MPS_HIGH / 100) * arcLen;
-
+  const SIZE = 190, R = 78, C = 2 * Math.PI * R, SWEEP = 0.75, arcLen = C * SWEEP, rot = 135;
+  const passLow = (MPS_LOW / 100) * arcLen, passHigh = (MPS_HIGH / 100) * arcLen;
   return (
     <div className="relative mx-auto" style={{ width: SIZE, height: SIZE }}>
       <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} style={{ transform: `rotate(${rot}deg)` }}>
-        {/* track */}
-        <circle
-          cx={SIZE / 2} cy={SIZE / 2} r={R} fill="none"
-          stroke="var(--border)" strokeWidth={13} strokeLinecap="round"
-          strokeDasharray={`${arcLen} ${C}`}
-        />
-        {/* the pass band, drawn on the dial — the line they're trying to clear */}
-        <circle
-          cx={SIZE / 2} cy={SIZE / 2} r={R} fill="none"
-          stroke="var(--text-muted)" strokeWidth={13} opacity={0.32}
-          strokeDasharray={`${passHigh - passLow} ${C}`}
-          strokeDashoffset={-passLow}
-        />
-        {/* their score */}
-        <circle
-          cx={SIZE / 2} cy={SIZE / 2} r={R} fill="none"
-          stroke={tone} strokeWidth={13} strokeLinecap="round"
-          strokeDasharray={`${(shown / 100) * arcLen} ${C}`}
-          style={{ transition: "stroke 0.4s ease" }}
-        />
+        <circle cx={SIZE/2} cy={SIZE/2} r={R} fill="none" stroke="var(--border)" strokeWidth={13} strokeLinecap="round" strokeDasharray={`${arcLen} ${C}`} />
+        <circle cx={SIZE/2} cy={SIZE/2} r={R} fill="none" stroke="var(--text-muted)" strokeWidth={13} opacity={0.32} strokeDasharray={`${passHigh - passLow} ${C}`} strokeDashoffset={-passLow} />
+        <circle cx={SIZE/2} cy={SIZE/2} r={R} fill="none" stroke={tone} strokeWidth={13} strokeLinecap="round" strokeDasharray={`${(shown/100)*arcLen} ${C}`} style={{ transition: "stroke 0.4s ease" }} />
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <div className="font-display" style={{ fontSize: 52, lineHeight: 1, color: tone }}>{shown}%</div>
-        <div className="text-[10px] font-semibold uppercase tracking-wider mt-1" style={{ color: "var(--text-muted)" }}>
-          your score
-        </div>
+        <div className="text-[10px] font-semibold uppercase tracking-wider mt-1" style={{ color: "var(--text-muted)" }}>your score</div>
       </div>
     </div>
+  );
+}
+
+// ---------- STEP 4: the projection. Their readiness arc crossing the pass line. ----------
+function ProjectionChart({ proj, examName, examDateLabel }: { proj: Projection; examName: string; examDateLabel: string }) {
+  const W = 520, H = 280, padL = 44, padR = 24, padT = 20, padB = 42;
+  const x = (wk: number) => padL + (wk / Math.max(1, proj.weeks)) * (W - padL - padR);
+  const y = (pct: number) => padT + (1 - pct / 100) * (H - padT - padB);
+  const midPath = proj.points.map((p, i) => `${i ? "L" : "M"} ${x(p.week).toFixed(1)} ${y(p.mid).toFixed(1)}`).join(" ");
+  // band polygon: highs forward, lows back
+  const band = [
+    ...proj.points.map((p) => `${x(p.week).toFixed(1)},${y(p.high).toFixed(1)}`),
+    ...[...proj.points].reverse().map((p) => `${x(p.week).toFixed(1)},${y(p.low).toFixed(1)}`),
+  ].join(" ");
+  const pathLen = 800; // approx, for the draw-on animation
+  const passY = y((MPS_LOW + MPS_HIGH) / 2);
+  const passX = proj.passWeek !== null ? x(proj.passWeek) : null;
+  return (
+    <svg width="100%" viewBox={`0 0 ${W} ${H}`} style={{ display: "block" }}>
+      {/* pass band */}
+      <rect x={padL} y={y(MPS_HIGH)} width={W - padL - padR} height={y(MPS_LOW) - y(MPS_HIGH)} fill="var(--ats-green-bg)" />
+      <text x={W - padR} y={passY - 6} textAnchor="end" fontSize="11" fontWeight="700" fill="var(--ats-green)">PASS ZONE</text>
+      {/* readiness band */}
+      <polygon points={band} fill="var(--primary)" opacity="0.14" className="proj-fade" style={{ animationDelay: "0.3s" }} />
+      {/* the climb */}
+      <path d={midPath} fill="none" stroke="var(--primary)" strokeWidth="4" strokeLinecap="round"
+        className="proj-line" style={{ strokeDasharray: pathLen, ["--len" as string]: pathLen }} />
+      {/* start dot */}
+      <circle cx={x(0)} cy={y(proj.startPct)} r="7" fill="var(--ats-red)" stroke="#fff" strokeWidth="2.5" />
+      <text x={x(0)} y={y(proj.startPct) + 30} textAnchor="start" fontSize="11" fontWeight="700" fill="var(--text-secondary)">You today · {proj.startPct}%</text>
+      {/* pass marker */}
+      {passX !== null && (
+        <g className="proj-fade" style={{ animationDelay: "1.5s" }}>
+          <line x1={passX} y1={passY} x2={passX} y2={H - padB} stroke="var(--ats-green)" strokeWidth="2" strokeDasharray="4 4" />
+          <circle cx={passX} cy={passY} r="7" fill="var(--ats-green)" stroke="#fff" strokeWidth="2.5" />
+        </g>
+      )}
+      {/* axis ends */}
+      <text x={padL} y={H - 16} textAnchor="start" fontSize="11" fill="var(--text-muted)">Today</text>
+      <text x={W - padR} y={H - 16} textAnchor="end" fontSize="11" fill="var(--text-muted)">{examDateLabel}</text>
+    </svg>
   );
 }
 
@@ -137,170 +135,86 @@ function Check() {
   const examSlug = params.get("exam") || "cfa";
   const exam = getExam(examSlug);
 
-  // No intro gate. PostHog was brutal on this: 44 sessions viewed /check and 5
-  // pressed Start — an 89% bounce on a page someone deliberately clicked. The
-  // old intro screen asked for a five-minute commitment before giving anything,
-  // so we deleted it. Question 1 is live on arrival; the hook animates OVER it
-  // and gets out of the way. It must never block the tap — if they're already
-  // reading the question, the hook has done its job.
-  const [hook, setHook] = useState(true);
+  const [phase, setPhase] = useState<Phase>("intake");
+  const [intakeIdx, setIntakeIdx] = useState(0);
+  const [intake, setIntake] = useState<IntakeAnswers>({});
+
   const [idx, setIdx] = useState(0);
   const [picked, setPicked] = useState<number | null>(null);
   const [answers, setAnswers] = useState<(number | null)[]>([]);
   const [result, setResult] = useState<DiagnosticResult | null>(null);
-  // Where to send them once they've made an account (set when they hit "Fix X").
   const [pendingDest, setPendingDest] = useState<string | null>(null);
 
-  // NOT useSignedIn(). /check lives OUTSIDE the (app) route group, so there's no
-  // AccessProvider above it — the context hook would return its default `false`
-  // for everyone, and a signed-in member retaking the check would get hit with a
-  // signup modal and told their own account already exists. Read the session.
+  // /check is outside (app), so no AccessProvider — read the session directly.
   const [signedIn, setSignedIn] = useState(false);
   useEffect(() => {
     let alive = true;
-    createClient()
-      .auth.getSession()
-      .then(({ data }) => {
-        if (alive) setSignedIn(!!data.session);
-      })
-      .catch(() => {});
-    return () => {
-      alive = false;
-    };
+    createClient().auth.getSession().then(({ data }) => { if (alive) setSignedIn(!!data.session); }).catch(() => {});
+    return () => { alive = false; };
   }, []);
 
-  // A spread of real questions across topics — not 10 from one chapter.
   const questions = useMemo<Question[]>(() => {
     const all = getQuestions(examSlug);
     const byTopic = new Map<string, Question[]>();
-    all.forEach((q) => {
-      const list = byTopic.get(q.topicId) ?? [];
-      list.push(q);
-      byTopic.set(q.topicId, list);
-    });
-    const topics = [...byTopic.keys()];
-    const out: Question[] = [];
-    let i = 0;
+    all.forEach((q) => { const l = byTopic.get(q.topicId) ?? []; l.push(q); byTopic.set(q.topicId, l); });
+    const topics = [...byTopic.keys()]; const out: Question[] = []; let i = 0;
     while (out.length < N_QUESTIONS && topics.length > 0) {
-      const t = topics[i % topics.length];
-      const pool = byTopic.get(t)!;
+      const t = topics[i % topics.length]; const pool = byTopic.get(t)!;
       const q = pool[Math.floor(Math.random() * pool.length)];
       if (q && !out.find((x) => x.id === q.id)) out.push(q);
-      i++;
-      if (i > 400) break;
+      i++; if (i > 400) break;
     }
     return out.slice(0, N_QUESTIONS);
   }, [examSlug]);
 
-  useEffect(() => {
-    posthog.capture("check_viewed", { exam: examSlug });
-    // Arriving IS starting now — there's no button to press. Keeping the event
-    // so the check_viewed → check_started → check_completed funnel stays
-    // comparable to the old one; the gap between viewed and started should now
-    // be ~0, and any remaining drop is real bounce, not a shut door.
-    posthog.capture("check_started", { exam: examSlug, variant: "no_intro" });
-  }, [examSlug]);
-
-  // Retire the hook on a timer, but let any tap kill it early.
-  useEffect(() => {
-    if (!hook) return;
-    const t = setTimeout(() => setHook(false), 1900);
-    return () => clearTimeout(t);
-  }, [hook]);
+  useEffect(() => { posthog.capture("check_viewed", { exam: examSlug }); }, [examSlug]);
 
   const q = questions[idx];
+
+  function pickIntake(choiceId: string) {
+    const qid = INTAKE_QUESTIONS[intakeIdx].id;
+    const nextAnswers = { ...intake, [qid]: choiceId };
+    setIntake(nextAnswers);
+    if (intakeIdx + 1 >= INTAKE_QUESTIONS.length) {
+      posthog.capture("check_intake_done", { exam: examSlug, ...nextAnswers });
+      setPhase("reflect");
+    } else {
+      setIntakeIdx(intakeIdx + 1);
+    }
+  }
 
   function submit(all: (number | null)[]) {
     let correct = 0;
     const topics = new Map<string, WeakTopic>();
     questions.forEach((qq, i) => {
-      const right = all[i] === qq.answerIndex;
-      if (right) correct++;
-      const t = topics.get(qq.topicId) ?? {
-        topicId: qq.topicId,
-        topicName: qq.topicName,
-        correct: 0,
-        total: 0,
-        pct: 0,
-      };
-      t.total++;
-      if (right) t.correct++;
-      t.pct = Math.round((t.correct / t.total) * 100);
+      const right = all[i] === qq.answerIndex; if (right) correct++;
+      const t = topics.get(qq.topicId) ?? { topicId: qq.topicId, topicName: qq.topicName, correct: 0, total: 0, pct: 0 };
+      t.total++; if (right) t.correct++; t.pct = Math.round((t.correct / t.total) * 100);
       topics.set(qq.topicId, t);
     });
-
     const r: DiagnosticResult = {
-      examSlug,
-      correct,
-      total: questions.length,
+      examSlug, correct, total: questions.length,
       pct: Math.round((correct / questions.length) * 100),
       weakTopics: [...topics.values()].sort((a, b) => a.pct - b.pct),
       date: new Date().toISOString().slice(0, 10),
     };
-    saveDiagnostic(r);
-    setResult(r);
+    saveDiagnostic(r); setResult(r); setPhase("result");
     posthog.capture("check_completed", { exam: examSlug, pct: r.pct });
   }
 
   function next() {
-    const all = [...answers, picked];
-    setAnswers(all);
-    setPicked(null);
-    if (idx + 1 >= questions.length) submit(all);
-    else setIdx(idx + 1);
+    const all = [...answers, picked]; setAnswers(all); setPicked(null);
+    if (idx + 1 >= questions.length) submit(all); else setIdx(idx + 1);
   }
 
-  // Build the plan, then go where they chose.
-  //
-  // THE DEFAULT IS THE FIX, not a menu. This screen already showed them the
-  // ring, the score and the topic they bled on — routing to a dashboard so they
-  // can find another card repeating that is the same information twice with a
-  // decision point in between, and decision points are where momentum dies.
-  //
-  // v1 sent them into a 20-question run with no exit, which was a corridor. The
-  // problem there was the LENGTH and the LACK OF AN EXIT, not the routing. So:
-  // 5 questions, and a visible way out sitting right next to the button.
-  //
-  // The escape is deliberately legible, not a hidden "skip". Burying it would
-  // buy a lesson-start from someone who didn't want one — they'd bounce two
-  // minutes later anyway, and we'd have spent trust to get it.
-  // Save the plan, then gate on signup if they're heading into practice.
-  //
-  // The signup wall sits HERE — on the click into the first lesson — per Dante's
-  // call. The trade is explicit: we're buying email addresses with some fraction
-  // of first lessons, because an anonymous guest who studies and leaves is
-  // someone we can never contact again.
-  //
-  // It's a modal, not a redirect to /signup, so their score stays on screen
-  // behind it — the reason they're being asked is still visible.
-  function gateThen(dest: string) {
-    if (!exam || !result) return;
-    savePlanAndTrack(dest);
-    // Never wall someone who has already paid. A Pro guest (redeemed code, or a
-    // legacy guest payer) still needs an account — but the dashboard banner asks
-    // for that, and a paying customer should never be BLOCKED from a lesson.
-    if (signedIn || isPro()) {
-      router.push(dest);
-    } else {
-      setPendingDest(dest);
-      posthog.capture("signup_gate_shown", { exam: examSlug, trigger: "check_to_practice" });
-    }
-  }
-
-  function savePlanAndTrack(dest: string) {
+  function savePlan(dest: string) {
     if (!exam || !result) return;
     const level = exam.levels[0];
-    const d = new Date();
-    d.setDate(d.getDate() + 90);
+    const d = new Date(); d.setDate(d.getDate() + weeksToExam(intake) * 7);
     const plan: StudyPlan = {
-      examSlug: exam.slug,
-      examName: exam.name,
-      levelId: level.id,
-      levelName: level.name,
-      examDate: d.toISOString().slice(0, 10),
-      targetHours: level.recommendedHours,
-      startDate: new Date().toISOString().slice(0, 10),
-      accent: exam.accent,
+      examSlug: exam.slug, examName: exam.name, levelId: level.id, levelName: level.name,
+      examDate: d.toISOString().slice(0, 10), targetHours: level.recommendedHours,
+      startDate: new Date().toISOString().slice(0, 10), accent: exam.accent,
     };
     try {
       const state = loadState();
@@ -308,6 +222,14 @@ function Check() {
       localStorage.setItem("certus_onboarded", "1");
     } catch {}
     posthog.capture("check_plan_built", { exam: examSlug, pct: result.pct, next: dest });
+  }
+
+  // Step 5: the trial. Guest → signup (carrying to billing); signed-in/pro → straight there.
+  function startTrial() {
+    savePlan("/billing");
+    if (signedIn || isPro()) { router.push("/billing"); return; }
+    setPendingDest("/billing");
+    posthog.capture("signup_gate_shown", { exam: examSlug, trigger: "check_to_trial" });
   }
 
   const shell = (children: React.ReactNode) => (
@@ -324,194 +246,173 @@ function Check() {
     return shell(<p style={{ color: "var(--text-secondary)" }}>That exam isn&apos;t available yet.</p>);
   }
 
-  // ---------- RESULT ----------
-  if (result) {
+  // ================= 1. INTAKE =================
+  if (phase === "intake") {
+    const iq = INTAKE_QUESTIONS[intakeIdx];
+    return shell(
+      <div className="rise-in" key={intakeIdx}>
+        <div className="flex items-center gap-1.5 mb-6 pt-2">
+          {INTAKE_QUESTIONS.map((_, i) => (
+            <div key={i} style={{ height: 5, flex: 1, borderRadius: 99, background: i <= intakeIdx ? "var(--primary)" : "var(--primary-light)" }} />
+          ))}
+        </div>
+        <div className="text-[11px] font-semibold uppercase tracking-wider mb-2" style={{ color: "var(--text-muted)" }}>
+          {intakeIdx === 0 ? "Let's build your plan" : `Question ${intakeIdx + 1} of ${INTAKE_QUESTIONS.length}`}
+        </div>
+        <h1 className="font-display mb-6" style={{ fontSize: 30, lineHeight: 1.2, color: "var(--text-primary)" }}>{iq.prompt}</h1>
+        <div className="flex flex-col gap-2.5">
+          {iq.choices.map((c) => (
+            <button key={c.id} onClick={() => pickIntake(c.id)} className="ob-opt" style={{ borderColor: "var(--border)", background: "var(--bg-card)" }}>
+              <span>{c.label}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  // ================= 2. FEEL UNDERSTOOD =================
+  if (phase === "reflect") {
+    const r = buildReflection(intake);
+    return shell(
+      <div className="rise-in pt-6">
+        <div className="text-[11px] font-semibold uppercase tracking-wider mb-3" style={{ color: "var(--primary)" }}>Here&apos;s what I&apos;m seeing</div>
+        <h1 className="font-display mb-4" style={{ fontSize: 27, lineHeight: 1.3, color: "var(--text-primary)" }}>{r.headline}</h1>
+        <p className="text-base mb-8" style={{ color: "var(--text-secondary)", lineHeight: 1.65 }}>{r.body}</p>
+        <div className="card p-4 mb-8" style={{ background: "var(--primary-light)", border: "0.5px solid rgba(83,74,183,0.2)" }}>
+          <p className="text-sm" style={{ color: "var(--text-primary)", lineHeight: 1.55 }}>
+            Let&apos;s find your exact gaps. {N_QUESTIONS} real {exam.name} questions — about 3 minutes. No card, no signup.
+          </p>
+        </div>
+        <button onClick={() => { setPhase("quiz"); posthog.capture("check_started", { exam: examSlug }); }} className="btn-duo w-full" style={{ padding: "0.95rem" }}>
+          Show me where I stand →
+        </button>
+      </div>
+    );
+  }
+
+  // ================= 3. DIAGNOSTIC =================
+  if (phase === "quiz") {
+    return shell(
+      <div>
+        <div className="flex items-center justify-between mb-2 pt-2">
+          <span className="text-xs font-semibold" style={{ color: "var(--text-muted)" }}>{idx + 1} of {questions.length}</span>
+          <span className="text-xs" style={{ color: "var(--text-muted)" }}>No card · no signup</span>
+        </div>
+        <div style={{ height: 6, borderRadius: 99, background: "var(--primary-light)", marginBottom: 22 }}>
+          <div style={{ height: "100%", width: `${(idx / questions.length) * 100}%`, background: "var(--primary)", borderRadius: 99, transition: "width .3s ease" }} />
+        </div>
+        <h2 className="font-display mb-5" style={{ fontSize: 19, lineHeight: 1.45, color: "var(--text-primary)" }}>{q.stem}</h2>
+        <div className="flex flex-col gap-2.5 mb-6">
+          {q.choices.map((c, i) => (
+            <button key={i} onClick={() => setPicked(i)} className="ob-opt"
+              style={{ borderColor: picked === i ? "var(--primary)" : "var(--border)", background: picked === i ? "var(--primary-light)" : "var(--bg-card)" }}>
+              <span className="ob-num">{String.fromCharCode(65 + i)}</span><span>{c}</span>
+            </button>
+          ))}
+        </div>
+        <button onClick={next} disabled={picked === null} className="btn-duo w-full" style={{ padding: "0.9rem", opacity: picked === null ? 0.5 : 1 }}>
+          {idx + 1 >= questions.length ? "See my result" : "Next"}
+        </button>
+        <p className="text-xs text-center mt-3" style={{ color: "var(--text-muted)" }}>
+          We don&apos;t show answers as you go — that&apos;s what makes the score mean something.
+        </p>
+      </div>
+    );
+  }
+
+  // ================= 4a. RESULT (ring + gaps) =================
+  if (phase === "result" && result) {
     const v = verdict(result.pct);
     const worst = result.weakTopics.filter((t) => t.pct < 100).slice(0, 3);
-    const tone =
-      v.tone === "good" ? "var(--ats-green)" : v.tone === "close" ? "var(--ats-amber)" : "var(--ats-red)";
-
+    const tone = v.tone === "good" ? "var(--ats-green)" : v.tone === "close" ? "var(--ats-amber)" : "var(--ats-red)";
     return shell(
       <div className="rise-in">
         <div className="card p-6 mb-4 text-center">
-          <div className="text-[11px] font-semibold uppercase tracking-wider mb-4" style={{ color: "var(--text-muted)" }}>
-            If you sat {exam.name} today
-          </div>
+          <div className="text-[11px] font-semibold uppercase tracking-wider mb-4" style={{ color: "var(--text-muted)" }}>If you sat {exam.name} today</div>
           <ScoreRing pct={result.pct} tone={tone} />
-          <div className="text-base mt-4 font-semibold rise-in" style={{ color: "var(--text-primary)", animationDelay: "1.5s" }}>
-            {v.label}
-          </div>
+          <div className="text-base mt-4 font-semibold rise-in" style={{ color: "var(--text-primary)", animationDelay: "1.5s" }}>{v.label}</div>
           <div className="text-xs mt-1.5 rise-in" style={{ color: "var(--text-muted)", animationDelay: "1.65s" }}>
-            You got {result.correct} of {result.total}. The pass mark isn&apos;t published, but it sits
-            around {MPS_LOW}–{MPS_HIGH}% — that&apos;s the band on the dial.
+            You got {result.correct} of {result.total}. The pass mark sits around {MPS_LOW}–{MPS_HIGH}% — the band on the dial.
           </div>
         </div>
-
-        {/* Staggered so the eye goes: dial → verdict → where you bled → what to
-            do. All at once and the dial has to fight the CTA for attention;
-            the reveal is the thing we made them work for. */}
         {worst.length > 0 && (
           <div className="card p-5 mb-4 rise-in" style={{ animationDelay: "1.9s" }}>
-            <div className="text-sm font-semibold mb-3" style={{ color: "var(--text-primary)" }}>
-              This is where you bled points
-            </div>
+            <div className="text-sm font-semibold mb-3" style={{ color: "var(--text-primary)" }}>This is where you bled points</div>
             {worst.map((t) => (
               <div key={t.topicId} className="flex items-center justify-between py-1.5">
                 <span className="text-sm" style={{ color: "var(--text-secondary)" }}>{t.topicName}</span>
-                <span className="text-sm font-mono font-semibold" style={{ color: t.pct === 0 ? "var(--ats-red)" : "var(--text-primary)" }}>
-                  {t.correct}/{t.total}
-                </span>
+                <span className="text-sm font-mono font-semibold" style={{ color: t.pct === 0 ? "var(--ats-red)" : "var(--text-primary)" }}>{t.correct}/{t.total}</span>
               </div>
             ))}
-            <p className="text-xs mt-3" style={{ color: "var(--text-muted)", lineHeight: 1.5 }}>
-              {N_QUESTIONS} questions is a rough read, not a verdict — but weak topics show up fast, and this is
-              where your next hours are worth the most.
-            </p>
           </div>
         )}
-
-        {/* Say the size before they click. They've just done the check —
-            an unlabelled button that turns out to be another 20 is a betrayal
-            of a tired person. "5 questions, 2 minutes" is a promise you can
-            keep, and it's small enough to say yes to. */}
         <div className="rise-in" style={{ animationDelay: "2.15s" }}>
-          <button
-            onClick={() =>
-              gateThen(
-                worst[0]
-                  ? `/practice?exam=${exam.slug}&topic=${encodeURIComponent(worst[0].topicId)}&start=1&first=1`
-                  : "/dashboard"
-              )
-            }
-            className="btn-duo w-full"
-            style={{ padding: "0.95rem" }}
-          >
-            {worst[0] ? `Fix ${worst[0].topicName} now — 5 questions →` : "Build my plan and start →"}
-          </button>
-          <p className="text-xs text-center mt-3 mb-3" style={{ color: "var(--text-muted)" }}>
-            About two minutes. Free, no card.
-          </p>
-          {/* The escape stays free of the signup gate — someone who's declining
-              the lesson isn't going to be talked into an account by a form. */}
-          <button
-            onClick={() => {
-              savePlanAndTrack("/dashboard");
-              router.push("/dashboard");
-            }}
-            className="btn-duo duo-ghost w-full"
-            style={{ padding: "0.7rem", fontSize: "0.85rem" }}
-          >
-            Practice later — take me to my dashboard
+          <button onClick={() => { setPhase("projection"); posthog.capture("check_projection_shown", { exam: examSlug, pct: result.pct }); }} className="btn-duo w-full" style={{ padding: "0.95rem" }}>
+            See your path to passing →
           </button>
         </div>
+      </div>
+    );
+  }
+
+  // ================= 4b. THE WOW + 5. PAYWALL =================
+  if (phase === "projection" && result) {
+    const weeks = weeksToExam(intake);
+    const proj = projection(result.pct, weeks);
+    const d = new Date(); d.setDate(d.getDate() + weeks * 7);
+    const examDateLabel = weeks >= 20 ? "Exam" : d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+    const passDate = proj.passWeek !== null ? (() => { const pd = new Date(); pd.setDate(pd.getDate() + proj.passWeek * 7); return pd.toLocaleDateString("en-US", { month: "long", day: "numeric" }); })() : null;
+    const worst = result.weakTopics.filter((t) => t.pct < 100).slice(0, 3);
+    return shell(
+      <div className="rise-in">
+        <h1 className="font-display mb-1" style={{ fontSize: 28, lineHeight: 1.25, color: "var(--text-primary)" }}>Here&apos;s your path to passing.</h1>
+        <p className="text-sm mb-4" style={{ color: "var(--text-secondary)" }}>
+          {proj.reachesPass && passDate
+            ? <>At ~15 minutes a day on your weak topics, you clear the pass band around <strong style={{ color: "var(--ats-green)" }}>{passDate}</strong>.</>
+            : <>You&apos;re close. A focused daily rep on your weak topics moves this fast.</>}
+        </p>
+        <div className="card p-4 mb-5">
+          <ProjectionChart proj={proj} examName={exam.name} examDateLabel={examDateLabel} />
+        </div>
+
+        {worst.length > 0 && (
+          <p className="text-sm mb-5" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>
+            Your plan drills <strong style={{ color: "var(--text-primary)" }}>{worst.map((t) => t.topicName).join(", ")}</strong> first —
+            the exact topics you just bled points on — with questions that explain <em>why</em> you missed.
+          </p>
+        )}
+
+        {/* Step 5 — THE PAYWALL, on a warm lead. */}
+        <div className="card p-5 mb-3" style={{ border: "2px solid var(--primary)" }}>
+          <div className="flex items-baseline justify-between mb-1">
+            <span className="text-base font-extrabold" style={{ color: "var(--text-primary)" }}>Start your plan</span>
+            <span className="font-display text-2xl" style={{ color: "var(--ats-green)" }}>$0 today</span>
+          </div>
+          <p className="text-xs mb-4" style={{ color: "var(--text-secondary)", lineHeight: 1.5 }}>
+            7 days free — every reading, unlimited reps, unlimited mocks. Then $9.58/mo billed yearly, or $24.99 month to month. Cancel any time in one click.
+          </p>
+          <button onClick={startTrial} className="btn-duo w-full" style={{ padding: "0.9rem" }}>Start my 7 free days →</button>
+        </div>
+        <button
+          onClick={() => { savePlan("/dashboard"); router.push("/dashboard"); }}
+          className="btn-duo duo-ghost w-full"
+          style={{ padding: "0.7rem", fontSize: "0.85rem" }}
+        >
+          Keep exploring free
+        </button>
 
         <SignupModal
           open={pendingDest !== null}
-          trigger="check_to_practice"
-          title={`One step — then ${worst[0]?.topicName ?? "your plan"}`}
-          reason={`You scored ${result.pct}%. Make a free account and we'll save this result, your plan, and the streak you're about to start.`}
-          onClose={() => {
-            posthog.capture("signup_gate_dismissed", { exam: examSlug, trigger: "check_to_practice" });
-            setPendingDest(null);
-          }}
-          onSuccess={() => {
-            const dest = pendingDest ?? "/dashboard";
-            setPendingDest(null);
-            router.push(dest);
-          }}
+          trigger="check_to_trial"
+          title="One step — save your plan"
+          reason={`You scored ${result.pct}%. Make a free account so we keep your plan, your streak, and this projection — then start your trial.`}
+          onClose={() => { posthog.capture("signup_gate_dismissed", { exam: examSlug, trigger: "check_to_trial" }); setPendingDest(null); }}
+          onSuccess={() => { const dest = pendingDest ?? "/billing"; setPendingDest(null); router.push(dest); }}
         />
       </div>
     );
   }
 
-  // ---------- QUESTIONS (live on arrival) ----------
-  return shell(
-    <div>
-      {/* The hook. pointerEvents:none is load-bearing — it lets the very first
-          tap land on the answer underneath instead of being eaten by a curtain. */}
-      {hook && (
-        <div
-          onAnimationEnd={() => setHook(false)}
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 40,
-            pointerEvents: "none",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            background: "var(--bg)",
-            animation: "checkHook 1.9s ease forwards",
-          }}
-        >
-          <div className="text-center px-6">
-            <div
-              className="font-display"
-              style={{ fontSize: 34, lineHeight: 1.15, color: "var(--text-primary)", animation: "checkHookLine 1.9s ease forwards" }}
-            >
-              {N_QUESTIONS} real questions
-              <br />
-              from the <span style={{ color: "var(--primary)" }}>{exam.name}</span>.
-            </div>
-            <div
-              className="text-sm mt-3"
-              style={{ color: "var(--text-muted)", animation: "checkHookSub 1.9s ease forwards" }}
-            >
-              Let&apos;s see how many you get. Starting now.
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* No "Skip" link. This is the front door — every ad click lands here, and
-          a Skip was the only competing click on the page, pointing at a dashboard
-          a cold stranger has no reason to want. The back button still exists for
-          anyone who truly wants out; we just stop advertising the exit. */}
-      <div className="flex items-center justify-between mb-2 pt-2">
-        <span className="text-xs font-semibold" style={{ color: "var(--text-muted)" }}>
-          {idx + 1} of {questions.length}
-        </span>
-        <span className="text-xs" style={{ color: "var(--text-muted)" }}>No card · no signup</span>
-      </div>
-      <div style={{ height: 6, borderRadius: 99, background: "var(--primary-light)", marginBottom: 22 }}>
-        <div
-          style={{
-            height: "100%",
-            width: `${(idx / questions.length) * 100}%`,
-            background: "var(--primary)",
-            borderRadius: 99,
-            transition: "width .3s ease",
-          }}
-        />
-      </div>
-
-      <h2 className="font-display mb-5" style={{ fontSize: 19, lineHeight: 1.45, color: "var(--text-primary)" }}>
-        {q.stem}
-      </h2>
-
-      <div className="flex flex-col gap-2.5 mb-6">
-        {q.choices.map((c, i) => (
-          <button
-            key={i}
-            onClick={() => setPicked(i)}
-            className="ob-opt"
-            style={{
-              borderColor: picked === i ? "var(--primary)" : "var(--border)",
-              background: picked === i ? "var(--primary-light)" : "var(--bg-card)",
-            }}
-          >
-            <span className="ob-num">{String.fromCharCode(65 + i)}</span>
-            <span>{c}</span>
-          </button>
-        ))}
-      </div>
-
-      <button onClick={next} disabled={picked === null} className="btn-duo w-full" style={{ padding: "0.9rem", opacity: picked === null ? 0.5 : 1 }}>
-        {idx + 1 >= questions.length ? "See my result" : "Next"}
-      </button>
-      <p className="text-xs text-center mt-3" style={{ color: "var(--text-muted)" }}>
-        We don&apos;t show you the answers as you go — that&apos;s what makes the score mean something.
-      </p>
-    </div>
-  );
+  return shell(null);
 }

@@ -77,6 +77,13 @@ function SignupForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       }).catch(() => {});
+      // Instant welcome — so signup isn't a black hole for the ~20h until the
+      // first drip. Fire-and-forget; never block the redirect on it.
+      void fetch("/api/welcome", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, userId: data.session.user.id }),
+      }).catch(() => {});
       router.push(next);
       router.refresh();
     } else if (data.user && data.user.identities && data.user.identities.length === 0) {

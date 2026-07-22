@@ -289,6 +289,16 @@ body {
   @keyframes checkHookSub  { 0%, 100% { opacity: 0; } }
 }
 
+/* ---- The projection "wow": the readiness line drawing itself toward passing ---- */
+@keyframes projDraw { from { stroke-dashoffset: var(--len, 1000); } to { stroke-dashoffset: 0; } }
+@keyframes projFade { from { opacity: 0; } to { opacity: 1; } }
+.proj-line { animation: projDraw 1.6s cubic-bezier(0.4,0,0.2,1) forwards; }
+.proj-fade { opacity: 0; animation: projFade 0.5s ease forwards; }
+@media (prefers-reduced-motion: reduce) {
+  .proj-line { animation: none; stroke-dashoffset: 0; }
+  .proj-fade { animation: none; opacity: 1; }
+}
+
 /* Staggered entrance for lists/grids: apply .stagger to the parent. */
 .stagger > * {
   animation: riseIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;

@@ -105,6 +105,33 @@ export interface DripEmail {
   html: string;
 }
 
+/**
+ * WELCOME — fires the instant someone signs up. Sent by /api/welcome.
+ *
+ * Why this exists: signing up used to send NOTHING. The first contact was the
+ * drip, 20 hours later, via a once-a-day cron — so a new account got silence
+ * for the better part of two days, which reads as "did that even work?". Every
+ * app people trust sends something in the first ten seconds. This is that.
+ *
+ * One job: point them at the single best first action (the free check), warmly,
+ * with no ask. Uses the marketing shell (unsubscribe included) because it's the
+ * start of the relationship, not a receipt.
+ */
+export function welcomeEmail(userId: string): DripEmail {
+  return {
+    subject: "You're in. Here's the smartest first move.",
+    html: shell(
+      `<p style="margin:0 0 14px;">Welcome to Certus 👋</p>
+       <p style="margin:0 0 16px;">Most people start studying by <em>reading</em>. That's the trap — you learn to recognise the material without being able to use it, and the two feel identical until the exam asks you to do something.</p>
+       <p style="margin:0 0 16px;">So don't start by reading. Start by finding out where you actually stand:</p>
+       <p style="margin:0 0 22px;">${button("Take the 3-minute check →", `${APP_URL}/check`)}</p>
+       <p style="margin:0 0 16px;">Six real questions. At the end you get your score, the topics you're bleeding points on, and an honest read on where you'd land today. No pressure, no wrong way to do it.</p>
+       <p style="margin:0;color:#9a9aa8;font-size:13px;">Reply to this email any time — a real person reads it.</p>`,
+      userId
+    ),
+  };
+}
+
 // step is 0-indexed (0 = first email).
 export function dripEmail(step: number, userId: string): DripEmail {
   const s = statHeadline();

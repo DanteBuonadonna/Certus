@@ -66,6 +66,13 @@ export default function SignupModal({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       }).catch(() => {});
+      // Instant welcome — same as the /signup page, so the modal path isn't a
+      // black hole either. Fire-and-forget.
+      void fetch("/api/welcome", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, userId: data.session.user.id }),
+      }).catch(() => {});
       onSuccess();
       return;
     }
