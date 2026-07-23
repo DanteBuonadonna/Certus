@@ -250,12 +250,13 @@ function ProofScreen({ worstTopic, examName, isCfa, onNext }: { worstTopic: stri
       {/* THE PROOF — the hope. A true story, not a fabricated stat. */}
       <div className="card p-5 mt-7 mb-6 sc-rise" style={{ animationDelay: "0.85s", background: "var(--primary-light)", border: "0.5px solid rgba(83,74,183,0.25)" }}>
         <div className="text-[11px] font-extrabold uppercase tracking-wider mb-2" style={{ color: "var(--primary)" }}>Does it work?</div>
-        <p className="text-[15px] font-semibold mb-1.5" style={{ color: "var(--text-primary)", lineHeight: 1.5 }}>
-          We bet our own exams on it.
-        </p>
+        <div className="flex items-baseline gap-2 mb-1">
+          <span className="font-display" style={{ fontSize: 40, lineHeight: 1, color: "var(--text-primary)" }}>2 months</span>
+          <span className="text-sm font-bold" style={{ color: "var(--ats-green)" }}>to a pass</span>
+        </div>
         <p className="text-sm mb-4" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>
-          The team that built Certus prepped with nothing but Certus — about two months each — and passed
-          CFA Levels I, II, and III.
+          People have passed CFA Levels I, II, and III studying with nothing but Certus —
+          in about two months per level.
         </p>
         <div className="flex gap-2">
           {["I", "II", "III"].map((lvl, i) => (
