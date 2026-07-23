@@ -7,7 +7,6 @@ import { liveTestimonials, hasRealTestimonials } from "@/lib/testimonials";
 import { LogoMark } from "@/components/Logo";
 import { FREE_INCLUDES, PRO_INCLUDES, ANNUAL_PER_MONTH, ANNUAL_TOTAL, MONTHLY_PRICE, EXAM_COST_ANCHOR } from "@/lib/tier";
 import { TRIAL_CTA, trialDisclosureShort } from "@/lib/trial";
-import { N_QUESTIONS, CHECK_MINUTES } from "@/lib/check";
 
 const RANKS = ["Intern", "Analyst", "Associate", "VP", "Director", "MD", "Partner"];
 
@@ -103,9 +102,9 @@ export default function LandingPage() {
             </h1>
 
             <p className="text-lg mb-6 max-w-lg mx-auto lg:mx-0" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>
-              {`${N_QUESTIONS} real questions, about ${CHECK_MINUTES} minutes, no signup.`} See your score,
-              your weak topics, and whether you&apos;d pass today — then {BRAND.name} turns those weak spots
-              into 5-minute daily lessons.
+              Answer a few quick questions and {BRAND.name} builds your plan: where you stand,
+              exactly what to drill, and your projected path to passing. Works for the CFA,
+              SIE, Series 7 &amp; 66, CPA, and CFP.
             </p>
 
             {/* The differentiator, stated where it can be checked. This is the
@@ -118,39 +117,22 @@ export default function LandingPage() {
               Full timed mock exam — free. No signup, no card.
             </div>
 
-            <div className="flex items-center justify-center lg:justify-start gap-3 flex-wrap">
-              {/* ONE obvious action. "Explore the exams" was a co-equal button
-                  pointing at a dashboard a stranger has no reason to want. */}
-              <Link href="/check?exam=cfa" className="btn-primary text-base px-7 py-3">
-                Take the {CHECK_MINUTES}-minute check →
+            {/* ONE big, broad ask. "Take the 6-minute check" filtered for the
+                sliver of visitors willing to be tested right now (121 of 164
+                sessions bounced without a click). The button now promises
+                something personal and effortless — the onboarding taps — and
+                the diagnostic comes later, once they're invested. */}
+            <div className="flex flex-col items-center lg:items-start gap-3">
+              <Link href="/check" className="btn-primary text-lg px-12 py-4 w-full sm:w-auto text-center" style={{ borderRadius: 16 }}>
+                Get started — it&apos;s free →
               </Link>
-              <Link href="/mock" className="btn-secondary text-base px-7 py-3">
-                Or take the free mock
+              <Link href="/mock" className="text-sm font-semibold transition-opacity hover:opacity-70" style={{ color: "var(--text-secondary)" }}>
+                Or jump straight into the free mock exam
               </Link>
             </div>
             <p className="text-xs mt-4 mb-5" style={{ color: "var(--text-muted)" }}>
               No signup. No card. No email. The exam costs $1,140 — finding out where you stand shouldn&apos;t.
             </p>
-
-            {/* The headline names the CFA because it's the biggest audience, but a
-                Series 7 candidate must not read it and think "not for me". Each
-                chip is the same check for their exam. */}
-            <div className="flex items-center justify-center lg:justify-start gap-2 flex-wrap">
-              <span className="text-xs" style={{ color: "var(--text-muted)" }}>Studying something else?</span>
-              {liveExams
-                .filter((e) => e.slug !== "cfa")
-                .slice(0, 5)
-                .map((e) => (
-                  <Link
-                    key={e.slug}
-                    href={`/check?exam=${e.slug}`}
-                    className="text-xs font-medium px-2.5 py-1 rounded-md transition-opacity hover:opacity-70"
-                    style={{ background: e.accent + "14", color: e.accent, border: `0.5px solid ${e.accent}33` }}
-                  >
-                    {e.name}
-                  </Link>
-                ))}
-            </div>
           </div>
 
           {/* right: floating promotion mock */}
@@ -285,7 +267,7 @@ export default function LandingPage() {
               { n: "01", t: "Pick your track", d: "Choose an exam and a test date. Certus back-calculates the hours and lays out a daily plan." },
               { n: "02", t: "Clear assignments", d: "Read, drill flashcards, win practice sets — each a quest with XP, capital, and a clear reward." },
               { n: "03", t: "Earn your title", d: "Level up from Intern to Partner. Unlock titles, banners, and a profile that shows your standing." },
-              { n: "04", t: "Sit Exam Day", d: "Master the track to unlock the boss — a timed, comprehensive exam. Beat it to prove you're ready." },
+              { n: "04", t: "Take Exam Day", d: "Master the track to unlock the boss — a timed, comprehensive exam. Beat it to prove you're ready." },
             ].map((s) => (
               <div key={s.n} className="card-i p-5">
                 <div className="font-mono text-xs font-semibold mb-3 inline-flex items-center justify-center w-8 h-8 rounded-lg" style={{ color: "var(--primary)", background: "var(--primary-light)" }}>{s.n}</div>
@@ -396,7 +378,7 @@ export default function LandingPage() {
                   </li>
                 ))}
               </ul>
-              <Link href="/check?exam=cfa" className="btn-secondary w-full text-center block">Take the {CHECK_MINUTES}-minute check</Link>
+              <Link href="/check" className="btn-secondary w-full text-center block">Get started free</Link>
             </div>
 
             {/* Pro — annual badged, monthly-framed price */}
@@ -440,7 +422,7 @@ export default function LandingPage() {
           </p>
           {/* Same ask as the hero. A second, different CTA here would just split
               intent again — the whole page should be pulling one direction. */}
-          <Link href="/check?exam=cfa" className="btn-primary text-base px-8 py-3.5">Would you pass today? Find out →</Link>
+          <Link href="/check" className="btn-primary text-lg px-10 py-4" style={{ borderRadius: 16 }}>Get started — it&apos;s free →</Link>
         </div>
       </section>
 

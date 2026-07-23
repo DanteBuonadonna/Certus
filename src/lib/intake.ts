@@ -25,60 +25,100 @@ export interface IntakeChoice {
   weeks?: number;
 }
 export interface IntakeQuestion {
-  id: "when" | "prep" | "fear" | "how";
+  id: "exam" | "when" | "prep" | "fear" | "how";
   prompt: string;
   choices: IntakeChoice[];
 }
 
-export const INTAKE_QUESTIONS: IntakeQuestion[] = [
-  {
-    id: "when",
-    prompt: "When do you take the exam?",
-    choices: [
-      { id: "soon", label: "Less than a month", weeks: 3 },
-      { id: "1-2m", label: "1–2 months", weeks: 7 },
-      { id: "3-4m", label: "3–4 months", weeks: 15 },
-      { id: "far", label: "5+ months or not scheduled", weeks: 24 },
-    ],
-  },
-  {
-    id: "prep",
-    prompt: "How's prep going, honestly?",
-    choices: [
-      { id: "notstarted", label: "Haven't really started" },
-      { id: "behind", label: "Behind and stressed about it" },
-      { id: "ontrack", label: "On track, but anxious" },
-      { id: "well", label: "Honestly, going well" },
-      { id: "again", label: "Failed before — going again" },
-    ],
-  },
-  {
-    id: "fear",
-    prompt: "What scares you most?",
-    choices: [
-      { id: "time", label: "Running out of time on exam day" },
-      { id: "fra", label: "FRA — it's a monster" },
-      { id: "ethics", label: "Ethics — I can't read it right" },
-      { id: "fail", label: "Just… failing again" },
-      { id: "work", label: "Fitting it around a full-time job" },
-    ],
-  },
-  {
-    id: "how",
-    prompt: "How are you studying right now?",
-    choices: [
-      { id: "reading", label: "Mostly reading the material" },
-      { id: "questions", label: "Practice questions" },
-      { id: "course", label: "A paid course (Schweser etc.)" },
-      { id: "winging", label: "Honestly, winging it" },
-    ],
-  },
+/** Exams offered in the intake — ids ARE content-registry slugs. */
+export const EXAM_INTAKE_CHOICES: IntakeChoice[] = [
+  { id: "cfa", label: "CFA Level I" },
+  { id: "sie", label: "SIE" },
+  { id: "series-7", label: "Series 7" },
+  { id: "series-66", label: "Series 66" },
+  { id: "cpa-far", label: "CPA" },
+  { id: "cfp", label: "CFP" },
 ];
+
+/** Which flavour of "the scary topics" fits this exam's candidates. */
+function fearLabels(examSlug: string): { hard: string; grind: string } {
+  if (examSlug.startsWith("cfa")) return { hard: "FRA — it's a monster", grind: "Ethics — I can't read it right" };
+  if (examSlug === "sie" || examSlug.startsWith("series")) return { hard: "Options & margin math", grind: "The regulations — endless rules" };
+  if (examSlug.startsWith("cpa")) return { hard: "FAR-style calculations", grind: "The sheer memorization grind" };
+  return { hard: "The calculation-heavy topics", grind: "The memorization-heavy topics" };
+}
+
+const WHEN_CHOICES: IntakeChoice[] = [
+  { id: "soon", label: "Less than a month", weeks: 3 },
+  { id: "1-2m", label: "1–2 months", weeks: 7 },
+  { id: "3-4m", label: "3–4 months", weeks: 15 },
+  { id: "far", label: "5+ months or not scheduled", weeks: 24 },
+];
+
+/**
+ * The intake, tuned to the exam. When the visitor arrived from an
+ * exam-specific link (?exam=), skip the exam question; otherwise it's asked
+ * FIRST so everything after it (fear labels, quiz questions, proof copy)
+ * speaks their exam's language.
+ */
+export function buildIntakeQuestions(examSlug: string, includeExam: boolean): IntakeQuestion[] {
+  const f = fearLabels(examSlug);
+  const qs: IntakeQuestion[] = [
+    {
+      id: "when",
+      prompt: "When do you take the exam?",
+      choices: WHEN_CHOICES,
+    },
+    {
+      id: "prep",
+      prompt: "How's prep going, honestly?",
+      choices: [
+        { id: "notstarted", label: "Haven't really started" },
+        { id: "behind", label: "Behind and stressed about it" },
+        { id: "ontrack", label: "On track, but anxious" },
+        { id: "well", label: "Honestly, going well" },
+        { id: "again", label: "Failed before — going again" },
+      ],
+    },
+    {
+      id: "fear",
+      prompt: "What scares you most?",
+      choices: [
+        { id: "time", label: "Running out of time on exam day" },
+        { id: "fra", label: f.hard },
+        { id: "ethics", label: f.grind },
+        { id: "fail", label: "Just… failing again" },
+        { id: "work", label: "Fitting it around a full-time job" },
+      ],
+    },
+    {
+      id: "how",
+      prompt: "How are you studying right now?",
+      choices: [
+        { id: "reading", label: "Mostly reading the material" },
+        { id: "questions", label: "Practice questions" },
+        { id: "course", label: "A paid course (Schweser etc.)" },
+        { id: "winging", label: "Honestly, winging it" },
+      ],
+    },
+  ];
+  if (includeExam) {
+    qs.unshift({
+      id: "exam",
+      prompt: "Which exam are you taking?",
+      choices: EXAM_INTAKE_CHOICES,
+    });
+  }
+  return qs;
+}
+
+/** @deprecated kept for callers that don't need exam adaptation */
+export const INTAKE_QUESTIONS: IntakeQuestion[] = buildIntakeQuestions("cfa", false);
 
 export type IntakeAnswers = Partial<Record<IntakeQuestion["id"], string>>;
 
 export function weeksToExam(a: IntakeAnswers): number {
-  const c = INTAKE_QUESTIONS[0].choices.find((x) => x.id === a.when);
+  const c = WHEN_CHOICES.find((x) => x.id === a.when);
   return c?.weeks ?? 12;
 }
 
@@ -87,12 +127,14 @@ export function weeksToExam(a: IntakeAnswers): number {
  * toward the one true lever (reps over reading). The reframe is gentle but it's
  * the hook: it tells them the thing they're doing wrong before we sell the fix.
  */
-export function buildReflection(a: IntakeAnswers): { headline: string; body: string } {
+export function buildReflection(a: IntakeAnswers, examSlug = "cfa"): { headline: string; body: string } {
   const weeks = weeksToExam(a);
+  const isCfa = examSlug.startsWith("cfa");
+  const isSeries = examSlug === "sie" || examSlug.startsWith("series");
   const fearMap: Record<string, string> = {
     time: "running out of time",
-    fra: "FRA",
-    ethics: "Ethics",
+    fra: isCfa ? "FRA" : isSeries ? "the options and margin math" : "the calculation-heavy topics",
+    ethics: isCfa ? "Ethics" : isSeries ? "the regulations" : "the memorization grind",
     fail: "failing again",
     work: "fitting this around work",
   };
