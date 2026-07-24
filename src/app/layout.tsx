@@ -13,10 +13,64 @@ const PROMOTEKIT_ID = "e6d2ffa2-d50b-4906-a83c-30192b9bcd85";
 // that decides whether the channel lives.
 const GOOGLE_ADS_ID = "AW-18273063884";
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://certus.website";
+
 export const metadata: Metadata = {
-  title: `${BRAND.name} — Prep for finance's hardest exams`,
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${BRAND.name} — Gamified CFA prep from $24.99 (free mock exam)`,
+    template: `%s · ${BRAND.name}`,
+  },
   description:
-    `${BRAND.name} turns the CFA, CPA, Series exams and more into a career you level up — deep readings, exam-realistic practice, and an adaptive daily plan. Read, drill, and rise from Intern to Partner.`,
+    `The Duolingo-style way to pass the CFA. Deep readings, exam-real practice, and an adaptive daily plan — from $24.99, a fraction of $500+ prep courses. Take a free full mock, no signup.`,
+  keywords: [
+    "cheap CFA prep", "free CFA mock exam", "CFA Level 1 practice questions",
+    "gamified CFA prep", "Duolingo for CFA", "affordable CFA study material",
+    "CFA prep alternative to Schweser", "CFA Level 1 2 3 prep",
+  ],
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: SITE_URL,
+    siteName: BRAND.name,
+    title: `${BRAND.name} — Gamified CFA prep from $24.99`,
+    description:
+      "The Duolingo-style way to pass the CFA. Free full mock, no signup. From $24.99 — a fraction of $500+ prep courses.",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: `${BRAND.name} — gamified finance-exam prep` }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${BRAND.name} — Gamified CFA prep from $24.99`,
+    description: "The Duolingo-style way to pass the CFA. Free full mock, no signup.",
+    images: ["/og.png"],
+  },
+  robots: { index: true, follow: true },
+};
+
+// Organization + WebSite schema. Gives Google an entity to attach the brand to
+// (knowledge panel, sitelinks search box) and gives AI answer engines a clean,
+// structured description of what Certus is and what it costs.
+const ORG_SCHEMA = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: BRAND.name,
+      url: SITE_URL,
+      logo: `${SITE_URL}/og.png`,
+      description:
+        "Gamified prep for finance's hardest exams — CFA, CPA, and the Series exams — from $24.99, a low-cost alternative to $500+ prep courses.",
+      sameAs: [] as string[],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: BRAND.name,
+      publisher: { "@id": `${SITE_URL}/#organization` },
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -27,6 +81,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_SCHEMA) }}
+        />
         {children}
         <Analytics />
         <Script

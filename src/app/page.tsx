@@ -19,8 +19,59 @@ export default function LandingPage() {
   const stats = statHeadline();
   const testimonials = liveTestimonials();
 
+  // Product/Offer + FAQ schema. The Offer prices the subscription so Google and
+  // AI answer engines can state "from $9.58/mo" accurately; the FAQ targets the
+  // exact money questions people search ("free mock?", "how much?", "vs Schweser?").
+  const SITE = "https://certus.website";
+  const HOME_SCHEMA = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Product",
+        name: `${BRAND.name} — finance-exam prep`,
+        description:
+          "Gamified prep for the CFA, CPA, and Series exams. Deep readings, exam-real practice, an adaptive daily plan, and a free full mock exam.",
+        brand: { "@type": "Brand", name: BRAND.name },
+        offers: {
+          "@type": "Offer",
+          price: String(ANNUAL_PER_MONTH).replace("$", ""),
+          priceCurrency: "USD",
+          description: `From ${ANNUAL_PER_MONTH}/mo billed annually ($${ANNUAL_TOTAL}/yr), or $${MONTHLY_PRICE}/mo. 7-day free trial.`,
+          url: `${SITE}/#pricing`,
+          availability: "https://schema.org/InStock",
+        },
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "Is there a free CFA mock exam?",
+            acceptedAnswer: { "@type": "Answer", text: `Yes. ${BRAND.name} offers a full-length, timed CFA mock exam free — no signup and no card required. You get your score, weak topics, and an estimate of your odds of passing.` },
+          },
+          {
+            "@type": "Question",
+            name: `How much does ${BRAND.name} cost?`,
+            acceptedAnswer: { "@type": "Answer", text: `${BRAND.name} is ${ANNUAL_PER_MONTH}/mo billed annually ($${ANNUAL_TOTAL}/year) or $${MONTHLY_PRICE}/mo month to month — a fraction of $350–$1,500 courses like AnalystPrep or Schweser. There's a 7-day free trial and a free full mock.` },
+          },
+          {
+            "@type": "Question",
+            name: `Is ${BRAND.name} a good cheap alternative to Schweser?`,
+            acceptedAnswer: { "@type": "Answer", text: `${BRAND.name} is built for candidates on a budget: the same core readings, question banks, and full mocks found in $500+ programs, delivered as a gamified daily plan for a fraction of the price.` },
+          },
+          {
+            "@type": "Question",
+            name: `Which exams does ${BRAND.name} cover?`,
+            acceptedAnswer: { "@type": "Answer", text: "CFA Levels I, II, and III, plus the CPA, SIE, Series 7, Series 66, and CFP." },
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <div style={{ background: "var(--bg)", minHeight: "100vh", overflowX: "hidden" }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(HOME_SCHEMA) }} />
       {/* ---------- Glass nav ---------- */}
       <nav
         className="sticky top-0 z-50 flex items-center justify-between px-8 py-3.5"
@@ -130,6 +181,22 @@ export default function LandingPage() {
                 Or jump straight into the free mock exam
               </Link>
             </div>
+
+            {/* Social proof — HONEST count of real signups (Supabase is the
+                source of truth; PostHog only started logging 2026-07-10 and
+                undercounts). "candidates prepping" — a signup claim, never a
+                pass claim. Keep this in sync with the real account count. */}
+            <div className="flex items-center justify-center lg:justify-start gap-2.5 mt-5">
+              <div className="flex -space-x-2">
+                {["#D14BF5", "#9B4DEA", "#6D28D9", "#16a34a"].map((c, i) => (
+                  <span key={i} style={{ width: 26, height: 26, borderRadius: 999, background: c, border: "2px solid var(--bg)", display: "inline-block" }} />
+                ))}
+              </div>
+              <span className="text-sm font-semibold" style={{ color: "var(--text-secondary)" }}>
+                Join <span style={{ color: "var(--text-primary)" }}>500+ candidates</span> prepping with {BRAND.name}
+              </span>
+            </div>
+
             <p className="text-xs mt-4 mb-5" style={{ color: "var(--text-muted)" }}>
               No signup. No card. No email. The exam costs $1,140 — finding out where you stand shouldn&apos;t.
             </p>
