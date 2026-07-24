@@ -1,15 +1,17 @@
 // ============================================================
 // Certus — onboarding drip sequence (signed up, not yet subscribed)
-// 3 emails sent over ~5 days. Content is written here; the cron in
-// /api/cron/drip decides WHO gets WHICH step based on signup age.
+// 5 emails, one per day for 5 days. The welcome (sent by /api/welcome)
+// fires instantly on signup as day 0; this sequence then runs days 1–5.
+// Content is written here; the cron in /api/cron/drip decides WHO gets
+// WHICH step based on signup age.
 // ============================================================
 
 import { APP_URL } from "./email";
 import { statHeadline } from "./contentStats";
 
-export const DRIP_STEPS = 3;
-// Hours after signup at which each step becomes due (step 1, 2, 3).
-export const STEP_DUE_HOURS = [20, 72, 120];
+export const DRIP_STEPS = 5;
+// Hours after signup at which each step becomes due — one per day, days 1–5.
+export const STEP_DUE_HOURS = [24, 48, 72, 96, 120];
 
 const PRIMARY = "#534AB7";
 
@@ -132,11 +134,17 @@ export function welcomeEmail(userId: string): DripEmail {
   };
 }
 
-// step is 0-indexed (0 = first email).
+// step is 0-indexed (0 = first email = day 1). Five-day arc:
+//   Day 1 — keep the streak alive (habit)
+//   Day 2 — the depth most apps skip (value)
+//   Day 3 — take the free full mock (find your real gaps)
+//   Day 4 — cheap isn't thin (price wedge / objection)
+//   Day 5 — unlock every exam (conversion push)
 export function dripEmail(step: number, userId: string): DripEmail {
   const s = statHeadline();
   const dashboard = `${APP_URL}/dashboard`;
   const billing = `${APP_URL}/billing`;
+  const mock = `${APP_URL}/mock`;
 
   if (step === 0) {
     return {
@@ -170,7 +178,35 @@ export function dripEmail(step: number, userId: string): DripEmail {
     };
   }
 
-  // step 2 — the conversion push
+  if (step === 2) {
+    // Day 3 — the free full mock. Reps beat reading; the mock shows the truth.
+    return {
+      subject: "The number that actually predicts a pass",
+      html: shell(
+        `<p style="margin:0 0 14px;">Here's the uncomfortable truth about prep: reading feels productive, but it's practice under a clock that predicts whether you pass.</p>
+         <p style="margin:0 0 18px;">So take the real thing — free. A full-length, timed CFA mock at the exam's actual pace, with an instant per-topic score and an honest read on your odds. No card, no catch.</p>
+         <p style="margin:0 0 24px;">Most people wait until the last two weeks to take one. Take it now, while there's still time to fix what it finds.</p>
+         <p style="margin:0 0 6px;">${button("Take the free mock →", mock)}</p>`,
+        userId
+      ),
+    };
+  }
+
+  if (step === 3) {
+    // Day 4 — the price wedge / objection handling. Cheap isn't thin.
+    return {
+      subject: "Why $9.58 a month, not $900",
+      html: shell(
+        `<p style="margin:0 0 14px;">A quick, fair question you might be having: how is Certus this cheap?</p>
+         <p style="margin:0 0 16px;">Because it's software, not a shelf of printed books and a lecture library you'll half-watch. The same core readings, question banks, and full mocks the big providers charge <strong>$350–$1,500</strong> for — for a fraction of the price.</p>
+         <p style="margin:0 0 24px;">Cheap isn't thin here. It's just a leaner way to get the same result. See exactly what's included:</p>
+         <p style="margin:0 0 6px;">${button("See what you get →", billing)}</p>`,
+        userId
+      ),
+    };
+  }
+
+  // step 4 — Day 5 — the conversion push
   return {
     subject: "Unlock every exam",
     html: shell(
