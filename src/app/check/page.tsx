@@ -376,6 +376,23 @@ function Check() {
     if (idx + 1 >= questions.length) submit(all); else setIdx(idx + 1);
   }
 
+  // Back a step in the diagnostic: restore the previous pick and un-commit it so
+  // it re-saves on the next tap. From the first question, return to the reflect
+  // screen (the step just before the quiz).
+  function quizBack() {
+    if (idx === 0) { setPhase("reflect"); return; }
+    const prev = idx - 1;
+    setPicked(answers[prev] ?? null);
+    setAnswers(answers.slice(0, prev));
+    setIdx(prev);
+  }
+
+  // Back a step in the intake. Their prior answer stays in `intake`, so moving
+  // forward again just re-confirms it.
+  function intakeBack() {
+    if (intakeIdx > 0) setIntakeIdx(intakeIdx - 1);
+  }
+
   function savePlan(dest: string) {
     if (!exam || !result) return;
     const level = exam.levels[0];
@@ -420,10 +437,19 @@ function Check() {
     const iq = intakeQs[intakeIdx];
     return shell(
       <div className="rise-in" key={intakeIdx}>
-        <div className="flex items-center gap-1.5 mb-6 pt-2">
-          {intakeQs.map((_, i) => (
-            <div key={i} style={{ height: 5, flex: 1, borderRadius: 99, background: i <= intakeIdx ? "var(--primary)" : "var(--primary-light)" }} />
-          ))}
+        <div className="flex items-center gap-2.5 mb-6 pt-2">
+          {intakeIdx > 0 && (
+            <button onClick={intakeBack} aria-label="Back to previous question"
+              className="flex-shrink-0 flex items-center justify-center"
+              style={{ width: 28, height: 28, borderRadius: 8, border: "1px solid var(--border)", background: "var(--bg-card)", color: "var(--text-secondary)" }}>
+              ←
+            </button>
+          )}
+          <div className="flex items-center gap-1.5 flex-1">
+            {intakeQs.map((_, i) => (
+              <div key={i} style={{ height: 5, flex: 1, borderRadius: 99, background: i <= intakeIdx ? "var(--primary)" : "var(--primary-light)" }} />
+            ))}
+          </div>
         </div>
         <div className="text-[11px] font-semibold uppercase tracking-wider mb-2" style={{ color: "var(--text-muted)" }}>
           {intakeIdx === 0 ? "Let's build your plan" : `Question ${intakeIdx + 1} of ${intakeQs.length}`}
@@ -465,7 +491,14 @@ function Check() {
     return shell(
       <div>
         <div className="flex items-center justify-between mb-2 pt-2">
-          <span className="text-xs font-semibold" style={{ color: "var(--text-muted)" }}>{idx + 1} of {questions.length}</span>
+          <div className="flex items-center gap-2">
+            <button onClick={quizBack} aria-label="Back to previous question"
+              className="flex items-center justify-center"
+              style={{ width: 26, height: 26, borderRadius: 8, border: "1px solid var(--border)", background: "var(--bg-card)", color: "var(--text-secondary)" }}>
+              ←
+            </button>
+            <span className="text-xs font-semibold" style={{ color: "var(--text-muted)" }}>{idx + 1} of {questions.length}</span>
+          </div>
           <span className="text-xs" style={{ color: "var(--text-muted)" }}>No card · no signup</span>
         </div>
         <div style={{ height: 6, borderRadius: 99, background: "var(--primary-light)", marginBottom: 22 }}>
