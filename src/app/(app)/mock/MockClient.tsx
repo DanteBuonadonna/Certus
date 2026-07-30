@@ -26,6 +26,7 @@ import {
   FULL_MOCK_READY,
 } from "@/content/cfa-mock";
 import { L2_QUICK, L2_SESSION_1, L2_SESSION_2, L2_FULL_READY } from "@/content/cfa-l2-mock";
+import { SIE_MOCK_QUICK, SIE_MOCK_FULL, SIE_FULL_READY } from "@/content/sie-mock";
 import {
   L3_QUICK_SETS,
   L3_QUICK_ESSAYS,
@@ -53,7 +54,7 @@ import {
   TopicScore,
 } from "@/lib/mockExam";
 
-type ExamSlug = "cfa" | "cfa-l2" | "cfa-l3";
+type ExamSlug = "cfa" | "cfa-l2" | "cfa-l3" | "sie";
 type Mode = "quick" | "full";
 type Phase = "home" | "instructions" | "exam" | "break" | "grade" | "result";
 
@@ -147,9 +148,23 @@ const EXAM_DEFS: Record<
       fromSets(L3_SESSION_SETS_2, L3_SESSION_ESSAYS_2),
     ],
   },
+  sie: {
+    name: "SIE",
+    quickTitle: "Readiness check",
+    quickSpec: "15 questions · ~21 min · exam pacing",
+    quickBlurb:
+      "Fifteen blueprint-weighted SIE questions with four answer choices, at real exam pacing — a first read on where you stand across all four sections.",
+    fullTitle: "Full mock examination",
+    fullSpec: "75 questions · one 1 h 45 m session",
+    fullBlurb:
+      "The complete SIE experience: 75 questions with four answer choices, weighted to the FINRA content outline (Products 44%, Trading & Accounts 31%, Capital Markets 16%, Regulatory 9%), with a per-section score report. Written to be as demanding as exam day.",
+    fullReady: SIE_FULL_READY,
+    quick: () => [fromFlat(SIE_MOCK_QUICK)],
+    full: () => [fromFlat(SIE_MOCK_FULL)],
+  },
 };
 
-const EXAM_ORDER: ExamSlug[] = ["cfa", "cfa-l2", "cfa-l3"];
+const EXAM_ORDER: ExamSlug[] = ["cfa", "cfa-l2", "cfa-l3", "sie"];
 
 // ---- Per-session working state ----------------------------------
 interface SessionState {
