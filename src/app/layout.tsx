@@ -18,11 +18,11 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://certus.website";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${BRAND.name} — Gamified CFA prep from $24.99 (free mock exam)`,
+    default: `${BRAND.name} — Gamified CFA Prep with a Free Mock Exam`,
     template: `%s · ${BRAND.name}`,
   },
   description:
-    `The Duolingo-style way to pass the CFA. Deep readings, exam-real practice, and an adaptive daily plan — from $24.99, a fraction of $500+ prep courses. Take a free full mock, no signup.`,
+    `The Duolingo-style way to pass the CFA. Deep readings, exam-real practice, and an adaptive daily plan — from $9.58/mo billed yearly, a fraction of $500+ prep courses. Take a free full mock, no signup.`,
   keywords: [
     "cheap CFA prep", "free CFA mock exam", "CFA Level 1 practice questions",
     "gamified CFA prep", "Duolingo for CFA", "affordable CFA study material",
@@ -33,14 +33,14 @@ export const metadata: Metadata = {
     type: "website",
     url: SITE_URL,
     siteName: BRAND.name,
-    title: `${BRAND.name} — Gamified CFA prep from $24.99`,
+    title: `${BRAND.name} — Gamified CFA Prep with a Free Mock Exam`,
     description:
-      "The Duolingo-style way to pass the CFA. Free full mock, no signup. From $24.99 — a fraction of $500+ prep courses.",
+      "The Duolingo-style way to pass the CFA. Free full mock, no signup — a fraction of $500+ prep courses.",
     images: [{ url: "/og.png", width: 1200, height: 630, alt: `${BRAND.name} — gamified finance-exam prep` }],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${BRAND.name} — Gamified CFA prep from $24.99`,
+    title: `${BRAND.name} — Gamified CFA Prep with a Free Mock Exam`,
     description: "The Duolingo-style way to pass the CFA. Free full mock, no signup.",
     images: ["/og.png"],
   },
