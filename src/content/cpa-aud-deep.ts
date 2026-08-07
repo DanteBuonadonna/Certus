@@ -14,7 +14,7 @@ export const audDeepChapters: Chapter[] = [
     topicId: "aud",
     topicName: "Auditing & Attestation",
     title: "The Audit Process: Risk, Materiality, and Evidence",
-    readingMinutes: 58,
+    readingMinutes: 6,
     summary:
       "The engine of every audit — the objective of reasonable assurance, the audit risk model and how detection risk responds to risk of material misstatement, materiality, the management assertions, and what makes audit evidence sufficient and appropriate.",
     intro:
@@ -78,7 +78,7 @@ export const audDeepChapters: Chapter[] = [
     topicId: "aud",
     topicName: "Auditing & Attestation",
     title: "Professional Ethics, Independence, and Responsibilities",
-    readingMinutes: 56,
+    readingMinutes: 4,
     summary:
       "The integrity backbone of the profession — the AICPA Code of Professional Conduct, independence in fact and appearance, the conceptual threats-and-safeguards framework, and the Sarbanes-Oxley reforms (the PCAOB, Section 404, and audit committees).",
     intro:
@@ -140,7 +140,7 @@ export const audDeepChapters: Chapter[] = [
     topicId: "internal-controls",
     topicName: "Auditing & Attestation",
     title: "Internal Control and the Auditor's Response",
-    readingMinutes: 56,
+    readingMinutes: 5,
     summary:
       "How the auditor understands and tests a client's controls — the five COSO components, segregation of duties, IT general versus application controls, the deficiency severity scale, and how control reliance shapes the audit approach.",
     intro:
@@ -201,7 +201,7 @@ export const audDeepChapters: Chapter[] = [
     topicId: "audit-reports",
     topicName: "Auditing & Attestation",
     title: "Audit Reports and Opinions",
-    readingMinutes: 54,
+    readingMinutes: 6,
     summary:
       "The product of the audit — the unmodified (clean) opinion and the three modified opinions (qualified, adverse, disclaimer), what triggers each based on misstatement versus scope limitation and pervasiveness, and the emphasis-of-matter and going-concern communications.",
     intro:
@@ -255,44 +255,44 @@ export const audDeepChapters: Chapter[] = [
 export const audDeepQuestions: Question[] = [
   {
     id: "cpa-aud-pr-d1", examSlug: "cpa-aud", topicId: "aud", topicName: "Auditing & Attestation", difficulty: 1,
-    stem: "A financial-statement audit is designed to provide:",
-    choices: ["Absolute assurance the statements are correct", "Reasonable assurance the statements are free of material misstatement", "A guarantee against fraud", "Assurance on operations and compliance only"],
-    answerIndex: 1,
-    explanation: "An audit provides reasonable — high but not absolute — assurance that the statements are free of material misstatement, expressed through an opinion. Absolute assurance is impossible due to sampling, the nature of evidence, and concealed fraud.",
+    stem: "A client's investors ask whether the audit guarantees the financial statements contain no errors. The correct response is that an audit provides:",
+    choices: ["Reasonable assurance the statements are free of material misstatement", "Absolute assurance that no error of any size remains undetected", "Limited assurance based on inquiry and analytical procedures only", "No assurance, since management prepares the statements"],
+    answerIndex: 0,
+    explanation: "An audit provides reasonable - high but not absolute - assurance that the statements are free of MATERIAL misstatement. Absolute assurance is unattainable because of sampling, the inherent limits of internal control, judgment in accounting estimates, and the possibility of collusion. Limited assurance describes a REVIEW engagement, a lower level of service. Management's responsibility for preparing the statements is what creates the need for an audit, not a reason it conveys nothing.",
   },
   {
     id: "cpa-aud-pr-d2", examSlug: "cpa-aud", topicId: "aud", topicName: "Auditing & Attestation", difficulty: 2,
-    stem: "The audit risk model is expressed as:",
-    choices: ["Audit risk = inherent risk + control risk + detection risk", "Audit risk = inherent risk × control risk × detection risk", "Audit risk = control risk ÷ detection risk", "Audit risk = materiality × sample size"],
+    stem: "An auditor sets audit risk at 5%, assesses inherent risk at 80% and control risk at 50%. The allowable detection risk is:",
+    choices: ["20%, obtained by dividing audit risk by inherent risk alone", "12.5%, requiring substantive testing to hold detection risk that low", "2.0%, obtained by multiplying all three risk components together", "40%, the combined assessment of inherent and control risk"],
     answerIndex: 1,
-    explanation: "Audit risk = inherent risk × control risk × detection risk. Inherent risk × control risk is the risk of material misstatement (RMM), which exists independent of the audit; the auditor sets only detection risk.",
+    explanation: "The audit risk model is AR = IR x CR x DR, so DR = AR / (IR x CR) = 0.05 / (0.80 x 0.50) = 0.125, or 12.5%. The relationship is inverse and drives audit planning: high inherent and control risk compress allowable detection risk, forcing more extensive substantive procedures. Multiplying all three treats detection risk as an input when it is the output the auditor solves for.",
   },
   {
     id: "cpa-aud-pr-d3", examSlug: "cpa-aud", topicId: "aud", topicName: "Auditing & Attestation", difficulty: 3,
     stem: "If the auditor assesses the risk of material misstatement as HIGH, detection risk should be set:",
-    choices: ["High, with less substantive testing", "Low, with more substantive testing", "Unchanged", "Equal to control risk"],
-    answerIndex: 1,
+    choices: ["High, with less substantive testing", "Unchanged", "Low, with more substantive testing", "Equal to control risk"],
+    answerIndex: 2,
     explanation: "Detection risk moves inversely to the risk of material misstatement. A high RMM requires a low detection risk, achieved through more extensive and more effective substantive procedures, larger samples, and testing nearer year-end.",
   },
   {
     id: "cpa-aud-pr-d4", examSlug: "cpa-aud", topicId: "aud", topicName: "Auditing & Attestation", difficulty: 2,
     stem: "Which audit evidence is generally the MOST reliable?",
-    choices: ["An oral inquiry of management", "A photocopy provided by the client", "An external confirmation obtained directly by the auditor", "An internally generated spreadsheet"],
-    answerIndex: 2,
+    choices: ["An oral inquiry directed to management", "A photocopy provided by the client", "An internally generated spreadsheet", "A confirmation obtained directly by the auditor"],
+    answerIndex: 3,
     explanation: "Evidence from external, independent sources obtained directly by the auditor is the most reliable. Reliability ranks external > internal, auditor-obtained > entity-provided, written > oral, and originals > copies; inquiry alone is rarely sufficient.",
   },
   {
     id: "cpa-aud-pr-d5", examSlug: "cpa-aud", topicId: "aud", topicName: "Auditing & Attestation", difficulty: 2,
     stem: "Confirming accounts receivable with customers primarily tests which assertion?",
-    choices: ["Completeness", "Existence", "Presentation and disclosure", "Cutoff"],
-    answerIndex: 1,
+    choices: ["Existence", "Completeness", "Presentation and disclosure", "Cutoff"],
+    answerIndex: 0,
     explanation: "Confirming receivables tests existence — whether the recorded receivables are real. Completeness (that all receivables are recorded) is better tested by tracing shipping documents and sales into the records.",
   },
   {
     id: "cpa-aud-et-d1", examSlug: "cpa-aud", topicId: "aud", topicName: "Auditing & Attestation", difficulty: 2,
     stem: "An auditor who is actually unbiased but holds a direct financial interest in the client lacks:",
-    choices: ["Independence in appearance", "Due care", "Competence", "Materiality"],
-    answerIndex: 0,
+    choices: ["Due professional care in performance", "Independence in outward appearance", "Technical competence in the engagement", "Materiality applied to the engagement"],
+    answerIndex: 1,
     explanation: "A direct financial interest impairs independence in appearance (and per the rules, independence outright), even if the auditor is unbiased in fact. Attest engagements require independence in both fact and appearance.",
   },
   {
@@ -304,16 +304,16 @@ export const audDeepQuestions: Question[] = [
   },
   {
     id: "cpa-aud-et-d3", examSlug: "cpa-aud", topicId: "aud", topicName: "Auditing & Attestation", difficulty: 2,
-    stem: "Sarbanes-Oxley Section 404 requires that:",
-    choices: ["The CEO and CFO personally certify the financial statements", "Management assess and the auditor report on internal control over financial reporting", "Audit partners rotate every year", "Companies use a single audit firm"],
-    answerIndex: 1,
-    explanation: "Section 404 requires management to assess, and the auditor to report on, the effectiveness of internal control over financial reporting (ICFR). The CEO/CFO certification requirement is Section 302.",
+    stem: "An accelerated filer's auditor must attest to the effectiveness of internal control over financial reporting. Which requirement produces this, and who is exempt?",
+    choices: ["Section 404(a); no filer category is exempt from any part of Section 404", "Section 302; exemptions depend on the company's industry classification", "Section 906; smaller companies are exempt from criminal liability", "Section 404(b); non-accelerated filers are exempt from the attestation"],
+    answerIndex: 3,
+    explanation: "Section 404(a) obligates MANAGEMENT to assess internal control over financial reporting and applies to all public filers. Section 404(b) adds the external AUDITOR's attestation, and non-accelerated filers and emerging growth companies are exempt from it - the cost-relief provision that has drawn the most legislative attention. Section 302 concerns officer certifications, and Section 906's criminal penalties contain no size-based exemption.",
   },
   {
     id: "cpa-aud-ic-d1", examSlug: "cpa-aud", topicId: "internal-controls", topicName: "Auditing & Attestation", difficulty: 2,
     stem: "Which is NOT one of the five COSO components of internal control?",
-    choices: ["Control environment", "Risk assessment", "Detection risk", "Monitoring"],
-    answerIndex: 2,
+    choices: ["Detection risk", "Control environment", "Risk assessment", "Monitoring"],
+    answerIndex: 0,
     explanation: "The five COSO components are control environment, risk assessment, control activities, information & communication, and monitoring. Detection risk is part of the audit risk model, not a COSO component.",
   },
   {
@@ -333,15 +333,15 @@ export const audDeepQuestions: Question[] = [
   {
     id: "cpa-aud-rp-d1", examSlug: "cpa-aud", topicId: "audit-reports", topicName: "Auditing & Attestation", difficulty: 2,
     stem: "An auditor concludes the statements are fairly presented in all material respects. The appropriate opinion is:",
-    choices: ["Qualified", "Adverse", "Unmodified (unqualified)", "Disclaimer"],
-    answerIndex: 2,
+    choices: ["A qualified opinion on the statements", "An adverse opinion on the statements", "A disclaimer of opinion entirely", "An unmodified, unqualified opinion"],
+    answerIndex: 3,
     explanation: "When the auditor obtains sufficient appropriate evidence and finds no material misstatement, the result is a clean, unmodified (unqualified) opinion.",
   },
   {
     id: "cpa-aud-rp-d2", examSlug: "cpa-aud", topicId: "audit-reports", topicName: "Auditing & Attestation", difficulty: 3,
     stem: "A scope limitation so pervasive that the auditor cannot obtain sufficient evidence results in a(n):",
-    choices: ["Qualified opinion", "Adverse opinion", "Disclaimer of opinion", "Unmodified opinion"],
-    answerIndex: 2,
+    choices: ["Disclaimer of opinion", "Qualified opinion", "Adverse opinion", "Unmodified opinion"],
+    answerIndex: 0,
     explanation: "A pervasive scope limitation leads to a disclaimer of opinion (no opinion expressed). If the limitation were material but not pervasive, a qualified ('except for') opinion would apply.",
   },
   {
@@ -354,8 +354,8 @@ export const audDeepQuestions: Question[] = [
   {
     id: "cpa-aud-rp-d4", examSlug: "cpa-aud", topicId: "audit-reports", topicName: "Auditing & Attestation", difficulty: 2,
     stem: "An auditor wishes to highlight a matter properly presented in the statements that is fundamental to users' understanding, without modifying the opinion. The auditor adds a(n):",
-    choices: ["Qualified opinion", "Emphasis-of-matter paragraph", "Adverse opinion", "Scope limitation"],
-    answerIndex: 1,
+    choices: ["A qualified audit opinion", "An adverse audit opinion", "An emphasis-of-matter paragraph", "A limitation on audit scope"],
+    answerIndex: 2,
     explanation: "An emphasis-of-matter paragraph highlights a properly presented matter fundamental to understanding (e.g., a significant event or accounting change) without changing the opinion. An other-matter paragraph addresses matters not presented in the statements.",
   },
 ];

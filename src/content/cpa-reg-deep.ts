@@ -14,7 +14,7 @@ export const regDeepChapters: Chapter[] = [
     topicId: "tax-individual",
     topicName: "Taxation & Regulation",
     title: "Individual Taxation: The 1040 from Gross Income to Tax Due",
-    readingMinutes: 60,
+    readingMinutes: 6,
     summary:
       "How an individual return is built — the flow from gross income through adjustments to AGI, the standard-versus-itemized deduction choice, taxable income and the tax, and how credits differ from deductions, plus the marginal-versus-effective rate distinction.",
     intro:
@@ -76,7 +76,7 @@ export const regDeepChapters: Chapter[] = [
     topicId: "tax-entities",
     topicName: "Taxation & Regulation",
     title: "Taxation of Corporations, Partnerships, and S Corporations",
-    readingMinutes: 58,
+    readingMinutes: 7,
     summary:
       "How business entities are taxed — the double taxation of C corporations, the pass-through treatment of partnerships and S corporations, the basis rules that track an owner's investment, and the eligibility limits that distinguish the forms.",
     intro:
@@ -137,7 +137,7 @@ export const regDeepChapters: Chapter[] = [
     topicId: "business-law",
     topicName: "Taxation & Regulation",
     title: "Business Law: Contracts, Agency, and the UCC",
-    readingMinutes: 56,
+    readingMinutes: 5,
     summary:
       "The legal framework underlying commerce — contract formation and the statute of frauds, the UCC's special rules for the sale of goods, agency relationships and authority, and the duties that bind agents and principals.",
     intro:
@@ -198,7 +198,7 @@ export const regDeepChapters: Chapter[] = [
     topicId: "reg",
     topicName: "Taxation & Regulation",
     title: "Ethics, Professional Responsibilities, and Federal Tax Procedures",
-    readingMinutes: 54,
+    readingMinutes: 5,
     summary:
       "The rules governing tax practice — Circular 230 and practice before the IRS, the standards for taking and disclosing tax positions, preparer and taxpayer penalties, and the statute of limitations on assessment.",
     intro:
@@ -257,37 +257,37 @@ export const regDeepChapters: Chapter[] = [
 export const regDeepQuestions: Question[] = [
   {
     id: "cpa-reg-in-d1", examSlug: "cpa-reg", topicId: "tax-individual", topicName: "Taxation & Regulation", difficulty: 1,
-    stem: "Which item is EXCLUDED from gross income?",
-    choices: ["Wages", "Municipal bond interest", "Business income", "Short-term capital gains"],
-    answerIndex: 1,
-    explanation: "Municipal bond interest is excluded from federal gross income. Wages, business income, and capital gains are all included (short-term gains are taxed as ordinary income).",
+    stem: "A taxpayer receives a $20,000 inheritance, $5,000 of municipal bond interest, $3,000 of unemployment compensation, and $10,000 of gambling winnings. Which is EXCLUDED from gross income?",
+    choices: ["The inheritance and municipal interest are excluded; the others are not", "Only the inheritance is excluded; municipal interest is federally taxable", "The inheritance, municipal interest, and unemployment are all excluded", "All four items are excluded as non-earned sources of income"],
+    answerIndex: 0,
+    explanation: "Gifts and inheritances are excluded from the recipient's gross income under Section 102, and municipal bond interest is excluded under Section 103. Unemployment compensation is fully taxable, which surprises many recipients, and gambling winnings are taxable in full with losses deductible only as itemized deductions up to winnings. The exam consistently tests unemployment compensation as a taxable item that intuition suggests should not be.",
   },
   {
     id: "cpa-reg-in-d2", examSlug: "cpa-reg", topicId: "tax-individual", topicName: "Taxation & Regulation", difficulty: 3,
     stem: "Using simplified brackets (10% on the first $20,000, 22% above), the tax on $70,000 of taxable income is:",
-    choices: ["$13,000", "$15,400", "$7,000", "$11,000"],
-    answerIndex: 0,
+    choices: ["$15,400", "$13,000", "$7,000", "$11,000"],
+    answerIndex: 1,
     explanation: "First $20,000 × 10% = $2,000; remaining $50,000 × 22% = $11,000; total = $13,000. The marginal rate is 22% but the effective rate is $13,000 ÷ $70,000 ≈ 18.6%.",
   },
   {
     id: "cpa-reg-in-d3", examSlug: "cpa-reg", topicId: "tax-individual", topicName: "Taxation & Regulation", difficulty: 2,
     stem: "Compared with a $1,000 deduction, a $1,000 tax CREDIT for a taxpayer in the 22% bracket is worth:",
-    choices: ["Less", "The same", "More — it reduces tax dollar-for-dollar ($1,000 vs $220)", "Nothing"],
+    choices: ["Less than an equivalent deduction", "The same as an equivalent deduction", "More, reducing tax dollar for dollar", "Nothing, providing no tax benefit"],
     answerIndex: 2,
     explanation: "A credit reduces tax dollar-for-dollar ($1,000), while a $1,000 deduction reduces taxable income, saving only $1,000 × 22% = $220. Credits are generally more valuable than deductions of the same size.",
   },
   {
     id: "cpa-reg-in-d4", examSlug: "cpa-reg", topicId: "tax-individual", topicName: "Taxation & Regulation", difficulty: 2,
     stem: "The itemized deduction for state and local taxes (SALT) is capped at:",
-    choices: ["$5,000", "$10,000", "$25,000", "Unlimited"],
-    answerIndex: 1,
+    choices: ["$5,000", "$25,000", "Unlimited", "$10,000"],
+    answerIndex: 3,
     explanation: "The SALT itemized deduction is capped at $10,000. Other itemized deductions include mortgage interest, charitable contributions, and medical expenses above 7.5% of AGI; a taxpayer takes the greater of itemized or the standard deduction.",
   },
   {
     id: "cpa-reg-en-d1", examSlug: "cpa-reg", topicId: "tax-entities", topicName: "Taxation & Regulation", difficulty: 2,
     stem: "A C corporation earns $100, pays 21% corporate tax, and distributes the rest as a dividend taxed at 15%. The total tax is closest to:",
-    choices: ["$21.00", "$32.85", "$15.00", "$36.00"],
-    answerIndex: 1,
+    choices: ["$32.85", "$21.00", "$15.00", "$36.00"],
+    answerIndex: 0,
     explanation: "Corporate tax = $21; after-tax = $79; dividend tax = 15% × $79 = $11.85; total = $32.85 (≈32.85% combined). This double taxation is the C-corp's core disadvantage versus a pass-through.",
   },
   {
@@ -300,22 +300,22 @@ export const regDeepQuestions: Question[] = [
   {
     id: "cpa-reg-en-d3", examSlug: "cpa-reg", topicId: "tax-entities", topicName: "Taxation & Regulation", difficulty: 2,
     stem: "Which is an eligibility requirement for S corporation status?",
-    choices: ["At least 500 shareholders", "More than one class of stock", "No more than 100 shareholders and one class of stock", "Corporate shareholders allowed"],
+    choices: ["At least 500 shareholders of record", "More than one class of stock", "At most 100 shareholders, one stock class", "Corporate shareholders allowed"],
     answerIndex: 2,
     explanation: "An S corp may have no more than 100 shareholders and only one class of stock, with owners limited to eligible US individuals, certain trusts, and estates — no corporate or partnership shareholders and no nonresident aliens.",
   },
   {
     id: "cpa-reg-en-d4", examSlug: "cpa-reg", topicId: "tax-entities", topicName: "Taxation & Regulation", difficulty: 1,
     stem: "A partnership pays federal income tax at the entity level of:",
-    choices: ["21%", "37%", "Zero — it is a pass-through", "15%"],
-    answerIndex: 2,
+    choices: ["21%, the corporate statutory rate", "37%, the top individual rate", "15%, a preferential entity rate", "Zero, as it is a pass-through entity"],
+    answerIndex: 3,
     explanation: "A partnership pays no entity-level federal income tax; it is a pass-through that files an information return (Form 1065) and passes income through to partners via Schedule K-1, who are taxed on their distributive shares.",
   },
   {
     id: "cpa-reg-bl-d1", examSlug: "cpa-reg", topicId: "business-law", topicName: "Taxation & Regulation", difficulty: 2,
     stem: "Which element is REQUIRED to form a valid contract?",
-    choices: ["A notarized signature", "Consideration (a bargained-for exchange)", "A written document in all cases", "Government approval"],
-    answerIndex: 1,
+    choices: ["Consideration, a bargained-for exchange", "A signature witnessed by a notary", "A written document in all cases", "Approval from a government authority"],
+    answerIndex: 0,
     explanation: "Consideration — a bargained-for exchange of value — is a required element, along with offer, acceptance, capacity, and legal purpose. Most contracts need not be in writing (the statute of frauds covers only specific categories).",
   },
   {
@@ -335,15 +335,15 @@ export const regDeepQuestions: Question[] = [
   {
     id: "cpa-reg-bl-d4", examSlug: "cpa-reg", topicId: "business-law", topicName: "Taxation & Regulation", difficulty: 2,
     stem: "The implied warranty that goods are fit for their ordinary purpose, given automatically by a merchant seller, is the warranty of:",
-    choices: ["Fitness for a particular purpose", "Merchantability", "Title", "Express warranty"],
-    answerIndex: 1,
+    choices: ["Fitness for a particular purpose", "Title", "Express warranty", "Merchantability"],
+    answerIndex: 3,
     explanation: "The implied warranty of merchantability arises automatically when a merchant sells goods — they must be fit for ordinary purposes. The warranty of fitness for a particular purpose arises only when the seller knows the buyer's special purpose and the buyer relies on the seller's expertise.",
   },
   {
     id: "cpa-reg-et-d1", examSlug: "cpa-reg", topicId: "reg", topicName: "Taxation & Regulation", difficulty: 2,
     stem: "The Treasury rules governing who may practice before the IRS and how they must conduct themselves are found in:",
-    choices: ["The Sarbanes-Oxley Act", "Circular 230", "ASC 606", "The UCC"],
-    answerIndex: 1,
+    choices: ["Circular 230", "The Sarbanes-Oxley Act", "ASC 606", "The UCC"],
+    answerIndex: 0,
     explanation: "Circular 230 governs practice before the IRS by CPAs, attorneys, enrolled agents, and others, addressing due diligence, conflicts, fees, and discipline (censure, suspension, disbarment).",
   },
   {
@@ -356,8 +356,8 @@ export const regDeepQuestions: Question[] = [
   {
     id: "cpa-reg-et-d3", examSlug: "cpa-reg", topicId: "reg", topicName: "Taxation & Regulation", difficulty: 3,
     stem: "The general statute of limitations for the IRS to assess additional tax is three years, but it extends to SIX years when:",
-    choices: ["The taxpayer files late", "The taxpayer omits more than 25% of gross income", "The return shows a refund", "The taxpayer is audited"],
-    answerIndex: 1,
+    choices: ["The taxpayer files the return late", "The return shows a refund", "The taxpayer omits over 25% of income", "The taxpayer is selected for audit"],
+    answerIndex: 2,
     explanation: "Omitting more than 25% of gross income extends the assessment period to six years. The statute is unlimited for a fraudulent return or a failure to file; otherwise the general period is three years.",
   },
 ];

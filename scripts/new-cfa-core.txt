@@ -1,0 +1,393 @@
+const questions: Question[] = [
+  // ============================================================
+  // ETHICS & PROFESSIONAL STANDARDS
+  // Application scenarios — the Standards are tested by judgment,
+  // not recitation. Distractors are the plausible wrong instinct.
+  // ============================================================
+  {
+    id: "cfa-eth-q1", examSlug: "cfa", topicId: "ethics", topicName: "Ethics", difficulty: 3,
+    stem: "An analyst attends a private dinner where a company's CFO mentions, in passing, that quarterly earnings will materially miss consensus. The information has not been released. The analyst's firm holds a large position. The analyst should most appropriately:",
+    choices: ["Recommend the firm sell the position before the announcement becomes public", "Decline to act or trade on the information and notify firm compliance promptly", "Publish a research note so all clients receive the information simultaneously"],
+    answerIndex: 1,
+    explanation: "The earnings shortfall is both material and nonpublic, so the Standard on material nonpublic information prohibits acting or causing others to act on it, regardless of how innocently it was obtained. Selling ahead of the release is precisely the prohibited trading. Publishing it does not cure the problem either — disseminating information the analyst was not authorized to release compounds the breach rather than resolving it. Notifying compliance and refraining is the required response.",
+  },
+  {
+    id: "cfa-eth-q2", examSlug: "cfa", topicId: "ethics", topicName: "Ethics", difficulty: 3,
+    stem: "A portfolio manager allocates a heavily oversubscribed IPO first to accounts that generate the highest fees, then distributes any remainder to smaller accounts with the same mandate. This practice most likely violates the Standard concerning:",
+    choices: ["Fair dealing, because clients with the same mandate were treated unequally", "Loyalty, prudence, and care, because the manager exercised poor judgment", "Suitability, because the IPO was unsuitable for the smaller client accounts"],
+    answerIndex: 0,
+    explanation: "Fair Dealing requires that members deal fairly and objectively with all clients when taking investment action, which includes allocating limited opportunities such as oversubscribed IPOs on a pro-rata or otherwise systematic basis. Fee level is not a permissible basis for priority. Loyalty, prudence, and care addresses the duty owed in managing assets generally, and suitability concerns whether an investment fits a client's objectives — neither captures the unequal treatment at issue here.",
+  },
+  {
+    id: "cfa-eth-q3", examSlug: "cfa", topicId: "ethics", topicName: "Ethics", difficulty: 3,
+    stem: "An analyst uses a detailed forecast model built by a former colleague at a prior employer, reproducing its structure and assumptions in a new report without attribution. This most likely violates the Standard on:",
+    choices: ["Misconduct, because copying a model reflects dishonesty in professional life", "Misrepresentation, which prohibits presenting others' work as one's own", "Record retention, because supporting documentation was not maintained"],
+    answerIndex: 1,
+    explanation: "Misrepresentation expressly prohibits plagiarism, meaning the use of substantially similar analysis, models, or language without acknowledging the source. Misconduct addresses dishonesty, fraud, or deceit reflecting adversely on professional fitness more broadly, and record retention concerns keeping documentation supporting analysis. The specific act of presenting another's model as original work is plagiarism under misrepresentation.",
+  },
+  {
+    id: "cfa-eth-q4", examSlug: "cfa", topicId: "ethics", topicName: "Ethics", difficulty: 3,
+    stem: "A member is offered a paid consulting role advising a private company on capital structure. The member discloses the arrangement to clients but not to the employer. This treatment is most likely:",
+    choices: ["Acceptable, because client disclosure satisfies the member's obligations", "Acceptable, because outside consulting falls outside the employment relationship", "A violation, because additional compensation arrangements require employer consent"],
+    answerIndex: 2,
+    explanation: "The Standard on additional compensation arrangements requires written consent from the employer before accepting compensation that competes with or creates a conflict with the employer's interest. Disclosure to clients addresses a different Standard on conflicts and does not substitute for employer consent. The arrangement's outside nature is precisely why consent is required, not a reason it is excused.",
+  },
+  {
+    id: "cfa-eth-q5", examSlug: "cfa", topicId: "ethics", topicName: "Ethics", difficulty: 3,
+    stem: "A firm claims compliance with GIPS standards. Which statement about that claim is most accurate?",
+    choices: ["Compliance is voluntary and must be applied on a firm-wide basis", "Compliance is mandatory for any firm managing institutional assets", "Compliance may be claimed for selected composites the firm chooses"],
+    answerIndex: 0,
+    explanation: "The Global Investment Performance Standards are voluntary, but a firm electing to claim compliance must apply them on a firm-wide basis rather than cherry-picking favorable composites — that firm-wide requirement is what makes the claim meaningful to prospective clients. There is no regulatory mandate compelling adoption based on client type, and partial or composite-level claims are expressly prohibited.",
+  },
+  {
+    id: "cfa-eth-q6", examSlug: "cfa", topicId: "ethics", topicName: "Ethics", difficulty: 3,
+    stem: "An analyst covering a company accepts an all-expenses-paid trip from that company to tour a remote production facility, where no commercial flights operate. The most appropriate action is to:",
+    choices: ["Decline the trip entirely, since accepting any issuer-paid travel creates bias", "Accept the travel but disclose it, as reasonable when no practical alternative exists", "Accept the travel without disclosure, since the tour serves a legitimate research purpose"],
+    answerIndex: 1,
+    explanation: "The Standard on independence and objectivity permits accepting modest arrangements where a genuine practical necessity exists, such as a remote site reachable only by company transport, provided the arrangement is disclosed so users can judge for themselves. A blanket refusal is stricter than the Standard requires. Accepting without disclosure fails the transparency the Standard is built around, since undisclosed issuer-funded benefits are exactly what erodes perceived independence.",
+  },
+  {
+    id: "cfa-eth-q7", examSlug: "cfa", topicId: "ethics", topicName: "Ethics", difficulty: 3,
+    stem: "A supervisor learns that a subordinate has been placing personal trades ahead of client orders. The supervisor reprimands the subordinate verbally but takes no further action. The supervisor has most likely:",
+    choices: ["Satisfied the duty, because the violation was addressed with the individual", "Violated responsibilities of supervisors by failing to act adequately on known misconduct", "Violated the priority of transactions Standard through personal trading activity"],
+    answerIndex: 1,
+    explanation: "Responsibilities of Supervisors requires those with supervisory authority to take steps reasonably designed to detect and prevent violations, which upon discovering misconduct means initiating an investigation, escalating, and increasing supervision — not an informal reprimand. The subordinate breached priority of transactions, but that Standard describes the subordinate's conduct rather than the supervisor's separate failure.",
+  },
+  {
+    id: "cfa-eth-q8", examSlug: "cfa", topicId: "ethics", topicName: "Ethics", difficulty: 3,
+    stem: "A member's employer has no formal policy on personal trading. The member believes this creates compliance risk. The member's most appropriate first step is to:",
+    choices: ["Bring the deficiency to the employer's attention and seek adoption of a policy", "Resign from the position to avoid association with an inadequate compliance culture", "Apply personal judgment case by case, since no written policy currently binds conduct"],
+    answerIndex: 0,
+    explanation: "When an employer lacks adequate policies, the member should attempt to have the deficiency remedied by bringing it to the employer's attention, since members are expected to promote compliance rather than exploit or ignore gaps. Resignation is a last resort reserved for situations where participation would require a violation. Relying on ad hoc judgment misses that the Code and Standards bind the member regardless of what the employer has written down.",
+  },
+
+  // ============================================================
+  // QUANTITATIVE METHODS
+  // ============================================================
+  {
+    id: "cfa-quant-q1", examSlug: "cfa", topicId: "quant", topicName: "Quantitative Methods", difficulty: 3,
+    stem: "An investor deposits $8,000 today into an account paying 6% compounded quarterly. The value after three years is closest to:",
+    choices: ["$9,565, applying quarterly compounding over twelve periods", "$9,528, applying annual compounding over three periods", "$9,440, applying simple interest over the three-year term"],
+    answerIndex: 0,
+    explanation: "Quarterly compounding divides the stated rate by four and multiplies periods by four: 8,000 × (1 + 0.06/4)^12 = 8,000 × (1.015)^12 ≈ 8,000 × 1.19562 ≈ $9,565. Compounding annually gives 8,000 × (1.06)³ ≈ $9,528, understating the result because interest compounds less frequently. Simple interest of 8,000 × (1 + 0.18) = $9,440 ignores compounding entirely, and the gap between these three figures is exactly what the compounding frequency controls.",
+  },
+  {
+    id: "cfa-quant-q2", examSlug: "cfa", topicId: "quant", topicName: "Quantitative Methods", difficulty: 3,
+    stem: "A project requires $50,000 today and returns $20,000 annually for three years. At a 10% required return, the NPV is closest to:",
+    choices: ["Negative $263, indicating the project destroys value at this discount rate", "Positive $10,000, the undiscounted sum of cash flows less the initial outlay", "Positive $263, treating the outlay as recovered rather than as an expense"],
+    answerIndex: 0,
+    explanation: "Discounting each inflow gives 20,000 × 0.9091 + 20,000 × 0.8264 + 20,000 × 0.7513 ≈ 49,737, and subtracting the 50,000 outlay leaves approximately negative $263, so the project should be rejected. Summing the $60,000 of inflows without discounting ignores the time value of money and produces a misleading $10,000 surplus. Reversing the sign of the final subtraction is the other frequent slip, turning a marginal rejection into a false acceptance.",
+  },
+  {
+    id: "cfa-quant-q3", examSlug: "cfa", topicId: "quant", topicName: "Quantitative Methods", difficulty: 3,
+    stem: "A portfolio returns 12%, negative 5%, and 8% over three years. Its geometric mean return is closest to:",
+    choices: ["5.00%, the arithmetic average of the three annual returns", "4.74%, the compound annual rate that reproduces the ending wealth", "8.00%, the median of the three observed annual returns"],
+    answerIndex: 1,
+    explanation: "The geometric mean is the compound rate linking beginning and ending wealth: [(1.12)(0.95)(1.08)]^(1/3) − 1 = (1.14912)^(1/3) − 1 ≈ 4.74%. The arithmetic mean of 5.00% always exceeds the geometric mean whenever returns vary, because losses require larger subsequent gains to recover. Taking a median discards the compounding relationship the measure is designed to capture.",
+  },
+  {
+    id: "cfa-quant-q4", examSlug: "cfa", topicId: "quant", topicName: "Quantitative Methods", difficulty: 3,
+    stem: "A researcher sets a significance level of 5% and rejects the null hypothesis. The probability of a Type I error in this test is:",
+    choices: ["5%, equal to the chosen significance level of the test", "95%, equal to one minus the chosen significance level", "Dependent on the power, which equals one minus beta"],
+    answerIndex: 0,
+    explanation: "A Type I error rejects a null hypothesis that is actually true, a false positive, and its probability is exactly the significance level alpha the researcher selects — here 5%. One minus alpha is the confidence level, not an error rate. Power equals one minus the Type II error rate beta and describes the ability to detect a false null, which is a separate quantity governing a different error.",
+  },
+  {
+    id: "cfa-quant-q5", examSlug: "cfa", topicId: "quant", topicName: "Quantitative Methods", difficulty: 3,
+    stem: "An analyst compares two mutually exclusive projects and finds that NPV and IRR rank them differently. The analyst should most appropriately:",
+    choices: ["Select the project with the higher IRR, since it reflects the realized return", "Recalculate both measures, since a conflict indicates a computational error", "Select the project with the higher NPV, given its reinvestment assumption"],
+    answerIndex: 2,
+    explanation: "When NPV and IRR conflict for mutually exclusive projects, NPV governs because it assumes reinvestment at the required rate of return, which is economically realistic, while IRR assumes reinvestment at the IRR itself, often an unattainable rate. Conflicts arise legitimately from differences in project scale or cash flow timing, so they signal a genuine ranking issue rather than an arithmetic mistake.",
+  },
+
+  // ============================================================
+  // ECONOMICS
+  // ============================================================
+  {
+    id: "cfa-econ-q1", examSlug: "cfa", topicId: "econ", topicName: "Economics", difficulty: 3,
+    stem: "A good's price rises 10% and quantity demanded falls 4%. The demand for this good is best described as:",
+    choices: ["Elastic, since consumers respond substantially to the price change", "Inelastic, since quantity responds proportionally less than price", "Unit elastic, since the response is proportional to the price change"],
+    answerIndex: 1,
+    explanation: "Price elasticity of demand is the percentage change in quantity divided by the percentage change in price: 4% divided by 10% gives 0.4 in absolute value, which is below one and therefore inelastic. Elastic demand requires an elasticity above one, meaning quantity responds proportionally more than price. Unit elasticity requires exactly one, where the two percentage changes match.",
+  },
+  {
+    id: "cfa-econ-q2", examSlug: "cfa", topicId: "econ", topicName: "Economics", difficulty: 3,
+    stem: "A central bank sells government securities in the open market while the government simultaneously increases spending. These actions represent:",
+    choices: ["Contractionary monetary policy alongside expansionary fiscal policy", "Expansionary monetary policy alongside contractionary fiscal policy", "Two contractionary policies that will compound their economic effect"],
+    answerIndex: 0,
+    explanation: "Selling securities drains reserves from the banking system and pushes rates up, making it contractionary monetary policy conducted by the central bank. Increased government spending injects demand and is expansionary fiscal policy set by the fiscal authority. The two therefore work in opposition rather than compounding, which is the coordination problem the question is built around.",
+  },
+  {
+    id: "cfa-econ-q3", examSlug: "cfa", topicId: "econ", topicName: "Economics", difficulty: 3,
+    stem: "Country A has a one-year interest rate of 5% while Country B's is 2%. Under covered interest rate parity, Country A's currency should trade at a:",
+    choices: ["Forward premium, compensating investors for the lower domestic rate", "Forward discount, offsetting the higher interest rate available domestically", "Forward rate equal to spot, since arbitrage eliminates any differential"],
+    answerIndex: 1,
+    explanation: "Covered interest rate parity requires that the forward rate offset the interest differential, so the currency of the higher-rate country trades at a forward discount — otherwise an arbitrageur could borrow in the low-rate currency, invest in the high-rate one, and hedge for a riskless profit. Assigning a premium to the higher-rate currency reverses the relationship. Equality of forward and spot would hold only if rates were identical.",
+  },
+  {
+    id: "cfa-econ-q4", examSlug: "cfa", topicId: "econ", topicName: "Economics", difficulty: 3,
+    stem: "A market has many firms selling slightly differentiated products, with low barriers to entry and some pricing power in the short run. This structure is best described as:",
+    choices: ["Perfect competition, given the large number of participating firms", "Monopolistic competition, given differentiation with easy market entry", "Oligopoly, given that firms retain meaningful pricing discretion"],
+    answerIndex: 1,
+    explanation: "Monopolistic competition combines many firms and easy entry with product differentiation, which grants limited short-run pricing power that erodes as entrants imitate the differentiation. Perfect competition requires identical products and complete price-taking behavior. Oligopoly features few firms whose strategic interdependence drives pricing, which the described low barriers and large firm count rule out.",
+  },
+  {
+    id: "cfa-econ-q5", examSlug: "cfa", topicId: "econ", topicName: "Economics", difficulty: 3,
+    stem: "Under the expenditure approach, gross domestic product is measured as:",
+    choices: ["Consumption plus investment plus government spending plus net exports", "Wages plus rent plus interest plus corporate profits before taxation", "The market value of intermediate and final goods produced domestically"],
+    answerIndex: 0,
+    explanation: "The expenditure approach sums the categories of final spending: consumption, investment, government purchases, and net exports. Summing factor payments such as wages, rent, interest, and profits describes the income approach, which arrives at the same total from the other direction. Including intermediate goods would double-count, since their value is already embedded in the final goods they become.",
+  },
+
+  // ============================================================
+  // FINANCIAL STATEMENT ANALYSIS
+  // ============================================================
+  {
+    id: "cfa-fra-q1", examSlug: "cfa", topicId: "fra", topicName: "Financial Statement Analysis", difficulty: 3,
+    stem: "In a period of rising prices, a company using LIFO rather than FIFO will most likely report:",
+    choices: ["Higher cost of goods sold, lower net income, and lower ending inventory", "Lower cost of goods sold, higher net income, and higher ending inventory", "Higher cost of goods sold, lower net income, and higher ending inventory"],
+    answerIndex: 0,
+    explanation: "LIFO charges the most recently purchased and therefore most expensive units to cost of goods sold when prices rise, which raises COGS, compresses net income, and leaves the older, cheaper costs sitting in ending inventory. FIFO produces the mirror image. The combination of higher COGS with higher ending inventory is internally inconsistent, because the same cost pool cannot be simultaneously expensed and retained.",
+  },
+  {
+    id: "cfa-fra-q2", examSlug: "cfa", topicId: "fra", topicName: "Financial Statement Analysis", difficulty: 3,
+    stem: "A company has net profit margin of 5%, asset turnover of 2.0, and financial leverage of 1.5. Its return on equity using DuPont decomposition is:",
+    choices: ["15.0%, the product of the three component ratios", "8.5%, the sum of margin and turnover adjusted for leverage", "10.0%, the product of margin and turnover before leverage"],
+    answerIndex: 0,
+    explanation: "The three-part DuPont identity multiplies net profit margin by asset turnover by financial leverage: 0.05 × 2.0 × 1.5 = 0.15, or 15%. Multiplying only margin and turnover yields return on assets of 10%, stopping one step short of ROE. Summing the components has no economic meaning, since the decomposition is multiplicative by construction.",
+  },
+  {
+    id: "cfa-fra-q3", examSlug: "cfa", topicId: "fra", topicName: "Financial Statement Analysis", difficulty: 3,
+    stem: "A firm capitalizes a cost that a competitor expenses immediately. In the year of the expenditure, the capitalizing firm will most likely report:",
+    choices: ["Higher net income and higher cash flow from operations than the competitor", "Higher net income and lower cash flow from operations than the competitor", "Lower net income and identical cash flow from operations to the competitor"],
+    answerIndex: 0,
+    explanation: "Capitalizing defers the cost to the balance sheet and spreads it through depreciation, so current-period expense is lower and net income higher than under immediate expensing. The classification also moves the outflow from operating to investing activities, which raises reported cash flow from operations even though total cash is unchanged. Total cash flow is identical across both treatments; only its classification and the earnings pattern differ.",
+  },
+  {
+    id: "cfa-fra-q4", examSlug: "cfa", topicId: "fra", topicName: "Financial Statement Analysis", difficulty: 3,
+    stem: "Under the indirect method, an increase in accounts receivable during the period is treated as:",
+    choices: ["An addition to net income, since receivables represent earned revenue", "A subtraction from net income, since revenue was recorded without cash collected", "An investing outflow, since receivables represent a claim on future resources"],
+    answerIndex: 1,
+    explanation: "The indirect method starts from net income and removes non-cash effects, so growth in receivables must be subtracted because revenue was recognized without a corresponding cash inflow. Adding the increase would double-count income already embedded in net income. Receivables arise from ordinary trading activity and belong in the operating section rather than investing.",
+  },
+  {
+    id: "cfa-fra-q5", examSlug: "cfa", topicId: "fra", topicName: "Financial Statement Analysis", difficulty: 3,
+    stem: "A company's quick ratio is materially lower than its current ratio. The most likely explanation is that the company:",
+    choices: ["Holds a large proportion of its current assets as inventory", "Carries an unusually high balance of short-term marketable securities", "Has significant long-term debt maturing beyond the coming year"],
+    answerIndex: 0,
+    explanation: "The quick ratio excludes inventory from current assets precisely because inventory is the least liquid current item, so a wide gap between the two ratios points to inventory-heavy holdings. Marketable securities are included in both ratios and would not create divergence. Long-term debt maturing beyond one year is excluded from current liabilities altogether and therefore affects neither ratio.",
+  },
+  {
+    id: "cfa-fra-q6", examSlug: "cfa", topicId: "fra", topicName: "Financial Statement Analysis", difficulty: 3,
+    stem: "Diluted earnings per share differs from basic earnings per share because diluted EPS:",
+    choices: ["Excludes discontinued operations from the numerator of the calculation", "Assumes conversion of dilutive securities into additional common shares", "Uses ending shares outstanding rather than a weighted average figure"],
+    answerIndex: 1,
+    explanation: "Diluted EPS reflects the reduction in per-share earnings that would occur if convertible bonds, convertible preferred, options, and warrants were exercised or converted, capturing potential claims on earnings. Discontinued operations are presented separately in both measures. Both calculations use weighted average shares, adjusted in the diluted case for the assumed conversions.",
+  },
+  {
+    id: "cfa-fra-q7", examSlug: "cfa", topicId: "fra", topicName: "Financial Statement Analysis", difficulty: 3,
+    stem: "A deferred tax liability most commonly arises when a company:",
+    choices: ["Uses accelerated depreciation for tax purposes and straight-line for reporting", "Recognizes a permanent difference between taxable and reported income", "Carries forward an operating loss to offset income in future periods"],
+    answerIndex: 0,
+    explanation: "Claiming larger depreciation deductions on the tax return than in the financial statements defers tax into later periods, creating a temporary difference that reverses over the asset's life and is recorded as a deferred tax liability. Permanent differences never reverse and therefore generate no deferred tax item. A loss carryforward reduces future taxes and gives rise to a deferred tax asset instead.",
+  },
+
+  // ============================================================
+  // CORPORATE ISSUERS
+  // ============================================================
+  {
+    id: "cfa-corp-q1", examSlug: "cfa", topicId: "corp", topicName: "Corporate Issuers", difficulty: 3,
+    stem: "A firm finances with 40% debt at a 6% pretax cost and 60% equity at a 12% cost, facing a 25% tax rate. Its weighted average cost of capital is closest to:",
+    choices: ["9.60%, weighting the pretax debt cost against the equity cost", "9.00%, applying the tax shield to the debt component only", "8.40%, applying the tax shield to both financing components"],
+    answerIndex: 1,
+    explanation: "Debt enters WACC on an after-tax basis because interest is deductible: 0.40 × 6% × (1 − 0.25) + 0.60 × 12% = 1.8% + 7.2% = 9.0%. Using the pretax debt cost overstates WACC by ignoring the tax shield entirely. Applying a tax adjustment to equity is incorrect, since dividends and retained earnings generate no deduction for the firm.",
+  },
+  {
+    id: "cfa-corp-q2", examSlug: "cfa", topicId: "corp", topicName: "Corporate Issuers", difficulty: 3,
+    stem: "When evaluating a capital project, a firm should most appropriately treat a $200,000 feasibility study already completed as:",
+    choices: ["A sunk cost that is excluded from the incremental cash flow analysis", "An initial outlay that is included in the project's year-zero investment", "An opportunity cost that is allocated across the project's useful life"],
+    answerIndex: 0,
+    explanation: "The study has already been paid for and cannot be recovered regardless of whether the project proceeds, making it a sunk cost that is irrelevant to a forward-looking decision. Including it in the initial outlay would bias the analysis against a project that may still be economically sound. Opportunity cost captures forgone alternatives such as using land the firm already owns, which is a different concept entirely.",
+  },
+  {
+    id: "cfa-corp-q3", examSlug: "cfa", topicId: "corp", topicName: "Corporate Issuers", difficulty: 3,
+    stem: "A firm with high operating leverage will most likely experience:",
+    choices: ["Greater variability in operating income as sales revenue fluctuates", "Reduced sensitivity of operating income to changes in unit sales volume", "Higher fixed financing costs relative to its total interest obligations"],
+    answerIndex: 0,
+    explanation: "Operating leverage measures the proportion of fixed operating costs in the cost structure, so a high-leverage firm sees operating income swing more sharply than sales in either direction. That amplification is the defining characteristic rather than a dampening effect. Fixed financing costs describe financial leverage, which magnifies net income relative to operating income and is a separate source of risk.",
+  },
+  {
+    id: "cfa-corp-q4", examSlug: "cfa", topicId: "corp", topicName: "Corporate Issuers", difficulty: 3,
+    stem: "Under Modigliani-Miller with corporate taxes but no bankruptcy costs, increasing financial leverage will most likely:",
+    choices: ["Leave firm value unchanged, since capital structure is irrelevant", "Increase firm value through the tax deductibility of interest payments", "Decrease firm value as the required return on equity rises with risk"],
+    answerIndex: 1,
+    explanation: "Once corporate taxes enter the model, interest deductibility creates a tax shield that adds value as leverage rises, which is why the with-taxes proposition implies a theoretical optimum at maximum debt. Capital structure irrelevance holds only in the no-tax version of the propositions. The cost of equity does rise with leverage, but under these assumptions that increase exactly offsets the cheaper debt before the tax shield is considered.",
+  },
+
+  // ============================================================
+  // EQUITY INVESTMENTS
+  // ============================================================
+  {
+    id: "cfa-eq-q1", examSlug: "cfa", topicId: "equity", topicName: "Equity Investments", difficulty: 3,
+    stem: "A stock is expected to pay a $2.40 dividend next year, growing at 4% indefinitely, with a required return of 10%. Its intrinsic value using the constant growth model is:",
+    choices: ["$60.00, dividing the expected dividend by the growth rate alone", "$24.00, dividing the expected dividend by the required return alone", "$40.00, dividing the dividend by the spread between return and growth"],
+    answerIndex: 2,
+    explanation: "The constant growth model divides next year's dividend by the difference between the required return and the growth rate: 2.40 ÷ (0.10 − 0.04) = 2.40 ÷ 0.06 = $40.00. Dividing by the required return alone omits the growth adjustment and understates value. The model is acutely sensitive to that spread, which is why it suits only stable, mature firms whose growth is plausibly below the required return.",
+  },
+  {
+    id: "cfa-eq-q2", examSlug: "cfa", topicId: "equity", topicName: "Equity Investments", difficulty: 3,
+    stem: "Under the semi-strong form of market efficiency, which analysis is least likely to generate consistent abnormal returns?",
+    choices: ["Fundamental analysis using publicly available financial statements", "Trading on material information not yet disclosed to the public", "Analysis combining private research with proprietary industry data"],
+    answerIndex: 0,
+    explanation: "Semi-strong efficiency holds that all publicly available information is already reflected in prices, so fundamental analysis of published financials cannot systematically produce abnormal returns. Nonpublic information retains value under this form, since only the strong form assumes private information is impounded in price. Genuinely proprietary research likewise falls outside what the semi-strong form claims is already priced.",
+  },
+  {
+    id: "cfa-eq-q3", examSlug: "cfa", topicId: "equity", topicName: "Equity Investments", difficulty: 3,
+    stem: "A company's justified price-to-earnings ratio will most likely increase if:",
+    choices: ["The required rate of return on the company's equity rises", "The expected growth rate of the company's earnings rises", "The company's dividend payout ratio falls with growth unchanged"],
+    answerIndex: 1,
+    explanation: "The justified P/E equals the payout ratio divided by the difference between required return and growth, so a higher growth rate narrows the denominator and raises the multiple. A higher required return widens that denominator and compresses the multiple. Reducing the payout ratio lowers the numerator, so with growth held constant the multiple falls rather than rises.",
+  },
+  {
+    id: "cfa-eq-q4", examSlug: "cfa", topicId: "equity", topicName: "Equity Investments", difficulty: 3,
+    stem: "Porter's five forces framework is used primarily to assess:",
+    choices: ["The competitive intensity and profit potential of an industry", "The intrinsic value of a company's equity relative to peers", "The macroeconomic conditions influencing aggregate market returns"],
+    answerIndex: 0,
+    explanation: "The framework examines rivalry, new entrants, substitutes, and the bargaining power of buyers and suppliers to gauge how much profit an industry can sustain over time. It is a structural tool applied at the industry level rather than a valuation model producing a per-share figure, and it addresses competitive dynamics rather than macroeconomic aggregates.",
+  },
+  {
+    id: "cfa-eq-q5", examSlug: "cfa", topicId: "equity", topicName: "Equity Investments", difficulty: 3,
+    stem: "An investor buys 200 shares on margin at $60 with an initial margin requirement of 50%. If the stock falls to $45, the investor's account equity is closest to:",
+    choices: ["$3,000, representing the original cash deposit unchanged", "$6,000, representing the current market value of the position", "$3,000, representing market value less the outstanding loan balance"],
+    answerIndex: 2,
+    explanation: "The position costs $12,000, of which the investor deposits $6,000 and borrows $6,000. After the decline the shares are worth 200 × $45 = $9,000, and subtracting the unchanged $6,000 loan leaves $3,000 of equity — the investor absorbs the entire $3,000 loss. Market value alone ignores the borrowing, and treating equity as the untouched original deposit misses that leverage transmits losses directly to the equity holder.",
+  },
+  {
+    id: "cfa-eq-q6", examSlug: "cfa", topicId: "equity", topicName: "Equity Investments", difficulty: 3,
+    stem: "Compared with a price-weighted index, a market-capitalization-weighted index will most likely:",
+    choices: ["Give greater influence to companies trading at higher share prices", "Give greater influence to companies with larger total market values", "Give equal influence to every constituent regardless of size or price"],
+    answerIndex: 1,
+    explanation: "Capitalization weighting assigns influence in proportion to total market value, so large companies dominate the index's movement regardless of their per-share price. Price weighting is what elevates high-priced shares, which is why a stock split changes a price-weighted index's composition effect. Equal influence describes an equal-weighted index, a third construction method requiring periodic rebalancing.",
+  },
+
+  // ============================================================
+  // FIXED INCOME
+  // ============================================================
+  {
+    id: "cfa-fi-q1", examSlug: "cfa", topicId: "fixed-income", topicName: "Fixed Income", difficulty: 3,
+    stem: "A bond with a modified duration of 7.2 is held when yields rise by 50 basis points. Ignoring convexity, the bond's price will most likely change by approximately:",
+    choices: ["Negative 3.6%, the product of duration and the yield change", "Negative 7.2%, the duration figure applied directly as a percentage", "Positive 3.6%, since rising yields increase the bond's coupon value"],
+    answerIndex: 0,
+    explanation: "The approximate percentage price change equals negative modified duration multiplied by the yield change: −7.2 × 0.50% = −3.6%. Applying the duration figure directly assumes a full percentage point move rather than the 50 basis points given. Prices move inversely to yields, so a rate increase cannot raise the price — the coupon is fixed and does not respond to market yields.",
+  },
+  {
+    id: "cfa-fi-q2", examSlug: "cfa", topicId: "fixed-income", topicName: "Fixed Income", difficulty: 3,
+    stem: "Positive convexity implies that for a given change in yield, a bond's:",
+    choices: ["Price rises more when yields fall than it falls when yields rise", "Price change is symmetric whether yields rise or fall equally", "Duration remains constant across the entire range of possible yields"],
+    answerIndex: 0,
+    explanation: "Positive convexity means the price-yield curve bends away from the origin, so gains from falling yields exceed losses from an equal rise — a favorable asymmetry investors will pay for. Symmetric response would describe a straight line, which is precisely what duration alone assumes and convexity corrects. Duration itself changes as yields move, which is why the convexity adjustment exists.",
+  },
+  {
+    id: "cfa-fi-q3", examSlug: "cfa", topicId: "fixed-income", topicName: "Fixed Income", difficulty: 3,
+    stem: "A callable bond's price appreciation is limited as interest rates fall because:",
+    choices: ["The issuer will likely redeem the bond, capping its upside potential", "The bond's coupon payments decline automatically with market rates", "Investors demand a lower yield premium as the call date approaches"],
+    answerIndex: 0,
+    explanation: "Falling rates make refinancing attractive, so the issuer is increasingly likely to call the bond near the call price, which truncates price appreciation and produces negative convexity in that region. The coupon on a fixed-rate callable bond does not adjust with market rates. Investors demand a higher yield to accept call risk, not a lower one, precisely because the option belongs to the issuer.",
+  },
+  {
+    id: "cfa-fi-q4", examSlug: "cfa", topicId: "fixed-income", topicName: "Fixed Income", difficulty: 3,
+    stem: "A bond trades at a premium to par. The relationship among its yield measures is best described as:",
+    choices: ["Current yield exceeds nominal yield, which exceeds yield to maturity", "Nominal yield exceeds current yield, which exceeds yield to maturity", "Yield to maturity exceeds current yield, which exceeds nominal yield"],
+    answerIndex: 1,
+    explanation: "For a premium bond the ordering runs nominal, then current, then yield to maturity in descending sequence, because the investor paid above par and will absorb that premium as a loss by maturity, dragging total return below the coupon rate. The ascending ordering applies to a discount bond, where the pull toward par adds to return. Reversing current and nominal misstates the effect of dividing a fixed coupon by a price above par.",
+  },
+  {
+    id: "cfa-fi-q5", examSlug: "cfa", topicId: "fixed-income", topicName: "Fixed Income", difficulty: 3,
+    stem: "An investor holding a zero-coupon bond to maturity faces the least exposure to which risk?",
+    choices: ["Interest rate risk affecting the bond's market price before maturity", "Reinvestment risk arising from the redeployment of interim cash flows", "Inflation risk eroding the purchasing power of the maturity payment"],
+    answerIndex: 1,
+    explanation: "A zero-coupon bond makes no interim payments, so there is nothing to reinvest and reinvestment risk is eliminated for an investor holding to maturity. Interest rate risk remains and is in fact greatest for zeros, whose duration equals their full maturity. Inflation risk is likewise severe, since a single distant nominal payment is maximally exposed to erosion in purchasing power.",
+  },
+  {
+    id: "cfa-fi-q6", examSlug: "cfa", topicId: "fixed-income", topicName: "Fixed Income", difficulty: 3,
+    stem: "The one-year spot rate is 3% and the two-year spot rate is 4%. The implied one-year forward rate one year from now is closest to:",
+    choices: ["5.01%, the rate reconciling the one-year and two-year spot rates", "3.50%, the arithmetic average of the two observed spot rates", "4.00%, equal to the prevailing two-year spot rate observed today"],
+    answerIndex: 0,
+    explanation: "No-arbitrage requires (1.03)(1 + f) = (1.04)² = 1.0816, so 1 + f = 1.0816 ÷ 1.03 ≈ 1.0501 and f ≈ 5.01%. Averaging the spot rates ignores compounding and understates the forward rate whenever the curve slopes upward. The forward rate must exceed both spot rates on an upward-sloping curve, since it represents the marginal rate for the later period.",
+  },
+
+  // ============================================================
+  // DERIVATIVES
+  // ============================================================
+  {
+    id: "cfa-deriv-q1", examSlug: "cfa", topicId: "derivatives", topicName: "Derivatives", difficulty: 3,
+    stem: "Put-call parity for European options on a non-dividend-paying stock is expressed as:",
+    choices: ["Call plus present value of exercise price equals put plus underlying price", "Call plus underlying price equals put plus present value of exercise price", "Call minus put equals the present value of the exercise price less underlying"],
+    answerIndex: 0,
+    explanation: "Put-call parity states that a fiduciary call, consisting of a long call plus a risk-free bond maturing at the exercise price, has the same payoff as a protective put, consisting of a long put plus the underlying asset. Pairing the call with the underlying instead double-counts upside exposure. The final formulation reverses the sign relationship and would permit riskless arbitrage if it held.",
+  },
+  {
+    id: "cfa-deriv-q2", examSlug: "cfa", topicId: "derivatives", topicName: "Derivatives", difficulty: 3,
+    stem: "An increase in the volatility of the underlying asset will most likely:",
+    choices: ["Increase the value of call options and decrease the value of puts", "Increase the value of both call options and put options simultaneously", "Decrease the value of both call options and put options simultaneously"],
+    answerIndex: 1,
+    explanation: "Greater volatility widens the distribution of possible outcomes while the holder's loss stays capped at the premium, so the expanded upside raises the value of both calls and puts. That asymmetry between unlimited favorable outcomes and a fixed maximum loss is why volatility benefits option buyers on either side. Options are wasting assets with respect to time, but with respect to volatility their value moves in the same direction for both types.",
+  },
+  {
+    id: "cfa-deriv-q3", examSlug: "cfa", topicId: "derivatives", topicName: "Derivatives", difficulty: 3,
+    stem: "The primary economic difference between a forward contract and a futures contract is that futures:",
+    choices: ["Are marked to market daily and traded on organized exchanges", "Carry no counterparty credit risk because settlement is deferred", "Cannot be customized but eliminate the need for margin deposits"],
+    answerIndex: 0,
+    explanation: "Futures are exchange-traded, standardized, and settled daily through a clearinghouse, which converts a single large exposure at expiration into a series of small daily cash flows and sharply reduces credit risk. Credit risk is reduced rather than eliminated, since the clearinghouse itself remains a counterparty. Futures require margin precisely because of daily settlement, so standardization does not remove that obligation.",
+  },
+
+  // ============================================================
+  // ALTERNATIVE INVESTMENTS
+  // ============================================================
+  {
+    id: "cfa-alt-q1", examSlug: "cfa", topicId: "alternatives", topicName: "Alternative Investments", difficulty: 3,
+    stem: "A hedge fund charges a 2% management fee and 20% incentive fee with a high-water mark. The high-water mark provision ensures that the manager:",
+    choices: ["Earns incentive fees only on gains exceeding the prior peak value", "Receives a guaranteed minimum fee regardless of the fund's performance", "Charges incentive fees on gross returns before management fees apply"],
+    answerIndex: 0,
+    explanation: "A high-water mark records the highest value the fund has previously reached, so after a loss the manager collects incentive fees only once investors have been made whole and that peak is surpassed. It prevents charging performance fees twice on the same recovered gains. It does not guarantee any minimum payment, and it governs when incentive fees apply rather than the base on which they are computed.",
+  },
+  {
+    id: "cfa-alt-q2", examSlug: "cfa", topicId: "alternatives", topicName: "Alternative Investments", difficulty: 3,
+    stem: "The J-curve effect observed in private equity investing describes the tendency for returns to be:",
+    choices: ["Negative in early years before turning positive as investments mature", "Positive in early years before declining as the fund approaches its term", "Consistently flat until a single large distribution occurs at liquidation"],
+    answerIndex: 0,
+    explanation: "Early in a fund's life management fees and organizational costs are incurred while portfolio companies have not yet appreciated or been exited, producing negative reported returns that recover and turn positive as value is created and realized. The pattern traces a J shape over the fund's life. Neither early strength nor a flat line until a terminal event captures that characteristic early trough.",
+  },
+
+  // ============================================================
+  // PORTFOLIO MANAGEMENT
+  // ============================================================
+  {
+    id: "cfa-pm-q1", examSlug: "cfa", topicId: "portfolio", topicName: "Portfolio Management", difficulty: 3,
+    stem: "A stock has a beta of 1.4 when the risk-free rate is 3% and the expected market return is 9%. Its required return under the CAPM is closest to:",
+    choices: ["11.4%, adding the beta-adjusted market risk premium to the risk-free rate", "12.6%, multiplying the expected market return directly by the stock's beta", "8.4%, applying the beta to the market return without the risk-free component"],
+    answerIndex: 0,
+    explanation: "The CAPM computes required return as the risk-free rate plus beta times the market risk premium: 3% + 1.4 × (9% − 3%) = 3% + 8.4% = 11.4%. Multiplying the total market return by beta omits the risk-free anchor and overstates the requirement. Applying beta to the excess return alone produces the risk premium of 8.4% but forgets to add back the risk-free rate.",
+  },
+  {
+    id: "cfa-pm-q2", examSlug: "cfa", topicId: "portfolio", topicName: "Portfolio Management", difficulty: 3,
+    stem: "Adding a security with a correlation of negative 0.3 to an existing portfolio will most likely:",
+    choices: ["Reduce portfolio standard deviation more than a correlation of positive 0.3", "Reduce portfolio standard deviation to zero through complete diversification", "Increase portfolio standard deviation because negative correlation adds volatility"],
+    answerIndex: 0,
+    explanation: "Diversification benefit increases as correlation falls, so a negatively correlated asset offsets more of the existing portfolio's fluctuations than a positively correlated one with the same volatility. Risk reaches zero only at perfect negative correlation of exactly negative one, which essentially never occurs among real assets. Negative correlation reduces rather than adds portfolio volatility, which is the entire reason such assets are sought.",
+  },
+  {
+    id: "cfa-pm-q3", examSlug: "cfa", topicId: "portfolio", topicName: "Portfolio Management", difficulty: 3,
+    stem: "Two portfolios have identical returns, but Portfolio X has a standard deviation of 14% and Portfolio Y has 9%. With a positive risk-free rate, Portfolio Y will have:",
+    choices: ["A higher Sharpe ratio, since excess return is divided by total risk", "A lower Sharpe ratio, since lower volatility indicates weaker performance", "An identical Sharpe ratio, since the two portfolios returned the same amount"],
+    answerIndex: 0,
+    explanation: "The Sharpe ratio divides excess return over the risk-free rate by standard deviation, so with returns equal the portfolio carrying less total risk achieves the higher ratio. Lower volatility is rewarded rather than penalized by this measure. Identical returns alone do not produce identical ratios, since the denominator differs — that denominator is the entire point of a risk-adjusted measure.",
+  },
+  {
+    id: "cfa-pm-q4", examSlug: "cfa", topicId: "portfolio", topicName: "Portfolio Management", difficulty: 3,
+    stem: "In an investment policy statement, an investor's need to fund a home purchase in eighteen months is best classified as:",
+    choices: ["A liquidity constraint affecting the portfolio's asset allocation", "A return objective driving the required rate of portfolio growth", "A risk tolerance measure determining acceptable portfolio volatility"],
+    answerIndex: 0,
+    explanation: "A known near-term cash requirement is a liquidity constraint, which restricts how much of the portfolio can be committed to illiquid or volatile holdings. Return objectives state what the portfolio must earn rather than when funds must be available. Risk tolerance describes willingness and ability to bear volatility, which the liquidity need influences but does not itself define.",
+  },
+];

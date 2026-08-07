@@ -13,7 +13,7 @@ export const s7ExtraChapters: Chapter[] = [
     topicId: "options",
     topicName: "Options",
     title: "Options: Calls, Puts, and Basic Strategies",
-    readingMinutes: 20,
+    readingMinutes: 7,
     summary: "How listed options work, the four basic positions, the max gain/loss/breakeven for each, and the two core stock-plus-option strategies — with payoff diagrams and worked math.",
     intro:
       "Options are the most heavily weighted and most feared part of the Series 7, but they reward a small amount of structure enormously. A listed equity option controls 100 shares of an underlying stock, and the exam tests two things relentlessly: can you identify the rights and obligations of each party, and can you compute maximum gain, maximum loss, and breakeven? Master the four basic positions and the payoff geometry below, and the arithmetic that scares most candidates becomes mechanical.",
@@ -65,7 +65,7 @@ export const s7ExtraChapters: Chapter[] = [
     topicId: "munis",
     topicName: "Municipal Securities",
     title: "Municipal Securities: GO and Revenue Bonds",
-    readingMinutes: 16,
+    readingMinutes: 4,
     summary: "How municipal bonds are backed, their tax advantages, and the GO-versus-revenue distinction.",
     intro:
       "Municipal securities are debt issued by states, cities, and other local governments to fund public projects. Their defining feature is tax-advantaged interest, and the central exam distinction is how a given bond is backed — by taxing power or by a specific project's revenue. That difference drives the bond's risk and the kind of analysis it requires.",
@@ -95,7 +95,7 @@ export const s7ExtraChapters: Chapter[] = [
       {
         heading: "The distinction at a glance, and the tax math",
         blocks: [
-          { kind: "figure", figure: { caption: "Figure 1 — The two municipal-bond types differ entirely in what stands behind them: a GO bond is backed by the issuer's taxing power; a revenue bond is backed only by the income of one project.", alt: "Two boxes contrasting a general obligation bond backed by taxing power with a revenue bond backed by project income", svg: `<svg viewBox="0 0 460 160" width="100%" style="max-width:460px"><g class="c-teal"><rect x="24" y="26" width="196" height="112" rx="10"/></g><text x="122" y="52" text-anchor="middle" font-size="12" font-weight="600" fill="#085041">General obligation</text><text x="122" y="76" text-anchor="middle" font-size="10" fill="#0F6E56">backed by taxing power</text><text x="122" y="94" text-anchor="middle" font-size="10" fill="#0F6E56">(full faith &amp; credit)</text><text x="122" y="118" text-anchor="middle" font-size="9" fill="#0F6E56">safer · often needs a vote</text><g class="c-amber"><rect x="240" y="26" width="196" height="112" rx="10"/></g><text x="338" y="52" text-anchor="middle" font-size="12" font-weight="600" fill="#633806">Revenue</text><text x="338" y="76" text-anchor="middle" font-size="10" fill="#854F0B">backed by one project's</text><text x="338" y="94" text-anchor="middle" font-size="10" fill="#854F0B">income only</text><text x="338" y="118" text-anchor="middle" font-size="9" fill="#854F0B">riskier · no vote needed</text></svg>` } },
+          { kind: "figure", figure: { caption: "Figure 1 — The two municipal-bond types differ entirely in what stands behind them: a GO bond is backed by the issuer's taxing power; a revenue bond is backed only by the income of one project.", alt: "Two boxes contrasting a general obligation bond backed by taxing power with a revenue bond backed by project income", svg: `<svg viewBox="0 0 460 160" width="100%" style="max-width:460px"><rect x="24" y="26" width="196" height="112" rx="10" fill="var(--ats-green-bg)" stroke="var(--ats-green)" stroke-width="1.5"/><text x="122" y="52" text-anchor="middle" font-size="12" font-weight="600" fill="var(--text-primary)">General obligation</text><text x="122" y="76" text-anchor="middle" font-size="10" fill="var(--text-secondary)">backed by taxing power</text><text x="122" y="94" text-anchor="middle" font-size="10" fill="var(--text-secondary)">(full faith &amp; credit)</text><text x="122" y="118" text-anchor="middle" font-size="9" fill="var(--text-secondary)">safer · often needs a vote</text><rect x="240" y="26" width="196" height="112" rx="10" fill="var(--ats-amber-bg)" stroke="var(--ats-amber)" stroke-width="1.5"/><text x="338" y="52" text-anchor="middle" font-size="12" font-weight="600" fill="var(--text-primary)">Revenue</text><text x="338" y="76" text-anchor="middle" font-size="10" fill="var(--text-secondary)">backed by one project's</text><text x="338" y="94" text-anchor="middle" font-size="10" fill="var(--text-secondary)">income only</text><text x="338" y="118" text-anchor="middle" font-size="9" fill="var(--text-secondary)">riskier · no vote needed</text></svg>` } },
           { kind: "table", table: { caption: "Table 1 — GO vs revenue bonds at a glance.", headers: ["Feature", "GO bond", "Revenue bond"], rows: [["Backed by", "Taxing power (full faith & credit)", "A specific project's revenue"], ["Relative risk", "Generally lower", "Generally higher"], ["Voter approval", "Often required", "Not required"], ["Key safety metric", "Tax base & debt burden", "Debt service coverage ratio"]] } },
           { kind: "example", example: { title: "tax-equivalent yield", prompt: "A municipal bond yields 4%, federally tax-exempt. An investor is in the 25% federal tax bracket. What taxable yield would be equivalent?", steps: ["Tax-equivalent yield = muni yield ÷ (1 − tax rate).", "= 4% ÷ (1 − 0.25) = 4% ÷ 0.75.", "= 5.33%."], answer: "A taxable bond would need to yield about 5.33% to match the 4% muni after taxes — and the higher the investor's bracket, the larger that gap, which is why munis suit high-bracket clients." } },
         ],
@@ -123,7 +123,7 @@ export const s7ExtraChapters: Chapter[] = [
     topicId: "packaged",
     topicName: "Packaged Products",
     title: "Packaged Products: Mutual Funds, ETFs, and Share Classes",
-    readingMinutes: 16,
+    readingMinutes: 4,
     summary: "Open- vs closed-end funds, ETFs, how funds are priced, and the sales charges behind share classes.",
     intro:
       "Packaged products pool investors' money into professionally managed portfolios — and they're a core recommendation for retail clients, so the Series 7 tests their mechanics and costs closely. The key distinctions are how each product is priced and traded, and how the various sales charges and share classes affect what the customer actually pays.",
@@ -181,31 +181,31 @@ export const s7ExtraQuestions: Question[] = [
   {
     id: "s7-opt-q1", examSlug: "series-7", topicId: "options", topicName: "Options", difficulty: 2,
     stem: "An investor buys 1 XYZ call with a strike of 50 for a premium of 4. The breakeven price at expiration is:",
-    choices: ["$46", "$54", "$50"],
-    answerIndex: 1,
-    explanation: "For a long call, breakeven = strike + premium = 50 + 4 = $54. The stock must rise above the strike by at least the premium paid before the position turns profitable. Choice A ($46) subtracts the premium, which is the LONG PUT formula (strike − premium). Choice C ignores the premium entirely. Remember: 'call up, add the premium.'",
+    choices: ["$54", "$46", "$50"],
+    answerIndex: 0,
+    explanation: "For a long call, breakeven = strike + premium = 50 + 4 = $54. The stock must rise above the strike by at least the premium paid before the position turns profitable. Choice B ($46) subtracts the premium, which is the LONG PUT formula (strike − premium). Choice C ignores the premium entirely. Remember: 'call up, add the premium.'",
   },
   {
     id: "s7-opt-q2", examSlug: "series-7", topicId: "options", topicName: "Options", difficulty: 2,
     stem: "What is the maximum loss for an investor who BUYS a put option?",
-    choices: ["Unlimited", "The strike price", "The premium paid"],
-    answerIndex: 2,
-    explanation: "An option buyer's maximum loss is always the premium paid — if the option expires worthless, the buyer simply loses what they paid and nothing more. Choice A (unlimited) describes an uncovered CALL WRITER, not a buyer. Choice B (the strike) overstates it; the buyer never risks the strike amount, only the premium. The capped downside is exactly why buyers pay a premium.",
+    choices: ["Unlimited", "The premium paid", "The strike price"],
+    answerIndex: 1,
+    explanation: "An option buyer's maximum loss is always the premium paid — if the option expires worthless, the buyer simply loses what they paid and nothing more. Choice A (unlimited) describes an uncovered CALL WRITER, not a buyer. Choice C (the strike) overstates it; the buyer never risks the strike amount, only the premium. The capped downside is exactly why buyers pay a premium.",
   },
   {
     id: "s7-opt-q3", examSlug: "series-7", topicId: "options", topicName: "Options", difficulty: 3,
     stem: "An investor who owns 100 shares of a stock and wants to generate income while remaining neutral-to-mildly-bullish should most appropriately:",
-    choices: ["Write a covered call", "Buy a protective put", "Write an uncovered call"],
-    answerIndex: 0,
-    explanation: "A covered call (own the stock, sell a call against it) generates premium income and fits a neutral-to-mildly-bullish view, with the trade-off of capped upside. Choice B (protective put) is downside insurance and COSTS a premium rather than generating income, fitting a worried investor. Choice C (uncovered/naked call) carries unlimited risk and isn't 'covered' by the shares — far less appropriate and much riskier.",
+    choices: ["Buy a protective put", "Write an uncovered call", "Write a covered call"],
+    answerIndex: 2,
+    explanation: "A covered call (own the stock, sell a call against it) generates premium income and fits a neutral-to-mildly-bullish view, with the trade-off of capped upside. Choice A (protective put) is downside insurance and COSTS a premium rather than generating income, fitting a worried investor. Choice B (uncovered/naked call) carries unlimited risk and isn't 'covered' by the shares — far less appropriate and much riskier.",
   },
   // Municipal
   {
     id: "s7-mun-q1", examSlug: "series-7", topicId: "munis", topicName: "Municipal Securities", difficulty: 2,
     stem: "A municipal bond backed by the full faith, credit, and taxing power of the issuer is a:",
-    choices: ["Revenue bond", "General obligation (GO) bond", "Double-barreled bond"],
-    answerIndex: 1,
-    explanation: "A general obligation bond is backed by the issuer's taxing power and full faith and credit, generally making it lower-risk. Choice A (revenue bond) is backed ONLY by a specific project's income, with no taxing power. Choice C (double-barreled) is backed by BOTH project revenue and taxing power — a hybrid, not a pure taxing-power bond.",
+    choices: ["A general obligation bond", "A revenue bond backed by project income", "A double-barreled bond with dual backing"],
+    answerIndex: 0,
+    explanation: "A general obligation bond is backed by the issuer's taxing power and full faith and credit, generally making it lower-risk. Choice B (revenue bond) is backed ONLY by a specific project's income, with no taxing power. Choice C (double-barreled) is backed by BOTH project revenue and taxing power — a hybrid, not a pure taxing-power bond.",
   },
   {
     id: "s7-mun-q2", examSlug: "series-7", topicId: "munis", topicName: "Municipal Securities", difficulty: 3,
@@ -217,17 +217,17 @@ export const s7ExtraQuestions: Question[] = [
   {
     id: "s7-mun-q3", examSlug: "series-7", topicId: "munis", topicName: "Municipal Securities", difficulty: 2,
     stem: "The federal tax exemption on municipal bond interest is MOST valuable to an investor who is:",
-    choices: ["In a low tax bracket", "In a high tax bracket", "Tax-exempt already (e.g., a pension fund)"],
-    answerIndex: 1,
-    explanation: "The higher an investor's tax bracket, the more a tax exemption is worth, because more tax is avoided per dollar of interest — so high-bracket investors benefit most. Choice A (low bracket) gains little from the exemption and might earn more after-tax in a higher-yielding taxable bond. Choice C is a classic trap: an already tax-exempt entity gains NOTHING from the muni exemption and should buy higher-yielding taxable bonds instead.",
+    choices: ["In a low tax bracket", "Tax-exempt already (e.g., a pension fund)", "In a high tax bracket"],
+    answerIndex: 2,
+    explanation: "The higher an investor's tax bracket, the more a tax exemption is worth, because more tax is avoided per dollar of interest — so high-bracket investors benefit most. Choice A (low bracket) gains little from the exemption and might earn more after-tax in a higher-yielding taxable bond. Choice B is a classic trap: an already tax-exempt entity gains NOTHING from the muni exemption and should buy higher-yielding taxable bonds instead.",
   },
   // Packaged products
   {
     id: "s7-pkg-q1", examSlug: "series-7", topicId: "packaged", topicName: "Packaged Products", difficulty: 2,
     stem: "An investor redeems open-end mutual fund shares. The investor receives:",
-    choices: ["The public offering price (POP)", "The net asset value (NAV)", "NAV plus a sales charge"],
-    answerIndex: 1,
-    explanation: "Open-end fund shares are redeemed at NAV. The sales charge (load) is added on PURCHASE to create the POP, not on redemption. Choice A (POP) is the BUYING price (NAV + load). Choice C double-counts the load — investors don't pay a front-end charge when selling. Buy at POP, redeem at NAV is the rule.",
+    choices: ["The net asset value (NAV)", "The public offering price (POP)", "NAV plus a sales charge"],
+    answerIndex: 0,
+    explanation: "Open-end fund shares are redeemed at NAV. The sales charge (load) is added on PURCHASE to create the POP, not on redemption. Choice B (POP) is the BUYING price (NAV + load). Choice C double-counts the load — investors don't pay a front-end charge when selling. Buy at POP, redeem at NAV is the rule.",
   },
   {
     id: "s7-pkg-q2", examSlug: "series-7", topicId: "packaged", topicName: "Packaged Products", difficulty: 3,
@@ -238,9 +238,9 @@ export const s7ExtraQuestions: Question[] = [
   },
   {
     id: "s7-pkg-q3", examSlug: "series-7", topicId: "packaged", topicName: "Packaged Products", difficulty: 3,
-    stem: "For a large, long-term investment, which mutual fund share class is generally most cost-effective?",
-    choices: ["Class A (front-end load, lower ongoing fees)", "Class C (level load, higher ongoing fees)", "It never matters — all classes cost the same"],
-    answerIndex: 0,
-    explanation: "Class A shares charge an upfront load but have the lowest ongoing expenses, and breakpoints reduce that load on large purchases — making them most cost-effective for big, long-term investments. Choice B (Class C) carries the highest ongoing fees, which compound painfully over long holding periods. Choice C is false: share classes have materially different cost structures, and matching them to amount and horizon is a suitability obligation.",
+    stem: "An investor places $600,000 into a fund family for a 20-year horizon. Class A carries a 4% front load with breakpoints; Class C carries no load but a 1% annual 12b-1 fee. Which is generally more cost-effective, and why?",
+    choices: ["Class C (level load, higher ongoing fees)", "It never matters — all classes cost the same", "Class A (front-end load, lower ongoing fees)"],
+    answerIndex: 2,
+    explanation: "Class A shares charge an upfront load but have the lowest ongoing expenses, and breakpoints reduce that load on large purchases — making them most cost-effective for big, long-term investments. Choice A (Class C) carries the highest ongoing fees, which compound painfully over long holding periods. Choice B is false: share classes have materially different cost structures, and matching them to amount and horizon is a suitability obligation.",
   },
 ];

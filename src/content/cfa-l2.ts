@@ -15,7 +15,7 @@ const chapters: Chapter[] = [
     topicId: "equity",
     topicName: "Equity Valuation",
     title: "Equity Valuation: DDM, Free Cash Flow, Residual Income, and Multiples",
-    readingMinutes: 34,
+    readingMinutes: 21,
     summary:
       "Every major valuation engine Level II tests — when each one is the right tool, every conversion formula, and the worked math.",
     intro:
@@ -288,7 +288,7 @@ const chapters: Chapter[] = [
     topicId: "fra",
     topicName: "Financial Statement Analysis",
     title: "FSA: Intercorporate Investments, Pensions, and Currency Translation",
-    readingMinutes: 32,
+    readingMinutes: 11,
     summary:
       "The three accounting machines Level II builds its hardest vignettes from — ownership accounting, DB pensions, and multinational translation.",
     intro:
@@ -426,7 +426,7 @@ const chapters: Chapter[] = [
     topicId: "fixed",
     topicName: "Fixed Income",
     title: "Fixed Income: The Term Structure, Arbitrage-Free Valuation, and Credit",
-    readingMinutes: 31,
+    readingMinutes: 11,
     summary:
       "Spot and forward arithmetic, valuing bonds the arbitrage-free way, what OAS really isolates, and the credit models behind the spread.",
     intro:
@@ -550,7 +550,7 @@ const chapters: Chapter[] = [
     topicId: "quant",
     topicName: "Quantitative Methods",
     title: "Quantitative Methods: Multiple Regression and Time Series",
-    readingMinutes: 16,
+    readingMinutes: 4,
     summary: "Reading regression output the way the vignettes test it — coefficients, the three assumption violations, and what makes a time series usable.",
     intro:
       "Level II Quant is almost entirely about multiple regression and time series, and the item sets rarely ask you to run a regression — they hand you the output and ask whether you can trust it. The whole game is interpretation: what a coefficient means, whether the model is statistically sound, and how to spot and fix the three violations that wreck a regression's standard errors. Master the diagnostics and this topic becomes free points.",
@@ -600,7 +600,7 @@ const chapters: Chapter[] = [
     topicId: "econ",
     topicName: "Economics",
     title: "Economics: Currency Exchange Rates and the Parity Conditions",
-    readingMinutes: 15,
+    readingMinutes: 4,
     summary: "Forward premiums, covered and uncovered interest rate parity, and the chain of parity conditions the exam builds vignettes around.",
     intro:
       "Level II Economics is dominated by currencies. The exam wants you to quote exchange rates correctly, compute a forward rate from interest rates, and reason through the parity conditions that link interest rates, inflation, spot rates, and forward rates. Get the quoting convention straight and the rest is arithmetic.",
@@ -648,7 +648,7 @@ const chapters: Chapter[] = [
     topicId: "corp",
     topicName: "Corporate Issuers",
     title: "Corporate Issuers: Capital Structure and Payout Policy",
-    readingMinutes: 15,
+    readingMinutes: 5,
     summary: "Modigliani-Miller with and without taxes, the trade-off theory's optimal leverage, and the real effect of dividends vs buybacks.",
     intro:
       "Level II Corporate Issuers sharpens two Level I ideas into testable models: how much debt a firm should use, and how it should return cash. The Modigliani-Miller propositions are the scaffolding for capital structure, and the dividend-versus-buyback analysis is a favorite because it rewards candidates who can do the EPS arithmetic and reason about signaling.",
@@ -696,7 +696,7 @@ const chapters: Chapter[] = [
     topicId: "deriv",
     topicName: "Derivatives",
     title: "Derivatives: Forward Pricing, the Binomial Model, and Swaps",
-    readingMinutes: 16,
+    readingMinutes: 5,
     summary: "Carry-arbitrage forward pricing, valuing options with a one-period binomial tree, and seeing a swap as a pair of bonds.",
     intro:
       "Level II Derivatives is built on one idea repeated in three settings: no-arbitrage pricing. A forward, an option, and a swap are all priced by constructing a risk-free replicating position and forbidding free money. Once you see the carry-arbitrage logic, the formulas stop being arbitrary.",
@@ -744,7 +744,7 @@ const chapters: Chapter[] = [
     topicId: "alts",
     topicName: "Alternative Investments",
     title: "Alternative Investments: Real Estate, Private Equity, and Commodities",
-    readingMinutes: 15,
+    readingMinutes: 4,
     summary: "Valuing income real estate with the cap rate, how private equity creates value, and why the futures curve drives commodity returns.",
     intro:
       "Level II takes alternatives from description to valuation. You'll value an income property with a cap rate, reason about how a private-equity deal makes money, and explain why a commodity investor can lose money even when spot prices rise. The math is light but the mechanisms are precise.",
@@ -791,7 +791,7 @@ const chapters: Chapter[] = [
     topicId: "pm",
     topicName: "Portfolio Management",
     title: "Portfolio Management: Multifactor Models and Active Risk",
-    readingMinutes: 14,
+    readingMinutes: 2,
     summary: "Moving beyond single-factor CAPM to multifactor models, and the language of active return, active risk, and the information ratio.",
     intro:
       "Level II portfolio management extends the single-factor CAPM into multifactor models and sharpens the vocabulary of active management. The exam wants you to read a factor model, understand what each factor sensitivity means, and use the active-return framework to judge a manager.",
@@ -832,7 +832,7 @@ const chapters: Chapter[] = [
     topicId: "ethics",
     topicName: "Ethics",
     title: "Ethics: Applying the Standards and GIPS",
-    readingMinutes: 14,
+    readingMinutes: 2,
     summary: "The same Code and Standards from Level I, now tested in detailed, gray-area cases — plus what GIPS requires of a firm.",
     intro:
       "Ethics is the single highest-weighted topic at every level, and at Level II it's tested through dense, realistic cases. The Standards don't change — what changes is the subtlety. The winning approach is to know each Standard cold and apply it to the specific facts rather than reasoning from gut feel.",
@@ -872,7 +872,7 @@ const chapters: Chapter[] = [
     topicId: "quant-ml",
     topicName: "Regression & Machine Learning",
     title: "Multiple Regression, Model Misspecification, and Machine Learning",
-    readingMinutes: 26,
+    readingMinutes: 5,
     summary:
       "The Level II quant workhorse: reading multiple regression output, diagnosing the three classic violations, and the machine-learning vocabulary the exam now tests.",
     intro:
@@ -931,7 +931,7 @@ const chapters: Chapter[] = [
     topicId: "fra-combos",
     topicName: "Intercorporate Investments",
     title: "Intercorporate Investments and Business Combinations",
-    readingMinutes: 28,
+    readingMinutes: 5,
     summary:
       "How the accounting changes as ownership rises — from passive stakes to the equity method to full consolidation — and the acquisition-method mechanics the exam loves.",
     intro:
@@ -989,7 +989,7 @@ const chapters: Chapter[] = [
     topicId: "fi-term",
     topicName: "Term Structure & Bond Valuation",
     title: "Term Structure and Arbitrage-Free Bond Valuation",
-    readingMinutes: 27,
+    readingMinutes: 6,
     summary:
       "Spot and forward rates, why arbitrage-free valuation uses the spot curve, and how binomial interest-rate trees value bonds with embedded options via the OAS.",
     intro:
@@ -1050,10 +1050,9 @@ const questions: Question[] = [
     topicName: "Equity Valuation",
     difficulty: 2,
     stem: "A stock just paid a $2.88 dividend (D₀). Dividends are expected to grow 4% indefinitely, and the required return is 9%. The stock's value is closest to:",
-    choices: ["$57.60", "$60.00", "$75.00"],
-    answerIndex: 1,
-    explanation:
-      "Gordon growth discounts NEXT year's dividend: D₁ = 2.88 × 1.04 = 3.00, so V₀ = 3.00/(0.09 − 0.04) = $60.00. Choice A ($57.60) uses D₀ instead of D₁ — the single most common DDM error and always a distractor. Choice C results from mixing the growth rate into the denominator incorrectly.",
+    choices: ["$60.00", "$57.60", "$75.00"],
+    answerIndex: 0,
+    explanation: "Gordon growth discounts NEXT year's dividend: D₁ = 2.88 × 1.04 = 3.00, so V₀ = 3.00/(0.09 − 0.04) = $60.00. Choice B ($57.60) uses D₀ instead of D₁ — the single most common DDM error and always a distractor. Choice C results from mixing the growth rate into the denominator incorrectly.",
   },
   {
     id: "cfa2-eq-q2",
@@ -1074,10 +1073,9 @@ const questions: Question[] = [
     topicName: "Equity Valuation",
     difficulty: 2,
     stem: "NI = $250m, D&A = $80m, interest expense = $60m, tax rate = 25%, FCInv = $150m, WCInv = $30m. FCFF is closest to:",
-    choices: ["$195m", "$210m", "$150m"],
-    answerIndex: 0,
-    explanation:
-      "FCFF = NI + NCC + Int(1−t) − FCInv − WCInv = 250 + 80 + 60(0.75) − 150 − 30 = 250 + 80 + 45 − 180 = $195m. Choice B adds back the FULL pre-tax interest ($60m instead of $45m) — the classic trap; only after-tax interest is added because the tax shield already benefited net income. Choice C forgets the interest add-back entirely.",
+    choices: ["$210m", "$150m", "$195m"],
+    answerIndex: 2,
+    explanation: "FCFF = NI + NCC + Int(1−t) − FCInv − WCInv = 250 + 80 + 60(0.75) − 150 − 30 = 250 + 80 + 45 − 180 = $195m. Choice A adds back the FULL pre-tax interest ($60m instead of $45m) — the classic trap; only after-tax interest is added because the tax shield already benefited net income. Choice B forgets the interest add-back entirely.",
   },
   {
     id: "cfa2-eq-q4",
@@ -1086,10 +1084,9 @@ const questions: Question[] = [
     topicName: "Equity Valuation",
     difficulty: 2,
     stem: "Using the data in the prior question plus net new borrowing of $40m, FCFE is closest to:",
-    choices: ["$235m", "$190m", "$155m"],
-    answerIndex: 1,
-    explanation:
-      "FCFE = FCFF − Int(1−t) + Net borrowing = 195 − 45 + 40 = $190m. (Directly: NI + NCC − FCInv − WCInv + Net borrowing = 250 + 80 − 150 − 30 + 40 = 190. ✓) Choice A forgets to remove the after-tax interest from FCFF — FCFE belongs to equity only, after debtholders are served. Choice C subtracts net borrowing instead of adding it: new debt raises cash AVAILABLE to equity.",
+    choices: ["$190m", "$235m", "$155m"],
+    answerIndex: 0,
+    explanation: "FCFE = FCFF − Int(1−t) + Net borrowing = 195 − 45 + 40 = $190m. (Directly: NI + NCC − FCInv − WCInv + Net borrowing = 250 + 80 − 150 − 30 + 40 = 190. ✓) Choice B forgets to remove the after-tax interest from FCFF — FCFE belongs to equity only, after debtholders are served. Choice C subtracts net borrowing instead of adding it: new debt raises cash AVAILABLE to equity.",
   },
   {
     id: "cfa2-eq-q5",
@@ -1114,10 +1111,9 @@ const questions: Question[] = [
     topicName: "Equity Valuation",
     difficulty: 2,
     stem: "Book value per share is $20. The firm sustains ROE of 14%, the required return is 10%, and growth is 5%. Single-stage residual income value is closest to:",
-    choices: ["$20.00", "$36.00", "$56.00"],
-    answerIndex: 1,
-    explanation:
-      "V₀ = B₀ + B₀(ROE − r)/(r − g) = 20 + 20(0.14 − 0.10)/(0.10 − 0.05) = 20 + 0.80/0.05 = 20 + 16 = $36. Choice A is the value if ROE merely equaled the required return (zero residual income — worth exactly book). Choice C misuses ROE itself rather than the EXCESS spread (ROE − r) in the numerator. The model prices the spread, not the level.",
+    choices: ["$20.00", "$56.00", "$36.00"],
+    answerIndex: 2,
+    explanation: "V₀ = B₀ + B₀(ROE − r)/(r − g) = 20 + 20(0.14 − 0.10)/(0.10 − 0.05) = 20 + 0.80/0.05 = 20 + 16 = $36. Choice A is the value if ROE merely equaled the required return (zero residual income — worth exactly book). Choice B misuses ROE itself rather than the EXCESS spread (ROE − r) in the numerator. The model prices the spread, not the level.",
   },
   {
     id: "cfa2-eq-q7",
@@ -1154,14 +1150,9 @@ const questions: Question[] = [
     topicName: "Equity Valuation",
     difficulty: 2,
     stem: "When averaging P/E multiples across a peer group that includes two extremely high-multiple stocks, the analyst should use:",
-    choices: [
-      "The arithmetic mean, to weight all peers equally.",
-      "The harmonic mean, which dampens the upward bias of large multiples.",
-      "The highest multiple, to be conservative.",
-    ],
-    answerIndex: 1,
-    explanation:
-      "The harmonic mean (n divided by the sum of reciprocals) systematically weights smaller values more and large outliers less, correcting the upward bias that high-multiple names impose on a simple average — it's equivalent to averaging E/P yields and inverting. The arithmetic mean (A) is exactly the biased estimator the curriculum warns about. Choice C confuses 'conservative' with 'highest benchmark,' which would make every peer look cheap.",
+    choices: ["The arithmetic mean, to weight all peers equally.", "The highest observed multiple, to stay conservative.", "The harmonic mean, which dampens large-multiple bias."],
+    answerIndex: 2,
+    explanation: "The harmonic mean (n divided by the sum of reciprocals) systematically weights smaller values more and large outliers less, correcting the upward bias that high-multiple names impose on a simple average — it's equivalent to averaging E/P yields and inverting. The arithmetic mean (A) is exactly the biased estimator the curriculum warns about. Choice B confuses 'conservative' with 'highest benchmark,' which would make every peer look cheap.",
   },
   {
     id: "cfa2-eq-q10",
@@ -1172,8 +1163,7 @@ const questions: Question[] = [
     stem: "A stock trades at $45. Next year's earnings are forecast at $3.60 and the required return is 8%. The fraction of the price attributable to the present value of growth opportunities (PVGO) is closest to:",
     choices: ["0%", "20%", "45%"],
     answerIndex: 0,
-    explanation:
-      "No-growth value = E₁/r = 3.60/0.08 = $45.00 — exactly the market price, so PVGO = 45 − 45 = $0, or 0% of price. The market is paying nothing for future growth; it prices this firm as a perpetuity of current earnings power. Choices B and C are plausible-feeling numbers with no computational basis — the question tests whether you actually run P₀ = E₁/r + PVGO rather than assuming growth always commands a premium.",
+    explanation: "No-growth value = E₁/r = 3.60/0.08 = $45.00 — exactly the market price, so PVGO = 45 − 45 = $0, or 0% of price. The market is paying nothing for future growth; it prices this firm as a perpetuity of current earnings power. Choices A and C are plausible-feeling numbers with no computational basis — the question tests whether you actually run P₀ = E₁/r + PVGO rather than assuming growth always commands a premium.",
   },
   // ---- FSA ----
   {
@@ -1195,14 +1185,9 @@ const questions: Question[] = [
     topicName: "Financial Statement Analysis",
     difficulty: 3,
     stem: "Compared with the equity method, full consolidation of a 60%-owned profitable subsidiary will MOST likely show:",
-    choices: [
-      "Higher net income attributable to the parent.",
-      "The same parent net income but lower net profit margin.",
-      "Lower total assets.",
-    ],
-    answerIndex: 1,
-    explanation:
-      "Consolidation and the equity method report the SAME net income attributable to the parent — what changes is statement size: consolidation brings in 100% of the subsidiary's revenue, expenses, assets, and liabilities (with NCI absorbing the unowned share). Same profit on a bigger revenue base = lower margin; bigger asset base = lower ROA and higher apparent leverage. Choices A and C reverse those mechanics. This optics-vs-economics distinction is a perennial vignette question.",
+    choices: ["Higher net income attributable to the parent.", "Lower total assets.", "The same parent net income but lower net profit margin."],
+    answerIndex: 2,
+    explanation: "Consolidation and the equity method report the SAME net income attributable to the parent — what changes is statement size: consolidation brings in 100% of the subsidiary's revenue, expenses, assets, and liabilities (with NCI absorbing the unowned share). Same profit on a bigger revenue base = lower margin; bigger asset base = lower ROA and higher apparent leverage. Choices A and C reverse those mechanics. This optics-vs-economics distinction is a perennial vignette question.",
   },
   {
     id: "cfa2-fra-q3",
@@ -1211,10 +1196,9 @@ const questions: Question[] = [
     topicName: "Financial Statement Analysis",
     difficulty: 2,
     stem: "Plan assets are $950m and the benefit obligation is $1,100m; the discount rate is 5% and current service cost is $40m. Under IFRS, reported pension expense in P&L is closest to:",
-    choices: ["$40.0m", "$47.5m", "$95.0m"],
-    answerIndex: 1,
-    explanation:
-      "IFRS P&L = service cost + NET interest on the funded status = 40 + 5% × (1,100 − 950) = 40 + 7.5 = $47.5m. Remeasurements (asset-return surprises, assumption changes) go to OCI and are never recycled. Choice A omits net interest. Choice C charges interest on the full obligation without crediting the asset return implicit in net interest — that separation is the US GAAP presentation, and even there an EXPECTED return assumption offsets interest cost.",
+    choices: ["$47.5m", "$40.0m", "$95.0m"],
+    answerIndex: 0,
+    explanation: "IFRS P&L = service cost + NET interest on the funded status = 40 + 5% × (1,100 − 950) = 40 + 7.5 = $47.5m. Remeasurements (asset-return surprises, assumption changes) go to OCI and are never recycled. Choice B omits net interest. Choice C charges interest on the full obligation without crediting the asset return implicit in net interest — that separation is the US GAAP presentation, and even there an EXPECTED return assumption offsets interest cost.",
   },
   {
     id: "cfa2-fra-q4",
@@ -1240,10 +1224,9 @@ const questions: Question[] = [
     topicName: "Fixed Income",
     difficulty: 2,
     stem: "The 1-year spot rate is 4.0% and the 2-year spot rate is 5.0%. The implied 1-year rate, one year forward, is closest to:",
-    choices: ["5.0%", "6.0%", "4.5%"],
-    answerIndex: 1,
-    explanation:
-      "(1.05)² = (1.04)(1 + f) → f = 1.1025/1.04 − 1 = 6.01%. An upward-sloping spot curve always implies forwards ABOVE current spots. Choice A confuses the forward with the 2-year spot; choice C averages the two spots, which is never the forward arithmetic. This two-line computation, in some costume, appears on virtually every sitting.",
+    choices: ["5.0%", "4.5%", "6.0%"],
+    answerIndex: 2,
+    explanation: "(1.05)² = (1.04)(1 + f) → f = 1.1025/1.04 − 1 = 6.01%. An upward-sloping spot curve always implies forwards ABOVE current spots. Choice A confuses the forward with the 2-year spot; choice C averages the two spots, which is never the forward arithmetic. This two-line computation, in some costume, appears on virtually every sitting.",
   },
   {
     id: "cfa2-fi-q2",
@@ -1252,14 +1235,9 @@ const questions: Question[] = [
     topicName: "Fixed Income",
     difficulty: 2,
     stem: "For a callable corporate bond, which relationship between OAS and Z-spread holds, and why?",
-    choices: [
-      "OAS > Z-spread, because the investor is paid extra for the call risk.",
-      "OAS < Z-spread, because the Z-spread includes the cost of the option held against the investor.",
-      "OAS = Z-spread, because spreads are option-independent.",
-    ],
-    answerIndex: 1,
-    explanation:
-      "Z-spread bundles all compensation: credit, liquidity, AND the embedded option. The OAS strips the option using a volatility-calibrated tree: OAS = Z-spread − option cost. A call benefits the ISSUER, so its cost is positive to the investor and OAS sits BELOW the Z-spread; for putables the inequality flips. Choice A confuses where the compensation shows up — the call compensation lives inside the Z-spread, which is exactly why OAS must remove it before comparing bonds.",
+    choices: ["OAS below the Z-spread, since the Z-spread embeds the option cost.", "OAS > Z-spread, because the investor is paid extra for the call risk.", "OAS = Z-spread, because spreads are option-independent."],
+    answerIndex: 0,
+    explanation: "Z-spread bundles all compensation: credit, liquidity, AND the embedded option. The OAS strips the option using a volatility-calibrated tree: OAS = Z-spread − option cost. A call benefits the ISSUER, so its cost is positive to the investor and OAS sits BELOW the Z-spread; for putables the inequality flips. Choice B confuses where the compensation shows up — the call compensation lives inside the Z-spread, which is exactly why OAS must remove it before comparing bonds.",
   },
   {
     id: "cfa2-fi-q3",
@@ -1270,8 +1248,7 @@ const questions: Question[] = [
     stem: "An analyst raises her interest-rate volatility assumption when valuing a callable bond in a binomial tree. The computed OAS will MOST likely:",
     choices: ["Increase", "Decrease", "Stay unchanged, since OAS is model-independent"],
     answerIndex: 1,
-    explanation:
-      "Higher volatility makes the embedded call MORE valuable, raising the option cost. Since OAS = Z-spread − option cost and the market price (hence Z-spread) hasn't changed, the OAS must FALL. The chain — volatility → option value → OAS — is the precise mechanism this question pattern tests, and choice C states the opposite of the truth: OAS is conditional on the volatility input, which is its key limitation.",
+    explanation: "Higher volatility makes the embedded call MORE valuable, raising the option cost. Since OAS = Z-spread − option cost and the market price (hence Z-spread) hasn't changed, the OAS must FALL. The chain — volatility → option value → OAS — is the precise mechanism this question pattern tests, and choice C states the opposite of the truth: OAS is conditional on the volatility input, which is its key limitation.",
   },
   {
     id: "cfa2-fi-q4",
@@ -1280,40 +1257,39 @@ const questions: Question[] = [
     topicName: "Fixed Income",
     difficulty: 2,
     stem: "A bond has a 2% annual default probability and 40% expected recovery. The expected annual credit loss rate, and the approximate spread floor it implies, is closest to:",
-    choices: ["0.8%", "1.2%", "2.0%"],
-    answerIndex: 1,
-    explanation:
-      "Expected loss = PD × LGD = 2% × (1 − 0.40) = 2% × 60% = 1.2% — so a fair spread starts near 120 bps before adding premia for risk aversion and illiquidity. Choice A multiplies PD by the RECOVERY rate instead of the loss rate. Choice C ignores recovery entirely. Remember the structure: PD is an issuer property; LGD varies by ISSUE seniority — senior secured paper of the same issuer carries the same PD but a lower LGD and hence a tighter spread.",
+    choices: ["0.8%", "2.0%", "1.2%"],
+    answerIndex: 2,
+    explanation: "Expected loss = PD × LGD = 2% × (1 − 0.40) = 2% × 60% = 1.2% — so a fair spread starts near 120 bps before adding premia for risk aversion and illiquidity. Choice A multiplies PD by the RECOVERY rate instead of the loss rate. Choice B ignores recovery entirely. Remember the structure: PD is an issuer property; LGD varies by ISSUE seniority — senior secured paper of the same issuer carries the same PD but a lower LGD and hence a tighter spread.",
   },
 
   // ---- Financial Statement Analysis ----
   {
     id: "cfa2-fra-q5", examSlug: "cfa-l2", topicId: "fra", topicName: "Financial Statement Analysis", difficulty: 3,
     stem: "A company owns 30% of an associate and has significant influence. Under the equity method, the investor:",
-    choices: ["Consolidates 100% of the associate's assets and revenues", "Recognizes its proportionate share of the associate's net income (increasing the investment); dividends received reduce the carrying amount", "Reports the stake only at fair value through profit or loss"],
-    answerIndex: 1,
-    explanation: "With significant influence (typically 20–50%), the equity method records the investment at cost, then adds the investor's pro-rata share of the associate's earnings (and subtracts its share of losses); dividends received are a return OF investment that reduces the carrying value. Choice A is consolidation, used only with control (>50%). Choice C is the treatment for passive holdings without significant influence.",
+    choices: ["Recognizes its proportionate share of the associate's net income in the investment", "Consolidates 100% of the associate's assets and revenues", "Reports the stake only at fair value, running all changes through profit or loss each period"],
+    answerIndex: 0,
+    explanation: "With significant influence (typically 20–50%), the equity method records the investment at cost, then adds the investor's pro-rata share of the associate's earnings (and subtracts its share of losses); dividends received are a return OF investment that reduces the carrying value. Choice B is consolidation, used only with control (>50%). Choice C is the treatment for passive holdings without significant influence.",
   },
   {
     id: "cfa2-fra-q6", examSlug: "cfa-l2", topicId: "fra", topicName: "Financial Statement Analysis", difficulty: 3,
     stem: "A parent owns 80% of and controls a subsidiary. On the consolidated balance sheet, the parent reports:",
-    choices: ["80% of the subsidiary's assets, matching its ownership", "100% of the subsidiary's assets, with a non-controlling interest in equity for the 20% it doesn't own", "Only its equity-method investment line"],
+    choices: ["80% of the subsidiary's assets, matching its ownership", "All subsidiary assets, with non-controlling interest in equity", "Only its equity-method investment line, with no subsidiary assets consolidated"],
     answerIndex: 1,
     explanation: "Control requires full consolidation: 100% of the subsidiary's assets, liabilities, revenues, and expenses are combined, and a non-controlling (minority) interest is shown in equity to represent the 20% owned by outsiders. Choice A pro-rates the assets, which consolidation does not do. Choice C is the equity method, used for significant influence, not control.",
   },
   {
     id: "cfa2-fra-q7", examSlug: "cfa-l2", topicId: "fra", topicName: "Financial Statement Analysis", difficulty: 3,
-    stem: "The funded status of a defined-benefit pension plan equals:",
-    choices: ["Plan assets + the projected benefit obligation", "Fair value of plan assets − the projected benefit obligation (PBO)", "Service cost − interest cost"],
-    answerIndex: 1,
-    explanation: "Funded status = fair value of plan assets − PBO; a positive figure is an overfunded (asset) position and a negative figure is reported as a net pension liability on the balance sheet. Choice A adds the obligation instead of subtracting it. Choice C describes two components of periodic pension cost, not the balance-sheet funded status.",
+    stem: "A defined-benefit plan reports plan assets of $420 million and a projected benefit obligation of $505 million. The funded status reported on the balance sheet is:",
+    choices: ["An $85 million net pension asset", "A $925 million gross obligation", "An $85 million net pension liability"],
+    answerIndex: 2,
+    explanation: "Funded status equals plan assets minus the PBO: $420m - $505m = -$85m, an underfunded plan reported as a net pension liability. The sign matters: an asset would arise only if plan assets exceeded the obligation. Adding the two figures produces $925m, which corresponds to nothing economically - the balance sheet reports the net position, not the gross components, though those are disclosed in the footnotes.",
   },
   {
     id: "cfa2-fra-q8", examSlug: "cfa-l2", topicId: "fra", topicName: "Financial Statement Analysis", difficulty: 3,
     stem: "When a foreign subsidiary's functional currency is its own local currency, the parent translates its statements using the:",
-    choices: ["Temporal method, with the remeasurement gain/loss in net income", "Current rate method, with the translation adjustment in other comprehensive income (CTA)", "Historical rate for all accounts"],
-    answerIndex: 1,
-    explanation: "If the functional currency is the local currency, the current rate (translation) method applies: assets and liabilities at the current rate, and the resulting cumulative translation adjustment is reported in OCI rather than hitting net income. Choice A (temporal/remeasurement) applies when the functional currency is the parent's. Choice C misstates the mechanics of either method.",
+    choices: ["Current rate method, adjustment in other comprehensive income", "Temporal method, with the remeasurement gain/loss in net income", "The historical rate applied to all accounts"],
+    answerIndex: 0,
+    explanation: "If the functional currency is the local currency, the current rate (translation) method applies: assets and liabilities at the current rate, and the resulting cumulative translation adjustment is reported in OCI rather than hitting net income. Choice B (temporal/remeasurement) applies when the functional currency is the parent's. Choice C misstates the mechanics of either method.",
   },
   {
     id: "cfa2-fra-q9", examSlug: "cfa-l2", topicId: "fra", topicName: "Financial Statement Analysis", difficulty: 2,
@@ -1327,37 +1303,37 @@ const questions: Question[] = [
   {
     id: "cfa2-fi-q5", examSlug: "cfa-l2", topicId: "fixed", topicName: "Fixed Income", difficulty: 3,
     stem: "For a bond with an embedded option, the appropriate interest-rate sensitivity measure is:",
-    choices: ["Modified duration, because cash flows are fixed", "Effective duration, because cash flows change as yields change", "Macaulay duration in years"],
-    answerIndex: 1,
-    explanation: "Embedded options make a bond's cash flows depend on the level of rates, so effective duration — computed by shifting the benchmark yield curve up and down and observing repricing — is required. Choice A (modified duration) assumes fixed cash flows and understates the risk of option-embedded bonds. Choice C (Macaulay) is a weighted-average time measure, not the sensitivity needed here.",
+    choices: ["Modified duration, because cash flows are fixed", "Macaulay duration in years", "Effective duration, because cash flows change as yields change"],
+    answerIndex: 2,
+    explanation: "Embedded options make a bond's cash flows depend on the level of rates, so effective duration — computed by shifting the benchmark yield curve up and down and observing repricing — is required. Choice A (modified duration) assumes fixed cash flows and understates the risk of option-embedded bonds. Choice B (Macaulay) is a weighted-average time measure, not the sensitivity needed here.",
   },
   {
     id: "cfa2-fi-q6", examSlug: "cfa-l2", topicId: "fixed", topicName: "Fixed Income", difficulty: 3,
-    stem: "The option-adjusted spread (OAS) is useful because it:",
-    choices: ["Includes the cost of the embedded option in the spread", "Removes the value of the embedded option from the Z-spread, making spreads comparable across bonds with optionality", "Equals the nominal spread over Treasuries"],
-    answerIndex: 1,
-    explanation: "OAS strips out the option's value from the Z-spread, leaving the spread that compensates purely for credit and liquidity — so bonds with different embedded options can be compared on an apples-to-apples basis. Choice A is backwards (OAS removes, not includes, the option cost). Choice C describes the simple nominal spread, which ignores the term structure and the option.",
+    stem: "An analyst wants to compare a callable bond with an option-free bond of similar credit quality on a like-for-like basis. Which spread measure should be used, and why?",
+    choices: ["OAS, because it removes the embedded option's value from the spread", "Z-spread, because it is measured against the entire spot curve", "Nominal spread, because it is quoted consistently across issues"],
+    answerIndex: 0,
+    explanation: "OAS strips out the value of the embedded option, leaving the spread attributable to credit and liquidity - the only basis on which a callable and an option-free bond are comparable. The Z-spread does use the full spot curve, an improvement over the nominal spread, but it still embeds the option's cost and therefore overstates the callable bond's compensation for credit risk. The nominal spread's consistency of quotation does not make it economically comparable.",
   },
   {
     id: "cfa2-fi-q7", examSlug: "cfa-l2", topicId: "fixed", topicName: "Fixed Income", difficulty: 3,
     stem: "As market yields fall toward a callable bond's coupon rate, the bond tends to exhibit:",
-    choices: ["Increasing positive convexity", "Negative convexity — price appreciation is capped ('price compression')", "No change in price"],
+    choices: ["Increasing positive convexity as rates decline", "Negative convexity, as price appreciation becomes capped", "No change in the bond’s market price"],
     answerIndex: 1,
     explanation: "When yields fall and a call becomes likely, the callable bond's upside is limited to near the call price, producing negative convexity and 'price compression.' Choice A is wrong — an option-free bond shows positive convexity, but the embedded call reverses that at low yields. Choice C ignores that the bond still reprices, just with limited upside.",
   },
   {
     id: "cfa2-fi-q8", examSlug: "cfa-l2", topicId: "fixed", topicName: "Fixed Income", difficulty: 3,
     stem: "Arbitrage-free valuation of an option-free bond discounts each cash flow using:",
-    choices: ["A single yield to maturity", "The corresponding spot (zero-coupon) rate for each cash flow's date", "The coupon rate"],
-    answerIndex: 1,
-    explanation: "Arbitrage-free valuation treats each cash flow as its own zero-coupon bond and discounts it at the matching spot rate, preventing riskless arbitrage; valuing with a single YTM can misprice bonds when the spot curve isn't flat. Choice A is the YTM shortcut that arbitrage-free pricing improves upon. Choice C (coupon rate) is not a discount rate at all.",
+    choices: ["A single yield to maturity for all flows", "The bond’s stated coupon rate", "The spot rate matching each cash flow's date"],
+    answerIndex: 2,
+    explanation: "Arbitrage-free valuation treats each cash flow as its own zero-coupon bond and discounts it at the matching spot rate, preventing riskless arbitrage; valuing with a single YTM can misprice bonds when the spot curve isn't flat. Choice A is the YTM shortcut that arbitrage-free pricing improves upon. Choice B (coupon rate) is not a discount rate at all.",
   },
   {
     id: "cfa2-fi-q9", examSlug: "cfa-l2", topicId: "fixed", topicName: "Fixed Income", difficulty: 3,
-    stem: "The value of a callable bond can be expressed as:",
-    choices: ["Straight (option-free) bond value + value of the call option", "Straight (option-free) bond value − value of the call option", "Value of the call option only"],
-    answerIndex: 1,
-    explanation: "Because the call benefits the issuer (it can buy the bond back), the investor has effectively sold that option, so callable bond value = value of the otherwise-identical straight bond − value of the embedded call. Choice A adds the option, which would wrongly raise the bond's value to the investor. Choice C ignores the underlying bond entirely.",
+    stem: "A bond identical in all respects to a straight bond trades at 99.7, while the equivalent option-free bond is valued at 102.5. This is most consistent with the bond being:",
+    choices: ["Callable, with the embedded call worth 2.8 to the issuer", "Putable, with the embedded put worth 2.8 to the holder", "Convertible, with the conversion option worth 2.8"],
+    answerIndex: 0,
+    explanation: "The call option belongs to the issuer, so its value is subtracted: callable = straight - call = 102.5 - 2.8 = 99.7. A putable bond would trade ABOVE the option-free value because the put belongs to the holder and is added. A conversion option likewise belongs to the holder and raises the price. The direction of the price gap identifies who owns the embedded option.",
   },
 
   // ---- Quantitative Methods ----
@@ -1370,17 +1346,17 @@ const questions: Question[] = [
   },
   {
     id: "cfa2-qm-q2", examSlug: "cfa-l2", topicId: "quant", topicName: "Quantitative Methods", difficulty: 2,
-    stem: "The standard remedy for heteroskedasticity in a regression is to:",
-    choices: ["Drop an independent variable", "Use robust (White) standard errors", "Add more lags"],
-    answerIndex: 1,
-    explanation: "Heteroskedasticity (non-constant error variance) biases the standard errors, so the fix is to compute robust (White) standard errors, which corrects the inference without changing the coefficients. Choice A addresses multicollinearity, not heteroskedasticity. Choice C relates to serial correlation in time series, a different problem.",
+    stem: "A regression's residual variance rises systematically with the level of an independent variable. The standard remedy leaves the coefficients unchanged. Why?",
+    choices: ["The estimates are biased, so the coefficients must be re-estimated", "The relationship is nonlinear, so the variables must be transformed", "The estimates stay unbiased; only the standard errors need correcting"],
+    answerIndex: 2,
+    explanation: "Heteroskedasticity does not bias the coefficient estimates themselves - it makes them inefficient and, more importantly, invalidates the standard errors, which distorts every t-statistic and confidence interval built from them. The fix is robust (White-corrected) standard errors or generalized least squares. Because the coefficients were never biased, re-estimating them is unnecessary; the failure is in the inference layer, not the point estimates.",
   },
   {
     id: "cfa2-qm-q3", examSlug: "cfa-l2", topicId: "quant", topicName: "Quantitative Methods", difficulty: 3,
-    stem: "Before estimating an autoregressive (AR) model, the series must be:",
-    choices: ["Covariance stationary (constant mean and variance)", "Normally distributed", "Free of any trend forever"],
+    stem: "An analyst plans to fit an AR(1) model to a series whose mean and variance drift upward over time. What must be done first, and why?",
+    choices: ["Difference the series, because AR estimation requires covariance stationarity", "Add lags, because a single lag cannot capture an upward trend", "Nothing, because AR models are designed to accommodate trends"],
     answerIndex: 0,
-    explanation: "An AR model requires covariance stationarity — a constant mean and variance over time — otherwise the regression is spurious. If a unit root is present (a random walk), the series is non-stationary and should be first-differenced. Choice B isn't the requirement. Choice C is too strong; a stationary series can still be modeled, and trends are handled by differencing.",
+    explanation: "AR estimation assumes covariance stationarity - constant mean, constant variance, and autocovariances depending only on lag. A series drifting upward violates all three, and coefficients estimated on it are unreliable regardless of how well they appear to fit. First-differencing typically restores stationarity. Adding lags addresses serial correlation in residuals, a different problem, and cannot repair a nonstationary input.",
   },
 
   // ---- Economics ----
@@ -1394,16 +1370,16 @@ const questions: Question[] = [
   {
     id: "cfa2-ec-q2", examSlug: "cfa-l2", topicId: "econ", topicName: "Economics", difficulty: 3,
     stem: "Which parity condition is an enforceable no-arbitrage relationship that reliably holds?",
-    choices: ["Uncovered interest rate parity", "Covered interest rate parity", "Purchasing power parity in the short run"],
-    answerIndex: 1,
-    explanation: "Covered interest rate parity is enforced by arbitrage (the forward is fully hedged), so it holds tightly and is used to compute forward rates. Choice A (uncovered IRP) is an expectations theory that often fails short-term — the basis for the carry trade. Choice C (PPP) is a long-run tendency that does not hold in the short run.",
+    choices: ["Uncovered interest rate parity", "Purchasing power parity in the short run", "Covered interest rate parity"],
+    answerIndex: 2,
+    explanation: "Covered interest rate parity is enforced by arbitrage (the forward is fully hedged), so it holds tightly and is used to compute forward rates. Choice A (uncovered IRP) is an expectations theory that often fails short-term — the basis for the carry trade. Choice B (PPP) is a long-run tendency that does not hold in the short run.",
   },
   {
     id: "cfa2-ec-q3", examSlug: "cfa-l2", topicId: "econ", topicName: "Economics", difficulty: 2,
     stem: "Sustained growth in output PER CAPITA over the long run is driven primarily by:",
-    choices: ["Adding more capital (capital deepening) alone", "Rising total factor productivity (technology/efficiency)", "Population growth"],
-    answerIndex: 1,
-    explanation: "Capital deepening faces diminishing returns, so only rising total factor productivity — better technology and efficiency in combining inputs — sustains per-capita growth indefinitely. Choice A raises output but eventually stalls per worker. Choice C grows total output but not output per person.",
+    choices: ["Rising total factor productivity (technology/efficiency)", "Adding more capital (capital deepening) alone", "Population growth"],
+    answerIndex: 0,
+    explanation: "Capital deepening faces diminishing returns, so only rising total factor productivity — better technology and efficiency in combining inputs — sustains per-capita growth indefinitely. Choice B raises output but eventually stalls per worker. Choice C grows total output but not output per person.",
   },
 
   // ---- Corporate Issuers ----
@@ -1417,16 +1393,16 @@ const questions: Question[] = [
   {
     id: "cfa2-co-q2", examSlug: "cfa-l2", topicId: "corp", topicName: "Corporate Issuers", difficulty: 3,
     stem: "The static trade-off theory says the optimal capital structure is the point where:",
-    choices: ["Debt is maximized to capture all tax benefits", "The marginal tax benefit of debt equals the marginal cost of financial distress", "The firm uses no debt at all"],
-    answerIndex: 1,
-    explanation: "Because the tax shield (which favors more debt) is offset by rising expected costs of financial distress, the optimal structure balances the two at the margin — minimizing WACC and maximizing firm value. Choice A ignores distress costs. Choice C ignores the valuable tax shield.",
+    choices: ["Debt is maximized to capture all tax benefits", "The firm employs no debt financing at all", "Marginal tax benefit of debt equals marginal distress cost"],
+    answerIndex: 2,
+    explanation: "Because the tax shield (which favors more debt) is offset by rising expected costs of financial distress, the optimal structure balances the two at the margin — minimizing WACC and maximizing firm value. Choice A ignores distress costs. Choice B ignores the valuable tax shield.",
   },
   {
     id: "cfa2-co-q3", examSlug: "cfa-l2", topicId: "corp", topicName: "Corporate Issuers", difficulty: 3,
-    stem: "A share repurchase funded with cash is accretive to EPS when:",
-    choices: ["The after-tax yield on the cash exceeds the earnings yield (E/P)", "The earnings yield (E/P) exceeds the after-tax yield on the cash used", "The stock trades above book value"],
-    answerIndex: 1,
-    explanation: "If the earnings yield (E/P) the shares carry is higher than the after-tax return the company earns on its cash, retiring shares raises EPS. Choice A reverses the comparison (that case dilutes EPS). Choice C relates to book value per share, not the EPS-accretion test.",
+    stem: "A company with EPS of $4.00 and a share price of $80 funds a buyback with debt costing 6% pre-tax. Its tax rate is 25%. The repurchase will be:",
+    choices: ["Accretive, because the 5.0% earnings yield exceeds the 4.5% after-tax cost", "Dilutive, because the 6.0% borrowing cost exceeds the 5.0% earnings yield", "Neutral, because share count and earnings fall proportionately"],
+    answerIndex: 0,
+    explanation: "Compare the earnings yield with the after-tax cost of the funds used. Earnings yield is $4.00 / $80 = 5.0%. The after-tax cost of debt is 6% x (1 - 0.25) = 4.5%. Because 5.0% exceeds 4.5%, earnings are reduced by less than the share count and EPS rises. Comparing against the pre-tax 6% ignores the deductibility of interest, which is what makes debt-funded buybacks accretive more often than intuition suggests.",
   },
 
   // ---- Derivatives ----
@@ -1440,16 +1416,16 @@ const questions: Question[] = [
   {
     id: "cfa2-de-q2", examSlug: "cfa-l2", topicId: "deriv", topicName: "Derivatives", difficulty: 2,
     stem: "Holding the underlying that pays income (a carry BENEFIT) before delivery causes the no-arbitrage forward price to be:",
-    choices: ["Higher than with no carry", "Lower than with no carry", "Unaffected"],
-    answerIndex: 1,
-    explanation: "Carry benefits (dividends, coupons, convenience yield) reduce the net cost of carrying the asset, lowering the forward price relative to the no-carry case; carry costs (storage) raise it. Choice A reverses the effect of a benefit. Choice C ignores that carry adjustments move the forward.",
+    choices: ["Higher than with no carry", "Unaffected", "Lower than with no carry"],
+    answerIndex: 2,
+    explanation: "Carry benefits (dividends, coupons, convenience yield) reduce the net cost of carrying the asset, lowering the forward price relative to the no-carry case; carry costs (storage) raise it. Choice A reverses the effect of a benefit. Choice B ignores that carry adjustments move the forward.",
   },
   {
     id: "cfa2-de-q3", examSlug: "cfa-l2", topicId: "deriv", topicName: "Derivatives", difficulty: 2,
     stem: "A pay-fixed, receive-floating interest-rate swap gains value to the holder when interest rates:",
-    choices: ["Fall", "Rise above the fixed swap rate", "Stay exactly constant"],
-    answerIndex: 1,
-    explanation: "Paying fixed and receiving floating is equivalent to being short a fixed-rate bond and long a floating-rate bond, so the position gains value when rates rise (the floating leg you receive grows). Choice A is the opposite — falling rates hurt the pay-fixed party. Choice C leaves the swap near its initial zero value.",
+    choices: ["Rise above the fixed swap rate", "Fall", "Stay exactly constant"],
+    answerIndex: 0,
+    explanation: "Paying fixed and receiving floating is equivalent to being short a fixed-rate bond and long a floating-rate bond, so the position gains value when rates rise (the floating leg you receive grows). Choice B is the opposite — falling rates hurt the pay-fixed party. Choice C leaves the swap near its initial zero value.",
   },
 
   // ---- Alternative Investments ----
@@ -1463,39 +1439,39 @@ const questions: Question[] = [
   {
     id: "cfa2-al-q2", examSlug: "cfa-l2", topicId: "alts", topicName: "Alternative Investments", difficulty: 3,
     stem: "When the commodity futures curve is in contango, an investor rolling futures experiences:",
-    choices: ["A positive roll yield (tailwind)", "A negative roll yield (drag)", "No roll effect"],
-    answerIndex: 1,
-    explanation: "Contango means futures prices are above spot, so rolling expiring contracts into more expensive later ones produces a negative roll yield that drags on returns. Choice A describes backwardation (futures below spot). Choice C ignores that the curve shape directly affects roll returns — often the dominant component.",
+    choices: ["A positive roll yield (tailwind)", "No roll effect", "A negative roll yield (drag)"],
+    answerIndex: 2,
+    explanation: "Contango means futures prices are above spot, so rolling expiring contracts into more expensive later ones produces a negative roll yield that drags on returns. Choice A describes backwardation (futures below spot). Choice B ignores that the curve shape directly affects roll returns — often the dominant component.",
   },
   {
     id: "cfa2-al-q3", examSlug: "cfa-l2", topicId: "alts", topicName: "Alternative Investments", difficulty: 2,
     stem: "Because a private-equity manager controls the timing of capital calls and distributions, performance is best measured with:",
-    choices: ["Time-weighted return", "Internal rate of return (IRR) and multiples like TVPI/DPI", "Simple average annual return"],
-    answerIndex: 1,
-    explanation: "When the manager dictates cash-flow timing, the money-weighted IRR (and multiples such as TVPI/DPI) captures the actual investor experience. Choice A (time-weighted) is appropriate for liquid managers who don't control client cash flows. Choice C ignores timing and the time value of money entirely.",
+    choices: ["Internal rate of return with TVPI and DPI", "The time-weighted rate of return", "A simple average of annual returns"],
+    answerIndex: 0,
+    explanation: "When the manager dictates cash-flow timing, the money-weighted IRR (and multiples such as TVPI/DPI) captures the actual investor experience. Choice B (time-weighted) is appropriate for liquid managers who don't control client cash flows. Choice C ignores timing and the time value of money entirely.",
   },
 
   // ---- Portfolio Management ----
   {
     id: "cfa2-pm-q1", examSlug: "cfa-l2", topicId: "pm", topicName: "Portfolio Management", difficulty: 3,
-    stem: "Arbitrage pricing theory (APT) differs from CAPM mainly because it:",
-    choices: ["Uses only the market factor", "Allows expected return to depend on multiple priced systematic factors", "Ignores risk entirely"],
+    stem: "A manager argues that a single market factor cannot explain the return differences across a portfolio of value and small-cap holdings. Which framework accommodates this view?",
+    choices: ["CAPM, which prices only systematic market risk", "APT, which permits multiple priced risk factors", "The single-index model, which regresses on one benchmark"],
     answerIndex: 1,
-    explanation: "APT models expected return as the risk-free rate plus the sum of several factor sensitivities times their risk premia, based on no-arbitrage — generalizing CAPM's single market factor. Choice A describes CAPM, the single-factor special case. Choice C is false; APT is entirely about compensation for systematic risk.",
+    explanation: "APT admits multiple systematic factors and derives pricing from a no-arbitrage condition rather than from CAPM's assumptions about the market portfolio and investor utility. That flexibility is what lets it accommodate value and size effects the single market factor leaves unexplained. CAPM and the single-index model both collapse systematic risk into one dimension, which is precisely the limitation the manager is describing.",
   },
   {
     id: "cfa2-pm-q2", examSlug: "cfa-l2", topicId: "pm", topicName: "Portfolio Management", difficulty: 2,
-    stem: "The information ratio is calculated as:",
-    choices: ["Total return ÷ standard deviation", "Active return ÷ active risk (tracking error)", "Beta ÷ alpha"],
-    answerIndex: 1,
-    explanation: "The information ratio is active return (portfolio minus benchmark) divided by active risk (the standard deviation of active return), measuring active skill per unit of active risk. Choice A is closer to the Sharpe ratio's structure. Choice C is not a defined performance measure.",
+    stem: "A portfolio returns 11.2% while its benchmark returns 9.4%. The tracking error of the active positions is 3.0%. The portfolio's information ratio is closest to:",
+    choices: ["1.80", "3.73", "0.60"],
+    answerIndex: 2,
+    explanation: "The information ratio divides active return by tracking error: (11.2% - 9.4%) / 3.0% = 1.8 / 3.0 = 0.60. The 1.80 figure is the active return alone, which measures outperformance without adjusting for how much active risk was taken to get it. The 3.73 figure comes from dividing total return by tracking error, which mixes the benchmark's return into a measure meant to isolate the manager's contribution.",
   },
   {
     id: "cfa2-pm-q3", examSlug: "cfa-l2", topicId: "pm", topicName: "Portfolio Management", difficulty: 2,
     stem: "In a multifactor model, a factor sensitivity (factor beta) is interpreted as:",
-    choices: ["The total return of the portfolio", "The expected change in return per unit change in that factor, holding other factors constant", "The probability the factor is positive"],
-    answerIndex: 1,
-    explanation: "A factor sensitivity is read like a regression slope: the expected return change for a one-unit move in that factor, with the other factors held constant. Choice A confuses a sensitivity with total return. Choice C misinterprets a sensitivity as a probability.",
+    choices: ["The expected return change per unit of that factor, others held constant", "The total return the portfolio generates across all sources combined", "The probability that the factor realization turns out positive over the period"],
+    answerIndex: 0,
+    explanation: "A factor sensitivity is read like a regression slope: the expected return change for a one-unit move in that factor, with the other factors held constant. Choice B confuses a sensitivity with total return. Choice C misinterprets a sensitivity as a probability.",
   },
 
   // ---- Ethics ----
@@ -1508,38 +1484,38 @@ const questions: Question[] = [
   },
   {
     id: "cfa2-et-q2", examSlug: "cfa-l2", topicId: "ethics", topicName: "Ethics", difficulty: 3,
-    stem: "A firm claiming GIPS compliance must:",
-    choices: ["Show GIPS results only for its best-performing composite", "Apply GIPS on a firm-wide basis and include all fee-paying discretionary portfolios in composites", "Guarantee a minimum return"],
-    answerIndex: 1,
-    explanation: "GIPS compliance is firm-wide and requires grouping all fee-paying discretionary portfolios into composites, which prevents cherry-picking and survivorship distortion. Choice A is exactly the abuse GIPS forbids. Choice C is false — GIPS governs how performance is presented, not the returns themselves.",
+    stem: "A firm wishes to state that it complies with GIPS. What must it do about the scope of its claim?",
+    choices: ["Apply it to composites the firm chooses to present as compliant", "Apply it to the current period, with prior years exempt from the claim", "Apply compliance firm-wide; partial compliance may not be claimed"],
+    answerIndex: 2,
+    explanation: "GIPS compliance is firm-wide by definition - a firm may not claim compliance for selected composites or selected periods, because the entire purpose of the standards is to prevent cherry-picking favorable track records. All fee-paying discretionary portfolios must be included in at least one composite. Selective or forward-only compliance would reintroduce exactly the presentation abuses GIPS exists to eliminate.",
   },
   {
     id: "cfa2-et-q3", examSlug: "cfa-l2", topicId: "ethics", topicName: "Ethics", difficulty: 2,
     stem: "An analyst learns material, non-public information about a pending merger. Under the Standards they must:",
-    choices: ["Trade on it quickly before it becomes public", "Not trade or cause others to trade on it until it is public", "Share it only with their best clients"],
-    answerIndex: 1,
-    explanation: "Standard II (Integrity of Capital Markets) prohibits acting or causing others to act on material non-public information until it is publicly disseminated. Choice A is illegal insider trading. Choice C (selective disclosure to favored clients) also violates the Standard and the duty of fair dealing.",
+    choices: ["Not trade or cause others to trade on it until it is public", "Trade on it quickly before it becomes public", "Share it only with their best clients"],
+    answerIndex: 0,
+    explanation: "Standard II (Integrity of Capital Markets) prohibits acting or causing others to act on material non-public information until it is publicly disseminated. Choice B is illegal insider trading. Choice C (selective disclosure to favored clients) also violates the Standard and the duty of fair dealing.",
   },
 
   // Regression & Machine Learning
   {
     id: "cfa2-ml-q1", examSlug: "cfa-l2", topicId: "quant-ml", topicName: "Regression & Machine Learning", difficulty: 2,
     stem: "A regression has a highly significant F-statistic but none of its individual coefficients are significant. This pattern indicates:",
-    choices: ["Heteroskedasticity", "Serial correlation", "Multicollinearity"],
-    answerIndex: 2,
+    choices: ["Heteroskedasticity", "Multicollinearity", "Serial correlation"],
+    answerIndex: 1,
     explanation: "The classic signature of multicollinearity is a model that works overall (significant F) while individual t-tests are insignificant because correlated regressors inflate the coefficient standard errors. Heteroskedasticity (A) and serial correlation (B) distort standard errors but don't produce this specific F-versus-t contradiction. The fix is to drop a redundant variable.",
   },
   {
     id: "cfa2-ml-q2", examSlug: "cfa-l2", topicId: "quant-ml", topicName: "Regression & Machine Learning", difficulty: 2,
-    stem: "Which test is used to detect heteroskedasticity in a regression?",
-    choices: ["Durbin-Watson test", "Breusch-Pagan test", "Dickey-Fuller test"],
-    answerIndex: 1,
-    explanation: "The Breusch-Pagan test detects heteroskedasticity (non-constant error variance). Durbin-Watson (A) tests for serial correlation. Dickey-Fuller (C) tests for a unit root (non-stationarity) in time series. Heteroskedasticity leaves coefficients unbiased but makes standard errors unreliable, so it's corrected with robust standard errors.",
+    stem: "An analyst suspects the residual variance in a regression depends on the independent variables. Which test addresses this, and what does the null state?",
+    choices: ["The Durbin-Watson test; the null is no serial correlation", "The Dickey-Fuller test; the null is a unit root in the series", "The Breusch-Pagan test; the null is homoskedastic errors"],
+    answerIndex: 2,
+    explanation: "Breusch-Pagan regresses the squared residuals on the independent variables; a significant result rejects the null of constant error variance and indicates heteroskedasticity. Durbin-Watson tests serial correlation, a different violation concerning residuals across observations rather than their variance. Dickey-Fuller tests stationarity in a time series. Matching the diagnostic to the violation is what the exam is testing here.",
   },
   {
     id: "cfa2-ml-q3", examSlug: "cfa-l2", topicId: "quant-ml", topicName: "Regression & Machine Learning", difficulty: 1,
     stem: "Why should adjusted R² rather than R² be used to compare regressions with different numbers of independent variables?",
-    choices: ["R² always increases when variables are added", "Adjusted R² is always higher", "R² ignores the intercept"],
+    choices: ["R² always rises as variables are added", "Adjusted R² is always higher", "R² ignores the regression intercept term"],
     answerIndex: 0,
     explanation: "R² never decreases as you add regressors, so it rewards complexity for its own sake. Adjusted R² penalizes additional variables and can fall when a new variable adds little, making it the fair basis for comparison. Choice B is false — adjusted R² is always ≤ R². Choice C is unrelated to the issue.",
   },
@@ -1553,8 +1529,8 @@ const questions: Question[] = [
   {
     id: "cfa2-ml-q5", examSlug: "cfa-l2", topicId: "quant-ml", topicName: "Regression & Machine Learning", difficulty: 1,
     stem: "Clustering unlabeled data into groups based on similarity is an example of:",
-    choices: ["Supervised learning", "Unsupervised learning", "Reinforcement learning"],
-    answerIndex: 1,
+    choices: ["Supervised learning", "Reinforcement learning", "Unsupervised learning"],
+    answerIndex: 2,
     explanation: "Clustering finds structure in data that has no labeled target, which defines unsupervised learning. Supervised learning (A) requires labeled outcomes to predict. Reinforcement learning (C) trains an agent through rewards from interacting with an environment — not relevant to grouping static unlabeled data.",
   },
 
@@ -1562,8 +1538,8 @@ const questions: Question[] = [
   {
     id: "cfa2-ic-q1", examSlug: "cfa-l2", topicId: "fra-combos", topicName: "Intercorporate Investments", difficulty: 2,
     stem: "An investor owns 30% of a company and exercises significant influence. Which accounting method applies?",
-    choices: ["Fair value through profit or loss", "The equity method", "Full consolidation"],
-    answerIndex: 1,
+    choices: ["The equity method", "Fair value through profit or loss", "Full consolidation"],
+    answerIndex: 0,
     explanation: "Ownership of roughly 20–50% with significant influence triggers the equity method: the investment is carried at cost and adjusted for the investor's share of earnings and dividends. Fair value (A) applies to passive stakes below significant influence. Consolidation (C) applies only with control, typically above 50% ownership.",
   },
   {
@@ -1576,21 +1552,21 @@ const questions: Question[] = [
   {
     id: "cfa2-ic-q3", examSlug: "cfa-l2", topicId: "fra-combos", topicName: "Intercorporate Investments", difficulty: 1,
     stem: "When a parent consolidates a 70%-owned subsidiary, the 30% held by outside shareholders is reported as:",
-    choices: ["Goodwill", "Non-controlling interest", "An equity-method investment"],
-    answerIndex: 1,
+    choices: ["Goodwill", "An equity-method investment", "Non-controlling interest"],
+    answerIndex: 2,
     explanation: "Consolidation combines 100% of the subsidiary's assets and liabilities; the portion not owned by the parent (30% here) is shown as non-controlling interest within equity. Goodwill (A) is the excess of purchase price over fair value of net identifiable assets. An equity-method investment (C) would apply only to a non-controlled significant-influence stake, not a consolidated subsidiary.",
   },
   {
     id: "cfa2-ic-q4", examSlug: "cfa-l2", topicId: "fra-combos", topicName: "Intercorporate Investments", difficulty: 2,
     stem: "An acquirer pays $900 for a company whose net identifiable assets have a fair value of $700. How much goodwill is recognized?",
-    choices: ["$0", "$200", "$700"],
-    answerIndex: 1,
-    explanation: "Goodwill = purchase price − fair value of net identifiable assets = $900 − $700 = $200. This goodwill is not amortized; it remains on the balance sheet subject to annual impairment testing. Choice A would apply only if price equaled fair value; choice C confuses goodwill with the net identifiable assets themselves.",
+    choices: ["$200", "$0", "$700"],
+    answerIndex: 0,
+    explanation: "Goodwill = purchase price − fair value of net identifiable assets = $900 − $700 = $200. This goodwill is not amortized; it remains on the balance sheet subject to annual impairment testing. Choice B would apply only if price equaled fair value; choice C confuses goodwill with the net identifiable assets themselves.",
   },
   {
     id: "cfa2-ic-q5", examSlug: "cfa-l2", topicId: "fra-combos", topicName: "Intercorporate Investments", difficulty: 3,
     stem: "Compared with consolidating the same subsidiary, an equity-method investor will report:",
-    choices: ["Higher total assets and revenue", "The same net income but lower revenue and assets", "Lower net income"],
+    choices: ["Higher total assets and revenue", "Identical net income, but lower revenue and assets", "Lower reported net income for the period"],
     answerIndex: 1,
     explanation: "Both methods produce the same net income (the equity method captures the investor's share of earnings on one line), but the equity method keeps the investee's revenue, assets, and debt OFF the investor's statements. So revenue and assets are lower than under consolidation while net income matches — a frequent exam comparison that boosts equity-method margin and return ratios.",
   },
@@ -1599,36 +1575,36 @@ const questions: Question[] = [
   {
     id: "cfa2-ts-q1", examSlug: "cfa-l2", topicId: "fi-term", topicName: "Term Structure & Bond Valuation", difficulty: 2,
     stem: "Arbitrage-free valuation of a bond requires discounting each cash flow at:",
-    choices: ["The bond's yield to maturity", "Its maturity-matched spot rate", "The current short-term rate"],
-    answerIndex: 1,
+    choices: ["The bond's yield to maturity", "The current short-term rate", "Its maturity-matched spot rate"],
+    answerIndex: 2,
     explanation: "Arbitrage-free valuation discounts each cash flow at the spot rate corresponding to its timing, preventing strip/reconstitution arbitrage. Using a single yield to maturity (A) for all cash flows is an approximation that can differ from the no-arbitrage price. The current short rate (C) applies only to the nearest cash flow, not all of them.",
   },
   {
     id: "cfa2-ts-q2", examSlug: "cfa-l2", topicId: "fi-term", topicName: "Term Structure & Bond Valuation", difficulty: 3,
-    stem: "The one-year spot rate is 2% and the two-year spot rate is 3%. The implied one-year forward rate one year from now is closest to:",
-    choices: ["1.0%", "4.0%", "5.0%"],
-    answerIndex: 1,
-    explanation: "No-arbitrage: (1.02)(1 + f) = (1.03)² = 1.0609, so 1 + f = 1.0609 ÷ 1.02 ≈ 1.0401, giving f ≈ 4.0%. With an upward-sloping spot curve the forward rate lies above both spot rates. Choice A is below the spot rates (inconsistent with an upward curve); choice C overshoots.",
+    stem: "The one-year spot rate is 1.5% and the three-year spot rate is 3.5%. The implied TWO-year forward rate beginning one year from now is closest to:",
+    choices: ["4.51%, the annualized rate that reconciles the one- and three-year spots", "2.50%, the simple average of the one-year and three-year spot rates", "5.53%, the rate implied if the entire spread compounded in a single year"],
+    answerIndex: 0,
+    explanation: "No-arbitrage requires that investing for three years at the spot rate equal investing one year, then two years forward: (1.015)(1 + f)² = (1.035)³ = 1.108718. Dividing gives (1 + f)² = 1.092333, and taking the square root gives 1 + f ≈ 1.04515, so f ≈ 4.51% annualized. Averaging the two spot rates ignores compounding entirely and understates the forward rate. Loading the full spread into one year rather than annualizing across two overstates it, which is the most common setup error.",
   },
   {
     id: "cfa2-ts-q3", examSlug: "cfa-l2", topicId: "fi-term", topicName: "Term Structure & Bond Valuation", difficulty: 2,
     stem: "Why are bonds with embedded options valued using a binomial interest-rate tree rather than a single spot curve?",
-    choices: ["Their cash flows depend on the path of future rates", "They have no coupons", "Spot rates do not apply to corporates"],
-    answerIndex: 0,
+    choices: ["They have no coupons", "Their cash flows depend on the path of future rates", "Spot rates do not apply to corporates"],
+    answerIndex: 1,
     explanation: "A call or put feature means the bond's future cash flows depend on whether rates make exercise advantageous, so valuation must model the path of rates — a binomial tree does this via backward induction. The bonds do have coupons (B is false), and spot rates apply to all issuers (C is false); the issue is path dependence from optionality.",
   },
   {
     id: "cfa2-ts-q4", examSlug: "cfa-l2", topicId: "fi-term", topicName: "Term Structure & Bond Valuation", difficulty: 3,
-    stem: "For a callable bond, the option-adjusted spread (OAS) is generally:",
-    choices: ["Higher than its Z-spread", "Lower than its Z-spread", "Equal to its Z-spread"],
-    answerIndex: 1,
-    explanation: "The Z-spread ignores optionality, while the OAS removes the value of the embedded call (which benefits the issuer and costs the holder). Stripping out that option cost leaves a smaller spread, so a callable bond's OAS is below its Z-spread. For an option-free bond the two are equal; for a putable bond the OAS exceeds the Z-spread.",
+    stem: "A callable corporate bond has a Z-spread of 145 bps and an OAS of 92 bps. The 53 bp difference most directly represents:",
+    choices: ["The bond's incremental credit risk over the benchmark", "The illiquidity premium demanded in the secondary market", "Compensation to the investor for the embedded call option"],
+    answerIndex: 2,
+    explanation: "OAS removes the value of the embedded option from the spread, so the gap between Z-spread and OAS is the option cost - here 53 bps of the investor's yield is compensation for having sold the issuer the right to call. Because the option is stripped out, OAS is the figure that permits comparison against option-free bonds. Credit and liquidity risk remain inside the OAS rather than in the difference.",
   },
   {
     id: "cfa2-ts-q5", examSlug: "cfa-l2", topicId: "fi-term", topicName: "Term Structure & Bond Valuation", difficulty: 2,
     stem: "An increase in assumed interest-rate volatility has what effect on the value of a callable bond?",
-    choices: ["Increases it", "Decreases it", "No effect"],
-    answerIndex: 1,
+    choices: ["Decreases it", "Increases it", "No effect"],
+    answerIndex: 0,
     explanation: "Higher volatility raises the value of the embedded option. Because a call benefits the ISSUER, a more valuable call reduces the bond's value to the holder. (For a putable bond, higher volatility would RAISE the value because the put benefits the holder.) The bond's value equals the option-free value minus the call value.",
   },
 ];

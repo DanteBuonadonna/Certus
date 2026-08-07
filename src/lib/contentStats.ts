@@ -1,8 +1,11 @@
 // ============================================================
 // Certus — live platform content stats
 // Computed from the actual content registry so the marketing proof
-// ("120+ hours of readings, 950+ questions…") never goes stale and
+// ("20+ hours of readings, 1,000+ questions…") never goes stale and
 // is never exam-specific. Update content → these numbers update.
+// NOTE: readingMinutes is enforced honest by scripts/reading-time.mjs, so
+// the headline hours track real prose. Growing this number means writing
+// more content, not editing the number.
 // ============================================================
 
 import { examsWithContent, getChapters, getQuestions } from "@/content";

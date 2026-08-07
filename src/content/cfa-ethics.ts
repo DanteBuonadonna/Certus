@@ -408,14 +408,9 @@ export const ethicsQuestions: Question[] = [
     topicName: "Ethics",
     difficulty: 2,
     stem: "An analyst covering an airline accepts the company's offer of a chartered flight to a remote facility tour, as no commercial flights serve the route. Under Standard I(B), this is:",
-    choices: [
-      "A violation — analysts may never accept issuer-paid travel.",
-      "Acceptable, because commercial transport was not a practical alternative.",
-      "Acceptable only if the analyst writes a favorable report afterward.",
-    ],
-    answerIndex: 1,
-    explanation:
-      "Standard I(B) guidance: use commercial transportation at the firm's expense when feasible; when it is not feasible — a remote site with no commercial service — accepting issuer-arranged transport is acceptable. Choice A overstates the rule into an absolute ban, which is exactly the kind of over-correction distractor the exam loves. Choice C is backwards: linking the benefit to a favorable conclusion is precisely what would CREATE the violation.",
+    choices: ["Acceptable, because commercial transport was not a practical alternative.", "A violation — analysts may never accept issuer-paid travel.", "Acceptable only if the analyst writes a favorable report afterward."],
+    answerIndex: 0,
+    explanation: "Standard I(B) guidance: use commercial transportation at the firm's expense when feasible; when it is not feasible — a remote site with no commercial service — accepting issuer-arranged transport is acceptable. Choice B overstates the rule into an absolute ban, which is exactly the kind of over-correction distractor the exam loves. Choice C is backwards: linking the benefit to a favorable conclusion is precisely what would CREATE the violation.",
   },
   {
     id: "cfa-eth-q6",
@@ -427,7 +422,7 @@ export const ethicsQuestions: Question[] = [
     choices: [
       "Decline both — benefits from clients always compromise independence.",
       "Accept the resort stay with disclosure to his employer; obtain written consent from his employer before accepting the future-performance bonus.",
-      "Accept both, since they come from clients rather than covered companies.",
+      "Accept both invitations, since they originate with clients rather than with companies the analyst actively covers.",
     ],
     answerIndex: 1,
     explanation:
@@ -440,14 +435,9 @@ export const ethicsQuestions: Question[] = [
     topicName: "Ethics",
     difficulty: 2,
     stem: "While riding an elevator, an analyst overhears two executives of a public company discussing an unannounced merger. He does not trade, but he moves the stock from 'hold' to 'buy' in that afternoon's research note. He has:",
-    choices: [
-      "Not violated the Standards, because he neither traded nor was deliberately tipped.",
-      "Violated Standard II(A), because changing the recommendation is acting on material nonpublic information.",
-      "Violated Standard II(B) by manipulating the market with his note.",
-    ],
-    answerIndex: 1,
-    explanation:
-      "Standard II(A) prohibits ACTING or CAUSING OTHERS TO ACT on material nonpublic information — trading is not required. A recommendation change based on the overheard merger causes clients to act on MNPI. How he came by the information is irrelevant: overheard information still counts as possessed. Choice A is the trap for candidates who think II(A) requires a tip or a trade. Choice C misfires — there is no intent to deceive the market, so manipulation is not the issue.",
+    choices: ["Not violated the Standards, because he neither traded nor was deliberately tipped.", "Violated Standard II(B) by manipulating the market with his note.", "Violated Standard II(A), because changing the recommendation is acting on material nonpublic information."],
+    answerIndex: 2,
+    explanation: "Standard II(A) prohibits ACTING or CAUSING OTHERS TO ACT on material nonpublic information — trading is not required. A recommendation change based on the overheard merger causes clients to act on MNPI. How he came by the information is irrelevant: overheard information still counts as possessed. Choice A is the trap for candidates who think II(A) requires a tip or a trade. Choice B misfires — there is no intent to deceive the market, so manipulation is not the issue.",
   },
   {
     id: "cfa-eth-q8",
@@ -456,14 +446,9 @@ export const ethicsQuestions: Question[] = [
     topicName: "Ethics",
     difficulty: 3,
     stem: "A pension manager directs client trades to a broker whose commissions are 20% above the lowest available, in exchange for research used to manage that same pension account. Best execution is otherwise comparable. This arrangement:",
-    choices: [
-      "Violates Standard III(A) because clients must always pay the lowest commission available.",
-      "Is permissible soft-dollar use, because the commissions are reasonable and the research benefits the client whose brokerage paid for it.",
-      "Violates Standard VI(C) as an undisclosed referral fee.",
-    ],
-    answerIndex: 1,
-    explanation:
-      "Client brokerage is a client asset, so soft dollars must satisfy two tests: reasonable commissions, and research that benefits THE CLIENT whose trades generate them. Both hold here. III(A) does not mandate the absolute lowest commission — it mandates prudent use of client assets, and paying somewhat more for research that improves management of that client's account qualifies. Choice A invents a 'lowest commission' rule that does not exist. Choice C mislabels the arrangement: soft dollars are not referral compensation.",
+    choices: ["Is permissible soft-dollar use, because the commissions are reasonable and the research benefits the client whose brokerage paid for it.", "Violates Standard III(A) because clients must always pay the lowest commission available.", "Violates the referral fee Standard, because the arrangement functions as undisclosed compensation for directed business."],
+    answerIndex: 0,
+    explanation: "Client brokerage is a client asset, so soft dollars must satisfy two tests: reasonable commissions, and research that benefits THE CLIENT whose trades generate them. Both hold here. III(A) does not mandate the absolute lowest commission — it mandates prudent use of client assets, and paying somewhat more for research that improves management of that client's account qualifies. Choice B invents a 'lowest commission' rule that does not exist. Choice C mislabels the arrangement: soft dollars are not referral compensation.",
   },
   {
     id: "cfa-eth-q9",
@@ -488,14 +473,9 @@ export const ethicsQuestions: Question[] = [
     topicName: "Ethics",
     difficulty: 2,
     stem: "A departing manager, the night before resigning, emails herself a spreadsheet of client names and phone numbers that she personally compiled over ten years. After resigning she uses it to invite clients to her new firm. She has:",
-    choices: [
-      "Complied with the Standards, because she created the spreadsheet herself.",
-      "Violated Standard IV(A), because client records are employer property regardless of who compiled them.",
-      "Complied with the Standards, because she waited until after resigning to contact the clients.",
-    ],
-    answerIndex: 1,
-    explanation:
-      "Authorship does not equal ownership. Work product created in the course of employment — client lists, models, reports — belongs to the employer, and taking it (paper or digital) misappropriates firm property under IV(A). The compliant route: leave the records, then contact clients from memory using public directories (absent a non-compete). Choice A is the classic 'but I built it' trap. Choice C fixes the solicitation timing but not the theft of records — the violation already occurred with the email.",
+    choices: ["Complied with the Standards, because she created the spreadsheet herself.", "Complied with the Standards, because she waited until after resigning to contact the clients.", "Violated Standard IV(A), because client records are employer property regardless of who compiled them."],
+    answerIndex: 2,
+    explanation: "Authorship does not equal ownership. Work product created in the course of employment — client lists, models, reports — belongs to the employer, and taking it (paper or digital) misappropriates firm property under IV(A). The compliant route: leave the records, then contact clients from memory using public directories (absent a non-compete). Choice A is the classic 'but I built it' trap. Choice B fixes the solicitation timing but not the theft of records — the violation already occurred with the email.",
   },
   {
     id: "cfa-eth-q11",
@@ -504,14 +484,9 @@ export const ethicsQuestions: Question[] = [
     topicName: "Ethics",
     difficulty: 3,
     stem: "An analyst on a five-person research team disagrees with the team's final 'buy' conclusion, which she believes is too optimistic, though she concedes the team's process was thorough and its basis reasonable. The report will be issued under the group's name, including hers. She should:",
-    choices: [
-      "Demand her name be removed and dissociate from the report.",
-      "Allow her name to remain, because the report has a reasonable and adequate basis despite her disagreement.",
-      "Report the disagreement to compliance under Standard I(A).",
-    ],
-    answerIndex: 1,
-    explanation:
-      "Standard V(A) requires a reasonable and adequate basis — not unanimity. When a group's conclusion is built on a sound, independent process, a dissenting member need not dissociate and may remain named on the report. Dissociation (A) is required for violations, and a well-founded conclusion she happens to disagree with is not a violation. Choice C escalates a legitimate difference of opinion into a compliance matter — there is no violation to report. This is one of the exam's favorite 'looks like a violation, isn't' patterns.",
+    choices: ["Allow her name to remain, because the report has a reasonable and adequate basis despite her disagreement.", "Demand that her name be removed and formally dissociate herself from the report and its published conclusions.", "Report the professional disagreement to the compliance department for resolution under the knowledge of the law Standard."],
+    answerIndex: 0,
+    explanation: "Standard V(A) requires a reasonable and adequate basis — not unanimity. When a group's conclusion is built on a sound, independent process, a dissenting member need not dissociate and may remain named on the report. Dissociation (A) is required for violations, and a well-founded conclusion she happens to disagree with is not a violation. Choice C escalates a legitimate difference of opinion into a compliance matter — there is no violation to report. This is one of the exam's favorite 'looks like a violation, isn't' patterns.",
   },
   {
     id: "cfa-eth-q12",
@@ -521,9 +496,9 @@ export const ethicsQuestions: Question[] = [
     difficulty: 2,
     stem: "A financial planner receives $500 from a local accountant for every client she refers. She mentions this arrangement to referred clients during their second meeting, after they have signed the advisory agreement. Under Standard VI(C), she has:",
     choices: [
-      "Complied, because the fee was disclosed to the clients.",
+      "Complied with the Standard, because the referral fee was disclosed to the affected clients before they engaged the firm.",
       "Violated the Standard, because referral compensation must be disclosed before the client engages the service.",
-      "Complied, because referral fees under $1,000 are exempt from disclosure.",
+      "Complied with the Standard, because referral fees below a nominal threshold are exempt from the disclosure requirement.",
     ],
     answerIndex: 1,
     explanation:
@@ -536,14 +511,9 @@ export const ethicsQuestions: Question[] = [
     topicName: "Ethics",
     difficulty: 2,
     stem: "After passing Level III but before receiving his charter, a candidate prints business cards reading 'Alex Kim, CFA (expected 2027).' This:",
-    choices: [
-      "Is acceptable because the statement is factually accurate.",
-      "Violates Standard VII(B) — referencing an expected designation is prohibited.",
-      "Is acceptable because he has completed all three exams.",
-    ],
-    answerIndex: 1,
-    explanation:
-      "VII(B) prohibits anticipating the designation: 'CFA expected,' 'charter pending,' and similar formulations imply a partial credential that does not exist. What IS permitted is a plain factual statement: 'Passed all three levels of the CFA Program' or 'awaiting award of the charter' in resume prose. Choices A and C both rest on factual accuracy — but VII(B) is about implication, not just accuracy, and the card format implies he holds something he does not yet hold.",
+    choices: ["Is acceptable because the statement is factually accurate.", "Is acceptable because he has completed all three exams.", "Violates Standard VII(B) — referencing an expected designation is prohibited."],
+    answerIndex: 2,
+    explanation: "VII(B) prohibits anticipating the designation: 'CFA expected,' 'charter pending,' and similar formulations imply a partial credential that does not exist. What IS permitted is a plain factual statement: 'Passed all three levels of the CFA Program' or 'awaiting award of the charter' in resume prose. Choices A and C both rest on factual accuracy — but VII(B) is about implication, not just accuracy, and the card format implies he holds something he does not yet hold.",
   },
   {
     id: "cfa-eth-q14",
@@ -569,9 +539,9 @@ export const ethicsQuestions: Question[] = [
     difficulty: 2,
     stem: "Which statement about GIPS compliance is most accurate?",
     choices: [
-      "A firm may claim compliance for its flagship composite while excluding others.",
+      "A firm may claim compliance for its flagship composite while excluding weaker composites from the presentation entirely.",
       "Compliance requires including all fee-paying discretionary portfolios in at least one composite, with a minimum five years of history (or since inception), building to ten.",
-      "Verification by an independent third party is required before a firm may claim compliance.",
+      "Verification by an independent third party is mandatory before any firm may claim compliance with the standards.",
     ],
     answerIndex: 1,
     explanation:
@@ -584,13 +554,8 @@ export const ethicsQuestions: Question[] = [
     topicName: "Ethics",
     difficulty: 3,
     stem: "A supervisor is offered oversight of a trading desk at a firm she knows has no written compliance procedures. Under Standard IV(C), her best course of action is to:",
-    choices: [
-      "Accept the role and supervise as well as she personally can.",
-      "Decline supervisory responsibility in writing until the firm adopts adequate compliance procedures.",
-      "Accept the role but document that she objected to the missing procedures.",
-    ],
-    answerIndex: 1,
-    explanation:
-      "IV(C) requires reasonable efforts to detect and prevent violations, which presupposes an adequate compliance system. Accepting supervision where no system exists makes violations by subordinates effectively her violations — personal diligence (A) cannot substitute for procedures, training, and monitoring. The Standards' guidance is explicit: decline supervisory responsibility in writing until reasonable procedures are adopted. Choice C documents the problem while still accepting accountability for an unsupervisable desk — a paper trail to her own violation.",
+    choices: ["Accept the supervisory role and discharge the responsibility as diligently as her own judgment and resources permit.", "Accept the role but document that she objected to the missing procedures.", "Decline supervisory responsibility in writing until the firm adopts adequate compliance procedures."],
+    answerIndex: 2,
+    explanation: "IV(C) requires reasonable efforts to detect and prevent violations, which presupposes an adequate compliance system. Accepting supervision where no system exists makes violations by subordinates effectively her violations — personal diligence (A) cannot substitute for procedures, training, and monitoring. The Standards' guidance is explicit: decline supervisory responsibility in writing until reasonable procedures are adopted. Choice B documents the problem while still accepting accountability for an unsupervisable desk — a paper trail to her own violation.",
   },
 ];

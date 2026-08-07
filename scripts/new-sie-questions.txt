@@ -1,0 +1,718 @@
+const questions: Question[] = [
+  // ============================================================
+  // CAPITAL MARKETS
+  // ============================================================
+  {
+    id: "sie-mkt-q1", examSlug: "sie", topicId: "markets", topicName: "Capital Markets", difficulty: 2,
+    stem: "A pension fund buys 40,000 shares of a listed company directly from another institution, negotiating price privately and bypassing the exchange floor entirely. Where did this trade occur?",
+    choices: ["The primary market, because the size is comparable to an offering", "The fourth market, where institutions trade directly with each other", "The third market, because listed shares traded off-exchange", "The secondary market's auction segment, since the shares are listed"],
+    answerIndex: 1,
+    explanation: "Institution-to-institution trading that bypasses both the exchange and a broker-dealer intermediary is the fourth market. The third market also involves exchange-listed securities traded over the counter, but it runs through broker-dealers rather than directly between institutions — that intermediary is the dividing line. Nothing here reaches the issuer, so no primary-market activity occurred, and the auction segment refers to exchange-floor trading, which was specifically bypassed.",
+  },
+  {
+    id: "sie-mkt-q2", examSlug: "sie", topicId: "markets", topicName: "Capital Markets", difficulty: 3,
+    stem: "The MSRB adopts a new rule governing municipal dealer conduct. A bank dealer violates it. Which statement about enforcement is accurate?",
+    choices: ["The MSRB enforces its own rules directly against the bank dealer", "The MSRB will refer the matter to the issuer for resolution", "Enforcement falls to bank regulators, because the MSRB writes rules but cannot enforce them", "The rule cannot apply, because the MSRB has no authority over bank dealers"],
+    answerIndex: 2,
+    explanation: "The MSRB is a rulemaking body with no enforcement arm of its own. Its rules bind municipal securities dealers, including bank dealers, but enforcement is carried out by others — FINRA for broker-dealers and the federal bank regulators for bank dealers. The MSRB does have authority to write rules covering bank dealers, so the idea that the rule cannot apply is wrong, and issuers are outside MSRB jurisdiction entirely.",
+  },
+  {
+    id: "sie-mkt-q3", examSlug: "sie", topicId: "markets", topicName: "Capital Markets", difficulty: 3,
+    stem: "The Federal Reserve begins selling Treasury securities on the open market. Holding all else constant, the most likely immediate effect is that:",
+    choices: ["Bank reserves fall and short-term interest rates rise", "Bank reserves rise and short-term interest rates fall", "The federal deficit narrows as the Treasury retires debt", "Long-term bond prices rise as investors seek safety"],
+    answerIndex: 0,
+    explanation: "When the Fed sells securities, buyers pay with reserves, draining money from the banking system; less supply of lendable reserves pushes short-term rates up. This is contractionary, the mirror image of the Fed buying securities to inject reserves and lower rates. Open market operations are monetary policy conducted by the Fed, not fiscal operations by the Treasury, so the deficit is unaffected. Rising rates would pressure bond prices down, not up.",
+  },
+  {
+    id: "sie-mkt-q4", examSlug: "sie", topicId: "markets", topicName: "Capital Markets", difficulty: 2,
+    stem: "An analyst notes that building permits and new manufacturing orders have both turned down sharply this quarter, while unemployment remains low. What does this combination most likely indicate?",
+    choices: ["The economy has already entered a contraction that unemployment confirms", "Leading indicators are signaling a possible slowdown ahead of the labor market", "The data is internally contradictory and cannot be interpreted", "Coincident indicators have decoupled from the business cycle"],
+    answerIndex: 1,
+    explanation: "Building permits and new orders are leading indicators — they turn before the broader economy does. Unemployment is a lagging indicator that turns after the cycle has already moved, so low unemployment alongside falling leading indicators is exactly the pattern expected before a slowdown, not a contradiction. Because unemployment lags, it cannot confirm a contraction that has just begun.",
+  },
+  {
+    id: "sie-mkt-q5", examSlug: "sie", topicId: "markets", topicName: "Capital Markets", difficulty: 3,
+    stem: "During a period of rising inflation, the Fed raises the discount rate. An investor holding long-term fixed-rate bonds is most exposed to which combination of risks?",
+    choices: ["Reinvestment risk and call risk, because issuers will refinance", "Credit risk and liquidity risk, because defaults rise with rates", "Interest-rate risk and purchasing-power risk, which compound each other", "Legislative risk and currency risk, which dominate in tightening cycles"],
+    answerIndex: 2,
+    explanation: "Rising rates push existing bond prices down, which is interest-rate risk, while inflation erodes the real value of the fixed coupon stream, which is purchasing-power risk. Long-term fixed-rate debt is uniquely vulnerable to both at once, and the two reinforce each other. Reinvestment and call risk are dangers when rates FALL and issuers refinance. Rising rates do not automatically trigger defaults or currency exposure.",
+  },
+  {
+    id: "sie-mkt-q6", examSlug: "sie", topicId: "markets", topicName: "Capital Markets", difficulty: 3,
+    stem: "An underwriter agrees to purchase an entire new issue from the issuer and resell it to the public, keeping any unsold shares. This arrangement means that:",
+    choices: ["The issuer bears the risk that shares go unsold", "The underwriter acts as agent and earns a commission per share sold", "The underwriter acts as principal and bears the unsold-share risk", "The offering is automatically voided if the issue is not fully sold"],
+    answerIndex: 2,
+    explanation: "This describes a firm-commitment underwriting: the underwriter buys the issue as principal, so the capital risk of unsold shares shifts to the underwriter. In a best-efforts arrangement the underwriter would act only as agent and the issuer would keep that risk. An all-or-none arrangement is what voids a deal that is not fully subscribed, which is a different structure entirely.",
+  },
+  {
+    id: "sie-mkt-q7", examSlug: "sie", topicId: "markets", topicName: "Capital Markets", difficulty: 2,
+    stem: "During the cooling-off period of a registered offering, a registered representative may lawfully:",
+    choices: ["Accept a binding purchase order and hold the funds in escrow", "Send prospective buyers a preliminary prospectus and record indications of interest", "Distribute research reports recommending the issue to selected clients", "Confirm an allocation size and price to an interested institutional buyer"],
+    answerIndex: 1,
+    explanation: "During the cooling-off period no sales may occur and no money may change hands. What is permitted is distributing the preliminary prospectus, the red herring, and recording non-binding indications of interest. Binding orders, confirmed allocations, and promotional research recommending the issue all constitute selling efforts that must wait until the registration is effective.",
+  },
+  {
+    id: "sie-mkt-q8", examSlug: "sie", topicId: "markets", topicName: "Capital Markets", difficulty: 3,
+    stem: "A yield curve inverts, with two-year Treasury yields exceeding ten-year yields. The most common interpretation is that market participants expect:",
+    choices: ["Economic weakness ahead, with lower rates in the future", "Accelerating growth that will force the Fed to tighten", "A sustained rise in long-term inflation expectations", "An imminent default on short-dated government obligations"],
+    answerIndex: 0,
+    explanation: "Long yields sitting below short yields implies the market expects rates to fall, which typically accompanies expectations of economic weakness or recession. Expectations of acceleration or rising long-run inflation would steepen the curve upward instead, since investors would demand more yield to lend long. Treasury default expectations are not what curve inversion measures.",
+  },
+  {
+    id: "sie-mkt-q9", examSlug: "sie", topicId: "markets", topicName: "Capital Markets", difficulty: 2,
+    stem: "Which statement most accurately distinguishes the SEC from FINRA?",
+    choices: ["Both are federal agencies, but the SEC handles only criminal matters", "FINRA is a federal agency; the SEC is an industry-funded membership body", "The SEC is a federal agency; FINRA is an SRO operating under SEC oversight", "They are coequal regulators with independent statutory authority"],
+    answerIndex: 2,
+    explanation: "The SEC is a federal government agency created by the Securities Exchange Act of 1934. FINRA is a self-regulatory organization — an industry body that writes and enforces conduct rules for broker-dealers, but does so subject to SEC oversight and approval. They are not coequal, and neither characterization reversing their roles is correct. The SEC pursues civil enforcement; criminal cases are referred to the Department of Justice.",
+  },
+  {
+    id: "sie-mkt-q10", examSlug: "sie", topicId: "markets", topicName: "Capital Markets", difficulty: 3,
+    stem: "Congress passes a large tax cut while the Federal Reserve simultaneously raises interest rates. These two actions are best characterized as:",
+    choices: ["Expansionary fiscal policy paired with contractionary monetary policy", "Contractionary fiscal policy paired with expansionary monetary policy", "Two forms of monetary policy pursued by different bodies", "Two forms of fiscal policy, since both affect aggregate demand"],
+    answerIndex: 0,
+    explanation: "Taxing and spending decisions made by Congress are fiscal policy, and cutting taxes is expansionary because it leaves more money in private hands. Interest rate decisions made by the Federal Reserve are monetary policy, and raising rates is contractionary. The defining distinction is who acts and with which tool, not merely whether aggregate demand is affected.",
+  },
+  {
+    id: "sie-mkt-q11", examSlug: "sie", topicId: "markets", topicName: "Capital Markets", difficulty: 2,
+    stem: "A market maker quotes a bid of 24.10 and an ask of 24.25 for a security. A customer who places a market order to sell will most likely receive:",
+    choices: ["24.25, the ask, because the dealer must fill at the better price", "24.10, the bid, because that is where the dealer buys", "24.175, the midpoint, under best-execution requirements", "A price set by the exchange rather than the quoting dealer"],
+    answerIndex: 1,
+    explanation: "A dealer buys at the bid and sells at the ask; the spread between them is the dealer's compensation. A customer selling into that quote therefore receives the bid of 24.10. The ask is what a customer would pay to buy. Best execution requires reasonable diligence to obtain a favorable price but does not entitle a customer to midpoint pricing.",
+  },
+
+  // ============================================================
+  // PRODUCTS & RISKS
+  // ============================================================
+  {
+    id: "sie-prod-q1", examSlug: "sie", topicId: "products", topicName: "Products & Risks", difficulty: 3,
+    stem: "A company is liquidated. It has secured bondholders, general creditors, preferred shareholders with dividends two years in arrears on cumulative stock, and common shareholders. Which claim is satisfied last?",
+    choices: ["The arrearages owed to cumulative preferred holders", "The claims of general unsecured creditors", "The claims of common shareholders", "The claims of secured bondholders"],
+    answerIndex: 2,
+    explanation: "Liquidation priority runs from secured creditors, to general unsecured creditors, to preferred shareholders, and finally to common shareholders, who hold the residual claim. Cumulative arrearages sit with the preferred class and are therefore satisfied before common, which is exactly the protection cumulative status provides. Common shareholders accept last position in exchange for unlimited upside participation.",
+  },
+  {
+    id: "sie-prod-q2", examSlug: "sie", topicId: "products", topicName: "Products & Risks", difficulty: 3,
+    stem: "An investor owns $6 cumulative preferred stock. The company skips dividends in years one and two, then wishes to pay common shareholders in year three. Before it may do so, preferred holders must receive:",
+    choices: ["$6 per share, the current year's dividend only", "$12 per share, covering the two years missed", "$18 per share, the arrearages plus the current year", "Nothing, since preferred dividends are never guaranteed"],
+    answerIndex: 2,
+    explanation: "Cumulative preferred accrues every skipped dividend, and the full amount in arrears plus the current period must be paid before any common distribution. Two missed years at $6 is $12 in arrears, plus $6 for the current year, totaling $18. Paying only the current year would apply to noncumulative preferred, where skipped dividends are simply forfeited.",
+  },
+  {
+    id: "sie-prod-q3", examSlug: "sie", topicId: "products", topicName: "Products & Risks", difficulty: 3,
+    stem: "A convertible bond has a $1,000 par value and a conversion price of $25. The underlying stock trades at $32. The bond's parity price is:",
+    choices: ["$1,280, reflecting 40 shares at the market price", "$1,250, reflecting the conversion price relationship", "$800, reflecting the discount to conversion value", "$1,000, since par governs the conversion"],
+    answerIndex: 0,
+    explanation: "The conversion ratio is par divided by conversion price, or $1,000 divided by $25, which equals 40 shares. Parity is the value of those shares at the current market price: 40 multiplied by $32 equals $1,280. Parity measures what the bond is worth in stock terms, so if the bond traded below $1,280 an arbitrage opportunity would exist.",
+  },
+  {
+    id: "sie-prod-q4", examSlug: "sie", topicId: "products", topicName: "Products & Risks", difficulty: 3,
+    stem: "An investor buys a call with a $40 strike for a premium of 5, and holds it to expiration when the stock closes at $43. The result is:",
+    choices: ["A $300 profit, since the option finished in the money", "A $200 loss, because the gain did not cover the premium", "A $500 loss, the full premium, since the option expired", "Breakeven, because the stock exceeded the strike price"],
+    answerIndex: 1,
+    explanation: "The option finished in the money by $3 per share, which is $300 of intrinsic value recovered against a $500 premium paid, producing a net loss of $200. Being in the money and being profitable are different conditions: breakeven requires the stock to exceed the strike by the full premium, or $45 here. Exercising to recover $300 is still better than letting it expire worthless and losing the entire $500.",
+  },
+  {
+    id: "sie-prod-q5", examSlug: "sie", topicId: "products", topicName: "Products & Risks", difficulty: 3,
+    stem: "Which risk does diversification across many unrelated issuers most effectively reduce?",
+    choices: ["Systematic risk, which affects the market as a whole", "Purchasing-power risk arising from inflation", "Unsystematic risk, which is specific to individual companies", "Interest-rate risk affecting all fixed-income holdings"],
+    answerIndex: 2,
+    explanation: "Unsystematic risk is company- or industry-specific and can be substantially eliminated by holding many unrelated securities, since one firm's misfortune is offset by others. Systematic risk is market-wide and cannot be diversified away, which is precisely why it is the risk investors are compensated for bearing. Inflation and interest-rate risk are broad market forces that diversification across equities does not remove.",
+  },
+  {
+    id: "sie-prod-q6", examSlug: "sie", topicId: "products", topicName: "Products & Risks", difficulty: 3,
+    stem: "An investor is comparing a municipal bond yielding 3.4% with a corporate bond yielding 4.9%. The investor is in the 32% federal bracket. Which is more attractive on an after-tax basis?",
+    choices: ["The corporate bond, because its stated yield is higher", "The municipal bond, whose taxable-equivalent yield is roughly 5.0%", "They are equivalent once the tax treatment is applied", "The comparison cannot be made without the state tax rate"],
+    answerIndex: 1,
+    explanation: "Taxable-equivalent yield is the municipal yield divided by one minus the marginal rate: 3.4% divided by 0.68 equals approximately 5.0%, which exceeds the corporate bond's 4.9%. Equivalently, the corporate's after-tax yield is 4.9% multiplied by 0.68, or about 3.33%, below the muni's tax-free 3.4%. State rates would strengthen the municipal case further but are not required to reach a conclusion federally.",
+  },
+  {
+    id: "sie-prod-q7", examSlug: "sie", topicId: "products", topicName: "Products & Risks", difficulty: 2,
+    stem: "Which security represents ownership of a foreign corporation's shares, trades in U.S. dollars on U.S. markets, and still exposes the holder to exchange-rate movements?",
+    choices: ["A Eurodollar bond issued by the foreign corporation", "An American Depositary Receipt", "A closed-end country fund trading at a discount", "A Yankee bond registered with the SEC"],
+    answerIndex: 1,
+    explanation: "An American Depositary Receipt is a negotiable certificate representing foreign shares, priced and traded in dollars on U.S. markets, while the holder still bears currency risk because the underlying value remains denominated abroad. Eurodollar and Yankee bonds are debt instruments, not ownership. A country fund provides exposure but is a pooled investment vehicle rather than a direct receipt for specific shares.",
+  },
+  {
+    id: "sie-prod-q8", examSlug: "sie", topicId: "products", topicName: "Products & Risks", difficulty: 3,
+    stem: "An investor seeks the security with the greatest protection against unexpected inflation over a twenty-year horizon. Which is most suitable?",
+    choices: ["A twenty-year zero-coupon Treasury STRIP", "A twenty-year Treasury bond with a fixed coupon", "Treasury Inflation-Protected Securities", "A ladder of six-month Treasury bills"],
+    answerIndex: 2,
+    explanation: "TIPS adjust principal with the Consumer Price Index and apply the fixed coupon rate to that adjusted principal, so both the interest payments and the final principal keep pace with inflation. A fixed-coupon long bond and especially a zero-coupon STRIP lock in nominal amounts and are therefore maximally exposed to inflation. A bill ladder reprices frequently, offering partial protection, but does not index principal to inflation directly.",
+  },
+  {
+    id: "sie-prod-q9", examSlug: "sie", topicId: "products", topicName: "Products & Risks", difficulty: 3,
+    stem: "Interest on Treasury securities and interest on municipal securities differ in tax treatment. Which statement is correct?",
+    choices: ["Treasury interest is exempt from state tax; municipal interest is generally exempt from federal tax", "Both are exempt from federal tax but taxable at the state level", "Treasury interest is fully exempt; municipal interest is fully taxable", "Both are fully taxable, though at preferential capital-gains rates"],
+    answerIndex: 0,
+    explanation: "Treasury interest is subject to federal income tax but exempt from state and local taxation, while municipal bond interest is generally exempt from federal tax and often from state tax for residents of the issuing state. The two exemptions run in opposite directions, which is the distinction the exam tests. Interest income is not taxed at capital-gains rates in either case.",
+  },
+  {
+    id: "sie-prod-q10", examSlug: "sie", topicId: "products", topicName: "Products & Risks", difficulty: 3,
+    stem: "A bond is purchased at a discount to par. Ranking its yields from lowest to highest produces:",
+    choices: ["Yield to maturity, then current yield, then nominal yield", "Nominal yield, then current yield, then yield to maturity", "Current yield, then nominal yield, then yield to maturity", "All three are identical because the coupon is fixed"],
+    answerIndex: 1,
+    explanation: "For a discount bond the ordering runs nominal, then current, then yield to maturity, because each measure captures more of the discount. Current yield divides the fixed coupon by a price below par, exceeding the nominal rate, and yield to maturity adds the pull toward par at maturity on top of that. For a premium bond the ordering reverses exactly.",
+  },
+  {
+    id: "sie-prod-q11", examSlug: "sie", topicId: "products", topicName: "Products & Risks", difficulty: 3,
+    stem: "An investor holding a callable bond faces which risk when prevailing interest rates fall significantly?",
+    choices: ["Interest-rate risk, since the bond's price will decline", "Credit risk, since the issuer's finances have deteriorated", "Call risk, forcing reinvestment of proceeds at lower rates", "Liquidity risk, since callable bonds cannot be resold"],
+    answerIndex: 2,
+    explanation: "Falling rates give the issuer an incentive to redeem the bond early and refinance more cheaply, which caps the investor's upside and returns principal precisely when attractive reinvestment options have disappeared. That combination is call risk and its companion reinvestment risk. Falling rates push bond prices up rather than down, and a call reflects opportunistic refinancing rather than deteriorating credit.",
+  },
+
+  // ============================================================
+  // EQUITY SECURITIES
+  // ============================================================
+  {
+    id: "sie-eq-q1", examSlug: "sie", topicId: "equity", topicName: "Equity Securities", difficulty: 3,
+    stem: "A shareholder wants to preserve proportional ownership when a company issues new shares. Which feature provides this protection?",
+    choices: ["Cumulative voting rights in director elections", "A preemptive right to subscribe to the new issue", "A conversion privilege attached to the shares", "Statutory voting applied on a one-share-one-vote basis"],
+    answerIndex: 1,
+    explanation: "A preemptive right lets existing shareholders buy a proportional share of a new issue before it reaches the public, preventing dilution of their ownership percentage. Cumulative voting concentrates votes to help minority holders elect directors, which addresses board representation rather than dilution. Conversion privileges apply to convertible securities, and statutory voting is a voting method, not a subscription protection.",
+  },
+  {
+    id: "sie-eq-q2", examSlug: "sie", topicId: "equity", topicName: "Equity Securities", difficulty: 3,
+    stem: "Rights and warrants both permit the purchase of stock. Which pairing correctly describes each at issuance?",
+    choices: ["Rights: long-term, struck above market. Warrants: short-term, struck below market", "Rights: short-term, struck below market. Warrants: long-term, struck above market", "Both are short-term and struck below the prevailing market price", "Both are long-term sweeteners attached to debt offerings"],
+    answerIndex: 1,
+    explanation: "Rights arise from a rights offering, last weeks, and carry a subscription price below the current market as compensation to existing holders for the dilution a new issue causes. Warrants typically last years, are attached to bonds or preferred stock as a sweetener to help place the offering, and carry an exercise price above the market when issued. Reversing the two is the most common exam trap.",
+  },
+  {
+    id: "sie-eq-q3", examSlug: "sie", topicId: "equity", topicName: "Equity Securities", difficulty: 2,
+    stem: "Preferred stock generally trades more like a fixed-income security than common stock because:",
+    choices: ["It carries voting rights that stabilize its market value", "Its fixed stated dividend makes its price sensitive to interest rates", "It is guaranteed by the issuer's assets in all circumstances", "Its dividend increases automatically with corporate earnings"],
+    answerIndex: 1,
+    explanation: "The fixed stated dividend gives preferred stock a bond-like cash flow profile, so its price moves inversely with interest rates. Preferred is generally non-voting, is not guaranteed, and its dividend does not rise with earnings — that participation feature exists only in participating preferred, which is the exception rather than the rule.",
+  },
+  {
+    id: "sie-eq-q4", examSlug: "sie", topicId: "equity", topicName: "Equity Securities", difficulty: 3,
+    stem: "A corporation declares a 2-for-1 stock split. An investor holding 300 shares purchased at $60 will afterward hold:",
+    choices: ["600 shares with an adjusted cost basis of $30 per share", "600 shares with an unchanged cost basis of $60 per share", "300 shares with an adjusted cost basis of $30 per share", "150 shares with an adjusted cost basis of $120 per share"],
+    answerIndex: 0,
+    explanation: "A forward split multiplies share count and divides per-share cost basis proportionally, leaving total position value and total basis unchanged. Three hundred shares become 600, and a $60 basis becomes $30. Total basis remains $18,000 either way, which is why a split is not itself a taxable event.",
+  },
+  {
+    id: "sie-eq-q5", examSlug: "sie", topicId: "equity", topicName: "Equity Securities", difficulty: 3,
+    stem: "Which statement about cumulative voting is accurate?",
+    choices: ["It grants each share one vote per director position, cast separately", "It permits votes to be concentrated, generally aiding minority shareholders", "It applies only to preferred shareholders in contested elections", "It doubles the voting power of shares held longer than one year"],
+    answerIndex: 1,
+    explanation: "Cumulative voting lets a shareholder pool all available votes behind one or a few candidates, which improves the odds that a minority holder can elect at least one director. Statutory voting is the method that allocates votes separately to each position and structurally favors majority holders. Preferred stock is typically non-voting, and holding period does not affect voting power.",
+  },
+  {
+    id: "sie-eq-q6", examSlug: "sie", topicId: "equity", topicName: "Equity Securities", difficulty: 3,
+    stem: "An investor must own a stock by which date to receive a declared dividend?",
+    choices: ["The payable date, when the company distributes the funds", "The record date, having purchased before the ex-dividend date", "The declaration date, when the board authorizes the dividend", "The ex-dividend date itself, buying at the opening price"],
+    answerIndex: 1,
+    explanation: "The investor must be an owner of record on the record date, which requires purchasing before the ex-dividend date so that settlement occurs in time. Buying on or after the ex-dividend date means the seller retains the dividend, which is why the stock price typically drops by roughly the dividend amount that morning. Declaration and payable dates bracket the process but do not determine entitlement.",
+  },
+
+  // ============================================================
+  // DEBT SECURITIES
+  // ============================================================
+  {
+    id: "sie-debt-q1", examSlug: "sie", topicId: "debt", topicName: "Debt Securities", difficulty: 3,
+    stem: "A 5% bond with $1,000 par trades at $920. Its current yield is closest to:",
+    choices: ["5.00%, because the coupon rate is fixed", "5.43%, reflecting the coupon against the discounted price", "4.60%, reflecting the price relative to par", "8.70%, reflecting the discount recovered at maturity"],
+    answerIndex: 1,
+    explanation: "Current yield divides the annual coupon by the current market price: $50 divided by $920 is approximately 5.43%. It exceeds the 5% nominal rate precisely because the bond trades at a discount, so each dollar invested buys more coupon income. The figure that additionally captures the pull to par at maturity is yield to maturity, which would be higher still.",
+  },
+  {
+    id: "sie-debt-q2", examSlug: "sie", topicId: "debt", topicName: "Debt Securities", difficulty: 3,
+    stem: "Which corporate debt instrument is backed solely by the issuer's general creditworthiness, with no specific asset pledged?",
+    choices: ["An equipment trust certificate", "A first mortgage bond", "A debenture", "A collateral trust bond"],
+    answerIndex: 2,
+    explanation: "A debenture is unsecured, resting entirely on the issuer's general credit and standing behind secured claims in liquidation. Equipment trust certificates are secured by specific equipment such as rolling stock, mortgage bonds by real property, and collateral trust bonds by securities of other companies held in trust. Each of the alternatives names a specific pledged asset.",
+  },
+  {
+    id: "sie-debt-q3", examSlug: "sie", topicId: "debt", topicName: "Debt Securities", difficulty: 2,
+    stem: "A Treasury bill differs from a Treasury note principally in that a bill:",
+    choices: ["Is issued at a discount and pays no periodic interest", "Pays semiannual interest over a two-to-ten-year term", "Adjusts its principal with the Consumer Price Index", "Is issued by federal agencies rather than the Treasury"],
+    answerIndex: 0,
+    explanation: "T-bills mature in one year or less, are sold at a discount to face value, and pay no coupon; the return is the difference between purchase price and the face amount received at maturity. Notes carry semiannual coupons over two to ten years. Principal indexing describes TIPS, and agency issuance is a separate category from direct Treasury obligations.",
+  },
+  {
+    id: "sie-debt-q4", examSlug: "sie", topicId: "debt", topicName: "Debt Securities", difficulty: 3,
+    stem: "Which agency security carries the explicit full faith and credit backing of the U.S. government?",
+    choices: ["Fannie Mae mortgage-backed securities", "Ginnie Mae mortgage-backed securities", "Freddie Mac participation certificates", "Federal Home Loan Bank consolidated obligations"],
+    answerIndex: 1,
+    explanation: "Ginnie Mae is a government corporation within HUD, and its securities carry the explicit full faith and credit guarantee of the United States. Fannie Mae and Freddie Mac are government-sponsored enterprises whose obligations are not explicitly guaranteed, and Federal Home Loan Bank obligations are likewise GSE debt. The distinction between explicit backing and implied support is the tested point.",
+  },
+  {
+    id: "sie-debt-q5", examSlug: "sie", topicId: "debt", topicName: "Debt Securities", difficulty: 3,
+    stem: "A general obligation bond differs from a revenue bond primarily because the general obligation bond:",
+    choices: ["Is backed by revenues generated from a specific financed project", "Is backed by the issuer's taxing power and typically requires voter approval", "Carries no debt limit and requires no voter authorization", "Is federally guaranteed against issuer default"],
+    answerIndex: 1,
+    explanation: "General obligation bonds are secured by the issuer's full faith, credit, and taxing power, which is why they usually require voter approval and count against statutory debt limits. Revenue bonds are backed only by the receipts of the specific facility financed, generally escape debt limits, and typically need no referendum. Neither type carries a federal guarantee.",
+  },
+  {
+    id: "sie-debt-q6", examSlug: "sie", topicId: "debt", topicName: "Debt Securities", difficulty: 3,
+    stem: "Commercial paper is best described as:",
+    choices: ["Long-term secured corporate debt sold through underwriters", "Short-term unsecured corporate debt issued at a discount", "A negotiable time deposit issued by a commercial bank", "A short-term municipal note anticipating tax receipts"],
+    answerIndex: 1,
+    explanation: "Commercial paper is unsecured short-term corporate debt, issued at a discount, with maturities of 270 days or less — a limit that keeps it exempt from Securities Act registration. Negotiable certificates of deposit are bank instruments, and tax anticipation notes are municipal. Its short maturity and lack of collateral are the defining features.",
+  },
+
+  // ============================================================
+  // INVESTMENT FUNDS
+  // ============================================================
+  {
+    id: "sie-funds-q1", examSlug: "sie", topicId: "funds", topicName: "Investment Funds", difficulty: 3,
+    stem: "A mutual fund has a net asset value of $18.60 and a maximum sales charge of 7%. Its public offering price is closest to:",
+    choices: ["$19.90, computed as NAV plus 7% of the offering price", "$19.90, computed as NAV plus 7% of NAV", "$17.30, computed as NAV less the sales charge", "$18.60, since the charge is deducted at redemption"],
+    answerIndex: 0,
+    explanation: "The sales charge is expressed as a percentage of the public offering price, not of NAV, so the correct computation is NAV divided by one minus the charge: $18.60 divided by 0.93 equals approximately $20.00. Applying 7% to NAV instead understates the offering price, which is the most common error. Front-end charges are added at purchase rather than deducted at redemption.",
+  },
+  {
+    id: "sie-funds-q2", examSlug: "sie", topicId: "funds", topicName: "Investment Funds", difficulty: 3,
+    stem: "Which characteristic distinguishes a closed-end fund from an open-end fund?",
+    choices: ["It continuously issues redeemable shares priced at the next computed NAV", "Its fixed share count trades on an exchange, potentially at a premium or discount", "It holds a fixed, unmanaged portfolio until a stated termination date", "It may only be sold to accredited investors under a private placement"],
+    answerIndex: 1,
+    explanation: "A closed-end fund issues a fixed number of shares in an initial offering, after which those shares trade among investors on an exchange at market-determined prices that may sit above or below net asset value. Continuous issuance and redemption at the next computed NAV describes open-end mutual funds, while a fixed unmanaged portfolio with a termination date describes a unit investment trust.",
+  },
+  {
+    id: "sie-funds-q3", examSlug: "sie", topicId: "funds", topicName: "Investment Funds", difficulty: 3,
+    stem: "An investor plans to invest a large lump sum in a single fund family and wants to reduce the sales charge. Which provision most directly helps?",
+    choices: ["A breakpoint schedule reducing the charge at higher investment levels", "A contingent deferred sales charge declining over the holding period", "A twelve-b-one fee paid annually from fund assets", "A conversion privilege exchanging Class B shares for Class A"],
+    answerIndex: 0,
+    explanation: "Breakpoints reduce the percentage sales charge once an investment reaches stated dollar thresholds, which is exactly the benefit a large lump-sum investor should receive. Failing to inform a customer of an available breakpoint is a prohibited practice known as breakpoint selling. Deferred charges and annual distribution fees are different fee structures that do not lower a front-end charge on a large purchase.",
+  },
+  {
+    id: "sie-funds-q4", examSlug: "sie", topicId: "funds", topicName: "Investment Funds", difficulty: 3,
+    stem: "Which statement about a real estate investment trust is accurate?",
+    choices: ["It passes both income and operating losses through to shareholders", "It must distribute at least 90% of taxable income to retain favorable tax treatment", "It is structured as a limited partnership with a general partner", "Its shares are redeemable with the trust at net asset value"],
+    answerIndex: 1,
+    explanation: "A REIT must distribute at least 90% of its taxable income to shareholders to avoid taxation at the entity level. Unlike a direct participation program, a REIT does not pass losses through to investors — that pass-through of both income and loss is the defining feature of a limited partnership. Listed REIT shares trade on exchanges rather than being redeemed at NAV.",
+  },
+  {
+    id: "sie-funds-q5", examSlug: "sie", topicId: "funds", topicName: "Investment Funds", difficulty: 2,
+    stem: "An exchange-traded fund differs from a traditional mutual fund principally because the ETF:",
+    choices: ["Prices only once daily after the market closes", "Trades intraday at market prices and may be purchased on margin", "Guarantees performance matching its benchmark index", "Cannot be sold short under any circumstances"],
+    answerIndex: 1,
+    explanation: "ETFs trade throughout the session at market-determined prices, and because they trade like stock they may be bought on margin and sold short. Mutual funds transact once daily at the next computed net asset value. No fund guarantees index performance, since tracking error and expenses always create some divergence.",
+  },
+  {
+    id: "sie-funds-q6", examSlug: "sie", topicId: "funds", topicName: "Investment Funds", difficulty: 3,
+    stem: "A variable annuity differs from a fixed annuity because in the variable contract:",
+    choices: ["The insurer guarantees a minimum rate of return on contributions", "Assets are held in the insurer's general account", "Assets are held in a separate account and the owner bears investment risk", "Payments are exempt from ordinary income taxation upon distribution"],
+    answerIndex: 2,
+    explanation: "Variable annuity premiums are invested in a separate account of sub-accounts, so investment performance and therefore investment risk belong to the contract owner, which is why the product is a security requiring prospectus delivery. A fixed annuity keeps assets in the insurer's general account with a guaranteed rate, placing the risk on the insurer. Annuity distributions of earnings are taxed as ordinary income.",
+  },
+
+  // ============================================================
+  // OPTIONS
+  // ============================================================
+  {
+    id: "sie-opt-q1", examSlug: "sie", topicId: "options", topicName: "Options", difficulty: 3,
+    stem: "An investor writes an uncovered call. The maximum potential loss on this position is:",
+    choices: ["Limited to the premium received", "Limited to the strike price less the premium", "Theoretically unlimited as the stock rises", "Limited to the difference between strike and current market price"],
+    answerIndex: 2,
+    explanation: "An uncovered call writer is obligated to deliver shares at the strike price no matter how high the stock climbs, and because there is no ceiling on a stock's price the potential loss is theoretically unlimited. The premium received merely offsets the first portion of that loss. A loss limited to strike minus premium describes the short put, whose downside stops when the stock reaches zero.",
+  },
+  {
+    id: "sie-opt-q2", examSlug: "sie", topicId: "options", topicName: "Options", difficulty: 3,
+    stem: "An investor buys a put with a $70 strike for a premium of 4. The breakeven price at expiration is:",
+    choices: ["$74, the strike plus the premium", "$66, the strike minus the premium", "$70, the strike price itself", "$4, the premium paid"],
+    answerIndex: 1,
+    explanation: "A put buyer profits as the stock falls, so the position breaks even when the stock has declined below the strike by the amount of the premium: $70 minus $4 equals $66. The mnemonic call up, put down captures the direction — a call's breakeven adds the premium to the strike, and a put's subtracts it.",
+  },
+  {
+    id: "sie-opt-q3", examSlug: "sie", topicId: "options", topicName: "Options", difficulty: 3,
+    stem: "An investor owns 100 shares purchased at $52 and writes a covered call with a $55 strike for a premium of 3. The maximum gain is:",
+    choices: ["$300, the premium received", "$600, the strike appreciation plus the premium", "$300, the appreciation to the strike only", "Unlimited, since the shares may continue rising"],
+    answerIndex: 1,
+    explanation: "If the stock rises above the strike the call is exercised and the shares are sold at $55, producing $3 per share of appreciation plus the $3 premium retained, or $600 total on 100 shares. Writing the call caps participation above $55, which is the trade-off for the income received, so unlimited upside no longer applies.",
+  },
+  {
+    id: "sie-opt-q4", examSlug: "sie", topicId: "options", topicName: "Options", difficulty: 3,
+    stem: "A stock trades at $46. A call with a $50 strike carries a premium of 1.50. The option's intrinsic and time value are:",
+    choices: ["Intrinsic 4.00, time value negative 2.50", "Intrinsic 1.50, time value 0", "Intrinsic 0, time value 1.50", "Intrinsic 0, time value 4.00"],
+    answerIndex: 2,
+    explanation: "A call is in the money only when the stock exceeds the strike; at $46 against a $50 strike this call is out of the money, so intrinsic value is zero and the entire $1.50 premium is time value. Intrinsic value can never be negative, because an option holder would simply decline to exercise.",
+  },
+  {
+    id: "sie-opt-q5", examSlug: "sie", topicId: "options", topicName: "Options", difficulty: 3,
+    stem: "An investor holding a large unrealized gain in a stock wants downside protection while retaining upside participation. Which strategy fits best?",
+    choices: ["Writing a covered call against the position", "Purchasing a protective put on the position", "Selling the stock short against the box", "Writing an uncovered put on the same stock"],
+    answerIndex: 1,
+    explanation: "A protective put establishes a floor at the strike price while leaving upside participation intact, functioning as insurance for the cost of the premium. A covered call generates income but caps the upside, which conflicts with the stated goal. Shorting against the box neutralizes both directions, and writing an uncovered put adds downside exposure rather than removing it.",
+  },
+  {
+    id: "sie-opt-q6", examSlug: "sie", topicId: "options", topicName: "Options", difficulty: 3,
+    stem: "Which position profits most directly from a large price move in either direction?",
+    choices: ["A long straddle, buying a call and a put at the same strike", "A short straddle, selling a call and a put at the same strike", "A covered call combined with a protective put", "A long call financed by writing a second call at a higher strike"],
+    answerIndex: 0,
+    explanation: "A long straddle pairs a purchased call and put at the same strike, profiting if the stock moves far enough in either direction to cover both premiums — a bet on volatility rather than direction. The short straddle is the opposite wager, profiting when the stock stays near the strike. The remaining structures cap gains and are directional or neutral rather than volatility-driven.",
+  },
+
+  // ============================================================
+  // MUNICIPAL SECURITIES
+  // ============================================================
+  {
+    id: "sie-muni-q1", examSlug: "sie", topicId: "munis", topicName: "Municipal Securities", difficulty: 3,
+    stem: "An analyst evaluating a revenue bond would focus primarily on:",
+    choices: ["The debt-per-capita ratio and assessed property values", "The debt service coverage ratio and a feasibility study", "The issuer's statutory debt limit and referendum results", "The full faith and credit pledge of the issuing municipality"],
+    answerIndex: 1,
+    explanation: "Revenue bonds are repaid solely from the receipts of the financed facility, so the analysis centers on whether projected revenues cover debt service, evidenced by the coverage ratio and the feasibility study. Debt per capita, assessed valuation, debt limits, and referendum outcomes are the analytical tools for general obligation bonds, which depend on taxing power.",
+  },
+  {
+    id: "sie-muni-q2", examSlug: "sie", topicId: "munis", topicName: "Municipal Securities", difficulty: 3,
+    stem: "An investor in the 24% federal bracket compares a 3.0% municipal bond with a taxable corporate bond. What corporate yield is required to match the municipal on an after-tax basis?",
+    choices: ["3.72%, the municipal yield divided by one minus the tax rate", "2.28%, the municipal yield multiplied by one minus the tax rate", "3.24%, the municipal yield increased by the tax rate", "3.00%, since municipal interest is taxable at the same rate"],
+    answerIndex: 0,
+    explanation: "Taxable-equivalent yield equals the tax-free yield divided by one minus the marginal rate: 3.0% divided by 0.76 equals approximately 3.95%. Multiplying instead of dividing produces the after-tax yield of a taxable bond, which is the reverse computation. The higher the investor's bracket, the greater the advantage municipal interest provides.",
+  },
+  {
+    id: "sie-muni-q3", examSlug: "sie", topicId: "munis", topicName: "Municipal Securities", difficulty: 2,
+    stem: "Municipal bond interest received by a resident of the issuing state is generally:",
+    choices: ["Exempt from federal tax and often from that state's income tax", "Subject to federal tax but exempt from state tax", "Fully taxable at both the federal and state levels", "Exempt from federal tax only if the bond is a revenue bond"],
+    answerIndex: 0,
+    explanation: "Municipal interest is generally exempt from federal income tax, and residents of the issuing state typically receive a state exemption as well, producing the double exemption that drives demand from high-bracket investors in high-tax states. The pattern of federal taxation with state exemption applies to Treasury securities instead. The exemption does not turn on whether the bond is a general obligation or revenue issue.",
+  },
+  {
+    id: "sie-muni-q4", examSlug: "sie", topicId: "munis", topicName: "Municipal Securities", difficulty: 3,
+    stem: "A municipality issues short-term notes to bridge a timing gap until property tax collections arrive. These are best described as:",
+    choices: ["Revenue anticipation notes secured by project receipts", "Tax anticipation notes secured by expected tax revenue", "Bond anticipation notes retired by a future bond sale", "General obligation bonds with a serial maturity structure"],
+    answerIndex: 1,
+    explanation: "Tax anticipation notes are short-term municipal borrowings repaid from expected tax collections, smoothing the mismatch between when a municipality spends and when taxes arrive. Revenue anticipation notes look to non-tax receipts, and bond anticipation notes are retired from the proceeds of a permanent bond issue. Each note type is named for the source that will repay it.",
+  },
+  {
+    id: "sie-muni-q5", examSlug: "sie", topicId: "munis", topicName: "Municipal Securities", difficulty: 3,
+    stem: "Where would an investor find official disclosure documents for a municipal issuer?",
+    choices: ["The SEC's EDGAR database", "FINRA BrokerCheck", "The MSRB's EMMA system", "The issuer's state banking commission"],
+    answerIndex: 2,
+    explanation: "EMMA, the Electronic Municipal Market Access system operated by the MSRB, is the official repository for municipal disclosure documents and trade data. EDGAR holds corporate registration and periodic filings, and BrokerCheck reports the licensing and disciplinary history of firms and representatives. Matching the repository to the security type is the tested skill.",
+  },
+  {
+    id: "sie-muni-q6", examSlug: "sie", topicId: "munis", topicName: "Municipal Securities", difficulty: 3,
+    stem: "Which factor would make a municipal bond LESS attractive to a particular investor?",
+    choices: ["The investor is in the highest marginal federal tax bracket", "The investor holds the bond in a tax-deferred retirement account", "The investor resides in the state where the bond was issued", "The investor seeks to reduce federally taxable interest income"],
+    answerIndex: 1,
+    explanation: "Holding a municipal bond inside a tax-deferred account wastes its defining advantage, since the account already shelters income from current taxation while the investor accepts the lower yield municipals pay. High brackets, in-state residency, and a desire to reduce taxable interest all strengthen the case for municipal ownership in a taxable account.",
+  },
+
+  // ============================================================
+  // CUSTOMER ACCOUNTS
+  // ============================================================
+  {
+    id: "sie-acct-q1", examSlug: "sie", topicId: "accounts", topicName: "Customer Accounts", difficulty: 3,
+    stem: "Two siblings own an account as tenants in common with unequal interests. Upon one sibling's death, that interest passes to:",
+    choices: ["The surviving sibling automatically by operation of law", "The deceased sibling's estate", "The broker-dealer, pending court instruction", "The account's designated beneficiary on file"],
+    answerIndex: 1,
+    explanation: "Tenants in common permits unequal fractional ownership, and a decedent's share passes to that person's estate for distribution under the will or intestacy law. Automatic transfer to the survivor is the defining feature of joint tenants with right of survivorship, which is the structure the question deliberately contrasts. A transfer-on-death designation would be a separate registration choice.",
+  },
+  {
+    id: "sie-acct-q2", examSlug: "sie", topicId: "accounts", topicName: "Customer Accounts", difficulty: 3,
+    stem: "Which statement about an UTMA custodial account is accurate?",
+    choices: ["Multiple minors may be named so siblings can share the assets", "Gifts are revocable and may be reclaimed by the donor", "One custodian holds assets for one minor, and gifts are irrevocable", "The custodian retains ownership after the minor reaches majority"],
+    answerIndex: 2,
+    explanation: "An UTMA or UGMA account pairs exactly one custodian with one minor, and every gift into it is an irrevocable transfer belonging to the minor. Control passes to the beneficiary at the age of majority, which is precisely why the custodian cannot retain ownership afterward. Separate accounts are required for separate minors.",
+  },
+  {
+    id: "sie-acct-q3", examSlug: "sie", topicId: "accounts", topicName: "Customer Accounts", difficulty: 3,
+    stem: "A representative wishes to decide which securities to buy in a customer's account without contacting the customer for each trade. This requires:",
+    choices: ["A verbal authorization documented in the customer file", "Prior written authorization from the customer and firm approval", "Approval from a principal after the first three transactions", "Nothing further, provided the trades are suitable"],
+    answerIndex: 1,
+    explanation: "Choosing the security, the amount, and whether to buy or sell constitutes discretion, which requires prior written authorization from the customer and acceptance of the account by the firm. Deciding only the price or timing of an order the customer has already specified is not discretion and needs no written authority. Suitability is a separate and additional obligation.",
+  },
+  {
+    id: "sie-acct-q4", examSlug: "sie", topicId: "accounts", topicName: "Customer Accounts", difficulty: 3,
+    stem: "A representative learns that an individual account holder has died. The first appropriate action is to:",
+    choices: ["Liquidate the positions to protect the estate from market risk", "Cancel open orders and freeze the account pending documentation", "Transfer the assets to the surviving spouse immediately", "Continue executing the customer's most recent standing instructions"],
+    answerIndex: 1,
+    explanation: "On notice of death the representative cancels all open orders and freezes the account, then awaits required documents such as a death certificate and letters of appointment before acting further. Liquidating, transferring, or continuing to trade all constitute unauthorized activity, since the deceased customer's authority ended and no one else has yet been legally empowered to act.",
+  },
+  {
+    id: "sie-acct-q5", examSlug: "sie", topicId: "accounts", topicName: "Customer Accounts", difficulty: 3,
+    stem: "Under Regulation T, an investor purchasing $30,000 of marginable stock must deposit:",
+    choices: ["$7,500, the maintenance requirement of 25%", "$15,000, the initial requirement of 50%", "$9,000, the short maintenance requirement of 30%", "$30,000, since margin is unavailable for new purchases"],
+    answerIndex: 1,
+    explanation: "Regulation T sets the initial margin requirement at 50% of the purchase amount, so a $30,000 position requires a $15,000 deposit, with the broker lending the balance. The 25% figure is FINRA's minimum maintenance requirement for long positions after the trade, and 30% applies to short positions — both govern what must be maintained, not what must be deposited initially.",
+  },
+  {
+    id: "sie-acct-q6", examSlug: "sie", topicId: "accounts", topicName: "Customer Accounts", difficulty: 3,
+    stem: "SIPC coverage protects a customer against which of the following?",
+    choices: ["A decline in the market value of securities held in the account", "The failure of the broker-dealer holding the customer's assets", "Losses resulting from unsuitable recommendations by a representative", "The bankruptcy of a corporation whose shares the customer owns"],
+    answerIndex: 1,
+    explanation: "SIPC protects customers when a member broker-dealer fails, covering up to $500,000 per customer including a $250,000 limit on cash. It is custodial protection, not investment protection, so ordinary market losses, poor advice, and the failure of an issuer whose stock the customer chose all fall outside its scope.",
+  },
+
+  // ============================================================
+  // TRADING
+  // ============================================================
+  {
+    id: "sie-trd-q1", examSlug: "sie", topicId: "trading", topicName: "Trading & Prohibited Acts", difficulty: 3,
+    stem: "A customer wants to buy a stock currently trading at $52 but will pay no more than $50. The appropriate order is a:",
+    choices: ["Market order, ensuring immediate execution", "Buy limit order at $50, which fills at $50 or better", "Buy stop order at $50, triggered if the price declines", "Sell stop order at $50, protecting against further decline"],
+    answerIndex: 1,
+    explanation: "A buy limit sets a ceiling on the price paid and executes only at the limit or lower, which is exactly the customer's instruction, accepting that it may not fill while the stock trades above $50. A market order would execute immediately at $52 with no price protection. Buy stops are placed above the market and activate on a rise, and a sell stop is the wrong side of the trade entirely.",
+  },
+  {
+    id: "sie-trd-q2", examSlug: "sie", topicId: "trading", topicName: "Trading & Prohibited Acts", difficulty: 3,
+    stem: "Regular-way settlement for a common stock trade executed on Monday occurs on:",
+    choices: ["Monday, the same business day as the trade", "Tuesday, one business day after the trade", "Wednesday, two business days after the trade", "Thursday, three business days after the trade"],
+    answerIndex: 1,
+    explanation: "Regular-way settlement for equities, corporate bonds, and municipal securities is one business day after the trade date, a standard that shortened from two days in May 2024. A Monday trade therefore settles Tuesday, assuming no intervening holiday. Materials still citing a two-day cycle are outdated.",
+  },
+  {
+    id: "sie-trd-q3", examSlug: "sie", topicId: "trading", topicName: "Trading & Prohibited Acts", difficulty: 3,
+    stem: "A representative repeatedly trades a retirement account, generating substantial commissions while the account's allocation remains essentially unchanged. This conduct is best described as:",
+    choices: ["Front-running the customer's own orders", "Churning, or excessive trading for commission purposes", "Painting the tape to simulate market activity", "Selling away from the employing firm"],
+    answerIndex: 1,
+    explanation: "Trading whose frequency serves the representative's compensation rather than the customer's objectives is churning, and an unchanged allocation despite heavy activity is the classic evidence. Front-running involves trading ahead of a known customer order, painting the tape is manipulation through matched trades, and selling away means transacting outside the firm without approval.",
+  },
+  {
+    id: "sie-trd-q4", examSlug: "sie", topicId: "trading", topicName: "Trading & Prohibited Acts", difficulty: 3,
+    stem: "Two representatives at different firms agree to trade a thinly traded security back and forth to create the appearance of active volume. This is:",
+    choices: ["Permissible, since both sides are bona fide transactions", "Market manipulation through matched orders, which is prohibited", "Acceptable if disclosed to both firms' compliance departments", "Front-running, since it precedes customer interest"],
+    answerIndex: 1,
+    explanation: "Coordinated buying and selling designed to create a misleading impression of trading activity constitutes matched orders, a form of manipulation prohibited under the Securities Exchange Act of 1934. The trades are not bona fide because neither party intends a genuine change in beneficial ownership, and disclosure to compliance cannot cure conduct that is unlawful in itself.",
+  },
+  {
+    id: "sie-trd-q5", examSlug: "sie", topicId: "trading", topicName: "Trading & Prohibited Acts", difficulty: 3,
+    stem: "An analyst learns from a friend at a target company that a merger will be announced next week and buys shares. The analyst has most likely:",
+    choices: ["Acted properly, since the information came from a personal contact", "Violated insider trading prohibitions by trading on material nonpublic information", "Committed churning by trading ahead of a corporate action", "Engaged in selling away by acting outside firm channels"],
+    answerIndex: 1,
+    explanation: "Merger news is material, and information not yet disclosed to the public is nonpublic, so trading on it violates insider trading prohibitions regardless of how casually the tip arrived. Both the tipper and the tippee face liability. The personal nature of the source is precisely what creates the breach of duty rather than excusing it.",
+  },
+  {
+    id: "sie-trd-q6", examSlug: "sie", topicId: "trading", topicName: "Trading & Prohibited Acts", difficulty: 3,
+    stem: "A customer deposits $12,000 in cash in a single day. The firm is required to file:",
+    choices: ["A Suspicious Activity Report, regardless of the amount", "A Currency Transaction Report, because the amount exceeds $10,000", "Form U4, amending the customer's registration record", "No report, since the deposit is below the $25,000 threshold"],
+    answerIndex: 1,
+    explanation: "Cash transactions exceeding $10,000 in a single day trigger a Currency Transaction Report under Bank Secrecy Act requirements. A Suspicious Activity Report is filed when activity appears suspicious, which is a separate trigger not automatically met by size alone. Form U4 registers representatives, not customers.",
+  },
+  {
+    id: "sie-trd-q7", examSlug: "sie", topicId: "trading", topicName: "Trading & Prohibited Acts", difficulty: 3,
+    stem: "A representative accepts an order from the spouse of an account owner. The spouse is not named on the account and has no written authorization. The representative should:",
+    choices: ["Enter the order, since spouses share a legal interest in assets", "Enter the order but mark it unsolicited to limit liability", "Decline the order absent proper third-party written authorization", "Enter the order only if it is a sale rather than a purchase"],
+    answerIndex: 2,
+    explanation: "Only the account owner or a properly authorized third party with written authority on file may direct activity in an account, and marital status confers no such authority by itself. Marking the ticket unsolicited addresses how an order originated, not whether the person placing it was entitled to do so, and the buy-versus-sell distinction is irrelevant to authorization.",
+  },
+  {
+    id: "sie-trd-q8", examSlug: "sie", topicId: "trading", topicName: "Trading & Prohibited Acts", difficulty: 3,
+    stem: "A trade confirmation must be delivered to the customer:",
+    choices: ["Within thirty days following the end of the month", "At or before completion of the transaction", "Only upon the customer's written request", "At the close of the calendar quarter with the account statement"],
+    answerIndex: 1,
+    explanation: "A confirmation disclosing the essential trade terms must reach the customer at or before completion of the transaction, meaning by settlement. Account statements follow a separate schedule, generally quarterly at minimum and monthly when there is activity, so confusing the two documents' timing is the tested trap.",
+  },
+  {
+    id: "sie-trd-q9", examSlug: "sie", topicId: "trading", topicName: "Trading & Prohibited Acts", difficulty: 3,
+    stem: "A representative sells a private real estate investment to a customer without notifying the employing firm. This violation is known as:",
+    choices: ["Selling away, a private securities transaction without firm approval", "Churning the customer's account for additional compensation", "Breakpoint selling to avoid a reduced sales charge", "Freeriding by trading without sufficient funds on deposit"],
+    answerIndex: 0,
+    explanation: "Participating in a private securities transaction outside the scope of employment without prior written notice to and approval from the firm is selling away, prohibited because it removes the transaction from the firm's supervision. Breakpoint selling involves mutual fund sales charges, churning involves excessive trading, and freeriding involves paying for securities with the proceeds of their own sale.",
+  },
+  {
+    id: "sie-trd-q10", examSlug: "sie", topicId: "trading", topicName: "Trading & Prohibited Acts", difficulty: 3,
+    stem: "A buy stop order placed above the current market price becomes a market order when the stock:",
+    choices: ["Declines to or below the stop price", "Rises to or through the stop price", "Trades at the prior session's closing price", "Reaches the specified limit price or better"],
+    answerIndex: 1,
+    explanation: "A buy stop rests above the market and activates when the price rises to or through the stop, commonly used to protect a short position or to participate in upside momentum. Stop orders triggered by declines are sell stops placed below the market. Once triggered, a stop becomes a market order and carries no price guarantee, unlike a stop-limit.",
+  },
+  {
+    id: "sie-trd-q11", examSlug: "sie", topicId: "trading", topicName: "Trading & Prohibited Acts", difficulty: 3,
+    stem: "A dealer charges a customer a markup substantially above the prevailing market price on a principal transaction. This most directly implicates:",
+    choices: ["Regulation T margin requirements", "FINRA's fair pricing rules and the 5% policy", "The prospectus delivery requirement", "Anti-money-laundering transaction reporting"],
+    answerIndex: 1,
+    explanation: "FINRA's 5% policy is a guideline requiring that markups, markdowns, and commissions be fair and reasonable in light of all relevant circumstances, and excessive markups on principal trades violate that fair-pricing obligation. It is expressly a guideline rather than a hard ceiling, so context matters. Margin rules, prospectus delivery, and AML reporting address unrelated obligations.",
+  },
+
+  // ============================================================
+  // SUITABILITY
+  // ============================================================
+  {
+    id: "sie-suit-q1", examSlug: "sie", topicId: "suitability", topicName: "Suitability", difficulty: 3,
+    stem: "Under Regulation Best Interest, when a broker-dealer recommends a security to a retail customer, it must:",
+    choices: ["Recommend the lowest-cost product available in every case", "Act in the customer's best interest without placing its own interests first", "Obtain written customer consent before each recommendation", "Guarantee that the recommendation will not result in a loss"],
+    answerIndex: 1,
+    explanation: "Regulation Best Interest requires a broker-dealer to act in the retail customer's best interest at the time a recommendation is made and not to place its own financial interests ahead of the customer's, satisfying disclosure, care, conflict-of-interest, and compliance obligations. Cost is one factor among many rather than a mandate to always choose the cheapest product, and no rule requires per-recommendation consent or guarantees outcomes.",
+  },
+  {
+    id: "sie-suit-q2", examSlug: "sie", topicId: "suitability", topicName: "Suitability", difficulty: 3,
+    stem: "A 68-year-old retiree with modest savings needs current income and cannot tolerate loss of principal. Which recommendation is most suitable?",
+    choices: ["A leveraged sector exchange-traded fund", "High-quality short-term bonds and money market instruments", "A direct participation program investing in raw land", "Uncovered call writing to generate premium income"],
+    answerIndex: 1,
+    explanation: "High-quality short-term debt and money market instruments provide current income with limited principal volatility and ready liquidity, matching the stated objectives and constraints. Leveraged funds magnify volatility, raw-land programs are illiquid and speculative, and uncovered call writing exposes the investor to theoretically unlimited loss — each conflicts directly with a requirement to preserve principal.",
+  },
+  {
+    id: "sie-suit-q3", examSlug: "sie", topicId: "suitability", topicName: "Suitability", difficulty: 3,
+    stem: "FINRA's Know Your Customer rule requires a member firm to use reasonable diligence to know the essential facts concerning:",
+    choices: ["Only customers whose accounts exceed a specified asset threshold", "Every customer and the authority of each person acting on the account", "Only customers who trade on margin or in options", "Only institutional customers subject to heightened standards"],
+    answerIndex: 1,
+    explanation: "The Know Your Customer rule applies to every customer, requiring reasonable diligence to know and retain the essential facts about the account and the authority of anyone acting on the customer's behalf. There is no asset threshold, product trigger, or institutional limitation — the obligation attaches at account opening and continues throughout the relationship.",
+  },
+  {
+    id: "sie-suit-q4", examSlug: "sie", topicId: "suitability", topicName: "Suitability", difficulty: 3,
+    stem: "A customer declines to provide financial information when opening an account. The representative may:",
+    choices: ["Refuse to open the account under any circumstances", "Open the account but must exercise care in making recommendations", "Open the account and recommend freely, since disclosure was refused", "Open the account only if a principal provides written approval of each trade"],
+    answerIndex: 1,
+    explanation: "An account may be opened when a customer declines to supply financial details, but the absence of that information constrains what the firm can reasonably recommend, since a suitability determination requires a reasonable basis. Recommending freely on the theory that the customer waived protection is precisely what the rules forbid, and no rule imposes a blanket refusal or per-trade principal approval in this situation.",
+  },
+  {
+    id: "sie-suit-q5", examSlug: "sie", topicId: "suitability", topicName: "Suitability", difficulty: 3,
+    stem: "An investor's stated objective is capital appreciation with a twenty-year horizon and high risk tolerance. Which allocation aligns best?",
+    choices: ["Predominantly growth equities with a modest fixed-income component", "Predominantly Treasury bills held to maturity and rolled", "An equal split between money market funds and certificates of deposit", "Entirely municipal bonds selected for their tax exemption"],
+    answerIndex: 0,
+    explanation: "A long horizon paired with high risk tolerance and an appreciation objective points to equities, where growth potential is greatest and time allows recovery from volatility. Bills, money market funds, and certificates of deposit prioritize preservation and produce little appreciation. Municipal bonds serve tax-sensitive income needs, which the stated objective does not include.",
+  },
+  {
+    id: "sie-suit-q6", examSlug: "sie", topicId: "suitability", topicName: "Suitability", difficulty: 3,
+    stem: "A representative recommends that a customer purchase mutual fund shares in an amount just below a breakpoint, foregoing a reduced sales charge. This practice is:",
+    choices: ["Acceptable, since the customer chose the investment amount", "Breakpoint selling, a prohibited practice", "Required when the customer's horizon is short", "Permissible if the fund family approves the transaction"],
+    answerIndex: 1,
+    explanation: "Recommending an amount just below a breakpoint deprives the customer of a lower sales charge while preserving the representative's compensation, which is the prohibited practice known as breakpoint selling. The representative has an affirmative duty to inform customers of available breakpoints, so neither customer choice nor fund family approval legitimizes the recommendation.",
+  },
+
+  // ============================================================
+  // UNDERWRITING
+  // ============================================================
+  {
+    id: "sie-uw-q1", examSlug: "sie", topicId: "underwriting", topicName: "Underwriting", difficulty: 3,
+    stem: "The Securities Act of 1933 and the Securities Exchange Act of 1934 differ in that the 1933 Act principally governs:",
+    choices: ["Secondary market trading and exchange registration", "The issuance of new securities and required disclosure", "Investment adviser conduct and fiduciary standards", "The organization and taxation of investment companies"],
+    answerIndex: 1,
+    explanation: "The Securities Act of 1933 addresses the primary market, requiring registration and prospectus delivery so buyers of new issues receive full disclosure. The Securities Exchange Act of 1934 governs the secondary market, created the SEC, and regulates exchanges and broker-dealers. Adviser conduct falls under the Investment Advisers Act of 1940 and investment company structure under the Investment Company Act of 1940.",
+  },
+  {
+    id: "sie-uw-q2", examSlug: "sie", topicId: "underwriting", topicName: "Underwriting", difficulty: 3,
+    stem: "In a best-efforts underwriting, unsold shares are:",
+    choices: ["Purchased by the underwriter at the offering price", "Returned to the issuer, which bears the shortfall risk", "Allocated to the syndicate members proportionally", "Sold at a discount to institutional investors automatically"],
+    answerIndex: 1,
+    explanation: "In a best-efforts arrangement the underwriter acts as the issuer's agent rather than as principal, selling what it can and returning whatever remains unsold, so the issuer carries the risk of a shortfall. The underwriter purchases the entire issue and absorbs that risk only in a firm-commitment structure, which is the arrangement being contrasted here.",
+  },
+  {
+    id: "sie-uw-q3", examSlug: "sie", topicId: "underwriting", topicName: "Underwriting", difficulty: 3,
+    stem: "Which security is exempt from registration under the Securities Act of 1933?",
+    choices: ["A corporate initial public offering of common stock", "A general obligation bond issued by a municipality", "A newly offered convertible corporate debenture", "A private company's first public offering of preferred stock"],
+    answerIndex: 1,
+    explanation: "Municipal and U.S. government securities are exempt securities that do not require full registration under the 1933 Act, reflecting the disclosure and oversight already applicable to government issuers. Corporate offerings of common stock, preferred stock, and convertible debentures are precisely the new issues the Act was written to cover.",
+  },
+  {
+    id: "sie-uw-q4", examSlug: "sie", topicId: "underwriting", topicName: "Underwriting", difficulty: 3,
+    stem: "The largest component of the underwriting spread in a typical corporate offering is the:",
+    choices: ["Manager's fee retained by the lead underwriter", "Underwriting fee compensating for capital risk", "Selling concession paid to those who place the shares", "Registration fee remitted to the SEC"],
+    answerIndex: 2,
+    explanation: "The selling concession is the largest slice of the spread because it compensates the firms and representatives who actually distribute the shares to investors, which is where the work of an offering concentrates. The manager's fee and underwriting fee are smaller components covering syndicate management and capital risk respectively. SEC registration fees are an issuer expense, not part of the spread.",
+  },
+  {
+    id: "sie-uw-q5", examSlug: "sie", topicId: "underwriting", topicName: "Underwriting", difficulty: 3,
+    stem: "A final prospectus must be delivered to a purchaser of a registered new issue:",
+    choices: ["Only if the purchaser requests it in writing", "No later than confirmation of the sale", "Within thirty days after the settlement date", "Only when the offering exceeds a stated dollar threshold"],
+    answerIndex: 1,
+    explanation: "The final prospectus must reach the purchaser no later than the confirmation of sale, ensuring full disclosure accompanies the transaction rather than following it. Delivery is mandatory rather than request-driven, and there is no dollar threshold that excuses it for a registered offering.",
+  },
+  {
+    id: "sie-uw-q6", examSlug: "sie", topicId: "underwriting", topicName: "Underwriting", difficulty: 3,
+    stem: "Rule 144 principally governs:",
+    choices: ["The resale of restricted and control securities", "The registration of securities exchanges with the SEC", "The maximum sales charge on mutual fund purchases", "The margin requirements applicable to new issues"],
+    answerIndex: 0,
+    explanation: "Rule 144 sets the conditions under which restricted securities acquired privately and control securities held by affiliates may be resold, imposing holding period and volume limitations. Exchange registration falls under the 1934 Act, mutual fund sales charges under FINRA rules and the Investment Company Act, and margin under Regulation T.",
+  },
+
+  // ============================================================
+  // REGULATORY FRAMEWORK
+  // ============================================================
+  {
+    id: "sie-reg-q1", examSlug: "sie", topicId: "regulation", topicName: "Regulatory Framework", difficulty: 2,
+    stem: "A member firm registers a new representative by filing:",
+    choices: ["Form U5 with the representative's prior employer", "Form U4 through the CRD system", "Form BD with the SEC", "Form ADV with the state securities administrator"],
+    answerIndex: 1,
+    explanation: "Form U4 is the uniform application filed through the Central Registration Depository to register an individual as a representative. Form U5 reports a termination, Form BD registers the broker-dealer entity itself, and Form ADV is the investment adviser registration form. Matching each form to its subject is the tested distinction.",
+  },
+  {
+    id: "sie-reg-q2", examSlug: "sie", topicId: "regulation", topicName: "Regulatory Framework", difficulty: 3,
+    stem: "A representative leaves a firm. The firm must file Form U5 within:",
+    choices: ["Ten business days of termination", "Thirty days of termination", "Sixty days of termination", "Ninety days of termination"],
+    answerIndex: 1,
+    explanation: "The employing firm must file Form U5 within thirty days of a representative's termination and provide a copy to the representative. The filing preserves an accurate regulatory record, including the reason for departure, which follows the individual to any future firm.",
+  },
+  {
+    id: "sie-reg-q3", examSlug: "sie", topicId: "regulation", topicName: "Regulatory Framework", difficulty: 3,
+    stem: "A written communication distributed to more than twenty-five retail investors within thirty days is classified as:",
+    choices: ["Correspondence, requiring only post-use review", "A retail communication, generally requiring prior principal approval", "An institutional communication, exempt from approval requirements", "A private placement memorandum subject to Regulation D"],
+    answerIndex: 1,
+    explanation: "Communications distributed to more than twenty-five retail investors in a thirty-day period are retail communications, which generally require approval by a registered principal before first use. Correspondence is the category for twenty-five or fewer retail investors, and institutional communications are directed to institutional investors under different standards.",
+  },
+  {
+    id: "sie-reg-q4", examSlug: "sie", topicId: "regulation", topicName: "Regulatory Framework", difficulty: 2,
+    stem: "FINRA's continuing education requirement consists of:",
+    choices: ["A Regulatory Element and a Firm Element", "An annual examination administered by the SEC", "A state-administered ethics filing", "A biennial recertification through the CRD system"],
+    answerIndex: 0,
+    explanation: "Continuing education comprises the Regulatory Element, computer-based training on regulatory topics delivered on a set schedule, and the Firm Element, an annual training plan each firm develops for its covered registered persons. The two components address different needs, one industry-wide and one tailored to the firm's business.",
+  },
+  {
+    id: "sie-reg-q5", examSlug: "sie", topicId: "regulation", topicName: "Regulatory Framework", difficulty: 2,
+    stem: "A prospective client wants to research a representative's employment history and any disciplinary actions. The appropriate resource is:",
+    choices: ["The SEC's EDGAR filing system", "FINRA BrokerCheck", "The MSRB's EMMA system", "The firm's internal compliance records"],
+    answerIndex: 1,
+    explanation: "BrokerCheck is FINRA's free public database reporting the registration status, employment history, licenses, and disciplinary events of firms and representatives. EDGAR holds corporate filings and EMMA holds municipal disclosures, and a firm's internal records are not publicly accessible.",
+  },
+  {
+    id: "sie-reg-q6", examSlug: "sie", topicId: "regulation", topicName: "Regulatory Framework", difficulty: 3,
+    stem: "Which statement about the Customer Identification Program is accurate?",
+    choices: ["It requires firms to verify the identity of each customer opening an account", "It requires firms to guarantee the lawful source of all deposited funds", "It applies only to accounts exceeding $10,000 in initial value", "It replaces the need to file Suspicious Activity Reports"],
+    answerIndex: 0,
+    explanation: "The Customer Identification Program, a required component of a firm's anti-money-laundering program, obligates the firm to collect and verify identifying information such as name, date of birth, address, and taxpayer identification number for each customer opening an account. It carries no dollar threshold, does not make the firm a guarantor of fund sources, and operates alongside rather than instead of suspicious activity reporting.",
+  },
+  {
+    id: "sie-reg-q7", examSlug: "sie", topicId: "regulation", topicName: "Regulatory Framework", difficulty: 3,
+    stem: "The Securities Exchange Act of 1934 is responsible for:",
+    choices: ["Requiring registration statements for all new corporate issues", "Creating the SEC and regulating the secondary market", "Establishing the fiduciary duty of investment advisers", "Setting the maximum sales charge for mutual funds"],
+    answerIndex: 1,
+    explanation: "The Securities Exchange Act of 1934 created the Securities and Exchange Commission and governs secondary market activity, including exchanges, broker-dealer registration, insider trading, and manipulation. New issue registration is the province of the 1933 Act, adviser standards belong to the Advisers Act of 1940, and fund sales charges are governed by FINRA rules and the Investment Company Act of 1940.",
+  },
+  {
+    id: "sie-reg-q8", examSlug: "sie", topicId: "regulation", topicName: "Regulatory Framework", difficulty: 3,
+    stem: "A customer complaint received in writing must be:",
+    choices: ["Resolved within ten business days of receipt", "Recorded and reported in accordance with FINRA requirements", "Forwarded directly to the SEC for investigation", "Settled through mandatory arbitration before any response"],
+    answerIndex: 1,
+    explanation: "Written customer complaints must be recorded, retained, and reported to FINRA under its reporting requirements, creating a supervisory record the firm and regulators can examine. There is no universal ten-day resolution mandate, complaints are not routed directly to the SEC as a matter of course, and arbitration follows the dispute resolution process rather than preceding any response.",
+  },
+
+  // ============================================================
+  // ECONOMIC FACTORS
+  // ============================================================
+  {
+    id: "sie-econ-q1", examSlug: "sie", topicId: "economics", topicName: "Economic Factors", difficulty: 3,
+    stem: "The business cycle phase characterized by rising unemployment, falling GDP, and declining corporate profits is the:",
+    choices: ["Expansion, as inventories are drawn down", "Peak, as growth reaches its maximum rate", "Contraction, which becomes a recession if sustained", "Trough, which marks the cycle's turning point upward"],
+    answerIndex: 2,
+    explanation: "Falling output, rising unemployment, and shrinking profits define the contraction phase, which is formally labeled a recession when the decline persists across two consecutive quarters of real GDP. The peak marks the cycle's high point before decline begins, the trough is the bottom that precedes recovery, and expansion is the phase of rising activity.",
+  },
+  {
+    id: "sie-econ-q2", examSlug: "sie", topicId: "economics", topicName: "Economic Factors", difficulty: 3,
+    stem: "Which action represents expansionary monetary policy?",
+    choices: ["The Fed purchasing Treasury securities on the open market", "Congress raising marginal income tax rates", "The Fed increasing the reserve requirement for banks", "The Treasury issuing additional long-term bonds"],
+    answerIndex: 0,
+    explanation: "When the Fed buys securities it credits reserves to the banking system, expanding the money supply and putting downward pressure on short-term rates, which is expansionary. Raising reserve requirements withdraws lending capacity and is contractionary. Tax changes are fiscal policy set by Congress, and Treasury debt issuance is government financing rather than monetary policy.",
+  },
+  {
+    id: "sie-econ-q3", examSlug: "sie", topicId: "economics", topicName: "Economic Factors", difficulty: 3,
+    stem: "During a period of rapidly rising inflation, which investment is likely to suffer the greatest loss of purchasing power?",
+    choices: ["A thirty-year fixed-rate corporate bond", "Common stock in a company with pricing power", "Treasury Inflation-Protected Securities", "A portfolio of physical commodities"],
+    answerIndex: 0,
+    explanation: "A long-dated fixed-rate bond locks in nominal payments for decades, so inflation steadily erodes the real value of both the coupon stream and the principal repaid — the longer the maturity, the greater the damage. Companies with pricing power can raise prices, TIPS index principal to the CPI, and commodities typically rise with inflation, so each of those offers some defense.",
+  },
+  {
+    id: "sie-econ-q4", examSlug: "sie", topicId: "economics", topicName: "Economic Factors", difficulty: 3,
+    stem: "The U.S. dollar strengthens materially against the euro. The most likely consequence for a U.S. manufacturer that exports to Europe is that its products become:",
+    choices: ["Less expensive for European buyers, boosting export volume", "More expensive for European buyers, pressuring export volume", "Unaffected, since contracts are denominated in dollars", "More profitable, because the currency gain offsets lower sales"],
+    answerIndex: 1,
+    explanation: "A stronger dollar means European buyers must surrender more euros to obtain the same dollar-denominated goods, raising the effective price abroad and typically reducing export volume. This is why a strengthening home currency generally pressures exporters while benefiting importers, who acquire foreign goods more cheaply.",
+  },
+  {
+    id: "sie-econ-q5", examSlug: "sie", topicId: "economics", topicName: "Economic Factors", difficulty: 3,
+    stem: "Which indicator would an economist classify as coincident with the business cycle?",
+    choices: ["Building permits issued for new housing", "Industrial production and personal income", "The average duration of unemployment", "Corporate profits reported for the prior quarter"],
+    answerIndex: 1,
+    explanation: "Coincident indicators such as industrial production, personal income, and nonfarm payrolls move essentially in step with the overall economy, marking where the cycle currently stands. Building permits lead the cycle, while unemployment duration and reported corporate profits lag it. Classifying an indicator by its timing relative to the cycle is the tested skill.",
+  },
+  {
+    id: "sie-econ-q6", examSlug: "sie", topicId: "economics", topicName: "Economic Factors", difficulty: 3,
+    stem: "Fiscal policy differs from monetary policy in that fiscal policy is:",
+    choices: ["Conducted by the Federal Reserve through interest rate targets", "Conducted by Congress and the President through spending and taxation", "Limited to adjusting bank reserve requirements", "Administered by the SEC to stabilize securities markets"],
+    answerIndex: 1,
+    explanation: "Fiscal policy is the domain of the elected branches, operating through government spending and taxation decisions. Monetary policy belongs to the Federal Reserve and works through open market operations, the discount rate, and reserve requirements. The SEC regulates securities markets and does not conduct macroeconomic policy at all.",
+  },
+];

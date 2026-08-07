@@ -13,7 +13,7 @@ export const sieDeepChapters: Chapter[] = [
     topicId: "markets",
     topicName: "Capital Markets",
     title: "Capital Markets: Participants and Regulators",
-    readingMinutes: 52,
+    readingMinutes: 4,
     summary:
       "How the securities industry is organized — the primary versus secondary markets, the roles of issuers, broker-dealers, market makers, and investors, and the regulatory web of the SEC, FINRA, the MSRB, and SIPC.",
     intro:
@@ -73,7 +73,7 @@ export const sieDeepChapters: Chapter[] = [
     topicId: "products",
     topicName: "Products & Risks",
     title: "Securities Products: Equity, Debt, and Pooled Investments",
-    readingMinutes: 56,
+    readingMinutes: 4,
     summary:
       "The building blocks of the markets — common and preferred stock, the features and yields of bonds, money-market instruments, and pooled vehicles like mutual funds and ETFs, plus the main investment risks.",
     intro:
@@ -135,7 +135,7 @@ export const sieDeepChapters: Chapter[] = [
     topicId: "regulation",
     topicName: "Regulatory Framework",
     title: "The Regulatory Framework: The 1933 and 1934 Acts and Registration",
-    readingMinutes: 54,
+    readingMinutes: 4,
     summary:
       "The legal foundation of the securities industry — the Securities Act of 1933 governing new issues, the Securities Exchange Act of 1934 governing the secondary market and creating the SEC, the registration of securities and persons, and the major exemptions.",
     intro:
@@ -196,7 +196,7 @@ export const sieDeepChapters: Chapter[] = [
     topicId: "suitability",
     topicName: "Accounts & Prohibited Activities",
     title: "Customer Accounts, Suitability, and Prohibited Activities",
-    readingMinutes: 52,
+    readingMinutes: 4,
     summary:
       "The conduct rules that protect investors — account types and registration, the know-your-customer and Regulation Best Interest obligations, anti-money-laundering requirements, and the prohibited practices every registered person must avoid.",
     intro:
@@ -257,8 +257,8 @@ export const sieDeepQuestions: Question[] = [
   {
     id: "sie-mk-d1", examSlug: "sie", topicId: "markets", topicName: "Capital Markets", difficulty: 1,
     stem: "In the PRIMARY market, the proceeds from a securities sale go to:",
-    choices: ["Another investor", "The issuing company or government", "The stock exchange", "FINRA"],
-    answerIndex: 1,
+    choices: ["The issuing company or government", "Another investor", "The stock exchange", "FINRA"],
+    answerIndex: 0,
     explanation: "In the primary market, securities are sold by the issuer (e.g., in an IPO) and proceeds go to the issuer to raise capital. In the secondary market, money instead flows between investors.",
   },
   {
@@ -271,22 +271,22 @@ export const sieDeepQuestions: Question[] = [
   {
     id: "sie-mk-d3", examSlug: "sie", topicId: "markets", topicName: "Capital Markets", difficulty: 2,
     stem: "SIPC protects customers against:",
-    choices: ["Market losses on their investments", "The failure (insolvency) of their broker-dealer", "Issuer bankruptcy", "Inflation"],
-    answerIndex: 1,
+    choices: ["Market losses on their investments", "Issuer bankruptcy", "The failure (insolvency) of their broker-dealer", "Inflation"],
+    answerIndex: 2,
     explanation: "SIPC protects customers if their broker-dealer fails, up to $500,000 per customer (including $250,000 for cash). It does NOT protect against market losses — a stock simply declining is not covered.",
   },
   {
     id: "sie-mk-d4", examSlug: "sie", topicId: "markets", topicName: "Capital Markets", difficulty: 2,
     stem: "Which self-regulatory organization writes rules for municipal securities dealers?",
-    choices: ["FINRA", "The MSRB", "The SEC", "SIPC"],
-    answerIndex: 1,
+    choices: ["FINRA", "The SEC", "SIPC", "The MSRB"],
+    answerIndex: 3,
     explanation: "The MSRB writes rules for municipal securities dealers, though enforcement is carried out by FINRA and the SEC. FINRA regulates broker-dealers generally and administers the qualification exams.",
   },
   {
     id: "sie-mk-d5", examSlug: "sie", topicId: "markets", topicName: "Capital Markets", difficulty: 1,
     stem: "A market maker's quoted 'bid' is the price at which it will:",
-    choices: ["Sell the security", "Buy the security", "Lend the security", "Register the security"],
-    answerIndex: 1,
+    choices: ["Buy the security", "Sell the security", "Lend the security", "Register the security"],
+    answerIndex: 0,
     explanation: "The bid is the price a market maker will pay to BUY the security; the ask (offer) is the price it will sell at. The difference between them is the spread.",
   },
   {
@@ -299,50 +299,50 @@ export const sieDeepQuestions: Question[] = [
   {
     id: "sie-pr-d2", examSlug: "sie", topicId: "products", topicName: "Products & Risks", difficulty: 1,
     stem: "When market interest rates rise, the prices of existing bonds generally:",
-    choices: ["Rise", "Fall", "Stay the same", "Become tax-free"],
-    answerIndex: 1,
+    choices: ["Rise", "Stay the same", "Fall", "Become tax-free"],
+    answerIndex: 2,
     explanation: "Bond prices move inversely to interest rates: when rates rise, existing lower-coupon bonds fall in price (trading at a discount). This is interest-rate risk.",
   },
   {
     id: "sie-pr-d3", examSlug: "sie", topicId: "products", topicName: "Products & Risks", difficulty: 2,
     stem: "An open-end mutual fund's shares are priced at:",
-    choices: ["A market price set by supply and demand", "Net asset value (NAV)", "Par value", "The IPO price"],
-    answerIndex: 1,
+    choices: ["A market price set by supply and demand", "Par value", "The IPO price", "Net asset value (NAV)"],
+    answerIndex: 3,
     explanation: "Open-end mutual fund shares are continuously issued and redeemed at net asset value (NAV). Closed-end funds and ETFs instead trade on exchanges at market prices.",
   },
   {
     id: "sie-pr-d4", examSlug: "sie", topicId: "products", topicName: "Products & Risks", difficulty: 1,
     stem: "Compared with common stock, preferred stock generally:",
-    choices: ["Has greater voting rights", "Pays a fixed dividend with priority over common", "Shares more in company growth", "Is always convertible"],
-    answerIndex: 1,
+    choices: ["Pays a fixed dividend with priority over common", "Carries expanded voting rights in director elections", "Participates more fully in the company's earnings growth", "Converts into common shares at the holder's discretion"],
+    answerIndex: 0,
     explanation: "Preferred stock pays a fixed dividend and has priority over common for dividends and liquidation, but it is generally nonvoting and does not participate in growth.",
   },
   {
     id: "sie-pr-d5", examSlug: "sie", topicId: "products", topicName: "Products & Risks", difficulty: 2,
     stem: "Inflation (purchasing-power) risk is the danger that:",
-    choices: ["The issuer defaults", "Rising prices erode the real value of fixed returns", "The market as a whole declines", "A bond is called early"],
+    choices: ["The issuer fails to make a scheduled interest payment", "Rising prices erode the real value of fixed returns", "A broad market decline reduces the value of all holdings", "The issuer redeems the bond early and forces reinvestment"],
     answerIndex: 1,
     explanation: "Inflation risk is that rising prices reduce the purchasing power of fixed future cash flows — a particular concern for fixed-income investments. It differs from default, market, and call risk.",
   },
   {
     id: "sie-rg-d1", examSlug: "sie", topicId: "regulation", topicName: "Regulatory Framework", difficulty: 1,
     stem: "The Securities Act of 1933 primarily regulates:",
-    choices: ["The secondary trading market", "New securities issues (the primary market)", "Investment advisers", "Stock exchanges"],
-    answerIndex: 1,
+    choices: ["The secondary trading market", "Investment advisers", "New securities issues (the primary market)", "Stock exchanges"],
+    answerIndex: 2,
     explanation: "The Securities Act of 1933 regulates the issuance of new securities in the primary market through registration and disclosure. The 1934 Act regulates the secondary market.",
   },
   {
     id: "sie-rg-d2", examSlug: "sie", topicId: "regulation", topicName: "Regulatory Framework", difficulty: 2,
     stem: "SEC registration of a securities offering means that the SEC has:",
-    choices: ["Approved and endorsed the security", "Guaranteed the investment's safety", "Confirmed required disclosures were made, without endorsing the security", "Set the price"],
-    answerIndex: 2,
+    choices: ["Reviewed the offering and endorsed the security as suitable", "Guaranteed the accuracy of every statement in the prospectus", "Established the offering price the underwriters may charge", "Confirmed required disclosures were made, without endorsing the security"],
+    answerIndex: 3,
     explanation: "Registration only certifies that required disclosures were made; it is expressly not approval, endorsement, or a guarantee of the security's merit.",
   },
   {
     id: "sie-rg-d3", examSlug: "sie", topicId: "regulation", topicName: "Regulatory Framework", difficulty: 1,
     stem: "The Securities Exchange Act of 1934 created which regulator?",
-    choices: ["FINRA", "The SEC", "The MSRB", "SIPC"],
-    answerIndex: 1,
+    choices: ["The SEC", "FINRA", "The MSRB", "SIPC"],
+    answerIndex: 0,
     explanation: "The Securities Exchange Act of 1934 created the Securities and Exchange Commission (SEC), the top federal regulator, and governs the secondary market, broker-dealers, reporting, and insider trading.",
   },
   {
@@ -355,22 +355,22 @@ export const sieDeepQuestions: Question[] = [
   {
     id: "sie-ac-d1", examSlug: "sie", topicId: "suitability", topicName: "Accounts & Prohibited Activities", difficulty: 2,
     stem: "Regulation Best Interest requires a broker-dealer recommending securities to a retail customer to:",
-    choices: ["Guarantee a profit", "Act in the customer's best interest, not placing the firm's interests first", "Recommend only proprietary products", "Avoid disclosing fees"],
-    answerIndex: 1,
+    choices: ["Guarantee that the recommended investment will not lose value", "Recommend the proprietary product whenever one is available", "Act in the customer's best interest, not placing the firm's interests first", "Disclose fees only when the customer specifically requests them"],
+    answerIndex: 2,
     explanation: "Reg BI requires recommendations to be in the retail customer's best interest, with disclosure (Form CRS), care, conflict-of-interest, and compliance obligations.",
   },
   {
     id: "sie-ac-d2", examSlug: "sie", topicId: "suitability", topicName: "Accounts & Prohibited Activities", difficulty: 2,
     stem: "A Currency Transaction Report (CTR) is filed for cash transactions exceeding:",
-    choices: ["$3,000", "$5,000", "$10,000", "$25,000"],
-    answerIndex: 2,
+    choices: ["$3,000", "$5,000", "$25,000", "$10,000"],
+    answerIndex: 3,
     explanation: "A CTR is required for cash transactions over $10,000. A Suspicious Activity Report (SAR) is filed for questionable activity regardless of amount; structuring to avoid the CTR threshold is illegal.",
   },
   {
     id: "sie-ac-d3", examSlug: "sie", topicId: "suitability", topicName: "Accounts & Prohibited Activities", difficulty: 2,
     stem: "Excessive trading in a customer's account primarily to generate commissions is:",
-    choices: ["Front-running", "Churning", "Selling away", "Painting the tape"],
-    answerIndex: 1,
+    choices: ["Churning", "Front-running", "Selling away", "Painting the tape"],
+    answerIndex: 0,
     explanation: "Churning is excessive trading to generate commissions, a prohibited practice. Front-running is trading ahead of a known large order; selling away is unapproved private securities transactions; painting the tape is a form of manipulation.",
   },
   {

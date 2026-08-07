@@ -15,7 +15,7 @@ const chapters: Chapter[] = [
     topicId: "pm-private",
     topicName: "Private Wealth & Institutional",
     title: "Private Wealth: The IPS, Risk Tolerance, Required Return, and the Behavioral Client",
-    readingMinutes: 33,
+    readingMinutes: 16,
     summary:
       "The Level III signature skill: turn a messy human situation into an investment policy — objectives, constraints, the return math, and the biases in the room.",
     intro:
@@ -208,7 +208,7 @@ const chapters: Chapter[] = [
     topicId: "pm-asset",
     topicName: "Asset Allocation",
     title: "Asset Allocation: MVO, Its Fixes, Liability-Relative Investing, and Rebalancing",
-    readingMinutes: 30,
+    readingMinutes: 8,
     summary:
       "How allocations actually get built: mean–variance optimization and its famous flaws, the fixes (reverse optimization, Black-Litterman), liability-relative approaches, and corridor rebalancing.",
     intro:
@@ -318,7 +318,7 @@ const chapters: Chapter[] = [
     topicId: "fixed",
     topicName: "Fixed Income",
     title: "Fixed Income Strategies: Immunization, LDI, and Portfolio Construction",
-    readingMinutes: 30,
+    readingMinutes: 7,
     summary:
       "Funding liabilities with bond math: single- and multiple-liability immunization, derivatives overlays with the BPV hedge formula, and bullet/barbell/ladder trade-offs.",
     intro:
@@ -415,7 +415,7 @@ const chapters: Chapter[] = [
     topicId: "pm-equity",
     topicName: "Equity Portfolio Management",
     title: "Equity Portfolio Management: Passive, Active, and Factors",
-    readingMinutes: 15,
+    readingMinutes: 3,
     summary: "How equities earn their place in a portfolio, the passive-vs-active decision, and the factor lens that organizes modern active management.",
     intro:
       "At Level III equity stops being about valuing one stock and becomes about building and running an equity program inside a total portfolio. The exam tests the role of equities, the choice between passive and active, the styles of active management, and the factor framework that now underlies most of it.",
@@ -462,7 +462,7 @@ const chapters: Chapter[] = [
     topicId: "pm-deriv",
     topicName: "Derivatives & Risk Management",
     title: "Derivatives & Risk Management: Adjusting Exposures Efficiently",
-    readingMinutes: 15,
+    readingMinutes: 4,
     summary: "Using futures and swaps to reshape beta and duration, option strategies that shape a payoff, and hedging currency risk.",
     intro:
       "Level III uses derivatives as portfolio tools, not pricing puzzles. The recurring question is how to change an exposure — equity beta, bond duration, or currency — quickly and cheaply without disturbing the underlying holdings, and how options reshape a return distribution.",
@@ -508,7 +508,7 @@ const chapters: Chapter[] = [
     topicId: "pm-alts",
     topicName: "Alternative Investments",
     title: "Alternatives in the Portfolio: Role, Allocation, and Diligence",
-    readingMinutes: 14,
+    readingMinutes: 3,
     summary: "Why institutions hold alternatives, how to size and select them, and the risk and measurement traps the exam loves.",
     intro:
       "At Level III alternatives are evaluated as portfolio components: what role they play, how to allocate to them, how to vet a manager, and why their reported statistics can mislead. The emphasis is judgment — alternatives offer diversification and return, but illiquidity and measurement problems demand care.",
@@ -555,7 +555,7 @@ const chapters: Chapter[] = [
     topicId: "pm-perf",
     topicName: "Performance Evaluation & Ethics",
     title: "Performance Evaluation, GIPS, and the Code at Level III",
-    readingMinutes: 15,
+    readingMinutes: 3,
     summary: "Attributing and appraising performance, the role of a valid benchmark, what GIPS requires, and how the Standards apply to a practicing professional.",
     intro:
       "Level III closes the loop: after building and running a portfolio, you must judge it honestly and present results ethically. That means attribution (where did return come from?), appraisal ratios (was the risk worth it?), a defensible benchmark, GIPS-compliant reporting, and the Code and Standards applied to real decisions.",
@@ -601,7 +601,7 @@ const chapters: Chapter[] = [
     topicId: "behavioral",
     topicName: "Behavioral Finance",
     title: "Behavioral Finance: Biases, Markets, and the Client",
-    readingMinutes: 14,
+    readingMinutes: 3,
     summary: "The cognitive and emotional biases that drive investors, how they show up in markets, and how an adviser manages them in practice.",
     intro:
       "Traditional finance assumes rational investors; behavioral finance studies the real ones. Level III tests the major biases, the distinction that governs how you treat them, the market anomalies they help explain, and — most practically — how an adviser builds and presents a portfolio a biased human will actually keep.",
@@ -647,7 +647,7 @@ const chapters: Chapter[] = [
     topicId: "trading",
     topicName: "Trading & Execution",
     title: "Trading, Execution, and Manager Selection",
-    readingMinutes: 13,
+    readingMinutes: 3,
     summary: "Why execution quality is part of return, how to measure trading costs, and how to choose and monitor external managers.",
     intro:
       "A great investment idea poorly executed is a mediocre result. Level III treats trading as a source of return — or leakage — and holds managers responsible for best execution. It also covers how an investor selects and oversees the external managers who run much of an institutional portfolio.",
@@ -693,7 +693,7 @@ const chapters: Chapter[] = [
     topicId: "currency",
     topicName: "Currency Management",
     title: "Currency Management in Global Portfolios",
-    readingMinutes: 25,
+    readingMinutes: 6,
     summary:
       "Why currency exposure is a separate decision from the asset decision, the strategic spectrum from full hedging to active management, and the hedging tools and their roll costs.",
     intro:
@@ -751,7 +751,7 @@ const chapters: Chapter[] = [
     topicId: "risk-individuals",
     topicName: "Risk Management for Individuals",
     title: "Risk Management for Individuals: Human Capital, Insurance, and Estate Planning",
-    readingMinutes: 26,
+    readingMinutes: 6,
     summary:
       "The individual balance sheet of human and financial capital, how insurance manages personal risks, and the core estate-planning tools that transfer wealth tax-efficiently.",
     intro:
@@ -809,7 +809,7 @@ const chapters: Chapter[] = [
     topicId: "institutional",
     topicName: "Institutional Investors",
     title: "Institutional Portfolio Management: Pensions, Endowments, Foundations, and Insurers",
-    readingMinutes: 26,
+    readingMinutes: 4,
     summary:
       "How the major institutions differ in objectives, time horizon, liquidity, and constraints — and why a pension's liabilities and an insurer's regulations shape their portfolios so differently.",
     intro:
@@ -869,10 +869,9 @@ const questions: Question[] = [
     topicName: "Private Wealth",
     difficulty: 2,
     stem: "A retiring couple holds a $2,000,000 portfolio and needs $90,000 after tax (today's dollars) in year one. Inflation is 3%; advisory fees are 0.5%. Their approximate required nominal return is closest to:",
-    choices: ["4.5%", "8.0%", "9.5%"],
-    answerIndex: 1,
-    explanation:
-      "Spending rate = 90,000/2,000,000 = 4.5%; add 3.0% inflation to preserve real value and 0.5% fees: ≈ 8.0% (8.1% multiplicatively). Choice A stops at the spending rate, ignoring inflation and fees — the portfolio would lose purchasing power every year. Choice C double-counts by inflating the spending need AND adding inflation to the rate. State components separately on essays; each earns its own point.",
+    choices: ["8.0%", "4.5%", "9.5%"],
+    answerIndex: 0,
+    explanation: "Spending rate = 90,000/2,000,000 = 4.5%; add 3.0% inflation to preserve real value and 0.5% fees: ≈ 8.0% (8.1% multiplicatively). Choice B stops at the spending rate, ignoring inflation and fees — the portfolio would lose purchasing power every year. Choice C double-counts by inflating the spending need AND adding inflation to the rate. State components separately on essays; each earns its own point.",
   },
   {
     id: "cfa3-pw-q2",
@@ -881,10 +880,9 @@ const questions: Question[] = [
     topicName: "Private Wealth",
     difficulty: 3,
     stem: "A client needs $60,000 after tax from a $2,000,000 portfolio; withdrawals are taxed at 25%; inflation is 3%. The required nominal PRE-TAX return is closest to:",
-    choices: ["6.0%", "6.75%", "7.0%"],
-    answerIndex: 2,
-    explanation:
-      "Gross up first: 60,000/(1 − 0.25) = $80,000 pre-tax need → 80,000/2,000,000 = 4.0% real → + 3% inflation = 7.0%. Choice B comes from the classic error of multiplying by 1.25 (60,000 × 1.25 = 75,000 → 3.75% + 3%): verify the right way — 80,000 × 0.75 = 60,000 ✓, while 75,000 × 0.75 = 56,250 ✗. Choice A ignores taxes entirely.",
+    choices: ["6.0%", "7.0%", "6.75%"],
+    answerIndex: 1,
+    explanation: "Gross up first: 60,000/(1 − 0.25) = $80,000 pre-tax need → 80,000/2,000,000 = 4.0% real → + 3% inflation = 7.0%. Choice C comes from the classic error of multiplying by 1.25 (60,000 × 1.25 = 75,000 → 3.75% + 3%): verify the right way — 80,000 × 0.75 = 60,000 ✓, while 75,000 × 0.75 = 56,250 ✗. Choice A ignores taxes entirely.",
   },
   {
     id: "cfa3-pw-q3",
@@ -893,14 +891,9 @@ const questions: Question[] = [
     topicName: "Private Wealth",
     difficulty: 2,
     stem: "A 40-year-old surgeon with stable, high income, a 25-year horizon, and savings well above her goals says market losses make her physically ill and she sold everything in the last downturn. Her risk tolerance is best characterized as:",
-    choices: [
-      "Above average, because her ability to take risk is high.",
-      "Below average, because willingness governs when it is lower than ability.",
-      "Average, splitting the difference between ability and willingness.",
-    ],
-    answerIndex: 1,
-    explanation:
-      "Ability: high (horizon, income stability, asset cushion). Willingness: low (stated distress AND revealed panic-selling). When the two conflict, the prudent recommendation follows the LOWER — here willingness — paired with client education over time. Choice A would build a portfolio she will liquidate at the next bottom, converting paper losses to real ones. Choice C ('split the difference') is never the curriculum's answer; the conflict is resolved toward the binding constraint, not averaged.",
+    choices: ["Above average, because her ability to take risk is high.", "Average, splitting the difference between ability and willingness.", "Below average, because willingness governs when it is lower than ability."],
+    answerIndex: 2,
+    explanation: "Ability: high (horizon, income stability, asset cushion). Willingness: low (stated distress AND revealed panic-selling). When the two conflict, the prudent recommendation follows the LOWER — here willingness — paired with client education over time. Choice A would build a portfolio she will liquidate at the next bottom, converting paper losses to real ones. Choice B ('split the difference') is never the curriculum's answer; the conflict is resolved toward the binding constraint, not averaged.",
   },
   {
     id: "cfa3-pw-q4",
@@ -925,11 +918,7 @@ const questions: Question[] = [
     topicName: "Private Wealth",
     difficulty: 3,
     stem: "A client's wealth vastly exceeds all lifetime goals. He exhibits strong emotional biases (endowment, status quo) about his concentrated stock. Per the adapt-or-moderate framework, the adviser should MOST appropriately:",
-    choices: [
-      "Moderate: educate the client until he accepts full diversification.",
-      "Adapt: accommodate the biases within a policy that first secures all goals with diversified assets.",
-      "Ignore the biases and implement the mean-variance optimal portfolio.",
-    ],
+    choices: ["Moderate: educate the client until he accepts full diversification.", "Adapt: accommodate biases within a goal-securing policy", "Ignore the biases and implement the mean-variance optimal portfolio."],
     answerIndex: 1,
     explanation:
       "Two switches both point to ADAPT: emotional biases (deeper-seated, resistant to education) and a large wealth cushion (deviations from optimal cost little goal risk). The framework: secure every lifetime goal in diversified, appropriate-risk assets, then tolerate a bounded concentrated remainder. Choice A applies the cognitive-bias remedy to emotional biases and is likely to fail. Choice C maximizes theoretical efficiency and the probability the client fires the adviser or abandons the plan at the worst moment.",
@@ -941,14 +930,9 @@ const questions: Question[] = [
     topicName: "Private Wealth",
     difficulty: 2,
     stem: "Which placement BEST reflects sound asset location for a client with taxable, tax-deferred, and Roth-type accounts?",
-    choices: [
-      "High-turnover taxable-bond strategies in the taxable account; broad equity index funds in tax-deferred accounts.",
-      "Taxable bonds and high-turnover strategies in tax-advantaged accounts; low-turnover equity index funds in the taxable account.",
-      "All assets split equally across account types for diversification.",
-    ],
-    answerIndex: 1,
-    explanation:
-      "Asset location places tax-INEFFICIENT assets (ordinary-income-generating bonds, high-turnover strategies that realize short-term gains) where the shelter does the most good, and tax-EFFICIENT assets (low-turnover index equity, which defers gains and enjoys favorable rates) in taxable accounts. Choice A is exactly backwards. Choice C confuses location with diversification — diversification is about WHAT you hold; location is about WHERE each holding sits, and 'equal split' surrenders the free after-tax return.",
+    choices: ["High-turnover taxable-bond strategies in the taxable account; broad equity index funds in tax-deferred accounts.", "All assets split equally across account types for diversification.", "Taxable bonds and high-turnover strategies in tax-advantaged accounts; low-turnover equity index funds in the taxable account."],
+    answerIndex: 2,
+    explanation: "Asset location places tax-INEFFICIENT assets (ordinary-income-generating bonds, high-turnover strategies that realize short-term gains) where the shelter does the most good, and tax-EFFICIENT assets (low-turnover index equity, which defers gains and enjoys favorable rates) in taxable accounts. Choice A is exactly backwards. Choice B confuses location with diversification — diversification is about WHAT you hold; location is about WHERE each holding sits, and 'equal split' surrenders the free after-tax return.",
   },
   {
     id: "cfa3-pw-q7",
@@ -957,14 +941,9 @@ const questions: Question[] = [
     topicName: "Private Wealth",
     difficulty: 2,
     stem: "A goals-based (bucketed) portfolio structure is technically sub-optimal versus a single mean-variance portfolio, yet the curriculum endorses it for many private clients because it:",
-    choices: [
-      "Generates higher expected returns through concentration.",
-      "Harnesses mental accounting to keep loss-averse clients invested through drawdowns.",
-      "Eliminates the need for an IPS.",
-    ],
-    answerIndex: 1,
-    explanation:
-      "Goals-based layering (safety, lifestyle, aspirational buckets) deliberately exploits the mental-accounting bias for good: a client who KNOWS essential spending is immunized in the safety bucket can watch the market bucket fall without liquidating. The modest mean-variance efficiency loss buys behavioral durability — and a plan clients stick with beats an optimal plan they abandon. Choice A is false (it's an efficiency cost, not a return enhancer). Choice C is backwards: buckets are typically documented WITHIN the IPS.",
+    choices: ["Harnesses mental accounting to keep loss-averse clients invested.", "Generates higher expected returns through concentration.", "Eliminates the need for a formal investment policy statement."],
+    answerIndex: 0,
+    explanation: "Goals-based layering (safety, lifestyle, aspirational buckets) deliberately exploits the mental-accounting bias for good: a client who KNOWS essential spending is immunized in the safety bucket can watch the market bucket fall without liquidating. The modest mean-variance efficiency loss buys behavioral durability — and a plan clients stick with beats an optimal plan they abandon. Choice B is false (it's an efficiency cost, not a return enhancer). Choice C is backwards: buckets are typically documented WITHIN the IPS.",
   },
   {
     id: "cfa3-pw-q8",
@@ -974,8 +953,8 @@ const questions: Question[] = [
     difficulty: 3,
     stem: "Why has Monte Carlo simulation largely replaced deterministic (straight-line) projections for retirement adequacy analysis?",
     choices: [
-      "It guarantees higher projected ending wealth.",
-      "It captures sequence-of-returns risk and expresses outcomes as a probability of success.",
+      "It guarantees a higher projected level of ending wealth for the plan.",
+      "It captures sequence-of-returns risk and reports a success probability.",
       "It removes the need for capital market assumptions.",
     ],
     answerIndex: 1,
@@ -989,14 +968,9 @@ const questions: Question[] = [
     topicName: "Private Wealth",
     difficulty: 2,
     stem: "Following a sudden 25% market decline, a client calls demanding to 'sell everything.' The adviser's MOST appropriate first action is to:",
-    choices: [
-      "Execute the sale promptly — the client directs the account.",
-      "Revisit the IPS with the client: confirm whether goals, horizon, or circumstances have actually changed.",
-      "Switch the portfolio to the new optimal allocation given lower asset prices.",
-    ],
-    answerIndex: 1,
-    explanation:
-      "The IPS exists precisely for this moment: it was written calmly, and unless the client's goals, horizon, liquidity needs, or circumstances have CHANGED, the policy stands and the conversation is about loss aversion and availability bias, not transactions. Choice A treats a panic instruction as an informed direction — after the discussion, an insistent client may still direct, but execution is not the FIRST action. Choice C responds to emotion with market timing, compounding one behavioral error with another.",
+    choices: ["Execute the sale promptly — the client directs the account.", "Switch the portfolio to the new optimal allocation given lower asset prices.", "Revisit the IPS to confirm whether goals or circumstances truly changed."],
+    answerIndex: 2,
+    explanation: "The IPS exists precisely for this moment: it was written calmly, and unless the client's goals, horizon, liquidity needs, or circumstances have CHANGED, the policy stands and the conversation is about loss aversion and availability bias, not transactions. Choice A treats a panic instruction as an informed direction — after the discussion, an insistent client may still direct, but execution is not the FIRST action. Choice B responds to emotion with market timing, compounding one behavioral error with another.",
   },
   // ---- Asset Allocation ----
   {
@@ -1006,14 +980,9 @@ const questions: Question[] = [
     topicName: "Asset Allocation",
     difficulty: 2,
     stem: "An analyst nudges one asset class's expected return from 6.0% to 6.3% and the unconstrained MVO allocation to it jumps from 12% to 47%. The MOST appropriate remedy is:",
-    choices: [
-      "Use longer historical samples to estimate returns.",
-      "Use reverse optimization or Black–Litterman to generate the return inputs.",
-      "Remove the asset class from the opportunity set.",
-    ],
-    answerIndex: 1,
-    explanation:
-      "This is MVO's signature input-sensitivity flaw — the optimizer maximizes estimation error. The curriculum's remedy is better-behaved inputs: reverse optimization extracts implied returns from market weights, and Black–Litterman blends those with the investor's views, producing diversified allocations stable to small input changes. Longer histories (A) barely reduce expected-return estimation error (means converge agonizingly slowly). Choice C amputates the opportunity set instead of fixing the estimator.",
+    choices: ["Use reverse optimization or Black–Litterman for the return inputs.", "Use longer historical samples to estimate returns.", "Remove the asset class from the opportunity set."],
+    answerIndex: 0,
+    explanation: "This is MVO's signature input-sensitivity flaw — the optimizer maximizes estimation error. The curriculum's remedy is better-behaved inputs: reverse optimization extracts implied returns from market weights, and Black–Litterman blends those with the investor's views, producing diversified allocations stable to small input changes. Longer histories (A) barely reduce expected-return estimation error (means converge agonizingly slowly). Choice C amputates the opportunity set instead of fixing the estimator.",
   },
   {
     id: "cfa3-aa-q2",
@@ -1034,14 +1003,9 @@ const questions: Question[] = [
     topicName: "Asset Allocation",
     difficulty: 2,
     stem: "Which asset MOST justifies a wider rebalancing corridor?",
-    choices: [
-      "A liquid large-cap equity fund in a tax-exempt account.",
-      "A private real estate holding in a taxable account.",
-      "A government bond ETF with low transaction costs.",
-    ],
-    answerIndex: 1,
-    explanation:
-      "Corridors widen when trading is costly or painful: illiquidity (forced sales of private assets are expensive or impossible) and taxable status (rebalancing realizes gains) BOTH argue for tolerance, making the private real estate position the clear case. The liquid, cheap, tax-exempt alternatives in A and C have no such frictions — their corridors can stay tight so drift is corrected quickly.",
+    choices: ["A liquid large-cap equity fund in a tax-exempt account.", "A government bond ETF with low transaction costs.", "A private real estate holding in a taxable account."],
+    answerIndex: 2,
+    explanation: "Corridors widen when trading is costly or painful: illiquidity (forced sales of private assets are expensive or impossible) and taxable status (rebalancing realizes gains) BOTH argue for tolerance, making the private real estate position the clear case. The liquid, cheap, tax-exempt alternatives in A and C have no such frictions — their corridors can stay tight so drift is corrected quickly.",
   },
   {
     id: "cfa3-aa-q4",
@@ -1049,15 +1013,10 @@ const questions: Question[] = [
     topicId: "pm-asset",
     topicName: "Asset Allocation",
     difficulty: 2,
-    stem: "A risk-budgeted portfolio is optimal when:",
-    choices: [
-      "Every asset contributes equal risk to the portfolio.",
-      "The ratio of excess return to marginal contribution to total risk is equal across assets.",
-      "No asset's weight exceeds its risk contribution.",
-    ],
-    answerIndex: 1,
-    explanation:
-      "Optimality in risk budgeting means every unit of risk is buying the same expected reward: excess return ÷ MCTR equalized across positions — otherwise shifting risk from a low-payoff to a high-payoff use improves the portfolio. Choice A describes RISK PARITY, a special case (and one famously requiring leveraged bonds), not the general optimum. Choice C is a plausible-sounding invention with no analytical content.",
+    stem: "An institution allocates risk rather than capital across its managers. Its risk budget is being used optimally when:",
+    choices: ["Marginal contribution to risk-adjusted return is equal across positions", "Each manager receives an equal dollar allocation of the total portfolio", "The manager with the highest historical return receives the largest budget"],
+    answerIndex: 0,
+    explanation: "Risk budgeting is optimal when the marginal contribution to risk-adjusted return is equalized across positions - adding risk anywhere else would improve the portfolio, so at the optimum no such reallocation exists. Equal dollar weights ignore that positions differ in volatility and correlation, which is the entire reason to budget risk rather than capital. Allocating on past returns chases performance and says nothing about the risk incurred to produce it.",
   },
   // ---- Fixed Income Strategies ----
   {
@@ -1068,8 +1027,8 @@ const questions: Question[] = [
     difficulty: 2,
     stem: "To immunize a single liability due in 7 years, a portfolio should have:",
     choices: [
-      "Modified duration of 7 and maximum convexity.",
-      "Macaulay duration of 7, PV at least equal to the liability, and minimal cash-flow dispersion.",
+      "Modified duration of 7 combined with the maximum available convexity.",
+      "Macaulay duration of 7, sufficient present value, and minimal dispersion.",
       "Maturity of exactly 7 years regardless of coupon structure.",
     ],
     answerIndex: 1,
@@ -1083,10 +1042,9 @@ const questions: Question[] = [
     topicName: "Fixed Income",
     difficulty: 2,
     stem: "Liabilities have a BPV of $225,000; the bond portfolio's BPV is $150,000; the chosen futures contract has a BPV of $90. The appropriate overlay is closest to:",
-    choices: ["Sell 833 contracts", "Buy 833 contracts", "Buy 2,500 contracts"],
-    answerIndex: 1,
-    explanation:
-      "N_f = (BPV_L − BPV_P)/BPV_f = (225,000 − 150,000)/90 ≈ +833 → positive → BUY futures. The portfolio is short duration relative to its liabilities; if rates fall the liabilities outgrow the assets, and the long futures position fills the gap. Choice A gets the arithmetic right and the SIGN wrong — the most common exam error on this pattern. Choice C divides the full liability BPV instead of the gap.",
+    choices: ["Sell 833 contracts", "Buy 2,500 contracts", "Buy 833 contracts"],
+    answerIndex: 2,
+    explanation: "N_f = (BPV_L − BPV_P)/BPV_f = (225,000 − 150,000)/90 ≈ +833 → positive → BUY futures. The portfolio is short duration relative to its liabilities; if rates fall the liabilities outgrow the assets, and the long futures position fills the gap. Choice A gets the arithmetic right and the SIGN wrong — the most common exam error on this pattern. Choice B divides the full liability BPV instead of the gap.",
   },
   {
     id: "cfa3-fi-q3",
@@ -1095,10 +1053,9 @@ const questions: Question[] = [
     topicName: "Fixed Income",
     difficulty: 3,
     stem: "A manager expects a large parallel rate move (direction uncertain) and curve flattening. With duration held constant, which structure is MOST attractive?",
-    choices: ["Bullet", "Barbell", "Ladder"],
-    answerIndex: 1,
-    explanation:
-      "Both forecasts favor the barbell: its higher CONVEXITY profits from large parallel moves in either direction (gains exceed losses for equal-sized shocks), and its long-end weighting wins when the curve flattens (long yields fall relative to short). The bullet is the carry-and-stability structure — it outperforms when the curve is steep and static. The ladder sits between, prized for reinvestment diversification and liquidity rather than curve views. 'Barbells love volatility and flattening' is the mnemonic.",
+    choices: ["Barbell", "Bullet", "Ladder"],
+    answerIndex: 0,
+    explanation: "Both forecasts favor the barbell: its higher CONVEXITY profits from large parallel moves in either direction (gains exceed losses for equal-sized shocks), and its long-end weighting wins when the curve flattens (long yields fall relative to short). The bullet is the carry-and-stability structure — it outperforms when the curve is steep and static. The ladder sits between, prized for reinvestment diversification and liquidity rather than curve views. 'Barbells love volatility and flattening' is the mnemonic.",
   },
   {
     id: "cfa3-fi-q4",
@@ -1107,30 +1064,25 @@ const questions: Question[] = [
     topicName: "Fixed Income",
     difficulty: 2,
     stem: "A bond portfolio's expected return assuming an UNCHANGED yield curve is best described as:",
-    choices: [
-      "Yield income plus rolldown return (the rolling yield).",
-      "Coupon income only.",
-      "The manager's forecast price appreciation.",
-    ],
-    answerIndex: 0,
-    explanation:
-      "If the curve stays put, the portfolio still earns its yield income (coupon ÷ price) PLUS rolldown — bonds re-priced at the lower-yield, shorter-maturity point of an upward-sloping curve gain value as time passes. Together: the rolling yield, the passive baseline against which view-driven returns are attributed. Choice B omits rolldown; choice C is precisely the part of return that an unchanged curve CONTRIBUTES NOTHING to — manager views only pay when something moves.",
+    choices: ["Coupon income only.", "Yield income plus rolldown return (the rolling yield).", "The manager's forecast price appreciation."],
+    answerIndex: 1,
+    explanation: "If the curve stays put, the portfolio still earns its yield income (coupon ÷ price) PLUS rolldown — bonds re-priced at the lower-yield, shorter-maturity point of an upward-sloping curve gain value as time passes. Together: the rolling yield, the passive baseline against which view-driven returns are attributed. Choice A omits rolldown; choice C is precisely the part of return that an unchanged curve CONTRIBUTES NOTHING to — manager views only pay when something moves.",
   },
 
   // ---- Asset Allocation ----
   {
     id: "cfa3-aa-q5", examSlug: "cfa-l3", topicId: "pm-asset", topicName: "Asset Allocation", difficulty: 3,
     stem: "A well-known drawback of unconstrained mean-variance optimization (MVO) is that it:",
-    choices: ["Always produces well-diversified portfolios", "Is highly sensitive to input estimates ('error maximization'), producing concentrated, unstable weights", "Ignores expected returns entirely"],
-    answerIndex: 1,
-    explanation: "MVO is an 'error maximizer': small changes in expected-return inputs can swing the optimal weights dramatically, often concentrating in a few assets. That's why practitioners add constraints, use resampling, or apply Black-Litterman. Choice A is the opposite of the problem. Choice C is wrong — MVO depends heavily on expected returns; that's the source of its instability.",
+    choices: ["Always produces well-diversified portfolios across the opportunity set", "Ignores expected returns entirely in setting portfolio weights", "Is highly sensitive to inputs, concentrating allocations"],
+    answerIndex: 2,
+    explanation: "MVO is an 'error maximizer': small changes in expected-return inputs can swing the optimal weights dramatically, often concentrating in a few assets. That's why practitioners add constraints, use resampling, or apply Black-Litterman. Choice A is the opposite of the problem. Choice B is wrong — MVO depends heavily on expected returns; that's the source of its instability.",
   },
   {
     id: "cfa3-aa-q6", examSlug: "cfa-l3", topicId: "pm-asset", topicName: "Asset Allocation", difficulty: 3,
-    stem: "A risk-parity asset allocation sets weights so that:",
-    choices: ["Each asset class contributes an equal amount of dollars", "Each asset class contributes an equal amount of risk to the portfolio", "The portfolio holds only the minimum-variance asset"],
-    answerIndex: 1,
-    explanation: "Risk parity allocates so that each asset (or factor) contributes equally to total portfolio risk, which typically raises the weight of low-volatility assets like bonds (often with leverage) rather than weighting by capital. Choice A describes equal-dollar weighting, not equal-risk. Choice C describes a single-asset minimum-variance corner, not risk parity.",
+    stem: "A risk-parity allocation shifts a portfolio away from a traditional 60/40 mix. It does so by setting weights so that:",
+    choices: ["Each asset class contributes equally to total portfolio risk", "Each asset class receives an equal share of invested capital", "Each asset class is expected to deliver an equal return"],
+    answerIndex: 0,
+    explanation: "Risk parity equalizes each asset's contribution to portfolio risk rather than its share of capital. Because equities are far more volatile than bonds, a 60/40 capital split can leave equities responsible for roughly 90% of portfolio risk. Correcting that typically means a much larger nominal bond weight, often levered to reach a target return. Equal capital or equal expected return are different allocation rules entirely.",
   },
   {
     id: "cfa3-aa-q7", examSlug: "cfa-l3", topicId: "pm-asset", topicName: "Asset Allocation", difficulty: 3,
@@ -1142,85 +1094,85 @@ const questions: Question[] = [
   {
     id: "cfa3-aa-q8", examSlug: "cfa-l3", topicId: "pm-asset", topicName: "Asset Allocation", difficulty: 3,
     stem: "A liability-relative (surplus) approach to asset allocation focuses on:",
-    choices: ["Maximizing absolute return regardless of liabilities", "Managing assets relative to the liabilities they must fund, controlling surplus volatility", "Holding only cash to avoid any risk"],
-    answerIndex: 1,
-    explanation: "Institutions with defined obligations (pensions, insurers) optimize the surplus — assets minus the present value of liabilities — choosing assets whose behavior tracks the liabilities to limit funding-ratio volatility. Choice A ignores the liabilities that define the problem. Choice C eliminates return-seeking and usually can't fund long-dated liabilities, often increasing real risk.",
+    choices: ["Maximizing absolute return regardless of liabilities", "Holding only cash instruments to avoid any portfolio risk", "Managing assets against the liabilities they fund, controlling surplus risk"],
+    answerIndex: 2,
+    explanation: "Institutions with defined obligations (pensions, insurers) optimize the surplus — assets minus the present value of liabilities — choosing assets whose behavior tracks the liabilities to limit funding-ratio volatility. Choice A ignores the liabilities that define the problem. Choice B eliminates return-seeking and usually can't fund long-dated liabilities, often increasing real risk.",
   },
   {
     id: "cfa3-aa-q9", examSlug: "cfa-l3", topicId: "pm-asset", topicName: "Asset Allocation", difficulty: 3,
     stem: "The Black-Litterman model improves on basic MVO mainly by:",
-    choices: ["Using only the investor's views and ignoring the market", "Blending market-equilibrium (implied) returns with the investor's views to produce more stable, diversified weights", "Removing the need for any expected-return estimates"],
-    answerIndex: 1,
-    explanation: "Black-Litterman starts from the returns implied by market-cap equilibrium, then tilts toward the investor's specific views in proportion to confidence, yielding more intuitive and stable allocations than raw MVO. Choice A discards the equilibrium anchor that gives the model its stability. Choice C is wrong — it still uses returns, just constructed more robustly.",
+    choices: ["Blending market-equilibrium returns with the investor's own views", "Using only the investor's views while ignoring equilibrium pricing", "Removing the need for any expected-return estimates"],
+    answerIndex: 0,
+    explanation: "Black-Litterman starts from the returns implied by market-cap equilibrium, then tilts toward the investor's specific views in proportion to confidence, yielding more intuitive and stable allocations than raw MVO. Choice B discards the equilibrium anchor that gives the model its stability. Choice C is wrong — it still uses returns, just constructed more robustly.",
   },
 
   // ---- Fixed Income (portfolio strategies) ----
   {
     id: "cfa3-fi-q5", examSlug: "cfa-l3", topicId: "fixed", topicName: "Fixed Income", difficulty: 3,
     stem: "To immunize a single future liability with a bond portfolio, the manager should:",
-    choices: ["Match the portfolio's Macaulay duration to the liability's horizon and minimize convexity/dispersion", "Maximize portfolio convexity", "Hold only the highest-yielding bonds available"],
-    answerIndex: 0,
-    explanation: "Classical immunization of one liability matches the portfolio's Macaulay duration to the liability horizon (so price and reinvestment effects offset) and minimizes dispersion/convexity so the match is robust to non-parallel shifts, while keeping PV of assets ≥ PV of the liability. Choice B is wrong — excess convexity increases exposure to structural risk in single-liability immunization. Choice C chases yield and ignores the duration match that immunization requires.",
+    choices: ["Maximize portfolio convexity relative to the liability structure", "Match Macaulay duration to the liability horizon and minimize dispersion", "Hold only the highest-yielding bonds available"],
+    answerIndex: 1,
+    explanation: "Classical immunization of one liability matches the portfolio's Macaulay duration to the liability horizon (so price and reinvestment effects offset) and minimizes dispersion/convexity so the match is robust to non-parallel shifts, while keeping PV of assets ≥ PV of the liability. Choice A is wrong — excess convexity increases exposure to structural risk in single-liability immunization. Choice C chases yield and ignores the duration match that immunization requires.",
   },
   {
     id: "cfa3-fi-q6", examSlug: "cfa-l3", topicId: "fixed", topicName: "Fixed Income", difficulty: 3,
-    stem: "Compared with immunization, cash flow matching:",
-    choices: ["Requires ongoing rebalancing as rates change", "Funds each liability with bond cash flows timed to it, needing little or no rebalancing but with tighter constraints", "Takes on more interest-rate risk"],
-    answerIndex: 1,
-    explanation: "Cash flow matching builds a dedicated portfolio whose coupons and maturities arrive when each liability is due, so once set it needs essentially no rebalancing — but it's more constrained and often costlier than immunization. Choice A describes immunization, which must be rebalanced as durations drift. Choice C is backwards; cash flow matching minimizes interest-rate risk by design.",
+    stem: "A plan has precisely dated, known liabilities and no tolerance for reinvestment risk. Compared with immunization, cash flow matching:",
+    choices: ["Costs less because it requires no ongoing portfolio rebalancing", "Achieves the same result while permitting shorter portfolio duration", "Eliminates reinvestment risk but typically costs more to implement"],
+    answerIndex: 2,
+    explanation: "Cash flow matching buys bonds whose coupons and maturities land on the liability dates, so there is nothing to reinvest and no rebalancing required. That precision comes at a price: the constrained bond selection generally forces a more expensive portfolio than duration-matched immunization would require. Immunization is cheaper and more flexible but must be rebalanced as rates and durations drift, and it leaves residual reinvestment risk.",
   },
   {
     id: "cfa3-fi-q7", examSlug: "cfa-l3", topicId: "fixed", topicName: "Fixed Income", difficulty: 3,
-    stem: "Contingent immunization allows a manager to:",
-    choices: ["Manage actively as long as the portfolio stays above a required 'safety net' value, switching to immunization if it's breached", "Never deviate from a matched portfolio", "Ignore the liability completely"],
+    stem: "A pension is fully funded with a surplus cushion. Contingent immunization lets the manager:",
+    choices: ["Manage actively until the surplus falls to the immunization trigger", "Immunize immediately and abandon all active management thereafter", "Extend duration indefinitely, since the surplus absorbs any shortfall"],
     answerIndex: 0,
-    explanation: "Contingent immunization is a hybrid: while the surplus cushion exceeds the minimum needed to immunize, the manager can pursue active strategies; if performance erodes the cushion to the trigger, the portfolio is immunized to lock in the required outcome. Choice B describes pure immunization with no active latitude. Choice C abandons the funding objective that the strategy is built to protect.",
+    explanation: "Contingent immunization permits active management while the portfolio's value stays above the level required to lock in the target return. If the surplus erodes to that trigger, the manager must immediately immunize, converting to a duration-matched portfolio that secures the remaining obligation. The strategy is neither pure immunization from the outset nor unlimited license - the trigger is a hard constraint, and the cushion is finite by definition.",
   },
   {
     id: "cfa3-fi-q8", examSlug: "cfa-l3", topicId: "fixed", topicName: "Fixed Income", difficulty: 3,
     stem: "When immunizing MULTIPLE liabilities, the asset portfolio should have a convexity that is:",
-    choices: ["As large as possible", "Greater than the liabilities' convexity, but minimized (just enough), with matching duration and PV", "Exactly zero"],
+    choices: ["As large as possible, maximizing convexity without constraint", "Slightly above the liabilities, otherwise minimized", "Exactly zero, matching the liabilities with no convexity at all"],
     answerIndex: 1,
     explanation: "For multiple liabilities, set asset duration equal to liability duration and asset convexity slightly greater than the liabilities' (so assets bracket the cash-flow dates), but minimize that convexity to reduce exposure to non-parallel curve shifts; PV of assets must at least equal PV of liabilities. Choice A maximizes structural risk. Choice C (zero convexity) isn't achievable or desirable for a coupon-bond portfolio.",
   },
   {
     id: "cfa3-fi-q9", examSlug: "cfa-l3", topicId: "fixed", topicName: "Fixed Income", difficulty: 3,
     stem: "Relative to a duration-matched bullet, a barbell portfolio generally has:",
-    choices: ["Lower convexity, benefiting from a steepening curve", "Higher convexity, benefiting from increased rate volatility and curve flattening", "Identical behavior in all scenarios"],
-    answerIndex: 1,
-    explanation: "A barbell concentrates in short and long maturities, giving it more convexity than a duration-matched bullet, so it outperforms when rates are volatile or the curve flattens. Choice A reverses the convexity ranking. Choice C is wrong — bullets and barbells with the same duration behave differently once the yield curve moves in a non-parallel way.",
+    choices: ["Lower convexity, benefiting from a steepening curve", "Identical behavior across every interest-rate scenario tested", "Higher convexity, benefiting from increased rate volatility"],
+    answerIndex: 2,
+    explanation: "A barbell concentrates in short and long maturities, giving it more convexity than a duration-matched bullet, so it outperforms when rates are volatile or the curve flattens. Choice A reverses the convexity ranking. Choice B is wrong — bullets and barbells with the same duration behave differently once the yield curve moves in a non-parallel way.",
   },
 
   // ---- Private Wealth ----
   {
     id: "cfa3-pw-q10", examSlug: "cfa-l3", topicId: "pm-private", topicName: "Private Wealth", difficulty: 3,
     stem: "A Monte Carlo simulation is valuable in retirement planning because it:",
-    choices: ["Guarantees a single precise outcome", "Models thousands of return paths to estimate the probability a plan succeeds, capturing sequence-of-returns risk", "Assumes the same return every year"],
-    answerIndex: 1,
-    explanation: "Monte Carlo runs many randomized return sequences to produce a distribution of outcomes and a probability of success, revealing sequence-of-returns risk that a single straight-line projection hides. Choice A overstates it — the output is a probability distribution, not a guarantee. Choice C describes a deterministic projection, the very simplification Monte Carlo is meant to improve upon.",
+    choices: ["Models many return paths to estimate the probability the plan succeeds", "Guarantees a single precise outcome the plan will achieve", "Assumes an identical deterministic return in every future year"],
+    answerIndex: 0,
+    explanation: "Monte Carlo runs many randomized return sequences to produce a distribution of outcomes and a probability of success, revealing sequence-of-returns risk that a single straight-line projection hides. Choice B overstates it — the output is a probability distribution, not a guarantee. Choice C describes a deterministic projection, the very simplification Monte Carlo is meant to improve upon.",
   },
 
   // ---- Equity Portfolio Management ----
   {
     id: "cfa3-eq-q1", examSlug: "cfa-l3", topicId: "pm-equity", topicName: "Equity Portfolio Management", difficulty: 2,
-    stem: "For active equity management to add value, it must:",
-    choices: ["Beat the benchmark before fees", "Beat the benchmark NET of its higher fees and trading costs", "Simply match the index"],
+    stem: "An active equity manager charges 80 bps over a passive alternative. For the mandate to be justified, the manager must:",
+    choices: ["Outperform the benchmark gross of fees in a majority of periods", "Generate alpha exceeding fees, costs, and the active risk taken", "Maintain tracking error below the benchmark's own volatility"],
     answerIndex: 1,
-    explanation: "The bar for active management is net-of-cost outperformance — gross alpha must first cover the higher fees and turnover, which is why most active managers fail to beat passive consistently. Choice A ignores costs. Choice C describes passive management, not active value-add.",
+    explanation: "Active management is justified only when it delivers value net of everything it costs: fees, trading costs, and compensation for the active risk taken relative to the passive alternative. Gross outperformance is the wrong bar because the investor never receives the gross figure, and outperforming in most periods says nothing about magnitude when the losing periods are larger. Low tracking error is a risk characteristic, not evidence of skill.",
   },
   {
     id: "cfa3-eq-q2", examSlug: "cfa-l3", topicId: "pm-equity", topicName: "Equity Portfolio Management", difficulty: 3,
     stem: "The fundamental law of active management says expected active return rises with:",
-    choices: ["Lower skill and fewer bets", "The information coefficient (skill) and the square root of breadth (number of independent bets)", "Higher fees"],
-    answerIndex: 1,
-    explanation: "Active value-add ≈ information coefficient × √breadth × active risk — more skill and more independent bets both increase it, which is why broad quant strategies can rival concentrated stock-pickers. Choice A is backwards. Choice C is unrelated; fees reduce net value-add.",
+    choices: ["Lower manager skill combined with a smaller number of independent bets", "Higher management fees charged against the strategy’s gross return", "Skill, measured by the information coefficient, times the root of breadth"],
+    answerIndex: 2,
+    explanation: "Active value-add ≈ information coefficient × √breadth × active risk — more skill and more independent bets both increase it, which is why broad quant strategies can rival concentrated stock-pickers. Choice A is backwards. Choice B is unrelated; fees reduce net value-add.",
   },
   {
     id: "cfa3-eq-q3", examSlug: "cfa-l3", topicId: "pm-equity", topicName: "Equity Portfolio Management", difficulty: 2,
     stem: "Systematically tilting a portfolio toward value, momentum, size, or quality is known as:",
-    choices: ["Pure indexing", "Factor (smart beta) investing", "Calendar rebalancing"],
-    answerIndex: 1,
-    explanation: "Factor or 'smart beta' investing harvests persistent return premia by rules-based tilts, sitting between pure passive and pure active. Choice A (indexing) takes no factor tilt by design. Choice C is a rebalancing schedule, not a return-seeking tilt.",
+    choices: ["Factor-based, or smart beta, investing", "Pure full-replication indexing", "Calendar rebalancing"],
+    answerIndex: 0,
+    explanation: "Factor or 'smart beta' investing harvests persistent return premia by rules-based tilts, sitting between pure passive and pure active. Choice B (indexing) takes no factor tilt by design. Choice C is a rebalancing schedule, not a return-seeking tilt.",
   },
 
   // ---- Derivatives & Risk Management ----
@@ -1234,39 +1186,39 @@ const questions: Question[] = [
   {
     id: "cfa3-dr-q2", examSlug: "cfa-l3", topicId: "pm-deriv", topicName: "Derivatives & Risk Management", difficulty: 2,
     stem: "An investor who owns a stock and buys a put on it has created a:",
-    choices: ["Covered call", "Protective put (downside insurance, upside retained)", "Short straddle"],
-    answerIndex: 1,
-    explanation: "Long stock plus a long put is a protective put: it caps the downside at the strike while keeping the upside, for the cost of the premium. Choice A (covered call) sells a call to earn premium and caps the upside. Choice C is an unrelated volatility-selling strategy.",
+    choices: ["Covered call, exchanging upside above the strike for premium", "Short straddle, collecting premium if the price stays flat", "Protective put, insuring the downside while keeping upside"],
+    answerIndex: 2,
+    explanation: "Long stock plus a long put is a protective put: it caps the downside at the strike while keeping the upside, for the cost of the premium. Choice A (covered call) sells a call to earn premium and caps the upside. Choice B is an unrelated volatility-selling strategy.",
   },
   {
     id: "cfa3-dr-q3", examSlug: "cfa-l3", topicId: "pm-deriv", topicName: "Derivatives & Risk Management", difficulty: 2,
     stem: "The most direct way to hedge the currency risk on expected foreign-asset proceeds is to:",
-    choices: ["Buy the foreign currency forward", "Sell the foreign currency forward", "Do nothing and accept the risk"],
-    answerIndex: 1,
-    explanation: "Selling the foreign currency forward locks in today's exchange rate on the expected proceeds, removing currency risk. Choice A increases exposure. Choice C leaves the position fully exposed (sometimes a deliberate choice, but not a hedge).",
+    choices: ["Sell the foreign currency forward", "Buy the foreign currency forward", "Do nothing and accept the risk"],
+    answerIndex: 0,
+    explanation: "Selling the foreign currency forward locks in today's exchange rate on the expected proceeds, removing currency risk. Choice B increases exposure. Choice C leaves the position fully exposed (sometimes a deliberate choice, but not a hedge).",
   },
 
   // ---- Alternative Investments ----
   {
     id: "cfa3-ai-q1", examSlug: "cfa-l3", topicId: "pm-alts", topicName: "Alternative Investments", difficulty: 3,
     stem: "Appraisal-based (infrequent) pricing of illiquid alternatives tends to:",
-    choices: ["Overstate volatility and correlation", "Understate volatility and correlation, flattering the Sharpe ratio", "Have no effect on reported statistics"],
+    choices: ["Overstate both volatility and correlation with public markets", "Understate volatility and correlation, flattering the Sharpe ratio", "Have no effect on the reported risk statistics of the fund"],
     answerIndex: 1,
     explanation: "Smoothed, appraisal-based returns understate true volatility and correlation, which inflates the reported Sharpe ratio and overstates diversification benefits — a reason to discount headline numbers on illiquid assets. Choice A reverses the effect. Choice C ignores the well-known smoothing bias.",
   },
   {
     id: "cfa3-ai-q2", examSlug: "cfa-l3", topicId: "pm-alts", topicName: "Alternative Investments", difficulty: 2,
     stem: "A primary reason institutions accept the illiquidity of private alternatives is to earn:",
-    choices: ["A guaranteed return", "An illiquidity premium plus diversification", "Lower fees than public markets"],
-    answerIndex: 1,
-    explanation: "Investors demand extra expected return (an illiquidity premium) for locking up capital, and alternatives also add diversification through low correlation with stocks and bonds. Choice A is false — nothing is guaranteed. Choice C is wrong; alternatives typically charge higher fees (e.g., '2 and 20').",
+    choices: ["A guaranteed return", "Lower fees than public markets", "An illiquidity premium plus diversification"],
+    answerIndex: 2,
+    explanation: "Investors demand extra expected return (an illiquidity premium) for locking up capital, and alternatives also add diversification through low correlation with stocks and bonds. Choice A is false — nothing is guaranteed. Choice B is wrong; alternatives typically charge higher fees (e.g., '2 and 20').",
   },
   {
     id: "cfa3-ai-q3", examSlug: "cfa-l3", topicId: "pm-alts", topicName: "Alternative Investments", difficulty: 2,
-    stem: "The 'J-curve' in private funds refers to:",
-    choices: ["Early negative returns from fees and immature investments before value is realized", "A steadily rising return from day one", "The shape of the yield curve"],
+    stem: "A private equity investor reviews a fund showing negative returns in years one and two, turning positive by year five. This pattern is best explained by:",
+    choices: ["The J-curve: early fees and write-downs precede later realizations", "A structural failure of the fund's underlying investment thesis", "Mark-to-market losses that will reverse only at fund termination"],
     answerIndex: 0,
-    explanation: "Private funds typically show early negative returns (fees drawn, investments immature) before value is harvested later — the J-curve. Choice B ignores the early drag. Choice C confuses it with the term structure of interest rates.",
+    explanation: "The J-curve describes the normal life cycle of a private fund: management fees are charged from inception and underperforming holdings are written down early, while the gains on successful investments are realized only as exits occur later in the fund's life. Negative early returns are therefore expected rather than diagnostic of a failed thesis. The pattern reflects the timing of fees and exits, not a valuation artifact that unwinds at termination.",
   },
 
   // ---- Performance Evaluation & Ethics ----
@@ -1280,62 +1232,62 @@ const questions: Question[] = [
   {
     id: "cfa3-pe-q2", examSlug: "cfa-l3", topicId: "pm-perf", topicName: "Performance Evaluation & Ethics", difficulty: 2,
     stem: "A valid benchmark should be all of the following EXCEPT:",
-    choices: ["Specified in advance and investable", "Chosen after the fact to flatter results", "Appropriate to the manager's style"],
-    answerIndex: 1,
-    explanation: "A valid benchmark must be specified in advance, unambiguous, investable, measurable, and appropriate — chosen BEFORE the period, never selected afterward to make results look good. Choices A and C are genuine properties of a valid benchmark; choice B is exactly what invalidates one.",
+    choices: ["Specified in advance and investable", "Appropriate to the manager's style", "Chosen after the fact to flatter results"],
+    answerIndex: 2,
+    explanation: "A valid benchmark must be specified in advance, unambiguous, investable, measurable, and appropriate — chosen BEFORE the period, never selected afterward to make results look good. Choices C and C are genuine properties of a valid benchmark; choice B is exactly what invalidates one.",
   },
   {
     id: "cfa3-pe-q3", examSlug: "cfa-l3", topicId: "pm-perf", topicName: "Performance Evaluation & Ethics", difficulty: 2,
     stem: "Performance attribution that separates return into 'allocation' and 'selection' effects answers the question:",
-    choices: ["How risky was the portfolio?", "WHERE did the active return come from?", "What are the fees?"],
-    answerIndex: 1,
-    explanation: "Attribution decomposes active return into allocation (over/underweighting segments vs the benchmark) and selection (security picking within segments) — it identifies the SOURCES of return. Choice A is the job of appraisal ratios. Choice C is unrelated to attribution.",
+    choices: ["Where did the portfolio’s active return actually come from?", "How much total risk did the portfolio take on?", "What fees were charged over the evaluation period?"],
+    answerIndex: 0,
+    explanation: "Attribution decomposes active return into allocation (over/underweighting segments vs the benchmark) and selection (security picking within segments) — it identifies the SOURCES of return. Choice B is the job of appraisal ratios. Choice C is unrelated to attribution.",
   },
 
   // ---- Behavioral Finance ----
   {
     id: "cfa3-bf-q1", examSlug: "cfa-l3", topicId: "behavioral", topicName: "Behavioral Finance", difficulty: 3,
-    stem: "The general guidance for handling client biases is to:",
-    choices: ["Moderate cognitive biases (educate) and adapt to emotional biases", "Adapt to cognitive biases and ignore emotional ones", "Treat all biases identically"],
-    answerIndex: 0,
-    explanation: "Cognitive errors are reasoning flaws that can be moderated with education and better process; emotional biases are feeling-driven and usually better accommodated by adapting the plan so the client stays invested. Choice B reverses the treatment. Choice C ignores the crucial cognitive-vs-emotional distinction.",
+    stem: "An adviser identifies several behavioral biases in a long-standing client. The general guidance for handling them is to:",
+    choices: ["Correct all identified biases, since each impairs decision quality", "Moderate emotional biases and correct cognitive ones where possible", "Accommodate all biases to preserve the client relationship"],
+    answerIndex: 1,
+    explanation: "Cognitive biases stem from faulty reasoning and often respond to information, education, and better process, so they can frequently be corrected. Emotional biases arise from feelings and impulses and are far more resistant to argument, so advisers generally moderate around them - building portfolios the client can actually hold. Attempting to correct everything ignores that distinction, and accommodating everything abandons the adviser's role.",
   },
   {
     id: "cfa3-bf-q2", examSlug: "cfa-l3", topicId: "behavioral", topicName: "Behavioral Finance", difficulty: 2,
-    stem: "Loss aversion most directly causes investors to:",
-    choices: ["Sell winners too early and hold losers too long", "Diversify perfectly", "Always buy at the bottom"],
-    answerIndex: 0,
-    explanation: "Because losses feel about twice as painful as equal gains, investors avoid realizing losses (holding losers) and lock in gains too soon (selling winners) — the disposition effect. Choices B and C describe disciplined behavior that loss aversion actually undermines.",
+    stem: "A client refuses to sell a position down 40% but readily sells winners. Loss aversion most directly explains this because it causes investors to:",
+    choices: ["Overestimate their own skill at selecting individual securities", "Weight recent market information more heavily than older evidence", "Feel losses more intensely than equivalent gains, deferring realization"],
+    answerIndex: 2,
+    explanation: "Loss aversion means the pain of a loss exceeds the pleasure of an equivalent gain, so realizing a loss is psychologically expensive and investors postpone it - the disposition effect the client is displaying. Overconfidence would show up as excessive trading and concentrated bets rather than selective inaction. Recency bias concerns the weighting of information over time, not the asymmetric experience of gains and losses.",
   },
   {
     id: "cfa3-bf-q3", examSlug: "cfa-l3", topicId: "behavioral", topicName: "Behavioral Finance", difficulty: 3,
     stem: "Behavioral portfolio theory describes investors as building portfolios in:",
-    choices: ["A single mean-variance-optimal whole", "Layered 'mental accounts' (a safety layer and a speculative layer)", "Only cash"],
-    answerIndex: 1,
-    explanation: "Behavioral portfolio theory says real investors construct portfolios as layered mental accounts tied to goals — a safety layer plus a speculative layer — rather than one optimized whole, which can leave them under-diversified relative to theory. Choice A is the traditional (non-behavioral) view. Choice C is not what the theory describes.",
+    choices: ["Layered mental accounts holding a safety and a speculative layer", "A single mean-variance-optimal portfolio considered as one whole", "Only cash and short-term equivalents held for safety"],
+    answerIndex: 0,
+    explanation: "Behavioral portfolio theory says real investors construct portfolios as layered mental accounts tied to goals — a safety layer plus a speculative layer — rather than one optimized whole, which can leave them under-diversified relative to theory. Choice B is the traditional (non-behavioral) view. Choice C is not what the theory describes.",
   },
 
   // ---- Trading & Execution ----
   {
     id: "cfa3-tr-q1", examSlug: "cfa-l3", topicId: "trading", topicName: "Trading & Execution", difficulty: 3,
-    stem: "Implementation shortfall measures:",
-    choices: ["Only the commission paid", "The gap between a paper portfolio transacting instantly at the decision price and the real portfolio after all execution costs", "The bid-ask spread alone"],
+    stem: "A manager decides to buy 10,000 shares at $50.00. Only 8,000 fill at $50.40 with $200 commission; the stock closes at $51.00. Total implementation shortfall is closest to:",
+    choices: ["$3,400, the realized execution cost and commission on shares filled", "$5,400, combining execution cost, commission, and opportunity cost", "$2,000, the opportunity cost on the shares that went unexecuted"],
     answerIndex: 1,
-    explanation: "Implementation shortfall captures total execution cost — spread, market impact, and delay/opportunity cost — as the difference between an idealized instant trade at the decision price and the actual result. Choices A and C each capture only one component, understating the true cost.",
+    explanation: "Implementation shortfall compares the actual result against a paper portfolio filled instantly at the decision price. Three components sum: execution cost of ($50.40 - $50.00) x 8,000 = $3,200, explicit commission of $200, and opportunity cost on the 2,000 unfilled shares of ($51.00 - $50.00) x 2,000 = $2,000. Total is $5,400, or 108 bps of the $500,000 paper investment. Reporting only the realized cost or only the opportunity cost captures half the story - the unfilled portion is precisely what a commission-only measure hides.",
   },
   {
     id: "cfa3-tr-q2", examSlug: "cfa-l3", topicId: "trading", topicName: "Trading & Execution", difficulty: 2,
     stem: "The core trade-off when executing a large order is between:",
-    choices: ["Commissions and taxes", "Market impact (trading fast) and opportunity cost (trading slow)", "Equity and fixed income"],
-    answerIndex: 1,
+    choices: ["Explicit commissions and the taxes triggered by realized gains", "Equity market exposure and fixed-income duration exposure", "Market impact from trading fast and opportunity cost from trading slow"],
+    answerIndex: 2,
     explanation: "Trading quickly causes market impact (your order moves the price against you); trading slowly risks opportunity cost as the price drifts away. Balancing the two is the art of execution, which algorithms automate. Choice A and C are unrelated to the speed-vs-impact decision.",
   },
   {
     id: "cfa3-tr-q3", examSlug: "cfa-l3", topicId: "trading", topicName: "Trading & Execution", difficulty: 2,
     stem: "A manager's duty to obtain the most favorable terms reasonably available for client trades is called:",
-    choices: ["Soft-dollar allocation", "Best execution", "Front running"],
-    answerIndex: 1,
-    explanation: "Best execution is the fiduciary obligation to seek the most favorable available terms for clients, evaluated over time with transaction cost analysis. Choice A (soft dollars) must itself benefit clients and be disclosed. Choice C (front running) is a prohibited abuse, the opposite of acting in clients' interest.",
+    choices: ["Best execution", "Soft-dollar allocation", "Front running"],
+    answerIndex: 0,
+    explanation: "Best execution is the fiduciary obligation to seek the most favorable available terms for clients, evaluated over time with transaction cost analysis. Choice B (soft dollars) must itself benefit clients and be disclosed. Choice C (front running) is a prohibited abuse, the opposite of acting in clients' interest.",
   },
 
   // Currency Management
@@ -1349,8 +1301,8 @@ const questions: Question[] = [
   {
     id: "cfa3-cur-q2", examSlug: "cfa-l3", topicId: "currency", topicName: "Currency Management", difficulty: 1,
     stem: "Which instrument is the cheapest, most exact tool for hedging a known foreign-currency exposure?",
-    choices: ["A currency option", "A forward contract", "A proxy hedge"],
-    answerIndex: 1,
+    choices: ["A currency option", "A proxy hedge", "A forward contract"],
+    answerIndex: 2,
     explanation: "Forward contracts are inexpensive, customizable, and exactly offset a known exposure, though they lock in the rate symmetrically and must be rolled. Options (A) preserve upside but cost a premium. A proxy hedge (C) uses a correlated currency and introduces basis risk, used only when a direct hedge is costly or unavailable.",
   },
   {
@@ -1370,8 +1322,8 @@ const questions: Question[] = [
   {
     id: "cfa3-cur-q5", examSlug: "cfa-l3", topicId: "currency", topicName: "Currency Management", difficulty: 1,
     stem: "A separate active mandate that takes currency positions to generate return independent of the underlying assets is called:",
-    choices: ["A currency overlay", "A fully hedged benchmark", "Covered interest parity"],
-    answerIndex: 0,
+    choices: ["A fully hedged benchmark", "Covered interest parity", "A currency overlay"],
+    answerIndex: 2,
     explanation: "A currency overlay is a distinct mandate—often run by a specialist—that actively manages currency exposure for alpha, separate from the asset managers. A fully hedged benchmark (B) is a passive policy that removes currency risk. Covered interest parity (C) is the no-arbitrage relation pricing forwards, not a management approach.",
   },
 
@@ -1379,8 +1331,8 @@ const questions: Question[] = [
   {
     id: "cfa3-ri-q1", examSlug: "cfa-l3", topicId: "risk-individuals", topicName: "Risk Management for Individuals", difficulty: 2,
     stem: "An investor with stable, bond-like human capital should generally tilt their FINANCIAL portfolio toward:",
-    choices: ["More bonds", "More equities", "More cash"],
-    answerIndex: 1,
+    choices: ["More equities", "More bonds", "More cash"],
+    answerIndex: 0,
     explanation: "Total wealth is human plus financial capital. Stable, bond-like human capital already weights total wealth toward a fixed-income-like asset, so the financial portfolio can hold more equities to reach the desired overall risk. An investor with risky, equity-like income would do the opposite — hold more bonds financially to balance total-wealth risk.",
   },
   {
@@ -1392,16 +1344,16 @@ const questions: Question[] = [
   },
   {
     id: "cfa3-ri-q3", examSlug: "cfa-l3", topicId: "risk-individuals", topicName: "Risk Management for Individuals", difficulty: 2,
-    stem: "The need for life insurance is generally GREATEST when:",
-    choices: ["Human capital is high and dependents are many", "Financial capital is high and there are no dependents", "The investor is near the end of retirement"],
-    answerIndex: 0,
-    explanation: "Life insurance replaces lost human capital for dependents, so the need peaks early in a career when human capital is large and dependents rely on that income. As financial capital accumulates and dependents become self-sufficient (B, C), the need declines. The product hedges the loss of future earnings, not accumulated assets.",
+    stem: "Four clients approach an adviser. The need for life insurance is generally greatest for the one who is:",
+    choices: ["Retired with a fully funded pension and no dependents remaining", "Single with no dependents and significant accumulated assets", "Young with dependent children and substantial future earnings to replace"],
+    answerIndex: 2,
+    explanation: "Life insurance replaces human capital - the present value of future earnings that dependents would lose. That need peaks when future earnings are large and unreplaced and when dependents rely on them, which describes a young parent. A retiree with a funded pension has already converted human capital into financial capital, and a single person with no dependents has no one whose consumption the earnings support. The need declines as financial capital displaces human capital.",
   },
   {
     id: "cfa3-ri-q4", examSlug: "cfa-l3", topicId: "risk-individuals", topicName: "Risk Management for Individuals", difficulty: 3,
     stem: "Why can gifting an appreciating asset during one's lifetime be more tax-efficient than bequeathing it, even at similar gift and estate tax rates?",
-    choices: ["Gifts are never taxed", "Future appreciation occurs outside the taxable estate", "Estate tax rates are always lower"],
-    answerIndex: 1,
+    choices: ["Future appreciation accrues outside the taxable estate", "Gifts are never subject to transfer taxation at any level", "Estate tax rates are always lower than gift tax rates"],
+    answerIndex: 0,
     explanation: "A lifetime gift removes both the asset and its FUTURE growth from the donor's taxable estate, so all appreciation after the gift escapes estate tax. Gifts are not universally tax-free (A is false), and the advantage doesn't rely on rate differences (C). The earlier and faster-growing the asset, the larger the benefit of gifting early.",
   },
   {
@@ -1416,8 +1368,8 @@ const questions: Question[] = [
   {
     id: "cfa3-inst-q1", examSlug: "cfa-l3", topicId: "institutional", topicName: "Institutional Investors", difficulty: 2,
     stem: "For a defined-benefit pension plan, investment risk is most appropriately measured:",
-    choices: ["In absolute return terms", "Relative to the plan's liabilities", "Relative to a peer-group ranking"],
-    answerIndex: 1,
+    choices: ["In absolute return terms", "Relative to a peer-group ranking", "Relative to the plan's liabilities"],
+    answerIndex: 2,
     explanation: "A DB pension exists to fund a liability, so risk is measured in a surplus (asset-versus-liability) frame — an all-Treasury portfolio can be risky if poorly matched to a long, growing liability. Absolute return (A) ignores the liability; peer rankings (C) aren't the plan's objective. This liability-relative view underpins liability-driven investing.",
   },
   {
@@ -1437,15 +1389,15 @@ const questions: Question[] = [
   {
     id: "cfa3-inst-q4", examSlug: "cfa-l3", topicId: "institutional", topicName: "Institutional Investors", difficulty: 2,
     stem: "A private foundation required to distribute about 5% of assets annually has a required return closest to:",
-    choices: ["5% only", "5% plus inflation plus costs", "The risk-free rate"],
-    answerIndex: 1,
+    choices: ["5% of assets, with no further adjustment", "The prevailing long-term risk-free rate", "5% spending plus inflation plus investment costs"],
+    answerIndex: 2,
     explanation: "To maintain real value in perpetuity while meeting the spending floor, the required return is roughly the spending rate (~5%) plus expected inflation plus investment and operating costs. Just 5% (A) would erode real purchasing power once inflation and fees are counted. The risk-free rate (C) would fall well short of the spending need.",
   },
   {
     id: "cfa3-inst-q5", examSlug: "cfa-l3", topicId: "institutional", topicName: "Institutional Investors", difficulty: 2,
     stem: "Compared with a property-casualty insurer, a life insurer typically holds:",
-    choices: ["Shorter-duration, more liquid assets", "Longer-duration, high-grade fixed income", "Mostly equities"],
-    answerIndex: 1,
+    choices: ["Longer-duration, high-grade fixed income", "Shorter-duration, more liquid assets", "Mostly equities"],
+    answerIndex: 0,
     explanation: "Life insurers match long, predictable policy liabilities with long-duration, high-grade fixed income. P&C insurers face shorter, lumpier, less predictable claims, so they hold shorter-duration, more liquid assets (A describes the P&C profile). Neither is equity-dominated (C); regulation and asset-liability matching keep both focused on quality fixed income.",
   },
 ];

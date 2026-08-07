@@ -19,7 +19,7 @@ const chapters: Chapter[] = [
     topicId: "equity",
     topicName: "Equity Securities",
     title: "Equity Securities: Common and Preferred Stock",
-    readingMinutes: 16,
+    readingMinutes: 2,
     summary: "What stockholders own, how common and preferred differ, and the rights that come with each.",
     intro:
       "Equity securities represent ownership in a corporation, and they're the foundation of the Series 7. A registered representative must understand exactly what a shareholder owns, what rights they hold, and how common and preferred stock differ in risk, income, and priority. These distinctions drive suitability decisions every day on the job.",
@@ -51,7 +51,7 @@ const chapters: Chapter[] = [
       {
         heading: "Priority in liquidation, and rights vs warrants",
         blocks: [
-          { kind: "figure", figure: { caption: "Figure 1 — The liquidation waterfall. If a company is wound up, claimants are paid strictly in this order. Common shareholders are paid LAST — the price of their unlimited upside.", alt: "A four-step ladder showing payment priority from secured creditors down to common stockholders", svg: `<svg viewBox="0 0 460 210" width="100%" style="max-width:460px"><g class="c-teal"><rect x="70" y="16" width="320" height="38" rx="8"/></g><text x="230" y="40" text-anchor="middle" font-size="11" font-weight="600" fill="#085041">1 · Secured creditors</text><g class="c-blue"><rect x="70" y="62" width="320" height="38" rx="8"/></g><text x="230" y="86" text-anchor="middle" font-size="11" font-weight="600" fill="#0C447C">2 · Unsecured creditors (incl. bondholders)</text><g class="c-amber"><rect x="70" y="108" width="320" height="38" rx="8"/></g><text x="230" y="132" text-anchor="middle" font-size="11" font-weight="600" fill="#633806">3 · Preferred stockholders</text><g class="c-red"><rect x="70" y="154" width="320" height="38" rx="8"/></g><text x="230" y="178" text-anchor="middle" font-size="11" font-weight="600" fill="#791F1F">4 · Common stockholders (last)</text><text x="40" y="38" text-anchor="middle" font-size="9" fill="var(--text-muted)" transform="rotate(-90 40 100)">paid first → last</text></svg>` } },
+          { kind: "figure", figure: { caption: "Figure 1 — The liquidation waterfall. If a company is wound up, claimants are paid strictly in this order. Common shareholders are paid LAST — the price of their unlimited upside.", alt: "A four-step ladder showing payment priority from secured creditors down to common stockholders", svg: `<svg viewBox="0 0 460 210" width="100%" style="max-width:460px"><rect x="70" y="16" width="320" height="38" rx="8" fill="var(--ats-green-bg)" stroke="var(--ats-green)" stroke-width="1.5"/><text x="230" y="40" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text-primary)">1 · Secured creditors</text><rect x="70" y="62" width="320" height="38" rx="8" fill="var(--primary-light)" stroke="var(--primary)" stroke-width="1.5"/><text x="230" y="86" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text-primary)">2 · Unsecured creditors (incl. bondholders)</text><rect x="70" y="108" width="320" height="38" rx="8" fill="var(--ats-amber-bg)" stroke="var(--ats-amber)" stroke-width="1.5"/><text x="230" y="132" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text-primary)">3 · Preferred stockholders</text><rect x="70" y="154" width="320" height="38" rx="8" fill="var(--ats-red-bg)" stroke="var(--ats-red)" stroke-width="1.5"/><text x="230" y="178" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text-primary)">4 · Common stockholders (last)</text><text x="40" y="38" text-anchor="middle" font-size="9" fill="var(--text-muted)" transform="rotate(-90 40 100)">paid first → last</text></svg>` } },
           { kind: "table", table: { caption: "Table 1 — Rights vs warrants — a favorite exam distinction.", headers: ["Feature", "Rights", "Warrants"], rows: [["Term", "Short (weeks)", "Long (years)"], ["Exercise price", "Below market", "Above market at issue"], ["Given to", "Existing shareholders", "Often attached to bonds as a sweetener"]] } },
           { kind: "callout", label: "Cumulative preferred", body: "Missed dividends on cumulative preferred accrue and must ALL be paid before common shareholders receive a cent. Non-cumulative preferred simply forfeits skipped dividends." },
         ],
@@ -79,7 +79,7 @@ const chapters: Chapter[] = [
     topicId: "debt",
     topicName: "Debt Securities",
     title: "Debt Securities: Bonds, Yields, and Money Markets",
-    readingMinutes: 18,
+    readingMinutes: 6,
     summary: "How bonds work, the issuers and their tax profiles, the inverse price-yield relationship, the yield measures, and short-term money-market instruments — diagrammed and worked through.",
     intro:
       "Debt securities are loans made by investors to issuers — corporations, the U.S. Treasury, and municipalities — in exchange for interest and the eventual return of principal. The Series 7 tests debt heavily because bonds are the backbone of income and risk-balancing in client portfolios. If you internalize one thing, make it the inverse relationship between bond prices and yields; nearly every bond question is a consequence of it.",
@@ -130,7 +130,7 @@ const chapters: Chapter[] = [
     topicId: "accounts",
     topicName: "Customer Accounts & Suitability",
     title: "Customer Accounts & Suitability",
-    readingMinutes: 16,
+    readingMinutes: 2,
     summary: "Account types, the information you must gather, and the obligation to recommend only suitable investments.",
     intro:
       "Much of a registered representative's daily responsibility is opening accounts correctly and making recommendations that fit the client. The Series 7 tests both the mechanics of account types and the core ethical-regulatory duty of suitability — recommending only what is appropriate for a specific customer's profile. Getting this wrong is both an exam failure and, in real life, a compliance violation.",
@@ -189,23 +189,23 @@ const questions: Question[] = [
   {
     id: "s7-eq-q1", examSlug: "series-7", topicId: "equity", topicName: "Equity Securities", difficulty: 2,
     stem: "In a corporate liquidation, which party is paid LAST?",
-    choices: ["Bondholders", "Preferred stockholders", "Common stockholders"],
-    answerIndex: 2,
-    explanation: "Common stockholders hold a residual claim — they're paid only after all creditors (including bondholders) and preferred stockholders are satisfied. That last-in-line position is the trade-off for common stock's unlimited upside potential. Choice A (bondholders) are creditors, paid relatively early. Choice B (preferred) ranks ahead of common but behind creditors.",
+    choices: ["Common stockholders", "Bondholders", "Preferred stockholders"],
+    answerIndex: 0,
+    explanation: "Common stockholders hold a residual claim — they're paid only after all creditors (including bondholders) and preferred stockholders are satisfied. That last-in-line position is the trade-off for common stock's unlimited upside potential. Choice B (bondholders) are creditors, paid relatively early. Choice C (preferred) ranks ahead of common but behind creditors.",
   },
   {
     id: "s7-eq-q2", examSlug: "series-7", topicId: "equity", topicName: "Equity Securities", difficulty: 2,
     stem: "A cumulative preferred stock missed two years of dividends. Before common shareholders can receive any dividend, the company must:",
-    choices: ["Pay only the current year's preferred dividend", "Pay all accrued (skipped) preferred dividends plus the current one", "Nothing — missed preferred dividends are forfeited"],
+    choices: ["Pay only the current year's preferred dividend", "Pay all accrued preferred dividends plus the current", "Nothing — missed preferred dividends are forfeited"],
     answerIndex: 1,
     explanation: "Cumulative preferred dividends accrue when skipped, and ALL arrears must be paid before common shareholders receive anything. So the company must pay the two missed years plus the current year first. Choice A ignores the accrued arrears. Choice C describes NON-cumulative preferred, where missed dividends are indeed forfeited — the opposite of cumulative.",
   },
   {
     id: "s7-eq-q3", examSlug: "series-7", topicId: "equity", topicName: "Equity Securities", difficulty: 3,
     stem: "Which statement correctly distinguishes a right from a warrant?",
-    choices: ["Rights are long-term and priced above market; warrants are short-term and below market", "Rights are short-term and priced below market; warrants are long-term and above market", "Both are identical except for their names"],
-    answerIndex: 1,
-    explanation: "Rights are short-term (weeks) and let existing shareholders buy new shares BELOW the current market price, compensating for dilution. Warrants are long-term (years) and usually have an exercise price ABOVE the market at issuance, often attached to bonds as a sweetener. Choice A reverses both attributes. Choice C is wrong — their term and pricing differ meaningfully, a favorite exam distinction.",
+    choices: ["Rights are long-term and priced above market; warrants are short-term and below market", "Both are identical except for their names", "Rights are short-term and priced below market; warrants are long-term and above market"],
+    answerIndex: 2,
+    explanation: "Rights are short-term (weeks) and let existing shareholders buy new shares BELOW the current market price, compensating for dilution. Warrants are long-term (years) and usually have an exercise price ABOVE the market at issuance, often attached to bonds as a sweetener. Choice A reverses both attributes. Choice B is wrong — their term and pricing differ meaningfully, a favorite exam distinction.",
   },
   // Debt
   {
@@ -225,17 +225,17 @@ const questions: Question[] = [
   {
     id: "s7-debt-q3", examSlug: "series-7", topicId: "debt", topicName: "Debt Securities", difficulty: 2,
     stem: "A high-tax-bracket investor is comparing two similar bonds. The main advantage of a municipal bond over a corporate bond is that municipal interest is generally:",
-    choices: ["Higher in stated coupon rate", "Exempt from federal income tax", "Backed by the U.S. Treasury"],
-    answerIndex: 1,
-    explanation: "Municipal bond interest is generally exempt from federal income tax (and often state tax for in-state residents), which makes their lower stated yields especially attractive to high-bracket investors on an after-tax basis. Choice A is usually false — munis tend to have LOWER coupons precisely because of the tax break. Choice C confuses munis with Treasuries; municipals are backed by state/local issuers, not the federal government.",
+    choices: ["Higher in stated coupon rate", "Backed by the U.S. Treasury", "Exempt from federal income tax"],
+    answerIndex: 2,
+    explanation: "Municipal bond interest is generally exempt from federal income tax (and often state tax for in-state residents), which makes their lower stated yields especially attractive to high-bracket investors on an after-tax basis. Choice A is usually false — munis tend to have LOWER coupons precisely because of the tax break. Choice B confuses munis with Treasuries; municipals are backed by state/local issuers, not the federal government.",
   },
   // Accounts & suitability
   {
     id: "s7-acc-q1", examSlug: "series-7", topicId: "accounts", topicName: "Customer Accounts", difficulty: 2,
     stem: "A registered representative wants to place trades in a customer's account without obtaining approval for each transaction. This requires:",
-    choices: ["Only a verbal okay from the customer", "Prior written authorization (discretionary authority) and added supervision", "Nothing, as long as trades are profitable"],
-    answerIndex: 1,
-    explanation: "Trading without per-transaction approval requires written discretionary authorization from the customer, and such accounts get heightened supervisory review. Choice A is insufficient — verbal consent doesn't establish discretionary authority. Choice C is dangerously wrong: profitability never substitutes for required authorization, and unauthorized trading is a serious violation regardless of outcome.",
+    choices: ["Prior written discretionary authority and added supervision", "Only a verbal okay from the customer", "Nothing, as long as trades are profitable"],
+    answerIndex: 0,
+    explanation: "Trading without per-transaction approval requires written discretionary authorization from the customer, and such accounts get heightened supervisory review. Choice B is insufficient — verbal consent doesn't establish discretionary authority. Choice C is dangerously wrong: profitability never substitutes for required authorization, and unauthorized trading is a serious violation regardless of outcome.",
   },
   {
     id: "s7-acc-q2", examSlug: "series-7", topicId: "accounts", topicName: "Customer Accounts", difficulty: 3,
@@ -247,9 +247,9 @@ const questions: Question[] = [
   {
     id: "s7-acc-q3", examSlug: "series-7", topicId: "accounts", topicName: "Customer Accounts", difficulty: 2,
     stem: "Excessive trading in a customer's account primarily to generate commissions is known as:",
-    choices: ["Churning", "Hedging", "Rebalancing"],
-    answerIndex: 0,
-    explanation: "Churning is the unethical practice of trading excessively to generate commissions rather than to benefit the customer; it violates the quantitative dimension of suitability. Choice B (hedging) is a legitimate risk-reduction strategy. Choice C (rebalancing) is the legitimate practice of restoring a portfolio's target allocations. Only churning is a violation.",
+    choices: ["Hedging", "Rebalancing", "Churning"],
+    answerIndex: 2,
+    explanation: "Churning is the unethical practice of trading excessively to generate commissions rather than to benefit the customer; it violates the quantitative dimension of suitability. Choice A (hedging) is a legitimate risk-reduction strategy. Choice B (rebalancing) is the legitimate practice of restoring a portfolio's target allocations. Only churning is a violation.",
   },
 ];
 
