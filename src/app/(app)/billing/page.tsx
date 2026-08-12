@@ -13,6 +13,7 @@ import { trackPurchase } from "@/lib/gtag";
 import posthog from "posthog-js";
 import { TRIAL_CTA, TRIAL_DAYS, TRIAL_REMINDER_DAYS_BEFORE, trialDisclosure } from "@/lib/trial";
 import { TIER_SENTENCE, EXAM_COST_ANCHOR } from "@/lib/tier";
+import CancelFlow from "@/components/CancelFlow";
 
 export default function BillingPage() {
   return (
@@ -30,17 +31,15 @@ function BillingInner() {
   const router = useRouter();
   const { pro } = useAccess();
   const signedIn = useSignedIn();
+  // Cancel save flow: intercepts the portal handoff so we can make an offer
+  // first. `portalEmail` is captured once and reused, so a guest is never
+  // asked for their receipt email twice in one flow.
+  const [cancelOpen, setCancelOpen] = useState(false);
+  const [portalEmail, setPortalEmail] = useState("");
 
-  async function handleManage() {
-    // Signed-in users are resolved server-side from their account. Legacy guest
-    // payers (from before checkout required an account) have no account to
-    // resolve, so we ask for the email on their receipt. Nobody who paid should
-    // ever be unable to cancel — people who can't cancel file chargebacks.
-    let email = "";
-    if (!signedIn) {
-      email = (window.prompt("Enter the email on your receipt to manage or cancel your subscription:") || "").trim();
-      if (!email) return;
-    }
+  /** The real handoff to Stripe. Every path out of CancelFlow lands here. */
+  async function openPortal(emailOverride?: string) {
+    const email = emailOverride ?? portalEmail;
     setLoading("manage");
     try {
       const res = await fetch("/api/stripe/portal", {
@@ -56,6 +55,23 @@ function BillingInner() {
     } finally {
       setLoading(null);
     }
+  }
+
+  async function handleManage() {
+    // Signed-in users are resolved server-side from their account. Legacy guest
+    // payers (from before checkout required an account) have no account to
+    // resolve, so we ask for the email on their receipt. Nobody who paid should
+    // ever be unable to cancel — people who can't cancel file chargebacks.
+    let email = "";
+    if (!signedIn) {
+      email = (window.prompt("Enter the email on your receipt to manage or cancel your subscription:") || "").trim();
+      if (!email) return;
+    }
+    setPortalEmail(email);
+    // Show the save offer first. CancelFlow falls through to openPortal on
+    // decline, on error, or when there's nothing to save — so this can only
+    // ever add one screen, never block the cancellation.
+    setCancelOpen(true);
   }
 
   useEffect(() => {
@@ -262,6 +278,18 @@ function BillingInner() {
         <Link href="/refund" style={{ color: "var(--primary)" }}>Refund Policy</Link>.
         <br />Questions? <a href={`mailto:${BRAND.supportEmail}`} style={{ color: "var(--primary)" }}>{BRAND.supportEmail}</a>
       </p>
+
+      {/* Save offer. Every exit path calls openPortal, so this can delay a
+          cancellation by one screen but can never prevent one. */}
+      <CancelFlow
+        open={cancelOpen}
+        email={portalEmail}
+        onClose={() => setCancelOpen(false)}
+        onProceedToPortal={() => {
+          setCancelOpen(false);
+          openPortal();
+        }}
+      />
     </div>
   );
 }
