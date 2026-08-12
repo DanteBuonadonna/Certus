@@ -19,11 +19,23 @@ export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {
-    const { email, userId } = await req.json();
+    const body = await req.json();
+    const { email, userId } = body ?? {};
     if (!email || typeof email !== "string" || !email.includes("@")) {
       return NextResponse.json({ ok: false }, { status: 400 });
     }
-    const mail = welcomeEmail(typeof userId === "string" ? userId : "unknown");
+    // Check context is OPTIONAL — someone signing up via /signup never took the
+    // check. welcomeEmail falls back to the generic version, which still points
+    // at a lesson rather than back at the diagnostic they may not have done.
+    const ctx = {
+      correct: typeof body?.correct === "number" ? body.correct : undefined,
+      total: typeof body?.total === "number" ? body.total : undefined,
+      examName: typeof body?.examName === "string" ? body.examName : undefined,
+      examSlug: typeof body?.examSlug === "string" ? body.examSlug : undefined,
+      weakTopicName: typeof body?.weakTopicName === "string" ? body.weakTopicName : undefined,
+      weakTopicId: typeof body?.weakTopicId === "string" ? body.weakTopicId : undefined,
+    };
+    const mail = welcomeEmail(typeof userId === "string" ? userId : "unknown", ctx);
     // Don't await hard-fail — sendEmail already returns false rather than throw
     // when the key is missing, so this is safe either way.
     const ok = await sendEmail({ to: email, subject: mail.subject, html: mail.html });

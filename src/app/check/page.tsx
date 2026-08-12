@@ -636,6 +636,17 @@ function Check() {
         <SignupModal
           open={pendingDest !== null}
           trigger="check_to_trial"
+          // Carry the result into the welcome email so it opens on their
+          // weakest topic. Without this the email sent them back to /check —
+          // the thing they just completed to get here.
+          checkContext={{
+            correct: result.correct,
+            total: result.total,
+            examName: exam.name,
+            examSlug: result.examSlug,
+            weakTopicName: result.weakTopics[0]?.topicName,
+            weakTopicId: result.weakTopics[0]?.topicId,
+          }}
           title="One step — save your plan"
           reason={`You scored ${result.pct}%. Make a free account so we keep your plan, your streak, and this projection — then start your trial.`}
           onClose={() => { posthog.capture("signup_gate_dismissed", { exam: examSlug, trigger: "check_to_trial" }); setPendingDest(null); }}

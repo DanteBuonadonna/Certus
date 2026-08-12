@@ -112,22 +112,84 @@ export interface DripEmail {
  *
  * Why this exists: signing up used to send NOTHING. The first contact was the
  * drip, 20 hours later, via a once-a-day cron — so a new account got silence
- * for the better part of two days, which reads as "did that even work?". Every
- * app people trust sends something in the first ten seconds. This is that.
+ * for the better part of two days, which reads as "did that even work?".
  *
- * One job: point them at the single best first action (the free check), warmly,
- * with no ask. Uses the marketing shell (unsubscribe included) because it's the
- * start of the relationship, not a receipt.
+ * WHAT WAS BROKEN (fixed here): this used to send everyone to /check — the
+ * 3-minute diagnostic. But /check is the GATE. You take it, and the signup
+ * modal appears at the result. So by definition every recipient had just
+ * finished the exact thing the email told them to go do. The single most
+ * important email in the funnel pointed backwards.
+ *
+ * Worse, the data was right there and being thrown away: the check computes
+ * their score, their exam, and their weakest topics, and the signup modal
+ * literally quotes the score on screen — then /api/welcome was called with
+ * nothing but {email, userId}.
+ *
+ * Now the email leads with THEIR number and sends them to the first lesson
+ * that fixes their worst topic. Someone who signed up outside the check
+ * (via /signup directly) has no result, so they get the generic version
+ * pointed at the dashboard — never back at the check.
  */
-export function welcomeEmail(userId: string): DripEmail {
+export interface CheckContext {
+  /** Raw score. We send correct/total rather than only a percentage because
+   *  the check is SIX questions — a percentage implies a precision it does
+   *  not have, and "17%" from one missed question reads as a verdict. */
+  correct?: number;
+  total?: number;
+  pct?: number;
+  examName?: string;
+  examSlug?: string;
+  weakTopicName?: string;
+  weakTopicId?: string;
+}
+
+export function welcomeEmail(userId: string, ctx: CheckContext = {}): DripEmail {
+  const { pct, examName, examSlug, weakTopicName, weakTopicId } = ctx;
+
+  // Deep-link straight into the weakest topic when we know it; /learn reads
+  // ?exam= and ?topic=. Otherwise the dashboard, which is where their plan is.
+  const lessonHref =
+    examSlug && weakTopicId
+      ? `${APP_URL}/learn?exam=${encodeURIComponent(examSlug)}&topic=${encodeURIComponent(weakTopicId)}`
+      : examSlug
+        ? `${APP_URL}/learn?exam=${encodeURIComponent(examSlug)}`
+        : `${APP_URL}/dashboard`;
+
+  // PERSONALISED — we have their check result. Lead with their own number.
+  const correct = ctx.correct;
+  const total = ctx.total;
+  if (typeof correct === "number" && typeof total === "number" && weakTopicName) {
+    const exam = examName ?? "your exam";
+    return {
+      subject:
+        correct === total
+          ? `Your ${exam} plan — start with ${weakTopicName}`
+          : `Your ${exam} plan starts with ${weakTopicName}`,
+      html: shell(
+        `<p style="margin:0 0 14px;">Your plan's saved — welcome to Certus 👋</p>
+         <p style="margin:0 0 16px;">${
+           correct === total
+             ? `You got <strong>all ${total}</strong> on the check — nice. Six questions is a rough read though, not a verdict, so the real test is whether that holds up over a full topic. <strong>${weakTopicName}</strong> is a solid place to prove it.`
+             : `You got <strong>${correct} of ${total}</strong> on the check. Six questions is a rough read, not a verdict — but <strong>${weakTopicName}</strong> was one you missed, so it's the honest place to start.`
+         }</p>
+         <p style="margin:0 0 22px;">${button(`Fix ${weakTopicName} →`, lessonHref)}</p>
+         <p style="margin:0 0 16px;">One lesson, about 20 minutes, with practice questions that explain <strong>why</strong> the wrong answer was tempting — which is the part that makes it stick. Do that one thing today and you've already moved.</p>
+         <p style="margin:0;color:#9a9aa8;font-size:13px;">Reply to this email any time — a real person reads it.</p>`,
+        userId
+      ),
+    };
+  }
+
+  // GENERIC — signed up without taking the check (e.g. straight from /signup).
+  // Still never points at /check; the dashboard has their plan and next action.
   return {
     subject: "You're in. Here's the smartest first move.",
     html: shell(
       `<p style="margin:0 0 14px;">Welcome to Certus 👋</p>
        <p style="margin:0 0 16px;">Most people start studying by <em>reading</em>. That's the trap — you learn to recognise the material without being able to use it, and the two feel identical until the exam asks you to do something.</p>
-       <p style="margin:0 0 16px;">So don't start by reading. Start by finding out where you actually stand:</p>
-       <p style="margin:0 0 22px;">${button("Take the 3-minute check →", `${APP_URL}/check`)}</p>
-       <p style="margin:0 0 16px;">Six real questions. At the end you get your score, the topics you're bleeding points on, and an honest read on where you'd land today. No pressure, no wrong way to do it.</p>
+       <p style="margin:0 0 16px;">So don't start by reading. Start by doing one lesson and answering the questions at the end of it:</p>
+       <p style="margin:0 0 22px;">${button("Open your first lesson →", lessonHref)}</p>
+       <p style="margin:0 0 16px;">Every practice question explains why the wrong answer was tempting, not just which one was right. That's the part that sticks.</p>
        <p style="margin:0;color:#9a9aa8;font-size:13px;">Reply to this email any time — a real person reads it.</p>`,
       userId
     ),

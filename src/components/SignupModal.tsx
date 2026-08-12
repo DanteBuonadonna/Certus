@@ -26,6 +26,7 @@ export default function SignupModal({
   title = "Save your progress",
   reason = "Make a free account and we'll keep your score, your plan, and your streak.",
   trigger,
+  checkContext,
 }: {
   open: boolean;
   onClose: () => void;
@@ -33,6 +34,10 @@ export default function SignupModal({
   title?: string;
   reason?: string;
   trigger?: string;
+  /** Their check result, when the modal is opened from /check. Personalises the
+   *  welcome email so it points at their weakest topic instead of at the check
+   *  they just finished. Omitted elsewhere — the email degrades gracefully. */
+  checkContext?: Record<string, string | number | undefined>;
 }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -71,7 +76,7 @@ export default function SignupModal({
       void fetch("/api/welcome", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, userId: data.session.user.id }),
+        body: JSON.stringify({ email, userId: data.session.user.id, ...(checkContext ?? {}) }),
       }).catch(() => {});
       onSuccess();
       return;
