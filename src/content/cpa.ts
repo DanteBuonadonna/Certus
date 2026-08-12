@@ -2,7 +2,12 @@
 // Certus — CPA content (wave 1, original)
 // The Certified Public Accountant exam. Core sections:
 // Financial Reporting (FAR), Auditing (AUD), Taxation &
-// Regulation (REG), and Business Environment (BEC).
+// Regulation (REG) — plus ONE Discipline chosen by the candidate:
+// Business Analysis and Reporting (BAR), Information Systems and
+// Controls (ISC), or Tax Compliance and Planning (TCP).
+// NOTE: CPA Evolution retired the old BEC section in 2024. The topicId
+// "bec" is kept as a stable internal key (21 questions + exams.ts map to
+// it); all USER-FACING labels say BAR.
 // ============================================================
 
 import { Chapter, Question, ExamContent } from "./types";
@@ -19,41 +24,34 @@ const chapters: Chapter[] = [
     topicId: "far",
     topicName: "Financial Reporting (FAR)",
     title: "Financial Reporting: Statements, Accrual, and Revenue",
-    readingMinutes: 4,
+    readingMinutes: 8,
     summary: "The financial statements, accrual accounting, the accounting equation, and revenue recognition.",
     intro:
       "Financial Accounting and Reporting (FAR) is the broadest and, for many, the hardest section of the CPA exam. It tests how transactions are recorded and presented under U.S. GAAP across the four financial statements. The goal is fluency in how economic events flow through the accounting system to produce statements that fairly represent a company's position and performance.",
     sections: [
       {
-        heading: "The accounting equation and the four statements",
-        paragraphs: [
-          "Everything in financial accounting rests on one identity: Assets = Liabilities + Equity. Every transaction keeps this equation in balance through double-entry bookkeeping, where each entry has equal debits and credits. The four financial statements present the results: the balance sheet (financial position at a point in time), the income statement (revenues and expenses over a period), the statement of cash flows (cash movement split into operating, investing, and financing), and the statement of changes in equity.",
-          "These statements articulate — they tie together. Net income from the income statement flows into retained earnings on the balance sheet and is the starting point for the operating section of the cash flow statement (under the indirect method). A candidate must be able to trace a transaction through all of them.",
-        ],
-        callout: {
-          label: "The accounting equation",
-          body: "Assets = Liabilities + Equity. Double-entry bookkeeping keeps it balanced: every transaction posts equal debits and credits.",
-        },
-      },
-      {
-        heading: "Accrual accounting",
-        paragraphs: [
-          "U.S. GAAP requires accrual accounting: revenue is recognized when earned and expenses when incurred, regardless of when cash changes hands. This is governed by the revenue recognition principle and the matching principle (expenses are matched to the revenues they help generate). Accrual accounting gives a more faithful picture of a period's performance than cash accounting, but it relies on estimates and adjusting entries — accruals, deferrals, depreciation — made at period end to state the accounts correctly.",
-        ],
-      },
-      {
-        heading: "Revenue recognition",
-        paragraphs: [
-          "Modern GAAP recognizes revenue using a five-step model: identify the contract with a customer, identify the performance obligations, determine the transaction price, allocate that price to the obligations, and recognize revenue as each obligation is satisfied. The core principle is that revenue is recognized when control of a good or service transfers to the customer — which may be at a point in time or over time. This framework prevents premature or aggressive revenue recognition, one of the most common sources of financial misstatement.",
-        ],
-      },
-      {
-        heading: "How the statements articulate, with an entry",
+        heading: "The framework the whole section rests on",
         blocks: [
-          { kind: "p", text: "The exam loves to test whether you can trace one number across statements. Net income is the linchpin: it is the bottom line of the income statement, it increases retained earnings on the balance sheet, and it is the starting point of the operating section of the cash flow statement under the indirect method. Change net income and all three move together." },
-          { kind: "figure", figure: { caption: "Figure 1 — Statement articulation. Net income flows into retained earnings (and thus equity on the balance sheet) and seeds the operating section of the cash flow statement. The statements are one connected system, not four separate reports.", alt: "Income statement net income flowing to retained earnings, balance sheet, and the cash flow statement", svg: `<svg viewBox="0 0 460 175" width="100%" style="max-width:460px"><defs><marker id="cpaah" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6z" fill="var(--primary)"/></marker></defs><g stroke="var(--border)" stroke-width="0.5"><rect x="16" y="26" width="120" height="44" rx="6" fill="var(--bg-card)"/><rect x="170" y="26" width="120" height="44" rx="6" fill="var(--bg-card)"/><rect x="324" y="26" width="120" height="44" rx="6" fill="var(--primary-light)"/><rect x="170" y="112" width="120" height="44" rx="6" fill="var(--bg-card)"/></g><g text-anchor="middle"><text x="76" y="44" font-size="9.5" font-weight="600" fill="var(--text-primary)">Income Stmt</text><text x="76" y="58" font-size="8.5" fill="var(--ats-green)">→ Net income</text><text x="230" y="44" font-size="9.5" font-weight="600" fill="var(--text-primary)">Retained</text><text x="230" y="57" font-size="9.5" font-weight="600" fill="var(--text-primary)">Earnings</text><text x="384" y="44" font-size="9.5" font-weight="600" fill="var(--primary)">Balance Sheet</text><text x="384" y="58" font-size="8.5" fill="var(--text-secondary)">(Equity)</text><text x="230" y="130" font-size="9.5" font-weight="600" fill="var(--text-primary)">Cash Flow</text><text x="230" y="144" font-size="8.5" fill="var(--text-secondary)">(operating, indirect)</text></g><line x1="136" y1="48" x2="170" y2="48" stroke="var(--primary)" stroke-width="1" marker-end="url(#cpaah)"/><line x1="290" y1="48" x2="324" y2="48" stroke="var(--primary)" stroke-width="1" marker-end="url(#cpaah)"/><path d="M76 70 L76 134 L170 134" fill="none" stroke="var(--primary)" stroke-width="1" stroke-dasharray="3 3" marker-end="url(#cpaah)"/></svg>` } },
-          { kind: "table", table: { caption: "Table 1 — The five-step revenue recognition model.", headers: ["Step", "Action"], rows: [["1", "Identify the contract with the customer"], ["2", "Identify the performance obligations"], ["3", "Determine the transaction price"], ["4", "Allocate the price to the obligations"], ["5", "Recognize revenue as each obligation is satisfied (control transfers)"]] } },
-          { kind: "example", example: { title: "an accrual adjusting entry", prompt: "On Dec 31, a firm has earned $4,000 of interest revenue that won't be collected in cash until January. What adjusting entry is required?", steps: ["The revenue is earned in December, so accrual accounting recognizes it now — not when cash arrives.", "Debit Interest Receivable $4,000 (a new asset: cash owed to the firm).", "Credit Interest Revenue $4,000 (recognized in December's income).", "The equation stays balanced: assets +$4,000 and equity (via revenue) +$4,000."], answer: "Dr Interest Receivable 4,000 / Cr Interest Revenue 4,000 — earned revenue recognized before cash is received." } },
+          { kind: "p", text: "FAR tests whether you can produce and interpret financial statements under U.S. GAAP, and the conceptual framework is what makes the individual rules coherent rather than arbitrary. The objective of general-purpose financial reporting is to give existing and potential investors, lenders, and other creditors information useful in making decisions about providing resources. Everything else descends from that: relevance and faithful representation are the FUNDAMENTAL qualitative characteristics, enhanced by comparability, verifiability, timeliness, and understandability." },
+          { kind: "p", text: "Two conventions shape nearly every entry. The ACCRUAL basis recognizes revenue when it is EARNED and expenses when INCURRED, regardless of when cash moves — which is the entire reason a profitable company can run out of cash and an unprofitable one can be flush. The MATCHING principle then places expenses in the same period as the revenue they helped generate, which is why a prepaid annual insurance policy is capitalized and expensed monthly rather than dumped into the month it was paid." },
+          { kind: "formula", formula: { label: "The accounting equation", expr: "Assets = Liabilities + Equity", note: "Equity is the RESIDUAL — what owners retain after every creditor claim. Every transaction preserves this identity, which is what double-entry bookkeeping enforces." } },
+          { kind: "example", example: { title: "does the equation still balance?", prompt: "A company buys equipment for $80,000, paying $30,000 cash and signing a note for the balance. Show that the accounting equation holds.", steps: ["Assets: equipment increases $80,000, cash decreases $30,000. Net asset change = +$50,000.", "Liabilities: the note payable increases $50,000.", "Equity: unchanged — no revenue, expense, or owner transaction occurred.", "$50,000 = $50,000 + $0. The equation holds."], answer: "It balances. Recording an $80,000 liability would ignore the cash paid, and equity is never touched by simply acquiring an asset — a purchase is an exchange, not a gain." } },
+        ],
+      },
+      {
+        heading: "The four statements and what each answers",
+        blocks: [
+          { kind: "p", text: "Each statement answers a different question, and the exam tests whether you route a fact to the right one. The BALANCE SHEET is a snapshot at a moment: what is owned, owed, and left over. The INCOME STATEMENT covers a period and reports profitability on the accrual basis. The STATEMENT OF CASH FLOWS covers the same period but reports actual cash movement, split into OPERATING, INVESTING, and FINANCING activities. The STATEMENT OF STOCKHOLDERS' EQUITY reconciles beginning and ending equity." },
+          { kind: "p", text: "The cash flow statement is where candidates lose the most points, because the classification is rule-driven rather than intuitive. Interest RECEIVED and interest PAID are both OPERATING under U.S. GAAP, even though the related principal is investing or financing. Dividends PAID are FINANCING, but dividends RECEIVED are operating. Purchasing equipment is investing; issuing stock or debt is financing. Note that IFRS permits more classification flexibility here, which is a common comparison point." },
+          { kind: "table", table: { caption: "Routing a transaction on the cash flow statement (U.S. GAAP).", headers: ["Transaction", "Classification"], rows: [["Cash collected from customers", "Operating"], ["Interest received or paid", "Operating"], ["Dividends received", "Operating"], ["Purchase or sale of equipment", "Investing"], ["Purchase of another company's securities", "Investing"], ["Issuing stock or bonds", "Financing"], ["Dividends PAID to shareholders", "Financing"], ["Repaying loan principal", "Financing"]] } },
+        ],
+      },
+      {
+        heading: "Where the measurement judgment lives",
+        blocks: [
+          { kind: "p", text: "Much of FAR is about the estimates management makes, because that is where both the difficulty and the manipulation risk sit. DEPRECIATION allocates an asset's cost across the periods it serves; the method chosen changes the timing of expense but never the total. Straight-line spreads cost evenly after subtracting salvage value. Accelerated methods such as double-declining balance load expense into early years and — a detail that trips candidates — IGNORE salvage value in the initial computation, stopping only once book value reaches salvage." },
+          { kind: "example", example: { title: "straight-line versus double-declining", prompt: "Equipment costs $120,000 with a $20,000 salvage value and a five-year life. Compute first-year depreciation under both methods.", steps: ["Straight-line = (cost − salvage) ÷ life = ($120,000 − $20,000) ÷ 5 = $20,000.", "Double-declining rate = 2 ÷ 5 = 40%.", "DDB year one = 40% × $120,000 = $48,000 — applied to the FULL cost, because salvage is ignored in the DDB computation.", "Over the full five years both methods expense the same $100,000; only the timing differs."], answer: "$20,000 straight-line, $48,000 double-declining. Subtracting salvage before applying the DDB rate is the standard error — it produces $40,000 and is wrong." } },
+          { kind: "bullets", items: ["GOODWILL is not amortized under U.S. GAAP; it is tested for impairment at least annually and write-downs are permanent.", "INVENTORY may be costed FIFO, LIFO, or weighted average; LIFO is prohibited under IFRS.", "BONDS issued at a discount produce interest expense GREATER than the cash coupon, with the difference amortizing the discount.", "LEASES are now capitalized on the balance sheet as a right-of-use asset and lease liability under ASC 842.", "REVENUE follows the ASC 606 five-step model, recognized as each performance obligation is satisfied."] },
         ],
       },
     ],
@@ -79,40 +77,34 @@ const chapters: Chapter[] = [
     topicId: "aud",
     topicName: "Auditing & Attestation (AUD)",
     title: "Auditing: Opinions, Evidence, and Independence",
-    readingMinutes: 3,
+    readingMinutes: 7,
     summary: "What an audit provides, the types of audit opinion, internal control, and auditor independence.",
     intro:
       "Auditing and Attestation (AUD) tests the work of the independent auditor — the professional who lends credibility to financial statements. The section covers the purpose of an audit, how auditors gather evidence and assess risk, the opinions they issue, and the bedrock requirement of independence. The recurring theme is professional skepticism: the auditor verifies rather than assumes.",
     sections: [
       {
-        heading: "The purpose of an audit",
-        paragraphs: [
-          "An audit provides reasonable assurance — not absolute assurance — that financial statements are free of material misstatement, whether from error or fraud. The auditor expresses an opinion on whether the statements are presented fairly, in all material respects, in accordance with the applicable framework (such as GAAP). 'Reasonable, not absolute' is a crucial nuance: because of sampling, estimates, and the possibility of collusion, an audit cannot guarantee perfection — only a high level of assurance.",
-        ],
-      },
-      {
-        heading: "Types of audit opinion",
-        paragraphs: [
-          "The audit report communicates the auditor's conclusion through the type of opinion issued. An unqualified (or 'unmodified') opinion is the clean, best outcome — the statements are fairly presented. A qualified opinion says the statements are fair 'except for' a specific issue. An adverse opinion states the statements are NOT fairly presented, signaling pervasive material misstatement. A disclaimer of opinion means the auditor could not gather enough evidence to form an opinion at all (for example, due to a severe scope limitation). Matching the situation to the correct opinion is a core exam skill.",
-        ],
-        callout: {
-          label: "The four opinions",
-          body: "Unqualified = clean. Qualified = fair 'except for' an issue. Adverse = NOT fairly presented (pervasive). Disclaimer = couldn't obtain enough evidence to opine.",
-        },
-      },
-      {
-        heading: "Evidence, internal control, and independence",
-        paragraphs: [
-          "Auditors gather sufficient appropriate evidence to support their opinion, assessing the risk of material misstatement and designing procedures accordingly. They evaluate the client's internal control — the processes that prevent and detect errors and fraud — because strong controls reduce the substantive testing required. Material weaknesses in internal control must be communicated.",
-          "Independence is non-negotiable. An auditor must be independent both in fact and in appearance; financial or close personal ties to the client impair independence and disqualify the auditor, no matter how honest they are. The entire value of an audit rests on the auditor being objective and free of conflicts — which is why independence rules are strict and heavily tested.",
-        ],
-      },
-      {
-        heading: "Choosing the opinion — a decision tree",
+        heading: "What an audit promises, and what it cannot",
         blocks: [
-          { kind: "p", text: "The choice of opinion turns on two questions about any problem the auditor finds: is it material, and is it pervasive? Materiality asks whether the issue could change a user's decision; pervasiveness asks whether it contaminates the statements as a whole. Walk the tree the same way every time and the right opinion falls out." },
-          { kind: "figure", figure: { caption: "Figure 2 — The opinion decision tree. Materiality and pervasiveness drive the choice; a scope limitation severe enough to be pervasive leads to a disclaimer rather than an adverse opinion.", alt: "Decision tree from material and pervasive questions to unqualified, qualified, adverse, and disclaimer", svg: `<svg viewBox="0 0 460 210" width="100%" style="max-width:460px"><defs><marker id="audah" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6z" fill="var(--text-muted)"/></marker></defs><g stroke="var(--border)" stroke-width="0.5"><rect x="150" y="12" width="150" height="34" rx="6" fill="var(--bg-card)"/><rect x="330" y="12" width="120" height="34" rx="6" fill="var(--ats-green-bg)"/><rect x="150" y="82" width="150" height="34" rx="6" fill="var(--bg-card)"/><rect x="330" y="82" width="120" height="34" rx="6" fill="var(--ats-amber-bg)"/><rect x="150" y="152" width="150" height="34" rx="6" fill="var(--ats-red-bg)"/><rect x="10" y="152" width="120" height="34" rx="6" fill="var(--bg)"/></g><g text-anchor="middle" font-size="9.5"><text x="225" y="33" font-weight="600" fill="var(--text-primary)">Material?</text><text x="390" y="28" font-weight="600" fill="var(--ats-green)">Unqualified</text><text x="390" y="40" font-size="8" fill="var(--text-secondary)">(clean)</text><text x="225" y="103" font-weight="600" fill="var(--text-primary)">Pervasive?</text><text x="390" y="98" font-weight="600" fill="var(--ats-amber)">Qualified</text><text x="390" y="110" font-size="8" fill="var(--text-secondary)">("except for")</text><text x="225" y="173" font-weight="600" fill="var(--ats-red)">Adverse</text><text x="70" y="167" font-weight="600" font-size="8.5" fill="var(--text-secondary)">Disclaimer</text><text x="70" y="179" font-size="7.5" fill="var(--text-muted)">no evidence</text></g><g font-size="8" fill="var(--text-muted)"><line x1="300" y1="29" x2="330" y2="29" stroke="var(--text-muted)" stroke-width="1" marker-end="url(#audah)"/><text x="315" y="24">No</text><line x1="225" y1="46" x2="225" y2="82" stroke="var(--text-muted)" stroke-width="1" marker-end="url(#audah)"/><text x="234" y="66">Yes</text><line x1="300" y1="99" x2="330" y2="99" stroke="var(--text-muted)" stroke-width="1" marker-end="url(#audah)"/><text x="315" y="94">No</text><line x1="225" y1="116" x2="225" y2="152" stroke="var(--text-muted)" stroke-width="1" marker-end="url(#audah)"/><text x="234" y="136">Yes</text></g></svg>` } },
-          { kind: "table", table: { caption: "Table 1 — Matching the situation to the opinion.", headers: ["Situation", "Opinion"], rows: [["Statements fairly presented", "Unqualified (clean)"], ["Issue material but NOT pervasive", "Qualified ('except for')"], ["Misstatement material AND pervasive", "Adverse"], ["Can't obtain sufficient evidence (pervasive)", "Disclaimer"]] } },
+          { kind: "p", text: "An audit provides REASONABLE assurance — high, but not absolute — that the financial statements are free of MATERIAL misstatement. Both qualifiers matter. Absolute assurance is unattainable because of sampling, the inherent limitations of any internal control system, the judgment embedded in accounting estimates, and the possibility of collusion or management override. And the threshold is materiality, not perfection: an auditor is not certifying that every figure is exactly right." },
+          { kind: "p", text: "The division of responsibility follows from this and is tested directly. MANAGEMENT is responsible for preparing the financial statements and for maintaining internal control. The AUDITOR is responsible for expressing an opinion on those statements. That separation is precisely why independence matters so much — the auditor is checking someone else's work, and the value of the check collapses if the two parties' interests merge." },
+          { kind: "callout", label: "Reasonable versus limited assurance", body: "An AUDIT gives reasonable assurance and a positive opinion. A REVIEW gives LIMITED assurance based mainly on inquiry and analytical procedures, expressed negatively ('we are not aware of any material modifications'). A COMPILATION gives NO assurance at all. Matching engagement to assurance level is a reliable exam question." },
+        ],
+      },
+      {
+        heading: "The audit risk model, and how it drives the work",
+        blocks: [
+          { kind: "p", text: "Audit risk is the risk of issuing an unmodified opinion on materially misstated statements, and it decomposes into three components whose relationship determines how much testing the auditor must perform. INHERENT RISK is the susceptibility of an assertion to misstatement before considering controls. CONTROL RISK is the risk that the client's controls fail to prevent or detect it. DETECTION RISK is the risk the auditor's own procedures fail to catch it — and unlike the other two, it is the component the auditor CONTROLS." },
+          { kind: "formula", formula: { label: "Audit risk model", expr: "AR = IR × CR × DR        so        DR = AR ÷ (IR × CR)", note: "Inherent and control risk belong to the client and are ASSESSED. Detection risk is the auditor's, and is SOLVED for — it is the output, not an input." } },
+          { kind: "example", example: { title: "how risk assessment sets the workload", prompt: "An auditor accepts 5% audit risk, assesses inherent risk at 80% and control risk at 50%. What detection risk is allowable, and what does that imply?", steps: ["DR = AR ÷ (IR × CR) = 0.05 ÷ (0.80 × 0.50).", "DR = 0.05 ÷ 0.40 = 0.125, or 12.5%.", "A low allowable detection risk means the auditor can afford to miss very little.", "That forces MORE extensive substantive testing: larger samples, more persuasive evidence, and timing closer to year end."], answer: "12.5%. The relationship is INVERSE — the weaker the client's controls and the riskier the account, the more the auditor must do. Multiplying all three components treats detection risk as an input when it is what you solve for." } },
+        ],
+      },
+      {
+        heading: "Opinions: choosing the right one",
+        blocks: [
+          { kind: "p", text: "The opinion depends on two questions: is there a problem, and how PERVASIVE is it? A misstatement that is material but confined to one area produces a QUALIFIED opinion — 'except for' that matter, the statements are fair. A misstatement that is both material and pervasive produces an ADVERSE opinion: the statements as a whole are not fairly presented. That distinction between isolated and pervasive is what most opinion questions actually turn on." },
+          { kind: "p", text: "Scope limitations follow the same logic but land differently. If the auditor cannot obtain sufficient appropriate evidence and the possible effects are material but not pervasive, the opinion is QUALIFIED. If they could be material AND pervasive, the auditor issues a DISCLAIMER — declining to express an opinion at all. Note the difference in kind: an adverse opinion says the statements are wrong; a disclaimer says the auditor does not know." },
+          { kind: "table", table: { caption: "Which opinion applies.", headers: ["Situation", "Material but isolated", "Material AND pervasive"], rows: [["Misstatement in the statements", "Qualified ('except for')", "ADVERSE"], ["Unable to obtain evidence", "Qualified", "DISCLAIMER"], ["No issues", "Unmodified", "Unmodified"]] } },
+          { kind: "bullets", items: ["SUBSTANTIAL DOUBT about going concern is disclosed in an emphasis-of-matter paragraph; the opinion itself may remain unmodified if disclosure is adequate.", "Evidence obtained DIRECTLY by the auditor from an external source is the most reliable; internally generated client documents are the least.", "Independence must exist in FACT and in APPEARANCE, and covers close family members of covered persons.", "Sarbanes-Oxley Section 404(b) requires auditor attestation on internal control — but non-accelerated filers are exempt."] },
         ],
       },
     ],
@@ -138,39 +130,34 @@ const chapters: Chapter[] = [
     topicId: "reg",
     topicName: "Taxation & Regulation (REG)",
     title: "Taxation & Regulation: Individual, Entity, and Ethics",
-    readingMinutes: 4,
+    readingMinutes: 6,
     summary: "Individual and business taxation basics, entity types, and professional responsibilities.",
     intro:
       "Regulation (REG) covers federal taxation of individuals and entities, business law, and the ethics and professional responsibilities of CPAs. Taxation dominates, so a candidate must understand how taxable income is computed for different taxpayers and how the choice of business entity affects taxation. The ethics portion reinforces the CPA's duties to the public and to clients.",
     sections: [
       {
-        heading: "Individual taxation",
-        paragraphs: [
-          "Individual income tax starts with gross income, subtracts adjustments to reach adjusted gross income (AGI), then subtracts the greater of the standard deduction or itemized deductions to reach taxable income, to which the progressive rate schedule applies. Credits then reduce the tax directly. A key distinction the exam tests is deductions (which reduce taxable income, worth the marginal rate) versus credits (which reduce tax dollar-for-dollar). Capital gains on assets held over a year receive preferential rates, while short-term gains are taxed as ordinary income.",
-        ],
-      },
-      {
-        heading: "Business entities and their taxation",
-        paragraphs: [
-          "The choice of entity drives how business income is taxed. A C corporation is a separate taxable entity — it pays corporate tax, and shareholders are taxed again on dividends, producing 'double taxation.' Pass-through entities — S corporations, partnerships, and most LLCs — generally pay no entity-level federal income tax; instead, income passes through to the owners' personal returns and is taxed once. Liability protection and administrative complexity also differ. Matching a business's goals to the right entity is a classic REG topic.",
-        ],
-        callout: {
-          label: "C corp vs pass-through",
-          body: "C corporations face double taxation (entity tax + tax on dividends). Pass-throughs (S corps, partnerships, most LLCs) are taxed once, at the owner level.",
-        },
-      },
-      {
-        heading: "Ethics and professional responsibilities",
-        paragraphs: [
-          "CPAs are bound by codes of professional conduct (the AICPA Code and, for auditors, additional rules) that require integrity, objectivity, independence where applicable, due care, and confidentiality. A CPA must not knowingly misrepresent facts or subordinate their judgment to others. Tax practitioners have specific responsibilities, such as having a reasonable basis for positions taken on returns and not assisting in fraud. The unifying duty is to the public interest — the CPA's credibility, like the auditor's independence, is the source of the profession's value.",
-        ],
-      },
-      {
-        heading: "The individual tax waterfall, and the cost of double taxation",
+        heading: "The individual return, in the order it computes",
         blocks: [
-          { kind: "figure", figure: { caption: "Figure 1 — The individual income-tax computation. Each stage subtracts something specific; AGI is the pivotal subtotal because so many deductions and credits phase out against it.", alt: "Flow from gross income to AGI to taxable income to tax to tax due", svg: `<svg viewBox="0 0 460 130" width="100%" style="max-width:460px"><defs><marker id="regah" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6z" fill="var(--primary)"/></marker></defs><g stroke="var(--border)" stroke-width="0.5"><rect x="6" y="48" width="74" height="40" rx="6" fill="var(--bg-card)"/><rect x="98" y="48" width="74" height="40" rx="6" fill="var(--primary-light)"/><rect x="190" y="48" width="74" height="40" rx="6" fill="var(--bg-card)"/><rect x="282" y="48" width="74" height="40" rx="6" fill="var(--bg-card)"/><rect x="374" y="48" width="74" height="40" rx="6" fill="var(--ats-green-bg)"/></g><g text-anchor="middle" font-size="9"><text x="43" y="66" fill="var(--text-primary)">Gross</text><text x="43" y="78" fill="var(--text-primary)">income</text><text x="135" y="72" font-weight="600" fill="var(--primary)">AGI</text><text x="227" y="66" fill="var(--text-primary)">Taxable</text><text x="227" y="78" fill="var(--text-primary)">income</text><text x="319" y="72" fill="var(--text-primary)">Tax</text><text x="411" y="66" font-weight="600" fill="var(--ats-green)">Tax</text><text x="411" y="78" font-weight="600" fill="var(--ats-green)">due</text></g><g font-size="7.5" text-anchor="middle" fill="var(--text-muted)"><line x1="80" y1="68" x2="98" y2="68" stroke="var(--primary)" stroke-width="1" marker-end="url(#regah)"/><text x="89" y="42">− adj</text><line x1="172" y1="68" x2="190" y2="68" stroke="var(--primary)" stroke-width="1" marker-end="url(#regah)"/><text x="181" y="42">− ded</text><line x1="264" y1="68" x2="282" y2="68" stroke="var(--primary)" stroke-width="1" marker-end="url(#regah)"/><text x="273" y="42">× rates</text><line x1="356" y1="68" x2="374" y2="68" stroke="var(--primary)" stroke-width="1" marker-end="url(#regah)"/><text x="365" y="42">− credits</text></g></svg>` } },
-          { kind: "table", table: { caption: "Table 1 — Entity choice drives how income is taxed.", headers: ["", "C corporation", "Pass-through (S corp / partnership / LLC)"], rows: [["Entity-level tax", "Yes", "Generally none"], ["Layers of tax", "Two (entity + dividends)", "One (owner level)"], ["Loss pass-through", "No", "Yes, to owners"]] } },
-          { kind: "example", example: { title: "the cost of double taxation", prompt: "A C corp earns $100 of pre-tax profit, pays 21% corporate tax, then distributes the rest as a dividend taxed at 15%. What's the total tax and combined effective rate?", steps: ["Corporate tax = 21% × $100 = $21; after-tax profit = $79.", "Dividend tax = 15% × $79 = $11.85.", "Total tax = 21 + 11.85 = $32.85 on the original $100."], answer: "≈32.85% combined — well above the single layer a pass-through owner would pay, which is double taxation's drag." } },
+          { kind: "p", text: "REG rewards knowing the SEQUENCE of the individual computation, because each step gates the next. Gross income less ABOVE-THE-LINE adjustments produces ADJUSTED GROSS INCOME. AGI less the greater of the standard deduction or itemized deductions produces TAXABLE INCOME. Tax is computed from taxable income, and CREDITS are subtracted last." },
+          { kind: "p", text: "AGI is the pivot, and understanding why explains a lot of planning behaviour. Numerous deductions, credits, and phase-outs key off AGI, so an above-the-line adjustment is worth more than an identical dollar taken below the line — it reduces both taxable income AND the figure that governs your eligibility for other benefits. Student loan interest, HSA contributions, and self-employment tax deductions all sit above the line for this reason." },
+          { kind: "example", example: { title: "walking the computation", prompt: "A taxpayer has $95,000 of wages, $3,000 of deductible student loan interest, and $12,000 of itemized deductions against a $14,600 standard deduction. Find AGI and taxable income.", steps: ["Gross income = $95,000.", "Above-the-line adjustment: student loan interest of $3,000.", "AGI = $95,000 − $3,000 = $92,000.", "Compare deductions: itemized $12,000 vs standard $14,600 — take the GREATER, so $14,600.", "Taxable income = $92,000 − $14,600 = $77,400."], answer: "AGI $92,000; taxable income $77,400. The two deduction types are mutually exclusive — they are never combined, and the taxpayer simply takes whichever is larger." } },
+          { kind: "callout", label: "Deduction versus credit", body: "A DEDUCTION reduces taxable income and is worth its amount times your marginal rate. A CREDIT reduces tax dollar for dollar. A $1,000 credit beats a $1,000 deduction for every taxpayer, and beats a $3,000 deduction for anyone below the 33% bracket. REFUNDABLE credits can produce a refund beyond tax owed; nonrefundable ones stop at zero." },
+        ],
+      },
+      {
+        heading: "Entities: who pays the tax",
+        blocks: [
+          { kind: "p", text: "The defining question for any entity is whether tax is paid at the entity level, the owner level, or both. A C CORPORATION pays entity-level tax and its shareholders pay again on dividends — the DOUBLE TAXATION that drives so much structuring. PARTNERSHIPS and S CORPORATIONS are FLOW-THROUGH entities: they file information returns and issue K-1s, but pay no federal income tax themselves. Owners report their distributive share and owe tax whether or not any cash was distributed." },
+          { kind: "p", text: "That last point is the phantom income problem and appears regularly. A partner allocated $60,000 of income owes tax on it even in a year the partnership retained everything to reinvest. The allocation increases the partner's BASIS, so a later distribution of those earnings is not taxed again — basis tracking is what prevents double taxation in a flow-through and is why the exam cares about it." },
+          { kind: "table", table: { caption: "Entity taxation.", headers: ["Entity", "Return filed", "Who pays the tax"], rows: [["C corporation", "Form 1120", "The entity, then shareholders on dividends"], ["S corporation", "Form 1120-S", "Shareholders, on their pro-rata share"], ["Partnership / LLC", "Form 1065 + K-1s", "Partners, on their distributive share"], ["Sole proprietorship", "Schedule C on the 1040", "The owner"], ["Trust / estate", "Form 1041", "The entity, or beneficiaries on distributions"]] } },
+          { kind: "bullets", items: ["An S corporation is limited in shareholder count and permitted shareholder types, and may have only ONE class of stock.", "Partnership allocations must have SUBSTANTIAL ECONOMIC EFFECT — they cannot be assigned purely to shift tax.", "Distributions in excess of basis generally produce capital gain.", "Guaranteed payments to a partner are ordinary income to the partner and deductible by the partnership."] },
+        ],
+      },
+      {
+        heading: "Business law and professional responsibility",
+        blocks: [
+          { kind: "p", text: "REG also tests business law, and CONTRACTS carry the most weight. A valid contract requires an OFFER, ACCEPTANCE, and CONSIDERATION, made by parties with capacity for a lawful purpose. The STATUTE OF FRAUDS requires certain contracts to be in writing: those for land, those that cannot be performed within one year, sales of goods of $500 or more under the UCC, and promises to answer for another's debt." },
+          { kind: "p", text: "AGENCY governs when one party binds another. An agent with ACTUAL authority — express or implied — clearly binds the principal. An agent with APPARENT authority binds the principal too, because the principal's own conduct led a third party to reasonably believe the authority existed, which is why formally revoking authority without notifying known counterparties leaves the principal exposed. Professional responsibility rules then govern the CPA: independence in fact and appearance, confidentiality subject to specific exceptions, and due care." },
         ],
       },
     ],
@@ -189,47 +176,41 @@ const chapters: Chapter[] = [
     ],
   },
 
-  // 4. BUSINESS ENVIRONMENT (BEC)
+  // 4. BUSINESS ANALYSIS & GOVERNANCE (BAR) — formerly BEC, retired 2024
   {
     id: "cpa-bec",
     examSlug: "cpa",
     topicId: "bec",
-    topicName: "Business Environment (BEC)",
-    title: "Business Environment: Controls, Costs, and Governance",
-    readingMinutes: 3,
+    topicName: "Business Analysis & Governance (BAR)",
+    title: "Controls, Costs, and Governance (post-BEC)",
+    readingMinutes: 6,
     summary: "Internal control frameworks, cost accounting basics, corporate governance, and financial management.",
     intro:
       "The Business Environment area rounds out the CPA's understanding of how organizations operate and are controlled. It blends internal control concepts, cost and managerial accounting, corporate governance, and financial management. Where FAR is about reporting the past, this material is about controlling operations and making forward-looking decisions.",
     sections: [
       {
-        heading: "Internal control and the COSO framework",
-        paragraphs: [
-          "Internal control is the system of processes designed to provide reasonable assurance about the reliability of financial reporting, the effectiveness of operations, and compliance with laws. The widely used COSO framework defines five components: the control environment (the 'tone at the top'), risk assessment, control activities, information and communication, and monitoring. A foundational control activity is segregation of duties — no single person should control a transaction from start to finish (authorizing, recording, and holding custody), because separating these roles makes fraud and error far harder.",
-        ],
-        callout: {
-          label: "Segregation of duties",
-          body: "Split authorization, recordkeeping, and custody of assets among different people. Concentrating them in one person is a major internal-control weakness.",
-        },
-      },
-      {
-        heading: "Cost and managerial accounting",
-        paragraphs: [
-          "Managerial accounting supports internal decisions. Costs split into fixed (unchanged with volume, like rent) and variable (changing with volume, like materials). The contribution margin — sales price minus variable cost per unit — shows how much each unit contributes to covering fixed costs and profit. Breakeven analysis finds the volume where total contribution margin equals fixed costs, so the firm earns zero profit. These tools drive pricing, production, and make-or-buy decisions, and they appear constantly on the exam.",
-        ],
-      },
-      {
-        heading: "Governance and financial management",
-        paragraphs: [
-          "Corporate governance establishes how a company is directed and controlled, balancing the interests of shareholders, management, and other stakeholders, often with board oversight and audit committees. Legislation like the Sarbanes-Oxley Act strengthened governance and internal-control requirements for public companies after major accounting scandals. Financial management adds tools for decisions — time value of money, working-capital management, and capital budgeting (NPV) — overlapping with corporate finance. Together these give the CPA a view of how good controls and sound financial decisions protect and grow the organization.",
-        ],
-      },
-      {
-        heading: "Cost-volume-profit, drawn and worked",
+        heading: "Where this material now sits on the exam",
         blocks: [
-          { kind: "p", text: "Breakeven is best seen on a cost-volume-profit (CVP) graph. Total cost starts above zero at the level of fixed costs and rises gently with volume; total revenue starts at the origin and rises faster. Where the two lines cross, profit is zero — the breakeven point. Everything to the left is a loss; everything to the right is profit, widening with each additional unit." },
-          { kind: "figure", figure: { caption: "Figure 1 — A cost-volume-profit graph. Below breakeven the firm loses money; above it, every unit's contribution margin drops to profit. The gap between the revenue and cost lines is profit (or loss).", alt: "CVP chart with total revenue and total cost lines crossing at the breakeven point", svg: `<svg viewBox="0 0 460 220" width="100%" style="max-width:460px"><g stroke="var(--border-strong)" stroke-width="1"><line x1="54" y1="184" x2="436" y2="184"/><line x1="54" y1="184" x2="54" y2="20"/></g><text x="245" y="208" text-anchor="middle" font-size="9" fill="var(--text-muted)">Units sold →</text><text transform="rotate(-90 18 105)" x="18" y="105" text-anchor="middle" font-size="9" fill="var(--text-muted)">Dollars →</text><line x1="54" y1="120" x2="430" y2="78" stroke="var(--ats-red)" stroke-width="2"/><line x1="54" y1="184" x2="430" y2="40" stroke="var(--ats-green)" stroke-width="2"/><line x1="54" y1="120" x2="120" y2="120" stroke="var(--text-muted)" stroke-width="0.75" stroke-dasharray="3 3"/><text x="58" y="116" font-size="8" fill="var(--text-secondary)">fixed cost</text><g><line x1="298" y1="95" x2="298" y2="184" stroke="var(--primary)" stroke-width="0.75" stroke-dasharray="3 3"/><circle cx="298" cy="95" r="3.5" fill="var(--primary)"/><text x="298" y="200" text-anchor="middle" font-size="8.5" font-weight="600" fill="var(--primary)">Breakeven</text></g><text x="404" y="36" text-anchor="end" font-size="8.5" fill="var(--ats-green)">Total revenue</text><text x="404" y="74" text-anchor="end" font-size="8.5" fill="var(--ats-red)">Total cost</text><text x="160" y="150" font-size="8.5" fill="var(--ats-red)">Loss</text><text x="360" y="110" font-size="8.5" fill="var(--ats-green)">Profit</text></svg>` } },
-          { kind: "example", example: { title: "units for a target profit", prompt: "Price $50, variable cost $30, fixed costs $100,000. How many units must sell to earn a $40,000 target profit?", steps: ["Contribution margin per unit = 50 − 30 = $20.", "Required contribution = fixed costs + target profit = 100,000 + 40,000 = $140,000.", "Units = 140,000 ÷ 20 = 7,000."], answer: "7,000 units — that's the 5,000-unit breakeven plus 2,000 more units to generate the $40,000 profit." } },
-          { kind: "callout", label: "COSO in five parts", body: "Internal control under COSO = Control environment, Risk assessment, Control activities, Information & communication, Monitoring. The control environment — the 'tone at the top' — is the foundation the other four rest on." },
+          { kind: "p", text: "Under CPA Evolution, which took effect in 2024, the exam is three CORE sections — Auditing and Attestation, Financial Accounting and Reporting, and Taxation and Regulation — plus ONE DISCIPLINE section chosen by the candidate. The disciplines are Business Analysis and Reporting (BAR), Information Systems and Controls (ISC), and Tax Compliance and Planning (TCP). The former Business Environment and Concepts section was RETIRED; its content was redistributed, with much of the analysis, governance, and managerial material landing in BAR." },
+          { kind: "p", text: "This chapter covers that redistributed material: internal control frameworks, cost and managerial analysis, governance, and financial management. It is most directly relevant to BAR candidates, but the control and governance content also underpins AUD and ISC, which is why it is worth reading regardless of which discipline you select." },
+          { kind: "callout", label: "If you see BEC in study material", body: "Any resource still organizing the CPA exam around a BEC section predates 2024 and is describing an exam that no longer exists. Check the publication date — the four-section AUD / FAR / REG / BEC structure is the clearest tell that material is out of date." },
+        ],
+      },
+      {
+        heading: "Internal control and the COSO framework",
+        blocks: [
+          { kind: "p", text: "Internal control is a process designed to provide REASONABLE assurance regarding the reliability of financial reporting, the effectiveness and efficiency of operations, and compliance with laws and regulations. Reasonable, not absolute — the same qualifier as in auditing, and for the same reasons: cost-benefit limits, human error, and the possibility of collusion or management override. Management override is the limitation no control design can fully eliminate, which is why it receives so much attention." },
+          { kind: "bullets", items: ["CONTROL ENVIRONMENT — the tone at the top; the foundation everything else rests on.", "RISK ASSESSMENT — identifying and analyzing what could prevent objectives being met.", "CONTROL ACTIVITIES — the policies and procedures themselves: authorizations, reconciliations, segregation of duties.", "INFORMATION AND COMMUNICATION — getting relevant information to the people who need it.", "MONITORING — assessing over time whether the controls still work."] },
+          { kind: "p", text: "SEGREGATION OF DUTIES is the single most tested control activity. The principle is that no one person should control a transaction end to end, so AUTHORIZATION, RECORD KEEPING, and CUSTODY of the related asset must sit with different people. A clerk who can both approve a payment and sign the cheque can steal without any second party noticing — and the fix is structural rather than a matter of hiring more trustworthy staff." },
+        ],
+      },
+      {
+        heading: "Cost behaviour and the contribution-margin engine",
+        blocks: [
+          { kind: "p", text: "Managerial analysis begins by splitting costs by BEHAVIOUR rather than by function. VARIABLE costs change in total with volume but stay constant per unit. FIXED costs stay constant in total across the relevant range but fall per unit as volume rises. Getting this split right is what makes every subsequent decision tractable, and misclassifying a cost invalidates everything downstream." },
+          { kind: "formula", formula: { label: "Contribution margin and breakeven", expr: "CM per unit = price − variable cost per unit\nBreakeven units = fixed costs ÷ CM per unit\nMargin of safety = current sales − breakeven sales", note: "Fixed costs NEVER enter the contribution margin itself — that is precisely what makes CM the right tool for short-run decisions." } },
+          { kind: "example", example: { title: "breakeven and the safety cushion", prompt: "A product sells for $45 with $27 of variable cost. Fixed costs are $144,000 and the company currently sells 12,000 units. Find CM per unit, breakeven, and margin of safety.", steps: ["CM per unit = $45 − $27 = $18. CM ratio = $18 ÷ $45 = 40%.", "Breakeven units = $144,000 ÷ $18 = 8,000 units.", "Margin of safety = 12,000 − 8,000 = 4,000 units.", "As a percentage = 4,000 ÷ 12,000 = 33%."], answer: "CM $18 (40%), breakeven 8,000 units, margin of safety 4,000 units or 33%. The margin of safety is the CUSHION above breakeven — reporting 8,000 confuses the breakeven point itself with the distance above it." } },
+          { kind: "bullets", items: ["ABSORPTION costing assigns fixed manufacturing overhead to units and is required for external reporting under GAAP.", "VARIABLE costing expenses fixed overhead as a period cost and is used internally for decisions.", "When production EXCEEDS sales, absorption costing reports HIGHER income, because fixed overhead is deferred in ending inventory.", "SUNK costs are irrelevant to any decision; only future differential cash flows matter.", "OPPORTUNITY COST — the value of the next-best forgone alternative — is relevant even though it never appears in the accounting records."] },
         ],
       },
     ],
@@ -311,7 +292,7 @@ const chapters: Chapter[] = [
     topicName: "Cost & Managerial Accounting",
     title: "Cost & Managerial Accounting: CVP, Costing, and Variances",
     readingMinutes: 4,
-    summary: "Cost behavior and the contribution-margin engine, the major costing methods, and standard-cost variance analysis — the decision tools BEC drills.",
+    summary: "Cost behavior and the contribution-margin engine, the major costing methods, and standard-cost variance analysis — the decision tools the BAR discipline drills.",
     intro:
       "Managerial accounting supports internal decisions, and the CPA exam tests it quantitatively. The core is cost behavior and the contribution-margin framework (breakeven and target profit), the difference between costing methods, and standard-cost variance analysis. These tools drive pricing, production, and make-or-buy decisions.",
     sections: [
@@ -927,7 +908,7 @@ const questions: Question[] = [
     explanation: "The general assessment statute of limitations is three years from the later of the due date or the filing date. It extends to six years if gross income is understated by more than 25%, and is unlimited for a fraudulent return or no return. Choice A (10 years) is the collection period for assessed tax, not the assessment window; choice C applies only to fraud or non-filing.",
   },
 
-  // ---- Business Environment (BEC) ----
+  // ---- Business Analysis & Governance (BAR) ----
   {
     id: "cpa-bec-q4", examSlug: "cpa", topicId: "bec", topicName: "Business Environment", difficulty: 3,
     stem: "A company's weighted average cost of capital (WACC) is:",

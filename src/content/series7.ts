@@ -19,41 +19,33 @@ const chapters: Chapter[] = [
     topicId: "equity",
     topicName: "Equity Securities",
     title: "Equity Securities: Common and Preferred Stock",
-    readingMinutes: 2,
+    readingMinutes: 6,
     summary: "What stockholders own, how common and preferred differ, and the rights that come with each.",
     intro:
       "Equity securities represent ownership in a corporation, and they're the foundation of the Series 7. A registered representative must understand exactly what a shareholder owns, what rights they hold, and how common and preferred stock differ in risk, income, and priority. These distinctions drive suitability decisions every day on the job.",
     sections: [
       {
-        heading: "Common stock and its rights",
-        paragraphs: [
-          "Common stock represents residual ownership in a company. Common shareholders have the right to vote on major corporate matters (electing directors, approving mergers), the right to receive dividends if and when the board declares them, and a residual claim on assets in liquidation — meaning they're paid last, after creditors and preferred shareholders. In exchange for that last-in-line position, common shareholders capture the upside: when the company thrives, the value of common stock has unlimited growth potential.",
-          "Voting can be statutory (one vote per share per candidate) or cumulative (votes can be concentrated on fewer candidates), with cumulative voting favoring minority shareholders. Shareholders may also receive preemptive rights, allowing them to buy new shares before the public to maintain their proportional ownership and avoid dilution.",
-        ],
-        callout: {
-          label: "Liquidation priority",
-          body: "In a liquidation the order of claims is: secured creditors → unsecured creditors (including bondholders) → preferred stockholders → common stockholders. Common is always last.",
-        },
-      },
-      {
-        heading: "Preferred stock",
-        paragraphs: [
-          "Preferred stock is an equity security that behaves more like a fixed-income instrument. It pays a fixed, stated dividend and has priority over common stock for both dividends and liquidation proceeds — but preferred shareholders typically give up voting rights and the unlimited upside of common stock. Because its value is driven largely by its fixed dividend, preferred stock is sensitive to interest rates, much like a bond: when rates rise, preferred prices generally fall.",
-          "Several features modify preferred stock. Cumulative preferred accrues any skipped dividends, which must be paid in full before common shareholders receive anything. Participating preferred can receive extra dividends beyond the stated rate. Callable preferred can be repurchased by the issuer at a set price. Convertible preferred can be exchanged for a fixed number of common shares, giving the holder a way to participate in the company's growth.",
-        ],
-      },
-      {
-        heading: "Rights and warrants",
-        paragraphs: [
-          "Rights and warrants both let holders buy stock, but they differ. A right (from a rights offering) is short-term, typically lasting weeks, and lets existing shareholders buy new shares at a price below the current market — compensation for the dilution a new issue causes. A warrant is long-term, often lasting years, and is usually issued attached to bonds or preferred stock as a sweetener, with an exercise price set above the market price at issuance. The key contrast tested on the exam: rights are short-term and priced below market; warrants are long-term and priced above market.",
-        ],
-      },
-      {
-        heading: "Priority in liquidation, and rights vs warrants",
+        heading: "Common stock: the residual claim",
         blocks: [
-          { kind: "figure", figure: { caption: "Figure 1 — The liquidation waterfall. If a company is wound up, claimants are paid strictly in this order. Common shareholders are paid LAST — the price of their unlimited upside.", alt: "A four-step ladder showing payment priority from secured creditors down to common stockholders", svg: `<svg viewBox="0 0 460 210" width="100%" style="max-width:460px"><rect x="70" y="16" width="320" height="38" rx="8" fill="var(--ats-green-bg)" stroke="var(--ats-green)" stroke-width="1.5"/><text x="230" y="40" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text-primary)">1 · Secured creditors</text><rect x="70" y="62" width="320" height="38" rx="8" fill="var(--primary-light)" stroke="var(--primary)" stroke-width="1.5"/><text x="230" y="86" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text-primary)">2 · Unsecured creditors (incl. bondholders)</text><rect x="70" y="108" width="320" height="38" rx="8" fill="var(--ats-amber-bg)" stroke="var(--ats-amber)" stroke-width="1.5"/><text x="230" y="132" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text-primary)">3 · Preferred stockholders</text><rect x="70" y="154" width="320" height="38" rx="8" fill="var(--ats-red-bg)" stroke="var(--ats-red)" stroke-width="1.5"/><text x="230" y="178" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text-primary)">4 · Common stockholders (last)</text><text x="40" y="38" text-anchor="middle" font-size="9" fill="var(--text-muted)" transform="rotate(-90 40 100)">paid first → last</text></svg>` } },
-          { kind: "table", table: { caption: "Table 1 — Rights vs warrants — a favorite exam distinction.", headers: ["Feature", "Rights", "Warrants"], rows: [["Term", "Short (weeks)", "Long (years)"], ["Exercise price", "Below market", "Above market at issue"], ["Given to", "Existing shareholders", "Often attached to bonds as a sweetener"]] } },
-          { kind: "callout", label: "Cumulative preferred", body: "Missed dividends on cumulative preferred accrue and must ALL be paid before common shareholders receive a cent. Non-cumulative preferred simply forfeits skipped dividends." },
+          { kind: "p", text: "Common stock is ownership, and everything about it follows from being LAST in line. Common shareholders vote, may receive dividends when the board declares them, and hold a residual claim in liquidation — residual meaning after every creditor, every bondholder, and every preferred shareholder has been satisfied. That position is why common carries the greatest risk and the greatest long-run return potential: there is no ceiling on the upside precisely because there is no floor under the downside." },
+          { kind: "p", text: "Two voting systems appear on the Series 7 and they serve different shareholders. STATUTORY voting lets a holder cast up to their share count for each seat separately, which allows a majority holder to sweep the entire board. CUMULATIVE voting lets a holder multiply shares by the number of open seats and concentrate the whole total on one candidate — a system designed to give minority holders a realistic path to representation. Any question asking which method benefits the small shareholder answers cumulative." },
+          { kind: "bullets", items: ["AUTHORIZED shares sit in the charter; ISSUED shares have been sold; OUTSTANDING = issued less TREASURY stock.", "Treasury stock carries no vote and receives no dividend — the company cannot pay itself.", "Only OUTSTANDING shares count for EPS, voting, and dividends.", "A PREEMPTIVE RIGHT lets an existing holder maintain proportional ownership when new shares are issued."] },
+        ],
+      },
+      {
+        heading: "The dividend dates and the ex-date price effect",
+        blocks: [
+          { kind: "p", text: "Four dates govern a dividend. DECLARATION is when the board announces it. EX-DIVIDEND is the first day the stock trades WITHOUT the right to that dividend — under T+1 settlement it now coincides with the record date, so older material showing a one-day gap is out of date. RECORD is when the issuer checks its books. PAYABLE is when cash actually arrives, typically weeks later." },
+          { kind: "p", text: "The ex-date carries the market consequence: the stock normally opens LOWER by roughly the dividend, because a buyer that morning is acquiring the same company minus an imminent cash payment. Existing holders lose nothing — they receive that value as cash instead of price. To collect the dividend you must buy BEFORE the ex-date; buying on it means the seller keeps it." },
+        ],
+      },
+      {
+        heading: "Preferred stock and its variants",
+        blocks: [
+          { kind: "p", text: "Preferred stock is legally equity that behaves economically like perpetual debt: a fixed stated dividend as a percentage of par (conventionally $100), priority over common for dividends and liquidation, and normally no vote. Because the payment is fixed, preferred prices move INVERSELY with interest rates just as bonds do — which makes interest rate risk the dominant risk in a preferred position, not business risk." },
+          { kind: "example", example: { title: "cumulative preferred in arrears", prompt: "A 6% cumulative preferred ($100 par) skipped its dividend for two years. What must be paid per share before common receives anything?", steps: ["Annual dividend = 6% × $100 par = $6.", "Two skipped years accumulate: 2 × $6 = $12 in arrears.", "The current year's $6 is also owed first.", "Total = $12 + $6 = $18."], answer: "$18 per share. Had the preferred been NON-cumulative, the two missed years would simply be gone and only the current $6 would be owed — that contrast is the entire point of the word 'cumulative'." } },
+          { kind: "table", table: { caption: "Preferred variants and who benefits.", headers: ["Variant", "Feature", "Favours"], rows: [["Cumulative", "Missed dividends accumulate as arrears", "The holder"], ["Participating", "May receive more than the stated rate", "The holder"], ["Convertible", "Exchangeable for common at a set ratio", "The holder"], ["Callable", "Issuer may redeem, usually when rates fall", "The ISSUER"], ["Straight", "Fixed rate, none of the above", "Neither"]] } },
+          { kind: "bullets", items: ["RIGHTS are short-term, go to existing shareholders, and are priced BELOW market — so they have immediate value.", "WARRANTS are long-term, often attached to a bond as a sweetener, and priced ABOVE market — no intrinsic value at issue.", "ADRs give U.S. investors foreign exposure; the holder still bears CURRENCY risk and usually has no vote.", "A 2-for-1 SPLIT doubles shares and halves both price and cost basis per share — total value unchanged."] },
         ],
       },
     ],
@@ -130,41 +122,32 @@ const chapters: Chapter[] = [
     topicId: "accounts",
     topicName: "Customer Accounts & Suitability",
     title: "Customer Accounts & Suitability",
-    readingMinutes: 2,
+    readingMinutes: 5,
     summary: "Account types, the information you must gather, and the obligation to recommend only suitable investments.",
     intro:
       "Much of a registered representative's daily responsibility is opening accounts correctly and making recommendations that fit the client. The Series 7 tests both the mechanics of account types and the core ethical-regulatory duty of suitability — recommending only what is appropriate for a specific customer's profile. Getting this wrong is both an exam failure and, in real life, a compliance violation.",
     sections: [
       {
-        heading: "Account types",
-        paragraphs: [
-          "A cash account requires the customer to pay in full for purchases. A margin account lets the customer borrow part of the purchase price from the broker-dealer, using securities as collateral — amplifying both gains and losses and requiring a signed margin agreement. Accounts also differ by ownership: individual, joint (tenants in common, where a deceased owner's share passes to their estate, versus joint tenants with right of survivorship, where it passes to the surviving owner), and various entity or fiduciary accounts.",
-          "Discretionary accounts, in which the representative can trade without the client's prior approval for each transaction, require written authorization from the customer and heightened supervision. Fiduciary accounts (trusts, custodial accounts for minors, estates) require the responsible party to act prudently and only in the beneficiary's interest.",
-        ],
-      },
-      {
-        heading: "Know your customer and suitability",
-        paragraphs: [
-          "Before recommending anything, a representative must gather essential facts about the customer — financial situation, tax status, investment objectives, time horizon, liquidity needs, and risk tolerance. This 'know your customer' information is the basis for suitability: the obligation to recommend only investments appropriate for that specific client's profile. A speculative options strategy may be suitable for a wealthy, experienced investor seeking growth, and entirely unsuitable for a retiree living on fixed income.",
-          "Suitability has three dimensions: reasonable-basis (the product is suitable for at least some investors), customer-specific (it's suitable for this particular customer), and quantitative (a series of transactions isn't excessive — guarding against churning, the unethical practice of trading to generate commissions). A recommendation can be perfectly legal as a product yet still violate suitability if it doesn't fit the customer in front of you.",
-        ],
-        callout: {
-          label: "The suitability principle",
-          body: "Recommend only what fits THIS customer's objectives, finances, and risk tolerance. Legal ≠ suitable — appropriateness is judged per-customer.",
-        },
-      },
-      {
-        heading: "Opening and maintaining accounts",
-        paragraphs: [
-          "Opening an account requires verifying the customer's identity (under anti-money-laundering rules), recording the essential financial and objective information, and obtaining the required approvals — including a principal's signature. Certain accounts, like options or margin accounts, require additional agreements and disclosures because of their elevated risk. Throughout the relationship, the representative must keep the customer profile current, since a recommendation suitable last year may be unsuitable after a job loss, retirement, or change in goals.",
-        ],
-      },
-      {
-        heading: "The three dimensions of suitability",
+        heading: "Registration: who controls, and what happens on death",
         blocks: [
-          { kind: "p", text: "Suitability is not a single test but three. Reasonable-basis suitability asks whether the product is suitable for at least some investors at all. Customer-specific suitability asks whether it fits this particular client's profile — their objectives, finances, and risk tolerance. Quantitative suitability asks whether a series of transactions, even if each is individually fine, is excessive for the account — the guard against churning. A recommendation can clear one test and fail another." },
-          { kind: "table", table: { caption: "Table 1 — The three suitability obligations every recommendation must satisfy.", headers: ["Dimension", "The question it asks"], rows: [["Reasonable-basis", "Is this product suitable for anyone at all?"], ["Customer-specific", "Is it suitable for THIS customer's profile?"], ["Quantitative", "Is the volume of trading excessive (churning)?"]] } },
-          { kind: "callout", label: "Legal ≠ suitable", body: "A perfectly legal product can still be an unsuitable recommendation. The test is always the customer in front of you — their objectives, finances, time horizon, and risk tolerance — not the product in isolation." },
+          { kind: "p", text: "How an account is registered determines who may act and where assets go on death, and the exam probes the second question harder than the first. In JOINT TENANTS WITH RIGHT OF SURVIVORSHIP, a deceased owner's interest passes automatically to the survivor, outside probate. In TENANTS IN COMMON, the deceased's share passes to their ESTATE under their will. Identical parties, identical assets, opposite outcomes — which makes the registration choice substantive rather than clerical." },
+          { kind: "p", text: "CUSTODIAL accounts under UTMA or UGMA hold assets for a minor: one custodian, one minor, and an IRREVOCABLE gift that legally belongs to the minor from the moment of transfer. The custodian may not trade on margin or pursue speculative strategies, because the standard is prudent management of someone else's property, and control passes to the minor outright at the age of majority." },
+          { kind: "table", table: { caption: "Registration types.", headers: ["Type", "Who may trade", "On death"], rows: [["Individual", "The owner", "Through the estate"], ["JTWROS", "Either owner", "Automatically to the survivor"], ["Tenants in common", "Either owner", "Deceased's share to their estate"], ["UTMA / UGMA", "The custodian", "Assets always belonged to the minor"], ["Trust", "The trustee", "Per the trust document"], ["Corporate", "Per corporate resolution", "Entity continues"]] } },
+          { kind: "callout", label: "When a customer dies", body: "On notice of death the firm must immediately CANCEL all open orders and FREEZE the account, then await a death certificate, letters testamentary or of administration, and any applicable tax waivers. Prior instructions, including standing discretionary authority, may not be acted upon — discretion dies with the customer." },
+        ],
+      },
+      {
+        heading: "Discretion, documentation, and approvals",
+        blocks: [
+          { kind: "p", text: "DISCRETION — choosing the security, the amount, or whether to trade at all — requires WRITTEN authorization from the customer before it may be exercised, and every discretionary order must be marked as such and reviewed. One narrow exception exists: discretion as to TIME and PRICE only, on a specified security and quantity, may be accepted verbally and is good only for that day. Trading before written authority arrives is unauthorized trading regardless of the customer's later approval." },
+          { kind: "bullets", items: ["A CASH account requires no customer signature; a principal must still approve the account.", "A MARGIN account requires the customer to sign a margin agreement containing the credit and hypothecation agreements; the loan consent is optional.", "OPTIONS accounts require approval by a registered options principal, delivery of the ODD at or before approval, and a signed options agreement within 15 days.", "Confirmations must be sent at or before completion of the transaction and must disclose the firm's capacity — agent or principal.", "Statements go out at least quarterly, and monthly when there is activity."] },
+        ],
+      },
+      {
+        heading: "Suitability under Regulation Best Interest",
+        blocks: [
+          { kind: "p", text: "Since June 30, 2020, a recommendation to a retail customer must be in that customer's BEST INTEREST, and the firm may not place its own financial interest ahead of theirs. The older suitability standard required only that a recommendation be appropriate, which permitted recommending the suitable product that paid the most. Reg BI closes that gap through four obligations — disclosure, care, conflict of interest, and compliance — with the CARE obligation requiring that costs and reasonably available alternatives be weighed among suitable options." },
+          { kind: "p", text: "Underneath sits KNOW YOUR CUSTOMER: financial situation, tax status, objectives, TIME HORIZON, LIQUIDITY NEEDS, risk tolerance, and experience. Time horizon and liquidity do the most work in exam questions — money needed in eighteen months cannot sit in equities whatever the client says about risk appetite, and a client who may need capital on short notice cannot be placed in a DPP or private placement regardless of expected return. Note that suitability obligations attach to RECOMMENDATIONS; an unsolicited order carries none, but must be marked unsolicited, and mismarking a solicited trade to escape the analysis is a serious violation." },
         ],
       },
     ],

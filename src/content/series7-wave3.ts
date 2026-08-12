@@ -14,45 +14,31 @@ export const s7Wave3Chapters: Chapter[] = [
     topicId: "regulations",
     topicName: "Regulations & Trading Practices",
     title: "Regulations & Prohibited Trading Practices",
-    readingMinutes: 2,
+    readingMinutes: 4,
     summary: "The regulatory framework, settlement, communications rules, and the practices that get reps barred.",
     intro:
       "A registered representative operates inside a dense regulatory framework designed to protect investors and keep markets fair. The Series 7 tests who regulates what, the rules governing communications and settlement, and — most importantly — the prohibited practices that lead to fines, suspension, or being barred from the industry. Knowing what you may not do is as important as knowing what you may.",
     sections: [
       {
-        heading: "Who regulates the markets",
-        paragraphs: [
-          "The Securities and Exchange Commission (SEC) is the federal government agency with ultimate authority over the securities markets, created by the Securities Exchange Act of 1934. FINRA (the Financial Industry Regulatory Authority) is the self-regulatory organization that oversees broker-dealers and their representatives, writes conduct rules, administers exams like the Series 7, and enforces compliance. The Securities Act of 1933 governs the issuance of new securities (the 'paper act' — registration and prospectus delivery), while the 1934 Act governs the secondary trading markets and created the SEC.",
-        ],
-      },
-      {
-        heading: "Communications with the public",
-        paragraphs: [
-          "FINRA classifies communications into categories with different supervisory requirements. Retail communications (distributed to more than 25 retail investors in 30 days — advertisements, websites, sales literature) generally require principal approval and may need to be filed with FINRA. Correspondence (to 25 or fewer retail investors) is subject to supervision and review but lighter pre-approval. Institutional communications go only to institutional investors. Across all categories, communications must be fair and balanced, may not be misleading, may not promise specific results, and may not omit material facts.",
-        ],
-        callout: {
-          label: "Communication categories",
-          body: "Retail communication = to >25 retail investors in 30 days (often needs principal approval/filing). Correspondence = to ≤25 retail investors. All must be fair, balanced, and not misleading.",
-        },
-      },
-      {
-        heading: "Settlement and key dates",
-        paragraphs: [
-          "Most securities transactions settle on a 'T+1' basis — one business day after the trade date — meaning that is when ownership and payment are exchanged. The trade date is when the order is executed; the settlement date is when it must be paid for. Understanding the timeline matters for dividends too: the ex-dividend date is the cutoff determining who receives a declared dividend, and an investor must own shares before that date to be entitled to the payment.",
-        ],
-      },
-      {
-        heading: "Prohibited practices",
-        paragraphs: [
-          "Several practices are strictly prohibited and heavily tested. Front-running is trading ahead of a known large customer order to profit from the price move it will cause. Market manipulation includes painting the tape (creating fake trading activity) and matched orders to give a false impression of volume. Trading on material nonpublic information (insider trading) is illegal under the 1934 Act. Churning — excessive trading to generate commissions — and unauthorized trading are violations of duties to the customer. Selling away (private securities transactions outside the firm without approval) and guaranteeing customers against loss are likewise prohibited.",
-          "The common thread is that these practices put the representative's or firm's interest ahead of the customer's, or distort the integrity of the market. The exam frequently presents a scenario and asks you to identify which prohibited practice it describes — so learn to recognize the pattern, not just the term.",
-        ],
-      },
-      {
-        heading: "Communications and settlement at a glance",
+        heading: "Manipulation: creating a false picture of the market",
         blocks: [
-          { kind: "table", table: { caption: "Table 1 — FINRA communication categories and their supervision.", headers: ["Category", "Audience", "Supervision"], rows: [["Retail communication", ">25 retail investors in 30 days", "Principal approval; may need FINRA filing"], ["Correspondence", "≤25 retail investors in 30 days", "Supervised/reviewed, lighter pre-approval"], ["Institutional communication", "Institutional investors only", "Internal procedures"]] } },
-          { kind: "callout", label: "Settlement & key dates", body: "Most securities settle T+1 (one business day after the trade). To receive a declared dividend, an investor must own the shares before the ex-dividend date." },
+          { kind: "p", text: "The Securities Exchange Act of 1934 exists largely to keep prices honest, and the practices it prohibits share a common wrong: making the market appear to be something it is not. Recognizing the underlying deception is more reliable than memorizing labels, because the exam describes conduct and asks you to name it." },
+          { kind: "table", table: { caption: "Manipulative practices.", headers: ["Practice", "What it looks like"], rows: [["Painting the tape", "Trading among cooperating parties to fake activity"], ["Matched orders", "Prearranged offsetting buy and sell orders"], ["Wash trade", "Buying and selling the same security with no change in beneficial ownership"], ["Marking the close", "Trading late in the session to influence the closing price"], ["Capping / pegging", "Trading to hold a price down or up, often near an option expiration"], ["Spreading rumors", "Circulating false information to move a price"]] } },
+        ],
+      },
+      {
+        heading: "Conflicts between the firm's interest and the customer's",
+        blocks: [
+          { kind: "p", text: "A second family of violations puts the representative's compensation ahead of the client. CHURNING is excessive trading to generate commissions, judged against the customer's objectives and resources rather than any fixed trade count. FRONT-RUNNING is trading ahead of a known customer block order to profit from its expected price impact. BREAKPOINT SELLING is deliberately placing a mutual fund investment just below a breakpoint so the sales charge — and the representative's compensation — stays high." },
+          { kind: "p", text: "Others concern authority and disclosure. UNAUTHORIZED TRADING is entering an order without the customer's consent, and discretion requires WRITTEN authorization before it may be exercised. SELLING AWAY is conducting securities business outside the firm without its knowledge and approval. COMMINGLING mixes customer securities with firm assets. GUARANTEEING a customer against loss, or sharing in an account except under narrowly permitted written arrangements proportional to capital contributed, is prohibited outright." },
+          { kind: "callout", label: "Insider trading and the penalty", body: "Trading on material nonpublic information is prohibited, and liability reaches anyone who receives and trades on a tip, not just the original source. Under the Insider Trading and Securities Fraud Enforcement Act of 1988, civil penalties reach THREE TIMES the profit gained or loss avoided, and apply to controlling persons — the firm — as well as the individual. Criminal penalties are separate and additional." },
+        ],
+      },
+      {
+        heading: "The everyday rules that carry point value",
+        blocks: [
+          { kind: "bullets", items: ["GIFTS in connection with business are capped at $100 per person per year.", "OUTSIDE BUSINESS ACTIVITIES must be disclosed to the firm in writing beforehand.", "PRIVATE SECURITIES TRANSACTIONS require written notice, and firm approval where the representative is compensated.", "Customer COMPLAINTS (any written grievance) must be recorded and reported to FINRA quarterly.", "Most books and records are retained three years; some run six years or the life of the firm.", "Disputes are resolved through FINRA arbitration, which is BINDING with essentially no appeal, or mediation, which is voluntary and non-binding."] },
+          { kind: "p", text: "One more distinction worth holding: REGULATION BEST INTEREST, effective June 30, 2020, requires that a recommendation to a retail customer be in that customer's best interest, and that the firm not put its own financial interest ahead of theirs. The older SUITABILITY standard merely required the recommendation be appropriate — a bar that permitted recommending the suitable product paying the most. Fact patterns describing two suitable products with different compensation are testing exactly this change." },
         ],
       },
     ],
@@ -78,34 +64,26 @@ export const s7Wave3Chapters: Chapter[] = [
     topicId: "govt",
     topicName: "US Government & Agency Securities",
     title: "US Government & Agency Securities",
-    readingMinutes: 2,
+    readingMinutes: 5,
     summary: "Treasury bills, notes, bonds, TIPS, and the agency/mortgage-backed market.",
     intro:
       "U.S. government securities are the bedrock of the fixed-income market — considered free of credit risk because they're backed by the federal government — and they set the benchmark against which all other bonds are priced. The Series 7 tests the different Treasury instruments, their tax treatment, and the distinction between true government backing and the agency securities that only look as safe.",
     sections: [
       {
-        heading: "Treasury securities",
-        paragraphs: [
-          "The Treasury issues several instruments by maturity. Treasury bills (T-bills) are short-term (one year or less), pay no coupon, and are sold at a discount — the investor's return is the difference between the discounted purchase price and the face value at maturity. Treasury notes (T-notes) have maturities of 2 to 10 years and pay semiannual interest. Treasury bonds (T-bonds) run beyond 10 years (up to 30) and also pay semiannual interest. All are backed by the full faith and credit of the U.S. government, making them the definition of a risk-free credit.",
-          "Two specialized forms matter. Treasury Inflation-Protected Securities (TIPS) adjust their principal with inflation (measured by CPI), protecting purchasing power — when inflation rises, the principal and thus the interest payments increase. STRIPS are zero-coupon Treasuries created by separating a bond's coupons and principal into individually traded pieces.",
-        ],
-        callout: {
-          label: "Treasury tax treatment",
-          body: "Interest on U.S. Treasury securities is subject to FEDERAL income tax but EXEMPT from state and local tax — the mirror image of municipals (federal-exempt, sometimes state-taxable).",
-        },
-      },
-      {
-        heading: "Agency and mortgage-backed securities",
-        paragraphs: [
-          "Agency securities are issued by government agencies and government-sponsored enterprises (GSEs) to support areas like housing. The crucial distinction is the backing. GNMA (Ginnie Mae) is a true government agency, and its securities carry the full faith and credit of the U.S. government — as safe as Treasuries. FNMA (Fannie Mae) and FHLMC (Freddie Mac) are GSEs whose securities are NOT explicitly backed by the government's full faith and credit, so they carry slightly more credit risk and a modestly higher yield.",
-          "Many agency securities are mortgage-backed: pools of home loans whose payments pass through to investors. These carry prepayment risk — when interest rates fall, homeowners refinance and pay off their mortgages early, returning principal to investors at exactly the time it must be reinvested at lower rates. That prepayment behavior makes mortgage-backed securities behave differently from a standard bond, a nuance the exam likes to probe.",
-        ],
-      },
-      {
-        heading: "Treasuries and agencies at a glance",
+        heading: "The Treasury ladder",
         blocks: [
-          { kind: "table", table: { caption: "Table 1 — The Treasury instruments by maturity, plus the inflation-protected and agency variants.", headers: ["Instrument", "Maturity", "Pays"], rows: [["Treasury bill", "≤ 1 year", "Sold at a discount; no coupon"], ["Treasury note", "2–10 years", "Semiannual coupon"], ["Treasury bond", "10–30 years", "Semiannual coupon"], ["TIPS", "Various", "Coupon on inflation-adjusted principal"]] } },
-          { kind: "callout", label: "Full faith and credit vs GSE", body: "GNMA (Ginnie Mae) is a true federal agency — its securities carry the full faith and credit of the U.S. government. Fannie Mae and Freddie Mac are GSEs whose securities are NOT explicitly government-backed, so they yield slightly more. Mortgage-backed agency securities also carry prepayment risk when rates fall." },
+          { kind: "p", text: "Treasury securities are direct obligations of the United States, carry its full faith and credit, and are considered free of credit risk — though emphatically not of INTEREST RATE risk, which is what actually moves their prices. They are distinguished by maturity and by whether they pay a coupon." },
+          { kind: "table", table: { caption: "Treasury issues.", headers: ["Security", "Maturity", "Form"], rows: [["Treasury bill", "1 year or less", "Zero coupon, issued at a DISCOUNT"], ["Treasury note", "2 to 10 years", "Semiannual coupon"], ["Treasury bond", "Over 10 years", "Semiannual coupon"], ["TIPS", "Various", "Principal adjusts with the CPI"], ["STRIPS", "Various", "Zero coupon, created by stripping coupons"]] } },
+          { kind: "p", text: "T-bills pay no interest: the entire return is the difference between the discounted purchase price and the face value received at maturity, which is why they carry no reinvestment risk. STRIPS are also zero-coupon, making them ideal for a dated funding need since the maturity amount is known at purchase — but holders owe annual tax on PHANTOM accreted interest they have not received in cash. TIPS adjust PRINCIPAL with inflation, so both the coupon payments and the final principal rise with the CPI." },
+          { kind: "example", example: { title: "reading a government quote", prompt: "A Treasury note is quoted 101-08. What is the dollar price on $10,000 face value?", steps: ["Government notes and bonds are quoted in 32nds, not decimals.", "The digits after the hyphen are 32nds: 08/32 = 0.25.", "The quote is therefore 101.25% of par.", "$10,000 × 1.0125 = $10,125."], answer: "$10,125. Reading 101-08 as $101.08 is exactly the error the 32nds convention catches — and government accrued interest uses ACTUAL/ACTUAL, not the 30/360 used for corporates and munis." } },
+        ],
+      },
+      {
+        heading: "Agencies: the guarantee that is not always there",
+        blocks: [
+          { kind: "p", text: "Agency securities are the most reliably tested distinction in this chapter, because the market treats them as safer than the law actually guarantees. GINNIE MAE is a government corporation within HUD, and its mortgage pass-through certificates carry the EXPLICIT full faith and credit of the United States. FANNIE MAE and FREDDIE MAC are government-sponsored ENTERPRISES — publicly traded companies whose obligations carry no explicit federal guarantee, only a widely assumed implied one." },
+          { kind: "p", text: "Mortgage pass-throughs also introduce a risk pattern that does not exist in plain Treasuries. Homeowners refinance when rates FALL, which returns principal to the certificate holder precisely when reinvestment opportunities are worst — PREPAYMENT risk. When rates RISE, prepayments slow and the holder is locked into a below-market yield for longer — EXTENSION risk. That two-sided exposure is why mortgage securities behave differently from the Treasuries they superficially resemble." },
+          { kind: "callout", label: "Taxation of government interest", body: "Interest on Treasury securities is subject to FEDERAL income tax but EXEMPT from state and local tax. Municipal interest runs the other way — exempt federally, usually exempt in the issuer's own state. Agency securities vary: Ginnie Mae pass-through interest is fully taxable at all levels, since it represents mortgage interest passed through." },
         ],
       },
     ],
@@ -130,29 +108,32 @@ export const s7Wave3Chapters: Chapter[] = [
     topicId: "margin",
     topicName: "Margin Accounts",
     title: "Margin Accounts: Reg T, Maintenance, and Short Selling",
-    readingMinutes: 5,
+    readingMinutes: 8,
     summary: "How buying on credit works — Regulation T's 50% initial requirement, FINRA maintenance minimums, and the special risks of short margin.",
     intro:
       "A margin account lets a customer borrow from the broker-dealer to buy securities, amplifying both gains and losses. The Series 7 tests the rules tightly: the Federal Reserve's Regulation T initial requirement, FINRA's maintenance minimums, and how short selling is margined. Get the two thresholds straight and the calculations follow.",
     sections: [
       {
-        heading: "How margin works and Regulation T",
+        heading: "The long account: equity, debit, and Regulation T",
         blocks: [
-          { kind: "p", text: "In a long margin purchase, the investor puts up part of the price and borrows the rest from the firm, creating a debit balance (the loan). The investor's equity is the market value minus the debit. The Federal Reserve's Regulation T sets the INITIAL margin requirement at 50% — the customer must deposit at least half the purchase price of marginable securities. The securities are held as collateral (hypothecation)." },
-          { kind: "example", example: { title: "the Reg T deposit", prompt: "A customer buys $20,000 of marginable stock in a margin account. What is the minimum Reg T deposit?", steps: ["Regulation T initial margin = 50%.", "Deposit = 50% × $20,000 = $10,000.", "The remaining $10,000 is the debit balance (the loan)."], answer: "$10,000 — half the purchase price, with the other half borrowed from the firm." } },
+          { kind: "p", text: "A margin account lets a customer buy securities partly with borrowed money. Under REGULATION T, set by the Federal Reserve, the initial deposit for a new equity purchase is 50% of the purchase price; the broker lends the rest, and that loan is the DEBIT BALANCE. The debit does not change as the market moves — only the market value does, which is what makes the equity calculation straightforward once you see it." },
+          { kind: "formula", formula: { label: "Long margin account", expr: "Equity = Market Value − Debit Balance\nMaintenance requirement = 25% of market value (FINRA minimum)\nMaintenance call triggers when Market Value = Debit ÷ 0.75", note: "The debit stays FIXED. Every question about a moving market is really a question about market value changing while the debit sits still." } },
+          { kind: "example", example: { title: "does a decline trigger a call?", prompt: "A customer buys 1,000 shares at $40 under Reg T. The stock falls to $30. Find equity and determine whether a maintenance call is issued.", steps: ["Purchase = 1,000 × $40 = $40,000. Reg T deposit = 50% = $20,000.", "The broker lends the balance, so the debit = $20,000 and stays there.", "At $30 the market value is $30,000, so equity = $30,000 − $20,000 = $10,000.", "FINRA maintenance = 25% × $30,000 = $7,500. Equity of $10,000 exceeds it — no call.", "The call would come when market value = $20,000 ÷ 0.75 = $26,667, or about $26.67 per share."], answer: "Equity $10,000, no call. The stock must fall to roughly $26.67 before a call is issued — knowing the trigger formula turns a guessing question into arithmetic." } },
         ],
       },
       {
-        heading: "Maintenance margin",
+        heading: "The short account, which works in reverse",
         blocks: [
-          { kind: "p", text: "After the purchase, FINRA requires a minimum MAINTENANCE level of equity. For a long account, equity must stay at least 25% of the market value; if it falls below, the customer gets a maintenance (margin) call to deposit more. For a short account, the minimum is 30% of the market value. Firms often set stricter 'house' requirements above the FINRA minimums." },
-          { kind: "table", table: { caption: "Table 1 — The two margin thresholds the exam tests.", headers: ["Requirement", "Long", "Short"], rows: [["Initial (Regulation T)", "50%", "50%"], ["Maintenance (FINRA minimum)", "25% of market value", "30% of market value"]] } },
+          { kind: "p", text: "Short selling borrows stock, sells it, and hopes to buy it back cheaper. Because the position LOSES as the price RISES, the short account's arithmetic inverts. The sale proceeds plus the Reg T deposit form the CREDIT BALANCE, which stays fixed; equity is the credit balance less the current market value of the stock owed. Minimum maintenance on a short position is 30% of market value, higher than the long side because the potential loss is unbounded." },
+          { kind: "formula", formula: { label: "Short margin account", expr: "Credit Balance = sale proceeds + Reg T deposit\nEquity = Credit Balance − Market Value\nMaintenance call when Market Value = Credit ÷ 1.30", note: "Short losses are theoretically UNLIMITED — there is no ceiling on how high a stock can go, which is what the higher requirement is guarding against." } },
+          { kind: "example", example: { title: "short account under pressure", prompt: "A customer sells short 100 shares at $50. Find the credit balance and the price at which a maintenance call is triggered.", steps: ["Sale proceeds = 100 × $50 = $5,000.", "Reg T deposit = 50% of $5,000 = $2,500.", "Credit balance = $5,000 + $2,500 = $7,500, and it stays fixed.", "A call triggers when market value = credit ÷ 1.30 = $7,500 ÷ 1.30 = $5,769.23.", "Per share: $5,769.23 ÷ 100 = $57.69."], answer: "Credit balance $7,500; a call is triggered once the stock rises to about $57.69. Note the direction — for a short, the DANGER is the price going UP, the opposite of everything in the long account." } },
         ],
       },
       {
-        heading: "Short selling on margin",
+        heading: "Excess equity, and what is not marginable",
         blocks: [
-          { kind: "p", text: "Short selling — selling borrowed shares hoping to buy them back cheaper — must occur in a margin account. The short seller profits if the price falls but faces theoretically UNLIMITED loss if the price rises, since a stock can climb without limit. That open-ended risk is why short positions carry the higher 30% maintenance requirement and why suitability scrutiny is high. Excess equity in a margin account is tracked in the Special Memorandum Account (SMA), which represents buying power the customer can draw on." },
+          { kind: "p", text: "When a long position appreciates, equity rises above the Reg T requirement and the surplus is EXCESS EQUITY, which is credited to a line of credit called SMA — special memorandum account. A customer may borrow against SMA or use it to buy more securities, and the buying power it confers is generally twice the SMA amount, since Reg T requires only 50% down. A key feature: once created, SMA does not decrease when the market falls, though using it requires the account to remain above maintenance." },
+          { kind: "bullets", items: ["Minimum equity to OPEN a margin account is generally $2,000, but never more than the purchase price in cash.", "New issues and mutual fund shares may not be purchased on margin, and typically must be held 30 days before becoming marginable.", "Options generally may not be purchased on margin — they must be paid for in full.", "The hypothecation agreement pledges the customer's securities as collateral; the loan consent, which is OPTIONAL, lets the firm lend them out.", "A margin call not met permits the firm to sell out enough of the position to satisfy it."] },
         ],
       },
     ],
@@ -185,29 +166,34 @@ export const s7Wave3Chapters: Chapter[] = [
     topicId: "options-adv",
     topicName: "Options Strategies",
     title: "Options Strategies: Hedging, Spreads, and Straddles",
-    readingMinutes: 5,
+    readingMinutes: 12,
     summary: "Beyond single options — protective puts and covered calls, debit and credit spreads, and straddles, with the max-gain/loss/breakeven logic the exam drills.",
     intro:
       "The Series 7 leans hard on multi-leg option strategies. The key is to recognize the strategy from the position, match it to a market outlook, and compute max gain, max loss, and breakeven. This chapter organizes the core strategies so the vignette patterns become automatic.",
     sections: [
       {
-        heading: "Hedging strategies",
+        heading: "Hedging: the two positions built on stock you own",
         blocks: [
-          { kind: "p", text: "Options shape risk. A protective put (long stock + long put) insures the downside: losses are capped below the strike while upside is retained, for the cost of the premium. A covered call (long stock + short call) sells away the upside above the strike to earn premium income — best when neutral-to-mildly-bullish. A collar combines both (own stock, buy a put, sell a call) to bracket the outcome cheaply." },
-          { kind: "example", example: { title: "covered call max gain", prompt: "An investor buys stock at $50 and sells a 55 call for a $2 premium. What is the maximum gain?", steps: ["Max gain occurs if the stock is called away at the $55 strike.", "Gain on stock = 55 − 50 = $5; plus the $2 premium kept.", "Max gain = $5 + $2 = $7 per share."], answer: "$7 per share — the $5 of stock appreciation to the strike plus the $2 premium. Upside above $55 is forfeited." } },
+          { kind: "p", text: "The two most-tested strategies both start from a stock position, and they are mirror images. A COVERED CALL writes a call against stock you own: the premium is income and a small cushion, but the upside is capped because above the strike the stock is called away. A PROTECTIVE PUT buys a put against stock you own: it is genuine insurance, setting a floor at the strike, and like insurance it costs a premium you forfeit if the disaster never comes." },
+          { kind: "example", example: { title: "covered call, fully worked", prompt: "An investor buys stock at $48 and writes a 50 call for $3. Find maximum gain, breakeven, and maximum loss.", steps: ["Maximum gain occurs at or above the $50 strike, where the stock is called away.", "Gain = ($50 − $48) + $3 premium = $5 per share, or $500.", "Breakeven = stock cost − premium received = $48 − $3 = $45.", "Maximum loss if the stock goes to zero = $45 per share, or $4,500."], answer: "Max gain $500, breakeven $45, max loss $4,500. The call did NOT protect the position — it reduced the loss by exactly the $3 premium and surrendered everything above $50." } },
+          { kind: "example", example: { title: "protective put, the mirror image", prompt: "An investor buys stock at $48 and buys a 45 put for $2. Find maximum loss and breakeven.", steps: ["The put guarantees a sale at $45 however far the stock falls.", "Loss on the stock = $48 − $45 = $3 per share.", "Plus the $2 premium = $5 per share, or $500 total.", "Breakeven = $48 + $2 = $50 — the stock must recover the insurance cost first."], answer: "Max loss $500, breakeven $50, upside unlimited above $50. Compare directly with the covered call: the put COSTS money and caps the LOSS; the call EARNS money and caps the GAIN." } },
         ],
       },
       {
-        heading: "Spreads",
+        heading: "Spreads: paying less, capping both ends",
         blocks: [
-          { kind: "p", text: "A spread combines a long and a short option of the same type (both calls or both puts) with different strikes or expirations, to bet on direction with limited risk and cost. A debit spread (you pay net premium) profits if the market moves your way — a bull call spread (buy lower-strike call, sell higher) profits as the stock rises. A credit spread (you receive net premium) profits if the market stays put or moves against the long option's favor — a bear call spread or bull put spread. Max gain and loss are both capped by the difference in strikes net of the premium." },
-          { kind: "callout", label: "Debit vs credit, fast", body: "Debit spread → you PAID a premium → you want the spread to WIDEN (the market to move in your favor). Credit spread → you RECEIVED a premium → you want the spread to NARROW/expire worthless (the market to stay put)." },
+          { kind: "p", text: "A SPREAD buys one option and sells another of the same class, reducing cost in exchange for capping the gain. The direction is read from the net cash flow. A DEBIT spread costs money to establish and profits when the underlying moves in the direction you paid for. A CREDIT spread brings money in and profits when the underlying does NOT move against you — you keep the premium if both legs expire worthless." },
+          { kind: "example", example: { title: "bull call spread", prompt: "Buy a 50 call for $5 and sell a 60 call for $2. Find the net debit, maximum gain, maximum loss, and breakeven.", steps: ["Net debit = $5 paid − $2 received = $3, or $300. Money went out, so it is a DEBIT spread and therefore bullish.", "Maximum gain = strike spread − net debit = ($60 − $50) − $3 = $7, or $700, reached at or above $60.", "Maximum loss = the net debit = $300, if both expire worthless below $50.", "Breakeven = lower strike + net debit = $50 + $3 = $53."], answer: "Debit $300, max gain $700, max loss $300, breakeven $53. Note the max gain and max loss always sum to the strike spread ($1,000) — a fast check on any spread answer." } },
+          { kind: "example", example: { title: "bear put spread", prompt: "Buy a 60 put for $6 and sell a 50 put for $2. Find maximum gain, maximum loss, and breakeven.", steps: ["Net debit = $6 − $2 = $4, or $400. A debit spread using puts, so the view is BEARISH.", "Maximum gain = ($60 − $50) − $4 = $6, or $600, reached at or below $50.", "Maximum loss = the $400 debit.", "Breakeven = higher strike − net debit = $60 − $4 = $56."], answer: "Max gain $600, max loss $400, breakeven $56. Check: $600 + $400 = $1,000, the strike spread. The debit tells you the direction — with CALLS a debit is bullish, with PUTS a debit is bearish." } },
+          { kind: "table", table: { caption: "Reading a spread in one step.", headers: ["Built with", "Net debit", "Net credit"], rows: [["Calls", "BULLISH (bull call spread)", "BEARISH (bear call spread)"], ["Puts", "BEARISH (bear put spread)", "BULLISH (bull put spread)"]] } },
         ],
       },
       {
-        heading: "Straddles",
+        heading: "Straddles and combinations: betting on movement itself",
         blocks: [
-          { kind: "p", text: "A long straddle (buy a call AND a put at the same strike) profits from a BIG move in either direction — it's a bet on volatility, with loss limited to the two premiums if the stock sits still. A short straddle (sell both) profits if the stock barely moves, collecting both premiums, but carries large risk if it moves sharply. Breakeven on a long straddle is the strike plus or minus the total premium paid." },
+          { kind: "p", text: "A STRADDLE buys (or sells) both a call and a put at the SAME strike. The long straddle is a bet on VOLATILITY without a direction — the buyer profits if the stock moves far enough either way, and loses the full premium only if it sits still at the strike. A STRANGLE uses different, typically out-of-the-money strikes: cheaper to establish, but requiring a larger move before either leg pays." },
+          { kind: "example", example: { title: "long straddle breakevens", prompt: "An investor buys a 50 call for $3 and a 50 put for $2. Find the maximum loss and both breakevens.", steps: ["Total premium paid = $3 + $2 = $5, or $500.", "Maximum loss = the full $500, occurring only if the stock closes exactly at $50 and both expire worthless.", "Upside breakeven = strike + total premium = $50 + $5 = $55.", "Downside breakeven = strike − total premium = $50 − $5 = $45."], answer: "Max loss $500; profits above $55 or below $45. The stock must move more than 10% in either direction just to break even — which is why straddles are expensive bets that require genuine volatility, not merely uncertainty." } },
+          { kind: "callout", label: "Short straddle risk", body: "SELLING a straddle collects both premiums and profits if the stock stays put — but the short call leg carries theoretically UNLIMITED loss. That single fact makes the short straddle unsuitable for all but the most sophisticated, well-capitalized accounts, and it carries the strictest approval requirements." },
         ],
       },
     ],
@@ -240,23 +226,32 @@ export const s7Wave3Chapters: Chapter[] = [
     topicId: "dpp",
     topicName: "DPPs & REITs",
     title: "Direct Participation Programs and REITs",
-    readingMinutes: 3,
+    readingMinutes: 4,
     summary: "Pass-through real-asset investments — how limited partnerships flow income and losses to investors, the partner roles, and how REITs differ.",
     intro:
       "Direct participation programs and REITs let investors access real assets like real estate and energy. The Series 7 tests how DPPs pass income and losses through to investors, the roles and liabilities of partners, and how REITs — which look similar — actually differ in structure, taxation, and liquidity.",
     sections: [
       {
-        heading: "Direct participation programs",
+        heading: "Why a DPP exists at all",
         blocks: [
-          { kind: "p", text: "A direct participation program (DPP), usually a limited partnership, passes income, gains, losses, and deductions directly through to investors — it is NOT taxed at the entity level (flow-through taxation), avoiding the double taxation of a corporation. The general partner (GP) manages the venture and has unlimited liability; limited partners (LPs) are passive investors whose liability is limited to their investment. Common DPP types include real estate, oil & gas, and equipment leasing." },
-          { kind: "callout", label: "Passive income and losses", body: "DPP income and losses are 'passive.' Passive losses can generally offset only passive income, not ordinary wages — a key suitability and tax point. DPPs are also illiquid, with no active secondary market." },
+          { kind: "p", text: "A direct participation program is a business structured so that income, gains, losses, deductions, and credits FLOW THROUGH to investors rather than being taxed at the entity level. That flow-through is the entire reason the structure exists — a corporation would pay tax on its profits and shareholders would pay again on dividends, while a DPP is taxed only once, in the investors' hands. Most DPPs are limited partnerships, though LLCs and S corporations share the flow-through characteristic." },
+          { kind: "p", text: "The trade for that tax treatment is control and liquidity. The GENERAL PARTNER manages the program and accepts UNLIMITED personal liability for partnership obligations. LIMITED PARTNERS are passive investors whose liability is capped at their invested capital — but a limited partner who begins participating in management can lose that protection, which is precisely why the passivity is enforced rather than optional. Interests are illiquid, there is generally no secondary market, and the holding period runs years." },
+          { kind: "callout", label: "The liability question", body: "General partner: unlimited personal liability, full management control, and a fiduciary duty to the limited partners. Limited partner: liability capped at the investment, no management role. Reversing these two is the most common error on the topic, and questions often bury the distinction in a fact pattern about who made a decision." },
         ],
       },
       {
-        heading: "REITs",
+        heading: "Passive losses and the limit that surprises investors",
         blocks: [
-          { kind: "p", text: "A real estate investment trust (REIT) pools money to own (equity REIT) or finance (mortgage REIT) real estate. Crucially, a REIT is NOT a DPP and does not pass through losses. To keep its favorable tax status, a REIT must distribute at least 90% of its taxable income to shareholders as dividends. Most REITs are publicly traded on exchanges, making them far more liquid than DPPs — you can buy and sell them like stock." },
-          { kind: "table", table: { caption: "Table 1 — DPP vs REIT.", headers: ["Feature", "DPP (limited partnership)", "REIT"], rows: [["Passes losses to investors?", "Yes (flow-through)", "No"], ["Liquidity", "Illiquid, no active market", "Usually exchange-traded, liquid"], ["Tax requirement", "Flow-through; passive income/loss", "Distribute ≥90% of income as dividends"]] } },
+          { kind: "p", text: "DPP losses are PASSIVE losses, and passive losses may generally offset only PASSIVE income — not wages, not portfolio income such as interest and dividends. This is the constraint that makes a DPP far less valuable as a tax shelter than investors often assume, and it is the reason a program should never be recommended primarily for its write-offs. Unused passive losses carry forward and may be released when the investor disposes of the interest." },
+          { kind: "p", text: "Suitability therefore turns on three things: the client must be able to bear ILLIQUIDITY for years, must have the net worth and income to absorb a total loss, and should have passive income against which losses are actually usable. A client who may need the capital, or who has only wage income, fails the analysis regardless of how attractive the projected returns look. Note that a program's economic merit must stand on its own — 'it's a good tax shelter' is not a suitable basis for a recommendation." },
+          { kind: "bullets", items: ["Dissolution order: secured creditors, then general creditors, then LIMITED partners, then general partners LAST.", "A limited partner may inspect the books, vote on major partnership matters, and sue the GP — none of which forfeits limited status.", "Participating in day-to-day MANAGEMENT does forfeit it.", "Common program types: real estate (income or raw land), oil and gas (exploratory, developmental, income), and equipment leasing."] },
+        ],
+      },
+      {
+        heading: "REITs: the liquid alternative",
+        blocks: [
+          { kind: "p", text: "A REIT is often the right recommendation for a client who wants real estate exposure but fails the DPP suitability analysis. Listed REITs trade on an exchange, so they are LIQUID, and they must distribute at least 90% of taxable income to retain their tax treatment — which is why they are held for income. Equity REITs own properties, mortgage REITs hold real-estate debt, and hybrids do both." },
+          { kind: "p", text: "The distinction the exam tests: a REIT passes through INCOME but NOT losses. A DPP passes through both. A client specifically seeking pass-through losses cannot get them from a REIT, and a client who wants liquidity cannot get it from a DPP — the two products sit at opposite ends of the same trade-off, and matching the client to the right one is the whole question." },
         ],
       },
     ],
@@ -288,29 +283,26 @@ export const s7Wave3Chapters: Chapter[] = [
     topicId: "suitability",
     topicName: "Suitability & Recommendations",
     title: "Suitability, Customer Profiles, and Regulation Best Interest",
-    readingMinutes: 3,
+    readingMinutes: 4,
     summary: "The heart of the rep's job — gathering a customer profile, the three prongs of suitability, Reg BI's best-interest standard, and matching products to objectives.",
     intro:
       "The Series 7 is, at its core, an exam about making suitable recommendations. Every product chapter ultimately serves this one: can you match the right investment to the right customer? This chapter builds the customer-profile framework, the suitability obligations, and the higher best-interest standard that now governs retail recommendations.",
     sections: [
       {
-        heading: "The customer profile",
+        heading: "Building the customer profile",
         blocks: [
-          { kind: "p", text: "Before recommending anything, the rep must understand the customer through the know-your-customer rule. The profile captures financial information (income, net worth, liquid assets, existing holdings), investment objectives (growth, income, preservation of capital, speculation), risk tolerance, time horizon, tax status, and liquidity needs, plus non-financial facts like age, marital status, and dependents. A recommendation must fit the WHOLE picture — recommending an illiquid, speculative product to a 70-year-old who needs income and stability is the textbook violation." },
-          { kind: "callout", label: "Objective → product", body: "Growth → common stock and growth funds. Income → bonds, dividend stocks, income funds. Preservation → government securities, money market. Speculation → options, low-grade bonds, volatile equities. Liquidity need → avoid DPPs and other illiquid products." },
+          { kind: "p", text: "No recommendation can be evaluated without facts about the person receiving it. FINRA requires reasonable diligence to learn the essential facts about every customer: financial situation and net worth, tax status, investment objectives, TIME HORIZON, LIQUIDITY NEEDS, RISK TOLERANCE, and investment experience. A representative who has not gathered these has no basis on which to judge anything — the failure is the recommendation itself, not a paperwork lapse." },
+          { kind: "p", text: "Two inputs do most of the work in exam questions. TIME HORIZON determines survivable volatility: money needed in eighteen months cannot sit in equities regardless of stated appetite for risk. LIQUIDITY NEEDS eliminate whole product categories — a client who may need capital on short notice cannot be placed in a DPP, a private placement, or anything with a lock-up, whatever the expected return. Note also the difference between risk TOLERANCE, a psychological willingness, and risk CAPACITY, the financial ability to absorb loss; the binding constraint is whichever is lower." },
+          { kind: "table", table: { caption: "Objective to product.", headers: ["Objective", "Generally suitable", "Generally unsuitable"], rows: [["Preservation of capital", "Money market, T-bills, CDs", "Small-cap equity, naked options"], ["Current income", "Bonds, preferred, income funds", "Zero-coupon bonds, growth stocks"], ["Growth", "Equities, equity funds", "Money market instruments"], ["Speculation", "Options, high-yield debt", "Anything for a conservative client"], ["Tax-free income", "Municipals (high bracket)", "Municipals inside an IRA"]] } },
         ],
       },
       {
-        heading: "The three prongs of suitability",
+        heading: "Regulation Best Interest and its four obligations",
         blocks: [
-          { kind: "p", text: "FINRA's suitability framework has three components. Reasonable-basis suitability requires the rep to understand the product and believe it is suitable for at least SOME investors. Customer-specific suitability requires that the recommendation fit THIS particular customer's profile. Quantitative suitability requires that a series of recommendations, even if each is individually suitable, not be excessive in light of the customer's profile — the guard against churning. All three must hold." },
-          { kind: "table", table: { caption: "Table 1 — The three prongs of suitability.", headers: ["Prong", "Question it answers"], rows: [["Reasonable-basis", "Is it suitable for anyone, and do I understand it?"], ["Customer-specific", "Is it suitable for THIS customer?"], ["Quantitative", "Is the overall trading pattern excessive (churning)?"]] } },
-        ],
-      },
-      {
-        heading: "Regulation Best Interest",
-        blocks: [
-          { kind: "p", text: "The SEC's Regulation Best Interest (Reg BI) raised the standard for recommendations to RETAIL customers above mere suitability: a broker-dealer must act in the customer's BEST INTEREST and may not place its own interests ahead of the customer's. Reg BI imposes four obligations — disclosure (of the relationship and conflicts), care (a reasonable basis grounded in the customer's profile), conflict-of-interest (identify and mitigate or eliminate conflicts), and compliance. Firms must also deliver Form CRS, a brief customer relationship summary describing services, fees, and conflicts. When willingness to take risk conflicts with financial ability to bear it, the more conservative ability generally governs." },
+          { kind: "p", text: "Effective June 30, 2020, Reg BI requires that a recommendation to a retail customer be in that customer's BEST INTEREST and that the firm not place its own financial interest ahead of theirs. The older suitability standard required only that a recommendation be appropriate — permitting the representative to recommend whichever suitable product paid most. Reg BI closes that gap, and questions describing two suitable products with different compensation are testing precisely this change." },
+          { kind: "bullets", items: ["DISCLOSURE — material facts about the relationship and all conflicts of interest.", "CARE — understand the product's risks and COSTS, and evaluate reasonably available ALTERNATIVES.", "CONFLICT OF INTEREST — identify and address conflicts, eliminating some outright.", "COMPLIANCE — written policies reasonably designed to achieve compliance overall.", "FORM CRS — a brief relationship summary for retail investors: services, fees, conflicts, discipline."] },
+          { kind: "p", text: "Suitability obligations attach to RECOMMENDATIONS. An unsolicited order — one the customer initiates entirely on their own — carries no recommendation and may generally be executed even if the representative thinks it unwise, but must be marked UNSOLICITED. Mismarking a solicited trade as unsolicited to escape the analysis is a serious violation and a recurring fact pattern." },
+          { kind: "callout", label: "Beyond the single trade", body: "Some practices breach the duty even when each individual recommendation looks defensible. CHURNING is excessive trading measured against the customer's objectives and resources. Unsuitable CONCENTRATION loads a portfolio into one security or sector, accepting unsystematic risk for which no additional return is expected. And recommending a strategy the client cannot afford to hold to its horizon fails the care obligation on its own." },
         ],
       },
     ],
@@ -342,29 +334,33 @@ export const s7Wave3Chapters: Chapter[] = [
     topicId: "underwriting",
     topicName: "Primary Market & Underwriting",
     title: "The Primary Market: Underwriting and New Issues",
-    readingMinutes: 4,
+    readingMinutes: 5,
     summary: "How securities come to market — the 1933 Act registration timeline, underwriting commitments and the syndicate, and the rules around prospectuses and offerings.",
     intro:
       "The primary market is where capital is raised, and the Series 7 tests the mechanics of bringing a new issue to market: the registration process under the Securities Act of 1933, the underwriting commitments that allocate risk, and the documents and prohibitions that govern the offering period. Know the timeline cold.",
     sections: [
       {
-        heading: "Registration and the timeline",
+        heading: "The 1933 Act timeline",
         blocks: [
-          { kind: "p", text: "The Securities Act of 1933 governs new issues and centers on disclosure. The issuer files a registration statement with the SEC, beginning a process with three phases. In the PRE-FILING period, no offers or sales are allowed. The COOLING-OFF period (a minimum of 20 days) follows filing, during which the SEC reviews; the firm may distribute a preliminary prospectus (the red herring) and collect non-binding indications of interest, but may not take orders or money. Once the registration is EFFECTIVE, sales proceed with a final prospectus that must be delivered to buyers." },
-          { kind: "callout", label: "The SEC does not approve", body: "SEC clearance confirms adequate DISCLOSURE — it never approves the merits or guarantees a security. Telling a customer the SEC 'approved' an issue is a prohibited misrepresentation." },
+          { kind: "p", text: "The Securities Act of 1933 regulates NEW issues through forced disclosure rather than merit review — the SEC never judges whether an offering is a good investment, only whether the required facts have been disclosed, and claiming SEC approval of a security is itself a violation. The process opens with a REGISTRATION STATEMENT. From filing to effectiveness runs the COOLING-OFF PERIOD, a minimum of 20 days and usually longer." },
+          { kind: "p", text: "During cooling off the underwriter may distribute the PRELIMINARY PROSPECTUS (the red herring) and collect INDICATIONS OF INTEREST, which bind neither side. A TOMBSTONE advertisement, limited in content, is permitted, and the DUE DILIGENCE meeting is held near the end. What may NOT happen is any sale: no orders accepted, no money received, no allocations confirmed, no price promised — the red herring contains no final price because pricing occurs on the eve of effectiveness." },
+          { kind: "table", table: { caption: "Permitted activity by phase.", headers: ["Activity", "Cooling-off", "After effective"], rows: [["Preliminary prospectus (red herring)", "Permitted", "Superseded by the final"], ["Indications of interest", "Permitted, non-binding", "Become actual orders"], ["Accepting orders or money", "PROHIBITED", "Permitted"], ["Tombstone ad", "Permitted", "Permitted"], ["Final prospectus", "Does not exist yet", "Required at or before confirmation"]] } },
+          { kind: "callout", label: "The fact pattern to recognize", body: "A customer says during the cooling-off period: 'Put me down for 500 shares, here's my cheque.' The representative may record a non-binding indication of interest and MUST return the cheque. Accepting funds, confirming an allocation, or quoting a firm price all constitute selling before effectiveness." },
         ],
       },
       {
-        heading: "Underwriting commitments and the syndicate",
+        heading: "Commitment types: where the risk lands",
         blocks: [
-          { kind: "p", text: "Underwriters bring the issue to market, and the commitment type allocates the risk of unsold shares. In a FIRM COMMITMENT, the underwriter buys the entire issue and resells it, bearing the risk — the most common arrangement. In a BEST EFFORTS deal, the underwriter only agrees to use its best efforts and returns unsold shares to the issuer, bearing no inventory risk; variations include all-or-none and mini-max. Large deals use a SYNDICATE of firms led by a managing underwriter, with a selling group helping distribute. The underwriting SPREAD — the difference between the public offering price and the proceeds to the issuer — is the underwriters' compensation, divided into the manager's fee, the underwriting fee, and the selling concession." },
-          { kind: "table", table: { caption: "Table 1 — Underwriting commitments.", headers: ["Type", "Who bears unsold-share risk"], rows: [["Firm commitment", "Underwriter (buys the whole issue)"], ["Best efforts", "Issuer (underwriter only tries)"], ["All-or-none", "Deal cancelled unless fully sold"]] } },
+          { kind: "p", text: "The underwriting agreement determines who bears the risk of an unsold deal, and every commitment question reduces to whether the underwriter acts as PRINCIPAL or AGENT. In a FIRM COMMITMENT the underwriter BUYS the entire issue and resells it as principal — if the deal fails, the underwriter holds the inventory and the issuer is paid regardless. In a BEST EFFORTS underwriting the underwriter acts as AGENT, selling what it can and returning the rest, so the ISSUER bears the risk." },
+          { kind: "bullets", items: ["FIRM COMMITMENT — underwriter as principal, bearing full risk of unsold shares.", "BEST EFFORTS — underwriter as agent; unsold shares return to the issuer.", "ALL-OR-NONE — the whole issue must sell or the offering is cancelled and funds returned.", "MINI-MAX — a stated minimum must sell for the deal to close, up to a stated maximum.", "STANDBY — the underwriter agrees to buy shares left unsubscribed in a rights offering."] },
+          { kind: "p", text: "Large deals are distributed by a SYNDICATE under a SYNDICATE MANAGER, spreading exposure. A SELLING GROUP assists in distribution but takes NO underwriting commitment and bears no risk, earning only the selling concession. The UNDERWRITING SPREAD is the difference between the public offering price and the proceeds to the issuer, splitting into the manager's fee, the underwriting fee, and the selling concession — the concession being the largest piece, since it goes to whoever actually places the shares." },
         ],
       },
       {
-        heading: "Offering types and prohibitions",
+        heading: "Exemptions and the restricted-persons rule",
         blocks: [
-          { kind: "p", text: "Offerings come in forms. An IPO is a company's first public sale; a follow-on (secondary) offering sells additional shares later. Securities and transactions can be exempt: government and municipal securities are exempt securities, and private placements under Regulation D (to accredited or a limited number of investors) are exempt transactions. During the offering, several practices are prohibited or restricted: free-riding and withholding (an underwriter holding back a hot issue for its own benefit) and selling a new issue to restricted persons. Reps may not guarantee a gain, and the prospectus-delivery requirements must be met for the applicable aftermarket period." },
+          { kind: "p", text: "Registration is expensive, so exemptions permit capital raising without it. REGULATION D covers private placements sold principally to ACCREDITED INVESTORS. RULE 147 exempts genuinely intrastate offerings. REGULATION A+ permits smaller offerings under lighter disclosure. RULE 144 governs resale of restricted and control stock through holding periods and volume limits, so insiders cannot quietly liquidate into the public market. Municipal and U.S. government securities are exempt securities outright." },
+          { kind: "p", text: "FINRA Rule 5130 appears reliably and is easy to miss. RESTRICTED PERSONS may not buy a new EQUITY issue at the public offering price: member firms, their employees and associated persons, and immediate family members materially supported by them. The purpose is to stop industry insiders capturing first-day IPO gains that belong to public customers. Note the boundary — the rule covers new EQUITY issues, not new debt offerings." },
         ],
       },
     ],
@@ -397,29 +393,32 @@ export const s7Wave3Chapters: Chapter[] = [
     topicId: "economics",
     topicName: "Economic Factors & Analysis",
     title: "Economic Factors, Analysis, and Market Theory",
-    readingMinutes: 4,
+    readingMinutes: 5,
     summary: "The macro and analytical backdrop — the business cycle, monetary and fiscal policy, fundamental vs technical analysis, and key market measures.",
     intro:
       "A registered rep must read the economic weather. The Series 7 tests the business cycle, the policy levers that steer it, the difference between fundamental and technical analysis, and the measures that describe markets and securities. This chapter connects the macro picture to the analysis reps use to frame recommendations.",
     sections: [
       {
-        heading: "The business cycle and policy",
+        heading: "The cycle and its indicators",
         blocks: [
-          { kind: "p", text: "Economies cycle through expansion, peak, contraction, and trough; two consecutive quarters of declining real GDP is the common definition of a recession. Two policy levers respond. MONETARY policy is run by the Federal Reserve, which adjusts the money supply and short-term rates mainly through open market operations (buying Treasuries eases and lowers rates; selling tightens and raises them), plus the discount rate and reserve requirements. FISCAL policy is run by Congress and the President through spending and taxation. Interest-rate moves ripple straight into securities: when rates rise, bond prices fall and rate-sensitive stocks often weaken." },
-          { kind: "table", table: { caption: "Table 1 — Policy levers.", headers: ["Policy", "Run by", "Main tools"], rows: [["Monetary", "Federal Reserve", "Open market operations, discount rate, reserves"], ["Fiscal", "Congress / President", "Spending and taxation"]] } },
+          { kind: "p", text: "Economic activity moves through EXPANSION, PEAK, CONTRACTION, and TROUGH. The conventional shorthand for a recession is two consecutive quarters of declining real GDP; a depression is the far rarer and more severe case. The cycle matters because it drives corporate earnings and therefore equity prices, and because policymakers respond in ways that move interest rates and therefore bond prices." },
+          { kind: "table", table: { caption: "Indicator timing relative to the cycle.", headers: ["Leading (turns first)", "Coincident (turns with)", "Lagging (turns after)"], rows: [["Building permits", "Industrial production", "Unemployment rate"], ["New durable-goods orders", "Personal income", "Duration of unemployment"], ["Stock prices", "Nonfarm payrolls", "Corporate profits"], ["Initial jobless claims", "Manufacturing sales", "Prime rate"]] } },
+          { kind: "p", text: "UNEMPLOYMENT is the one candidates most often misclassify. It is LAGGING: firms cut staff only after conditions have clearly deteriorated and hire only once a recovery is evidently underway, so the unemployment rate confirms a turn rather than predicting it. Stock prices, by contrast, are LEADING — the market prices expectations, which is why equities often bottom while the news is still bad." },
         ],
       },
       {
-        heading: "Fundamental vs technical analysis",
+        heading: "Monetary and fiscal policy",
         blocks: [
-          { kind: "p", text: "Two schools analyze securities. FUNDAMENTAL analysis studies the underlying business and economy — financial statements, earnings, ratios (like the P/E ratio and earnings per share), management, and industry conditions — to estimate intrinsic value and decide WHAT to buy. TECHNICAL analysis ignores fundamentals and studies market data — price charts, trends, support and resistance levels, trading volume, and momentum — to decide WHEN to buy or sell. A fundamental analyst asks whether a company is sound; a technical analyst asks what the price action is signaling." },
-          { kind: "callout", label: "What vs when", body: "Fundamental analysis (earnings, ratios, the economy) helps decide WHAT to buy. Technical analysis (charts, trends, volume) helps decide WHEN to buy or sell. The exam loves to test which tool a given input belongs to." },
+          { kind: "p", text: "Two levers, two authorities, and the exam pairs them to see whether you can tell them apart. MONETARY policy belongs to the FEDERAL RESERVE and works on the money supply and the cost of credit. FISCAL policy belongs to CONGRESS and works through taxation and government spending. A question describing a tax increase alongside a discount-rate cut is describing contractionary FISCAL policy running against expansionary MONETARY policy — two authorities pulling opposite ways." },
+          { kind: "bullets", items: ["OPEN MARKET OPERATIONS — buying and selling government securities — is the Fed's principal and most-used tool. BUYING injects reserves and is expansionary.", "The DISCOUNT RATE is what the Fed charges banks borrowing directly from it; changes are largely a signal.", "RESERVE REQUIREMENTS are the bluntest tool and are changed rarely.", "The FED FUNDS RATE is what banks charge EACH OTHER overnight — a target, not a rate the Fed sets by decree.", "Expansionary fiscal: cut taxes or raise spending. Contractionary fiscal: raise taxes or cut spending."] },
         ],
       },
       {
-        heading: "Market measures and theory",
+        heading: "Rates, the curve, and inflation",
         blocks: [
-          { kind: "p", text: "Several measures appear on the exam. The yield curve plots yields against maturities — normally upward-sloping; an INVERTED curve (short rates above long rates) often precedes a recession. Indexes and averages (the Dow, S&P 500) gauge the broad market. For individual stocks, the price-to-earnings (P/E) ratio compares price to earnings per share, and dividend yield compares the dividend to price. Underlying it all, the efficient market hypothesis argues prices already reflect available information, which is the intellectual case for low-cost, passive index investing over trying to beat the market." },
+          { kind: "p", text: "Interest rates and bond prices move in OPPOSITE directions — the single most heavily tested economic fact on this exam. When prevailing rates rise, an existing fixed-coupon bond becomes less competitive and its price must fall until its yield matches new issues. Longer maturities and LOWER coupons move more for a given rate change, because more of their value sits further in the future." },
+          { kind: "p", text: "The YIELD CURVE plots yield against maturity. A NORMAL curve slopes upward, since lenders demand more to commit for longer. A FLAT curve shows little difference across maturities. An INVERTED curve, where short rates exceed long, is unusual and has historically preceded recessions. INFLATION erodes the purchasing power of fixed payments, hurting long-dated bondholders most — and because it affects all fixed payments at once, purchasing power risk is SYSTEMATIC and cannot be diversified away." },
+          { kind: "callout", label: "Systematic versus unsystematic", body: "SYSTEMATIC risks — market, interest rate, inflation, currency, political — hit everything and cannot be diversified away, which is precisely why they are the only risks investors are compensated for bearing. UNSYSTEMATIC risks — business, credit, liquidity, regulatory, call — are specific and CAN be diversified away, so the market pays nothing extra for accepting them." },
         ],
       },
     ],

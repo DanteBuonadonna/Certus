@@ -17,41 +17,33 @@ const chapters: Chapter[] = [
     topicId: "general",
     topicName: "General Principles of Financial Planning",
     title: "General Principles of Financial Planning",
-    readingMinutes: 3,
+    readingMinutes: 6,
     summary: "The planning process, financial statements, cash-flow management, and the planner's standard of conduct.",
     intro:
       "The CFP marks someone as a comprehensive financial planner, and the foundation is a disciplined process for understanding a client's whole financial life and building a coordinated plan. This domain covers the steps of that process, the tools used to assess a client's situation, and the ethical standard a CFP professional must uphold. Everything else in the curriculum plugs into this framework.",
     sections: [
       {
-        heading: "The financial planning process",
-        paragraphs: [
-          "The CFP Board defines a structured, multi-step process: understand the client's personal and financial circumstances; identify and select goals; analyze the current course of action and potential alternatives; develop the recommendations; present them; implement them; and monitor progress and update over time. The discipline matters — a good planner doesn't jump to a product, but first gathers data and clarifies goals before recommending anything.",
-          "Central to the process is the fiduciary duty. Under the CFP Board's standards, a CFP professional must act as a fiduciary at all times when providing financial advice, placing the client's interests above their own. That elevates planning from selling products to giving advice the client can trust.",
-        ],
-        callout: {
-          label: "The CFP fiduciary standard",
-          body: "A CFP professional must act in the client's best interest at all times when giving financial advice — a fiduciary duty of loyalty and care, with disclosure of conflicts.",
-        },
-      },
-      {
-        heading: "Financial statements and cash flow",
-        paragraphs: [
-          "Two personal financial statements anchor the analysis. The statement of financial position (a personal balance sheet) lists assets and liabilities at a point in time, with the difference being net worth. The cash flow statement tracks income and expenses over a period, revealing whether the client runs a surplus to save and invest or a deficit that must be addressed. A planner uses these to diagnose problems — too much debt, too little savings, inadequate emergency reserves.",
-          "Sound cash-flow management includes maintaining an emergency fund (commonly three to six months of expenses) and managing debt prudently. Ratios help: a high consumer-debt-to-income ratio signals trouble, while a healthy savings rate signals progress toward goals. The time value of money underlies it all — quantifying how today's savings grow into tomorrow's goals.",
-        ],
-      },
-      {
-        heading: "Goals, education planning, and behavior",
-        paragraphs: [
-          "Plans are built around goals — retirement, a home, a child's education — each with a time horizon and dollar target. Education planning often uses tax-advantaged vehicles like 529 plans, where investments grow tax-free when used for qualified education expenses. A planner also accounts for client psychology and behavioral biases, since even a technically perfect plan fails if the client won't follow it. Understanding a client's risk tolerance and tendencies is as important as the math.",
-        ],
-      },
-      {
-        heading: "The process as a loop, and a cash-flow check",
+        heading: "The seven-step planning process",
         blocks: [
-          { kind: "p", text: "The seven steps are not a one-way checklist — they form a loop. Monitoring feeds back into understanding the client's (now changed) circumstances, so the plan is revisited and updated as life unfolds. Seeing the process as a cycle is what separates ongoing financial planning from a one-time product sale." },
-          { kind: "figure", figure: { caption: "Figure 1 — The CFP Board's planning process as a continuous loop. The final step, monitoring, returns to the first as circumstances change — the plan is living, not static.", alt: "Seven connected nodes from Understand to Monitor with a return arrow looping back to the start", svg: `<svg viewBox="0 0 460 140" width="100%" style="max-width:460px"><defs><marker id="cfpah" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6z" fill="var(--primary)"/></marker></defs><path d="M432 40 C 432 14, 24 14, 24 40" fill="none" stroke="var(--primary)" stroke-width="1" stroke-dasharray="3 3" marker-end="url(#cfpah)"/><text x="228" y="11" text-anchor="middle" font-size="8.5" fill="var(--primary)">monitor &amp; update — the plan is a loop</text><g stroke="var(--text-muted)" stroke-width="1"><line x1="37" y1="52" x2="79" y2="52"/><line x1="105" y1="52" x2="147" y2="52"/><line x1="173" y1="52" x2="215" y2="52"/><line x1="241" y1="52" x2="283" y2="52"/><line x1="309" y1="52" x2="351" y2="52"/><line x1="377" y1="52" x2="419" y2="52"/></g><g font-size="8.5" text-anchor="middle"><g><circle cx="24" cy="52" r="12" fill="var(--bg-card)" stroke="var(--primary)" stroke-width="1.2"/><text x="24" y="55" fill="var(--primary)" font-weight="600">1</text><text x="24" y="78" fill="var(--text-secondary)">Understand</text></g><g><circle cx="92" cy="52" r="12" fill="var(--bg-card)" stroke="var(--primary)" stroke-width="1.2"/><text x="92" y="55" fill="var(--primary)" font-weight="600">2</text><text x="92" y="78" fill="var(--text-secondary)">Goals</text></g><g><circle cx="160" cy="52" r="12" fill="var(--bg-card)" stroke="var(--primary)" stroke-width="1.2"/><text x="160" y="55" fill="var(--primary)" font-weight="600">3</text><text x="160" y="78" fill="var(--text-secondary)">Analyze</text></g><g><circle cx="228" cy="52" r="12" fill="var(--bg-card)" stroke="var(--primary)" stroke-width="1.2"/><text x="228" y="55" fill="var(--primary)" font-weight="600">4</text><text x="228" y="78" fill="var(--text-secondary)">Develop</text></g><g><circle cx="296" cy="52" r="12" fill="var(--bg-card)" stroke="var(--primary)" stroke-width="1.2"/><text x="296" y="55" fill="var(--primary)" font-weight="600">5</text><text x="296" y="78" fill="var(--text-secondary)">Present</text></g><g><circle cx="364" cy="52" r="12" fill="var(--bg-card)" stroke="var(--primary)" stroke-width="1.2"/><text x="364" y="55" fill="var(--primary)" font-weight="600">6</text><text x="364" y="78" fill="var(--text-secondary)">Implement</text></g><g><circle cx="432" cy="52" r="12" fill="var(--bg-card)" stroke="var(--gold)" stroke-width="1.4"/><text x="432" y="55" fill="var(--gold)" font-weight="600">7</text><text x="432" y="78" fill="var(--text-secondary)">Monitor</text></g></g></svg>` } },
-          { kind: "example", example: { title: "checking a client's cash-flow health", prompt: "A client earns $90,000 gross, pays $20,000 in taxes, and spends $56,000 on living costs. What is the gross savings rate, and how large should the emergency fund be?", steps: ["Annual surplus = income − taxes − spending = 90,000 − 20,000 − 56,000 = $14,000 saved.", "Gross savings rate = 14,000 ÷ 90,000 = 15.6% — above the ~10–15% rule of thumb.", "Monthly living expenses = 56,000 ÷ 12 ≈ $4,667.", "Emergency fund (3–6 months) ≈ $14,000 to $28,000."], answer: "A healthy ~15.6% savings rate, with a $14,000–$28,000 emergency reserve target." } },
+          { kind: "p", text: "CFP Board defines financial planning as a collaborative process that maximizes a client's potential for meeting life goals through advice integrating relevant elements of their personal and financial circumstances. The operative word is INTEGRATING: what distinguishes financial planning from selling a product is that recommendations are made against the whole picture rather than one need in isolation. The process runs in seven steps, and their ORDER is examinable." },
+          { kind: "bullets", items: ["1. Understanding the client's personal and financial circumstances — gathering both quantitative data and qualitative goals, values, and attitudes.", "2. Identifying and selecting goals — including helping the client prioritize when goals conflict, which they usually do.", "3. Analyzing the client's current course of action and potential alternative courses.", "4. Developing the financial planning recommendations.", "5. Presenting the recommendations, including the basis for each and its material risks.", "6. Implementing the recommendations, with responsibilities clearly assigned.", "7. Monitoring progress and updating — the step that makes planning ongoing rather than a one-time report."] },
+          { kind: "p", text: "Two steps are commonly skipped in practice and tested because of it. Step 3 requires analyzing the client's CURRENT course of action — sometimes the honest recommendation is that the client is already doing the right thing. And step 7 is what makes the engagement a relationship: circumstances, tax law, and markets all change, so a plan never monitored becomes wrong without anyone noticing." },
+        ],
+      },
+      {
+        heading: "The fiduciary standard under the Code and Standards",
+        blocks: [
+          { kind: "p", text: "Since October 2019, a CFP® professional owes a FIDUCIARY DUTY at all times when providing FINANCIAL ADVICE — not merely when delivering a comprehensive plan. That duty has three components: a DUTY OF LOYALTY placing the client's interest above the professional's own, a DUTY OF CARE acting with the care, skill, prudence, and diligence a prudent professional would use, and a DUTY TO FOLLOW CLIENT INSTRUCTIONS that are reasonable and lawful." },
+          { kind: "p", text: "Conflicts of interest must be disclosed fully and fairly, and disclosure alone is not always sufficient — the client's informed consent must be obtained, and some conflicts must be avoided outright. The practical test the exam applies: if a recommendation benefits the professional and that benefit was not disclosed, the answer is a breach, regardless of whether the recommendation itself was defensible." },
+          { kind: "callout", label: "Advice versus planning", body: "The fiduciary duty attaches to FINANCIAL ADVICE, a broader category than financial planning. A single recommendation about one account still triggers it. This was the substantive change in the 2019 standards and remains a favourite exam distinction." },
+        ],
+      },
+      {
+        heading: "Reading a client's financial position",
+        blocks: [
+          { kind: "p", text: "Two statements describe a household, and confusing them is a reliable error. The STATEMENT OF FINANCIAL POSITION — the personal balance sheet — is a snapshot at a single moment: assets less liabilities equals NET WORTH. The CASH FLOW STATEMENT covers a PERIOD: income less expenses equals surplus or deficit. Net worth measures accumulated wealth; cash flow measures whether the household is currently adding to it." },
+          { kind: "p", text: "Ratios turn those statements into diagnosis. An EMERGENCY FUND of three to six months of essential expenses is the standard target, with dual stable incomes justifying the lower end and a single or commission-based income the higher. Housing costs are conventionally kept at or below 28% of gross income, and total debt service at or below 36%. A SAVINGS RATE of 10 to 15% of gross income is the usual benchmark for retirement adequacy when saving begins early." },
+          { kind: "example", example: { title: "net worth versus cash flow", prompt: "A client holds $685,000 in assets and $310,000 in liabilities, and this year earned $140,000 while spending $155,000. Assess their position.", steps: ["Net worth = $685,000 − $310,000 = $375,000. Positive and reasonably healthy.", "Cash flow = $140,000 − $155,000 = −$15,000. A deficit.", "The two tell opposite stories: accumulated wealth is solid, but the household is currently consuming it.", "A deficit funded by drawing down assets erodes the net worth figure over time, so the balance sheet is a lagging picture of a deteriorating situation."], answer: "Net worth $375,000; cash flow −$15,000. The planning priority is the deficit, not the balance sheet — which is exactly why both statements are required before any recommendation." } },
         ],
       },
     ],
@@ -77,41 +69,34 @@ const chapters: Chapter[] = [
     topicId: "insurance",
     topicName: "Risk Management & Insurance",
     title: "Risk Management & Insurance Planning",
-    readingMinutes: 3,
+    readingMinutes: 6,
     summary: "Handling risk, the main types of life, health, disability, and property insurance, and when each fits.",
     intro:
       "Protecting a financial plan from catastrophic loss is as important as growing wealth. This domain teaches how to identify risks a client faces and choose the right tool to manage each — including insurance. A single uninsured disaster can undo decades of saving, so risk management is foundational, not optional.",
     sections: [
       {
-        heading: "Managing risk",
-        paragraphs: [
-          "There are four basic responses to a risk: avoid it, reduce it, retain it, or transfer it. Insurance is the primary tool for transferring risk — paying a manageable premium to shift the cost of a low-probability, high-severity loss to an insurer. The guiding principle is to insure against risks you cannot afford to bear yourself (a house burning down, a breadwinner's death) and to retain (self-insure) small risks where insurance isn't cost-effective. Buying insurance for losses you could easily absorb wastes premium dollars.",
-        ],
-      },
-      {
-        heading: "Life and disability insurance",
-        paragraphs: [
-          "Life insurance replaces income and provides for dependents. Term insurance offers pure, temporary protection at low cost for a set period — ideal for covering needs that disappear over time, like a mortgage or child-rearing years. Permanent insurance (whole and universal life) lasts for life and builds cash value, costing far more but serving estate and lifelong needs. For most families with temporary income-replacement needs, term is the cost-effective choice.",
-          "Disability income insurance is frequently overlooked yet vital — the odds of a disabling injury or illness during a career exceed the odds of premature death, and a disability can eliminate income while expenses continue. Key features include the elimination (waiting) period before benefits begin and the definition of disability ('own occupation' versus 'any occupation'), which dramatically affects how easily a claim is paid.",
-        ],
-        callout: {
-          label: "Term vs permanent life",
-          body: "Term = temporary, low-cost, pure protection (best for income replacement over a fixed period). Permanent = lifelong coverage that builds cash value, at much higher cost.",
-        },
-      },
-      {
-        heading: "Health, long-term care, and property/casualty",
-        paragraphs: [
-          "Health insurance manages medical-cost risk through premiums, deductibles, copays, and out-of-pocket maximums. Long-term care insurance covers extended custodial care (nursing homes, in-home aides) that health insurance and Medicare largely don't, a growing concern as people live longer. Property and casualty insurance — homeowners and auto — protects against damage to property and liability claims from others. Liability coverage, including an umbrella policy that sits atop home and auto limits, protects accumulated wealth from lawsuits, an essential safeguard for higher-net-worth clients.",
-        ],
-      },
-      {
-        heading: "Which risks to insure — a frequency/severity map",
+        heading: "Deciding which risks to insure at all",
         blocks: [
-          { kind: "p", text: "The right response to a risk depends on two questions: how often does it happen (frequency), and how badly does it hurt when it does (severity)? Plotting risks on that grid points to the correct tool. Insurance is the answer in exactly one quadrant — low-frequency, high-severity events — because that is where a manageable premium buys protection against a loss you could never absorb yourself." },
-          { kind: "figure", figure: { caption: "Figure 2 — The risk-management matrix. Insurance (risk transfer) is reserved for the low-frequency, high-severity quadrant; small or frequent losses are cheaper to reduce or retain.", alt: "Two-by-two grid of frequency versus severity showing reduce, avoid, retain, and transfer", svg: `<svg viewBox="0 0 460 210" width="100%" style="max-width:460px"><g font-size="9"><text transform="rotate(-90 16 110)" x="16" y="110" text-anchor="middle" fill="var(--text-muted)">Frequency</text><text x="86" y="18" font-size="8.5" fill="var(--text-muted)">High</text><text x="86" y="180" font-size="8.5" fill="var(--text-muted)">Low</text><text x="155" y="200" text-anchor="middle" font-size="8.5" fill="var(--text-muted)">Low severity</text><text x="335" y="200" text-anchor="middle" font-size="8.5" fill="var(--text-muted)">High severity</text></g><g stroke="var(--border)" stroke-width="0.5"><rect x="70" y="24" width="170" height="78" fill="var(--ats-amber-bg)"/><rect x="240" y="24" width="170" height="78" fill="var(--ats-red-bg)"/><rect x="70" y="102" width="170" height="78" fill="var(--bg-card)"/><rect x="240" y="102" width="170" height="78" fill="var(--ats-green-bg)"/></g><g text-anchor="middle"><text x="155" y="60" font-size="11" font-weight="600" fill="var(--ats-amber)">Reduce</text><text x="155" y="76" font-size="8" fill="var(--text-secondary)">cut the odds</text><text x="325" y="60" font-size="11" font-weight="600" fill="var(--ats-red)">Avoid</text><text x="325" y="76" font-size="8" fill="var(--text-secondary)">don't take it on</text><text x="155" y="138" font-size="11" font-weight="600" fill="var(--text-secondary)">Retain</text><text x="155" y="154" font-size="8" fill="var(--text-secondary)">self-insure</text><text x="325" y="138" font-size="11" font-weight="700" fill="var(--ats-green)">Transfer — insure</text><text x="325" y="154" font-size="8" fill="var(--text-secondary)">premium buys protection</text></g></svg>` } },
-          { kind: "table", table: { caption: "Table 1 — Matching the life-insurance tool to the need.", headers: ["Feature", "Term life", "Permanent life"], rows: [["Duration", "Set period (10–30 yrs)", "Lifelong"], ["Relative cost", "Low", "High (often 5–10×)"], ["Cash value", "None", "Builds over time"], ["Best for", "Temporary income replacement", "Estate & lifelong needs"]] } },
-          { kind: "callout", label: "Disability: watch the definition", body: "An 'own-occupation' policy pays if you can't do YOUR job; an 'any-occupation' policy pays only if you can't do any job — a far harder bar. The definition of disability matters more than the headline benefit." },
+          { kind: "p", text: "Risk management precedes insurance, because insurance is only one of four responses to a risk. You can AVOID it, REDUCE it, RETAIN it, or TRANSFER it. The choice is governed by two variables: how likely the loss is, and how severe it would be. Insurance is the right tool for LOW-frequency, HIGH-severity risks — the events that are rare enough to be cheap to cover and catastrophic enough that no household could absorb them." },
+          { kind: "p", text: "The corollary is that high-frequency, low-severity risks should generally be RETAINED, because paying an insurer to handle predictable small losses means paying their expenses and profit on top of the losses themselves. That principle is exactly why raising a deductible is usually good advice for a client with adequate emergency reserves: it transfers the frequent small losses back to the household, where they are cheapest to bear, and preserves premium dollars for the catastrophic layer." },
+          { kind: "table", table: { caption: "Matching the response to the risk.", headers: ["", "Low severity", "High severity"], rows: [["Low frequency", "RETAIN — absorb it", "TRANSFER — insure it"], ["High frequency", "RETAIN and REDUCE", "AVOID the activity entirely"]] } },
+        ],
+      },
+      {
+        heading: "Property coverage and the coinsurance trap",
+        blocks: [
+          { kind: "p", text: "Property policies commonly contain a COINSURANCE clause requiring the owner to carry insurance equal to a stated percentage — usually 80% — of the property's replacement value. If the owner carries less, the insurer pays only a proportion of a PARTIAL loss, even when the loss is far below the policy limit. Clients are routinely surprised by this, because they assume any loss under the face amount is fully covered." },
+          { kind: "formula", formula: { label: "Coinsurance payment", expr: "Payment = (insurance carried ÷ insurance required) × loss", note: "Insurance required = replacement value × the coinsurance percentage. The payment is still capped at the policy limit, and the deductible is applied after." } },
+          { kind: "example", example: { title: "underinsured, and the cost of it", prompt: "A home has a $400,000 replacement value and an 80% coinsurance clause. The owner carries $240,000 of coverage and suffers a $100,000 loss. How much does the insurer pay?", steps: ["Insurance required = $400,000 × 80% = $320,000.", "Insurance actually carried = $240,000.", "Ratio = $240,000 ÷ $320,000 = 0.75.", "Payment = 0.75 × $100,000 = $75,000."], answer: "$75,000. The owner absorbs $25,000 despite the loss being well under their $240,000 limit — the penalty is for being underinsured, not for exceeding coverage, which is why clients find it counterintuitive." } },
+          { kind: "bullets", items: ["REPLACEMENT COST pays to rebuild at today's prices; ACTUAL CASH VALUE deducts depreciation and pays far less.", "An UMBRELLA policy sits above the underlying auto and homeowners limits and pays only the excess.", "Umbrella insurers require stated minimum underlying limits so the umbrella attaches at a known point.", "Flood and earthquake are typically EXCLUDED from standard homeowners policies and require separate coverage."] },
+        ],
+      },
+      {
+        heading: "Life and disability: sizing the need",
+        blocks: [
+          { kind: "p", text: "Life insurance replaces HUMAN CAPITAL — the present value of future earnings that dependents would lose. The need therefore peaks when future earnings are large and unreplaced and dependents rely on them, which describes a young parent, and it declines steadily as financial capital accumulates and dependents become self-supporting. A retiree with a funded pension and no dependents has, in most cases, no remaining need." },
+          { kind: "p", text: "TERM insurance provides pure death benefit for a stated period at the lowest cost, and it fits the temporary need described above. PERMANENT insurance — whole life, universal, variable — adds a cash value component and lasts for life at substantially higher cost; it suits estate liquidity needs or a genuinely permanent obligation such as a special-needs dependent. Note that VARIABLE products are securities, requiring a securities registration to sell, because the contract holder bears the investment risk." },
+          { kind: "callout", label: "The coverage clients most often lack", body: "DISABILITY insurance is more likely to be needed during working years than life insurance, yet is far more often missing. Check the definition of disability: OWN-OCCUPATION pays if the insured cannot perform their own profession, while ANY-OCCUPATION pays only if they cannot perform any work at all — a much harder standard and a much cheaper policy." },
         ],
       },
     ],
@@ -137,41 +122,26 @@ const chapters: Chapter[] = [
     topicId: "tax",
     topicName: "Tax Planning",
     title: "Tax Planning Fundamentals",
-    readingMinutes: 4,
+    readingMinutes: 5,
     summary: "How income is taxed, the difference marginal rates and capital gains make, and core planning moves.",
     intro:
       "Taxes touch every financial decision, and a planner who understands them can meaningfully improve a client's after-tax results. This domain covers how the income tax works, the crucial distinction between ordinary income and capital gains, and the planning techniques used to legally minimize the tax drag on a portfolio and a plan.",
     sections: [
       {
-        heading: "How the income tax works",
-        paragraphs: [
-          "The U.S. uses a progressive income tax: income is taxed in brackets, with higher portions taxed at higher rates. The marginal rate is the rate on the next dollar earned, while the effective (average) rate is total tax divided by total income — always lower than the marginal rate. This distinction matters for planning: the value of a deduction depends on the marginal rate, and decisions like Roth conversions hinge on comparing today's marginal rate to the expected rate in retirement.",
-          "Taxable income is gross income minus adjustments, deductions, and exemptions. Deductions reduce taxable income (worth your marginal rate per dollar), while credits reduce tax owed dollar-for-dollar (generally more valuable). Knowing the difference is a frequent test point.",
-        ],
-        callout: {
-          label: "Deduction vs credit",
-          body: "A deduction reduces taxable income (worth your marginal rate per dollar). A tax credit reduces the tax bill dollar-for-dollar — generally more valuable than an equal-size deduction.",
-        },
-      },
-      {
-        heading: "Capital gains and investment taxation",
-        paragraphs: [
-          "Investment gains receive special treatment. A gain on an asset held more than a year is a long-term capital gain, taxed at preferential rates well below ordinary income; a gain on an asset held a year or less is short-term, taxed as ordinary income. This single rule drives a lot of planning: holding investments longer than a year before selling can sharply cut the tax on the gain. Qualified dividends similarly receive the lower long-term rate.",
-          "Losses are useful too. Capital losses offset capital gains, and excess losses can offset a limited amount of ordinary income, with the remainder carried forward. Tax-loss harvesting — deliberately realizing losses to offset gains — is a common year-end technique, subject to the wash-sale rule, which disallows the loss if you buy back substantially the same security within 30 days.",
-        ],
-      },
-      {
-        heading: "Tax-advantaged planning",
-        paragraphs: [
-          "Much of tax planning is about timing and location. Tax-deferred accounts (traditional IRAs and 401(k)s) postpone tax until withdrawal, while tax-free accounts (Roth) are funded with after-tax dollars but grow and distribute tax-free. 'Asset location' places tax-inefficient investments inside sheltered accounts and tax-efficient ones in taxable accounts. The overarching goal isn't to avoid all tax — it's to maximize after-tax wealth by deferring tax, converting ordinary income into lower-taxed capital gains where possible, and using credits and deductions fully.",
-        ],
-      },
-      {
-        heading: "Marginal vs effective — and why credits beat deductions",
+        heading: "Marginal, effective, and why the difference matters",
         blocks: [
-          { kind: "example", example: { title: "computing both tax rates", prompt: "Using simplified brackets — 10% on the first $20,000 and 22% on income above $20,000 — what does a $60,000 earner owe, and what are the marginal and effective rates?", steps: ["First $20,000 taxed at 10% = $2,000.", "Remaining $40,000 ($60,000 − $20,000) taxed at 22% = $8,800.", "Total tax = 2,000 + 8,800 = $10,800.", "Marginal rate = 22% (rate on the next dollar). Effective rate = 10,800 ÷ 60,000 = 18%."], answer: "Tax = $10,800; marginal 22%, effective 18% — the effective rate is always below the marginal rate." } },
-          { kind: "table", table: { caption: "Table 1 — A $1,000 deduction vs a $1,000 credit, at a 22% marginal rate.", headers: ["", "$1,000 deduction", "$1,000 credit"], rows: [["Reduces", "Taxable income", "Tax owed"], ["Dollar value", "$220 (22% × 1,000)", "$1,000"], ["Verdict", "Worth your marginal rate", "Worth full face value"]] } },
-          { kind: "callout", label: "The planning hook", body: "Because a deduction is only worth your marginal rate, the same deduction helps a high earner more than a low earner. A credit is worth its full face value to everyone — which is why credits are generally the more powerful planning tool." },
+          { kind: "p", text: "The United States uses a PROGRESSIVE bracket system, and the most consequential misunderstanding in personal finance is the belief that earning one more dollar can push all your income into a higher bracket. It cannot. Each bracket applies only to the income falling within it. Your MARGINAL rate is what the next dollar is taxed at; your EFFECTIVE rate is total tax divided by total income, and it is always lower than the marginal rate in a progressive system." },
+          { kind: "p", text: "Planning uses both numbers for different jobs. The MARGINAL rate drives decisions at the margin: whether an additional deduction is worth pursuing, whether to defer income, whether a municipal bond beats a taxable one. The EFFECTIVE rate describes the overall burden and is the honest figure for projecting cash flow. Clients who confuse them sometimes refuse a raise or a bonus, which is a real planning conversation rather than a hypothetical." },
+          { kind: "example", example: { title: "marginal versus effective", prompt: "Assume brackets of 10% on the first $12,000, 12% up to $48,000, and 22% up to $104,000. A client has $100,000 of taxable income. Find total tax, the effective rate, and the marginal rate.", steps: ["First bracket: $12,000 × 10% = $1,200.", "Second bracket: ($48,000 − $12,000) × 12% = $36,000 × 12% = $4,320.", "Third bracket: ($100,000 − $48,000) × 22% = $52,000 × 22% = $11,440.", "Total tax = $1,200 + $4,320 + $11,440 = $16,960.", "Effective rate = $16,960 ÷ $100,000 = 16.96%. Marginal rate = 22%."], answer: "Tax $16,960; effective 16.96%; marginal 22%. Applying 22% to the whole $100,000 gives $22,000 — the error that produces the 'my raise pushed me into a higher bracket' misconception." } },
+        ],
+      },
+      {
+        heading: "Income, deductions, and the order of operations",
+        blocks: [
+          { kind: "p", text: "The tax computation runs in a fixed sequence and each step has planning implications. Gross income less ABOVE-THE-LINE adjustments gives ADJUSTED GROSS INCOME. AGI less either the standard deduction or itemized deductions, whichever is GREATER, gives TAXABLE INCOME. Tax is then computed from taxable income, and CREDITS are applied last." },
+          { kind: "p", text: "Two distinctions carry most of the exam weight. First, above-the-line adjustments reduce AGI and are therefore worth more than an equivalent below-the-line deduction, because a long list of phase-outs and thresholds key off AGI. Second, a DEDUCTION reduces taxable income and is worth its amount times your marginal rate, while a CREDIT reduces tax dollar for dollar. A $1,000 credit beats a $1,000 deduction for every taxpayer — and beats a $3,000 deduction for anyone below the 33% bracket." },
+          { kind: "table", table: { caption: "Capital gains treatment.", headers: ["Holding period", "Classification", "Taxed at"], rows: [["One year or less", "Short-term", "Ordinary income rates"], ["More than one year", "Long-term", "Preferential 0% / 15% / 20%"], ["Qualified dividends", "—", "Preferential 0% / 15% / 20%"], ["Non-qualified dividends", "—", "Ordinary income rates"]] } },
+          { kind: "callout", label: "Capital loss rules", body: "Capital losses offset capital gains without limit. Net losses beyond that may offset up to $3,000 of ordinary income per year, and anything remaining carries forward indefinitely. The WASH SALE rule disallows the loss if a substantially identical security is purchased within 30 days before or after the sale — a 61-day window, not 30." },
         ],
       },
     ],
@@ -197,41 +167,33 @@ const chapters: Chapter[] = [
     topicId: "retirement",
     topicName: "Retirement Planning",
     title: "Retirement Planning & Employee Benefits",
-    readingMinutes: 4,
+    readingMinutes: 6,
     summary: "Qualified plans, IRAs, the Roth-vs-traditional decision, and Social Security basics.",
     intro:
       "Helping clients accumulate enough to retire — and draw it down sustainably — is one of the most valued services a planner provides. This domain covers the retirement savings vehicles, their tax treatment, the rules that govern contributions and withdrawals, and how Social Security fits into the picture. The decisions here compound over decades, so getting them right matters enormously.",
     sections: [
       {
-        heading: "Qualified plans and IRAs",
-        paragraphs: [
-          "Employer-sponsored qualified plans like the 401(k) let employees contribute pre-tax dollars that grow tax-deferred, often with an employer match — effectively free money that a planner urges clients to capture fully. Defined contribution plans (like 401(k)s) put the investment risk on the employee, while traditional defined benefit pensions promise a set retirement income and put the risk on the employer; the world has shifted heavily toward defined contribution.",
-          "Individual Retirement Accounts (IRAs) supplement workplace plans. A traditional IRA may offer a deductible contribution and tax-deferred growth, with withdrawals taxed as ordinary income. Contributions and deductibility phase out at higher incomes or when covered by a workplace plan. The tax-deferral mechanic is the engine of retirement saving: paying no tax on growth along the way lets the balance compound faster.",
-        ],
-      },
-      {
-        heading: "Roth vs traditional",
-        paragraphs: [
-          "The Roth-versus-traditional choice is central. A traditional account gives a tax break now (deductible contribution) and taxes withdrawals later; a Roth account gives no break now (after-tax contribution) but tax-free withdrawals in retirement, including all the growth. The decision hinges on comparing the client's current marginal tax rate to their expected rate in retirement: if you expect to be in a higher bracket later, the Roth's tax-free withdrawals win; if lower, the traditional deduction now is better. Roth accounts also escape required minimum distributions during the owner's lifetime, adding flexibility.",
-        ],
-        callout: {
-          label: "Roth vs traditional rule of thumb",
-          body: "Expect a HIGHER tax rate in retirement → favor Roth (pay tax now, withdraw tax-free). Expect a LOWER rate later → favor traditional (deduct now, pay tax on withdrawals).",
-        },
-      },
-      {
-        heading: "Withdrawal rules and Social Security",
-        paragraphs: [
-          "Retirement accounts come with timing rules. Withdrawals before age 59½ generally trigger a 10% early-withdrawal penalty plus tax, with limited exceptions. Traditional accounts require minimum distributions (RMDs) beginning at the statutory age, forcing taxable withdrawals whether the retiree needs them or not. Planning around these rules — sequencing withdrawals across account types — can materially extend a portfolio's life.",
-          "Social Security provides a baseline of inflation-adjusted income. The claiming-age decision is pivotal: claiming early (as soon as age 62) permanently reduces the monthly benefit, while delaying past full retirement age (up to 70) increases it. For clients with longevity and other income, delaying often produces more lifetime income — a key planning lever.",
-        ],
-      },
-      {
-        heading: "Roth vs traditional, proven with numbers",
+        heading: "Accumulation: which account, and why",
         blocks: [
-          { kind: "example", example: { title: "when the future rate is higher", prompt: "A client has $6,000 of pre-tax money. Traditional: invest all $6,000, let it grow 3×, and pay 32% on withdrawal. Roth: pay 24% tax now, invest what's left, grow 3×, withdraw tax-free. Which nets more?", steps: ["Traditional: $6,000 → 3× = $18,000; tax at 32% = $5,760; after-tax = $12,240.", "Roth: pay 24% now ($1,440) → invest $4,560 → 3× = $13,680; withdrawn tax-free = $13,680.", "Roth nets $1,440 more, because the retirement rate (32%) exceeds today's rate (24%)."], answer: "Roth wins, $13,680 vs $12,240 — pay tax now whenever your future rate will be higher." } },
-          { kind: "table", table: { caption: "Table 1 — The Roth-vs-traditional decision at a glance.", headers: ["", "Traditional", "Roth"], rows: [["Contribution", "Pre-tax (deductible)", "After-tax"], ["Withdrawals", "Taxed as ordinary income", "Tax-free"], ["Lifetime RMDs", "Required at statutory age", "None for the owner"], ["Favored when", "Lower rate in retirement", "Higher rate in retirement"]] } },
-          { kind: "callout", label: "Match first, always", body: "Before the Roth-vs-traditional debate even starts, capture the full employer match — it's an immediate, guaranteed return (often 50–100%) that no account-type choice can beat." },
+          { kind: "p", text: "The central retirement decision is WHEN tax is paid. A TRADITIONAL account may allow a deduction now, grows tax-deferred, and is taxed as ordinary income on withdrawal. A ROTH is funded with after-tax dollars and produces entirely tax-free qualified withdrawals. The choice turns on whether the client expects a higher or lower marginal rate in retirement — which is why a young saver early in their career, or anyone in an unusually low-income year, is the classic Roth candidate." },
+          { kind: "p", text: "Ordering matters as much as account type. The conventional sequence is: contribute enough to capture any EMPLOYER MATCH first, because that is an immediate guaranteed return no market can promise; then pay down high-interest debt; then fill tax-advantaged space; then invest in taxable accounts. A client contributing to an IRA while leaving a 50% employer match unclaimed has the sequence backwards, and this is a standard exam fact pattern." },
+          { kind: "table", table: { caption: "Plan types.", headers: ["Plan", "Offered by", "Distinguishing feature"], rows: [["Traditional IRA", "Individual", "Possible deduction now; taxed on withdrawal"], ["Roth IRA", "Individual", "Tax-free qualified withdrawals; no lifetime RMD"], ["401(k) / 403(b)", "Employer", "Salary deferral, often matched; 403(b) for schools and nonprofits"], ["457(b)", "Government / some nonprofits", "No 10% early-withdrawal penalty on separation"], ["SEP IRA", "Small employer / self-employed", "Employer contributions only"], ["SIMPLE IRA", "Small employer", "Employee deferral with required employer contribution"], ["Defined benefit", "Employer", "Employer bears investment and longevity risk"]] } },
+        ],
+      },
+      {
+        heading: "Distribution: penalties, RMDs, and sequence risk",
+        blocks: [
+          { kind: "p", text: "Withdrawals before age 59½ generally trigger a 10% penalty on top of ordinary income tax, with narrow exceptions including death, disability, substantially equal periodic payments, certain medical expenses, and a first-time home purchase from an IRA. REQUIRED MINIMUM DISTRIBUTIONS begin at age 73 under current law, rising to 75 for those born in 1960 or later. A Roth IRA has NO required minimum distributions during the original owner's lifetime — a meaningful planning advantage." },
+          { kind: "example", example: { title: "computing an RMD", prompt: "A client turning 73 has an IRA worth $800,000 at the prior year end. The Uniform Lifetime Table factor for age 73 is 26.5. What is the required distribution?", steps: ["RMD = prior December 31 account balance ÷ the applicable life expectancy factor.", "RMD = $800,000 ÷ 26.5.", "RMD = $30,188.68.", "The factor declines each year, so the required percentage rises as the client ages."], answer: "About $30,189. Note it is computed on the PRIOR year-end balance, not the current one — and failing to take it historically carried a penalty on the shortfall, reduced under SECURE 2.0 and reduced further if corrected promptly." } },
+          { kind: "p", text: "SEQUENCE-OF-RETURNS RISK is the distribution-phase danger that has no accumulation-phase equivalent. Withdrawing from a portfolio during an early market decline sells shares at depressed prices, permanently removing capital that would otherwise have participated in the recovery. Two retirees with identical AVERAGE returns can end in very different places depending purely on when the bad years fall — which is why cash reserves, flexible spending, and a bond ladder covering early years matter more than average return assumptions." },
+          { kind: "callout", label: "The 4% guideline, and its limits", body: "The conventional starting point withdraws 4% of the initial portfolio in year one, adjusted for inflation thereafter — so $1,200,000 supports roughly $48,000 in year one. Treat it as a starting estimate, not a rule: it was derived from a particular historical period and asset mix, and a client retiring into a poor sequence may need to reduce spending regardless of what the guideline says." },
+        ],
+      },
+      {
+        heading: "Social Security and the claiming decision",
+        blocks: [
+          { kind: "p", text: "Benefits are based on the highest 35 years of indexed earnings, so a worker with fewer than 35 years has zeros averaged in. FULL RETIREMENT AGE depends on birth year and is 67 for those born in 1960 or later. Claiming EARLY, from age 62, permanently reduces the benefit; DELAYING past full retirement age earns delayed retirement credits up to age 70, after which there is no further increase." },
+          { kind: "p", text: "The claiming decision is essentially a longevity and liquidity question rather than a maximization puzzle. Delaying buys a larger inflation-adjusted lifetime income, which is valuable insurance against outliving assets — so a client in good health with other resources to bridge the gap generally benefits from waiting. A client in poor health, or one who would otherwise deplete a portfolio to wait, may reasonably claim earlier. For married couples, the higher earner's decision matters more, because that benefit continues as the survivor benefit." },
         ],
       },
     ],
@@ -257,38 +219,26 @@ const chapters: Chapter[] = [
     topicId: "estate",
     topicName: "Estate Planning",
     title: "Estate Planning Essentials",
-    readingMinutes: 3,
+    readingMinutes: 4,
     summary: "Wills, probate, trusts, beneficiary designations, and the basics of gift and estate tax.",
     intro:
       "Estate planning ensures a client's assets pass to the people and causes they choose, with minimal cost, delay, and tax. It also addresses incapacity — who decides if the client can't. This domain covers the core documents and structures, the probate process, and the transfer-tax system, all of which a comprehensive planner coordinates.",
     sections: [
       {
-        heading: "Wills, probate, and incapacity documents",
-        paragraphs: [
-          "A will directs how probate assets are distributed and names guardians for minor children, but it must go through probate — the court-supervised process of validating the will and settling the estate, which can be public, slow, and costly. A key planning goal is often to minimize probate. Beyond the will, clients need incapacity documents: a durable power of attorney (naming someone to manage finances if they can't) and an advance healthcare directive or healthcare proxy (for medical decisions). Without these, families face court intervention during a crisis.",
-        ],
-      },
-      {
-        heading: "Trusts and avoiding probate",
-        paragraphs: [
-          "A trust holds assets for beneficiaries under terms set by the grantor and managed by a trustee. A revocable living trust lets the grantor retain control during life and pass assets to beneficiaries outside of probate at death — providing privacy and speed, though it offers no estate-tax savings by itself. Irrevocable trusts, by giving up control, can remove assets from the taxable estate and provide creditor protection. Importantly, assets with beneficiary designations (life insurance, retirement accounts) and jointly held property with survivorship pass outside probate directly — which is why keeping beneficiary designations current is critical; they override the will.",
-        ],
-        callout: {
-          label: "Beneficiary designations override the will",
-          body: "Life insurance and retirement accounts pass to the named beneficiary directly, regardless of what the will says. Outdated designations are a common, costly mistake.",
-        },
-      },
-      {
-        heading: "Gift and estate tax",
-        paragraphs: [
-          "The federal transfer-tax system taxes large gifts and estates, but generous exclusions mean most people owe nothing. An annual gift tax exclusion lets a person give a set amount per recipient each year tax-free, a simple way to shrink a taxable estate over time. A large lifetime exemption shelters cumulative gifts and the estate up to a threshold. The unlimited marital deduction allows spouses to transfer any amount to each other tax-free, and a 'step-up in basis' resets inherited assets to their date-of-death value, often erasing capital-gains tax on appreciation. Coordinating these features is how planners transfer wealth efficiently across generations.",
-        ],
-      },
-      {
-        heading: "What avoids probate — and the step-up that saves taxes",
+        heading: "What passes through probate, and what does not",
         blocks: [
-          { kind: "table", table: { caption: "Table 1 — How assets actually transfer at death. Most well-planned estates move the bulk of assets OUTSIDE probate.", headers: ["Asset / arrangement", "Through probate?"], rows: [["Solely-owned assets passed by will", "Yes — probate"], ["Revocable living trust assets", "No — per trust terms"], ["Life insurance / retirement (beneficiary)", "No — to named beneficiary"], ["Joint tenancy with survivorship", "No — to surviving owner"], ["Payable-on-death (POD) accounts", "No — to named payee"]] } },
-          { kind: "example", example: { title: "the step-up in basis", prompt: "A parent bought stock for $10,000; it's worth $50,000 at death. The heir later sells it for $52,000. What gain is taxable?", steps: ["Basis steps up to the date-of-death value = $50,000 (not the original $10,000).", "Gain = sale price − stepped-up basis = 52,000 − 50,000 = $2,000.", "The $40,000 of appreciation during the parent's lifetime escapes income tax entirely."], answer: "Only $2,000 is taxable — the step-up erases the $40,000 of lifetime appreciation." } },
+          { kind: "p", text: "Probate is the court-supervised process of validating a will and administering an estate. It is public, can be slow, and carries cost — which is why avoiding it is a common planning objective. The critical insight is that a will only controls PROBATE assets. A great many assets pass outside the will entirely, by contract or by operation of law, and a beneficiary designation on a retirement account will defeat a contrary instruction in the will every time." },
+          { kind: "table", table: { caption: "How assets pass.", headers: ["Asset", "Passes by", "Probate?"], rows: [["Life insurance with a named beneficiary", "Contract", "No"], ["Retirement account with a beneficiary", "Contract", "No"], ["Joint tenancy with right of survivorship", "Operation of law", "No"], ["Payable-on-death / transfer-on-death account", "Contract", "No"], ["Assets titled in a revocable living trust", "Trust terms", "No"], ["Property in the decedent's sole name", "The will", "YES"], ["Asset whose named beneficiary predeceased", "Falls to the estate", "YES"]] } },
+          { kind: "callout", label: "The review that gets skipped", body: "Beneficiary designations override the will and are frequently decades out of date — an ex-spouse named on a 401(k) will receive it. Reviewing designations after every marriage, divorce, birth, or death is among the highest-value, lowest-effort items in a planning engagement." },
+        ],
+      },
+      {
+        heading: "The transfer taxes and the deductions that defer them",
+        blocks: [
+          { kind: "p", text: "Three federal transfer taxes operate together: the GIFT tax on lifetime transfers, the ESTATE tax at death, and the GENERATION-SKIPPING TRANSFER tax on transfers that skip a generation. The GST exists to prevent a family from avoiding an entire round of estate tax by leaving assets directly to grandchildren, and it applies IN ADDITION to the estate and gift taxes rather than replacing them." },
+          { kind: "p", text: "Two provisions do most of the deferral work. The UNLIMITED MARITAL DEDUCTION allows any amount to pass to a U.S.-CITIZEN spouse free of gift or estate tax — but the tax is deferred, not forgiven, because the assets are taxed in the survivor's estate. Transfers to a non-citizen spouse are limited and typically require a QDOT. PORTABILITY then lets a surviving spouse claim the deceased spouse's unused exclusion, but the election is NOT automatic: a timely estate tax return must be filed even when no tax is due, and missing it forfeits the benefit permanently." },
+          { kind: "bullets", items: ["The ANNUAL GIFT EXCLUSION lets a donor give a set amount per recipient per year, indexed for inflation, with no gift tax and no return required.", "Gift SPLITTING lets a married couple treat a gift as made half by each, doubling the exclusion.", "Direct payments of TUITION to the school and MEDICAL expenses to the provider are unlimited and excluded entirely.", "Inherited assets generally receive a STEP-UP in basis to fair market value at death; GIFTED assets carry over the donor's basis.", "That basis difference is why appreciated assets are often better held until death and depreciated assets better sold during life."] },
+          { kind: "callout", label: "Gift now or bequeath later", body: "A donor giving appreciated stock passes their low basis to the recipient, who owes tax on the full gain when they sell. The same stock inherited at death gets a step-up to date-of-death value, erasing that gain. This single asymmetry drives a large share of real estate planning decisions." },
         ],
       },
     ],

@@ -17,41 +17,34 @@ const chapters: Chapter[] = [
     topicId: "ia-regulation",
     topicName: "Regulation of Investment Advisers",
     title: "Regulation of Investment Advisers",
-    readingMinutes: 2,
+    readingMinutes: 5,
     summary: "Who counts as an investment adviser, how IAs differ from broker-dealers, and where they register.",
     intro:
       "The Series 66 pairs with the Series 7 to fully license an advisory professional, and its largest theme is the law governing investment advisers. The foundational skill is determining who must register as an investment adviser, how that role differs from a broker-dealer, and whether registration happens at the federal (SEC) or state level. Get the definitions precise — the exam lives in the details.",
     sections: [
       {
-        heading: "Who is an investment adviser?",
-        paragraphs: [
-          "Under the Investment Advisers Act of 1940, an investment adviser is anyone who, for compensation, is in the business of giving advice about securities. The classic memory aid is the 'ABC' test: Advice about securities, in the Business of doing so, for Compensation. If all three are present, the person is an investment adviser and must register unless an exemption applies. Compensation need not be a direct fee — any economic benefit counts.",
-          "Certain professionals are excluded when their advice is incidental to their main work and they receive no special compensation for it — the so-called LATE exclusion (Lawyers, Accountants, Teachers, Engineers), plus broker-dealers whose advice is incidental and not separately charged. The moment a broker-dealer charges a separate fee for advice (for example, running fee-based managed accounts), that exclusion can disappear.",
-        ],
-        callout: {
-          label: "The 'ABC' test",
-          body: "You're an investment adviser if you give Advice about securities, are in the Business of doing so, and receive Compensation. All three must be present.",
-        },
-      },
-      {
-        heading: "Investment adviser vs broker-dealer",
-        paragraphs: [
-          "The distinction matters because it changes the standard of care. An investment adviser is a fiduciary, owing clients a duty of loyalty and care and charging for ongoing advice (typically a percentage of assets). A broker-dealer historically executes transactions and earns commissions, with advice that is incidental to the trade. The compensation model is the giveaway: ongoing advisory fees point to an IA; transaction-based commissions point to a BD.",
-          "Representatives mirror this split. An investment adviser representative (IAR) works for an IA; an agent (registered representative) works for a broker-dealer. Knowing which hat a person wears determines which rules and which standard of conduct apply.",
-        ],
-      },
-      {
-        heading: "Federal vs state registration",
-        paragraphs: [
-          "Investment advisers register either with the SEC or with state securities administrators, generally based on assets under management. Large advisers (typically those managing $100 million or more) register federally with the SEC; smaller advisers register with the states in which they operate. This split avoids dual regulation. Advisers register by filing Form ADV, which has parts disclosing the firm's business, fees, conflicts, and disciplinary history; the client-facing 'brochure' (Part 2) must be delivered to clients so they understand what they're getting and what conflicts exist.",
-          "State administrators (under the Uniform Securities Act) retain anti-fraud authority over all advisers operating in their state, even federally registered ones. So an SEC-registered adviser still answers to a state administrator if it commits fraud against that state's residents.",
-        ],
-      },
-      {
-        heading: "Adviser vs broker-dealer, and where you register",
+        heading: "Who is an investment adviser at all",
         blocks: [
-          { kind: "table", table: { caption: "Table 1 — The compensation model is the tell: ongoing fees = adviser; transaction commissions = broker-dealer.", headers: ["Feature", "Investment adviser", "Broker-dealer"], rows: [["Standard of care", "Fiduciary (best interest)", "Suitability / best-interest"], ["Compensation", "Ongoing fees (% of assets)", "Transaction commissions"], ["Regulated by", "SEC or state administrator", "FINRA + SEC"], ["Its representative", "IAR", "Agent / registered rep"]] } },
-          { kind: "callout", label: "Federal vs state registration", body: "Larger advisers (generally $100M+ in AUM) register with the SEC; smaller advisers register with the states. State administrators keep anti-fraud authority over ALL advisers in their state, even SEC-registered ones." },
+          { kind: "p", text: "Before asking where someone registers, ask whether they are an adviser. The test has three prongs, conventionally remembered as ABC: does the person give ADVICE about securities, are they in the BUSINESS of doing so, and do they receive COMPENSATION for it? All three must be present. Compensation means any economic benefit, not merely a direct fee — a commission, a bundled charge, or an indirect benefit all count, which is why 'I didn't charge for the advice' is not a defence." },
+          { kind: "p", text: "Several parties are EXCLUDED from the definition when advice is incidental to their main occupation and no special compensation is received for it. The mnemonic LATE covers the professional exclusions: Lawyers, Accountants, Teachers, and Engineers. Also excluded are banks, broker-dealers whose advice is incidental to brokerage and who receive no special compensation for it, and publishers of general-circulation publications that do not offer individualized advice. Note the two conditions on each exclusion — incidental AND no special compensation. A lawyer who begins charging separately for investment advice loses the exclusion." },
+          { kind: "callout", label: "Adviser versus representative", body: "The FIRM is the investment adviser. An INVESTMENT ADVISER REPRESENTATIVE is an individual who works for that firm and makes recommendations, manages accounts, solicits clients, or supervises those who do. IARs register with the STATE, never with the SEC — even when their firm is SEC-registered. That asymmetry is a standing exam favourite." },
+        ],
+      },
+      {
+        heading: "Federal or state: the dollar thresholds",
+        blocks: [
+          { kind: "p", text: "Dodd-Frank divided registration jurisdiction by assets under management, and the specific figures are tested. An adviser with $110 million or more in AUM must register with the SEC. An adviser between $100 million and $110 million MAY register with the SEC but is not required to. A MID-SIZED adviser — between $25 million and $100 million — generally registers with the STATE, unless it is not required to register in its home state or would not be subject to examination there, in which case it must register federally." },
+          { kind: "p", text: "The gap between the numbers is deliberate. Once SEC-registered, an adviser need not withdraw and move to state registration until AUM falls below $90 million. That $90m/$110m spread is a BUFFER, designed so that ordinary market fluctuation does not force an adviser to switch regulators every time the market moves a few percent. Understanding why the buffer exists makes the three numbers much easier to hold." },
+          { kind: "table", table: { caption: "Where an adviser registers.", headers: ["Assets under management", "Registers with"], rows: [["Under $25 million", "State"], ["$25m to $100m (mid-sized)", "State, unless the home state does not require registration or examination"], ["$100m to $110m", "SEC optional — may choose either"], ["$110 million and above", "SEC required"], ["Falls below $90m once SEC-registered", "Must withdraw and move to state registration"]] } },
+          { kind: "bullets", items: ["Certain advisers must register with the SEC regardless of AUM — advisers to registered investment companies, for example.", "An SEC-registered adviser is a FEDERAL COVERED adviser; states may require a notice filing and fees but may NOT impose substantive registration requirements.", "States retain ANTIFRAUD authority over federal covered advisers — preemption covers registration, not fraud.", "Investment adviser REPRESENTATIVES always register at the state level."] },
+        ],
+      },
+      {
+        heading: "Form ADV, the brochure, and disclosure",
+        blocks: [
+          { kind: "p", text: "Registration is made on FORM ADV. Part 1 collects structured information about the firm — ownership, disciplinary history, business practices — and is used by regulators. Part 2 is the BROCHURE, written in plain English for clients, describing services, fee schedule, types of clients, disciplinary information, conflicts of interest, and the education and background of key personnel. Part 3, FORM CRS, is a brief relationship summary for retail investors." },
+          { kind: "p", text: "The delivery timing is precise and tested. The brochure must be delivered at or BEFORE entering into the advisory agreement. Thereafter, the adviser must annually deliver either an updated brochure or a summary of material changes, within 120 days of the end of the fiscal year. Any material change to disciplinary information requires prompt disclosure rather than waiting for the annual cycle." },
+          { kind: "callout", label: "The fee disclosure that matters", body: "Fees must be disclosed and must be reasonable in relation to services, but there is no fixed regulatory cap. Performance-based fees are permitted only with QUALIFIED CLIENTS meeting net worth or AUM thresholds, because such arrangements can incentivize an adviser to take excessive risk with someone else's money." },
         ],
       },
     ],
@@ -77,39 +70,32 @@ const chapters: Chapter[] = [
     topicId: "fiduciary",
     topicName: "Fiduciary Duty & Ethics",
     title: "Fiduciary Duty & Unethical Business Practices",
-    readingMinutes: 2,
+    readingMinutes: 5,
     summary: "The fiduciary standard, disclosure of conflicts, custody rules, and the practices that violate them.",
     intro:
       "Roughly half the Series 66 concerns laws, regulations, and — above all — ethical business practices. The investment adviser's defining obligation is the fiduciary duty: to act in the client's best interest at all times. This chapter covers what that duty demands in practice, and the specific behaviors that regulators treat as unethical or fraudulent.",
     sections: [
       {
-        heading: "The fiduciary standard",
-        paragraphs: [
-          "A fiduciary must place the client's interests ahead of its own, exercising both a duty of loyalty and a duty of care. In practice this means full and fair disclosure of all material conflicts of interest, seeking best execution for client trades, charging only reasonable fees, and giving advice suited to the client. The fiduciary standard is higher than the suitability standard that historically applied to broker-dealers: it's not enough that a recommendation is merely appropriate; it must be in the client's best interest, with conflicts disclosed.",
-        ],
-      },
-      {
-        heading: "Disclosure and conflicts of interest",
-        paragraphs: [
-          "Because conflicts are often unavoidable, the law's primary remedy is disclosure plus client consent. If an adviser will act as a principal (trading from its own account with a client) or in an agency cross (representing both sides of a trade), it must disclose this and obtain the client's consent — often in writing before completion of the transaction. Compensation arrangements, soft-dollar practices, and any financial incentive that could bias advice must be disclosed in the brochure. The governing principle: a conflict that is fully disclosed and consented to can be permissible, while the same conflict hidden is a violation.",
-        ],
-        callout: {
-          label: "Disclose, don't hide",
-          body: "Conflicts of interest aren't automatically prohibited — but they must be fully disclosed and, for principal/agency-cross trades, consented to by the client. Concealment is the violation.",
-        },
-      },
-      {
-        heading: "Custody and unethical practices",
-        paragraphs: [
-          "An adviser has custody when it holds client funds or securities, or can withdraw them — and custody triggers strict safeguards: segregation of client assets, regular account statements, and often a surprise annual audit. Notably, an adviser is deemed to have custody if it can deduct fees directly from client accounts beyond certain limits, or if it holds client passwords that allow withdrawals.",
-          "Many specific practices are prohibited as unethical: borrowing from or lending to clients (except in narrow cases), commingling client funds with the adviser's own, exercising discretion without written authority, making unsuitable recommendations, misrepresenting qualifications or the nature of services, and guaranteeing performance. The exam routinely describes a scenario and asks whether the adviser acted ethically — the answer turns on whether the client's interest was protected and whether material facts were disclosed.",
-        ],
-      },
-      {
-        heading: "What triggers custody, and the rule on conflicts",
+        heading: "The fiduciary standard and what it actually demands",
         blocks: [
-          { kind: "table", table: { caption: "Table 1 — Custody is broader than 'holding cash' — these all trigger it, and its safeguards.", headers: ["This creates custody", "Why"], rows: [["Holding client funds/securities", "Direct possession of assets"], ["Deducting fees beyond set limits", "Ability to withdraw from the account"], ["Holding client passwords", "Ability to move money"], ["(Recommending a third-party custodian)", "Does NOT create custody"]] } },
-          { kind: "callout", label: "Disclose, don't hide", body: "Conflicts aren't automatically prohibited — they must be fully disclosed, and for principal or agency-cross trades, consented to (often in writing). The violation is concealment. A disclosed, consented conflict can be permissible." },
+          { kind: "p", text: "An investment adviser is a FIDUCIARY. That is a higher obligation than the best-interest standard applying to broker-dealers, and it has two components. The DUTY OF LOYALTY requires the adviser to place the client's interest ahead of its own and to eliminate or fully disclose conflicts of interest. The DUTY OF CARE requires providing advice in the client's best interest, seeking best execution, and monitoring the relationship over its duration. The duty runs continuously — it is not discharged at the moment a recommendation is made." },
+          { kind: "p", text: "The practical consequence is that DISCLOSURE is the adviser's central tool. A conflict that is fully and fairly disclosed, and to which the client consents, may often be managed; a conflict that is concealed is a breach regardless of whether the client was actually harmed. This is why questions describing an undisclosed benefit to the adviser almost always resolve against the adviser even when the recommendation itself was defensible." },
+          { kind: "table", table: { caption: "Two standards, side by side.", headers: ["", "Investment adviser", "Broker-dealer"], rows: [["Standard", "Fiduciary", "Regulation Best Interest"], ["Duration", "Ongoing throughout the relationship", "At the time of the recommendation"], ["Compensation", "Typically a fee on assets", "Typically commissions"], ["Governing law", "Investment Advisers Act of 1940", "Securities Exchange Act of 1934 / FINRA"], ["Conflicts", "Eliminate or fully disclose", "Identify, disclose, and mitigate"]] } },
+        ],
+      },
+      {
+        heading: "Custody, and why regulators treat it so seriously",
+        blocks: [
+          { kind: "p", text: "CUSTODY means holding client funds or securities, or having authority to obtain possession of them. It is treated with unusual caution because an adviser with custody can misappropriate assets outright rather than merely give bad advice. An adviser has custody if it physically holds assets, if it can withdraw funds from a client account, if it serves as trustee, or — a point candidates miss — if it holds a general power of attorney over the account." },
+          { kind: "p", text: "Custody triggers a set of protective requirements: client assets must be held with a QUALIFIED CUSTODIAN such as a bank or broker-dealer, clients must receive account statements at least quarterly, and a SURPRISE ANNUAL EXAMINATION by an independent accountant is generally required. Note the distinctions that keep an adviser out of custody: DISCRETIONARY AUTHORITY to trade is not custody, and neither is deducting an agreed advisory fee under the conditions regulators specify. Inadvertently receiving client funds requires returning them promptly — typically within three business days — to avoid being deemed to have custody." },
+        ],
+      },
+      {
+        heading: "Prohibited practices",
+        blocks: [
+          { kind: "p", text: "Most prohibited conduct reduces to one of three wrongs: misrepresenting facts, exploiting the information or authority the relationship grants, or putting the adviser's compensation ahead of the client's interest. Recognizing the underlying wrong is more reliable than memorizing a list, because the exam describes conduct rather than naming it." },
+          { kind: "bullets", items: ["GUARANTEEING against loss, or promising a specific return — prohibited without exception.", "Exercising DISCRETION without prior written authorization from the client.", "CHURNING — excessive trading judged against the client's objectives and resources.", "CHERRY-PICKING — allocating trades after seeing performance, to favour some accounts.", "BORROWING from or LENDING to a client, unless the client is a bank or an affiliate in that business.", "COMMINGLING client assets with the adviser's own.", "Using TESTIMONIALS or advertising without the required disclosures about compensation and conflicts.", "Failing to disclose the adviser's FINANCIAL CONDITION when it could impair the ability to meet commitments."] },
+          { kind: "callout", label: "Assignment requires consent", body: "An advisory contract may not be ASSIGNED to another adviser without the client's consent, because the client chose that particular adviser. Note that a change in a majority of the partnership interests of an advisory partnership counts as an assignment, and the contract must state that the adviser will notify clients of any change in partners." },
         ],
       },
     ],
@@ -135,39 +121,25 @@ const chapters: Chapter[] = [
     topicId: "strategies",
     topicName: "Client Recommendations & Strategies",
     title: "Client Recommendations & Portfolio Strategies",
-    readingMinutes: 3,
+    readingMinutes: 4,
     summary: "Building suitable portfolios: risk, diversification, allocation, and management styles.",
     intro:
       "Beyond the law, the Series 66 tests whether an adviser can translate a client's situation into a sound portfolio. This means understanding the client's objectives and constraints, the trade-off between risk and return, and the strategies — diversification, asset allocation, and active versus passive management — used to build portfolios that fit. The fiduciary obligation makes getting this right not just good practice but a legal duty.",
     sections: [
       {
-        heading: "Risk, return, and the client profile",
-        paragraphs: [
-          "Every recommendation starts with the client: their financial situation, objectives (return needs and risk tolerance), and constraints (time horizon, liquidity, taxes, and unique circumstances). Risk and return are linked — higher expected returns demand accepting higher risk — so the adviser's job is to find the portfolio that meets the client's return needs without exceeding their capacity and willingness to bear risk. A young investor with a long horizon can tolerate more volatility than a retiree drawing income.",
-        ],
-      },
-      {
-        heading: "Diversification and asset allocation",
-        paragraphs: [
-          "Diversification — spreading investments across assets that don't move together — reduces risk without necessarily reducing expected return, because losses in one area are offset by gains in another. The broader decision is asset allocation: how to divide a portfolio among stocks, bonds, cash, and other assets. Research consistently shows that asset allocation, not individual security selection, drives the large majority of a portfolio's long-run risk and return. Strategic allocation sets long-term targets aligned with the client's profile; tactical allocation makes shorter-term shifts to exploit opportunities.",
-        ],
-        callout: {
-          label: "Allocation drives results",
-          body: "The mix of asset classes (stocks/bonds/cash) explains most of a portfolio's long-run risk and return — far more than which specific securities are picked.",
-        },
-      },
-      {
-        heading: "Active vs passive and management styles",
-        paragraphs: [
-          "Advisers choose between active management, which tries to outperform a benchmark through selection and timing (higher fees, the hope of excess return), and passive management, which simply tracks an index at low cost. The efficient-market view argues that beating the market consistently after fees is difficult, favoring low-cost passive approaches for many clients. Style choices — value versus growth, large-cap versus small-cap — further shape a portfolio's behavior.",
-          "Two implementation techniques appear often. Dollar-cost averaging invests a fixed amount at regular intervals, buying more shares when prices are low and fewer when high, which smooths the average purchase price and removes the temptation to time the market. Rebalancing periodically restores the portfolio to its target allocation, mechanically selling what has risen and buying what has lagged — enforcing discipline and keeping risk aligned with the client's plan.",
-        ],
-      },
-      {
-        heading: "Dollar-cost averaging and rebalancing, in numbers",
+        heading: "Building a recommendation from the client profile",
         blocks: [
-          { kind: "example", example: { title: "why dollar-cost averaging works", prompt: "An investor puts $300 into a fund each month. In month 1 the price is $10; in month 2 it falls to $6. How many shares, and what's the average cost?", steps: ["Month 1: $300 ÷ $10 = 30 shares.", "Month 2: $300 ÷ $6 = 50 shares.", "Total: $600 for 80 shares → average cost = 600 ÷ 80 = $7.50 per share."], answer: "$7.50 average cost — below the $8 simple average of the two prices, because the fixed dollars bought MORE shares when the price was low. That's the mechanical edge of dollar-cost averaging." } },
-          { kind: "callout", label: "Rebalancing = sell high, buy low", body: "A 60/40 portfolio that drifts to 75/25 after a rally is rebalanced by SELLING the appreciated stocks and BUYING bonds to return to 60/40 — mechanically selling high and buying low, and keeping risk aligned with the plan." },
+          { kind: "p", text: "A portfolio recommendation is only defensible once the client's constraints are known, and the constraints do more work than the objectives. TIME HORIZON determines how much volatility can be tolerated: capital needed in two years cannot sit in equities regardless of stated risk appetite. LIQUIDITY NEEDS rule out entire product categories. TAX STATUS determines whether municipal bonds or tax-managed strategies make sense. And legal or unique circumstances — a concentrated position in employer stock, a trust document, a personal restriction — often bind more tightly than anything the client says about risk." },
+          { kind: "p", text: "Objectives themselves reduce to RETURN requirements and RISK tolerance, and the pair must be internally consistent. A client demanding high returns with no tolerance for loss has stated an impossible mandate, and the adviser's job is to surface that contradiction rather than resolve it by quietly taking more risk than the client understands. Note the distinction between risk TOLERANCE, which is psychological willingness, and risk CAPACITY, which is the financial ability to absorb loss — the binding constraint is whichever is lower." },
+        ],
+      },
+      {
+        heading: "Allocation, diversification, and rebalancing",
+        blocks: [
+          { kind: "p", text: "STRATEGIC asset allocation sets long-run target weights from the client's objectives and constraints, and research consistently finds that this policy mix explains most of the variation in a portfolio's returns over time. TACTICAL allocation makes deliberate short-term deviations from those targets to exploit a market view. The distinction matters because tactical shifts are an active bet requiring skill to add value, while the strategic policy is the foundation the whole plan rests on." },
+          { kind: "p", text: "REBALANCING returns a drifted portfolio to its targets, which mechanically means selling what has appreciated and buying what has lagged — psychologically uncomfortable and precisely why it is written into a policy rather than left to judgment. Diversification works through CORRELATION: combining assets that do not move together reduces portfolio volatility below the weighted average of the components. The lower the correlation, the greater the benefit, and it is correlation rather than the sheer number of holdings that produces the effect." },
+          { kind: "table", table: { caption: "Active versus passive.", headers: ["", "Active", "Passive"], rows: [["Goal", "Outperform the benchmark", "Match the benchmark"], ["Cost", "Higher fees, higher turnover", "Lower fees, low turnover"], ["Tax efficiency", "Lower — realized gains from turnover", "Higher"], ["Requires", "Manager skill exceeding costs", "Nothing beyond tracking"], ["Suits", "Less efficient market segments", "Efficient, widely covered markets"]] } },
+          { kind: "callout", label: "The bar active management must clear", body: "Active management adds value only when it beats the benchmark NET of fees, trading costs, and the tax drag from turnover. Gross outperformance is irrelevant because no client receives the gross figure — a recurring exam theme and the reason cost disclosure sits at the centre of the fiduciary duty." },
         ],
       },
     ],

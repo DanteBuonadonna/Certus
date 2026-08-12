@@ -34,7 +34,7 @@ Other common traps:
 
 ## So how hard is it, honestly?
 
-If you (a) have a finance or quantitative background, (b) put in a focused 250–300 hours, and (c) spend most of that time on practice questions rather than reading, Level 1 is very passable. If you rely on reading, skip Ethics, and walk in having never taken a full timed mock, it's genuinely hard — and the 40% pass rate is mostly made of that second group.
+If you (a) have a finance or quantitative background, (b) put in a focused 250–300 hours, and (c) spend most of that time on practice questions rather than reading, Level 1 is very passable. If you rely on reading, skip Ethics, and walk in having never taken a full timed mock, it's genuinely hard — and the 41% ten-year average pass rate is mostly made of that second group.
 
 The difficulty, in other words, is more about *method* than *intelligence*.
 
@@ -50,6 +50,6 @@ That's exactly how Certus is built: take the mock, get a plan aimed at your weak
 
 ## The bottom line
 
-CFA Level 1 is hard the way a marathon is hard: not because any single step is difficult, but because it demands consistency, pacing, and honest feedback about where you are. Get those three right and a ~40% pass rate becomes a much friendlier number than it looks.
+CFA Level 1 is hard the way a marathon is hard: not because any single step is difficult, but because it demands consistency, pacing, and honest feedback about where you are. Get those three right and a ~41% ten-year average pass rate becomes a much friendlier number than it looks.
 
 Start by finding out where you actually stand — [take the free mock](/free-cfa-mock-exam).

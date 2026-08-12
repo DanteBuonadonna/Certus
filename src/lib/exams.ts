@@ -56,7 +56,7 @@ export const EXAMS: Exam[] = [
     fullName: "Chartered Financial Analyst — Level I",
     category: "Investment",
     blurb:
-      "The gold standard's front door: ten disciplines, ~300 hours, a ~37% pass rate. Foundation of the charter.",
+      "The gold standard's front door: ten disciplines, ~300 hours, a ~41% ten-year average pass rate. Foundation of the charter.",
     difficulty: 5,
     flagship: true,
     wealthTrack: true,
@@ -166,7 +166,7 @@ export const EXAMS: Exam[] = [
     fullName: "CPA — Taxation & Regulation (Core)",
     category: "Accounting",
     blurb:
-      "Federal taxation of individuals and entities, business law, ethics, and professional responsibilities. A Core CPA section. ~90 hours, ~59% pass rate.",
+      "Federal taxation of individuals and entities, business law, ethics, and professional responsibilities. A Core CPA section. ~90 hours, and the highest Core pass rate — high 60s in 2025.",
     difficulty: 4,
     accent: "#1D9E75",
     levels: [
@@ -190,7 +190,7 @@ export const EXAMS: Exam[] = [
     fullName: "CPA — Discipline (BAR / ISC / TCP)",
     category: "Accounting",
     blurb:
-      "Pick one Discipline to pass: BAR (Business Analysis & Reporting), ISC (Information Systems & Control), or TCP (Tax Compliance & Planning). ~90 hours, ~50% pass rate.",
+      "Pick one Discipline to pass: BAR (Business Analysis & Reporting), ISC (Information Systems & Control), or TCP (Tax Compliance & Planning). ~90 hours. Pass rates differ sharply — BAR low 40s, ISC high 60s, TCP near 79% in 2025 — but candidates self-select, so that spread reflects who sits, not which is easiest.",
     difficulty: 4,
     accent: "#1D9E75",
     levels: [
