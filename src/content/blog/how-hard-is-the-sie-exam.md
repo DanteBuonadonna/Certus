@@ -13,7 +13,7 @@ Here's the honest breakdown, with the numbers that actually matter.
 
 ## What the SIE is (and who can take it)
 
-The Securities Industry Essentials (SIE) is FINRA's entry-level exam — the foundation you take before or alongside a "top-off" exam like the Series 7 or Series 6. Its best feature: **anyone 18 or older can take it without a firm sponsoring them.** You don't need to be hired by a broker-dealer first, which makes it the natural starting point for anyone trying to break into the industry. It costs $80 to sit.
+The Securities Industry Essentials (SIE) is FINRA's entry-level exam — the foundation you take before or alongside a "top-off" exam like the Series 7 or Series 6. Its best feature: **anyone 18 or older can take it without a firm sponsoring them.** You don't need to be hired by a broker-dealer first, which makes it the natural starting point for anyone trying to break into the industry. It costs $100 to take.
 
 ## The format, by the numbers
 
