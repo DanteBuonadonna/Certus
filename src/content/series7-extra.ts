@@ -65,11 +65,19 @@ export const s7ExtraChapters: Chapter[] = [
     topicId: "munis",
     topicName: "Municipal Securities",
     title: "Municipal Securities: GO and Revenue Bonds",
-    readingMinutes: 5,
+    readingMinutes: 7,
     summary: "How municipal bonds are backed, their tax advantages, and the GO-versus-revenue distinction.",
     intro:
       "Municipal securities are debt issued by states, cities, and other local governments to fund public projects. Their defining feature is tax-advantaged interest, and the central exam distinction is how a given bond is backed — by taxing power or by a specific project's revenue. That difference drives the bond's risk and the kind of analysis it requires.",
     sections: [
+      {
+        heading: "The municipal new-issue apparatus",
+        blocks: [
+          { kind: "p", text: "A municipal offering is assembled by parties the exam expects you to name. BOND COUNSEL is an independent law firm retained by the issuer to render the LEGAL OPINION — an unqualified opinion states that the bonds are a valid and binding obligation and that interest is exempt from federal income tax. A QUALIFIED opinion carries reservations and is a genuine warning sign. Bond counsel does not verify the issuer's financial condition; that is the underwriter's due diligence." },
+          { kind: "p", text: "ADVANCE REFUNDING (pre-refunding) lets an issuer sell a new lower-coupon issue and place the proceeds in an ESCROW account of government securities, which then services the old bonds until their call date. The refunded bonds become effectively backed by that escrow rather than by the issuer, so their credit quality jumps — often to the highest rating — and they are said to be escrowed to maturity or pre-refunded. The disclosure document for a municipal issue is the OFFICIAL STATEMENT, the municipal analogue of a prospectus, and continuing disclosures are posted to EMMA, the MSRB's Electronic Municipal Market Access system." },
+          { kind: "callout", label: "Why a pre-refunded bond re-rates", body: "Once proceeds sit in an escrow of Treasuries dedicated to servicing the old issue, the bondholder's real credit exposure is to the U.S. government rather than the municipality. That is why pre-refunded bonds typically trade at the highest ratings regardless of the issuer's own finances." },
+        ],
+      },
       {
         heading: "GO versus revenue: two different credit questions",
         blocks: [

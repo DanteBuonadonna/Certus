@@ -10,6 +10,7 @@ import { Chapter, Question, ExamContent } from "./types";
 import { s7ExtraChapters, s7ExtraQuestions } from "./series7-extra";
 import { s7Wave3Chapters, s7Wave3Questions } from "./series7-wave3";
 import { s7DeepChapters, s7DeepQuestions } from "./series7-deep";
+import { series7Questions } from "./series7-q";
 
 const chapters: Chapter[] = [
   // 1. EQUITY SECURITIES
@@ -71,11 +72,18 @@ const chapters: Chapter[] = [
     topicId: "debt",
     topicName: "Debt Securities",
     title: "Debt Securities: Bonds, Yields, and Money Markets",
-    readingMinutes: 6,
+    readingMinutes: 7,
     summary: "How bonds work, the issuers and their tax profiles, the inverse price-yield relationship, the yield measures, and short-term money-market instruments — diagrammed and worked through.",
     intro:
       "Debt securities are loans made by investors to issuers — corporations, the U.S. Treasury, and municipalities — in exchange for interest and the eventual return of principal. The Series 7 tests debt heavily because bonds are the backbone of income and risk-balancing in client portfolios. If you internalize one thing, make it the inverse relationship between bond prices and yields; nearly every bond question is a consequence of it.",
     sections: [
+      {
+        heading: "Indenture protections and yield to worst",
+        blocks: [
+          { kind: "p", text: "A SINKING FUND provision obliges the issuer to set money aside each year to retire part of the issue before maturity. Because the debt is repaid progressively rather than in one lump, default risk falls — a protection that favours the HOLDER, unlike a call provision, which is exercised at the issuer's option when rates have fallen." },
+          { kind: "p", text: "When a bond is callable, the investor should be shown the least flattering realistic outcome rather than the most. YIELD TO WORST is the lower of yield to maturity and yield to call. On a PREMIUM bond the call yield is typically lower, because the loss of premium is compressed into fewer years; on a discount bond maturity usually produces the lower figure. Quoting yield to worst prevents a callable premium bond from being marketed on a yield the buyer will probably never receive." },
+        ],
+      },
       {
         heading: "Bond basics and the issuers' tax profiles",
         blocks: [
@@ -122,11 +130,18 @@ const chapters: Chapter[] = [
     topicId: "accounts",
     topicName: "Customer Accounts & Suitability",
     title: "Customer Accounts & Suitability",
-    readingMinutes: 5,
+    readingMinutes: 6,
     summary: "Account types, the information you must gather, and the obligation to recommend only suitable investments.",
     intro:
       "Much of a registered representative's daily responsibility is opening accounts correctly and making recommendations that fit the client. The Series 7 tests both the mechanics of account types and the core ethical-regulatory duty of suitability — recommending only what is appropriate for a specific customer's profile. Getting this wrong is both an exam failure and, in real life, a compliance violation.",
     sections: [
+      {
+        heading: "Account documentation and the events that change it",
+        blocks: [
+          { kind: "p", text: "The NEW ACCOUNT FORM captures identity, the suitability profile, and who is authorised to act. Entity accounts need more: a CORPORATE RESOLUTION names the individuals empowered to trade on the corporation's behalf, and a partnership account requires the partnership agreement for the same purpose. A NUMBERED ACCOUNT may be identified by a code rather than a name on statements for privacy, but the firm must hold a written statement attesting to the true beneficial owner — an account whose owner the firm did not know would defeat the customer identification program outright." },
+          { kind: "p", text: "On notice of the DEATH OF A CUSTOMER the firm must immediately cancel all open orders and freeze the account, then await a death certificate, letters testamentary or of administration, and any applicable tax waivers. Every prior authority ends at death, including standing discretionary authority and any power of attorney, so acting on earlier instructions would be trading without authorisation." },
+        ],
+      },
       {
         heading: "Registration: who controls, and what happens on death",
         blocks: [
@@ -239,5 +254,5 @@ const questions: Question[] = [
 export const series7Content: ExamContent = {
   examSlug: "series-7",
   chapters: [...s7DeepChapters, ...chapters, ...s7ExtraChapters, ...s7Wave3Chapters],
-  questions: [...s7DeepQuestions, ...questions, ...s7ExtraQuestions, ...s7Wave3Questions],
+  questions: [...s7DeepQuestions, ...questions, ...s7ExtraQuestions, ...s7Wave3Questions, ...series7Questions],
 };

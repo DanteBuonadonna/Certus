@@ -7,6 +7,7 @@
 
 import { Chapter, Question, ExamContent } from "./types";
 import { sieDeepChapters, sieDeepQuestions } from "./sie-deep";
+import { sieProductsQuestions } from "./sie-products-q";
 
 const chapters: Chapter[] = [
   // 1. CAPITAL MARKETS
@@ -111,11 +112,19 @@ const chapters: Chapter[] = [
     topicId: "products",
     topicName: "Products & Their Risks",
     title: "Understanding Products and Their Risks",
-    readingMinutes: 18,
+    readingMinutes: 19,
     summary: "The major product types from stocks to options, and the distinct kinds of risk every investor faces.",
     intro:
       "This is the largest content area on the SIE, and for good reason: a representative must understand what they're selling. The exam surveys the full product shelf — equity, debt, pooled vehicles, options, and more — and pairs it with a clear taxonomy of risk. The organizing idea is the trade-off between risk and return: products line up along a spectrum, and the job is to match a product's risk profile to an investor's needs.",
     sections: [
+      {
+        heading: "Alternatives: partnerships and commodities",
+        blocks: [
+          { kind: "p", text: "A LIMITED PARTNERSHIP is the usual legal form of a direct participation program. It has one GENERAL PARTNER who manages the business and accepts UNLIMITED personal liability, and LIMITED PARTNERS who are passive investors with liability capped at what they invested. Income, gains and losses FLOW THROUGH to the partners rather than being taxed at the entity level, which is the entire reason the structure exists — but the interests are illiquid, there is usually no secondary market, and a limited partner who starts participating in management can forfeit their limited liability." },
+          { kind: "p", text: "COMMODITIES — energy, metals, agricultural products — are physical goods traded on futures exchanges rather than securities in the ordinary sense. Retail exposure normally comes through a fund or an ETF rather than direct futures positions. Their appeal is diversification and inflation hedging, since commodity prices often rise when the purchasing power of fixed payments is falling. Their drawback is volatility and the absence of any income: a barrel of oil pays no coupon and no dividend, so the entire return depends on price." },
+          { kind: "bullets", items: ["A limited partnership passes through both INCOME and LOSSES; a REIT passes through income only.", "Passive losses may generally offset only passive income, not wages or portfolio income.", "In dissolution: secured creditors, then general creditors, then LIMITED partners, then general partners last.", "Hedge funds and private placements are sold to ACCREDITED investors and are similarly illiquid."] },
+        ],
+      },
       {
         heading: "How to hold the product universe in your head",
         blocks: [
@@ -194,11 +203,38 @@ const chapters: Chapter[] = [
     topicId: "trading",
     topicName: "Trading, Accounts & Prohibited Activities",
     title: "Trading, Customer Accounts & Prohibited Activities",
-    readingMinutes: 11,
+    readingMinutes: 16,
     summary: "How orders work, when trades settle, the main account types, and the conduct that gets people barred.",
     intro:
       "This area moves from the abstract market to the concrete mechanics a representative handles daily: placing orders, opening accounts, and — crucially — knowing the bright lines you must never cross. It is heavily tested because it is where investor harm actually happens, so the exam cares as much about what you may not do as what you may.",
     sections: [
+      {
+        heading: "The named systems a candidate is expected to recognise",
+        blocks: [
+          { kind: "p", text: "Several institutions and databases appear by NAME on the exam, and knowing what each one does is enough. Clearing and settlement run through DTCC and its two subsidiaries: the NATIONAL SECURITIES CLEARING CORPORATION (NSCC) nets the day's obligations so firms settle differences rather than every gross trade, and the DEPOSITORY TRUST COMPANY (DTC) holds securities in book-entry form so ownership changes without certificates moving." },
+          { kind: "p", text: "Moving a whole account between firms uses the AUTOMATED CUSTOMER ACCOUNT TRANSFER SERVICE (ACATS), which runs transfers on a standard timetable rather than leaving each firm to negotiate. Two public disclosure databases also appear by name: EDGAR is the SEC's system holding registration statements, prospectuses and periodic reports for public issuers, and EMMA — ELECTRONIC MUNICIPAL MARKET ACCESS — is the MSRB's equivalent for municipal securities, holding official statements and continuing disclosures." },
+          { kind: "bullets", items: ["NSCC — nets and clears; DTC — holds in book-entry form; both sit under DTCC.", "ACATS — transfers a customer account from one firm to another.", "EDGAR — the SEC's public filing database for corporate issuers.", "EMMA — the MSRB's public disclosure site for municipal securities.", "GNMA (Ginnie Mae), FNMA (Fannie Mae) and FHLMC (Freddie Mac) are the mortgage agencies; only GNMA carries an explicit federal guarantee."] },
+          { kind: "p", text: "Two employer retirement plans round out the account types. A SEP IRA is funded by EMPLOYER contributions and is popular with small businesses for its low administrative cost and higher limits than a personal IRA. A SIMPLE IRA combines employee salary deferral with a required employer contribution. Both are traditional-style tax-deferred arrangements, so required minimum distributions apply and contributions are pre-tax. Note also that an IRA may not hold COLLECTIBLES — art, antiques, most precious metals, gems — or life insurance." },
+          { kind: "callout", label: "Maintenance requirements, in one place", body: "FINRA sets minimum MAINTENANCE margin at 25% of market value for a LONG position and 30% for a SHORT position. The short requirement is higher because short losses are theoretically unbounded — there is no ceiling on how high a stock can rise. Reg T's 50% is the INITIAL deposit and is a separate, earlier requirement set by the Federal Reserve." },
+        ],
+      },
+      {
+        heading: "Order qualifiers: how long, and all-or-nothing",
+        blocks: [
+          { kind: "p", text: "Beyond choosing market or limit, a customer specifies HOW LONG the order lives and whether partial fills are acceptable. A DAY ORDER expires at the close of the trading day if it has not filled — this is the default, so an order with no stated duration is a day order. A GOOD TIL CANCELLED (GTC) or open order carries over day to day until it executes or the customer cancels it, though firms typically require periodic confirmation." },
+          { kind: "p", text: "Three qualifiers govern partial execution and they are easy to confuse. ALL OR NONE (AON) requires the entire order to fill, but permits waiting for that to happen. IMMEDIATE OR CANCEL (IOC) takes whatever is available right now and cancels the remainder — partial fills allowed. FILL OR KILL (FOK) is the strictest: the whole order must execute IMMEDIATELY or the entire thing is cancelled. The way to keep them straight is to ask two questions of each — must it be complete, and must it be instant?" },
+          { kind: "table", table: { caption: "Order qualifiers.", headers: ["Qualifier", "Complete fill required?", "Immediate?", "Partial fills"], rows: [["Day", "No", "No", "Allowed; expires at close"], ["GTC", "No", "No", "Allowed; carries over"], ["All or none (AON)", "YES", "No — may wait", "Not allowed"], ["Immediate or cancel (IOC)", "No", "YES", "Allowed"], ["Fill or kill (FOK)", "YES", "YES", "Not allowed"]] } },
+          { kind: "callout", label: "Regular way and the settlement clock", body: "REGULAR WAY settlement is the standard cycle — T+1 for stocks, corporate and municipal bonds, government securities and listed options since May 2024. Do not confuse it with the REGULATION T payment deadline, which is when the CUSTOMER must pay the firm: two business days after settlement. Different deadlines, different purposes, frequently paired in one question." },
+        ],
+      },
+      {
+        heading: "Third-party authority, rollovers, and two more manipulations",
+        blocks: [
+          { kind: "p", text: "A customer may grant someone else authority over an account through a POWER OF ATTORNEY. A limited power of attorney permits trading only; a full power additionally permits withdrawing cash and securities. Either way the authority must be written, and it is distinct from a registered representative's DISCRETION, which is the firm's own authority to choose security, amount, or whether to trade at all — also requiring written authorization before it is exercised." },
+          { kind: "p", text: "Moving retirement money between plans has its own rules. A ROLLOVER puts the distribution in the account holder's hands, who then has 60 DAYS to deposit it into the receiving plan; miss the window and it becomes a taxable distribution, and only one such rollover is permitted per twelve-month period. A direct TRANSFER moves assets custodian to custodian without the holder ever touching them, has no 60-day clock and no annual limit, and is the safer recommendation in almost every case." },
+          { kind: "p", text: "Two manipulative practices complete the prohibited list. A WASH TRADE is buying and selling the same security so that there is no change in beneficial ownership — the activity is entirely fictitious, created to suggest volume or to generate a tax loss. MARKING THE CLOSE is entering orders late in the session specifically to influence the closing price, which matters because closing prices set fund valuations, index levels, and performance figures." },
+        ],
+      },
       {
         heading: "Orders: choosing between certainty of execution and certainty of price",
         blocks: [
@@ -402,11 +438,21 @@ const chapters: Chapter[] = [
     topicId: "debt",
     topicName: "Debt Securities",
     title: "Debt Securities: Bonds, Yields, and Government Issues",
-    readingMinutes: 10,
+    readingMinutes: 13,
     summary: "Loans in depth — bond mechanics, the four yield measures, the price/yield seesaw, and the full menu of corporate, government, and municipal debt.",
     intro:
       "A bond is a loan: the investor lends, and the issuer pays interest and returns principal at maturity. The SIE tests the mechanics (par, coupon, maturity), the yield measures, the inverse price/yield relationship, and the full lineup of issuers from corporations to the U.S. Treasury to municipalities. This chapter builds the whole map.",
     sections: [
+      {
+        heading: "The indenture: what the issuer actually promised",
+        blocks: [
+          { kind: "p", text: "Every corporate bond is governed by an INDENTURE — the written contract between issuer and bondholders setting the coupon, maturity, collateral, covenants, and the rights of holders if the issuer defaults. The Trust Indenture Act of 1939 requires larger public corporate debt issues to appoint a TRUSTEE, an independent party whose job is to enforce the indenture on behalf of holders, who are far too dispersed to act collectively. Municipal and U.S. government issues are exempt from that requirement." },
+          { kind: "p", text: "Three indenture features change a bond's risk enough to be tested on their own. A SINKING FUND requires the issuer to set money aside each year to retire part of the issue before maturity, which reduces default risk because the debt is repaid gradually rather than in one lump. A CALL PROVISION lets the ISSUER redeem early — always at the issuer's option, and exercised when rates have FALLEN, which is precisely the worst moment for the holder, who must reinvest at the new lower rates. A SUBORDINATED debenture ranks BELOW other unsecured debt in liquidation, so it must offer more yield to compensate." },
+          { kind: "table", table: { caption: "Bond features and who they favour.", headers: ["Feature", "What it does", "Favours"], rows: [["Sinking fund", "Issuer retires debt gradually", "The holder — less default risk"], ["Call provision", "Issuer may redeem early, usually when rates fall", "The ISSUER"], ["Put provision", "Holder may sell back to the issuer", "The holder"], ["Convertible", "Holder may exchange for common stock", "The holder"], ["Subordinated", "Ranks below other unsecured debt", "Neither — it just raises the yield"]] } },
+          { kind: "p", text: "Mortgage-backed securities add a risk that plain corporate bonds do not have. Homeowners refinance when rates FALL, returning principal to the certificate holder exactly when reinvestment opportunities are worst — that is PREPAYMENT risk. When rates RISE, prepayments slow and the holder is locked into a below-market yield for longer, which is EXTENSION risk. The two are opposite faces of the same uncertainty about when the money comes back." },
+          { kind: "callout", label: "Call risk and reinvestment risk are the same event", body: "An issuer calls when rates have fallen. The holder loses an above-market coupon AND must reinvest at the new lower rate. That is why callable bonds are quoted at YIELD TO WORST — the lower of yield to maturity and yield to call — so the investor sees the least favourable realistic outcome rather than the most flattering." },
+        ],
+      },
       {
         heading: "Reading a bond quote",
         blocks: [
@@ -887,6 +933,121 @@ const chapters: Chapter[] = [
       "Exempt securities (government, muni) and exempt transactions (Reg D private placements) skip full registration.",
     ],
   },
+  // ---------------------------------------------------------------
+  // Written BEFORE the questions that test them. The concept audit
+  // (scripts/reading-alignment.mjs) found 18 testable Products concepts
+  // appearing nowhere in the SIE readings — money market instruments and
+  // insurance-based products were the two biggest holes. These two
+  // chapters close them.
+  // ---------------------------------------------------------------
+  {
+    id: "sie-moneymarket",
+    examSlug: "sie",
+    topicId: "products",
+    topicName: "Products & Their Risks",
+    title: "Money Market Instruments and Cash Equivalents",
+    readingMinutes: 7,
+    summary: "Short-term debt: commercial paper, banker's acceptances, negotiable CDs, and repos — what each is, who issues it, and why the 270-day line matters.",
+    intro:
+      "The money market is where institutions park cash and borrow it for weeks rather than years. Every instrument here shares three properties — short maturity, high credit quality, and deep liquidity — which together make them CASH EQUIVALENTS: close enough to cash that a treasurer will hold them instead. The SIE tests whether you can name each instrument, identify its issuer, and recognise why it is exempt from registration.",
+    sections: [
+      {
+        heading: "What makes something a money market instrument",
+        blocks: [
+          { kind: "p", text: "A money market instrument matures in ONE YEAR OR LESS, is issued by a high-quality borrower, and trades in a liquid secondary market. Because the maturity is short, credit risk and interest rate risk are both small — a bond that matures in 90 days simply cannot move much on a rate change. That is why money market funds are the standard recommendation for a client whose objective is PRESERVATION OF CAPITAL or who needs the money soon." },
+          { kind: "p", text: "Most of these instruments are sold at a DISCOUNT and mature at face value, with no coupon at all. The investor's return is the difference between what they paid and what they receive. That structure has a useful side effect worth knowing: with no interim payments, there is nothing to reinvest, so a discount instrument held to maturity carries no reinvestment risk." },
+          { kind: "table", table: { caption: "The money market at a glance.", headers: ["Instrument", "Issued by", "Typical form"], rows: [["Treasury bill", "U.S. Treasury", "Discount, 4 to 52 weeks"], ["Commercial paper", "Corporations", "Unsecured discount note, ≤270 days"], ["Banker's acceptance", "A bank, on behalf of a trader", "Time draft, ≤270 days"], ["Negotiable CD", "Banks", "$100,000 minimum, interest-bearing"], ["Repurchase agreement", "Dealers, banks, the Fed", "Sale plus a promise to buy back"], ["Federal funds", "Banks lending to each other", "Overnight, unsecured"]] } },
+        ],
+      },
+      {
+        heading: "Commercial paper and the 270-day rule",
+        blocks: [
+          { kind: "p", text: "COMMERCIAL PAPER is an UNSECURED promissory note issued by a corporation to fund short-term needs — payroll, inventory, receivables. Unsecured means no collateral is pledged, so only the strongest corporate credits can issue it at attractive rates. It is sold at a discount and matures at face value." },
+          { kind: "p", text: "The 270-day maximum is not arbitrary and the exam expects you to know why it exists. Section 3(a)(3) of the Securities Act of 1933 EXEMPTS from registration any note maturing in 270 days or less that is issued for current transactions. Staying inside that window lets an issuer raise money without a registration statement or a prospectus, which is the entire economic point of the instrument. Paper maturing in 271 days would have to be registered, and nobody issues it." },
+          { kind: "callout", label: "Why 270 days keeps appearing", body: "It is the 1933 Act exemption boundary, and it applies to BOTH commercial paper and banker's acceptances. If a question asks the maximum maturity of either, the answer is 270 days, and the reason is registration exemption rather than any market convention." },
+        ],
+      },
+      {
+        heading: "Banker's acceptances, negotiable CDs, and repos",
+        blocks: [
+          { kind: "p", text: "A BANKER'S ACCEPTANCE begins as a time draft in an international trade: an importer promises to pay an exporter at a future date, and a BANK stamps it 'accepted', guaranteeing payment. That guarantee converts one company's promise into a bank's obligation, which is what makes the instrument tradeable. BAs are used almost entirely to finance imports and exports, and like commercial paper they run 270 days or less." },
+          { kind: "p", text: "A NEGOTIABLE CERTIFICATE OF DEPOSIT is a large time deposit — a $100,000 minimum, and in practice $1 million or more — that can be SOLD to another investor before maturity rather than being cashed in early. That negotiability is the distinction from the ordinary retail CD a consumer buys at a bank branch, which carries an early withdrawal penalty and cannot be traded. Note the insurance limit: FDIC coverage stops at $250,000 per depositor per bank, so a $1 million jumbo CD is largely UNINSURED and its holder is taking real bank credit risk." },
+          { kind: "p", text: "A REPURCHASE AGREEMENT is a collateralised loan dressed as a sale. One party sells securities — usually Treasuries — and simultaneously agrees to buy them back at a slightly higher price on a set date. The price difference is the interest. Viewed from the other side the same trade is a REVERSE REPO: the party buying the securities and agreeing to sell them back is lending the money. The Federal Reserve uses repos and reverse repos as its day-to-day tool for adding and draining reserves." },
+          { kind: "example", example: { title: "reading a repo", prompt: "A dealer sells $10,000,000 of Treasuries to a bank and agrees to repurchase them in 7 days for $10,004,000. Who is lending, and what is the dealer paying?", steps: ["The dealer receives cash today and must return more cash later, so the DEALER is borrowing.", "The bank hands over cash and gets it back with more, so the BANK is lending — from the bank's side this is a reverse repo.", "The dealer's cost = $10,004,000 − $10,000,000 = $4,000 for 7 days.", "The Treasuries serve as collateral, which is why repo rates sit below unsecured rates."], answer: "The bank lends; the dealer pays $4,000 in interest. The same transaction is a repo to one side and a reverse repo to the other — the name depends on whose seat you are in, which is exactly what the exam tests." } },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Cash equivalent", def: "A short-term, high-quality, liquid instrument a holder treats as near-cash." },
+      { term: "Commercial paper", def: "Unsecured corporate discount note, 270 days or less, exempt from 1933 Act registration." },
+      { term: "Banker's acceptance", def: "A trade time draft guaranteed by a bank; used to finance imports and exports." },
+      { term: "Negotiable CD", def: "A large ($100,000+) bank time deposit that can be sold before maturity." },
+      { term: "Repurchase agreement", def: "A sale of securities with an agreement to buy them back — a collateralised loan." },
+      { term: "Federal funds rate", def: "The rate banks charge each other for overnight unsecured loans of reserves." },
+    ],
+    takeaways: [
+      "Money market = one year or less, high quality, liquid. Suits preservation of capital and near-term needs.",
+      "Commercial paper and banker's acceptances both cap at 270 days — the 1933 Act exemption boundary.",
+      "Commercial paper is UNSECURED corporate; a BA carries a BANK's guarantee.",
+      "A negotiable CD needs $100,000 minimum and can be sold; FDIC only insures $250,000.",
+      "A repo to the borrower is a reverse repo to the lender — same trade, opposite seats.",
+    ],
+  },
+  {
+    id: "sie-insurance",
+    examSlug: "sie",
+    topicId: "products",
+    topicName: "Products & Their Risks",
+    title: "Insurance-Based Products: Life Policies and Annuities",
+    readingMinutes: 5,
+    summary: "Term, whole, universal and variable life; fixed vs variable annuities; and the general account / separate account line that decides who bears investment risk.",
+    intro:
+      "Insurance products appear on a securities exam for one reason: some of them ARE securities. The dividing line is the SEPARATE ACCOUNT. When a contract's value depends on investments the holder selected, the holder bears investment risk, and that makes the product a security requiring a securities registration to sell. Get that one distinction right and most questions in this area answer themselves.",
+    sections: [
+      {
+        heading: "General account versus separate account",
+        blocks: [
+          { kind: "p", text: "Every insurance contract is funded from one of two places. The GENERAL ACCOUNT holds the insurer's own assets, invested conservatively, and it is what backs any GUARANTEE the insurer makes. If a product promises a minimum rate or a fixed payout, the insurer is standing behind it out of the general account and the INSURER bears the investment risk." },
+          { kind: "p", text: "The SEPARATE ACCOUNT is legally segregated from the insurer's own assets and holds subaccounts the CONTRACT HOLDER chooses — typically portfolios resembling mutual funds. Its performance flows straight through to the contract's value, so the HOLDER bears the investment risk. That is the test: separate account means variable, variable means a security, and a security means you need a securities licence to sell it." },
+          { kind: "table", table: { caption: "Who bears the investment risk.", headers: ["Product", "Funded from", "Risk borne by", "A security?"], rows: [["Whole life", "General account", "Insurer", "No"], ["Term life", "General account (no cash value)", "Insurer", "No"], ["Fixed annuity", "General account", "Insurer", "No"], ["Variable life", "Separate account", "Contract holder", "YES"], ["Variable annuity", "Separate account", "Contract holder", "YES"], ["Variable universal life", "Separate account", "Contract holder", "YES"]] } },
+        ],
+      },
+      {
+        heading: "The life insurance ladder",
+        blocks: [
+          { kind: "p", text: "TERM LIFE is pure death benefit for a stated period. No cash value accumulates, nothing is invested, and it is by far the cheapest way to buy a given amount of coverage. It suits a temporary need — a mortgage, dependent children — which is the situation most young families are actually in." },
+          { kind: "p", text: "WHOLE LIFE is permanent coverage with a fixed premium and a GUARANTEED cash value that builds over time, funded from the general account. It costs substantially more than term for the same death benefit, because part of every premium is buying the savings component and the guarantee. UNIVERSAL LIFE loosens the structure: premiums and death benefit are FLEXIBLE, so the holder can pay more in a good year and less in a lean one, within limits." },
+          { kind: "p", text: "VARIABLE LIFE moves the cash value into the separate account, where the holder picks the subaccounts. The death benefit and cash value then rise and fall with those investments, subject to a guaranteed minimum death benefit. VARIABLE UNIVERSAL LIFE combines both ideas: separate-account investing plus flexible premiums. Both are securities." },
+          { kind: "callout", label: "The suitability trap", body: "Variable products carry higher fees and investment risk, so they suit a client who already has adequate coverage, a long horizon, and tolerance for loss. Recommending variable life to someone who needs maximum coverage for the lowest cost is the classic unsuitable recommendation — that client needs TERM." },
+        ],
+      },
+      {
+        heading: "Annuities and the two phases",
+        blocks: [
+          { kind: "p", text: "An annuity is a contract to convert a sum of money into an income stream, and it runs in two phases. During ACCUMULATION the holder pays in and the contract grows tax-deferred; in a variable contract they are buying ACCUMULATION UNITS whose number rises with each payment. At ANNUITIZATION the contract converts to income: accumulation units become ANNUITY UNITS, and here is the detail the exam loves — the NUMBER of annuity units is then FIXED for life, while their VALUE continues to vary with the separate account. That is why a variable annuity payment changes month to month." },
+          { kind: "p", text: "A FIXED annuity pays a guaranteed dollar amount from the general account, so the insurer bears the investment risk and the holder bears PURCHASING POWER risk instead — a fixed payment buys less each year as prices rise. A variable annuity reverses both. Note that annuitizing is generally IRREVOCABLE, which is the practical reason many holders never do it and take withdrawals instead." },
+          { kind: "bullets", items: ["Contributions to a non-qualified annuity are after-tax; only the EARNINGS are taxed on withdrawal, as ordinary income.", "Withdrawals before age 59½ generally add a 10% penalty.", "Non-qualified annuity withdrawals are LIFO — earnings come out first and are fully taxable.", "There is no annual contribution limit on a non-qualified annuity, unlike an IRA.", "A variable annuity requires BOTH a securities registration and a state insurance licence to sell."] },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "General account", def: "The insurer's own assets, backing guaranteed products; the insurer bears investment risk." },
+      { term: "Separate account", def: "Segregated subaccounts chosen by the holder; the HOLDER bears investment risk, making the product a security." },
+      { term: "Term life", def: "Pure death benefit for a set period, no cash value, lowest cost per dollar of coverage." },
+      { term: "Whole life", def: "Permanent coverage, fixed premium, guaranteed cash value from the general account." },
+      { term: "Variable life", def: "Cash value invested in the separate account; a security requiring a securities registration." },
+      { term: "Accumulation unit", def: "What a variable annuity holder buys while paying in, before annuitization." },
+      { term: "Annuity unit", def: "Fixed in NUMBER at annuitization; its VALUE still varies, so payments fluctuate." },
+    ],
+    takeaways: [
+      "Separate account = holder bears the risk = it is a SECURITY. General account = insurer bears the risk.",
+      "Term is cheapest and temporary; whole life is permanent with guaranteed cash value; universal adds flexibility.",
+      "Variable products need a securities registration AND an insurance licence.",
+      "At annuitization the NUMBER of annuity units is fixed; their VALUE keeps varying.",
+      "A fixed annuity trades investment risk for purchasing power risk.",
+    ],
+  },
+
 ];
 
 const questions: Question[] = [
@@ -1249,9 +1410,9 @@ const questions: Question[] = [
   {
     id: "sie-muni-q2", examSlug: "sie", topicId: "munis", topicName: "Municipal Securities", difficulty: 3,
     stem: "An investor in the 24% federal bracket compares a 3.0% municipal bond with a taxable corporate bond. What corporate yield is required to match the municipal on an after-tax basis?",
-    choices: ["2.28%, the municipal yield multiplied by one minus the tax rate", "3.24%, the municipal yield increased by the tax rate", "3.00%, since municipal interest is taxable at the same rate", "3.72%, the municipal yield divided by one minus the tax rate"],
+    choices: ["2.28%, the municipal yield multiplied by one minus the tax rate", "3.24%, the municipal yield increased by the tax rate", "3.00%, since municipal interest is taxable at the same rate", "3.95%, the municipal yield divided by one minus the tax rate"],
     answerIndex: 3,
-    explanation: "Taxable-equivalent yield equals the tax-free yield divided by one minus the marginal rate: 3.0% divided by 0.76 equals approximately 3.95%. Multiplying instead of dividing produces the after-tax yield of a taxable bond, which is the reverse computation. The higher the investor's bracket, the greater the advantage municipal interest provides.",
+    explanation: "Taxable-equivalent yield divides the tax-free yield by one minus the marginal rate: 3.0% / 0.76 = 3.95%. The investor needs a corporate yielding more than 3.95% to beat the muni. Multiplying instead of dividing gives 2.28%, which is the AFTER-TAX yield of a 3% taxable bond - the reverse computation. Adding the rate to the yield (3.24%) has no basis. The higher the bracket, the larger the gap, which is why munis suit high-bracket investors and are unsuitable inside an IRA.",
   },
   {
     id: "sie-muni-q3", examSlug: "sie", topicId: "munis", topicName: "Municipal Securities", difficulty: 2,
@@ -1611,5 +1772,5 @@ const questions: Question[] = [
 export const sieContent: ExamContent = {
   examSlug: "sie",
   chapters: [...sieDeepChapters, ...chapters],
-  questions: [...sieDeepQuestions, ...questions],
+  questions: [...sieDeepQuestions, ...sieProductsQuestions, ...questions],
 };

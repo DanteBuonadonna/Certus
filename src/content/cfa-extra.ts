@@ -388,7 +388,7 @@ export const extraChapters: Chapter[] = [
   {
     id: "cfa-quant-stats",
     examSlug: "cfa",
-    topicId: "quant-stats",
+    topicId: "quant",
     topicName: "Probability & Distributions",
     title: "Probability, Distributions, and Hypothesis Testing",
     readingMinutes: 5,
@@ -444,7 +444,7 @@ export const extraChapters: Chapter[] = [
   {
     id: "cfa-fra-ratios",
     examSlug: "cfa",
-    topicId: "fra-ratios",
+    topicId: "fra",
     topicName: "Financial Ratios & Analysis",
     title: "Financial Ratios and Statement Analysis",
     readingMinutes: 5,
@@ -500,7 +500,7 @@ export const extraChapters: Chapter[] = [
   {
     id: "cfa-equity-markets",
     examSlug: "cfa",
-    topicId: "equity-markets",
+    topicId: "equity",
     topicName: "Equity Markets & Efficiency",
     title: "Equity Markets, Indexes, and Market Efficiency",
     readingMinutes: 4,
@@ -689,35 +689,35 @@ export const extraQuestions: Question[] = [
 
   // Probability & Distributions
   {
-    id: "cfa-qs-q1", examSlug: "cfa", topicId: "quant-stats", topicName: "Probability & Distributions", difficulty: 2,
+    id: "cfa-qs-q1", examSlug: "cfa", topicId: "quant", topicName: "Probability & Distributions", difficulty: 2,
     stem: "Returns are normal with a mean of 10% and a standard deviation of 5%. What is the z-score of a 0% return?",
     choices: ["−2.0", "−1.0", "−0.5"],
     answerIndex: 0,
     explanation: "z = (x − mean) ÷ std dev = (0% − 10%) ÷ 5% = −10 ÷ 5 = −2.0. The 0% return lies two standard deviations below the mean. Choice B (−1.0) would correspond to a 5% return, and choice C (−0.5) to a 7.5% return — both mis-scale the distance.",
   },
   {
-    id: "cfa-qs-q2", examSlug: "cfa", topicId: "quant-stats", topicName: "Probability & Distributions", difficulty: 1,
+    id: "cfa-qs-q2", examSlug: "cfa", topicId: "quant", topicName: "Probability & Distributions", difficulty: 1,
     stem: "Approximately what percentage of observations of a normal distribution fall within two standard deviations of the mean?",
     choices: ["68%", "95%", "99.7%"],
     answerIndex: 1,
     explanation: "The empirical rule: about 68% fall within one standard deviation, 95% within two, and 99.7% within three. So within two standard deviations is roughly 95%. Choice A (68%) is one std dev; choice C (99.7%) is three. Memorizing 68/95/99.7 is a quick Level I win.",
   },
   {
-    id: "cfa-qs-q3", examSlug: "cfa", topicId: "quant-stats", topicName: "Probability & Distributions", difficulty: 2,
+    id: "cfa-qs-q3", examSlug: "cfa", topicId: "quant", topicName: "Probability & Distributions", difficulty: 2,
     stem: "A hypothesis test rejects a null hypothesis that is actually true. This is which type of error?",
     choices: ["Type II error", "Sampling error", "Type I error"],
     answerIndex: 2,
     explanation: "A Type I error rejects a true null hypothesis — a false positive. A Type II error (choice B) is the opposite: failing to reject a false null (a false negative). 'Sampling error' (choice C) is the general noise from using a sample, not a specific test-decision error. The significance level is the probability of a Type I error.",
   },
   {
-    id: "cfa-qs-q4", examSlug: "cfa", topicId: "quant-stats", topicName: "Probability & Distributions", difficulty: 2,
+    id: "cfa-qs-q4", examSlug: "cfa", topicId: "quant", topicName: "Probability & Distributions", difficulty: 2,
     stem: "Which theorem lets analysts treat the distribution of the sample mean as approximately normal for a large sample, regardless of the population's shape?",
     choices: ["The Central Limit Theorem", "Bayes' theorem", "The law of large numbers"],
     answerIndex: 0,
     explanation: "The Central Limit Theorem states that the sampling distribution of the mean approaches normal as sample size grows, whatever the population distribution — the foundation of confidence intervals. Bayes' theorem (A) updates probabilities with new information. The law of large numbers (C) says the sample mean converges to the population mean, but doesn't establish normality of its distribution.",
   },
   {
-    id: "cfa-qs-q5", examSlug: "cfa", topicId: "quant-stats", topicName: "Probability & Distributions", difficulty: 1,
+    id: "cfa-qs-q5", examSlug: "cfa", topicId: "quant", topicName: "Probability & Distributions", difficulty: 1,
     stem: "Why are asset PRICES often modeled with a lognormal rather than a normal distribution?",
     choices: ["Prices can be negative", "Prices cannot fall below zero", "Lognormal is symmetric"],
     answerIndex: 1,
@@ -726,35 +726,35 @@ export const extraQuestions: Question[] = [
 
   // Financial Ratios & Analysis
   {
-    id: "cfa-fr-q1", examSlug: "cfa", topicId: "fra-ratios", topicName: "Financial Ratios & Analysis", difficulty: 2,
+    id: "cfa-fr-q1", examSlug: "cfa", topicId: "fra", topicName: "Financial Ratios & Analysis", difficulty: 2,
     stem: "Using DuPont, a firm has a net profit margin of 4%, asset turnover of 2.5, and financial leverage of 2.0. What is its ROE?",
     choices: ["10%", "16%", "20%"],
     answerIndex: 2,
     explanation: "ROE = net margin × asset turnover × financial leverage = 4% × 2.5 × 2.0 = 20%. The decomposition shows the return is driven by efficient asset use and leverage rather than fat margins. Choice A (10%) ignores leverage; choice B (16%) mis-multiplies. DuPont reveals the SOURCE of ROE.",
   },
   {
-    id: "cfa-fr-q2", examSlug: "cfa", topicId: "fra-ratios", topicName: "Financial Ratios & Analysis", difficulty: 1,
+    id: "cfa-fr-q2", examSlug: "cfa", topicId: "fra", topicName: "Financial Ratios & Analysis", difficulty: 1,
     stem: "Which ratio measures a company's ability to pay short-term obligations EXCLUDING inventory?",
     choices: ["Quick ratio", "Current ratio", "Debt-to-equity ratio"],
     answerIndex: 0,
     explanation: "The quick (acid-test) ratio strips out inventory — the least liquid current asset — to give a stricter liquidity measure. The current ratio (A) includes inventory. Debt-to-equity (C) is a solvency/leverage ratio, not a liquidity ratio. Excluding inventory matters most for firms whose stock is slow to convert to cash.",
   },
   {
-    id: "cfa-fr-q3", examSlug: "cfa", topicId: "fra-ratios", topicName: "Financial Ratios & Analysis", difficulty: 1,
+    id: "cfa-fr-q3", examSlug: "cfa", topicId: "fra", topicName: "Financial Ratios & Analysis", difficulty: 1,
     stem: "Restating every income-statement line as a percentage of revenue produces what?",
     choices: ["A DuPont analysis", "A common-size income statement", "A cash flow statement"],
     answerIndex: 1,
     explanation: "Common-size statements express each line as a percentage of a base — revenue for the income statement, total assets for the balance sheet — so firms of different sizes (and the same firm over time) can be compared on structure. DuPont (B) decomposes ROE specifically. A cash flow statement (C) is a separate primary statement, not a restatement.",
   },
   {
-    id: "cfa-fr-q4", examSlug: "cfa", topicId: "fra-ratios", topicName: "Financial Ratios & Analysis", difficulty: 2,
+    id: "cfa-fr-q4", examSlug: "cfa", topicId: "fra", topicName: "Financial Ratios & Analysis", difficulty: 2,
     stem: "Which ratio best measures a firm's ability to service its debt from operating earnings?",
     choices: ["Inventory turnover", "Gross margin", "Interest coverage ratio"],
     answerIndex: 2,
     explanation: "The interest coverage ratio (EBIT ÷ interest expense) shows how many times operating earnings cover interest payments — a core solvency measure. Inventory turnover (B) is an activity ratio; gross margin (C) is a profitability ratio. A low coverage ratio signals that earnings barely cover the firm's debt service, a credit-risk warning.",
   },
   {
-    id: "cfa-fr-q5", examSlug: "cfa", topicId: "fra-ratios", topicName: "Financial Ratios & Analysis", difficulty: 3,
+    id: "cfa-fr-q5", examSlug: "cfa", topicId: "fra", topicName: "Financial Ratios & Analysis", difficulty: 3,
     stem: "A company reports steady net income but its accruals are rising sharply relative to operating cash flow. This is a warning about:",
     choices: ["Earnings quality", "Liquidity", "Asset turnover"],
     answerIndex: 0,
@@ -763,35 +763,35 @@ export const extraQuestions: Question[] = [
 
   // Equity Markets & Efficiency
   {
-    id: "cfa-em-q1", examSlug: "cfa", topicId: "equity-markets", topicName: "Equity Markets & Efficiency", difficulty: 1,
+    id: "cfa-em-q1", examSlug: "cfa", topicId: "equity", topicName: "Equity Markets & Efficiency", difficulty: 1,
     stem: "Where do companies raise new capital by selling securities for the first time?",
     choices: ["The secondary market", "The primary market", "The derivatives market"],
     answerIndex: 1,
     explanation: "The primary market is where issuers sell NEW securities to investors (e.g., an IPO), raising capital for the company. The secondary market (A) is where those securities then trade among investors — the company receives no new money there. The derivatives market (C) trades contracts on underlying assets, not the issuance of new shares.",
   },
   {
-    id: "cfa-em-q2", examSlug: "cfa", topicId: "equity-markets", topicName: "Equity Markets & Efficiency", difficulty: 2,
+    id: "cfa-em-q2", examSlug: "cfa", topicId: "equity", topicName: "Equity Markets & Efficiency", difficulty: 2,
     stem: "A price-weighted stock index is most distorted by which corporate action?",
     choices: ["A cash dividend", "A share buyback", "A stock split"],
     answerIndex: 2,
     explanation: "A price-weighted index weights each stock by its share PRICE, so a stock split — which lowers a stock's price without changing company value — reduces that stock's weight and forces a divisor adjustment, distorting the index. Cash dividends (B) and buybacks (C) don't mechanically reweight a price-weighted index the way a split does. The Dow is the classic price-weighted example.",
   },
   {
-    id: "cfa-em-q3", examSlug: "cfa", topicId: "equity-markets", topicName: "Equity Markets & Efficiency", difficulty: 2,
+    id: "cfa-em-q3", examSlug: "cfa", topicId: "equity", topicName: "Equity Markets & Efficiency", difficulty: 2,
     stem: "If a market is weak-form efficient, which strategy should NOT consistently produce excess returns?",
     choices: ["Technical analysis of past prices", "Fundamental analysis", "Trading on private information"],
     answerIndex: 0,
     explanation: "Weak-form efficiency means prices already reflect all past price and volume data, so technical analysis of that history can't reliably beat the market. Fundamental analysis (B) could still work under weak form (it's challenged only under semi-strong). Trading on private information (C) is addressed by strong form. Each efficiency form rules out a wider information set.",
   },
   {
-    id: "cfa-em-q4", examSlug: "cfa", topicId: "equity-markets", topicName: "Equity Markets & Efficiency", difficulty: 1,
+    id: "cfa-em-q4", examSlug: "cfa", topicId: "equity", topicName: "Equity Markets & Efficiency", difficulty: 1,
     stem: "An order to buy a stock only if its price falls to $50 or below is a:",
     choices: ["Market order", "Limit order", "Stop-loss order"],
     answerIndex: 1,
     explanation: "A limit order sets a price cap — buy at or below a stated price (or sell at or above) — guaranteeing price but not execution. A market order (A) executes immediately at the best available price, guaranteeing execution but not price. A stop-loss order (C) becomes active only after a trigger price is breached, typically to limit losses on a position.",
   },
   {
-    id: "cfa-em-q5", examSlug: "cfa", topicId: "equity-markets", topicName: "Equity Markets & Efficiency", difficulty: 3,
+    id: "cfa-em-q5", examSlug: "cfa", topicId: "equity", topicName: "Equity Markets & Efficiency", difficulty: 3,
     stem: "The existence of documented market anomalies and investor biases is the central argument of which field?",
     choices: ["Modern portfolio theory", "Technical analysis", "Behavioral finance"],
     answerIndex: 2,

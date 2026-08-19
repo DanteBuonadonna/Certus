@@ -14,11 +14,18 @@ export const s7Wave3Chapters: Chapter[] = [
     topicId: "regulations",
     topicName: "Regulations & Trading Practices",
     title: "Regulations & Prohibited Trading Practices",
-    readingMinutes: 4,
+    readingMinutes: 5,
     summary: "The regulatory framework, settlement, communications rules, and the practices that get reps barred.",
     intro:
       "A registered representative operates inside a dense regulatory framework designed to protect investors and keep markets fair. The Series 7 tests who regulates what, the rules governing communications and settlement, and — most importantly — the prohibited practices that lead to fines, suspension, or being barred from the industry. Knowing what you may not do is as important as knowing what you may.",
     sections: [
+      {
+        heading: "Wash trades and the Do-Not-Call regime",
+        blocks: [
+          { kind: "p", text: "A WASH TRADE is buying and selling the same security so that no change in beneficial ownership occurs. The activity is entirely fictitious, manufactured to suggest volume or to generate a tax loss, and it is prohibited as a manipulation. Note the separate TAX concept with a similar name: the wash SALE rule disallows a loss if a substantially identical security is repurchased within 30 days before or after the sale — a 61-day window — which is a tax consequence rather than a securities violation." },
+          { kind: "p", text: "On the prospecting side, every firm must maintain a DO NOT CALL list, add anyone who requests removal promptly, and screen against the National Do-Not-Call Registry. The request survives indefinitely and applies regardless of any prior relationship. Calls may only be placed between 8:00 a.m. and 9:00 p.m. in the CALLED PARTY'S time zone." },
+        ],
+      },
       {
         heading: "Manipulation: creating a false picture of the market",
         blocks: [
@@ -166,11 +173,18 @@ export const s7Wave3Chapters: Chapter[] = [
     topicId: "options-adv",
     topicName: "Options Strategies",
     title: "Options Strategies: Hedging, Spreads, and Straddles",
-    readingMinutes: 12,
+    readingMinutes: 13,
     summary: "Beyond single options — protective puts and covered calls, debit and credit spreads, and straddles, with the max-gain/loss/breakeven logic the exam drills.",
     intro:
       "The Series 7 leans hard on multi-leg option strategies. The key is to recognize the strategy from the position, match it to a market outlook, and compute max gain, max loss, and breakeven. This chapter organizes the core strategies so the vignette patterns become automatic.",
     sections: [
+      {
+        heading: "Assignment, limits, and the clearing guarantee",
+        blocks: [
+          { kind: "p", text: "When an option holder exercises, the OPTIONS CLEARING CORPORATION assigns the obligation to a member firm, which then allocates it to a customer either at random or first-in-first-out under procedures it must disclose. ASSIGNMENT is therefore something a writer cannot predict or refuse — a covered writer simply delivers the shares they hold, while a naked writer must buy in the market at whatever the price has become. Because the OCC issues and guarantees every listed contract, no holder needs to worry about the specific person on the other side performing." },
+          { kind: "p", text: "POSITION LIMITS cap how many contracts one investor, or a group acting in concert, may hold on the SAME SIDE of the market in a single underlying. Calls bought and puts written are one side (bullish); puts bought and calls written are the other. EXERCISE LIMITS cap how many may be exercised over a rolling five business days. Both exist to stop a single party cornering an underlying through the options market." },
+        ],
+      },
       {
         heading: "Hedging: the two positions built on stock you own",
         blocks: [
@@ -443,6 +457,105 @@ export const s7Wave3Chapters: Chapter[] = [
       "An inverted yield curve often precedes recession; the efficient market hypothesis underpins passive investing.",
     ],
   },
+  {
+    id: "s7-process-deep",
+    examSlug: "series-7",
+    topicId: "f4-process",
+    topicName: "Processing Transactions",
+    title: "Settlement, Clearing, and Good Delivery",
+    readingMinutes: 4,
+    summary: "What happens after execution: regular-way settlement, the clearing and depository systems, account transfers, confirmations, and what makes a delivery good.",
+    intro:
+      "Function 4 of the Series 7 outline covers everything between execution and the money actually moving. It is the least glamorous material on the exam and among the most heavily procedural, which makes it reliable points for anyone who learns the names and the deadlines.",
+    sections: [
+      {
+        heading: "Regular way and the settlement cycle",
+        blocks: [
+          { kind: "p", text: "REGULAR WAY settlement is the default cycle: T+1, one business day after the trade date, for corporate stock, corporate bonds, municipal securities, U.S. government securities and listed options. This standard took effect on 28 May 2024, replacing T+2, and older prep material still carries the wrong figure. CASH settlement occurs the same day by specific agreement, and a WHEN ISSUED trade settles once the security actually exists — common for new municipal issues and Treasury auctions." },
+          { kind: "p", text: "Do not conflate settlement with the REGULATION T payment deadline. Settlement is when securities and money change hands between firms; Reg T is when the CUSTOMER must pay their own firm, two business days after settlement. Failing that deadline triggers a sell-out of the position and a 90-day freeze, during which the customer must have cash in the account before any order is entered." },
+          { kind: "table", table: { caption: "Settlement conventions.", headers: ["Type", "When", "Typical use"], rows: [["Regular way", "T+1", "The default for nearly everything"], ["Cash", "Same day", "By agreement, when funds are needed immediately"], ["When issued", "On issuance", "New municipal issues, Treasury auctions"], ["Seller's option", "As specified", "Seller chooses a later date, by agreement"]] } },
+        ],
+      },
+      {
+        heading: "The plumbing, by name",
+        blocks: [
+          { kind: "p", text: "Clearing and settlement run through DTCC and its two subsidiaries, and the exam expects the names. The NATIONAL SECURITIES CLEARING CORPORATION (NSCC) nets each day's obligations so firms settle net differences rather than every gross transaction, dramatically reducing what must move. The DEPOSITORY TRUST COMPANY (DTC) immobilises securities in book-entry form, so ownership changes are ledger entries and no certificate travels anywhere." },
+          { kind: "p", text: "Moving an entire customer account between firms uses the AUTOMATED CUSTOMER ACCOUNT TRANSFER SERVICE (ACATS), which runs on a standard timetable rather than leaving each firm to negotiate. The TRANSFER AGENT maintains the issuer's record of who owns what, issues and cancels certificates, and handles lost or stolen ones; the REGISTRAR audits the transfer agent to ensure the company never over-issues. Those two roles are deliberately separated so no single party both creates records and verifies them." },
+          { kind: "callout", label: "Good delivery", body: "A delivery is GOOD when the securities are in transferable form: correct denomination or units that combine into round lots, properly endorsed with a signature matching the registration, and accompanied by any required documents. Mutilated certificates, missing endorsements, or a signature mismatch make delivery bad and the trade fails to settle." },
+        ],
+      },
+      {
+        heading: "Confirmations and the customer record",
+        blocks: [
+          { kind: "p", text: "A CONFIRMATION must reach the customer at or before completion of the transaction. It states the security, quantity, price, trade and settlement dates, and — critically — the firm's CAPACITY. Acting as AGENT it charges a disclosed commission; acting as PRINCIPAL it earns a markup embedded in the price. Those are different economics and different conflicts, which is why the disclosure is mandatory rather than courteous." },
+          { kind: "bullets", items: ["Account statements go out at least quarterly, and monthly in any month with activity.", "Customer securities held by the firm must be SEGREGATED and identifiable, never commingled with firm assets.", "Street name registration puts the position in the firm's name for transfer and margin purposes; the customer remains the BENEFICIAL owner.", "Holding customer mail is permitted only for limited periods, with written instruction and a stated reason.", "Duplicate confirmations may go to a third party on written instruction, but the ORIGINALS must still go to the customer."] },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Regular way", def: "The default settlement cycle — T+1 since May 2024." },
+      { term: "NSCC", def: "Nets each day's obligations so firms settle differences rather than gross amounts." },
+      { term: "DTC", def: "Holds securities in book-entry form so ownership transfers without certificates moving." },
+      { term: "ACATS", def: "The standard system for transferring a whole customer account between firms." },
+      { term: "Good delivery", def: "Securities in properly transferable form, correctly endorsed and documented." },
+    ],
+    takeaways: [
+      "Regular way is T+1; Reg T payment is two business days AFTER settlement — different deadlines.",
+      "NSCC nets, DTC holds, ACATS transfers accounts, the transfer agent keeps the issuer's ownership record.",
+      "Confirmations must disclose whether the firm acted as agent or principal.",
+      "Customer securities are segregated; commingling with firm assets is a serious violation.",
+    ],
+  },
+  {
+    id: "s7-prospect-retire-deep",
+    examSlug: "series-7",
+    topicId: "f1-business",
+    topicName: "Seeking Business",
+    title: "Prospecting Rules and Retirement Accounts",
+    readingMinutes: 4,
+    summary: "Cold calling and Do-Not-Call rules, seminars and public appearances, plus the retirement account types a registered representative must be able to distinguish.",
+    intro:
+      "Function 1 covers how a representative may legitimately seek business, and the rules here are mostly about not intruding on people who have said no. The retirement account material sits alongside it because most prospecting conversations end up there.",
+    sections: [
+      {
+        heading: "Cold calling and Do-Not-Call",
+        blocks: [
+          { kind: "p", text: "COLD CALLING is permitted but tightly bounded. Calls may only be placed between 8:00 a.m. and 9:00 p.m. in the CALLED PARTY'S local time — the recipient's clock, not the caller's. The caller must state their name, the firm's name, and a telephone number or address at which the firm can be contacted. Every firm must maintain its own DO-NOT-CALL list, honour requests promptly, and check against the National Do-Not-Call Registry." },
+          { kind: "p", text: "Certain calls fall outside the restrictions: those to an EXISTING CUSTOMER, those where the person gave prior written consent, and those to someone with an established business relationship. Note that a person who asks to be removed must be added to the firm's list regardless of any relationship, and the request survives indefinitely." },
+          { kind: "callout", label: "The time rule catches people out", body: "8:00 a.m. to 9:00 p.m. is measured where the CALLED PARTY is. A representative in New York calling California at 8:30 a.m. Eastern is dialling at 5:30 a.m. Pacific — a violation. The recipient's time zone governs." },
+        ],
+      },
+      {
+        heading: "Seminars, public appearances and communications",
+        blocks: [
+          { kind: "p", text: "A SEMINAR or other public appearance is treated as a communication with the public. Scripts, slides and handouts are retail communications subject to principal approval and the usual content standards: fair, balanced, not misleading, no performance predictions, and no claim that the SEC has approved any security. Extemporaneous remarks are not pre-approved but the representative remains fully responsible for their content." },
+          { kind: "p", text: "The classification rules follow the same headcount as elsewhere. CORRESPONDENCE reaches 25 or fewer retail investors within 30 calendar days and is reviewed under firm procedures. A RETAIL COMMUNICATION reaches more than 25 and requires principal approval BEFORE first use. INSTITUTIONAL COMMUNICATIONS go only to institutional investors and need review procedures but no pre-approval. A TOMBSTONE advertisement is limited to identifying facts and may run during the cooling-off period." },
+        ],
+      },
+      {
+        heading: "Retirement accounts",
+        blocks: [
+          { kind: "p", text: "The distinction that organises this material is WHEN tax is paid. A TRADITIONAL IRA may allow a deductible contribution now, grows tax-deferred, and is taxed as ordinary income on withdrawal. A ROTH IRA is funded with after-tax dollars and produces entirely tax-free qualified withdrawals — and uniquely, it has NO required minimum distributions during the original owner's lifetime." },
+          { kind: "p", text: "Employer plans follow the same logic at larger scale. A 401(k) is a corporate salary-deferral plan, often with an employer match that should be captured before any other contribution because it is an immediate guaranteed return. A 403(b), also called a tax-sheltered annuity, serves schools and certain non-profits. A SEP IRA is funded by EMPLOYER contributions and suits small businesses for its low administrative cost. ERISA sets fiduciary, vesting and reporting standards for PRIVATE-sector plans — government and most church plans are exempt." },
+          { kind: "bullets", items: ["Withdrawals before 59½ generally add a 10% penalty on top of ordinary income tax.", "REQUIRED MINIMUM DISTRIBUTIONS begin at 73 under current law, rising to 75 for those born in 1960 or later.", "A ROLLOVER passes through the account holder's hands and must be redeposited within 60 DAYS; only one is permitted per twelve-month period.", "A direct TRANSFER moves assets custodian to custodian with no 60-day clock and no annual limit — the safer recommendation.", "An IRA may not hold COLLECTIBLES (art, antiques, most precious metals) or life insurance."] },
+        ],
+      },
+    ],
+    keyTerms: [
+      { term: "Do-Not-Call", def: "Firms keep their own list, honour removal requests, and check the national registry." },
+      { term: "Cold calling hours", def: "8:00 a.m. to 9:00 p.m. in the CALLED PARTY'S time zone." },
+      { term: "Roth IRA", def: "After-tax contributions, tax-free qualified withdrawals, no lifetime RMD." },
+      { term: "Rollover", def: "Distribution passing through the holder's hands; 60-day deadline, one per 12 months." },
+      { term: "ERISA", def: "Fiduciary and vesting standards for private-sector employer plans; government plans exempt." },
+    ],
+    takeaways: [
+      "Cold call hours use the RECIPIENT'S time zone, 8am to 9pm.",
+      "More than 25 retail investors in 30 days makes it a retail communication needing pre-approval.",
+      "Roth: after-tax in, tax-free out, no lifetime RMD. Traditional: deduct now, taxed later.",
+      "Rollover = 60 days and one per year; direct transfer has neither limit.",
+    ],
+  },
+
 ];
 
 export const s7Wave3Questions: Question[] = [

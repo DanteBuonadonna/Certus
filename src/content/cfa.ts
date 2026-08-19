@@ -637,42 +637,42 @@ const questions: Question[] = [
   // FIXED INCOME
   // ============================================================
   {
-    id: "cfa-fi-q1", examSlug: "cfa", topicId: "fixed-income", topicName: "Fixed Income", difficulty: 3,
+    id: "cfa-fi-q1", examSlug: "cfa", topicId: "fixed", topicName: "Fixed Income", difficulty: 3,
     stem: "A bond with a modified duration of 7.2 is held when yields rise by 50 basis points. Ignoring convexity, the bond's price will most likely change by approximately:",
     choices: ["Negative 7.2%, the duration figure applied directly as a percentage", "Positive 3.6%, since rising yields increase the bond's coupon value", "Negative 3.6%, the product of duration and the yield change"],
     answerIndex: 2,
     explanation: "The approximate percentage price change equals negative modified duration multiplied by the yield change: −7.2 × 0.50% = −3.6%. Applying the duration figure directly assumes a full percentage point move rather than the 50 basis points given. Prices move inversely to yields, so a rate increase cannot raise the price — the coupon is fixed and does not respond to market yields.",
   },
   {
-    id: "cfa-fi-q2", examSlug: "cfa", topicId: "fixed-income", topicName: "Fixed Income", difficulty: 3,
+    id: "cfa-fi-q2", examSlug: "cfa", topicId: "fixed", topicName: "Fixed Income", difficulty: 3,
     stem: "Positive convexity implies that for a given change in yield, a bond's:",
     choices: ["Price rises more when yields fall than it falls when yields rise", "Price change is symmetric whether yields rise or fall equally", "Duration remains constant across the entire range of possible yields"],
     answerIndex: 0,
     explanation: "Positive convexity means the price-yield curve bends away from the origin, so gains from falling yields exceed losses from an equal rise — a favorable asymmetry investors will pay for. Symmetric response would describe a straight line, which is precisely what duration alone assumes and convexity corrects. Duration itself changes as yields move, which is why the convexity adjustment exists.",
   },
   {
-    id: "cfa-fi-q3", examSlug: "cfa", topicId: "fixed-income", topicName: "Fixed Income", difficulty: 3,
+    id: "cfa-fi-q3", examSlug: "cfa", topicId: "fixed", topicName: "Fixed Income", difficulty: 3,
     stem: "A callable bond's price appreciation is limited as interest rates fall because:",
     choices: ["The bond's coupon payments decline automatically with market rates", "The issuer will likely redeem the bond, capping its upside potential", "Investors demand a lower yield premium as the call date approaches"],
     answerIndex: 1,
     explanation: "Falling rates make refinancing attractive, so the issuer is increasingly likely to call the bond near the call price, which truncates price appreciation and produces negative convexity in that region. The coupon on a fixed-rate callable bond does not adjust with market rates. Investors demand a higher yield to accept call risk, not a lower one, precisely because the option belongs to the issuer.",
   },
   {
-    id: "cfa-fi-q4", examSlug: "cfa", topicId: "fixed-income", topicName: "Fixed Income", difficulty: 3,
+    id: "cfa-fi-q4", examSlug: "cfa", topicId: "fixed", topicName: "Fixed Income", difficulty: 3,
     stem: "A bond trades at a premium to par. The relationship among its yield measures is best described as:",
     choices: ["Current yield exceeds nominal yield, which exceeds yield to maturity", "Yield to maturity exceeds current yield, which exceeds nominal yield", "Nominal yield exceeds current yield, which exceeds yield to maturity"],
     answerIndex: 2,
     explanation: "For a premium bond the ordering runs nominal, then current, then yield to maturity in descending sequence, because the investor paid above par and will absorb that premium as a loss by maturity, dragging total return below the coupon rate. The ascending ordering applies to a discount bond, where the pull toward par adds to return. Reversing current and nominal misstates the effect of dividing a fixed coupon by a price above par.",
   },
   {
-    id: "cfa-fi-q5", examSlug: "cfa", topicId: "fixed-income", topicName: "Fixed Income", difficulty: 3,
+    id: "cfa-fi-q5", examSlug: "cfa", topicId: "fixed", topicName: "Fixed Income", difficulty: 3,
     stem: "An investor holding a zero-coupon bond to maturity faces the least exposure to which risk?",
     choices: ["Reinvestment risk arising from the redeployment of interim cash flows", "Interest rate risk affecting the bond's market price before maturity", "Inflation risk eroding the purchasing power of the maturity payment"],
     answerIndex: 0,
     explanation: "A zero-coupon bond makes no interim payments, so there is nothing to reinvest and reinvestment risk is eliminated for an investor holding to maturity. Interest rate risk remains and is in fact greatest for zeros, whose duration equals their full maturity. Inflation risk is likewise severe, since a single distant nominal payment is maximally exposed to erosion in purchasing power.",
   },
   {
-    id: "cfa-fi-q6", examSlug: "cfa", topicId: "fixed-income", topicName: "Fixed Income", difficulty: 3,
+    id: "cfa-fi-q6", examSlug: "cfa", topicId: "fixed", topicName: "Fixed Income", difficulty: 3,
     stem: "The one-year spot rate is 3% and the two-year spot rate is 4%. The implied one-year forward rate one year from now is closest to:",
     choices: ["3.50%, the arithmetic average of the two observed spot rates", "5.01%, the rate reconciling the one-year and two-year spot rates", "4.00%, equal to the prevailing two-year spot rate observed today"],
     answerIndex: 1,
@@ -683,21 +683,21 @@ const questions: Question[] = [
   // DERIVATIVES
   // ============================================================
   {
-    id: "cfa-deriv-q1", examSlug: "cfa", topicId: "derivatives", topicName: "Derivatives", difficulty: 3,
+    id: "cfa-deriv-q1", examSlug: "cfa", topicId: "deriv", topicName: "Derivatives", difficulty: 3,
     stem: "Put-call parity for European options on a non-dividend-paying stock is expressed as:",
     choices: ["Call plus underlying price equals put plus present value of exercise price", "Call minus put equals the present value of the exercise price less underlying", "Call plus present value of exercise price equals put plus underlying price"],
     answerIndex: 2,
     explanation: "Put-call parity states that a fiduciary call, consisting of a long call plus a risk-free bond maturing at the exercise price, has the same payoff as a protective put, consisting of a long put plus the underlying asset. Pairing the call with the underlying instead double-counts upside exposure. The final formulation reverses the sign relationship and would permit riskless arbitrage if it held.",
   },
   {
-    id: "cfa-deriv-q2", examSlug: "cfa", topicId: "derivatives", topicName: "Derivatives", difficulty: 3,
+    id: "cfa-deriv-q2", examSlug: "cfa", topicId: "deriv", topicName: "Derivatives", difficulty: 3,
     stem: "An increase in the volatility of the underlying asset will most likely:",
     choices: ["Increase the value of both call options and put options simultaneously", "Increase the value of call options and decrease the value of puts", "Decrease the value of both call options and put options simultaneously"],
     answerIndex: 0,
     explanation: "Greater volatility widens the distribution of possible outcomes while the holder's loss stays capped at the premium, so the expanded upside raises the value of both calls and puts. That asymmetry between unlimited favorable outcomes and a fixed maximum loss is why volatility benefits option buyers on either side. Options are wasting assets with respect to time, but with respect to volatility their value moves in the same direction for both types.",
   },
   {
-    id: "cfa-deriv-q3", examSlug: "cfa", topicId: "derivatives", topicName: "Derivatives", difficulty: 3,
+    id: "cfa-deriv-q3", examSlug: "cfa", topicId: "deriv", topicName: "Derivatives", difficulty: 3,
     stem: "The primary economic difference between a forward contract and a futures contract is that futures:",
     choices: ["Carry no counterparty credit risk because settlement is deferred", "Are marked to market daily and traded on organized exchanges", "Cannot be customized but eliminate the need for margin deposits"],
     answerIndex: 1,
@@ -708,14 +708,14 @@ const questions: Question[] = [
   // ALTERNATIVE INVESTMENTS
   // ============================================================
   {
-    id: "cfa-alt-q1", examSlug: "cfa", topicId: "alternatives", topicName: "Alternative Investments", difficulty: 3,
+    id: "cfa-alt-q1", examSlug: "cfa", topicId: "alts", topicName: "Alternative Investments", difficulty: 3,
     stem: "A hedge fund charges a 2% management fee and 20% incentive fee with a high-water mark. The high-water mark provision ensures that the manager:",
     choices: ["Receives a guaranteed minimum fee regardless of the fund's performance", "Charges incentive fees on gross returns before management fees apply", "Earns incentive fees only on gains exceeding the prior peak value"],
     answerIndex: 2,
     explanation: "A high-water mark records the highest value the fund has previously reached, so after a loss the manager collects incentive fees only once investors have been made whole and that peak is surpassed. It prevents charging performance fees twice on the same recovered gains. It does not guarantee any minimum payment, and it governs when incentive fees apply rather than the base on which they are computed.",
   },
   {
-    id: "cfa-alt-q2", examSlug: "cfa", topicId: "alternatives", topicName: "Alternative Investments", difficulty: 3,
+    id: "cfa-alt-q2", examSlug: "cfa", topicId: "alts", topicName: "Alternative Investments", difficulty: 3,
     stem: "The J-curve effect observed in private equity investing describes the tendency for returns to be:",
     choices: ["Negative in early years before turning positive as investments mature", "Positive in early years before declining as the fund approaches its term", "Consistently flat until a single large distribution occurs at liquidation"],
     answerIndex: 0,
@@ -726,28 +726,28 @@ const questions: Question[] = [
   // PORTFOLIO MANAGEMENT
   // ============================================================
   {
-    id: "cfa-pm-q1", examSlug: "cfa", topicId: "portfolio", topicName: "Portfolio Management", difficulty: 3,
+    id: "cfa-pm-q1", examSlug: "cfa", topicId: "pm", topicName: "Portfolio Management", difficulty: 3,
     stem: "A stock has a beta of 1.4 when the risk-free rate is 3% and the expected market return is 9%. Its required return under the CAPM is closest to:",
     choices: ["12.6%, multiplying the expected market return directly by the stock's beta", "11.4%, adding the beta-adjusted market risk premium to the risk-free rate", "8.4%, applying the beta to the market return without the risk-free component"],
     answerIndex: 1,
     explanation: "The CAPM computes required return as the risk-free rate plus beta times the market risk premium: 3% + 1.4 × (9% − 3%) = 3% + 8.4% = 11.4%. Multiplying the total market return by beta omits the risk-free anchor and overstates the requirement. Applying beta to the excess return alone produces the risk premium of 8.4% but forgets to add back the risk-free rate.",
   },
   {
-    id: "cfa-pm-q2", examSlug: "cfa", topicId: "portfolio", topicName: "Portfolio Management", difficulty: 3,
+    id: "cfa-pm-q2", examSlug: "cfa", topicId: "pm", topicName: "Portfolio Management", difficulty: 3,
     stem: "Adding a security with a correlation of negative 0.3 to an existing portfolio will most likely:",
     choices: ["Reduce portfolio standard deviation to zero through complete diversification", "Increase portfolio standard deviation because negative correlation adds volatility", "Reduce portfolio standard deviation more than a correlation of positive 0.3"],
     answerIndex: 2,
     explanation: "Diversification benefit increases as correlation falls, so a negatively correlated asset offsets more of the existing portfolio's fluctuations than a positively correlated one with the same volatility. Risk reaches zero only at perfect negative correlation of exactly negative one, which essentially never occurs among real assets. Negative correlation reduces rather than adds portfolio volatility, which is the entire reason such assets are sought.",
   },
   {
-    id: "cfa-pm-q3", examSlug: "cfa", topicId: "portfolio", topicName: "Portfolio Management", difficulty: 3,
+    id: "cfa-pm-q3", examSlug: "cfa", topicId: "pm", topicName: "Portfolio Management", difficulty: 3,
     stem: "Two portfolios have identical returns, but Portfolio X has a standard deviation of 14% and Portfolio Y has 9%. With a positive risk-free rate, Portfolio Y will have:",
     choices: ["A higher Sharpe ratio, since excess return is divided by total risk", "A lower Sharpe ratio, since lower volatility indicates weaker performance", "An identical Sharpe ratio, since the two portfolios returned the same amount"],
     answerIndex: 0,
     explanation: "The Sharpe ratio divides excess return over the risk-free rate by standard deviation, so with returns equal the portfolio carrying less total risk achieves the higher ratio. Lower volatility is rewarded rather than penalized by this measure. Identical returns alone do not produce identical ratios, since the denominator differs — that denominator is the entire point of a risk-adjusted measure.",
   },
   {
-    id: "cfa-pm-q4", examSlug: "cfa", topicId: "portfolio", topicName: "Portfolio Management", difficulty: 3,
+    id: "cfa-pm-q4", examSlug: "cfa", topicId: "pm", topicName: "Portfolio Management", difficulty: 3,
     stem: "In an investment policy statement, an investor's need to fund a home purchase in eighteen months is best classified as:",
     choices: ["A return objective driving the required rate of portfolio growth", "A liquidity constraint affecting the portfolio's asset allocation", "A risk tolerance measure determining acceptable portfolio volatility"],
     answerIndex: 1,
