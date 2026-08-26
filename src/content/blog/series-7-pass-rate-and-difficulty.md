@@ -23,7 +23,7 @@ One important caveat: that 71% only counts people who already cleared the SIE. T
 
 Straight from FINRA's current specs:
 
-- **125 scored multiple-choice questions** (plus 10 unscored pretest questions mixed in — you won't know which are which)
+- **125 scored multiple-choice questions** (plus 5 unscored pretest questions mixed in — you won't know which are which)
 - **3 hours and 45 minutes** — about 1 minute 40 seconds per question
 - **Passing score: 72**, meaning you need 90 of the 125 scored questions correct
 - **Cost: $395** per attempt
