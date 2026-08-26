@@ -8,6 +8,8 @@
 
 import { Chapter, Question, ExamContent } from "./types";
 import { s66DeepChapters, s66DeepQuestions } from "./series66-deep";
+import { s66Wave2Chapters, s66Wave2Questions } from "./series66-wave2";
+import { series66Questions } from "./series66-q";
 
 const chapters: Chapter[] = [
   // 1. REGULATION OF INVESTMENT ADVISERS
@@ -1216,6 +1218,6 @@ const questions: Question[] = [
 
 export const series66Content: ExamContent = {
   examSlug: "series-66",
-  chapters: [...s66DeepChapters, ...chapters],
-  questions: [...s66DeepQuestions, ...questions],
+  chapters: [...s66DeepChapters, ...chapters, ...s66Wave2Chapters],
+  questions: [...s66DeepQuestions, ...questions, ...s66Wave2Questions, ...series66Questions],
 };

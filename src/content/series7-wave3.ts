@@ -14,7 +14,7 @@ export const s7Wave3Chapters: Chapter[] = [
     topicId: "regulations",
     topicName: "Regulations & Trading Practices",
     title: "Regulations & Prohibited Trading Practices",
-    readingMinutes: 5,
+    readingMinutes: 15,
     summary: "The regulatory framework, settlement, communications rules, and the practices that get reps barred.",
     intro:
       "A registered representative operates inside a dense regulatory framework designed to protect investors and keep markets fair. The Series 7 tests who regulates what, the rules governing communications and settlement, and — most importantly — the prohibited practices that lead to fines, suspension, or being barred from the industry. Knowing what you may not do is as important as knowing what you may.",
@@ -39,6 +39,70 @@ export const s7Wave3Chapters: Chapter[] = [
           { kind: "p", text: "A second family of violations puts the representative's compensation ahead of the client. CHURNING is excessive trading to generate commissions, judged against the customer's objectives and resources rather than any fixed trade count. FRONT-RUNNING is trading ahead of a known customer block order to profit from its expected price impact. BREAKPOINT SELLING is deliberately placing a mutual fund investment just below a breakpoint so the sales charge — and the representative's compensation — stays high." },
           { kind: "p", text: "Others concern authority and disclosure. UNAUTHORIZED TRADING is entering an order without the customer's consent, and discretion requires WRITTEN authorization before it may be exercised. SELLING AWAY is conducting securities business outside the firm without its knowledge and approval. COMMINGLING mixes customer securities with firm assets. GUARANTEEING a customer against loss, or sharing in an account except under narrowly permitted written arrangements proportional to capital contributed, is prohibited outright." },
           { kind: "callout", label: "Insider trading and the penalty", body: "Trading on material nonpublic information is prohibited, and liability reaches anyone who receives and trades on a tip, not just the original source. Under the Insider Trading and Securities Fraud Enforcement Act of 1988, civil penalties reach THREE TIMES the profit gained or loss avoided, and apply to controlling persons — the firm — as well as the individual. Criminal penalties are separate and additional." },
+        ],
+      },
+      {
+        heading: "Communications with the public: three categories",
+        blocks: [
+          { kind: "p", text: "FINRA sorts everything a firm sends outward into three buckets, and the bucket determines the approval and filing burden. What decides the bucket is the AUDIENCE and the HEADCOUNT, not the medium — an email, a website, a podcast and a printed brochure are all classified the same way once you know who receives it and how many of them there are." },
+          { kind: "table", table: { caption: "Categories of communication.", headers: ["Category", "Who receives it", "Approval"], rows: [["Correspondence", "25 or fewer retail investors in any 30 calendar days", "Supervised and reviewed; no prior principal approval required"], ["Retail communication", "More than 25 retail investors in any 30 calendar days", "Principal approval BEFORE first use"], ["Institutional communication", "Institutional investors only", "Supervised; no prior principal approval"]] } },
+          { kind: "p", text: "The 25-in-30-days line is the one the exam tests. A letter to 25 clients is CORRESPONDENCE; the same letter to 26 is a RETAIL COMMUNICATION and needs a principal's signature before it goes out. An institutional communication loses its status the moment the firm knows it will be forwarded to retail investors — the protection follows the ultimate reader, not the original addressee." },
+          { kind: "p", text: "Certain retail communications must also be FILED with FINRA's Advertising Regulation Department: generally within 10 business days of first use, but 10 business days BEFORE first use for a new member firm during its first year, and for retail communications concerning registered investment companies that include self-created performance rankings. Correspondence and institutional communications are not filed." },
+          { kind: "callout", label: "GENERIC advertising", body: "A generic advertisement under Securities Act Rule 135a promotes the FIRM or a class of investments — \"we offer mutual funds\" — without naming a specific security. Because it makes no offer, it may be used without a prospectus. Name a fund or state its performance and it is no longer generic." },
+        ],
+      },
+      {
+        heading: "What a communication may and may not say",
+        blocks: [
+          { kind: "p", text: "The governing standard is that communications be fair, balanced and not misleading. Predictions and projections of performance are prohibited, as are exaggerated or unwarranted claims. Past performance must be accompanied by disclosure that it does not guarantee future results, and a claim that FINRA or the SEC has approved the firm or a security is never permitted — regulators register, they do not endorse." },
+          { kind: "p", text: "TESTIMONIALS are permitted for broker-dealers, but if the testimonial concerns a technical matter the speaker must have the knowledge to form the opinion; if compensation exceeding a nominal amount was paid, that fact must be disclosed; and the communication must disclose that the experience described may not be typical. A testimonial about PAST PERFORMANCE does not relieve the firm of the disclosure that past performance is no guarantee." },
+          { kind: "p", text: "Sales literature accompanying a mutual fund must be preceded or accompanied by a prospectus. A public appearance — a seminar, a radio interview, a webinar — is not itself filed, but scripts and slides prepared for it are retail communications, and any recommendation made in a public appearance must have a reasonable basis and disclose conflicts." },
+        ],
+      },
+      {
+        heading: "Investor protection infrastructure",
+        blocks: [
+          { kind: "p", text: "Several separate systems stand behind a customer account, and the exam expects you to know which one addresses which failure. SIPC protects customers against the FAILURE OF THE BROKER-DEALER, covering up to $500,000 per customer, of which no more than $250,000 may be cash. It does not insure against market losses, bad recommendations, or the default of an issuer — nothing does. Commodity futures positions fall outside SIPC coverage, and protection runs per separate CAPACITY rather than per account, so an individual account and a joint account are covered separately." },
+          { kind: "p", text: "Anti-money-laundering obligations come from the BANK SECRECY ACT as expanded by the USA PATRIOT ACT. A currency transaction report is filed for cash transactions above $10,000 in a day, and deliberately breaking a deposit into smaller pieces to stay beneath that line — structuring — is itself a federal crime. A suspicious activity report is filed within 30 days of detection, and the customer may NEVER be told that one was filed. Firms must also screen customers against the OFAC list of specially designated nationals; a match means the account is not opened and the matter is escalated immediately." },
+          { kind: "p", text: "Registration runs through Form U4 to register an individual and Form U5 to terminate, filed within 30 days with a copy to the individual. A registration that lapses for more than two years requires requalification by examination, although the MAINTAINING QUALIFICATIONS PROGRAM lets a person preserve credentials for a longer period by electing it and completing annual continuing education. Continuing education itself has two halves: the regulatory element, now annual, and the firm element, designed by the member around its own business." },
+        ],
+      },
+      {
+        heading: "Reporting systems, benchmarks and insurance",
+        blocks: [
+          { kind: "p", text: "Three trade-reporting systems come up by name. TRACE collects corporate bond transactions, which must be reported within 15 minutes; RTRS does the same for municipal securities and feeds EMMA; and the consolidated tape carries listed equity prints. Before TRACE, retail bond customers had essentially no way to see where a bond had last traded, which is why markups in that market were so hard to police." },
+          { kind: "p", text: "Two insurance schemes are frequently confused. SIPC protects customers against the failure of a BROKER-DEALER. FDIC insurance protects deposits against the failure of a BANK, currently to $250,000 per depositor per insured institution per ownership category. A brokered CD carries FDIC coverage against bank failure but can still trade below par in the secondary market if rates have risen — insurance covers default, not price." },
+          { kind: "p", text: "Short-term rate benchmarks changed after 2021. LIBOR was a survey of what banks said they would pay to borrow, and it was replaced in the US by SOFR, which is calculated from actual overnight Treasury repurchase transactions. A benchmark built from real trades is far harder to manipulate, which was the point of the change." },
+        ],
+      },
+      {
+        heading: "Measuring risk and return",
+        blocks: [
+          { kind: "p", text: "BETA measures a security's sensitivity to the overall market. A beta of 1.0 moves with the market; 1.4 moves roughly forty percent more in both directions; below 1.0 is defensive. Beta captures SYSTEMATIC risk, the part diversification cannot remove. Standard deviation, by contrast, measures total variability including the company-specific part that diversification does eliminate." },
+          { kind: "formula", formula: { label: "Capital Asset Pricing Model", expr: "Expected return = Risk-free rate + Beta × (Market return − Risk-free rate)", note: "The bracketed term is the equity risk premium — the extra return demanded for bearing market risk." } },
+          { kind: "p", text: "The CAPITAL ASSET PRICING MODEL turns beta into a required return. With a 3% risk-free rate, a 9% expected market return and a beta of 1.2, the required return is 3 + 1.2 × 6 = 10.2%. A common error is multiplying beta by the whole market return, which ignores the risk-free base." },
+          { kind: "p", text: "The SHARPE RATIO divides a portfolio's return in excess of the risk-free rate by its standard deviation, giving return per unit of TOTAL risk. The Treynor ratio uses beta in the denominator instead, giving return per unit of systematic risk. Alpha is the return left over after beta explains what it can — the number active managers point to." },
+        ],
+      },
+      {
+        heading: "A few terms that turn up in questions",
+        blocks: [
+          { kind: "bullets", items: ["LEAPS are long-dated options, carrying more time value and more sensitivity to rates and volatility than short-dated contracts.", "FIFO is the default cost-basis method absent an election, and also an inventory method that raises reported income when prices rise.", "A SIMPLE IRA is a small-employer plan requiring employer matching or non-elective contributions, with stricter early-withdrawal rules than a regular IRA.", "REJECTION refuses a delivery at the time it is presented; RECLAMATION returns one already accepted.", "Changing an order's SIZE downward usually preserves time priority; changing its price does not.", "Order ROUTING disclosures under Rule 606 show where a firm sends orders and what it receives for them; Rule 605 reports show execution quality."] },
+        ],
+      },
+      {
+        heading: "Where trades actually happen",
+        blocks: [
+          { kind: "p", text: "The primary market is where an issuer sells new securities and receives the proceeds. Everything after that is secondary, and the secondary market is conventionally divided into four. The FIRST market is exchange trading of listed securities. The SECOND is over-the-counter trading of unlisted securities. The THIRD market is listed securities traded over the counter, typically by institutions dealing outside the exchange. The FOURTH market is direct institution-to-institution trading, usually through electronic communications networks, with no dealer in the middle at all." },
+          { kind: "p", text: "Public company filings — registration statements, annual and quarterly reports, Form 144 notices — are available through the SEC's EDGAR system, and municipal disclosure runs through the MSRB's EMMA system. A representative pointing a customer to primary-source disclosure should know which system holds which." },
+        ],
+      },
+      {
+        heading: "Pay-to-play: MSRB Rule G-37",
+        blocks: [
+          { kind: "p", text: "Municipal business has its own conflict rule, because the officials who award underwriting mandates are elected. Under MSRB RULE G-37, if a municipal finance professional makes a political contribution to an issuer official who can influence the award of business, the dealer is BANNED from negotiated municipal securities business with that issuer for TWO YEARS." },
+          { kind: "p", text: "There is one de minimis exception: a contribution of $250 or less per election to a candidate the professional is ENTITLED TO VOTE FOR does not trigger the ban. Both conditions must hold. A $200 contribution to a mayor in a city where the professional does not live triggers the full two-year ban, and so does a $300 contribution where they do live. The ban attaches to the DEALER, not just the individual — which is why firms pre-clear contributions." },
+          { kind: "p", text: "A parallel rule, FINRA Rule 2030, applies the same two-year concept to covered associates soliciting government entities for advisory business, with de minimis thresholds of $350 where entitled to vote and $150 where not." },
         ],
       },
       {
@@ -512,7 +576,7 @@ export const s7Wave3Chapters: Chapter[] = [
     topicId: "f1-business",
     topicName: "Seeking Business",
     title: "Prospecting Rules and Retirement Accounts",
-    readingMinutes: 4,
+    readingMinutes: 5,
     summary: "Cold calling and Do-Not-Call rules, seminars and public appearances, plus the retirement account types a registered representative must be able to distinguish.",
     intro:
       "Function 1 covers how a representative may legitimately seek business, and the rules here are mostly about not intruding on people who have said no. The retirement account material sits alongside it because most prospecting conversations end up there.",
@@ -537,6 +601,8 @@ export const s7Wave3Chapters: Chapter[] = [
         blocks: [
           { kind: "p", text: "The distinction that organises this material is WHEN tax is paid. A TRADITIONAL IRA may allow a deductible contribution now, grows tax-deferred, and is taxed as ordinary income on withdrawal. A ROTH IRA is funded with after-tax dollars and produces entirely tax-free qualified withdrawals — and uniquely, it has NO required minimum distributions during the original owner's lifetime." },
           { kind: "p", text: "Employer plans follow the same logic at larger scale. A 401(k) is a corporate salary-deferral plan, often with an employer match that should be captured before any other contribution because it is an immediate guaranteed return. A 403(b), also called a tax-sheltered annuity, serves schools and certain non-profits. A SEP IRA is funded by EMPLOYER contributions and suits small businesses for its low administrative cost. ERISA sets fiduciary, vesting and reporting standards for PRIVATE-sector plans — government and most church plans are exempt." },
+          { kind: "p", text: "One more structural distinction runs through employer plans. A DEFINED CONTRIBUTION plan — a 401(k), a SEP, a profit-sharing plan — fixes what goes IN and leaves the investment risk with the employee, whose eventual balance is whatever the account earned. A DEFINED BENEFIT plan promises a formula-driven payout at retirement and leaves the investment risk with the EMPLOYER, who must fund whatever shortfall the markets create. Defined benefit plans have largely given way to defined contribution plans for exactly that reason." },
+          { kind: "p", text: "Authority over a retirement or any other account should be documented before it is needed. A standard POWER OF ATTORNEY ends if the grantor becomes incapacitated; a DURABLE power is written to survive incapacity, which is precisely why aging clients are encouraged to execute one. Neither survives DEATH — every authority over the account ends at that moment, and the firm then works from letters testamentary or letters of administration." },
           { kind: "bullets", items: ["Withdrawals before 59½ generally add a 10% penalty on top of ordinary income tax.", "REQUIRED MINIMUM DISTRIBUTIONS begin at 73 under current law, rising to 75 for those born in 1960 or later.", "A ROLLOVER passes through the account holder's hands and must be redeposited within 60 DAYS; only one is permitted per twelve-month period.", "A direct TRANSFER moves assets custodian to custodian with no 60-day clock and no annual limit — the safer recommendation.", "An IRA may not hold COLLECTIBLES (art, antiques, most precious metals) or life insurance."] },
         ],
       },
@@ -679,9 +745,9 @@ export const s7Wave3Questions: Question[] = [
   {
     id: "s7-mun-x2", examSlug: "series-7", topicId: "munis", topicName: "Municipal Securities", difficulty: 3,
     stem: "A municipal bond can be 'triple tax-exempt' for an investor when:",
-    choices: ["The investor resides in the issuing state, gaining a double exemption", "The security is a taxable corporate bond", "The security is a U.S. Treasury obligation"],
-    answerIndex: 0,
-    explanation: "Municipal bond interest is federally tax-exempt, and for an in-state resident it is often also exempt from state and local tax — 'triple tax-exempt.' Choice B is taxable. Choice C (Treasuries) is exempt from state/local tax but taxable federally, not triple-exempt.",
+    choices: ["The investor holds the bond inside an IRA", "The bond was issued at an original discount", "The investor is subject to the alternative minimum tax", "The investor resides in the issuing state"],
+    answerIndex: 3,
+    explanation: "Municipal bond interest is federally tax-exempt, and for an in-state resident it is often also exempt from state and local tax — 'triple tax-exempt.' Choice A is taxable. Choice B (Treasuries) is exempt from state/local tax but taxable federally, not triple-exempt.",
   },
 
   // ---- Packaged Products ----

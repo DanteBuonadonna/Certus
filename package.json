@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "verify": "node scripts/verify-questions.mjs && node scripts/audit-questions.mjs && node scripts/coverage.mjs",
+    "freshness": "node scripts/freshness.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.24.0",

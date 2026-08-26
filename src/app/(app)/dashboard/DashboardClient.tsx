@@ -34,6 +34,13 @@ import { computeReadiness } from "@/lib/readiness";
 import { CHECK_MINUTES } from "@/lib/check";
 import { loadDiagnostic } from "@/lib/diagnostic";
 import {
+  loadMastery,
+  weakestTopics,
+  overallAccuracy,
+  trendLabel,
+  type TopicTrend,
+} from "@/lib/mastery";
+import {
   AnimatedNumber,
   ProgressBar,
   ReadinessGauge,
@@ -462,6 +469,13 @@ export default function DashboardClient() {
           </div>
         ))}
       </div>
+
+      {/* WHERE YOU ACTUALLY STAND — above the fold, not behind "show more".
+          This is the question a paying candidate asks every session and the
+          app had no answer to it: scores existed, direction never did.
+          Renders only once there's enough data to say something honest, so a
+          cold-start user never meets an empty chart. */}
+      <TopicTrendPanel examSlug={activePlan?.examSlug} />
 
       {/* Everything below is opt-in. First load should ask you to do ONE thing. */}
       <button
@@ -959,5 +973,92 @@ function GoalRing({ pct, met }: { pct: number; met: boolean }) {
         <text x="42" y="48" textAnchor="middle" fontSize="17" fontWeight="800" fill="var(--text-primary)">{pct}%</text>
       )}
     </svg>
+  );
+}
+
+// ============================================================
+// TOPIC TRENDS — "47% in Fixed Income, falling"
+//
+// The gap this closes: the app recorded scores but never direction, so a
+// candidate could grind for three weeks and have no idea whether it was
+// working. Every number here comes from real answered questions; nothing is
+// modelled or projected.
+//
+// Deliberately silent on thin data. weakestTopics() filters to topics with
+// enough answers to characterise, and this renders nothing at all when that
+// list is empty — an empty state is better than a confident wrong claim.
+// ============================================================
+function TopicTrendPanel({ examSlug }: { examSlug?: string }) {
+  const [trends, setTrends] = useState<TopicTrend[]>([]);
+  const [overall, setOverall] = useState<number | null>(null);
+
+  // localStorage read, so effect-only — reading during render would desync
+  // the server HTML and throw a hydration error.
+  useEffect(() => {
+    if (!examSlug) return;
+    const store = loadMastery();
+    setTrends(weakestTopics(examSlug, store, 4));
+    setOverall(overallAccuracy(examSlug, store));
+  }, [examSlug]);
+
+  if (!examSlug || trends.length === 0) return null;
+
+  const arrow = (d: TopicTrend["direction"]) =>
+    d === "rising" ? "▲" : d === "falling" ? "▼" : "•";
+  const tone = (d: TopicTrend["direction"]) =>
+    d === "rising" ? "var(--ats-green)" : d === "falling" ? "var(--ats-red)" : "var(--text-muted)";
+
+  return (
+    <div className="card p-5 mb-6 rise-in" style={{ animationDelay: "0.04s" }}>
+      <div className="flex items-baseline justify-between mb-1">
+        <h3 className="text-sm font-extrabold" style={{ color: "var(--text-primary)" }}>
+          Where you actually stand
+        </h3>
+        {overall !== null && (
+          <span className="text-xs font-mono" style={{ color: "var(--text-muted)" }}>
+            {Math.round(overall * 100)}% overall
+          </span>
+        )}
+      </div>
+      <p className="text-[11px] mb-4" style={{ color: "var(--text-muted)" }}>
+        Weakest topics first, from your answered questions. Direction compares your recent
+        answers with the ones before them.
+      </p>
+
+      <div className="space-y-3">
+        {trends.map((t) => (
+          <div key={t.topicId}>
+            <div className="flex items-center justify-between mb-1">
+              <Link
+                href={`/practice?exam=${examSlug}&topic=${t.topicId}`}
+                className="text-xs font-semibold hover:underline"
+                style={{ color: "var(--text-primary)" }}
+              >
+                {t.topicName}
+              </Link>
+              <span className="text-[11px] font-mono flex items-center gap-1" style={{ color: tone(t.direction) }}>
+                <span>{arrow(t.direction)}</span>
+                <span>{trendLabel(t)}</span>
+              </span>
+            </div>
+            <ProgressBar
+              pct={Math.round(t.accuracy * 100)}
+              height={6}
+              color={t.accuracy >= 0.7 ? "var(--ats-green)" : t.accuracy >= 0.5 ? "var(--ats-amber)" : "var(--ats-red)"}
+            />
+            <p className="text-[10px] mt-1 font-mono" style={{ color: "var(--text-muted)" }}>
+              {t.samples} question{t.samples !== 1 ? "s" : ""} answered
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <Link
+        href={`/practice?exam=${examSlug}&topic=${trends[0].topicId}`}
+        className="btn-secondary w-full mt-4 text-center block text-sm"
+      >
+        Drill {trends[0].topicName} →
+      </Link>
+    </div>
   );
 }

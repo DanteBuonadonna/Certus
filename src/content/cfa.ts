@@ -9,6 +9,7 @@ import { Chapter, Question, ExamContent } from "./types";
 import { extraChapters, extraQuestions } from "./cfa-extra";
 import { ethicsChapter, ethicsQuestions } from "./cfa-ethics";
 import { deepChapters, deepQuestions } from "./cfa-l1-deep";
+import { cfaL1Questions } from "./cfa-l1-q";
 
 const chapters: Chapter[] = [
   // --------------------------------------------------------------------
@@ -758,5 +759,5 @@ const questions: Question[] = [
 export const cfaContent: ExamContent = {
   examSlug: "cfa",
   chapters: [ethicsChapter, ...deepChapters, ...chapters.filter((c) => c.id !== "cfa-ethics"), ...extraChapters],
-  questions: [...deepQuestions, ...questions, ...ethicsQuestions, ...extraQuestions],
+  questions: [...deepQuestions, ...questions, ...ethicsQuestions, ...extraQuestions, ...cfaL1Questions],
 };

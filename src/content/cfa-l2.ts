@@ -7,6 +7,16 @@
 
 import { Chapter, Question, ExamContent } from "./types";
 import { deepChaptersL2, deepQuestionsL2 } from "./cfa-l2-deep";
+import { cfaL2Questions } from "./cfa-l2-q";
+import { pmChaptersL2, pmQuestionsL2 } from "./cfa-l2-pm";
+import { derivChaptersL2, derivQuestionsL2 } from "./cfa-l2-deriv";
+import { quantChaptersL2, quantQuestionsL2 } from "./cfa-l2-quant";
+import { econChaptersL2, econQuestionsL2 } from "./cfa-l2-econ";
+import { corpChaptersL2, corpQuestionsL2 } from "./cfa-l2-corp";
+import { altsChaptersL2, altsQuestionsL2 } from "./cfa-l2-alts";
+import { equityChaptersL2, equityQuestionsL2 } from "./cfa-l2-equity";
+import { fiChaptersL2, fiQuestionsL2 } from "./cfa-l2-fi";
+import { fraChaptersL2, fraQuestionsL2 } from "./cfa-l2-fra";
 
 const chapters: Chapter[] = [
   {
@@ -1611,6 +1621,6 @@ const questions: Question[] = [
 
 export const cfaL2Content: ExamContent = {
   examSlug: "cfa-l2",
-  chapters: [...deepChaptersL2, ...chapters],
-  questions: [...deepQuestionsL2, ...questions],
+  chapters: [...deepChaptersL2, ...chapters, ...pmChaptersL2, ...derivChaptersL2, ...quantChaptersL2, ...econChaptersL2, ...corpChaptersL2, ...altsChaptersL2, ...equityChaptersL2, ...fiChaptersL2, ...fraChaptersL2],
+  questions: [...deepQuestionsL2, ...questions, ...cfaL2Questions, ...pmQuestionsL2, ...derivQuestionsL2, ...quantQuestionsL2, ...econQuestionsL2, ...corpQuestionsL2, ...altsQuestionsL2, ...equityQuestionsL2, ...fiQuestionsL2, ...fraQuestionsL2],
 };

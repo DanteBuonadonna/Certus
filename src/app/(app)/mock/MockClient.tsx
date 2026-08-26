@@ -14,7 +14,9 @@
 
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import posthog from "posthog-js";
+import { recordAnswers } from "@/lib/mastery";
 import { useSignedIn } from "@/lib/AccessContext";
 import { useAccess } from "@/lib/useAccess";
 import { useLessonMode } from "@/lib/useLessonMode";
@@ -27,6 +29,8 @@ import {
 } from "@/content/cfa-mock";
 import { L2_QUICK, L2_SESSION_1, L2_SESSION_2, L2_FULL_READY } from "@/content/cfa-l2-mock";
 import { SIE_MOCK_QUICK, SIE_MOCK_FULL, SIE_FULL_READY } from "@/content/sie-mock";
+import { S7_MOCK_QUICK, S7_MOCK_FULL, S7_FULL_READY } from "@/content/series7-mock";
+import { S66_MOCK_QUICK, S66_MOCK_FULL, S66_FULL_READY } from "@/content/series66-mock";
 import {
   L3_QUICK_SETS,
   L3_QUICK_ESSAYS,
@@ -54,7 +58,7 @@ import {
   TopicScore,
 } from "@/lib/mockExam";
 
-type ExamSlug = "cfa" | "cfa-l2" | "cfa-l3" | "sie";
+type ExamSlug = "cfa" | "cfa-l2" | "cfa-l3" | "sie" | "series-7" | "series-66";
 type Mode = "quick" | "full";
 type Phase = "home" | "instructions" | "exam" | "break" | "grade" | "result";
 
@@ -162,9 +166,37 @@ const EXAM_DEFS: Record<
     quick: () => [fromFlat(SIE_MOCK_QUICK)],
     full: () => [fromFlat(SIE_MOCK_FULL)],
   },
+  "series-7": {
+    name: "Series 7",
+    quickTitle: "Readiness check",
+    quickSpec: "15 questions · 27 min · exam pacing",
+    quickBlurb:
+      "Fifteen questions weighted to the four FINRA job functions, at the real exam's 108-seconds-per-question pace. A first read on where you stand before committing to the full 3 h 45 m sitting.",
+    fullTitle: "Full mock examination",
+    fullSpec: "125 questions · one 3 h 45 m session",
+    fullBlurb:
+      "The complete Series 7 experience: 125 questions with four answer choices, weighted to the FINRA content outline (Recommendations 73%, Processing 11%, Accounts 9%, Seeking Business 7%), with a per-function score report against the 72% passing standard.",
+    fullReady: S7_FULL_READY,
+    quick: () => [fromFlat(S7_MOCK_QUICK)],
+    full: () => [fromFlat(S7_MOCK_FULL)],
+  },
+  "series-66": {
+    name: "Series 66",
+    quickTitle: "Readiness check",
+    quickSpec: "15 questions · 22 min 30 sec · exam pacing",
+    quickBlurb:
+      "Fifteen questions weighted to NASAA's four sections at the real exam's 90-seconds-per-question pace, with the heaviest weighting on Laws and Regulations — where the exam actually concentrates.",
+    fullTitle: "Full mock examination",
+    fullSpec: "100 questions · one 2 h 30 m session",
+    fullBlurb:
+      "The complete Series 66 experience: 100 scored questions weighted to the NASAA outline (Laws 45%, Recommendations 30%, Vehicles 17%, Economics 8%), with a per-section score report against the 73-of-100 passing standard.",
+    fullReady: S66_FULL_READY,
+    quick: () => [fromFlat(S66_MOCK_QUICK)],
+    full: () => [fromFlat(S66_MOCK_FULL)],
+  },
 };
 
-const EXAM_ORDER: ExamSlug[] = ["cfa", "cfa-l2", "cfa-l3", "sie"];
+const EXAM_ORDER: ExamSlug[] = ["cfa", "cfa-l2", "cfa-l3", "sie", "series-7", "series-66"];
 
 // ---- Per-session working state ----------------------------------
 interface SessionState {
@@ -188,7 +220,14 @@ interface GradedEssay {
 }
 
 export default function MockClient() {
-  const [exam, setExam] = useState<ExamSlug>("cfa");
+  // /mock used to hard-open on CFA and ignore ?exam= entirely, so every inbound
+  // link from a Series 7 or SIE page dumped the visitor on the CFA mock and made
+  // them re-pick. Honour the param, fall back to CFA when it's absent or bogus.
+  const params = useSearchParams();
+  const requested = params.get("exam");
+  const [exam, setExam] = useState<ExamSlug>(
+    requested && EXAM_ORDER.includes(requested as ExamSlug) ? (requested as ExamSlug) : "cfa",
+  );
   const [mode, setMode] = useState<Mode>("quick");
   const [phase, setPhase] = useState<Phase>("home");
   const [sessionIdx, setSessionIdx] = useState(0);
@@ -294,6 +333,15 @@ export default function MockClient() {
         byTopic,
         readiness: estimateReadiness(correct, total),
       };
+
+      // Feed the mock's outcomes into the mastery store too, so a missed mock
+      // question re-enters the review schedule and the topic trend reflects
+      // exam-condition performance rather than practice-only. Essays are
+      // excluded — they're self-graded, so their "correct" isn't comparable.
+      recordAnswers(
+        exam,
+        allQs.map((qn, i) => ({ question: qn, correct: allAnswers[i] === qn.answerIndex })),
+      );
 
       setScore(s);
       setGradedEssays(graded);

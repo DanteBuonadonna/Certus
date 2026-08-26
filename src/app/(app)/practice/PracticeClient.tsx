@@ -8,6 +8,7 @@ import { getExam } from "@/lib/exams";
 import { examsWithContent, getQuestions } from "@/content";
 import { Question } from "@/content/types";
 import { recordQuiz, loadState } from "@/lib/gameStore";
+import { recordAnswers, dueForReview, loadMastery } from "@/lib/mastery";
 import { levelProgress, rankTitle, XP_PER_CORRECT } from "@/lib/studyPlan";
 import { grantBonus } from "@/lib/economy";
 import { loadProfile, AvatarConfig } from "@/lib/profile";
@@ -59,6 +60,19 @@ export default function PracticeClient() {
 
   const poolCount = getQuestions(exam, topic === "all" ? undefined : topic).length;
 
+  // How many previously-missed questions are due back today. Read in an effect
+  // rather than during render because it touches localStorage — reading it
+  // inline would desync server and client HTML and throw a hydration error.
+  const [reviewDue, setReviewDue] = useState(0);
+  useEffect(() => {
+    if (phase !== "setup") return;
+    setReviewDue(
+      dueForReview(exam, getQuestions(exam), loadMastery(), {
+        topicId: topic === "all" ? undefined : topic,
+      }).length,
+    );
+  }, [exam, topic, phase]);
+
   // Arriving from /check with ?first=1 — they've already answered 10 questions
   // and earned a short win, not another marathon.
   const isFirstLesson = params.get("first") === "1";
@@ -67,6 +81,21 @@ export default function PracticeClient() {
     // Rotating run: serves the least-recently-seen questions first, so a
     // retake gives a fresh set (and keeps getting fresher as the bank grows).
     const qs = buildRun(getQuestions(exam, topic === "all" ? undefined : topic), size);
+    setSession(qs);
+    setAnswers([]);
+    setPhase("quiz");
+  }
+
+  // The review run pulls only questions already answered and now due, worst
+  // first. Capped at RUN_SIZE so a long-neglected queue doesn't open with 200
+  // questions and feel like a punishment.
+  function startReview() {
+    const qs = dueForReview(exam, getQuestions(exam), loadMastery(), {
+      topicId: topic === "all" ? undefined : topic,
+      limit: RUN_SIZE,
+    });
+    if (!qs.length) return;
+    posthog.capture("review_session_started", { exam, topic, due_count: qs.length });
     setSession(qs);
     setAnswers([]);
     setPhase("quiz");
@@ -85,6 +114,16 @@ export default function PracticeClient() {
 
   function finish(finalAnswers: (number | null)[], combo: number) {
     const correct = finalAnswers.filter((a, i) => a === session[i]?.answerIndex).length;
+
+    // Remember every individual outcome, not just the score. This drives two
+    // things the app previously couldn't do: bring missed questions back on a
+    // Leitner schedule, and tell the candidate whether a topic is improving.
+    // One batched write at the end of the session, not one per question.
+    recordAnswers(
+      exam,
+      session.map((q, i) => ({ question: q, correct: finalAnswers[i] === q.answerIndex })),
+    );
+
     const result = recordQuiz(exam, correct, session.length, topic === "all" ? undefined : topic, { combo });
     setEarnedXp(result.xpEarned);
     if (result.leveledUp) {
@@ -165,6 +204,20 @@ export default function PracticeClient() {
           <button className="btn-primary w-full" disabled={poolCount === 0} onClick={() => start(RUN_SIZE)}>
             {poolCount === 0 ? "No questions yet for this topic" : "Start practice →"}
           </button>
+
+          {/* REVIEW QUEUE — the questions you've already missed, resurfaced on a
+              Leitner schedule. Only rendered when something is actually due, so
+              it never sits there as an empty nag. Missing this was the reason
+              a wrong answer had no consequence: you saw the explanation once
+              and the question never came back. */}
+          {reviewDue > 0 && (
+            <button
+              className="btn-secondary w-full mt-3"
+              onClick={() => startReview()}
+            >
+              Review {reviewDue} question{reviewDue !== 1 ? "s" : ""} you&apos;ve missed →
+            </button>
+          )}
         </>
       )}
     </div>

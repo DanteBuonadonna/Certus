@@ -74,14 +74,23 @@ export const BLUEPRINTS: Blueprint[] = [
     ],
   },
   {
+    // Verified against NASAA's published test specifications (effective
+    // June 12, 2023): 8 / 17 / 30 / 45 of 100 scored questions. We had been
+    // carrying 5 and 20 for the first two topics from an older reading of
+    // the outline, which understated Economics and overstated Vehicles.
+    //
+    // NOTE: coverage.mjs matches examSlug -> name -> examQuestions ->
+    // targetBank -> source -> topics with only WHITESPACE between them.
+    // A comment inserted mid-block makes the whole exam vanish from the
+    // report. Comments go above examSlug, never between these fields.
     examSlug: "series-66",
     name: "Series 66",
     examQuestions: 100,
     targetBank: 1000,
-    source: "NASAA Series 66 content outline",
+    source: "NASAA Series 66 test specifications, eff. June 12 2023 (8/17/30/45 of 100)",
     topics: [
-      { topicId: "economics", name: "Economic Factors and Business Information", weight: 5 },
-      { topicId: "vehicles", name: "Investment Vehicle Characteristics", weight: 20 },
+      { topicId: "economics", name: "Economic Factors and Business Information", weight: 8 },
+      { topicId: "vehicles", name: "Investment Vehicle Characteristics", weight: 17 },
       { topicId: "recommendations", name: "Client Recommendations and Strategies", weight: 30 },
       { topicId: "laws", name: "Laws, Regulations, and Guidelines", weight: 45 },
     ],
@@ -195,14 +204,29 @@ export const TOPIC_MAP: Record<string, Record<string, string>> = {
     margin: "f4-process",
   },
   "series-66": {
+    // Mapped to NASAA's four sections, not to where the material feels like
+    // it belongs. Capital market theory, retirement plans and taxation all
+    // sit under section III (Client Recommendations) in the outline, even
+    // though we teach them in chapters that read like product chapters.
     economics: "economics",
-    vehicles: "vehicles", "portfolio-theory": "vehicles", retirement: "vehicles",
+    vehicles: "vehicles",
+    "portfolio-theory": "recommendations", retirement: "recommendations",
+    taxation: "recommendations", trading: "recommendations",
     strategies: "recommendations", profile: "recommendations", recommendations: "recommendations",
     registration: "laws", "ia-regulation": "laws", "business-practices": "laws",
     fiduciary: "laws", "federal-acts": "laws", communications: "laws",
-    taxation: "laws", laws: "laws", ethics: "laws",
+    laws: "laws", ethics: "laws",
   },
-  "cfa-l2": { "quant-ml": "quant", "fra-combos": "fra", "fi-term": "fixed" },
+  // NOTE: keep every exam block MULTI-LINE and closed by a "  }," on its own
+  // line. coverage.mjs parses this file as text and delimits each block on
+  // that closing brace. When cfa-l2 was written on a single line the parser
+  // ran past it to cfa-l3's closing brace, swallowed the "cfa-l3" key, and
+  // silently reported 98 real Level III questions as unmapped orphans.
+  "cfa-l2": {
+    "quant-ml": "quant",
+    "fra-combos": "fra",
+    "fi-term": "fixed",
+  },
   "cfa-l3": {
     "pm-asset": "aa", cme: "aa", fixed: "fi", "pm-equity": "eq",
     "pm-deriv": "derivrisk", currency: "derivrisk", "pm-private": "pwm",

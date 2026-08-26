@@ -957,7 +957,7 @@ export const s7DeepQuestions: Question[] = [
   {
     id: "s7mar-d5", examSlug: "series-7", topicId: "margin", topicName: "Margin Accounts", difficulty: 2,
     stem: "The FINRA maintenance requirement for a SHORT account is 30% (versus 25% long) primarily because:",
-    choices: ["Short-position losses are theoretically unlimited as prices rise", "Short sellers pay higher commissions", "Short sales receive advantaged tax treatment", "The Federal Reserve sets it that way"],
+    choices: ["Short-position losses are theoretically unlimited", "Short positions are less volatile than long ones", "Short sales require no maintenance margin at all", "Short losses are capped at the sale proceeds"],
     answerIndex: 0,
     explanation: "A short seller's loss grows without limit as the stock rises, so FINRA imposes a higher 30% maintenance margin to provide a larger cushion. A rising stock erodes a short account's equity.",
   },

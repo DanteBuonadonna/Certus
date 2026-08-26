@@ -257,7 +257,7 @@ export const sieDeepQuestions: Question[] = [
   {
     id: "sie-mk-d1", examSlug: "sie", topicId: "markets", topicName: "Capital Markets", difficulty: 1,
     stem: "In the PRIMARY market, the proceeds from a securities sale go to:",
-    choices: ["The issuing company or government", "Another investor", "The stock exchange", "FINRA"],
+    choices: ["The issuing company or government", "Another investor", "The stock exchange", "FINRA for the client"],
     answerIndex: 0,
     explanation: "In the primary market, securities are sold by the issuer (e.g., in an IPO) and proceeds go to the issuer to raise capital. In the secondary market, money instead flows between investors.",
   },
@@ -271,7 +271,7 @@ export const sieDeepQuestions: Question[] = [
   {
     id: "sie-mk-d3", examSlug: "sie", topicId: "markets", topicName: "Capital Markets", difficulty: 2,
     stem: "SIPC protects customers against:",
-    choices: ["Market losses on their investments", "Issuer bankruptcy", "The failure (insolvency) of their broker-dealer", "Inflation"],
+    choices: ["Market losses on their investments", "Issuer bankruptcy for the client", "The failure (insolvency) of their broker-dealer", "Inflation for the client"],
     answerIndex: 2,
     explanation: "SIPC protects customers if their broker-dealer fails, up to $500,000 per customer (including $250,000 for cash). It does NOT protect against market losses — a stock simply declining is not covered.",
   },
@@ -306,7 +306,7 @@ export const sieDeepQuestions: Question[] = [
   {
     id: "sie-pr-d3", examSlug: "sie", topicId: "products", topicName: "Products & Risks", difficulty: 2,
     stem: "An open-end mutual fund's shares are priced at:",
-    choices: ["A market price set by supply and demand", "Par value", "The IPO price", "Net asset value (NAV)"],
+    choices: ["A market price set by supply and demand", "Par value for the client", "The IPO price for the client", "Net asset value (NAV)"],
     answerIndex: 3,
     explanation: "Open-end mutual fund shares are continuously issued and redeemed at net asset value (NAV). Closed-end funds and ETFs instead trade on exchanges at market prices.",
   },
@@ -327,7 +327,7 @@ export const sieDeepQuestions: Question[] = [
   {
     id: "sie-rg-d1", examSlug: "sie", topicId: "regulation", topicName: "Regulatory Framework", difficulty: 1,
     stem: "The Securities Act of 1933 primarily regulates:",
-    choices: ["The secondary trading market", "Investment advisers", "New securities issues (the primary market)", "Stock exchanges"],
+    choices: ["The secondary trading market", "Investment advisers for the client", "New securities issues (the primary market)", "Stock exchanges for the client"],
     answerIndex: 2,
     explanation: "The Securities Act of 1933 regulates the issuance of new securities in the primary market through registration and disclosure. The 1934 Act regulates the secondary market.",
   },
@@ -348,7 +348,7 @@ export const sieDeepQuestions: Question[] = [
   {
     id: "sie-rg-d4", examSlug: "sie", topicId: "regulation", topicName: "Regulatory Framework", difficulty: 2,
     stem: "Which is an EXEMPT security under the Securities Act of 1933?",
-    choices: ["A corporate IPO", "A U.S. government (Treasury) security", "A technology company's new shares", "A high-yield corporate bond"],
+    choices: ["A corporate IPO in most cases", "A U.S. government (Treasury) security", "A technology company's new shares", "A high-yield corporate bond"],
     answerIndex: 1,
     explanation: "U.S. government, agency, municipal, and bank securities are exempt securities. Corporate stock and bond offerings to the public generally must be registered.",
   },

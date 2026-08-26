@@ -50,6 +50,14 @@ export default function LandingPage() {
             acceptedAnswer: { "@type": "Answer", text: `Yes. ${BRAND.name} offers a full-length, timed CFA mock exam free — no signup and no card required. You get your score, weak topics, and an estimate of your odds of passing.` },
           },
           {
+            // Separate question so the non-CFA mocks are their own answerable
+            // entity — "free Series 7 practice exam" is a real search and we
+            // now actually have one.
+            "@type": "Question",
+            name: "Is there a free SIE, Series 7, or Series 66 practice exam?",
+            acceptedAnswer: { "@type": "Answer", text: `Yes. ${BRAND.name} has full-length timed mock exams free for the SIE (75 questions, 1 h 45 m), Series 7 (125 questions, 3 h 45 m, scored against the 72% passing standard) and Series 66 (100 questions, 2 h 30 m, scored against 73 of 100) — no signup and no card required.` },
+          },
+          {
             "@type": "Question",
             name: `How much does ${BRAND.name} cost?`,
             acceptedAnswer: { "@type": "Answer", text: `${BRAND.name} is ${ANNUAL_PER_MONTH}/mo billed annually ($${ANNUAL_TOTAL}/year) or $${MONTHLY_PRICE}/mo month to month — a fraction of $350–$1,500 courses like AnalystPrep or Schweser. There's a 7-day free trial and a free full mock.` },
@@ -144,18 +152,25 @@ export default function LandingPage() {
                 the old CTA, "Start learning free", asks for an open-ended
                 commitment to studying. Nobody wakes up wanting to start
                 learning. They do wake up wondering whether they'd pass. */}
+            {/* "the CFA" in the H1 was disqualifying five of our six tracks in
+                the first second. The onboarding's very first tap is already
+                "Which exam are you taking?", so the product was never
+                CFA-only — just the front door. "your exam" keeps the question
+                hook (which beat the old category headline) and lets the
+                subhead name every track, so a Series 7 visitor sees themselves
+                without a CFA visitor losing the match to their search. */}
             <h1 className="font-display text-5xl lg:text-6xl leading-[1.04] mb-5" style={{ color: "var(--text-primary)", letterSpacing: "-0.03em" }}>
               Would you pass
               <br />
-              the CFA
+              your exam
               <br />
               <span className="lp-gradient-text">today?</span>
             </h1>
 
             <p className="text-lg mb-6 max-w-lg mx-auto lg:mx-0" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>
-              Answer a few quick questions and {BRAND.name} builds your plan: where you stand,
-              exactly what to drill, and your projected path to passing. Works for the CFA,
-              SIE, Series 7 &amp; 66, CPA, and CFP.
+              CFA Levels I&ndash;III, SIE, Series 7 &amp; 66, CPA and CFP. Answer a few quick
+              questions and {BRAND.name} builds your plan: where you stand, exactly what to
+              drill, and your projected path to passing.
             </p>
 
             {/* The differentiator, stated where it can be checked. This is the
@@ -198,7 +213,11 @@ export default function LandingPage() {
             </div>
 
             <p className="text-xs mt-4 mb-5" style={{ color: "var(--text-muted)" }}>
-              No signup. No card. No email. The exam costs $1,140 — finding out where you stand shouldn&apos;t.
+              {/* Was "The exam costs $1,140" — that's the CFA Level I fee, and it
+                  reads as wrong to a Series 7 candidate ($395) or an SIE one
+                  ($100). No number here, because no single number is true across
+                  six tracks; the per-exam pages carry the real fee instead. */}
+              No signup. No card. No email. Registering for your exam costs real money &mdash; finding out where you stand shouldn&apos;t.
             </p>
           </div>
 
@@ -260,23 +279,38 @@ export default function LandingPage() {
           <h2 className="font-display text-3xl mb-3" style={{ color: "var(--text-primary)" }}>
             Would you pass if the exam were today?
           </h2>
+          {/* Was "all three CFA exams" — Series 7 and Series 66 mocks shipped, so
+              this is six tracks now. Also dropped the unsourced "up to $1,400 for
+              mocks" line for Schweser's actual published package range, which is
+              checkable: $379 entry to $2,099 premium-plus. */}
           <p className="text-sm max-w-2xl mx-auto mb-10" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>
-            Other providers charge up to $1,400 for full-length mocks. Ours are free — faithful
-            replicas of all three CFA exams, with a formal per-topic score report and an honest,
-            data-based estimate of your odds of passing. Start with a short readiness check, or take
-            the full mock end to end.
+            Kaplan Schweser bundles its practice exams into packages running $379 to $2,099.
+            Ours are free &mdash; faithful replicas of six exams, with a formal per-topic score
+            report and an honest, data-based estimate of your odds of passing. Start with a short
+            readiness check, or take the full mock end to end.
           </p>
           <div className="grid sm:grid-cols-3 gap-4 mb-10 text-left">
             {[
-              { lvl: "Level I", spec: "180 questions · two 2 h 15 m sessions", detail: "Blueprint-weighted MCQs at the real 90-seconds-per-question pace, with flag-and-review navigation." },
-              { lvl: "Level II", spec: "22 item sets · 88 questions", detail: "Case vignettes with exhibits — the format shift that surprises every Level II candidate, replicated exactly." },
-              { lvl: "Level III", spec: "Item sets + graded essays", detail: "Constructed-response essays scored against guideline answers with point rubrics, just like exam day." },
+              { lvl: "CFA Level I", href: "/free-cfa-mock-exam", spec: "180 questions · two 2 h 15 m sessions", detail: "Blueprint-weighted MCQs at the real 90-seconds-per-question pace, with flag-and-review navigation." },
+              { lvl: "CFA Level II", href: "/mock?exam=cfa-l2", spec: "22 item sets · 88 questions", detail: "Case vignettes with exhibits — the format shift that surprises every Level II candidate, replicated exactly." },
+              { lvl: "CFA Level III", href: "/mock?exam=cfa-l3", spec: "Item sets + graded essays", detail: "Constructed-response essays scored against guideline answers with point rubrics, just like exam day." },
+              { lvl: "SIE", href: "/free-sie-practice-exam", spec: "75 questions · one 1 h 45 m session", detail: "Weighted to the FINRA outline across all four sections, with a per-section score report." },
+              { lvl: "Series 7", href: "/free-series-7-practice-exam", spec: "125 questions · one 3 h 45 m session", detail: "Weighted to the four FINRA job functions and scored against the real 72% passing standard." },
+              { lvl: "Series 66", href: "/free-series-66-practice-exam", spec: "100 questions · one 2 h 30 m session", detail: "Weighted to the NASAA specifications and scored against the real 73-of-100 passing standard." },
             ].map((x) => (
-              <div key={x.lvl} className="rounded-xl p-5" style={{ background: "var(--bg)", border: "0.5px solid var(--border)" }}>
+              // href deep-links straight into that exam's mock, so nobody lands
+              // on the CFA one and has to re-pick. The per-exam SEO pages get
+              // their internal link from here too.
+              <Link
+                key={x.lvl}
+                href={x.href}
+                className="rounded-xl p-5 block transition-opacity hover:opacity-80"
+                style={{ background: "var(--bg)", border: "0.5px solid var(--border)" }}
+              >
                 <div className="text-sm font-semibold mb-1" style={{ color: "var(--text-primary)" }}>{x.lvl}</div>
                 <div className="text-[11px] font-mono mb-2" style={{ color: "var(--primary)" }}>{x.spec}</div>
                 <p className="text-xs" style={{ color: "var(--text-secondary)", lineHeight: 1.55 }}>{x.detail}</p>
-              </div>
+              </Link>
             ))}
           </div>
           <Link

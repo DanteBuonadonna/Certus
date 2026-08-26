@@ -231,9 +231,9 @@ const questions: Question[] = [
   {
     id: "s7-acc-q1", examSlug: "series-7", topicId: "accounts", topicName: "Customer Accounts", difficulty: 2,
     stem: "A registered representative wants to place trades in a customer's account without obtaining approval for each transaction. This requires:",
-    choices: ["Prior written discretionary authority and added supervision", "Only a verbal okay from the customer", "Nothing, as long as trades are profitable"],
-    answerIndex: 0,
-    explanation: "Trading without per-transaction approval requires written discretionary authorization from the customer, and such accounts get heightened supervisory review. Choice B is insufficient — verbal consent doesn't establish discretionary authority. Choice C is dangerously wrong: profitability never substitutes for required authorization, and unauthorized trading is a serious violation regardless of outcome.",
+    choices: ["A verbal okay from the customer", "Nothing, provided trades are profitable", "Prior written authority and supervision", "Approval from FINRA before each order"],
+    answerIndex: 2,
+    explanation: "Trading without per-transaction approval requires written discretionary authorization from the customer, and such accounts get heightened supervisory review. Choice A is insufficient — verbal consent doesn't establish discretionary authority. Choice B is dangerously wrong: profitability never substitutes for required authorization, and unauthorized trading is a serious violation regardless of outcome.",
   },
   {
     id: "s7-acc-q2", examSlug: "series-7", topicId: "accounts", topicName: "Customer Accounts", difficulty: 3,

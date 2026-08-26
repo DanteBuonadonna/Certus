@@ -194,7 +194,7 @@ export const deepChapters: Chapter[] = [
     topicId: "quant",
     topicName: "Quantitative Methods",
     title: "Statistical Concepts: Describing Data, Probability, and Expected Returns",
-    readingMinutes: 23,
+    readingMinutes: 26,
     summary:
       "How to summarize and reason about uncertain returns — central tendency and dispersion (and why geometric beats arithmetic for compounding), skew and fat tails, the probability rules, expected value and variance, and the covariance/correlation math that powers diversification.",
     intro:
@@ -278,6 +278,16 @@ export const deepChapters: Chapter[] = [
             "Portfolio risk is not a weighted average of volatilities — it depends on correlation through the cross term; only when ρ = +1 does it reduce to the weighted average.",
           ] },
           { kind: "p", text: "Step back and the chapter forms a chain: describe data (central tendency, dispersion, shape) → quantify uncertainty (probability, expected value, variance) → combine assets (covariance, correlation, portfolio variance). That chain reappears throughout the curriculum — expected value underlies every valuation, variance and correlation drive portfolio construction and the CAPM, and the non-normality of returns shapes risk management. Statistics is not a standalone topic to clear; it is the measurement system the rest of finance runs on." },
+        ],
+      },
+      {
+        heading: "Means for special cases, and simulation",
+        blocks: [
+          { kind: "p", text: "The arithmetic mean answers most questions, but two situations demand something else. The GEOMETRIC MEAN compounds: it is the constant rate that would have produced the same ending wealth, and it is the only correct way to describe a multi-period return. The HARMONIC MEAN handles the reverse case — averaging RATIOS where a fixed dollar amount is invested each period, which is exactly what dollar-cost averaging does." },
+          { kind: "formula", formula: { label: "The three means", expr: "Arithmetic = ΣX ÷ n\nGeometric = [(1+R₁)(1+R₂)…(1+Rₙ)]^(1/n) − 1\nHarmonic = n ÷ Σ(1/Xᵢ)", note: "For a series with any variation, harmonic ≤ geometric ≤ arithmetic. They are equal only when every observation is identical." } },
+          { kind: "example", example: { title: "Why dollar-cost averaging uses the harmonic mean", prompt: "An investor buys $1,000 of a stock at $20 and $1,000 at $30. What is the average price paid per share?", steps: ["Shares bought: 1,000/20 = 50, and 1,000/30 = 33.33.", "Total shares = 83.33 for $2,000 spent.", "Average cost = 2,000 ÷ 83.33 = $24.00.", "Harmonic mean = 2 ÷ (1/20 + 1/30) = 2 ÷ 0.08333 = $24.00."], answer: "$24.00 — the harmonic mean, not the arithmetic $25. Fixing the DOLLARS rather than the shares is what makes the harmonic mean the right average, and it is why dollar-cost averaging produces an average cost below the average price." } },
+          { kind: "p", text: "MONTE CARLO SIMULATION generates thousands of possible paths by drawing repeatedly from assumed distributions, then reports the distribution of outcomes rather than a single point estimate. Its great strength is handling problems with no closed-form solution — a retirement plan with variable spending, or an option whose payoff depends on the path taken. Its great weakness is that it is only as good as the distributional assumptions fed into it: garbage in, elegantly distributed garbage out." },
+          { kind: "p", text: "BOOTSTRAP resampling takes a different route to the same destination. Rather than assuming a distribution, it draws repeated samples WITH REPLACEMENT from the actual observed data and builds an empirical sampling distribution from them. It makes no parametric assumption at all, which is its advantage; it can only reflect what the historical sample happened to contain, which is its limit." },
         ],
       },
     ],
@@ -544,7 +554,7 @@ export const deepChapters: Chapter[] = [
     topicId: "econ",
     topicName: "Economics",
     title: "Macroeconomics: Output, the Business Cycle, Inflation, and Policy",
-    readingMinutes: 17,
+    readingMinutes: 18,
     summary:
       "How the whole economy behaves — measuring output with GDP, the aggregate demand/supply framework, the business cycle and its indicators, inflation and unemployment, and the monetary and fiscal levers governments pull to steer it.",
     intro:
@@ -618,6 +628,14 @@ export const deepChapters: Chapter[] = [
           { kind: "p", text: "Macroeconomics is the connective tissue of the curriculum. Interest rates set here are the discount rates of every valuation; the business cycle drives corporate earnings and credit spreads; inflation and policy expectations move bond prices and currencies. When you later analyze how an economy's growth or a central bank's pivot affects an asset, you are applying this chapter — the macro backdrop against which every security is priced." },
         ],
       },
+      {
+        heading: "The Phillips curve and the policy trade-off",
+        blocks: [
+          { kind: "p", text: "The PHILLIPS CURVE describes an inverse short-run relationship between unemployment and inflation: pushing unemployment below its natural rate tends to bid wages, and then prices, upward. It is the mechanism behind the idea that a central bank faces a trade-off, and it is why an economy running hot generates inflation even when nothing else has changed." },
+          { kind: "p", text: "The crucial qualification is that the trade-off is SHORT RUN only. In the long run the curve is vertical at the NATURAL RATE OF UNEMPLOYMENT, meaning that persistent attempts to hold unemployment below it produce accelerating inflation rather than permanently higher employment. Expectations are what make this true: once workers and firms come to expect higher inflation, they build it into wage bargains, and the short-run curve shifts upward." },
+          { kind: "p", text: "STAGFLATION — high inflation alongside weak growth — is the case the simple curve cannot explain, because it puts both variables in the wrong place at once. It arises from an adverse SUPPLY shock, such as a sharp rise in energy costs, which shifts short-run aggregate supply left and raises prices while output falls. It is difficult to address precisely because the remedies for inflation and for weak growth point in opposite directions." },
+        ],
+      },
     ],
     keyTerms: [
       { term: "Gross domestic product (GDP)", def: "Market value of all final goods and services produced in a country in a period." },
@@ -657,7 +675,7 @@ export const deepChapters: Chapter[] = [
     topicId: "fra",
     topicName: "Financial Reporting & Analysis",
     title: "Financial Reporting & Analysis: The Statements, Accrual Accounting, and Ratios",
-    readingMinutes: 19,
+    readingMinutes: 21,
     summary:
       "How to read what a company reports — the three statements and how they link, the accrual logic behind them, the cash flow statement (and why it can't be faked as easily), the full ratio toolkit with DuPont, and the inventory, depreciation, and earnings-quality choices that change the numbers.",
     intro:
@@ -742,6 +760,14 @@ export const deepChapters: Chapter[] = [
           { kind: "p", text: "The analyst's mindset, then, is constructive skepticism. Read the notes and MD&A, not just the face of the statements; convert to comparable bases (FIFO, adjusted for one-offs); decompose ROE to find its true source; and always triangulate accrual earnings against cash. FRA connects to everything downstream — equity valuation discounts the earnings and cash flows you assess here, and credit analysis leans on the solvency and coverage ratios. Reading statements well is the foundational analytical skill the rest of the curriculum assumes." },
         ],
       },
+      {
+        heading: "Quality of earnings",
+        blocks: [
+          { kind: "p", text: "QUALITY OF EARNINGS asks a question the income statement cannot answer on its own: are the reported profits sustainable, and are they backed by cash? Accrual accounting requires judgement at almost every line, and judgement can be exercised aggressively without ever breaking a rule. High-quality earnings are repeatable, cash-backed and derived from the core business; low-quality earnings are the opposite even when they are perfectly legal." },
+          { kind: "bullets", items: ["ACCRUALS RATIO — the gap between net income and cash flow from operations. A persistent and widening gap is the single most studied warning sign.", "RECEIVABLES growing faster than revenue suggests sales are being booked before the cash is collectible, or channel-stuffed into distributors.", "INVENTORY growing faster than sales suggests demand has weakened and a write-down is coming.", "NON-RECURRING items — asset sales, litigation settlements, one-time gains — inflate a single period and tell you nothing about the next one.", "CAPITALISING costs that peers expense moves expense off the income statement and onto the balance sheet, raising current income at the cost of future depreciation.", "CHANGES IN ESTIMATES — useful lives, salvage values, bad debt allowances — can be quietly adjusted to produce a desired result."] },
+          { kind: "p", text: "The analyst's response is mechanical rather than clever: compare net income to operating cash flow over several years, read the accounting policy note and the changes to it, and normalise for anything non-recurring before computing a multiple. A company whose earnings consistently exceed its operating cash flow is a company whose earnings should be treated with suspicion, whatever the auditor concluded." },
+        ],
+      },
     ],
     keyTerms: [
       { term: "The four statements", def: "Income statement (period performance), balance sheet (point-in-time position), cash flow statement, statement of changes in equity." },
@@ -780,7 +806,7 @@ export const deepChapters: Chapter[] = [
     topicId: "corp",
     topicName: "Corporate Issuers",
     title: "Corporate Issuers: Capital Budgeting, Cost of Capital, Leverage, and Structure",
-    readingMinutes: 13,
+    readingMinutes: 16,
     summary:
       "How companies create value with capital — the governance backdrop, the NPV/IRR rules for choosing projects, the WACC that discounts them, the operating and financial leverage that magnify outcomes, and the capital-structure theory behind the debt-vs-equity mix.",
     intro:
@@ -836,6 +862,15 @@ export const deepChapters: Chapter[] = [
           { kind: "p", text: "For the analyst, this chapter feeds directly into valuation and credit work. The WACC you estimate here is the discount rate in equity and project valuation; the leverage and capital-structure judgments drive credit risk and the cost of debt; and governance quality is a qualitative risk overlay. A company that invests above its cost of capital, finances itself prudently, and is governed in shareholders' interest is the profile of a value creator — exactly what equity analysis is trying to identify." },
         ],
       },
+      {
+        heading: "Distributions to shareholders: dividends and buybacks",
+        blocks: [
+          { kind: "p", text: "A company returning cash to shareholders chooses between a DIVIDEND and a SHARE REPURCHASE. In a frictionless world the two are equivalent: both distribute the same cash and both reduce the firm's value by the same amount. The differences that matter in practice are tax treatment, signalling, and flexibility." },
+          { kind: "p", text: "A SHARE REPURCHASE reduces shares outstanding, which mechanically raises earnings per share — but only if the earnings yield exceeds the after-tax cost of any funds used. Buying back stock with borrowed money at a cost above the earnings yield DILUTES EPS rather than accreting it, which is the calculation the exam tests. Book value per share falls when the repurchase price exceeds book value per share, and rises when it is below." },
+          { kind: "example", example: { title: "Does the buyback accrete or dilute EPS?", prompt: "A company earns $10 million with 5 million shares outstanding. It borrows at 8% after tax to repurchase 500,000 shares at $40. Does EPS rise or fall?", steps: ["Current EPS = 10,000,000 ÷ 5,000,000 = $2.00.", "Earnings yield = 2.00 ÷ 40 = 5.0%.", "After-tax borrowing cost is 8.0%, which exceeds the 5.0% earnings yield.", "Cost of funds = 500,000 × 40 × 0.08 = $1,600,000.", "New earnings = 10,000,000 − 1,600,000 = $8,400,000 over 4,500,000 shares."], answer: "EPS falls to $1.867. The rule follows directly: when the after-tax cost of funds exceeds the earnings yield, the repurchase DILUTES earnings per share, regardless of how the headline share count looks." } },
+          { kind: "p", text: "Signalling explains the rest of the behaviour. Dividends are treated as a commitment, so managers raise them only when they believe the higher level is sustainable and cut them only in genuine distress — which is why a dividend cut hits the share price twice, once for the lost income and once for the message. Repurchases carry no such commitment, which makes them the flexible instrument and the preferred way to distribute cash that may not recur." },
+        ],
+      },
     ],
     keyTerms: [
       { term: "Corporate governance", def: "The system of controls/incentives managing conflicts among stakeholders." },
@@ -872,7 +907,7 @@ export const deepChapters: Chapter[] = [
     topicId: "equity",
     topicName: "Equity Investments",
     title: "Equity Investments: Markets, Indexes, Efficiency, and Valuation",
-    readingMinutes: 14,
+    readingMinutes: 15,
     summary:
       "How equity markets work and how to value a share — market organization and margin, index construction and its biases, the three forms of market efficiency, the dividend discount and multiples valuation models, and the industry analysis (Porter) behind a company's competitive position.",
     intro:
@@ -926,6 +961,14 @@ export const deepChapters: Chapter[] = [
           { kind: "callout", label: "How it all connects", body: "Industry and competitive analysis → estimates of growth (g) and profitability → fed into a DDM/FCF model or sanity-checked with multiples → discounted at the cost of equity (CAPM) you built in Corporate Issuers → an intrinsic value you compare to the market price. Equity analysis is this chain, run end to end." },
         ],
       },
+      {
+        heading: "Cash flow measures and multiple conventions",
+        blocks: [
+          { kind: "p", text: "Two free cash flow measures matter and they answer different questions. FCFF — free cash flow to the FIRM — is the cash available to every capital provider, debt and equity alike. Because it belongs to lenders too, interest is added back on an after-tax basis when building it from cash flow from operations. FCFE — free cash flow to EQUITY — is what remains for shareholders after interest and net debt repayment, and it is the figure that supports an equity value directly." },
+          { kind: "formula", formula: { label: "The two free cash flow measures", expr: "FCFF = CFO + Interest × (1 − t) − Capital expenditure\nFCFE = FCFF − Interest × (1 − t) + Net borrowing", note: "Discount FCFF at the WACC to reach firm value; discount FCFE at the cost of equity to reach equity value. Mismatching the cash flow and the discount rate is the standard error." } },
+          { kind: "p", text: "Multiples carry a parallel convention. A TRAILING multiple divides by the last twelve months of earnings, which are known but backward-looking. A LEADING or forward multiple divides by expected next-year earnings, which is what valuation theory actually calls for and what the justified P/E formula produces. The justified leading P/E is the payout ratio divided by (k − g); multiplying that by (1 + g) converts it to the trailing basis." },
+        ],
+      },
     ],
     keyTerms: [
       { term: "Primary vs secondary market", def: "Where new securities are issued (IPO) vs where they then trade among investors." },
@@ -964,7 +1007,7 @@ export const deepChapters: Chapter[] = [
     topicId: "fixed",
     topicName: "Fixed Income",
     title: "Fixed Income: Bond Mechanics, Pricing, Yields, Risk, and Credit",
-    readingMinutes: 14,
+    readingMinutes: 17,
     summary:
       "How bonds work and what moves their prices — the anatomy of a bond, pricing as present value, the family of yield measures, the duration and convexity that quantify interest-rate risk, the term structure and its theories, and the credit analysis behind spreads.",
     intro:
@@ -1018,6 +1061,16 @@ export const deepChapters: Chapter[] = [
           { kind: "p", text: "Credit risk is why a corporate bond yields more than a Treasury of the same maturity: the extra yield, the SPREAD, compensates for the chance of loss. Credit quality is summarized by RATINGS from agencies (Moody's, S&P, Fitch): INVESTMENT GRADE (BBB−/Baa3 and above) versus HIGH YIELD ('junk,' below that), a threshold that drives many institutional mandates. Analysts assess credit with frameworks like the 'four Cs' — Capacity (ability to repay, via coverage and leverage ratios), Collateral (assets backing the debt), Covenants (lender protections), and Character (management's track record)." },
           { kind: "p", text: "The yield spread itself is decomposed. The G-SPREAD is the yield over a government bond; the Z-SPREAD is the constant spread over the entire spot curve; and the OPTION-ADJUSTED SPREAD (OAS) removes the value of any embedded option to leave a clean credit/liquidity spread. Spreads WIDEN when the economy weakens or a credit deteriorates (prices fall) and NARROW when conditions improve. For the analyst, a bond's price reflects both the risk-free term structure AND this credit spread — and changes in either move the price." },
           { kind: "callout", label: "Why fixed income ties the curriculum together", body: "Bond pricing is the purest present-value exercise; duration is the risk measure portfolio managers use to control rate exposure; the yield curve sets the discount rates used everywhere; and credit spreads are the market's real-time read on default risk. The price–yield inverse relationship and duration are the two ideas you will use most often across the rest of the program." },
+        ],
+      },
+      {
+        heading: "Money market yields and quoting conventions",
+        blocks: [
+          { kind: "p", text: "Short-term instruments are quoted several different ways, and the conventions are not interchangeable. A candidate who compares two money market instruments without converting them to a common basis will reach the wrong answer, which is precisely what the exam is testing." },
+          { kind: "formula", formula: { label: "Money market yield conventions", expr: "Bank discount yield = (D ÷ F) × (360 ÷ t)\nHolding period yield = (P₁ − P₀ + D₁) ÷ P₀\nEffective annual yield = (1 + HPY)^(365/t) − 1\nMoney market yield = HPY × (360 ÷ t)", note: "D is the dollar discount, F the face value, t the days to maturity." } },
+          { kind: "p", text: "The BANK DISCOUNT YIELD is the weakest of the four and the one used to quote Treasury bills. It is flawed in three ways at once: it is computed against FACE value rather than against the price actually paid, it uses a 360-day year, and it ignores compounding. It therefore understates the true return and cannot be compared directly with anything else." },
+          { kind: "p", text: "The MONEY MARKET YIELD, also called the CD equivalent yield, fixes the first flaw by working from the purchase price, while retaining the 360-day convention. The BOND EQUIVALENT YIELD restates a short-term yield on the 365-day, semiannual basis that bonds use, which is what makes a bill comparable to a note. The EFFECTIVE ANNUAL YIELD is the most complete of the four, because it alone reflects compounding." },
+          { kind: "example", example: { title: "Converting a bill quote", prompt: "A 180-day Treasury bill with $100,000 face is quoted at a 4% bank discount yield. Compute the price, the holding period yield and the money market yield.", steps: ["Dollar discount = 100,000 × 0.04 × (180/360) = $2,000.", "Price = 100,000 − 2,000 = $98,000.", "HPY = 2,000 ÷ 98,000 = 2.0408%.", "Money market yield = 2.0408% × (360/180) = 4.0816%."], answer: "Price $98,000, HPY 2.0408%, money market yield 4.0816%. The money market yield exceeds the 4% discount quote because it divides by the $98,000 actually invested rather than by the $100,000 face — which is the whole reason the discount convention understates return." } },
         ],
       },
     ],
@@ -1142,7 +1195,7 @@ export const deepChapters: Chapter[] = [
     topicId: "alts",
     topicName: "Alternative Investments",
     title: "Alternative Investments: Hedge Funds, Private Equity, Real Estate, and Commodities",
-    readingMinutes: 9,
+    readingMinutes: 12,
     summary:
       "Investments beyond stocks and bonds — what hedge funds, private equity, real estate, and commodities are, their distinctive fee structures and risks, and the diversification case and pitfalls of the whole category.",
     intro:
@@ -1187,6 +1240,14 @@ export const deepChapters: Chapter[] = [
           { kind: "p", text: "The balanced view: alternatives can genuinely improve a portfolio's risk-adjusted return through low correlation and skilled management, but only after honestly discounting for fees, illiquidity, and the upward bias in reported numbers. For the exam, know the categories, the fee mechanics, the cap-rate valuation, the contango/backwardation distinction, and — above all — the biases that make alternative returns look better than they are." },
         ],
       },
+      {
+        heading: "Hedge fund fee mechanics",
+        blocks: [
+          { kind: "p", text: "Alternative fee structures are tested arithmetically, and the details change the answer materially. A HIGH WATER MARK records the highest value the fund has previously reached and bars any incentive fee until that level is regained — which stops a manager charging twice for recovering the same losses. A HURDLE RATE requires a minimum return before the incentive fee applies at all; it is HARD if the fee is charged only on the excess above the hurdle, and SOFT if clearing the hurdle entitles the manager to a fee on the whole gain." },
+          { kind: "example", example: { title: "Incentive fee with a high water mark", prompt: "A fund charges 2 and 20 with a high water mark. It starts year 1 at $100 million and falls to $80 million. In year 2 it rises to $110 million before fees. What incentive fee is earned in year 2?", steps: ["Year 1: no incentive fee — the fund lost money. Management fee 2% is still charged.", "The high water mark stands at $100 million.", "Year 2 gross value is $110 million, which is $10 million above the mark.", "Incentive fee = 20% × 10,000,000 = $2,000,000."], answer: "$2 million, charged only on the $10 million above the high water mark. Without the mark the manager would have charged 20% of the full $30 million recovery — $6 million — most of which is simply the investors' own money coming back." } },
+          { kind: "p", text: "Two further mechanics belong here. LOCKUP periods and NOTICE periods restrict when capital can leave, and a GATE limits total redemptions in any one period — all of which mean the exit a client assumes exists may not be available under stress. And in a fund of funds, the fee layers COMPOUND: the underlying managers charge their fees first, and the fund of funds charges its own on top, so a headline '1 and 10' can sit above an effective '2 and 20' underneath it." },
+        ],
+      },
     ],
     keyTerms: [
       { term: "Alternative investments", def: "Assets outside public stocks/bonds/cash: hedge funds, private equity, real estate, commodities, etc." },
@@ -1218,7 +1279,7 @@ export const deepChapters: Chapter[] = [
     topicId: "pm",
     topicName: "Portfolio Management",
     title: "Portfolio Management: Diversification, the Efficient Frontier, CAPM, and the IPS",
-    readingMinutes: 10,
+    readingMinutes: 11,
     summary:
       "Investing as a portfolio, not a pile of bets — how diversification splits and prices risk, the efficient frontier and the capital market line, the CAPM and security market line that price systematic risk, and the investment-policy-statement process that turns a client into an allocation.",
     intro:
@@ -1263,6 +1324,13 @@ export const deepChapters: Chapter[] = [
           { kind: "p", text: "Behavioral factors and investor type also shape the IPS: an individual nearing retirement, a young accumulator, a pension with long-dated liabilities, and an endowment with a perpetual horizon all have very different objective/constraint profiles. Portfolio management is where every prior topic converges — the cost of capital becomes the discount rate, the statistics become risk measures, the asset classes become the allocation — into the disciplined management of a real investor's wealth." },
         ],
       },
+      {
+        heading: "Risk-adjusted performance measures",
+        blocks: [
+          { kind: "p", text: "Three ratios sit alongside one another and differ only in what goes in the denominator. The SHARPE RATIO divides excess return over the risk-free rate by STANDARD DEVIATION, giving return per unit of total risk — appropriate when the portfolio is the investor's whole exposure. THE TREYNOR RATIO divides the same excess return by BETA, giving return per unit of systematic risk — appropriate when the portfolio is one component of a larger diversified whole. JENSEN'S ALPHA is different in kind: it is the return in excess of what CAPM predicted for that beta, expressed in percentage points rather than as a ratio." },
+          { kind: "formula", formula: { label: "The three measures", expr: "Sharpe = (Rp − Rf) ÷ σp\nTreynor = (Rp − Rf) ÷ βp\nJensen's alpha = Rp − [Rf + βp(Rm − Rf)]", note: "A portfolio can rank well on Treynor and poorly on Sharpe if it carries large diversifiable risk — which is exactly the case the two measures are designed to distinguish." } },
+        ],
+      },
     ],
     keyTerms: [
       { term: "Portfolio perspective", def: "Judge an asset by its contribution to the portfolio, not in isolation." },
@@ -1298,7 +1366,7 @@ export const deepChapters: Chapter[] = [
     topicId: "ethics",
     topicName: "Ethics & Professional Standards",
     title: "Ethics and the Standards of Professional Conduct",
-    readingMinutes: 10,
+    readingMinutes: 11,
     summary:
       "The most heavily weighted topic — the Code of Ethics and the seven Standards of Professional Conduct, the recurring principles (client first, no inside information, reasonable basis, fair dealing, disclose conflicts), and the GIPS framework for honest performance reporting.",
     intro:
@@ -1368,6 +1436,15 @@ export const deepChapters: Chapter[] = [
         blocks: [
           { kind: "p", text: "GIPS are voluntary, ethical standards for how investment firms CALCULATE and PRESENT performance, created so that clients can compare managers on an apples-to-apples basis and so firms can't cherry-pick their best results. Compliance is FIRM-WIDE (a firm claims compliance as a whole, not for select products), and the cornerstone is the COMPOSITE: a grouping of ALL similar fee-paying, discretionary portfolios managed to a strategy. Requiring every such portfolio in the composite prevents the firm from showcasing only its winners and burying its losers — the central abuse GIPS exists to stop." },
           { kind: "p", text: "GIPS doesn't dictate strategy or guarantee accuracy; it standardizes presentation and demands fair representation and full disclosure. For the exam, know that GIPS is voluntary but firm-wide, that composites prevent survivorship/cherry-picking bias, and that compliance is a strong credibility signal to prospective clients. Ethics, in the end — Standards and GIPS alike — is the discipline of being trustworthy in a business built entirely on trust, which is exactly why the exam weights it so heavily." },
+        ],
+      },
+      {
+        heading: "Standard III(A): Loyalty, Prudence, and Care",
+        blocks: [
+          { kind: "p", text: "STANDARD III(A) — LOYALTY, PRUDENCE, AND CARE — establishes that a member owes duties of loyalty to clients, must act with reasonable care, and must exercise prudent judgement. Its most tested proposition is the identification of the client: for a PENSION PLAN or a trust, the client is the BENEFICIARIES, not the plan sponsor or the trustee who hired the manager. A manager who follows the sponsor's instruction at the beneficiaries' expense has violated the standard even though the sponsor pays the bill." },
+          { kind: "p", text: "The standard also governs SOFT DOLLARS. Client brokerage belongs to the client, so it may be used to buy research that benefits that client — never to buy the manager's own overhead, and never to reward a broker for referring business. Where the manager has discretion over brokerage, the obligation to seek best execution attaches to it." },
+          { kind: "p", text: "Proxy voting sits in the same place. Proxies have economic value, so voting them is part of managing the assets rather than an administrative nicety. A member must have a policy, may reasonably decide that voting every routine proxy is not cost-effective, and must disclose that policy to clients." },
+          { kind: "callout", label: "Distinguishing the loyalty standards", body: "Three standards use the word loyalty and the exam relies on candidates confusing them. STANDARD III(A) is loyalty to CLIENTS. STANDARD IV(A), Loyalty, is loyalty to the EMPLOYER — the standard that governs leaving a firm, taking records, and competing. STANDARD VI(A), Disclosure of Conflicts, governs conflicts with the member's OWN interests. Read the fact pattern for whose interest was subordinated, and the correct standard follows." },
         ],
       },
     ],

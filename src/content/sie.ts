@@ -1092,7 +1092,7 @@ const questions: Question[] = [
   {
     id: "sie-mkt-q6", examSlug: "sie", topicId: "markets", topicName: "Capital Markets", difficulty: 3,
     stem: "An underwriter agrees to purchase an entire new issue from the issuer and resell it to the public, keeping any unsold shares. This arrangement means that:",
-    choices: ["The issuer bears the risk that shares go unsold", "The underwriter acts as principal and bears the unsold-share risk", "The underwriter acts as agent and earns a commission per share sold", "The offering is automatically voided if the issue is not fully sold"],
+    choices: ["The issuer bears the risk that shares go unsold in practice", "The underwriter acts as principal and bears the unsold-share risk", "The underwriter acts as agent and earns a commission per share sold", "The offering is automatically voided if the issue is not fully sold"],
     answerIndex: 1,
     explanation: "This describes a firm-commitment underwriting: the underwriter buys the issue as principal, so the capital risk of unsold shares shifts to the underwriter. In a best-efforts arrangement the underwriter would act only as agent and the issuer would keep that risk. An all-or-none arrangement is what voids a deal that is not fully subscribed, which is a different structure entirely.",
   },
@@ -1180,7 +1180,7 @@ const questions: Question[] = [
   {
     id: "sie-prod-q7", examSlug: "sie", topicId: "products", topicName: "Products & Risks", difficulty: 2,
     stem: "Which security represents ownership of a foreign corporation's shares, trades in U.S. dollars on U.S. markets, and still exposes the holder to exchange-rate movements?",
-    choices: ["A Eurodollar bond issued by the foreign corporation", "An American Depositary Receipt", "A closed-end country fund trading at a discount", "A Yankee bond registered with the SEC"],
+    choices: ["A Eurodollar bond issued by the foreign corporation", "An American Depositary Receipt in practice", "A closed-end country fund trading at a discount", "A Yankee bond registered with the SEC"],
     answerIndex: 1,
     explanation: "An American Depositary Receipt is a negotiable certificate representing foreign shares, priced and traded in dollars on U.S. markets, while the holder still bears currency risk because the underlying value remains denominated abroad. Eurodollar and Yankee bonds are debt instruments, not ownership. A country fund provides exposure but is a pooled investment vehicle rather than a direct receipt for specific shares.",
   },
@@ -1226,7 +1226,7 @@ const questions: Question[] = [
   {
     id: "sie-eq-q2", examSlug: "sie", topicId: "equity", topicName: "Equity Securities", difficulty: 3,
     stem: "Rights and warrants both permit the purchase of stock. Which pairing correctly describes each at issuance?",
-    choices: ["Rights: long-term, struck above market. Warrants: short-term, struck below market", "Both are short-term and struck below the prevailing market price", "Both are long-term sweeteners attached to debt offerings", "Rights: short-term, struck below market. Warrants: long-term, struck above market"],
+    choices: ["Rights: long-term, struck above market. Warrants: short-term, struck below market", "Both are short-term and struck below the prevailing market price", "Both are long-term sweeteners attached to debt offerings for the client", "Rights: short-term, struck below market. Warrants: long-term, struck above market"],
     answerIndex: 3,
     explanation: "Rights arise from a rights offering, last weeks, and carry a subscription price below the current market as compensation to existing holders for the dilution a new issue causes. Warrants typically last years, are attached to bonds or preferred stock as a sweetener to help place the offering, and carry an exercise price above the market when issued. Reversing the two is the most common exam trap.",
   },
@@ -1325,7 +1325,7 @@ const questions: Question[] = [
   {
     id: "sie-funds-q3", examSlug: "sie", topicId: "funds", topicName: "Investment Funds", difficulty: 3,
     stem: "An investor plans to invest a large lump sum in a single fund family and wants to reduce the sales charge. Which provision most directly helps?",
-    choices: ["A breakpoint schedule reducing the charge at higher investment levels", "A contingent deferred sales charge declining over the holding period", "A twelve-b-one fee paid annually from fund assets", "A conversion privilege exchanging Class B shares for Class A"],
+    choices: ["A breakpoint schedule reducing the charge at higher investment levels", "A contingent deferred sales charge declining over the holding period", "A twelve-b-one fee paid annually from fund assets in practice", "A conversion privilege exchanging Class B shares for Class A"],
     answerIndex: 0,
     explanation: "Breakpoints reduce the percentage sales charge once an investment reaches stated dollar thresholds, which is exactly the benefit a large lump-sum investor should receive. Failing to inform a customer of an available breakpoint is a prohibited practice known as breakpoint selling. Deferred charges and annual distribution fees are different fee structures that do not lower a front-end charge on a large purchase.",
   },
@@ -1339,14 +1339,14 @@ const questions: Question[] = [
   {
     id: "sie-funds-q5", examSlug: "sie", topicId: "funds", topicName: "Investment Funds", difficulty: 2,
     stem: "An exchange-traded fund differs from a traditional mutual fund principally because the ETF:",
-    choices: ["Prices only once daily after the market closes", "Guarantees performance matching its benchmark index", "Trades intraday at market prices and may be purchased on margin", "Cannot be sold short or purchased on margin under any circumstances"],
+    choices: ["Prices only once daily after the market closes in practice", "Guarantees performance matching its benchmark index", "Trades intraday at market prices and may be purchased on margin", "Cannot be sold short or purchased on margin under any circumstances"],
     answerIndex: 2,
     explanation: "ETFs trade throughout the session at market-determined prices, and because they trade like stock they may be bought on margin and sold short. Mutual funds transact once daily at the next computed net asset value. No fund guarantees index performance, since tracking error and expenses always create some divergence.",
   },
   {
     id: "sie-funds-q6", examSlug: "sie", topicId: "funds", topicName: "Investment Funds", difficulty: 3,
     stem: "A variable annuity differs from a fixed annuity because in the variable contract:",
-    choices: ["The insurer guarantees a minimum rate of return on contributions", "Assets are held in the insurer's general account", "Payments are exempt from ordinary income taxation upon distribution", "Assets are held in a separate account and the owner bears investment risk"],
+    choices: ["The insurer guarantees a minimum rate of return on contributions", "Assets are held in the insurer's general account for the client", "Payments are exempt from ordinary income taxation upon distribution", "Assets are held in a separate account and the owner bears investment risk"],
     answerIndex: 3,
     explanation: "Variable annuity premiums are invested in a separate account of sub-accounts, so investment performance and therefore investment risk belong to the contract owner, which is why the product is a security requiring prospectus delivery. A fixed annuity keeps assets in the insurer's general account with a guaranteed rate, placing the risk on the insurer. Annuity distributions of earnings are taxed as ordinary income.",
   },
@@ -1357,7 +1357,7 @@ const questions: Question[] = [
   {
     id: "sie-opt-q1", examSlug: "sie", topicId: "options", topicName: "Options", difficulty: 3,
     stem: "An investor writes an uncovered call. The maximum potential loss on this position is:",
-    choices: ["Theoretically unlimited as the stock rises", "Limited to the premium received", "Limited to the strike price less the premium", "Limited to the difference between strike and current market price"],
+    choices: ["Theoretically unlimited as the stock rises for the client", "Limited to the premium received for the client", "Limited to the strike price less the premium in practice", "Limited to the difference between strike and current market price"],
     answerIndex: 0,
     explanation: "An uncovered call writer is obligated to deliver shares at the strike price no matter how high the stock climbs, and because there is no ceiling on a stock's price the potential loss is theoretically unlimited. The premium received merely offsets the first portion of that loss. A loss limited to strike minus premium describes the short put, whose downside stops when the stock reaches zero.",
   },
@@ -1371,7 +1371,7 @@ const questions: Question[] = [
   {
     id: "sie-opt-q3", examSlug: "sie", topicId: "options", topicName: "Options", difficulty: 3,
     stem: "An investor owns 100 shares purchased at $52 and writes a covered call with a $55 strike for a premium of 3. The maximum gain is:",
-    choices: ["$300, the premium received", "$300, the appreciation to the strike only", "$600, the strike appreciation plus the premium", "Unlimited, since the shares may continue rising"],
+    choices: ["$300, the premium received in practice", "$300, the appreciation to the strike only", "$600, the strike appreciation plus the premium", "Unlimited, since the shares may continue rising"],
     answerIndex: 2,
     explanation: "If the stock rises above the strike the call is exercised and the shares are sold at $55, producing $3 per share of appreciation plus the $3 premium retained, or $600 total on 100 shares. Writing the call caps participation above $55, which is the trade-off for the income received, so unlimited upside no longer applies.",
   },
@@ -1431,7 +1431,7 @@ const questions: Question[] = [
   {
     id: "sie-muni-q5", examSlug: "sie", topicId: "munis", topicName: "Municipal Securities", difficulty: 3,
     stem: "Where would an investor find official disclosure documents for a municipal issuer?",
-    choices: ["The SEC's EDGAR database", "FINRA BrokerCheck", "The MSRB's EMMA system", "The issuer's state banking commission"],
+    choices: ["The SEC's EDGAR database", "FINRA BrokerCheck in practice", "The MSRB's EMMA system", "The issuer's state banking commission"],
     answerIndex: 2,
     explanation: "EMMA, the Electronic Municipal Market Access system operated by the MSRB, is the official repository for municipal disclosure documents and trade data. EDGAR holds corporate registration and periodic filings, and BrokerCheck reports the licensing and disciplinary history of firms and representatives. Matching the repository to the security type is the tested skill.",
   },
@@ -1449,7 +1449,7 @@ const questions: Question[] = [
   {
     id: "sie-acct-q1", examSlug: "sie", topicId: "accounts", topicName: "Customer Accounts", difficulty: 3,
     stem: "Two siblings own an account as tenants in common with unequal interests. Upon one sibling's death, that interest passes to:",
-    choices: ["The deceased sibling's estate", "The surviving sibling automatically by operation of law", "The broker-dealer, pending court instruction", "The account's designated beneficiary on file"],
+    choices: ["The deceased sibling's estate for the client", "The surviving sibling automatically by operation of law", "The broker-dealer, pending court instruction", "The account's designated beneficiary on file"],
     answerIndex: 0,
     explanation: "Tenants in common permits unequal fractional ownership, and a decedent's share passes to that person's estate for distribution under the will or intestacy law. Automatic transfer to the survivor is the defining feature of joint tenants with right of survivorship, which is the structure the question deliberately contrasts. A transfer-on-death designation would be a separate registration choice.",
   },
@@ -1509,7 +1509,7 @@ const questions: Question[] = [
   {
     id: "sie-trd-q3", examSlug: "sie", topicId: "trading", topicName: "Trading & Prohibited Acts", difficulty: 3,
     stem: "A representative repeatedly trades a retirement account, generating substantial commissions while the account's allocation remains essentially unchanged. This conduct is best described as:",
-    choices: ["Churning, or excessive trading for commission purposes", "Front-running the customer's own orders", "Painting the tape to simulate market activity", "Selling away by transacting privately outside the employing firm"],
+    choices: ["Churning, or excessive trading for commission purposes", "Front-running the customer's own orders for the client", "Painting the tape to simulate market activity", "Selling away by transacting privately outside the employing firm"],
     answerIndex: 0,
     explanation: "Trading whose frequency serves the representative's compensation rather than the customer's objectives is churning, and an unchanged allocation despite heavy activity is the classic evidence. Front-running involves trading ahead of a known customer order, painting the tape is manipulation through matched trades, and selling away means transacting outside the firm without approval.",
   },
@@ -1544,7 +1544,7 @@ const questions: Question[] = [
   {
     id: "sie-trd-q8", examSlug: "sie", topicId: "trading", topicName: "Trading & Prohibited Acts", difficulty: 3,
     stem: "A trade confirmation must be delivered to the customer:",
-    choices: ["Within thirty days following the end of the month", "At or before completion of the transaction", "Only upon the customer's written request", "At the close of the calendar quarter with the account statement"],
+    choices: ["Within thirty days following the end of the month", "At or before completion of the transaction in practice", "Only upon the customer's written request for the client", "At the close of the calendar quarter with the account statement"],
     answerIndex: 1,
     explanation: "A confirmation disclosing the essential trade terms must reach the customer at or before completion of the transaction, meaning by settlement. Account statements follow a separate schedule, generally quarterly at minimum and monthly when there is activity, so confusing the two documents' timing is the tested trap.",
   },
@@ -1590,14 +1590,14 @@ const questions: Question[] = [
   {
     id: "sie-suit-q3", examSlug: "sie", topicId: "suitability", topicName: "Suitability", difficulty: 3,
     stem: "FINRA's Know Your Customer rule requires a member firm to use reasonable diligence to know the essential facts concerning:",
-    choices: ["Only customers whose accounts exceed a specified asset threshold", "Only customers who trade on margin or in options", "Only institutional customers subject to heightened standards", "Every customer and the authority of each person acting on the account"],
+    choices: ["Only customers whose accounts exceed a specified asset threshold", "Only customers who trade on margin or in options in practice", "Only institutional customers subject to heightened standards", "Every customer and the authority of each person acting on the account"],
     answerIndex: 3,
     explanation: "The Know Your Customer rule applies to every customer, requiring reasonable diligence to know and retain the essential facts about the account and the authority of anyone acting on the customer's behalf. There is no asset threshold, product trigger, or institutional limitation — the obligation attaches at account opening and continues throughout the relationship.",
   },
   {
     id: "sie-suit-q4", examSlug: "sie", topicId: "suitability", topicName: "Suitability", difficulty: 3,
     stem: "A customer declines to provide financial information when opening an account. The representative may:",
-    choices: ["Open the account but must exercise care in making recommendations", "Refuse to open the account under any circumstances", "Open the account and recommend freely, since disclosure was refused", "Open the account only if a principal provides written approval of each trade"],
+    choices: ["Open the account but must exercise care in making recommendations", "Refuse to open the account under any circumstances for the client", "Open the account and recommend freely, since disclosure was refused", "Open the account only if a principal provides written approval of each trade"],
     answerIndex: 0,
     explanation: "An account may be opened when a customer declines to supply financial details, but the absence of that information constrains what the firm can reasonably recommend, since a suitability determination requires a reasonable basis. Recommending freely on the theory that the customer waived protection is precisely what the rules forbid, and no rule imposes a blanket refusal or per-trade principal approval in this situation.",
   },
@@ -1668,7 +1668,7 @@ const questions: Question[] = [
   {
     id: "sie-reg-q1", examSlug: "sie", topicId: "regulation", topicName: "Regulatory Framework", difficulty: 2,
     stem: "A member firm registers a new representative by filing:",
-    choices: ["Form U5 with the representative's prior employer", "Form U4 through the CRD system", "Form BD with the SEC", "Form ADV with the state securities administrator"],
+    choices: ["Form U5 with the representative's prior employer", "Form U4 through the CRD system", "Form BD with the SEC for the client", "Form ADV with the state securities administrator"],
     answerIndex: 1,
     explanation: "Form U4 is the uniform application filed through the Central Registration Depository to register an individual as a representative. Form U5 reports a termination, Form BD registers the broker-dealer entity itself, and Form ADV is the investment adviser registration form. Matching each form to its subject is the tested distinction.",
   },
@@ -1682,7 +1682,7 @@ const questions: Question[] = [
   {
     id: "sie-reg-q3", examSlug: "sie", topicId: "regulation", topicName: "Regulatory Framework", difficulty: 3,
     stem: "A written communication distributed to more than twenty-five retail investors within thirty days is classified as:",
-    choices: ["Correspondence, requiring only post-use review", "An institutional communication, exempt from approval requirements", "A private placement memorandum subject to Regulation D", "A retail communication, generally requiring prior principal approval"],
+    choices: ["Correspondence, requiring only post-use review in most cases", "An institutional communication, exempt from approval requirements", "A private placement memorandum subject to Regulation D", "A retail communication, generally requiring prior principal approval"],
     answerIndex: 3,
     explanation: "Communications distributed to more than twenty-five retail investors in a thirty-day period are retail communications, which generally require approval by a registered principal before first use. Correspondence is the category for twenty-five or fewer retail investors, and institutional communications are directed to institutional investors under different standards.",
   },
@@ -1696,14 +1696,14 @@ const questions: Question[] = [
   {
     id: "sie-reg-q5", examSlug: "sie", topicId: "regulation", topicName: "Regulatory Framework", difficulty: 2,
     stem: "A prospective client wants to research a representative's employment history and any disciplinary actions. The appropriate resource is:",
-    choices: ["The SEC's EDGAR filing system", "FINRA BrokerCheck", "The MSRB's EMMA system", "The firm's internal compliance records"],
+    choices: ["The SEC's EDGAR filing system", "FINRA BrokerCheck in practice", "The MSRB's EMMA system", "The firm's internal compliance records"],
     answerIndex: 1,
     explanation: "BrokerCheck is FINRA's free public database reporting the registration status, employment history, licenses, and disciplinary events of firms and representatives. EDGAR holds corporate filings and EMMA holds municipal disclosures, and a firm's internal records are not publicly accessible.",
   },
   {
     id: "sie-reg-q6", examSlug: "sie", topicId: "regulation", topicName: "Regulatory Framework", difficulty: 3,
     stem: "Which statement about the Customer Identification Program is accurate?",
-    choices: ["It requires firms to guarantee the lawful source of all deposited funds", "It applies only to accounts exceeding $10,000 in initial value", "It requires firms to verify the identity of each customer opening an account", "It replaces the need to file Suspicious Activity Reports"],
+    choices: ["It requires firms to guarantee the lawful source of all deposited funds", "It applies only to accounts exceeding $10,000 in initial value", "It requires firms to verify the identity of each customer opening an account", "It replaces the need to file Suspicious Activity Reports in practice"],
     answerIndex: 2,
     explanation: "The Customer Identification Program, a required component of a firm's anti-money-laundering program, obligates the firm to collect and verify identifying information such as name, date of birth, address, and taxpayer identification number for each customer opening an account. It carries no dollar threshold, does not make the firm a guarantor of fund sources, and operates alongside rather than instead of suspicious activity reporting.",
   },
@@ -1763,7 +1763,7 @@ const questions: Question[] = [
   {
     id: "sie-econ-q6", examSlug: "sie", topicId: "economics", topicName: "Economic Factors", difficulty: 3,
     stem: "Fiscal policy differs from monetary policy in that fiscal policy is:",
-    choices: ["Conducted by the Federal Reserve through interest rate targets", "Limited to adjusting bank reserve requirements", "Conducted by Congress and the President through spending and taxation", "Administered by the SEC to stabilize securities markets"],
+    choices: ["Conducted by the Federal Reserve through interest rate targets", "Limited to adjusting bank reserve requirements for the client", "Conducted by Congress and the President through spending and taxation", "Administered by the SEC to stabilize securities markets"],
     answerIndex: 2,
     explanation: "Fiscal policy is the domain of the elected branches, operating through government spending and taxation decisions. Monetary policy belongs to the Federal Reserve and works through open market operations, the discount rate, and reserve requirements. The SEC regulates securities markets and does not conduct macroeconomic policy at all.",
   },

@@ -20,6 +20,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/free-cfa-mock-exam`, changeFrequency: "weekly", priority: 0.9, lastModified: now },
     { url: `${BASE}/cheapest-cfa-prep`, changeFrequency: "weekly", priority: 0.9, lastModified: now },
     { url: `${BASE}/cfa-level-1-prep`, changeFrequency: "weekly", priority: 0.9, lastModified: now },
+    // Every ranking target above is CFA, which is why organic traffic arrives
+    // CFA-shaped even though we sell six tracks. These three cover the non-CFA
+    // exams that have real depth behind them (751 / 1,631 / 1,116 questions
+    // plus a full timed mock each). CPA and CFP are deliberately absent — they
+    // have ~85 questions and no mock, and ranking for them would send people
+    // to something thin.
+    { url: `${BASE}/free-series-7-practice-exam`, changeFrequency: "weekly", priority: 0.9, lastModified: now },
+    { url: `${BASE}/free-sie-practice-exam`, changeFrequency: "weekly", priority: 0.9, lastModified: now },
+    { url: `${BASE}/free-series-66-practice-exam`, changeFrequency: "weekly", priority: 0.9, lastModified: now },
     { url: `${BASE}/mock`, changeFrequency: "weekly", priority: 0.8, lastModified: now },
     { url: `${BASE}/check`, changeFrequency: "weekly", priority: 0.7, lastModified: now },
     { url: `${BASE}/blog`, changeFrequency: "weekly", priority: 0.8, lastModified: now },

@@ -795,23 +795,25 @@ const questions: Question[] = [
     answerIndex: 2,
     explanation: "The CPA's professional duties — integrity, objectivity, due care, and confidentiality — ultimately serve the public interest, which is the source of the profession's credibility. Choice A invites fraud; a CPA must have a reasonable basis for tax positions and cannot pursue improper refunds. Choice B is wrong because a CPA must not subordinate professional judgment to a client's wishes.",
   },
-  // BEC
+  // BAR — Business Analysis & Reporting. topicId stays "bec" because
+  // CPA_SECTION_TOPICS and saved user progress both key on it; only the
+  // user-visible NAME was stale (BEC was retired in 2024).
   {
-    id: "cpa-bec-q1", examSlug: "cpa", topicId: "bec", topicName: "Business Environment", difficulty: 2,
+    id: "cpa-bec-q1", examSlug: "cpa", topicId: "bec", topicName: "Business Analysis & Reporting", difficulty: 2,
     stem: "Having different employees authorize transactions, record them, and hold custody of the related assets is an example of:",
     choices: ["Segregation of duties", "Double taxation", "Revenue recognition"],
     answerIndex: 0,
     explanation: "Splitting authorization, recordkeeping, and custody among different people is segregation of duties — a fundamental internal control that makes it much harder for any one person to commit and conceal fraud. Choices B (a tax concept) and C (an accounting recognition rule) are unrelated to internal-control structure. Concentrating these duties in one person is a classic control weakness.",
   },
   {
-    id: "cpa-bec-q2", examSlug: "cpa", topicId: "bec", topicName: "Business Environment", difficulty: 3,
+    id: "cpa-bec-q2", examSlug: "cpa", topicId: "bec", topicName: "Business Analysis & Reporting", difficulty: 3,
     stem: "A product sells for $50 with variable cost of $30 per unit, and fixed costs are $100,000. The breakeven point in units is:",
     choices: ["2,000 units", "5,000 units", "3,333 units"],
     answerIndex: 1,
     explanation: "Contribution margin per unit = price − variable cost = $50 − $30 = $20. Breakeven units = fixed costs ÷ contribution margin = $100,000 ÷ $20 = 5,000 units. Choice A divides by price ($50) instead of contribution margin. Choice C divides by $30. The correct denominator is the $20 contribution margin, which is what each unit provides toward covering fixed costs.",
   },
   {
-    id: "cpa-bec-q3", examSlug: "cpa", topicId: "bec", topicName: "Business Environment", difficulty: 2,
+    id: "cpa-bec-q3", examSlug: "cpa", topicId: "bec", topicName: "Business Analysis & Reporting", difficulty: 2,
     stem: "The widely used framework defining internal control through five components, including the control environment, is:",
     choices: ["GAAP", "The five-step revenue model", "The COSO framework"],
     answerIndex: 2,
@@ -910,28 +912,28 @@ const questions: Question[] = [
 
   // ---- Business Analysis & Governance (BAR) ----
   {
-    id: "cpa-bec-q4", examSlug: "cpa", topicId: "bec", topicName: "Business Environment", difficulty: 3,
+    id: "cpa-bec-q4", examSlug: "cpa", topicId: "bec", topicName: "Business Analysis & Reporting", difficulty: 3,
     stem: "A company's weighted average cost of capital (WACC) is:",
     choices: ["The weighted blend of its debt and equity costs", "The interest rate charged on its most recent loan", "Always exactly equal to its cost of equity"],
     answerIndex: 0,
     explanation: "WACC blends the after-tax cost of debt and the cost of equity, each weighted by its proportion in the capital structure; it's the minimum return new projects must earn. Choice B looks at one debt instrument, not the whole structure. Choice C ignores debt, which (being cheaper and tax-deductible) usually pulls WACC below the cost of equity.",
   },
   {
-    id: "cpa-bec-q5", examSlug: "cpa", topicId: "bec", topicName: "Business Environment", difficulty: 2,
+    id: "cpa-bec-q5", examSlug: "cpa", topicId: "bec", topicName: "Business Analysis & Reporting", difficulty: 2,
     stem: "Under the net present value (NPV) rule, a capital project should be accepted when:",
     choices: ["Its payback period exceeds five years", "Its NPV is greater than zero", "Its accounting net income is positive in year one"],
     answerIndex: 1,
     explanation: "A positive NPV means the present value of the project's cash inflows exceeds its cost at the required discount rate, so it adds value and should be accepted. Choice A describes a long payback, which argues against a project. Choice C uses accrual income, ignoring the time value of money that NPV is built on.",
   },
   {
-    id: "cpa-bec-q6", examSlug: "cpa", topicId: "bec", topicName: "Business Environment", difficulty: 2,
+    id: "cpa-bec-q6", examSlug: "cpa", topicId: "bec", topicName: "Business Analysis & Reporting", difficulty: 2,
     stem: "A company has current assets of $300,000 and current liabilities of $150,000. Its current ratio is:",
     choices: ["0.5", "$150,000", "2.0"],
     answerIndex: 2,
     explanation: "Current ratio = current assets ÷ current liabilities = $300,000 ÷ $150,000 = 2.0, a common liquidity measure (≥ 1.0 means current assets cover current liabilities). Choice A inverts the ratio. Choice B reports working capital (assets − liabilities = $150,000), which is a dollar amount, not the ratio.",
   },
   {
-    id: "cpa-bec-q7", examSlug: "cpa", topicId: "bec", topicName: "Business Environment", difficulty: 3,
+    id: "cpa-bec-q7", examSlug: "cpa", topicId: "bec", topicName: "Business Analysis & Reporting", difficulty: 3,
     stem: "A public company's management must assess and report on internal control over financial reporting. This obligation arises under:",
     choices: ["Sarbanes-Oxley Section 404, with auditor attestation for larger filers", "Sarbanes-Oxley Section 302, covering certification of the statements", "Sarbanes-Oxley Section 906, imposing criminal penalties for false filings"],
     answerIndex: 0,
@@ -1009,21 +1011,21 @@ const questions: Question[] = [
 
   // ---- Business Environment (more) ----
   {
-    id: "cpa-bec-q8", examSlug: "cpa", topicId: "bec", topicName: "Business Environment", difficulty: 2,
+    id: "cpa-bec-q8", examSlug: "cpa", topicId: "bec", topicName: "Business Analysis & Reporting", difficulty: 2,
     stem: "A product sells for $45 with variable costs of $27 per unit. The contribution margin per unit and the contribution margin ratio are:",
     choices: ["$27 and 60%, based on the variable cost of producing each unit", "$18 and 40%, the amount and share available to cover fixed costs", "$45 and 100%, since the full price contributes before costs"],
     answerIndex: 1,
     explanation: "Contribution margin per unit is selling price less VARIABLE cost: $45 - $27 = $18. The ratio expresses that as a share of price: $18 / $45 = 40%. This is the amount each unit contributes toward fixed costs and, once those are covered, toward profit. Fixed costs never enter the contribution margin calculation, which is exactly what makes the measure useful for breakeven and short-run decisions.",
   },
   {
-    id: "cpa-bec-q9", examSlug: "cpa", topicId: "bec", topicName: "Business Environment", difficulty: 2,
+    id: "cpa-bec-q9", examSlug: "cpa", topicId: "bec", topicName: "Business Analysis & Reporting", difficulty: 2,
     stem: "A company can receive $50,000 today or $50,000 in three years. The time value of money concept explains why it prefers the earlier amount because:",
     choices: ["Inflation is the sole reason a future dollar is worth less than today's", "The two amounts are economically equivalent absent any inflation", "Money available now can be invested to earn a return over the period"],
     answerIndex: 2,
     explanation: "A dollar today is worth more than a dollar tomorrow because it can be invested to earn a return - the opportunity cost of the delay is the core of the concept. Inflation and default risk add to the preference but are not its foundation; even with zero inflation and no credit risk, the earlier dollar is worth more because it can be put to work. That is why the two amounts are not equivalent.",
   },
   {
-    id: "cpa-bec-q10", examSlug: "cpa", topicId: "bec", topicName: "Business Environment", difficulty: 2,
+    id: "cpa-bec-q10", examSlug: "cpa", topicId: "bec", topicName: "Business Analysis & Reporting", difficulty: 2,
     stem: "A key role of a corporation's audit committee is to:",
     choices: ["Independently oversee financial reporting and the auditors", "Manage the company’s day-to-day operations", "Set pricing for the company’s products"],
     answerIndex: 0,

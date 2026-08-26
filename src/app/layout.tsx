@@ -15,33 +15,47 @@ const GOOGLE_ADS_ID = "AW-18273063884";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://certus.website";
 
+// SEO NOTE — this was 100% CFA: the title, the description and all eight
+// keywords. We sell six tracks and ranked for one, which is why essentially
+// all organic traffic arrives with CFA intent. The fix is ADDITIVE, never
+// substitutive: "CFA" stays first and stays in the title, because it is the
+// only term currently earning traffic and dropping it would forfeit the one
+// thing that works. SIE / Series 7 / Series 66 / CPA / CFP are appended.
+// (The keywords tag itself carries no weight with Google — kept because some
+// smaller engines and AI crawlers still read it. The title, description and
+// the per-exam landing pages are what actually move rankings.)
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${BRAND.name} — Gamified CFA Prep with a Free Mock Exam`,
+    default: `${BRAND.name} — Gamified CFA, CPA & Series Exam Prep · Free Mocks`,
     template: `%s · ${BRAND.name}`,
   },
   description:
-    `The Duolingo-style way to pass the CFA. Deep readings, exam-real practice, and an adaptive daily plan — from $9.58/mo billed yearly, a fraction of $500+ prep courses. Take a free full mock, no signup.`,
+    `The Duolingo-style way to pass finance's hardest exams — CFA Levels I–III, SIE, Series 7 & 66, CPA and CFP. Deep readings, exam-real practice, and an adaptive daily plan from $9.58/mo billed yearly, a fraction of $500+ prep courses. Take a free full mock, no signup.`,
   keywords: [
+    // CFA — the terms already earning traffic. Do not remove.
     "cheap CFA prep", "free CFA mock exam", "CFA Level 1 practice questions",
     "gamified CFA prep", "Duolingo for CFA", "affordable CFA study material",
     "CFA prep alternative to Schweser", "CFA Level 1 2 3 prep",
+    // The five tracks we sell but have never ranked for.
+    "free SIE practice exam", "SIE exam prep", "Series 7 practice questions",
+    "free Series 7 mock exam", "Series 66 practice exam", "Series 66 exam prep",
+    "CPA exam practice questions", "CFP practice exam", "cheap finance exam prep",
   ],
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     url: SITE_URL,
     siteName: BRAND.name,
-    title: `${BRAND.name} — Gamified CFA Prep with a Free Mock Exam`,
+    title: `${BRAND.name} — Gamified CFA, CPA & Series Exam Prep · Free Mocks`,
     description:
-      "The Duolingo-style way to pass the CFA. Free full mock, no signup — a fraction of $500+ prep courses.",
+      "The Duolingo-style way to pass finance's hardest exams — CFA, SIE, Series 7 & 66, CPA, CFP. Free full mocks, no signup — a fraction of $500+ prep courses.",
     images: [{ url: "/og.png", width: 1200, height: 630, alt: `${BRAND.name} — gamified finance-exam prep` }],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${BRAND.name} — Gamified CFA Prep with a Free Mock Exam`,
-    description: "The Duolingo-style way to pass the CFA. Free full mock, no signup.",
+    title: `${BRAND.name} — Gamified CFA, CPA & Series Exam Prep · Free Mocks`,
+    description: "The Duolingo-style way to pass finance's hardest exams. Free full mocks, no signup.",
     images: ["/og.png"],
   },
   robots: { index: true, follow: true },
