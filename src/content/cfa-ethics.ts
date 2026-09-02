@@ -3,7 +3,8 @@
 // Gold-standard deep chapter (~38 min) + aligned question bank.
 // Original teaching content written for Certus; structured to the
 // current CFA Institute Code & Standards (7 Standards, 22 sub-
-// standards) and Level I exam emphasis (15–20% topic weight).
+// standards) and Level I exam emphasis (10–15% topic weight, plus the
+// ethics adjustment for borderline candidates).
 // ============================================================
 
 import { Chapter, Question } from "./types";
@@ -18,7 +19,7 @@ export const ethicsChapter: Chapter = {
   summary:
     "Every sub-standard of the Code & Standards with the exact nuances the exam tests, plus GIPS and a question-answering method.",
   intro:
-    "Ethics is 15–20% of Level I — the largest single topic weight alongside FSA — and it is the only topic where CFA Institute openly tips the scale: borderline candidates with strong ethics scores get passed, and borderline candidates with weak ethics scores get failed. That is the 'ethics adjustment,' and it makes this chapter the highest-yield reading in the entire curriculum. The bad news is that ethics questions are deliberately written in gray areas: every choice sounds plausible, and the wrong answers are wrong by one precise word. The fix is not intuition — it is knowing all 22 sub-standards well enough to name which one a vignette is testing, and knowing the dozen or so recurring nuances (mosaic theory, fair-versus-equal dealing, what departing employees may take, when confidentiality breaks) that the exam recycles year after year. This chapter covers every one of them.",
+    "Ethics is 10–15% of Level I, and it is the only topic where CFA Institute openly tips the scale: borderline candidates with strong ethics scores get passed, and borderline candidates with weak ethics scores get failed. That is the 'ethics adjustment,' and it makes this chapter the highest-yield reading in the entire curriculum. The bad news is that ethics questions are deliberately written in gray areas: every choice sounds plausible, and the wrong answers are wrong by one precise word. The fix is not intuition — it is knowing all 22 sub-standards well enough to name which one a vignette is testing, and knowing the dozen or so recurring nuances (mosaic theory, fair-versus-equal dealing, what departing employees may take, when confidentiality breaks) that the exam recycles year after year. This chapter covers every one of them.",
   sections: [
     {
       heading: "The architecture: Code, Standards, and enforcement",
@@ -389,7 +390,7 @@ export const ethicsChapter: Chapter = {
     { term: "Referral fee disclosure", def: "VI(C): disclose the nature and value of referral compensation to employer, clients, and prospects BEFORE the engagement, not after." },
   ],
   takeaways: [
-    "Ethics is 15–20% of the exam and decides borderline results via the ethics adjustment — it is the highest-yield topic per study hour.",
+    "Ethics is 10–15% of the exam and decides borderline results via the ethics adjustment — that second property is what makes it the highest-yield topic per study hour.",
     "Strictest-rule-wins: follow local law when it is stricter than the Code, and the Code when local law is weaker or absent.",
     "II(A) MNPI is the most-tested idea: material + nonpublic = hands off; mosaic theory (public + non-material nonpublic) is permitted analysis.",
     "Fair means fair, not equal: pro-rata hot IPOs, simultaneous dissemination, family CLIENT accounts treated like any client, you trade last.",

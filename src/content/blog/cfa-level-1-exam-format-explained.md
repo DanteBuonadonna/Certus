@@ -33,24 +33,24 @@ There is no negative marking. Unanswered and wrong are scored identically, so an
 
 ## 2026 topic weights: where the points actually are
 
-CFA Institute assigns each topic a weight range. For 2026, the Level 1 weights are unchanged from 2025:
+CFA Institute assigns each topic a weight range, and also assigns each topic to one of the two sessions:
 
-| Topic | Weight |
-|---|---|
-| Ethical and Professional Standards | 15–20% |
-| Financial Statement Analysis | 11–14% |
-| Equity Investments | 11–14% |
-| Fixed Income | 11–14% |
-| Portfolio Management | 8–12% |
-| Alternative Investments | 7–10% |
-| Quantitative Methods | 6–9% |
-| Economics | 6–9% |
-| Corporate Issuers | 6–9% |
-| Derivatives | 5–8% |
+| Session | Topic | Weight |
+|---|---|---|
+| 1 | Ethical and Professional Standards | 10–15% |
+| 1 | Quantitative Methods | 11–14% |
+| 1 | Economics | 6–9% |
+| 1 | Financial Statement Analysis | 11–14% |
+| 1 | Corporate Finance | 6–9% |
+| 2 | Equities | 11–14% |
+| 2 | Fixed Income | 11–14% |
+| 2 | Derivatives and Risk Management | 6–9% |
+| 2 | Alternative Investments | 6–9% |
+| 2 | Portfolio Construction | 8–12% |
 
-Two takeaways. First, Ethics is the heaviest single topic at 15–20% — on a 180-question exam, that's roughly 27 to 36 questions. Candidates who treat Ethics as an afterthought give away the biggest block of points on the exam. Second, the top four topics (Ethics, FSA, Equity, Fixed Income) together account for over half the exam. Weight your study hours accordingly — our [CFA Level 1 study guide](/blog/cfa-level-1-study-guide) walks through how to sequence them.
+Two takeaways. First, there's no single dominant topic any more — Quantitative Methods, FSA, Equities, and Fixed Income share the top band at 11–14% each, with Ethics just behind at 10–15%. Older guides still describe Ethics as the heaviest topic at 15–20%; that was the pre-2027 table. Quant in particular moved up sharply and is no longer safe to deprioritize. Second, those five topics together are about half the exam, so weight your study hours accordingly — our [CFA Level 1 study guide](/blog/cfa-level-1-study-guide) walks through how to sequence them, and we go deeper on the numbers in [CFA Level 1 topic weights explained](/blog/cfa-level-1-topic-weights-explained).
 
-Note that questions aren't grouped by topic in a labeled way on exam day; the sessions mix topics, though CFA Institute distributes them across the two sessions.
+Questions aren't labeled by topic on exam day, but the session split above is real: Session 1 is Ethics, Quant, Economics, FSA, and Corporate Finance, and Session 2 is Equities, Fixed Income, Derivatives, Alternative Investments, and Portfolio Construction.
 
 ## How scoring works
 

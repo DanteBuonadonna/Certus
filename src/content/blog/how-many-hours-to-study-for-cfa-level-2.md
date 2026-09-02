@@ -63,6 +63,8 @@ So find out first. Certus has a [free full-length CFA mock exam](/free-cfa-mock-
 
 From there, if the $350–$1,500 price tags on traditional prep courses are what's slowing you down, we built Certus as [the cheapest serious CFA prep option](/cheapest-cfa-prep) — [the Duolingo-style way to pass the CFA](/), designed around short daily reps rather than three-hour blocks you'll skip. Our [CFA Level 1 prep track](/cfa-level-1-prep) is also the fastest way to shore up the foundations Level II assumes you still have. If cost is the constraint, our post on [CFA Level 1 costs and fees](/blog/cfa-level-1-cost-and-fees) breaks down what's actually unavoidable.
 
+One thing worth deciding before you finish Level II: at Level III you choose a specialized pathway at registration, and you can't change it afterward. We covered how to pick in [CFA Level 3 pathways: which one should you choose](/blog/cfa-level-3-pathways-which-to-choose).
+
 Three hundred and fifty hours is a real commitment — about fourteen hours a week for six months. The candidates who make it work aren't the ones with the most free time. They're the ones who spent hour one finding out exactly where they stood.
 
 **Start with the [free mock exam](/free-cfa-mock-exam).** One session, honest feedback, no account required.

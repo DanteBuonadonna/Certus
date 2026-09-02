@@ -97,25 +97,37 @@ export const BLUEPRINTS: Blueprint[] = [
   },
   {
     // Weights are the MIDPOINT of CFA Institute's published ranges,
-    // normalised to 100. Ranges (2026 L1): Ethics 15-20, Quant 6-9,
-    // Econ 6-9, FSA 11-14, Corp 6-9, Equity 11-14, FI 11-14, Deriv 5-8,
-    // Alts 7-10, PM 8-12.
+    // normalised to 100. Ranges per CFA Institute's current published Level I
+    // table: Ethics 10-15, Quant 11-14, Econ 6-9, FSA 11-14, Corp Finance 6-9,
+    // Equities 11-14, FI 11-14, Deriv & Risk Mgmt 6-9, Alts 6-9, Port Constr 8-12.
+    //
+    // UPDATED Sept 2026. The previous values here were the pre-2027 table
+    // (Ethics 15-20 → 17.1, Quant 6-9 → 7.3). Two topics moved materially:
+    // Ethics came DOWN and Quantitative Methods went UP to a top-weight band.
+    // That inverts their relative priority, which matters because these
+    // weights drive question-bank targets and the mock exam's topic mix.
+    // Many third-party prep sites still publish the old table; cfainstitute.org
+    // is the source of truth here.
+    //
+    // topicId keys are unchanged so existing user progress carries over, even
+    // where CFA Institute renamed the topic (corp = Corporate Finance,
+    // pm = Portfolio Construction, equity = Equities).
     examSlug: "cfa",
     name: "CFA Level I",
     examQuestions: 180,
     targetBank: 2500,
-    source: "CFA Institute 2026 Level I topic weights (range midpoints)",
+    source: "CFA Institute Level I topic weights, current published table (range midpoints)",
     topics: [
-      { topicId: "ethics", name: "Ethical and Professional Standards", weight: 17.1 },
-      { topicId: "quant", name: "Quantitative Methods", weight: 7.3 },
+      { topicId: "ethics", name: "Ethical and Professional Standards", weight: 12.2 },
+      { topicId: "quant", name: "Quantitative Methods", weight: 12.2 },
       { topicId: "econ", name: "Economics", weight: 7.3 },
       { topicId: "fra", name: "Financial Statement Analysis", weight: 12.2 },
-      { topicId: "corp", name: "Corporate Issuers", weight: 7.3 },
-      { topicId: "equity", name: "Equity Investments", weight: 12.2 },
+      { topicId: "corp", name: "Corporate Finance", weight: 7.3 },
+      { topicId: "equity", name: "Equities", weight: 12.2 },
       { topicId: "fixed", name: "Fixed Income", weight: 12.2 },
-      { topicId: "deriv", name: "Derivatives", weight: 6.3 },
-      { topicId: "alts", name: "Alternative Investments", weight: 8.3 },
-      { topicId: "pm", name: "Portfolio Management", weight: 9.8 },
+      { topicId: "deriv", name: "Derivatives and Risk Management", weight: 7.3 },
+      { topicId: "alts", name: "Alternative Investments", weight: 7.3 },
+      { topicId: "pm", name: "Portfolio Construction", weight: 9.8 },
     ],
   },
   {

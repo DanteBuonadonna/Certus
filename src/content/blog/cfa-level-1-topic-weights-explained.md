@@ -75,13 +75,11 @@ Most people leave Ethics for the last two weeks and then discover the questions 
 
 ## What changes in 2027
 
-The topic weights themselves are unchanged for 2027 across all three levels. What changes at Level 1 is content and naming.
+A lot changes, and the topic names in the table above are the 2027 names — Corporate Issuers is now Corporate Finance, Portfolio Management is now Portfolio Construction, Equity Investments is now Equities, and Derivatives is now Derivatives and Risk Management. Be careful with older guides here: many still publish the pre-2027 weights, in which Ethics was 15–20% and Quantitative Methods was 6–9%. If a study plan you're following puts Quant near the bottom of the priority list, it's working from the old table.
 
 CFA Institute's official 2027 curriculum update confirms that the Equities topic (previously "Equity Investments") has been substantially rebuilt around practical application — financial statement forecasting, scenario analysis, Porter's Five Forces tied to valuation, and new modules on analyst research reports. Quantitative Methods has been reorganized around real-world applications, with expanded coverage of historical simulation, bootstrapping, and Monte Carlo methods, plus a new reading on financial data science, AI, and large language models. The Quant prerequisite reading is retired. Ethics is now split into one module per Standard, aligned to version 12 of the Standards of Practice Handbook.
 
-Several prep providers also report that Corporate Issuers is being renamed Corporate Finance and Portfolio Management renamed Portfolio Construction at Level 1. Treat those as name changes with little content impact.
-
-February 2027 is the first window tested on the new curriculum. Everything before it stays on the 2026 curriculum — so if you're testing in November 2026, the table above is your exam.
+February 2027 is the first window tested on the new curriculum. If you're testing before then, confirm your weights against your own candidate resources in the Learning Ecosystem rather than any third-party table, including this one — CFA Institute is the only source that governs.
 
 ## The fastest way to find out where you actually stand
 

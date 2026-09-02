@@ -7,7 +7,9 @@ author: "The Certus Team"
 
 # CFA Level 1 Ethics Tips: How to Score High (2026)
 
-Ethics is the single highest-weighted topic on CFA Level 1 at 15–20% of the exam — roughly 27 to 36 of the 180 questions — and it's the only topic that can change your result *after* your raw score is calculated. Most candidates lose points not because they don't know the Standards, but because they read the vignettes like a lawyer instead of like the CFA Institute.
+Ethics is 10–15% of CFA Level 1 — roughly 18 to 27 of the 180 questions — and it's the only topic that can change your result *after* your raw score is calculated. That second property, not the weight, is why it deserves more of your time than the percentage suggests. Most candidates lose points not because they don't know the Standards, but because they read the vignettes like a lawyer instead of like the CFA Institute.
+
+(If you've seen Ethics quoted at 15–20%, that's the older table — many prep sites haven't updated. The tiebreaker rule below is unaffected.)
 
 Here's how to actually get good at it.
 
@@ -17,7 +19,7 @@ CFA Institute has used performance on the Ethics section as a factor in the pass
 
 Two honest caveats, because a lot of prep sites overstate this. First, CFA Institute does not publish the minimum passing score, individual scores, or the mechanics of the adjustment, so nobody outside the institute knows exactly how wide the band is or how much weight Ethics carries inside it. Second, the adjustment only matters if you're already borderline. It is not a rescue mechanism — it's a tiebreaker.
 
-The practical takeaway is unchanged either way: Ethics is the highest-leverage 20% of your prep. It requires no math, no formula memorization, and the material barely changes year to year, which makes it the cheapest points on the entire exam.
+The practical takeaway is unchanged either way: Ethics is the highest-leverage block in your prep relative to its size. It requires no math, no formula memorization, and the material barely changes year to year, which makes it the cheapest points on the entire exam.
 
 ## Know the structure before you know the details
 

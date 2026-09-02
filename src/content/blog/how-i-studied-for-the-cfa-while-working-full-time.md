@@ -35,7 +35,7 @@ So I flipped it. Read less, drill more. Every wrong answer, I forced myself to f
 
 **Pretty notes.** I have a beautiful color-coded notebook from week one that I opened exactly never again. Making notes felt like studying. It wasn't. It was arts and crafts.
 
-**Ethics, at first.** I saved it for the end like everyone tells you not to, and everyone is right. Ethics is something like 15–20% of the whole exam and it's very learnable points if you actually put the reps in. I almost gave those points away by treating it as an afterthought. Don't.
+**Ethics, at first.** I saved it for the end like everyone tells you not to, and everyone is right. Ethics is a bit over 10% of the whole exam, it's the tiebreaker if you land borderline, and it's very learnable points if you actually put the reps in. I almost gave those points away by treating it as an afterthought. Don't.
 
 ## The consistency problem is the actual problem
 

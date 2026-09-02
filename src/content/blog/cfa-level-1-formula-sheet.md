@@ -137,7 +137,7 @@ Sharpe uses total risk in the denominator; Treynor uses beta. If the question is
 
 ## And Ethics has zero formulas
 
-Ethics carries the largest weight on Level 1 at 15–20% — roughly 27 to 36 of the 180 questions — and there is not one formula in it. If you're spending your last two weeks re-deriving convexity while your Ethics accuracy sits at 60%, you're optimizing the wrong thing. Our [Ethics guide](/blog/cfa-level-1-ethics-tips) covers where those points actually leak.
+Ethics is 10–15% of Level 1 — roughly 18 to 27 of the 180 questions — it decides borderline results, and there is not one formula in it. If you're spending your last two weeks re-deriving convexity while your Ethics accuracy sits at 60%, you're optimizing the wrong thing. Our [Ethics guide](/blog/cfa-level-1-ethics-tips) covers where those points actually leak.
 
 ## How to actually memorize these
 

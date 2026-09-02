@@ -41,18 +41,18 @@ The CFA Institute recommends around 300 hours per level, and that's a reasonable
 
 Level I is divided into ten topics. Your study time should roughly mirror these weights — don't spend a week perfecting a 6% topic while a 13% topic stays shaky.
 
-- **Ethical & Professional Standards — 15–20%** (the highest weight; do NOT skip)
+- **Quantitative Methods — 11–14%**
 - **Financial Statement Analysis — 11–14%**
-- **Equity Investments — 11–14%**
+- **Equities — 11–14%**
 - **Fixed Income — 11–14%**
-- **Quantitative Methods — 6–9%**
+- **Ethical & Professional Standards — 10–15%** (do NOT skip — it's also the borderline tiebreaker)
+- **Portfolio Construction — 8–12%**
 - **Economics — 6–9%**
-- **Corporate Issuers — 6–9%**
-- **Portfolio Management — 8–12%**
-- **Derivatives — 5–8%**
-- **Alternative Investments — 7–10%**
+- **Corporate Finance — 6–9%**
+- **Derivatives and Risk Management — 6–9%**
+- **Alternative Investments — 6–9%**
 
-The three big content blocks — FSA, Equity, and Fixed Income — make up the largest chunk of testable material. Ethics sits on top of everything. Master those four and you've built most of a passing score.
+Five topics share the top of that list, and Quantitative Methods is one of them — a change worth flagging, because older study plans (and plenty of prep sites) still show Quant at 6–9% and Ethics at 15–20%. If you're following a plan that treats Quant as a minor topic, it's built on the old table. Master Quant, FSA, Equities, Fixed Income, and Ethics and you've built most of a passing score.
 
 ## Ethics: The Topic That Decides Borderline Passes
 
@@ -155,7 +155,7 @@ Level I portfolio management is the foundation for the heavy PM focus at Level I
 ## The Most Common Mistakes (and How to Avoid Them)
 
 - **Reading too long before practicing.** If you haven't started practice questions in your first week, you're already behind. Learning happens in the retrieval, not the reading.
-- **Neglecting Ethics until the end.** It's the highest weight and the borderline tiebreaker. Give it real, repeated attention.
+- **Neglecting Ethics until the end.** It's a top-band topic and the borderline tiebreaker. Give it real, repeated attention.
 - **Skipping a topic to "save time."** Even low-weight topics have minimum thresholds, and the small ones (derivatives, alternatives) are often quick, high-return points.
 - **Passive review.** Re-reading your notes feels productive but builds only familiarity. Active recall — forcing yourself to retrieve the answer — is what builds the memory you need on exam day.
 - **Not taking full, timed mocks.** Stamina and pacing are skills. The first time you sit for 4.5 hours should not be the real exam.

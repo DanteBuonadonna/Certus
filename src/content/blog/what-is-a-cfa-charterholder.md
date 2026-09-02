@@ -61,6 +61,8 @@ Certus has a [free full-length CFA mock exam](/free-cfa-mock-exam) — no signup
 
 From there, if you want to know how much time to budget, our breakdown of [how many hours to study for CFA Level 1](/blog/how-many-hours-to-study-for-cfa-level-1) has realistic numbers. And if the $350–$1,500 price tags on traditional prep courses are what's holding you back, we built Certus to be [the cheapest serious CFA prep option](/cheapest-cfa-prep) — [the Duolingo-style way to pass the CFA](/), with structured [CFA Level 1 prep](/cfa-level-1-prep) that fits into the gaps in a working week.
 
+One detail that surprises people late in the program: at Level III you pick a specialized pathway — Portfolio Management, Private Wealth, or Private Markets — and the charter you receive is identical whichever you choose. We break down the decision in [CFA Level 3 pathways: which one should you choose](/blog/cfa-level-3-pathways-which-to-choose).
+
 Becoming a charterholder is a three-to-five-year project for most people. The exams are only one leg of it — but they're the leg you control today.
 
 **Start with the [free mock exam](/free-cfa-mock-exam).** It takes one session and it will tell you more about your readiness than any study-hours estimate on the internet.

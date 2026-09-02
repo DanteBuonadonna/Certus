@@ -22,7 +22,7 @@ So flip the usual ratio. Read a topic just enough to understand it, then immedia
 **Weeks 1–7 — Learn + drill (the bulk).** Move through all ten topics once, doing questions immediately after each. Prioritize by exam weight — don't spend a week perfecting a 6% topic while a 13% topic stays shaky. Front-load the four that carry the most points:
 
 - **Financial Statement Analysis (~11–14%)** — the biggest, most mechanical section. Master how the three statements link and the indirect-method cash flow statement.
-- **Ethics (~15–20%)** — the single highest weight *and* the borderline tiebreaker. Start it in week one and do Ethics questions every week. It's application, not memorization.
+- **Ethics (~10–15%)** — a top-band topic *and* the borderline tiebreaker, which makes it the highest-leverage points on the exam. Start it in week one and do Ethics questions every week. It's application, not memorization.
 - **Equity and Fixed Income (~11–14% each)** — both lean on time-value-of-money, so nail Quant early and these get easier.
 
 **Weeks 8–10 — Drill hard by topic.** Work a large question bank, keeping an error log: every miss, and *why* you missed it (didn't know it, misread it, calculator slip, or ran out of time). Roughly half your misses won't be knowledge gaps at all — they'll be misreads and pacing. Fixing those is fast and worth more points than another read-through.

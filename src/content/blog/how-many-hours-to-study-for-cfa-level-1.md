@@ -23,7 +23,7 @@ Whether you personally need 300 hours or 450 depends mostly on two things:
 
 ## How to budget your hours by topic
 
-Not all topics deserve equal time, because they're not weighted equally on the exam. Ethical and Professional Standards is the single heaviest topic at 15–20% of the exam. Financial Statement Analysis, Equity Investments, and Fixed Income sit in the 11–14% band each. Together, those four topics are roughly half your exam.
+Not all topics deserve equal time, because they're not weighted equally on the exam. Quantitative Methods, Financial Statement Analysis, Equities, and Fixed Income each sit in the 11–14% band, with Ethical and Professional Standards just behind at 10–15%. Together, those five topics are roughly half your exam. (Older guides put Ethics at 15–20% and Quant at 6–9% — that's the pre-2027 table, and Quant moving up is the change most study plans haven't absorbed.)
 
 A sensible rough allocation of a 350-hour budget looks like this: give Ethics, FSA, Fixed Income, and Equity about 160–180 hours combined; give Quantitative Methods, Economics, and Derivatives about 90–100 hours; and cover Corporate Issuers, Alternative Investments, and Portfolio Management with the remaining 70–90. Then reserve your final four to six weeks almost entirely for mock exams and targeted review of your weak areas — that final stretch is where passes are actually earned.
 

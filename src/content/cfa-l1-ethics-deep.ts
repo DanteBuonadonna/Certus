@@ -2,10 +2,13 @@
 // Certus — CFA Level I Ethics, in depth
 //
 // WHY THIS FILE EXISTS
-// Ethics is 17.1% of Level I — the single heaviest topic — and it is what
-// decides borderline candidates, because CFA Institute applies the ethics
-// adjustment to scores near the pass line. Our coverage was 51 minutes
-// against a weight that justifies ~205. One 38-minute chapter was
+// Ethics is 10-15% of Level I per CFA Institute's current published table
+// (it was 15-20% before; this file's header used to say 17.1% / "heaviest
+// topic", which is the old table — corrected Sept 2026). It is still the
+// topic that decides borderline candidates, because CFA Institute applies
+// the ethics adjustment to scores near the pass line, so it earns more
+// depth than its band alone would justify. Our coverage was 51 minutes.
+// One 38-minute chapter was
 // compressing twenty-two sub-standards into thirteen sections, which is
 // enough to recognise a Standard by name and nowhere near enough to apply
 // one to a fact pattern.

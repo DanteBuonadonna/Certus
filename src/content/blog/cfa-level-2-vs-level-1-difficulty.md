@@ -81,6 +81,8 @@ It doesn't have to. Certus is [the Duolingo-style way to pass the CFA](/) — sh
 
 ## Start with a real diagnostic
 
+And if you're already looking past Level 2: Level 3 adds a decision the earlier levels don't have — you choose a specialized pathway at registration and it locks in. See [CFA Level 3 pathways: which one should you choose](/blog/cfa-level-3-pathways-which-to-choose).
+
 Before you decide how hard Level 2 will be *for you*, find out where you actually stand. Our [free full CFA mock exam](/free-cfa-mock-exam) is genuinely free — no signup, no card, no trial that quietly bills you. Take it, see your weak topics, and build the plan around what the results tell you rather than what a forum thread told you.
 
 ---
