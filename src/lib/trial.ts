@@ -26,6 +26,29 @@ import { ANNUAL_TOTAL, MONTHLY_PRICE, ANNUAL_PER_MONTH } from "./tier";
 
 export const TRIAL_DAYS = 7;
 
+/**
+ * WHICH PLAN A TRIAL CONVERTS TO.
+ *
+ * Monthly, deliberately. The trial used to default to annual, so day 8 was a
+ * $115 charge — a number large enough to bounce off a thin debit balance, and
+ * when it bounced the conversion was worth $0. $24.99 clears where $115 does
+ * not, and a collected $24.99 beats a declined $115 every time.
+ *
+ * The revenue case is closer than it looks: $115 / $24.99 = 4.6 months to
+ * break even, and exam candidates typically study 3–6 months before their
+ * exam and then leave. So for a lot of customers the two are near-equivalent
+ * in total revenue — but only one of them actually collects.
+ *
+ * Annual is still offered and still cheaper per month; it's the upgrade we
+ * pitch once someone has a habit, not the first ask.
+ *
+ * IMPORTANT: every disclosure must state the amount that will ACTUALLY be
+ * charged. Change this constant and the disclosure strings follow, because
+ * they take the plan as an argument. Never hard-code "annual" in a
+ * disclosure again.
+ */
+export const TRIAL_DEFAULT_PLAN: "annual" | "monthly" = "monthly";
+
 /** Send the heads-up this many days before the card is charged. */
 export const TRIAL_REMINDER_DAYS_BEFORE = 2;
 

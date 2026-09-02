@@ -107,7 +107,7 @@ export default function QuickStart({
 
           {/* Controls */}
           <div className="flex-1 min-w-0 space-y-3">
-            <input
+            <input aria-label="Your name"
               className="input-field"
               placeholder="Your name"
               maxLength={24}

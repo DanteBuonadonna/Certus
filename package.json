@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "verify": "node scripts/verify-questions.mjs && node scripts/audit-questions.mjs && node scripts/coverage.mjs",
-    "freshness": "node scripts/freshness.mjs"
+    "freshness": "node scripts/freshness.mjs",
+    "a11y": "node scripts/audit-a11y.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.24.0",

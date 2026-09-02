@@ -75,7 +75,7 @@ export function ChestModal({ drop, onClose }: { drop: ChestDrop; onClose: () => 
 
 function ChestArt({ color, deep, open }: { color: string; deep: string; open: boolean }) {
   return (
-    <svg width="120" height="120" viewBox="0 0 120 120">
+    <svg aria-hidden="true" width="120" height="120" viewBox="0 0 120 120">
       <ellipse cx="60" cy="104" rx="40" ry="7" fill="rgba(0,0,0,0.18)" />
       {/* base */}
       <rect x="26" y="58" width="68" height="42" rx="6" fill={color} stroke={deep} strokeWidth="3" />

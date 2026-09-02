@@ -196,7 +196,7 @@ export default function CareerClient() {
                   <div key={q.id}>
                     {/* connector from previous node */}
                     {prevX !== null && (
-                      <svg width="100%" height="34" style={{ display: "block" }} viewBox="-150 0 300 34" preserveAspectRatio="xMidYMid meet">
+                      <svg aria-hidden="true" width="100%" height="34" style={{ display: "block" }} viewBox="-150 0 300 34" preserveAspectRatio="xMidYMid meet">
                         <path
                           d={`M ${prevX} 0 C ${prevX} 20, ${x} 14, ${x} 34`}
                           fill="none"

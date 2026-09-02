@@ -84,6 +84,10 @@ async function activeSub(customerId: string): Promise<Stripe.Subscription | null
     status: "all",
     limit: 20,
   });
+  // Matches grantsAccess() in the webhook — past_due counts as live, because a
+  // customer in Stripe's retry window still has access and can still cancel.
+  // These two lists disagreed before: the webhook revoked access on past_due
+  // while this route treated it as an active subscription.
   const live = subs.data.filter(
     (s) => s.status === "active" || s.status === "trialing" || s.status === "past_due"
   );

@@ -1,5 +1,7 @@
 "use client";
 
+import { useDialog } from "@/lib/useDialog";
+
 // ============================================================
 // The Associate — floating AI tutor panel.
 // Context-aware: pass it whatever the student is looking at
@@ -192,16 +194,7 @@ export default function Tutor({
           customer feel stupid a week later. Packs stay for people who don't want
           a subscription at all. */}
       {showTopUp && (
-        <div
-          className="fixed inset-0 z-[60] flex items-center justify-center px-5"
-          style={{ background: "rgba(15,15,25,0.6)" }}
-          onClick={() => setShowTopUp(false)}
-        >
-          <div
-            className="card p-5 w-full rise-in"
-            style={{ maxWidth: 380, maxHeight: "85vh", overflowY: "auto" }}
-            onClick={(e) => e.stopPropagation()}
-          >
+        <TopUpDialog onClose={() => setShowTopUp(false)}>
             <div className="flex items-start gap-3 mb-3">
               <span className="flex-shrink-0"><AssociateCharacter size={44} /></span>
               <div>
@@ -281,8 +274,7 @@ export default function Tutor({
             >
               Not now — back to my question
             </button>
-          </div>
-        </div>
+        </TopUpDialog>
       )}
 
       {/* Floating launcher + one-time coachmark */}
@@ -486,7 +478,7 @@ export default function Tutor({
 
           {/* Input */}
           <div className="px-3 py-3 flex items-center gap-2 flex-shrink-0" style={{ borderTop: "1px solid var(--border)" }}>
-            <input
+            <input aria-label="Text input"
               className="input-field"
               style={{ padding: "0.55rem 0.85rem", fontSize: "0.82rem" }}
               placeholder={out ? "Out of credits - tap Get more questions" : "Ask about what you're studying…"}
@@ -510,3 +502,26 @@ export default function Tutor({
   );
 }
 
+// Accessible wrapper for the credit top-up modal. Was a bare div with a
+// click-to-close backdrop: no dialog role, so a screen reader never announced
+// it, and no Escape, so a keyboard user was stuck looking at a paywall with no
+// way out. See src/lib/useDialog.ts.
+function TopUpDialog({ children, onClose }: { children: React.ReactNode; onClose: () => void }) {
+  const { panelProps } = useDialog(onClose, { label: "Buy more tutor questions" });
+  return (
+    <div
+      className="fixed inset-0 z-[60] flex items-center justify-center px-5"
+      style={{ background: "rgba(15,15,25,0.6)" }}
+      onClick={onClose}
+    >
+      <div
+        className="card p-5 w-full rise-in"
+        style={{ maxWidth: 380, maxHeight: "85vh", overflowY: "auto" }}
+        onClick={(e) => e.stopPropagation()}
+        {...panelProps}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}

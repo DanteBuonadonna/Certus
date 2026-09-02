@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import AuthScope from "@/components/AuthScope";
 import SyncGate from "@/components/SyncGate";
 import { AccessProvider } from "@/lib/AccessContext";
+import PaymentFailedBanner from "@/components/PaymentFailedBanner";
 
 // Render app pages on-demand (not statically prerendered).
 export const dynamic = "force-dynamic";
@@ -23,6 +24,7 @@ export default async function AppLayout({
   let email: string | null = null;
   let userId: string | null = null;
   let pro = false;
+  let pastDue = false;
   let signedIn = false;
   try {
     const supabase = await createClient();
@@ -35,10 +37,14 @@ export default async function AppLayout({
     if (user) {
       const { data: row } = await supabase
         .from("users")
-        .select("is_pro")
+        .select("is_pro, payment_state")
         .eq("id", user.id)
         .single();
       pro = row?.is_pro === true;
+      // past_due keeps access, so the ONLY thing telling them the card failed
+      // is this banner. Without it the subscription cancels three weeks later
+      // and the first they hear of it is losing access.
+      pastDue = row?.payment_state === "past_due";
     }
   } catch {
     // Supabase unreachable / not configured — treat as a guest.
@@ -48,12 +54,18 @@ export default async function AppLayout({
   return (
     <AccessProvider pro={pro} signedIn={signedIn}>
       <div style={{ display: "flex", minHeight: "100vh" }}>
+        {/* WCAG 2.4.1 Bypass Blocks. Without this a keyboard user tabs through
+            the whole sidebar on every single page before reaching content. */}
+        <a href="#main-content" className="skip-link">Skip to main content</a>
         <AuthScope userId={userId} />
+        {pastDue && <PaymentFailedBanner />}
         <Sidebar credits={credits} email={email} />
         {/* Sidebar margin only on md+; mobile gets a top bar instead.
             minWidth:0 lets this column shrink below its content so wide
             tables/figures stay contained on a phone instead of overflowing. */}
         <main
+          id="main-content"
+          tabIndex={-1}
           className="md:ml-[232px] pt-12 md:pt-0"
           style={{
             flex: 1,

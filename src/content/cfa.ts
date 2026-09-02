@@ -8,6 +8,8 @@
 import { Chapter, Question, ExamContent } from "./types";
 import { extraChapters, extraQuestions } from "./cfa-extra";
 import { ethicsChapter, ethicsQuestions } from "./cfa-ethics";
+import { ethicsDeepChapters, ethicsDeepQuestions } from "./cfa-l1-ethics-deep";
+import { equityDeepChapters, equityDeepQuestions } from "./cfa-l1-equity-deep";
 import { deepChapters, deepQuestions } from "./cfa-l1-deep";
 import { cfaL1Questions } from "./cfa-l1-q";
 
@@ -758,6 +760,6 @@ const questions: Question[] = [
 
 export const cfaContent: ExamContent = {
   examSlug: "cfa",
-  chapters: [ethicsChapter, ...deepChapters, ...chapters.filter((c) => c.id !== "cfa-ethics"), ...extraChapters],
-  questions: [...deepQuestions, ...questions, ...ethicsQuestions, ...extraQuestions, ...cfaL1Questions],
+  chapters: [ethicsChapter, ...ethicsDeepChapters, ...equityDeepChapters, ...deepChapters, ...chapters.filter((c) => c.id !== "cfa-ethics"), ...extraChapters],
+  questions: [...deepQuestions, ...questions, ...ethicsQuestions, ...ethicsDeepQuestions, ...equityDeepQuestions, ...extraQuestions, ...cfaL1Questions],
 };

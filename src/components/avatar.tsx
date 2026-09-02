@@ -342,7 +342,7 @@ export function ItemIcon({ id, slot, size = 56 }: { id: string; slot: ItemSlot; 
   if (slot === "background") {
     const [a, b] = BACKDROPS[id] ?? BACKDROPS["bg-slate"];
     return (
-      <svg width={size} height={size} viewBox="0 0 64 64" style={{ display: "block", borderRadius: 12 }}>
+      <svg aria-hidden="true" width={size} height={size} viewBox="0 0 64 64" style={{ display: "block", borderRadius: 12 }}>
         <defs><linearGradient id={`${uid}-s`} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor={a} /><stop offset="1" stopColor={b} /></linearGradient></defs>
         <rect width="64" height="64" rx="12" fill={`url(#${uid}-s)`} />
         <ellipse cx="32" cy="20" rx="30" ry="14" fill="#ffffff" opacity="0.08" />
@@ -358,6 +358,6 @@ export function ItemIcon({ id, slot, size = 56 }: { id: string; slot: ItemSlot; 
     inner = tieIcon(t.color, darks[t.color] ?? "#0c1320", t.bow);
   } else inner = ICON_PATHS[id] ?? "";
   return (
-    <svg width={size} height={size} viewBox="0 0 64 64" style={{ display: "block" }} dangerouslySetInnerHTML={{ __html: inner }} />
+    <svg aria-hidden="true" width={size} height={size} viewBox="0 0 64 64" style={{ display: "block" }} dangerouslySetInnerHTML={{ __html: inner }} />
   );
 }

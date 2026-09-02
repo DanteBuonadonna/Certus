@@ -1289,3 +1289,74 @@ figure, figure > div { max-width: 100%; }
   border-radius: 4px; padding: 0.1em 0.35em; font-size: 0.9em;
 }
 .blog-article hr { border: none; border-top: 0.5px solid var(--border); margin: 2rem 0; }
+
+/* ============================================================
+   ACCESSIBILITY FOUNDATIONS
+   Added 2026-08-26. The app had ONE :focus rule in 1,291 lines and no
+   screen-reader utilities at all. WCAG 2.1 AA is a hard procurement gate
+   for public colleges (Section 508 / VPAT), so this is a sales blocker,
+   not a polish item.
+   ============================================================ */
+
+/* Visually hidden but available to assistive tech. Tailwind ships sr-only,
+   but it's defined here too so it can never be purged out from under the
+   live regions that depend on it. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* WCAG 2.4.7 Focus Visible (AA). Keyboard users had almost nothing to go on.
+   :focus-visible rather than :focus so mouse users don't get rings on click.
+   Two-tone so it stays visible on both light and dark surfaces. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* The answer buttons carry their own heavy borders; an offset ring collides
+   with the card edge, so pull it inside. */
+.duo-option:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: -3px;
+}
+
+/* WCAG 2.4.1 Bypass Blocks (A). Lets a keyboard user jump the nav instead of
+   tabbing through it on every page. Invisible until focused. */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 700;
+  border-radius: 0 0 10px 0;
+  text-decoration: none;
+}
+.skip-link:focus {
+  left: 0;
+}
+
+/* WCAG 2.3.3 / 2.2.2 — honour a reduced-motion preference. The app leans
+   hard on bounce, shake, confetti and float animations; for a vestibular
+   disorder those range from unpleasant to disabling. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

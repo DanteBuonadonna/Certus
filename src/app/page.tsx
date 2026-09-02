@@ -6,7 +6,7 @@ import { statHeadline } from "@/lib/contentStats";
 import { liveTestimonials, hasRealTestimonials } from "@/lib/testimonials";
 import { LogoMark } from "@/components/Logo";
 import { FREE_INCLUDES, PRO_INCLUDES, ANNUAL_PER_MONTH, ANNUAL_TOTAL, MONTHLY_PRICE, EXAM_COST_ANCHOR } from "@/lib/tier";
-import { TRIAL_CTA, trialDisclosureShort } from "@/lib/trial";
+import { TRIAL_CTA, trialDisclosureShort, TRIAL_DEFAULT_PLAN } from "@/lib/trial";
 
 const RANKS = ["Intern", "Analyst", "Associate", "VP", "Director", "MD", "Partner"];
 
@@ -492,6 +492,11 @@ export default function LandingPage() {
                 <span className="font-display text-4xl" style={{ color: "var(--text-primary)" }}>{ANNUAL_PER_MONTH}</span>
                 <span className="text-sm" style={{ color: "var(--text-muted)" }}>/mo, billed yearly</span>
               </div>
+              {/* The trial now converts at the MONTHLY price, so the disclosure
+                  below has to say $24.99 — not $115. Charging a number the
+                  visitor was never shown is the exact thing ROSCA is about,
+                  and the exact thing that becomes a chargeback. Annual stays
+                  visible as the cheaper-per-month option they can choose. */}
               <div className="text-xs mt-1 mb-4" style={{ color: "var(--text-muted)" }}>
                 ${ANNUAL_TOTAL} once — or ${MONTHLY_PRICE}/mo month to month.
               </div>
@@ -502,9 +507,9 @@ export default function LandingPage() {
                   </li>
                 ))}
               </ul>
-              <Link href="/billing" className="btn-primary w-full text-center block">{TRIAL_CTA} →</Link>
+              <Link href={`/billing?plan=${TRIAL_DEFAULT_PLAN}`} className="btn-primary w-full text-center block">{TRIAL_CTA} →</Link>
               <p className="text-xs mt-3" style={{ color: "var(--text-muted)", lineHeight: 1.5 }}>
-                {trialDisclosureShort("annual")}
+                {trialDisclosureShort(TRIAL_DEFAULT_PLAN)}
               </p>
             </div>
           </div>

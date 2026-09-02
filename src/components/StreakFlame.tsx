@@ -28,7 +28,7 @@ export default function StreakFlame({
   const cold = streak <= 0;
   return (
     <span style={{ position: "relative", display: "inline-flex", alignItems: "center", justifyContent: "center", width: size, height: size }}>
-      <svg
+      <svg aria-hidden="true"
         width={s}
         height={s}
         viewBox="0 0 48 48"

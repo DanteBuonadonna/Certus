@@ -316,21 +316,36 @@ function Quiz({ questions, onFinish }: { questions: Question[]; onFinish: (answe
         <button
           onClick={() => setMutedState(toggleMuted())}
           aria-label={muted ? "Unmute sounds" : "Mute sounds"}
+          aria-pressed={muted}
           className="text-base leading-none"
           style={{ opacity: 0.6 }}
         >
-          {muted ? "🔇" : "🔊"}
+          <span aria-hidden="true">{muted ? "🔇" : "🔊"}</span>
         </button>
       </div>
 
       <div className="flex items-center justify-between mb-3">
-        <span className="text-xs font-bold uppercase tracking-wide" style={{ color: "var(--text-muted)" }}>Q{idx + 1} / {questions.length}</span>
-        <span className="text-xs font-bold" style={{ color: "var(--duo-blue)" }}>{q.topicName}</span>
+        {/* "Q3 / 20" reads as "Q3 slash 20". Give the visual form to sighted
+            users and a spoken form to everyone else. */}
+        <span className="text-xs font-bold uppercase tracking-wide" style={{ color: "var(--text-muted)" }} aria-hidden="true">Q{idx + 1} / {questions.length}</span>
+        <span className="sr-only">Question {idx + 1} of {questions.length}, topic: {q.topicName}</span>
+        <span className="text-xs font-bold" style={{ color: "var(--duo-blue)" }} aria-hidden="true">{q.topicName}</span>
       </div>
 
-      <h2 className="text-xl font-bold mb-6" style={{ color: "var(--text-primary)", lineHeight: 1.45 }}>{q.stem}</h2>
+      <h2 id="quiz-stem" className="text-xl font-bold mb-6" style={{ color: "var(--text-primary)", lineHeight: 1.45 }}>{q.stem}</h2>
 
-      <div key={shakeKey} className={`space-y-3 mb-5 ${checked && !correct ? "anim-shake" : ""}`}>
+      {/* ACCESSIBILITY — this is the core loop of the product and it was
+          unusable without sight. Four bare <button>s in a <div>: a screen
+          reader announced four unrelated buttons, never said which was
+          selected, and said nothing at all when the answer was checked.
+          Now a real radiogroup with aria-checked, plus text labels on the
+          ✓/✕ so right/wrong isn't carried by colour alone (WCAG 1.4.1). */}
+      <div
+        key={shakeKey}
+        role="radiogroup"
+        aria-labelledby="quiz-stem"
+        className={`space-y-3 mb-5 ${checked && !correct ? "anim-shake" : ""}`}
+      >
         {q.choices.map((choice, i) => {
           const isAnswer = i === q.answerIndex;
           const isSelected = i === selected;
@@ -343,15 +358,40 @@ function Quiz({ questions, onFinish }: { questions: Question[]; onFinish: (answe
           } else if (isSelected) {
             cls += " selected";
           }
+          // Spoken suffix so the outcome is never colour-only.
+          const outcome = !checked
+            ? ""
+            : isAnswer
+              ? " — correct answer"
+              : isSelected
+                ? " — your answer, incorrect"
+                : "";
           return (
-            <button key={i} disabled={checked} onClick={() => setSelected(i)} className={cls}>
-              <span className="duo-key">{String.fromCharCode(65 + i)}</span>
+            <button
+              key={i}
+              role="radio"
+              aria-checked={isSelected}
+              aria-label={`${String.fromCharCode(65 + i)}. ${choice}${outcome}`}
+              disabled={checked}
+              onClick={() => setSelected(i)}
+              className={cls}
+            >
+              <span className="duo-key" aria-hidden="true">{String.fromCharCode(65 + i)}</span>
               <span className="flex-1">{choice}</span>
-              {checked && isAnswer && <span className="text-lg">✓</span>}
-              {checked && isSelected && !isAnswer && <span className="text-lg">✕</span>}
+              {checked && isAnswer && <span className="text-lg" aria-hidden="true">✓</span>}
+              {checked && isSelected && !isAnswer && <span className="text-lg" aria-hidden="true">✕</span>}
             </button>
           );
         })}
+      </div>
+
+      {/* The most important moment in the app was silent. This announces the
+          result and the explanation the instant `checked` flips. Visually
+          hidden — the sheet below already shows it. */}
+      <div className="sr-only" role="status" aria-live="polite" aria-atomic="true">
+        {checked
+          ? `${correct ? "Correct." : "Incorrect."} The answer is ${String.fromCharCode(65 + q.answerIndex)}. ${q.explanation}`
+          : ""}
       </div>
 
       {/* Fixed bottom action / feedback sheet */}
@@ -625,7 +665,7 @@ function ScoreRing({ pct }: { pct: number }) {
   const off = c - (Math.min(100, shown) / 100) * c;
   const color = pct >= 70 ? "var(--duo-green)" : pct >= 50 ? "var(--duo-yellow)" : "var(--duo-red)";
   return (
-    <svg width="150" height="150" viewBox="0 0 150 150" className="mx-auto">
+    <svg aria-hidden="true" width="150" height="150" viewBox="0 0 150 150" className="mx-auto">
       <circle cx="75" cy="75" r={r} fill="none" stroke="var(--border)" strokeWidth="14" />
       <circle
         cx="75" cy="75" r={r} fill="none" stroke={color} strokeWidth="14" strokeLinecap="round"

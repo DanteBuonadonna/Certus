@@ -17,6 +17,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import posthog from "posthog-js";
 import { recordAnswers } from "@/lib/mastery";
+import { useDialog } from "@/lib/useDialog";
 import { useSignedIn } from "@/lib/AccessContext";
 import { useAccess } from "@/lib/useAccess";
 import { useLessonMode } from "@/lib/useLessonMode";
@@ -837,6 +838,23 @@ function ExamRoom({
     essayTexts.filter((t) => t.some((x) => x.trim().length > 0)).length;
   const urgent = timeLeft <= 300;
 
+  // ACCESSIBILITY — the countdown was colour-only (it just turned red) and a
+  // screen reader got no warning at all before a timed exam ran out. Putting a
+  // live region on the ticking clock would announce every single second, so
+  // instead announce at the milestones a real proctor calls out.
+  const MILESTONES = [1800, 600, 300, 60];
+  const [announcedAt, setAnnouncedAt] = useState<number[]>([]);
+  const [timeAnnouncement, setTimeAnnouncement] = useState("");
+  useEffect(() => {
+    const hit = MILESTONES.find((m) => timeLeft <= m && !announcedAt.includes(m));
+    if (hit === undefined) return;
+    setAnnouncedAt((a) => [...a, hit]);
+    setTimeAnnouncement(
+      hit >= 60 ? `${hit / 60} minutes remaining.` : `${hit} seconds remaining.`,
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [timeLeft]);
+
   function pick(i: number) {
     const next = [...answers];
     next[idx] = next[idx] === i ? null : i;
@@ -893,8 +911,15 @@ function ExamRoom({
             className="text-sm font-mono font-bold tabular-nums"
             style={{ color: urgent ? "var(--ats-red)" : "var(--text-primary)" }}
             title="Time remaining"
+            aria-hidden="true"
           >
-            {hhmmss(timeLeft)}
+            {/* A non-colour cue for the urgent state — red alone fails WCAG
+                1.4.1, and it's invisible to a red-green colour-blind candidate
+                in the last five minutes of a timed exam. */}
+            {urgent && "\u26A0 "}{hhmmss(timeLeft)}
+          </span>
+          <span className="sr-only" role="timer" aria-live="polite" aria-atomic="true">
+            {timeAnnouncement}
           </span>
         </div>
       </div>
@@ -987,10 +1012,14 @@ function ExamRoom({
       {/* MCQ view */}
       {q && (
         <>
-          <p className="text-base mb-5" style={{ color: "var(--text-primary)", lineHeight: 1.6 }}>
+          <p id="mock-stem" className="text-base mb-5" style={{ color: "var(--text-primary)", lineHeight: 1.6 }}>
             {q.stem}
           </p>
-          <div className="space-y-2.5 mb-6">
+          {/* ACCESSIBILITY — same fix as the practice loop, and it matters more
+              here because this is the graded, timed sitting. Real radiogroup
+              semantics, aria-checked so selection is announced, and the strike
+              button gets a name instead of reading as "✕". */}
+          <div className="space-y-2.5 mb-6" role="radiogroup" aria-labelledby="mock-stem">
             {q.choices.map((choice, i) => {
               const selected = answers[idx] === i;
               const struck = strikes[idx]?.includes(i);
@@ -998,6 +1027,9 @@ function ExamRoom({
                 <div key={i} className="flex items-stretch gap-2">
                   <button
                     onClick={() => pick(i)}
+                    role="radio"
+                    aria-checked={selected}
+                    aria-label={`${String.fromCharCode(65 + i)}. ${choice}${struck ? " — struck through" : ""}`}
                     className="flex-1 text-left px-4 py-3 rounded-lg text-sm flex items-start gap-3 transition-all"
                     style={{
                       background: selected ? "var(--primary-light)" : "var(--bg-card)",
@@ -1015,6 +1047,8 @@ function ExamRoom({
                   <button
                     onClick={() => toggleStrike(i)}
                     title={struck ? "Remove strikethrough" : "Strike through this choice"}
+                    aria-label={`${struck ? "Remove strikethrough from" : "Strike through"} choice ${String.fromCharCode(65 + i)}`}
+                    aria-pressed={!!struck}
                     className="px-2.5 rounded-lg text-xs"
                     style={{
                       border: "0.5px solid var(--border)",
@@ -1022,7 +1056,7 @@ function ExamRoom({
                       background: "var(--bg-card)",
                     }}
                   >
-                    ✕
+                    <span aria-hidden="true">✕</span>
                   </button>
                 </div>
               );
@@ -1055,7 +1089,7 @@ function ExamRoom({
               <p className="text-sm mb-2" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>
                 {part.prompt}
               </p>
-              <textarea
+              <textarea aria-label="Your essay answer"
                 value={essayTexts[idx - nQ]?.[pi] ?? ""}
                 onChange={(e) => setEssayText(pi, e.target.value)}
                 rows={5}
@@ -1726,7 +1760,12 @@ function QuickCta({
 // ---------------------------------------------------------------
 // Shared modal overlay
 // ---------------------------------------------------------------
-function Overlay({ children, onClose }: { children: React.ReactNode; onClose: () => void }) {
+// Every modal in the mock flow routes through this, so the dialog semantics
+// and Escape handling only need to exist once. Before this it was a bare div:
+// a screen reader never announced that a dialog had opened, and a keyboard
+// user could not dismiss it at all — the backdrop click is mouse-only.
+function Overlay({ children, onClose, label }: { children: React.ReactNode; onClose: () => void; label?: string }) {
+  const { panelProps } = useDialog(onClose, { label: label ?? "Dialog" });
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center px-4"
@@ -1736,6 +1775,7 @@ function Overlay({ children, onClose }: { children: React.ReactNode; onClose: ()
       <div
         className="card p-6 w-full max-w-md max-h-[85vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
+        {...panelProps}
       >
         {children}
       </div>

@@ -75,7 +75,7 @@ function ScoreRing({ pct, tone }: { pct: number; tone: string }) {
   const passLow = (MPS_LOW / 100) * arcLen, passHigh = (MPS_HIGH / 100) * arcLen;
   return (
     <div className="relative mx-auto" style={{ width: SIZE, height: SIZE }}>
-      <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} style={{ transform: `rotate(${rot}deg)` }}>
+      <svg aria-hidden="true" width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} style={{ transform: `rotate(${rot}deg)` }}>
         <circle cx={SIZE/2} cy={SIZE/2} r={R} fill="none" stroke="var(--border)" strokeWidth={13} strokeLinecap="round" strokeDasharray={`${arcLen} ${C}`} />
         <circle cx={SIZE/2} cy={SIZE/2} r={R} fill="none" stroke="var(--text-muted)" strokeWidth={13} opacity={0.32} strokeDasharray={`${passHigh - passLow} ${C}`} strokeDashoffset={-passLow} />
         <circle cx={SIZE/2} cy={SIZE/2} r={R} fill="none" stroke={tone} strokeWidth={13} strokeLinecap="round" strokeDasharray={`${(shown/100)*arcLen} ${C}`} style={{ transition: "stroke 0.4s ease" }} />
@@ -122,7 +122,7 @@ function ProjectionChart({ proj, examDateLabel, passDateLabel }: { proj: Project
   const ptrX = passX !== null ? Math.min(Math.max(passX - badgeX, 14), BW - 14) : 0;
   const examChipX = Math.min(Math.max(examX - 54, padL), W - padR - 108);
   return (
-    <svg width="100%" viewBox={`0 0 ${W} ${H}`} style={{ display: "block" }}>
+    <svg aria-hidden="true" width="100%" viewBox={`0 0 ${W} ${H}`} style={{ display: "block" }}>
       <defs>
         <linearGradient id="pj-line" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stopColor="var(--ats-red)" />

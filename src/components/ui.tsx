@@ -1,5 +1,7 @@
 "use client";
 
+import { useDialog } from "@/lib/useDialog";
+
 // ============================================================
 // Certus UI primitives — animated numbers, progress, gauges,
 // sparklines, activity calendar, gold particle bursts.
@@ -124,7 +126,7 @@ export function ReadinessGauge({ score, size = 190 }: { score: number; size?: nu
 
   return (
     <div style={{ width: w, margin: "0 auto", textAlign: "center" }}>
-      <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`}>
+      <svg aria-hidden="true" width={w} height={h} viewBox={`0 0 ${w} ${h}`}>
         {/* Track */}
         <path d={arc(startAngle, endAngle)} fill="none" stroke="var(--bg)" strokeWidth={11} strokeLinecap="round" />
         {/* Fill */}
@@ -194,7 +196,7 @@ export function Sparkline({
   const id = useRef(`spark-${Math.random().toString(36).slice(2, 8)}`).current;
 
   return (
-    <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} style={{ display: "block" }}>
+    <svg aria-hidden="true" width={width} height={height} viewBox={`0 0 ${width} ${height}`} style={{ display: "block" }}>
       <defs>
         <linearGradient id={id} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor={color} stopOpacity="0.25" />
@@ -389,6 +391,11 @@ export function LevelUpOverlay({
     return () => clearTimeout(t);
   }, [onDone]);
 
+  // Celebration overlay still needs dialog semantics — it covers the page and
+  // steals the visual context; without a role a screen reader user just hears
+  // stray congratulation text with no idea a layer opened.
+  const { panelProps: levelUpProps } = useDialog(onDone, { label: "Level up" });
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-6"
@@ -397,6 +404,7 @@ export function LevelUpOverlay({
     >
       <div
         className="pop-in"
+        {...levelUpProps}
         style={{
           position: "relative",
           padding: "2.4rem 2.8rem 2rem",

@@ -174,7 +174,7 @@ function ZoneLine({ label, color, top }: { label: string; color: string; top?: b
 
 function TierCrest({ color, index }: { color: string; index: number }) {
   return (
-    <svg width="52" height="52" viewBox="0 0 52 52" className="flex-shrink-0">
+    <svg aria-hidden="true" width="52" height="52" viewBox="0 0 52 52" className="flex-shrink-0">
       <path d="M26 3 L46 11 V26 C46 39 37 46 26 49 C15 46 6 39 6 26 V11 Z" fill={`${color}22`} stroke={color} strokeWidth="2.5" />
       <text x="26" y="33" textAnchor="middle" fontSize="18" fontWeight="800" fill={color}>{index + 1}</text>
     </svg>

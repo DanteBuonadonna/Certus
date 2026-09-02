@@ -1,5 +1,7 @@
 "use client";
 
+import { useDialog } from "@/lib/useDialog";
+
 // ============================================================
 // Inline signup, as a modal.
 //
@@ -93,6 +95,8 @@ export default function SignupModal({
     setLoading(false);
   }
 
+  const { panelProps } = useDialog(onClose, { labelledBy: "signup-modal-title" });
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center px-5"
@@ -103,13 +107,14 @@ export default function SignupModal({
         className="card p-6 w-full rise-in"
         style={{ maxWidth: 400 }}
         onClick={(e) => e.stopPropagation()}
+        {...panelProps}
       >
         <div className="flex items-center gap-2 mb-4">
           <LogoMark size={20} />
           <span className="font-display text-sm" style={{ color: "var(--text-primary)" }}>certus</span>
         </div>
 
-        <h2 className="font-display text-xl mb-1.5" style={{ color: "var(--text-primary)" }}>{title}</h2>
+        <h2 id="signup-modal-title" className="font-display text-xl mb-1.5" style={{ color: "var(--text-primary)" }}>{title}</h2>
         <p className="text-sm mb-5" style={{ color: "var(--text-secondary)", lineHeight: 1.5 }}>{reason}</p>
 
         <form onSubmit={submit} className="flex flex-col gap-3">
@@ -117,6 +122,7 @@ export default function SignupModal({
             type="email"
             required
             autoFocus
+            aria-label="Email address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@email.com"
@@ -124,7 +130,7 @@ export default function SignupModal({
             style={{ border: "0.5px solid var(--border)", background: "var(--bg)", color: "var(--text-primary)" }}
           />
           <input
-            type="password"
+ aria-label="Password (at least 6 characters)"            type="password"
             required
             minLength={6}
             value={password}

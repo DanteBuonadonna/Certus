@@ -85,7 +85,7 @@ export default function BossMonster({
         </div>
       ))}
 
-      <svg
+      <svg aria-hidden="true"
         width={size}
         height={size}
         viewBox="0 0 200 200"

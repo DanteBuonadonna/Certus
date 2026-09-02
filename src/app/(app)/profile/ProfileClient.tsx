@@ -168,7 +168,7 @@ function Wizard({
         <div className="lg:col-span-3 space-y-5">
           <div className="card-game p-5">
             <SectionLabel>Display name</SectionLabel>
-            <input
+            <input aria-label="e.g. D. Buonadonna"
               className="input-field"
               placeholder="e.g. D. Buonadonna"
               maxLength={24}

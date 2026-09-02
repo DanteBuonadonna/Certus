@@ -72,7 +72,7 @@ export default function LoginPage() {
               <label className="block text-xs font-medium mb-1" style={{ color: "var(--text-secondary)" }}>
                 Email
               </label>
-              <input
+              <input aria-label="you@example.com"
                 type="email"
                 className="input-field"
                 placeholder="you@example.com"
@@ -85,7 +85,7 @@ export default function LoginPage() {
               <label className="block text-xs font-medium mb-1" style={{ color: "var(--text-secondary)" }}>
                 Password
               </label>
-              <input
+              <input aria-label="••••••••"
                 type="password"
                 className="input-field"
                 placeholder="••••••••"

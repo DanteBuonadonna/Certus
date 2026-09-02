@@ -7,28 +7,32 @@ author: "The Certus Team"
 
 # CFA Level 1 Topic Weights Explained (2026 & 2027)
 
-Ethics is the heaviest topic on CFA Level 1 at 15–20% of the exam, followed by Financial Statement Analysis, Equity Investments, and Fixed Income at 11–14% each. Those four topics alone are between 48% and 62% of your score — roughly 86 to 112 of the 180 questions.
+Five topics sit at the top of CFA Level 1 — Quantitative Methods, Financial Statement Analysis, Equities, and Fixed Income at 11–14% each, and Ethical and Professional Standards at 10–15%. Those five are roughly half your score, or about 100 of the 180 questions.
 
-Here are the official weights, published by CFA Institute, and then the part almost no one does: converting them into question counts and study hours you can actually plan around.
+Here are the current weights as published by CFA Institute, and then the part almost no one does: converting them into question counts and study hours you can actually plan around.
 
-## The official 2026 CFA Level 1 topic weights
+## The current CFA Level 1 topic weights
 
-| Topic | Exam weight | Questions (of 180) |
-| --- | --- | --- |
-| Ethical and Professional Standards | 15–20% | 27–36 |
-| Financial Statement Analysis | 11–14% | 20–25 |
-| Equity Investments | 11–14% | 20–25 |
-| Fixed Income | 11–14% | 20–25 |
-| Portfolio Management | 8–12% | 14–22 |
-| Alternative Investments | 7–10% | 13–18 |
-| Quantitative Methods | 6–9% | 11–16 |
-| Economics | 6–9% | 11–16 |
-| Corporate Issuers | 6–9% | 11–16 |
-| Derivatives | 5–8% | 9–14 |
+| Session | Topic | Exam weight | Questions (of 180) |
+| --- | --- | --- | --- |
+| 1 | Ethical and Professional Standards | 10–15% | 18–27 |
+| 1 | Quantitative Methods | 11–14% | 20–25 |
+| 1 | Economics | 6–9% | 11–16 |
+| 1 | Financial Statement Analysis | 11–14% | 20–25 |
+| 1 | Corporate Finance | 6–9% | 11–16 |
+| 2 | Equities | 11–14% | 20–25 |
+| 2 | Fixed Income | 11–14% | 20–25 |
+| 2 | Derivatives and Risk Management | 6–9% | 11–16 |
+| 2 | Alternative Investments | 6–9% | 11–16 |
+| 2 | Portfolio Construction | 8–12% | 14–22 |
+
+**Two things to notice, because a lot of prep sites haven't caught up.** Quantitative Methods is now an 11–14% topic, not the 6–9% afterthought it used to be — that's roughly a doubling, and it's the single biggest change to how you should budget hours. And Ethics is now published at 10–15%, not the 15–20% you'll still see quoted in older guides and forum posts. Ethics still matters more than its band suggests, for a reason covered below, but it is no longer the largest topic outright.
+
+CFA Institute also assigns topics to a specific session, which the table above reflects. Session 1 is Ethics, Quant, Economics, FSA, and Corporate Finance; Session 2 is Equities, Fixed Income, Derivatives, Alternative Investments, and Portfolio Construction. That's worth knowing on exam day — if Quant goes badly, it went badly in the morning, and Session 2 is a fresh 90 questions on entirely different material.
 
 These are ranges, not fixed values — CFA Institute publishes bands because the exact composition varies between exam windows. Your exam won't be identical to your friend's. The question counts above are just each band applied to the 180-question exam.
 
-One thing the ranges make clear: the gap between the top and bottom of a band is real. Ethics can swing by nine questions. Portfolio Management can swing by eight. Planning to the midpoint is fine; planning to the bottom of a band is how people get ambushed.
+One thing the ranges make clear: the gap between the top and bottom of a band is real. Ethics can swing by nine questions. Portfolio Construction can swing by eight. Planning to the midpoint is fine; planning to the bottom of a band is how people get ambushed.
 
 ## What the weights actually mean for your study plan
 
@@ -40,20 +44,20 @@ The naive move is to allocate study hours in direct proportion to the weights. D
 
 A reasonable starting split for someone with a general business background, out of 300 hours:
 
-- Ethics: 35–40 hours (and re-read it near the end)
 - FSA: 45–50 hours
+- Quantitative Methods: 40 hours (front-loaded — it's now a top-weight topic *and* it feeds everything else)
 - Fixed Income: 35 hours
-- Equity Investments: 30 hours
-- Quantitative Methods: 30 hours (front-loaded — it feeds everything else)
-- Portfolio Management: 25 hours
+- Equities: 32 hours
+- Ethics: 32 hours (and re-read it near the end)
+- Portfolio Construction: 25 hours
 - Economics: 22 hours
-- Corporate Issuers: 20 hours
-- Alternative Investments: 18 hours
-- Derivatives: 18 hours
+- Corporate Finance: 20 hours
+- Alternative Investments: 20 hours
+- Derivatives and Risk Management: 20 hours
 
 CFA Institute's own guidance is that successful candidates report studying over 300 hours per level. If you want the fuller version of how to sequence that, we broke it down in the [CFA Level 1 study guide](/blog/cfa-level-1-study-guide).
 
-## Why Ethics is weighted more than its 15–20%
+## Why Ethics is weighted more than its 10–15%
 
 Ethics carries a second, hidden weight. CFA Institute reviews the Ethics performance of candidates whose total score lands in a narrow band around the minimum passing score, and that review can move a borderline result either way. CFA Institute doesn't publish the width of that band or how many candidates it affects, so treat the specifics with skepticism — but the policy itself is real and long-standing.
 
@@ -63,11 +67,11 @@ Most people leave Ethics for the last two weeks and then discover the questions 
 
 ## Where the weights are quietly misleading
 
-**Quantitative Methods punches above 6–9%.** Time value of money, discounting, and return calculations show up inside Fixed Income, Equity, Corporate Issuers, and Portfolio Management questions. Skipping Quant to protect a heavier topic is a trade that loses points in four places.
+**Quantitative Methods punches above even its new 11–14%.** Time value of money, discounting, and return calculations show up inside Fixed Income, Equity, Corporate Finance, and Portfolio Construction questions. It was already the topic that quietly earned points elsewhere; now it's a top-weight topic in its own right. Skipping Quant to protect something else is a trade that loses points in five places.
 
-**Derivatives is the smallest topic and the most skipped.** At 5–8%, some candidates write it off entirely. That's 9 to 14 questions — enough to be the whole margin between a pass and a fail, and the Level 1 treatment is conceptual (what a forward is, how arbitrage links a derivative to its underlying) rather than the pricing-heavy version at Level 2. It's a poor topic to punt.
+**Derivatives is the most skipped topic.** At 6–9%, some candidates write it off entirely. That's 11 to 16 questions — enough to be the whole margin between a pass and a fail, and the Level 1 treatment is conceptual (what a forward is, how arbitrage links a derivative to its underlying) rather than the pricing-heavy version at Level 2. It's a poor topic to punt.
 
-**Alternative Investments is bigger than people expect.** At 7–10% it outweighs Derivatives, Economics, and Corporate Issuers, and it's largely definitional — hedge fund structures, private equity, real estate, commodities. High points per hour.
+**Alternative Investments is cheap points.** At 6–9% it's largely definitional — hedge fund structures, private equity, real estate, commodities, and now digital assets. Low conceptual difficulty, no heavy math, high points per hour. It's the best-value block on the exam for a candidate who's short on time.
 
 ## What changes in 2027
 

@@ -246,7 +246,7 @@ function BillingInner() {
             Creator and partner codes unlock full access.
           </div>
           <form onSubmit={handleRedeem} className="flex flex-col sm:flex-row gap-2">
-            <input
+            <input aria-label="Promo or unlock code"
               type="text"
               value={code}
               onChange={(e) => setCode(e.target.value)}

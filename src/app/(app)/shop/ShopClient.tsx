@@ -266,6 +266,15 @@ export default function ShopClient() {
               key={item.id}
               onMouseEnter={() => setPreviewId(item.id)}
               onClick={() => setPreviewId(item.id)}
+              // Preview was mouse-only: hover or click, nothing for a keyboard.
+              role="button"
+              tabIndex={0}
+              aria-pressed={previewId === item.id}
+              aria-label={`Preview ${item.name}`}
+              onFocus={() => setPreviewId(item.id)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setPreviewId(item.id); }
+              }}
               className={`${isLegacy ? "legacy-sheen " : ""}${justBought === item.id ? "wiggle " : ""}${previewId === item.id ? "shop-focused " : ""}card-game`}
               style={{
                 position: "relative",
@@ -289,7 +298,7 @@ export default function ShopClient() {
                 </span>
                 <span className="flex gap-0.5">
                   {Array.from({ length: tierStars(item.tier) }).map((_, i) => (
-                    <svg key={i} width="9" height="9" viewBox="0 0 24 24" fill={frame.frame}>
+                    <svg aria-hidden="true" key={i} width="9" height="9" viewBox="0 0 24 24" fill={frame.frame}>
                       <path d="M12 2.8l2.8 5.9 6.2.8-4.6 4.4 1.2 6.2L12 17l-5.6 3.1 1.2-6.2L3 9.5l6.2-.8L12 2.8z" />
                     </svg>
                   ))}

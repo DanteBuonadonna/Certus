@@ -1,5 +1,7 @@
 "use client";
 
+import { useDialog } from "@/lib/useDialog";
+
 // ============================================================
 // Mobile tab bar — the Duolingo pattern.
 //
@@ -32,34 +34,34 @@ const S = { fill: "none", stroke: "currentColor", strokeWidth: 1.9, strokeLineca
 
 const ICONS = {
   home: (
-    <svg width="23" height="23" viewBox="0 0 24 24" {...S}>
+    <svg aria-hidden="true" width="23" height="23" viewBox="0 0 24 24" {...S}>
       <path d="M3 10.5 12 3l9 7.5" />
       <path d="M5.5 9.5V20h13V9.5" />
       <path d="M9.5 20v-6h5v6" />
     </svg>
   ),
   learn: (
-    <svg width="23" height="23" viewBox="0 0 24 24" {...S}>
+    <svg aria-hidden="true" width="23" height="23" viewBox="0 0 24 24" {...S}>
       <path d="M3 5.5A1.5 1.5 0 0 1 4.5 4H10a2 2 0 0 1 2 2v13a1.5 1.5 0 0 0-1.5-1.5H4.5A1.5 1.5 0 0 1 3 16Z" />
       <path d="M21 5.5A1.5 1.5 0 0 0 19.5 4H14a2 2 0 0 0-2 2v13a1.5 1.5 0 0 1 1.5-1.5h6A1.5 1.5 0 0 0 21 16Z" />
     </svg>
   ),
   practice: (
-    <svg width="23" height="23" viewBox="0 0 24 24" {...S}>
+    <svg aria-hidden="true" width="23" height="23" viewBox="0 0 24 24" {...S}>
       <circle cx="12" cy="12" r="9" />
       <path d="M9.2 9.3a2.9 2.9 0 1 1 3.7 3.5c-.6.2-.9.7-.9 1.3v.4" />
       <circle cx="12" cy="17.4" r="0.9" fill="currentColor" stroke="none" />
     </svg>
   ),
   mock: (
-    <svg width="23" height="23" viewBox="0 0 24 24" {...S}>
+    <svg aria-hidden="true" width="23" height="23" viewBox="0 0 24 24" {...S}>
       <circle cx="12" cy="13" r="8" />
       <path d="M12 9v4l2.5 2" />
       <path d="M9 2h6" />
     </svg>
   ),
   league: (
-    <svg width="23" height="23" viewBox="0 0 24 24" {...S}>
+    <svg aria-hidden="true" width="23" height="23" viewBox="0 0 24 24" {...S}>
       <path d="M7 4h10v4a5 5 0 0 1-10 0Z" />
       <path d="M7 5H4.5A1.5 1.5 0 0 0 3 6.5C3 8.5 4.8 10 7 10" />
       <path d="M17 5h2.5A1.5 1.5 0 0 1 21 6.5c0 2-1.8 3.5-4 3.5" />
@@ -67,7 +69,7 @@ const ICONS = {
     </svg>
   ),
   more: (
-    <svg width="23" height="23" viewBox="0 0 24 24" {...S}>
+    <svg aria-hidden="true" width="23" height="23" viewBox="0 0 24 24" {...S}>
       <circle cx="5.5" cy="12" r="1.4" fill="currentColor" stroke="none" />
       <circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none" />
       <circle cx="18.5" cy="12" r="1.4" fill="currentColor" stroke="none" />
@@ -109,6 +111,10 @@ const MORE_MATCH = MORE_LINKS.map((l) => l.href);
 export default function MobileTabBar() {
   const pathname = usePathname() || "";
   const [sheetOpen, setSheetOpen] = useState(false);
+  // The "more" sheet is a modal: it needs a dialog role so a screen reader
+  // announces it, and Escape so a keyboard user can dismiss it. Backdrop
+  // click alone is mouse-only.
+  const { panelProps: sheetProps } = useDialog(() => setSheetOpen(false), { label: "More navigation" });
 
   const hit = (m: string) => pathname === m || pathname.startsWith(m + "/");
   const moreActive = MORE_MATCH.some(hit);
@@ -134,6 +140,7 @@ export default function MobileTabBar() {
               overflowY: "auto",
             }}
             onClick={(e) => e.stopPropagation()}
+            {...sheetProps}
           >
             {/* grab handle */}
             <div className="flex justify-center pt-2.5 pb-1">

@@ -103,7 +103,7 @@ function SignupForm() {
         <div className="w-full max-w-sm text-center">
           <div className="card p-8">
             <div className="flex justify-center mb-4" style={{ color: "var(--primary)" }}>
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+              <svg aria-hidden="true" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2.5" y="5" width="19" height="14" rx="2.5" />
                 <path d="M3 7l9 6.5L21 7" />
               </svg>
@@ -154,7 +154,7 @@ function SignupForm() {
               <label className="block text-xs font-medium mb-1" style={{ color: "var(--text-secondary)" }}>
                 Email
               </label>
-              <input
+              <input aria-label="you@example.com"
                 type="email"
                 className="input-field"
                 placeholder="you@example.com"
@@ -167,7 +167,7 @@ function SignupForm() {
               <label className="block text-xs font-medium mb-1" style={{ color: "var(--text-secondary)" }}>
                 Password
               </label>
-              <input
+              <input aria-label="Min. 8 characters"
                 type="password"
                 className="input-field"
                 placeholder="Min. 8 characters"

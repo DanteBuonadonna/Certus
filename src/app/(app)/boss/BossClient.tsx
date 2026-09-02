@@ -333,7 +333,7 @@ function TimerRing({ pct, seconds, urgent }: { pct: number; seconds: number; urg
   const c = 2 * Math.PI * r;
   return (
     <span className="inline-flex items-center justify-center" style={{ position: "relative", width: 34, height: 34 }}>
-      <svg width="34" height="34" viewBox="0 0 34 34" style={{ transform: "rotate(-90deg)" }}>
+      <svg aria-hidden="true" width="34" height="34" viewBox="0 0 34 34" style={{ transform: "rotate(-90deg)" }}>
         <circle cx="17" cy="17" r={r} fill="none" stroke="var(--bg)" strokeWidth="3" />
         <circle
           cx="17" cy="17" r={r} fill="none"

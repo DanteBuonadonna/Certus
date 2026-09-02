@@ -683,7 +683,7 @@ function PlanSetup({ onCreate, initial }: { onCreate: (p: StudyPlan) => void; in
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
         <Field label="Exam">
-          <select
+          <select aria-label="Which exam are you studying for"
             className="input-field"
             value={slug}
             onChange={(e) => {
@@ -697,14 +697,14 @@ function PlanSetup({ onCreate, initial }: { onCreate: (p: StudyPlan) => void; in
           </select>
         </Field>
         <Field label="Level / Section">
-          <select className="input-field" value={levelId} onChange={(e) => setLevelId(e.target.value)}>
+          <select aria-label="Exam level" className="input-field" value={levelId} onChange={(e) => setLevelId(e.target.value)}>
             {exam.levels.map((l) => (
               <option key={l.id} value={l.id}>{l.name}</option>
             ))}
           </select>
         </Field>
         <Field label="Exam date">
-          <input type="date" className="input-field" value={date} min={today()} onChange={(e) => setDate(e.target.value)} />
+          <input aria-label="Your exam date" type="date" className="input-field" value={date} min={today()} onChange={(e) => setDate(e.target.value)} />
         </Field>
       </div>
 
@@ -797,7 +797,7 @@ function PlanDashboard({
             </button>
           ))}
           <div className="flex items-center gap-2 ml-auto">
-            <input
+            <input aria-label="Custom study minutes"
               type="number"
               min={1}
               value={custom}
@@ -880,7 +880,7 @@ function Ring({ pct, accent }: { pct: number; accent: string }) {
   const off = c - (Math.min(100, shown) / 100) * c;
   return (
     <div className="flex flex-col items-center">
-      <svg width="120" height="120" viewBox="0 0 120 120">
+      <svg aria-hidden="true" width="120" height="120" viewBox="0 0 120 120">
         <circle cx="60" cy="60" r={r} fill="none" stroke="var(--bg)" strokeWidth="10" />
         <circle
           cx="60" cy="60" r={r} fill="none" stroke={accent} strokeWidth="10" strokeLinecap="round"
@@ -960,7 +960,7 @@ function GoalRing({ pct, met }: { pct: number; met: boolean }) {
   }, [pct]);
   const off = c - (Math.min(100, shown) / 100) * c;
   return (
-    <svg width="84" height="84" viewBox="0 0 84 84" className="flex-shrink-0">
+    <svg aria-hidden="true" width="84" height="84" viewBox="0 0 84 84" className="flex-shrink-0">
       <circle cx="42" cy="42" r={r} fill="none" stroke="var(--border)" strokeWidth="9" />
       <circle
         cx="42" cy="42" r={r} fill="none" stroke="var(--primary)" strokeWidth="9" strokeLinecap="round"

@@ -22,6 +22,15 @@ export interface Plan {
 // The badge used to sit on Monthly ("Most popular"), which anchored people onto
 // the worse option while the copy simultaneously pushed 62% off. Two signals
 // fighting each other; the badge won, because badges always do.
+//
+// NOT A CONTRADICTION with TRIAL_DEFAULT_PLAN = "monthly" in lib/trial.ts.
+// Two different moments:
+//   · This page is the CONSIDERED choice — someone reading both options. Annual
+//     genuinely is better value here, and "Best value" is arithmetic (62% off),
+//     not a popularity claim we can't back with five customers.
+//   · The trial CTA is the FIRST ask, where the number has to clear a card on
+//     day 8. A declined $115 is worth $0; a collected $24.99 is worth $24.99.
+// Don't "fix" one to match the other.
 export const PLANS: Plan[] = [
   {
     // $24.99/mo × 12 = $299.88, so $115/yr ≈ 62% off. Update this if the
