@@ -9,6 +9,9 @@ import { Chapter, Question, ExamContent } from "./types";
 import { deepChaptersL3, deepQuestionsL3 } from "./cfa-l3-deep";
 import { cfaL3Questions } from "./cfa-l3-q";
 import { ethicsChaptersL3, ethicsQuestionsL3 } from "./cfa-l3-ethics";
+import { l3CmeCurrencyChapters, l3CmeCurrencyQuestions } from "./cfa-l3-cme-currency-deep";
+import { l3AaTaxChapters, l3AaTaxQuestions } from "./cfa-l3-aa-tax-deep";
+import { l3EthicsBehavChapters, l3EthicsBehavQuestions } from "./cfa-l3-ethics-behav-deep";
 import { behavioralChaptersL3, behavioralQuestionsL3 } from "./cfa-l3-behavioral";
 import { aaChaptersL3, aaQuestionsL3 } from "./cfa-l3-aa";
 import { pwmChaptersL3, pwmQuestionsL3 } from "./cfa-l3-pwm";
@@ -1415,6 +1418,6 @@ const questions: Question[] = [
 
 export const cfaL3Content: ExamContent = {
   examSlug: "cfa-l3",
-  chapters: [...deepChaptersL3, ...chapters, ...ethicsChaptersL3, ...behavioralChaptersL3, ...aaChaptersL3, ...pwmChaptersL3, ...derivChaptersL3, ...tradingChaptersL3, ...fiChaptersL3, ...instChaptersL3, ...eqChaptersL3, ...altsChaptersL3],
-  questions: [...deepQuestionsL3, ...questions, ...cfaL3Questions, ...ethicsQuestionsL3, ...behavioralQuestionsL3, ...aaQuestionsL3, ...pwmQuestionsL3, ...derivQuestionsL3, ...tradingQuestionsL3, ...fiQuestionsL3, ...instQuestionsL3, ...eqQuestionsL3, ...altsQuestionsL3],
+  chapters: [...l3EthicsBehavChapters, ...l3AaTaxChapters, ...l3CmeCurrencyChapters, ...deepChaptersL3, ...chapters, ...ethicsChaptersL3, ...behavioralChaptersL3, ...aaChaptersL3, ...pwmChaptersL3, ...derivChaptersL3, ...tradingChaptersL3, ...fiChaptersL3, ...instChaptersL3, ...eqChaptersL3, ...altsChaptersL3],
+  questions: [...l3EthicsBehavQuestions, ...l3AaTaxQuestions, ...l3CmeCurrencyQuestions, ...deepQuestionsL3, ...questions, ...cfaL3Questions, ...ethicsQuestionsL3, ...behavioralQuestionsL3, ...aaQuestionsL3, ...pwmQuestionsL3, ...derivQuestionsL3, ...tradingQuestionsL3, ...fiQuestionsL3, ...instQuestionsL3, ...eqQuestionsL3, ...altsQuestionsL3],
 };

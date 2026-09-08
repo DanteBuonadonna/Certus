@@ -9,6 +9,8 @@
 import { Chapter, Question, ExamContent } from "./types";
 import { s66DeepChapters, s66DeepQuestions } from "./series66-deep";
 import { s66Wave2Chapters, s66Wave2Questions } from "./series66-wave2";
+import { s66Deep2Chapters, s66Deep2Questions } from "./series66-deep2";
+import { s66Deep3Chapters, s66Deep3Questions } from "./series66-deep3";
 import { series66Questions } from "./series66-q";
 
 const chapters: Chapter[] = [
@@ -1218,6 +1220,6 @@ const questions: Question[] = [
 
 export const series66Content: ExamContent = {
   examSlug: "series-66",
-  chapters: [...s66DeepChapters, ...chapters, ...s66Wave2Chapters],
-  questions: [...s66DeepQuestions, ...questions, ...s66Wave2Questions, ...series66Questions],
+  chapters: [...s66Deep3Chapters, ...s66Deep2Chapters, ...s66DeepChapters, ...chapters, ...s66Wave2Chapters],
+  questions: [...s66Deep3Questions, ...s66Deep2Questions, ...s66DeepQuestions, ...questions, ...s66Wave2Questions, ...series66Questions],
 };

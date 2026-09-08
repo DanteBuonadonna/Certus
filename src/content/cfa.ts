@@ -10,7 +10,16 @@ import { extraChapters, extraQuestions } from "./cfa-extra";
 import { ethicsChapter, ethicsQuestions } from "./cfa-ethics";
 import { ethicsDeepChapters, ethicsDeepQuestions } from "./cfa-l1-ethics-deep";
 import { equityDeepChapters, equityDeepQuestions } from "./cfa-l1-equity-deep";
+import { altsDeepChapters, altsDeepQuestions } from "./cfa-l1-alts-deep";
 import { fiDeepChapters, fiDeepQuestions } from "./cfa-l1-fi-deep";
+import { fraDeepChapters, fraDeepQuestions } from "./cfa-l1-fra-deep";
+import { pmDerivDeepChapters, pmDerivDeepQuestions } from "./cfa-l1-pm-deriv-deep";
+import { corpEconAltsChapters, corpEconAltsQuestions } from "./cfa-l1-corp-econ-alts-deep";
+import { pmQuantChapters, pmQuantQuestions } from "./cfa-l1-pm-quant-deep";
+import { topupChapters, topupQuestions } from "./cfa-l1-topup-deep";
+import { finalChapters, finalQuestions } from "./cfa-l1-final-deep";
+import { closeChapters, closeQuestions } from "./cfa-l1-close-deep";
+import { lastChapters, lastQuestions } from "./cfa-l1-last-deep";
 import { deepChapters, deepQuestions } from "./cfa-l1-deep";
 import { cfaL1Questions } from "./cfa-l1-q";
 
@@ -761,6 +770,6 @@ const questions: Question[] = [
 
 export const cfaContent: ExamContent = {
   examSlug: "cfa",
-  chapters: [ethicsChapter, ...ethicsDeepChapters, ...equityDeepChapters, ...fiDeepChapters, ...deepChapters, ...chapters.filter((c) => c.id !== "cfa-ethics"), ...extraChapters],
-  questions: [...deepQuestions, ...questions, ...ethicsQuestions, ...ethicsDeepQuestions, ...equityDeepQuestions, ...fiDeepQuestions, ...extraQuestions, ...cfaL1Questions],
+  chapters: [ethicsChapter, ...ethicsDeepChapters, ...equityDeepChapters, ...altsDeepChapters, ...fiDeepChapters, ...fraDeepChapters, ...pmDerivDeepChapters, ...corpEconAltsChapters, ...pmQuantChapters, ...topupChapters, ...finalChapters, ...closeChapters, ...lastChapters, ...deepChapters, ...chapters.filter((c) => c.id !== "cfa-ethics"), ...extraChapters],
+  questions: [...deepQuestions, ...questions, ...ethicsQuestions, ...ethicsDeepQuestions, ...equityDeepQuestions, ...altsDeepQuestions, ...fiDeepQuestions, ...fraDeepQuestions, ...pmDerivDeepQuestions, ...corpEconAltsQuestions, ...pmQuantQuestions, ...topupQuestions, ...finalQuestions, ...closeQuestions, ...lastQuestions, ...extraQuestions, ...cfaL1Questions],
 };

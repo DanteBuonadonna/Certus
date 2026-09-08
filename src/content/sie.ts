@@ -7,6 +7,7 @@
 
 import { Chapter, Question, ExamContent } from "./types";
 import { sieDeepChapters, sieDeepQuestions } from "./sie-deep";
+import { sieDeep2Chapters, sieDeep2Questions } from "./sie-deep2";
 import { sieProductsQuestions } from "./sie-products-q";
 
 const chapters: Chapter[] = [
@@ -1771,6 +1772,6 @@ const questions: Question[] = [
 
 export const sieContent: ExamContent = {
   examSlug: "sie",
-  chapters: [...sieDeepChapters, ...chapters],
-  questions: [...sieDeepQuestions, ...sieProductsQuestions, ...questions],
+  chapters: [...sieDeep2Chapters, ...sieDeepChapters, ...chapters],
+  questions: [...sieDeep2Questions, ...sieDeepQuestions, ...sieProductsQuestions, ...questions],
 };

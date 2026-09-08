@@ -10,6 +10,8 @@ import { Chapter, Question, ExamContent } from "./types";
 import { s7ExtraChapters, s7ExtraQuestions } from "./series7-extra";
 import { s7Wave3Chapters, s7Wave3Questions } from "./series7-wave3";
 import { s7DeepChapters, s7DeepQuestions } from "./series7-deep";
+import { s7F3Chapters, s7F3Questions } from "./series7-f3-deep";
+import { s7F124Chapters, s7F124Questions } from "./series7-f124-deep";
 import { series7Questions } from "./series7-q";
 
 const chapters: Chapter[] = [
@@ -253,6 +255,6 @@ const questions: Question[] = [
 
 export const series7Content: ExamContent = {
   examSlug: "series-7",
-  chapters: [...s7DeepChapters, ...chapters, ...s7ExtraChapters, ...s7Wave3Chapters],
-  questions: [...s7DeepQuestions, ...questions, ...s7ExtraQuestions, ...s7Wave3Questions, ...series7Questions],
+  chapters: [...s7F3Chapters, ...s7F124Chapters, ...s7DeepChapters, ...chapters, ...s7ExtraChapters, ...s7Wave3Chapters],
+  questions: [...s7F3Questions, ...s7F124Questions, ...s7DeepQuestions, ...questions, ...s7ExtraQuestions, ...s7Wave3Questions, ...series7Questions],
 };
